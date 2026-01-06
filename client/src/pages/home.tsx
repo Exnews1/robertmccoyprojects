@@ -1,49 +1,147 @@
-import { useQuery } from "@tanstack/react-query";
-import { Framework, ComplianceItem } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, Zap, Users, GraduationCap, TrendingUp, FileText, BookOpen, Award, AlertTriangle, Presentation, Eye, ArrowRight, Target, MessageSquare, Layers } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { Shield, CheckCircle2, AlertCircle, Cpu, Activity, Users, GraduationCap, FileText, BookOpen, Award, AlertTriangle, Presentation, Eye, ArrowRight, Target, MessageSquare, Layers, DollarSign, Scale, FileWarning } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const fundingAllocation = [
-  { name: 'Education Benefits', total: 13500, label: '$13.5B' },
-  { name: 'Transition Support', total: 140, label: '$140M' },
-];
-
-const capabilityTrend = [
-  { name: 'Phase 1', compliance: 45, risk: 80 },
-  { name: 'Phase 2', compliance: 65, risk: 55 },
-  { name: 'Phase 3', compliance: 85, risk: 30 },
-  { name: 'Phase 4', compliance: 98, risk: 5 },
+const fundingData = [
+  { name: 'Education Benefits', value: 13500, label: '$13.5B', color: 'hsl(var(--primary))' },
+  { name: 'Transition Advising', value: 140, label: '$140M', color: 'hsl(45, 93%, 47%)' },
 ];
 
 export default function Home() {
-  const { data: frameworks, isLoading: loadingFrameworks } = useQuery<Framework[]>({
-    queryKey: ["/api/frameworks"],
-  });
-
-  const { data: items, isLoading: loadingItems } = useQuery<ComplianceItem[]>({
-    queryKey: ["/api/compliance-items"],
-  });
-
-  if (loadingFrameworks || loadingItems) {
-    return (
-      <div className="p-8 space-y-4">
-        <Skeleton className="h-12 w-48" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Skeleton className="h-32" />
-          <Skeleton className="h-32" />
-        </div>
-        <Skeleton className="h-96 w-full" />
-      </div>
-    );
-  }
-
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
-      <section className="relative overflow-hidden rounded-xl bg-slate-950 border border-primary/30 p-12">
+      
+      {/* EXECUTIVE SUMMARY - Problem Bounded */}
+      <section className="relative overflow-hidden rounded-xl bg-slate-950 border border-primary/30 p-8 md:p-12">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-6">
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+              <FileWarning className="w-3 h-3 mr-1" /> Executive Summary
+            </Badge>
+          </div>
+          
+          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-primary tracking-tight">
+            The Problem: Military-to-Civilian Transition at Scale
+          </h1>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-red-500/5 border border-red-500/20">
+                <h3 className="text-sm font-bold text-red-400 uppercase tracking-wider mb-2">Scale of Challenge</h3>
+                <p className="text-sm text-muted-foreground">
+                  Approximately <span className="text-foreground font-semibold">150,000 service members</span> transition annually from military to civilian careers, each navigating complex credential translation, benefit utilization, and career planning decisions.
+                </p>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-yellow-500/5 border border-yellow-500/20">
+                <h3 className="text-sm font-bold text-yellow-400 uppercase tracking-wider mb-2">The Funding Paradox</h3>
+                <p className="text-sm text-muted-foreground">
+                  <span className="text-foreground font-semibold">$13.5 billion</span> spent annually on education benefits, but only <span className="text-foreground font-semibold">$140 million</span> allocated to transition-specific advising - a <span className="text-yellow-400 font-bold">96:1 ratio</span> that leaves service members under-supported in translating benefits into career outcomes.
+                </p>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                <h3 className="text-sm font-bold text-primary uppercase tracking-wider mb-2">Governance Gap</h3>
+                <p className="text-sm text-muted-foreground">
+                  GAO-24 findings identify persistent gaps in credential portability, AI literacy standards, and systematic policy feedback loops. Individual planning friction generates no institutional learning.
+                </p>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-green-500/5 border border-green-500/20">
+                <h3 className="text-sm font-bold text-green-400 uppercase tracking-wider mb-2">The Proposed Solution</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  The <span className="text-foreground font-semibold">Career Mobility Governance Framework (CMGF)</span> - a bounded AI architecture that:
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Converts individual planning friction into auditable institutional evidence</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Supports human advisors without displacing judgment</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Enables policy reform through de-identified aggregation</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Maintains full compliance with EO 14110, NIST AI RMF 1.0, GAO oversight</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-slate-800/50 border border-slate-700">
+                <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-3">Key Metrics</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">150K+</div>
+                    <div className="text-[10px] text-muted-foreground uppercase">Annual Transitions</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-red-400">96:1</div>
+                    <div className="text-[10px] text-muted-foreground uppercase">Funding Imbalance</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-primary">$13.5B</div>
+                    <div className="text-[10px] text-muted-foreground uppercase">Education Spend</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-400">$140M</div>
+                    <div className="text-[10px] text-muted-foreground uppercase">Advising Support</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FUNDING VISUALIZATION */}
+      <Card className="high-tech-card">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Scale className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold tracking-tight">Funding Asymmetry Visualization</CardTitle>
+              <p className="text-sm text-muted-foreground">The 96:1 ratio between education benefits and transition advising</p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[200px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={fundingData} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(59, 130, 246, 0.1)" horizontal={true} vertical={false} />
+                <XAxis type="number" stroke="rgba(255, 255, 255, 0.3)" fontSize={10} tickFormatter={(value) => `$${value >= 1000 ? (value/1000).toFixed(1) + 'B' : value + 'M'}`} />
+                <YAxis type="category" dataKey="name" stroke="rgba(255, 255, 255, 0.3)" fontSize={11} width={120} />
+                <Tooltip 
+                  formatter={(value: number) => [`$${value >= 1000 ? (value/1000).toFixed(1) + 'B' : value + 'M'}`, 'Annual Funding']}
+                  contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
+                />
+                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                  {fundingData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <p className="text-xs text-muted-foreground text-center mt-4">
+            Source: CMGF Paper Analysis - Education benefits dwarf transition-specific advising by nearly 100x
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* CMGF PAPER - Featured */}
+      <section className="relative overflow-hidden rounded-xl bg-slate-950 border border-primary/30 p-8 md:p-12">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-3 mb-4">
@@ -54,41 +152,17 @@ export default function Home() {
               <Cpu className="w-3 h-3 mr-1" /> Compliant by Design
             </Badge>
           </div>
-          <h1 className="text-4xl md:text-5xl font-black mb-4 glow-text tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl font-black mb-4 glow-text tracking-tight leading-tight">
             A Governed, Human-in-the-Loop AI Framework for Military Career Mobility
-          </h1>
-          <h2 className="text-xl md:text-2xl text-primary font-semibold mb-6 tracking-tight">
-            Design, Constraints, and Ethical Tradeoffs
           </h2>
+          <h3 className="text-xl md:text-2xl text-primary font-semibold mb-6 tracking-tight">
+            Design, Constraints, and Ethical Tradeoffs
+          </h3>
           <div className="flex items-center gap-4 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
             <Award className="w-8 h-8 text-primary flex-shrink-0" />
             <div>
               <p className="text-sm font-semibold text-foreground">Robert E. McCoy, MBA, M.S. AI & Data Analytics</p>
               <p className="text-xs text-muted-foreground">Indiana Wesleyan University</p>
-            </div>
-          </div>
-          <p className="text-lg text-muted-foreground leading-relaxed font-light max-w-3xl mb-6">
-            Introducing the <span className="text-primary font-semibold">Career Mobility Governance Framework (CMGF)</span> - a bounded AI architecture that converts individual planning friction into auditable institutional evidence, enabling policy reform and budget reallocation for ~150K annual service member transitions.
-          </p>
-          <div className="flex flex-wrap gap-6 mt-8">
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-primary tracking-tighter">150K+</span>
-              <span className="text-[10px] font-mono text-muted-foreground uppercase">Annual Transitions</span>
-            </div>
-            <div className="w-[1px] h-12 bg-primary/20" />
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-primary tracking-tighter">$13.5B</span>
-              <span className="text-[10px] font-mono text-muted-foreground uppercase">Education Spend</span>
-            </div>
-            <div className="w-[1px] h-12 bg-primary/20" />
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-yellow-400 tracking-tighter">$140M</span>
-              <span className="text-[10px] font-mono text-muted-foreground uppercase">Transition Support</span>
-            </div>
-            <div className="w-[1px] h-12 bg-primary/20" />
-            <div className="flex flex-col">
-              <span className="text-3xl font-bold text-red-400 tracking-tighter">96:1</span>
-              <span className="text-[10px] font-mono text-muted-foreground uppercase">Funding Ratio</span>
             </div>
           </div>
         </div>
@@ -97,6 +171,28 @@ export default function Home() {
         </div>
       </section>
 
+      {/* BOUNDED AI CONSTRAINTS */}
+      <Card className="high-tech-card border-yellow-500/30 bg-yellow-500/5">
+        <CardContent className="p-6">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="text-sm font-bold text-yellow-500 mb-2 uppercase tracking-wider">Bounded AI: What CMGF Explicitly Prohibits</h4>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Predictive Outcome Modeling</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Individual Risk Scoring</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Automated Approvals</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Optimization Objectives</Badge>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* SIX KEY CONTRIBUTIONS */}
       <Card className="high-tech-card border-primary/30">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-3">
@@ -157,26 +253,7 @@ export default function Home() {
         </CardContent>
       </Card>
 
-      <Card className="high-tech-card border-yellow-500/30 bg-yellow-500/5">
-        <CardContent className="p-6">
-          <div className="flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-1" />
-            <div>
-              <h4 className="text-sm font-bold text-yellow-500 mb-2 uppercase tracking-wider">Bounded AI: What CMGF Explicitly Prohibits</h4>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Predictive Outcome Modeling</Badge>
-                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Individual Risk Scoring</Badge>
-                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Automated Approvals</Badge>
-                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Optimization Objectives</Badge>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">
-                CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
+      {/* CCME 2026 PRESENTATION */}
       <Card className="high-tech-card" data-testid="card-presentation">
         <CardHeader>
           <div className="flex items-center justify-between gap-4 flex-wrap">
@@ -185,7 +262,7 @@ export default function Home() {
                 <Presentation className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-xl font-bold tracking-tight">CCME 2026 Presentation</CardTitle>
+                <CardTitle className="text-xl font-bold tracking-tight">CCME 2026 Framework Components</CardTitle>
                 <p className="text-sm text-muted-foreground">Military Learner Mobility and Career Alignment</p>
               </div>
             </div>
@@ -215,10 +292,6 @@ export default function Home() {
                   <li className="flex items-start gap-2">
                     <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
                     <span>Career options visible and comparable from day one of service</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Planning decisions revisited regularly, informed by policy and labor markets</span>
                   </li>
                 </ul>
               </div>
@@ -257,10 +330,6 @@ export default function Home() {
                     <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
                     <span>Observes systemic patterns, not individual plans</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>Supports upward reporting across organizational levels</span>
-                  </li>
                 </ul>
               </div>
 
@@ -274,7 +343,7 @@ export default function Home() {
                 </p>
                 <div className="mt-3 p-3 rounded bg-primary/5 border border-primary/10">
                   <p className="text-[10px] font-mono text-primary/80 uppercase tracking-wider">
-                    All feasibility signals are traceable to specific policy rules and declared constraints
+                    All feasibility signals are traceable to specific policy rules
                   </p>
                 </div>
               </div>
@@ -292,217 +361,48 @@ export default function Home() {
         </CardContent>
       </Card>
 
+      {/* FRAMEWORK PILLARS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="high-tech-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-mono text-primary flex items-center gap-2">
-              <GraduationCap className="w-4 h-4" /> CREDENTIAL_ALIGNMENT
+              <GraduationCap className="w-4 h-4" /> Credential Portability
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tighter mb-1">92% MATCH</div>
-            <p className="text-xs text-muted-foreground">Verification of military competencies to civilian standards.</p>
+            <p className="text-xs text-muted-foreground">Military competencies translated to civilian-recognized credentials with attestable verification across institutional boundaries.</p>
           </CardContent>
         </Card>
         <Card className="high-tech-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-mono text-primary flex items-center gap-2">
-              <Users className="w-4 h-4" /> TRANSITION_ADVISING
+              <Users className="w-4 h-4" /> Human-in-the-Loop
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tighter mb-1">BOUNDED AI</div>
-            <p className="text-xs text-muted-foreground">Non-predictive decision support for human advisors.</p>
+            <p className="text-xs text-muted-foreground">AI supports but never replaces human advisors. All decisions require human judgment and approval.</p>
           </CardContent>
         </Card>
         <Card className="high-tech-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-mono text-primary flex items-center gap-2">
-              <TrendingUp className="w-4 h-4" /> ECONOMIC_RESILIENCE
+              <Shield className="w-4 h-4" /> Policy Compliance
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tighter mb-1">SCALABLE IMPACT</div>
-            <p className="text-xs text-muted-foreground">Converting friction into auditable institutional evidence.</p>
+            <p className="text-xs text-muted-foreground">Full alignment with EO 14110, NIST AI RMF 1.0, and GAO oversight requirements by design.</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="high-tech-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg font-bold tracking-tighter">
-              <Zap className="w-5 h-5 text-primary" />
-              GOVERNANCE_CHALLENGES
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-              <h4 className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">The $13.5B Paradox</h4>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                While over $13.5B is spent annually on education benefits, less than $140M is allocated to transition-specific advising.
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-              <h4 className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Credential Portability</h4>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Non-portable credentials disrupt alignment across education, employment, and transition timelines.
-              </p>
-            </div>
-            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-              <h4 className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">AI Literacy Baseline</h4>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                Governed AI architectures improve advising clarity and institutional trust relative to autonomous systems.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="high-tech-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg font-bold tracking-tighter">
-              <Activity className="w-5 h-5 text-primary" />
-              SYSTEM_HEARTBEAT
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-muted-foreground">ADVISING_ACCURACY</span>
-              <span className="text-xs font-mono text-primary">98.4%</span>
-            </div>
-            <div className="w-full bg-primary/10 h-1 rounded-full overflow-hidden">
-              <div className="bg-primary h-full w-[98.4%] shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-            </div>
-            
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-muted-foreground">GOVERNANCE_ALIGNMENT</span>
-              <span className="text-xs font-mono text-primary">100%</span>
-            </div>
-            <div className="w-full bg-primary/10 h-1 rounded-full overflow-hidden">
-              <div className="bg-primary h-full w-full shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono text-muted-foreground">LATENCY_VECTOR</span>
-              <span className="text-xs font-mono text-primary">12MS</span>
-            </div>
-            <div className="w-full bg-primary/10 h-1 rounded-full overflow-hidden">
-              <div className="bg-primary h-full w-[12%] shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-            </div>
-
-            <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/10 flex items-center gap-3">
-              <div className="animate-pulse w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em]">All Systems Nominal // Bounded AI Active</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="high-tech-card min-h-[400px]">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Zap className="w-5 h-5 text-primary" />
-              CAPABILITY_EVOLUTION_VECTOR
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={capabilityTrend}>
-                <defs>
-                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(59, 130, 246, 0.1)" vertical={false} />
-                <XAxis dataKey="name" stroke="rgba(255, 255, 255, 0.3)" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis stroke="rgba(255, 255, 255, 0.3)" fontSize={10} tickLine={false} axisLine={false} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: 'rgba(2, 6, 23, 0.9)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '8px' }}
-                  itemStyle={{ color: 'hsl(var(--primary))', fontSize: '12px' }}
-                />
-                <Area type="monotone" dataKey="compliance" stroke="hsl(var(--primary))" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        <Card className="high-tech-card min-h-[400px]">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Shield className="w-5 h-5 text-primary" />
-              FUNDING_ASYMMETRY_ANALYSIS
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={fundingAllocation} layout="vertical" margin={{ left: 20, right: 40 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(59, 130, 246, 0.1)" horizontal={false} />
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" stroke="rgba(255, 255, 255, 0.5)" fontSize={10} width={120} tickLine={false} axisLine={false} />
-                <Tooltip 
-                  cursor={{ fill: 'rgba(59, 130, 246, 0.05)' }}
-                  contentStyle={{ backgroundColor: 'rgba(2, 6, 23, 0.9)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '8px' }}
-                  formatter={(value: number) => [`$${value >= 1000 ? (value/1000).toFixed(1) + 'B' : value + 'M'}`, 'Allocation']}
-                />
-                <Bar dataKey="total" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} barSize={40} />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card id="analysis" className="high-tech-card">
-        <CardHeader>
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-primary/10 rounded-lg">
-              <BarChart2 className="w-6 h-6 text-primary" />
-            </div>
-            <CardTitle className="text-2xl font-black tracking-tighter">FRAMEWORK_GAP_ANALYSIS</CardTitle>
-          </div>
-          <p className="text-muted-foreground font-light max-w-2xl text-sm">
-            Mapping technical implementation to the Career Mobility Governance Framework (CMGF) requirements.
-          </p>
-        </CardHeader>
-        <CardContent>
-          <div className="rounded-xl border border-primary/10 overflow-hidden">
-            <Table>
-              <TableHeader className="bg-muted/30">
-                <TableRow className="border-primary/10">
-                  <TableHead className="w-[300px] font-mono text-[10px] uppercase tracking-widest py-4">REQM_ID</TableHead>
-                  <TableHead className="font-mono text-[10px] uppercase tracking-widest py-4">IMPLEMENTATION</TableHead>
-                  <TableHead className="font-mono text-[10px] uppercase tracking-widest py-4">IMPACT_VECTOR</TableHead>
-                  <TableHead className="text-right font-mono text-[10px] uppercase tracking-widest py-4">STATUS</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {items?.map((item) => (
-                  <TableRow key={item.id} className="hover:bg-primary/5 transition-colors border-primary/5">
-                    <TableCell className="font-medium align-top py-6">
-                      <div className="text-foreground text-sm font-semibold">{item.requirement}</div>
-                      <div className="flex gap-2 mt-4">
-                        {item.tags?.map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-[9px] px-2 py-0 border-primary/20 text-primary/70 font-mono">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell className="align-top py-6 text-muted-foreground text-sm leading-relaxed">{item.designChoice}</TableCell>
-                    <TableCell className="align-top py-6 text-muted-foreground text-xs leading-relaxed font-light">{item.strategicAdvantage}</TableCell>
-                    <TableCell className="text-right align-top py-6">
-                      <div className="flex items-center justify-end gap-3">
-                        <span className={`text-[10px] font-mono uppercase tracking-widest ${item.status === "Fully Compliant" ? 'text-green-400' : 'text-yellow-400'}`}>
-                          {item.status}
-                        </span>
-                        <div className={`w-1.5 h-1.5 rounded-full ${item.status === "Fully Compliant" ? 'bg-green-500' : 'bg-yellow-500'} shadow-[0_0_8px_currentColor]`} />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+      {/* SYSTEM STATUS */}
+      <Card className="high-tech-card">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-center gap-3">
+            <div className="animate-pulse w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
+              CMGF Operations Center // Bounded AI Active // Human Oversight Required
+            </span>
           </div>
         </CardContent>
       </Card>
