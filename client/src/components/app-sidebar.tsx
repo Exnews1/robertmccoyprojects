@@ -1,4 +1,4 @@
-import { Home, FileText, BarChart2, Shield } from "lucide-react";
+import { Home, FileText, BarChart2, Shield, BookOpen } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -21,6 +21,11 @@ const items = [
     title: "RESEARCH_LEDGER",
     url: "/publications",
     icon: FileText,
+  },
+  {
+    title: "REFERENCE_DOCUMENTS",
+    url: "/references",
+    icon: BookOpen,
   },
   {
     title: "REGULATORY_FRAMEWORKS",

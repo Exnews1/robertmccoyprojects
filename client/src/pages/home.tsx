@@ -3,7 +3,7 @@ import { Framework, ComplianceItem } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, Zap, Users, GraduationCap, TrendingUp, FileText, BookOpen, Award, AlertTriangle } from "lucide-react";
+import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, Zap, Users, GraduationCap, TrendingUp, FileText, BookOpen, Award, AlertTriangle, Presentation, Eye, ArrowRight, Target, MessageSquare, Layers } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
@@ -173,6 +173,121 @@ export default function Home() {
                 CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.
               </p>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="high-tech-card" data-testid="card-presentation">
+        <CardHeader>
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Presentation className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-xl font-bold tracking-tight">CCME 2026 Presentation</CardTitle>
+                <p className="text-sm text-muted-foreground">Military Learner Mobility and Career Alignment</p>
+              </div>
+            </div>
+            <Badge className="bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+              The Future Is Now: Educate, Engage, Empower
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-slate-900 border border-primary/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="w-4 h-4 text-primary" />
+                  <h4 className="text-sm font-bold text-primary uppercase tracking-wider">The Core Question</h4>
+                </div>
+                <p className="text-sm text-foreground font-medium mb-2">What if career planning were continuous?</p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Career responsibility remains with the service member - supported, not delegated</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Continuous access to informed guidance, not episodic counseling</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Career options visible and comparable from day one of service</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <ArrowRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Planning decisions revisited regularly, informed by policy and labor markets</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-4 rounded-lg bg-slate-900 border border-primary/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <MessageSquare className="w-4 h-4 text-primary" />
+                  <h4 className="text-sm font-bold text-primary uppercase tracking-wider">AI Advisor Assistant</h4>
+                </div>
+                <p className="text-xs text-muted-foreground mb-3">A bounded AI layer that supports service-member agency without displacing human judgment</p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline" className="text-[10px] border-primary/30 text-primary/80">Explainable Translation</Badge>
+                  <Badge variant="outline" className="text-[10px] border-primary/30 text-primary/80">Rule-Based Signals</Badge>
+                  <Badge variant="outline" className="text-[10px] border-primary/30 text-primary/80">De-Identified Aggregation</Badge>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-slate-900 border border-green-500/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <Eye className="w-4 h-4 text-green-500" />
+                  <h4 className="text-sm font-bold text-green-500 uppercase tracking-wider">ESO Policy Intelligence View</h4>
+                </div>
+                <p className="text-xs text-muted-foreground mb-3">Education Services Officer dashboard for institutional oversight</p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Aggregated, de-identified service-member signals</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Informs education funding and credential policy</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Observes systemic patterns, not individual plans</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>Supports upward reporting across organizational levels</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="p-4 rounded-lg bg-slate-900 border border-primary/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <Layers className="w-4 h-4 text-primary" />
+                  <h4 className="text-sm font-bold text-primary uppercase tracking-wider">CMGF Architecture</h4>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Demonstrates how individual agency and institutional accountability can coexist within a bounded, explainable, non-predictive analytics system.
+                </p>
+                <div className="mt-3 p-3 rounded bg-primary/5 border border-primary/10">
+                  <p className="text-[10px] font-mono text-primary/80 uppercase tracking-wider">
+                    All feasibility signals are traceable to specific policy rules and declared constraints
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-lg bg-gradient-to-r from-primary/10 to-transparent border border-primary/20">
+            <p className="text-sm text-center font-medium">
+              <span className="text-muted-foreground">Core Principle:</span>{" "}
+              <span className="text-primary">Career responsibility rests with the individual</span>
+              <span className="text-muted-foreground"> - career visibility and clarity are </span>
+              <span className="text-primary">institutional obligations</span>
+            </p>
           </div>
         </CardContent>
       </Card>
