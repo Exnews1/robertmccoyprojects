@@ -3,7 +3,7 @@ import { Framework, ComplianceItem } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, Zap, Users, GraduationCap, TrendingUp } from "lucide-react";
+import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, Zap, Users, GraduationCap, TrendingUp, FileText, BookOpen, Award, AlertTriangle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
@@ -45,34 +45,137 @@ export default function Home() {
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       <section className="relative overflow-hidden rounded-xl bg-slate-950 border border-primary/30 p-12">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent pointer-events-none" />
-        <div className="relative z-10 max-w-3xl">
-          <Badge className="mb-4 bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-            <Cpu className="w-3 h-3 mr-1" /> Human-in-the-Loop Governance
-          </Badge>
-          <h2 className="text-6xl font-black mb-6 glow-text tracking-tighter leading-[0.9]">
-            GOVERNED AI FOR <br/>
-            <span className="text-primary italic">MILITARY MOBILITY</span>
+        <div className="relative z-10 max-w-4xl">
+          <div className="flex items-center gap-3 mb-4">
+            <Badge className="bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+              <FileText className="w-3 h-3 mr-1" /> 2026 CCME Learner Track 1
+            </Badge>
+            <Badge className="bg-green-500/20 text-green-400 border-green-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+              <Cpu className="w-3 h-3 mr-1" /> Compliant by Design
+            </Badge>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 glow-text tracking-tight leading-tight">
+            A Governed, Human-in-the-Loop AI Framework for Military Career Mobility
+          </h1>
+          <h2 className="text-xl md:text-2xl text-primary font-semibold mb-6 tracking-tight">
+            Design, Constraints, and Ethical Tradeoffs
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed font-light max-w-xl">
-            A Response to the 2026 CCME Learner Track. Design, Constraints, and Ethical Tradeoffs 
-            for the next generation of military-to-civilian transition systems.
+          <div className="flex items-center gap-4 mb-6 p-4 rounded-lg bg-primary/5 border border-primary/10">
+            <Award className="w-8 h-8 text-primary flex-shrink-0" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">Robert E. McCoy, MBA, M.S. AI & Data Analytics</p>
+              <p className="text-xs text-muted-foreground">Indiana Wesleyan University</p>
+            </div>
+          </div>
+          <p className="text-lg text-muted-foreground leading-relaxed font-light max-w-3xl mb-6">
+            Introducing the <span className="text-primary font-semibold">Career Mobility Governance Framework (CMGF)</span> - a bounded AI architecture that converts individual planning friction into auditable institutional evidence, enabling policy reform and budget reallocation for ~150K annual service member transitions.
           </p>
-          <div className="flex gap-4 mt-8">
+          <div className="flex flex-wrap gap-6 mt-8">
             <div className="flex flex-col">
               <span className="text-3xl font-bold text-primary tracking-tighter">150K+</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Annual Transitions</span>
             </div>
-            <div className="w-[1px] h-10 bg-primary/20 mx-2" />
+            <div className="w-[1px] h-12 bg-primary/20" />
             <div className="flex flex-col">
               <span className="text-3xl font-bold text-primary tracking-tighter">$13.5B</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Education Spend</span>
             </div>
+            <div className="w-[1px] h-12 bg-primary/20" />
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold text-yellow-400 tracking-tighter">$140M</span>
+              <span className="text-[10px] font-mono text-muted-foreground uppercase">Transition Support</span>
+            </div>
+            <div className="w-[1px] h-12 bg-primary/20" />
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold text-red-400 tracking-tighter">96:1</span>
+              <span className="text-[10px] font-mono text-muted-foreground uppercase">Funding Ratio</span>
+            </div>
           </div>
         </div>
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
           <Activity className="w-full h-full text-primary" />
         </div>
       </section>
+
+      <Card className="high-tech-card border-primary/30">
+        <CardHeader className="pb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <BookOpen className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <CardTitle className="text-xl font-bold tracking-tight" data-testid="text-key-contributions">Six Key Contributions</CardTitle>
+              <p className="text-sm text-muted-foreground">What this paper contributes to the field</p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">01</span>
+                <h4 className="text-sm font-semibold">Structured Synthesis</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Peer-reviewed research on credential portability, career mobility, and advising effectiveness organized around CCME Track 1 elements.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">02</span>
+                <h4 className="text-sm font-semibold">Labor Market Evidence</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Employers reward attestable, portable credentials and emerging AI fluency when competencies can be verified across boundaries.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">03</span>
+                <h4 className="text-sm font-semibold">Governance Gap Diagnosis</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Persistent gaps preventing AI literacy and credential alignment from becoming standardized DoD policy (GAO-24 findings).</p>
+            </div>
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">04</span>
+                <h4 className="text-sm font-semibold">AI-Enabled Framework</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Human-centered advising framework with demonstration artifacts unifying career direction, education pathways, and learner voice.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">05</span>
+                <h4 className="text-sm font-semibold">Responsible AI Design</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Intentional non-use of predictive modeling, automated approvals, and risk scoring as core design mechanism for trust.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-primary font-mono text-xs">06</span>
+                <h4 className="text-sm font-semibold">Policy-Ready Evidence</h4>
+              </div>
+              <p className="text-xs text-muted-foreground">Converts individual planning friction into auditable evidence for budget reallocation and transition support reform.</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="high-tech-card border-yellow-500/30 bg-yellow-500/5">
+        <CardContent className="p-6">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-6 h-6 text-yellow-500 flex-shrink-0 mt-1" />
+            <div>
+              <h4 className="text-sm font-bold text-yellow-500 mb-2 uppercase tracking-wider">Bounded AI: What CMGF Explicitly Prohibits</h4>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Predictive Outcome Modeling</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Individual Risk Scoring</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Automated Approvals</Badge>
+                <Badge variant="outline" className="border-yellow-500/30 text-yellow-400 text-xs">No Optimization Objectives</Badge>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="high-tech-card">
