@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FileText, Download, ExternalLink, BookOpen, FileCode, Award } from "lucide-react";
+import { FileText, Download, ExternalLink, BookOpen, FileCode, Award, Star, Presentation } from "lucide-react";
 
 export default function References() {
   const { data: publications, isLoading } = useQuery<Publication[]>({
@@ -24,9 +24,12 @@ export default function References() {
     );
   }
 
-  const papers = publications?.filter(p => p.type === "Paper") || [];
-  const reports = publications?.filter(p => p.type === "Technical Report") || [];
-  const other = publications?.filter(p => p.type !== "Paper" && p.type !== "Technical Report") || [];
+  const sortByTitle = (a: Publication, b: Publication) => 
+    a.title.localeCompare(b.title);
+
+  const papers = (publications?.filter(p => p.type === "Paper") || []).sort(sortByTitle);
+  const reports = (publications?.filter(p => p.type === "Technical Report") || []).sort(sortByTitle);
+  const other = (publications?.filter(p => p.type !== "Paper" && p.type !== "Technical Report") || []).sort(sortByTitle);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -146,12 +149,92 @@ export default function References() {
         </div>
       </section>
 
+      {/* PRIMARY DOCUMENTS - Paper and Presentation */}
+      <section className="space-y-4">
+        <div className="flex items-center gap-3">
+          <Star className="w-5 h-5 text-yellow-500" />
+          <h2 className="text-xl font-bold tracking-tight">Primary Documents</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="high-tech-card border-primary/50" data-testid="card-primary-paper">
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                    <FileText className="w-3 h-3 mr-1" /> CMGF Paper
+                  </Badge>
+                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                    <Star className="w-3 h-3 mr-1" /> Featured
+                  </Badge>
+                </div>
+                <h3 className="text-lg font-bold text-foreground leading-tight">
+                  A Governed, Human-in-the-Loop AI Framework for Military Career Mobility
+                </h3>
+                <p className="text-sm text-muted-foreground">Design, Constraints, and Ethical Tradeoffs</p>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Award className="w-3 h-3" />
+                  <span>Robert E. McCoy, MBA, M.S. AI & Data Analytics</span>
+                </div>
+                <p className="text-xs text-muted-foreground">Indiana Wesleyan University</p>
+                <Button
+                  variant="default"
+                  className="w-full mt-2"
+                  asChild
+                  data-testid="button-download-primary-paper"
+                >
+                  <a href="/papers/cmgf-mccoy-ccme-2026.pdf" download target="_blank" rel="noopener noreferrer">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Paper (PDF)
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="high-tech-card border-green-500/50" data-testid="card-primary-presentation">
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Badge className="bg-green-500/20 text-green-400 border-green-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                    <Presentation className="w-3 h-3 mr-1" /> CCME 2026
+                  </Badge>
+                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                    <Star className="w-3 h-3 mr-1" /> Featured
+                  </Badge>
+                </div>
+                <h3 className="text-lg font-bold text-foreground leading-tight">
+                  Military Learner Mobility and Career Alignment
+                </h3>
+                <p className="text-sm text-muted-foreground">The Future Is Now: Educate, Engage, Empower</p>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Award className="w-3 h-3" />
+                  <span>Robert E. McCoy, MBA, M.S. AI & Data Analytics</span>
+                </div>
+                <p className="text-xs text-muted-foreground">CCME 2026 Learner Track 1 Presentation</p>
+                <Button
+                  variant="default"
+                  className="w-full mt-2 bg-green-600 hover:bg-green-700"
+                  asChild
+                  data-testid="button-download-primary-presentation"
+                >
+                  <a href="/attached_assets/CCME_2026_1767730819889.pdf" download target="_blank" rel="noopener noreferrer">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Presentation (PDF)
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {papers.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
             <FileText className="w-5 h-5 text-primary" />
             <h2 className="text-xl font-bold tracking-tight">Research Papers</h2>
             <Badge variant="outline" className="text-xs">{papers.length}</Badge>
+            <span className="text-xs text-muted-foreground">(Alphabetical)</span>
           </div>
           <div className="space-y-4">
             {papers.map(renderPublication)}
@@ -165,6 +248,7 @@ export default function References() {
             <FileCode className="w-5 h-5 text-green-500" />
             <h2 className="text-xl font-bold tracking-tight">Technical Reports</h2>
             <Badge variant="outline" className="text-xs">{reports.length}</Badge>
+            <span className="text-xs text-muted-foreground">(Alphabetical)</span>
           </div>
           <div className="space-y-4">
             {reports.map(renderPublication)}
@@ -178,6 +262,7 @@ export default function References() {
             <BookOpen className="w-5 h-5 text-yellow-500" />
             <h2 className="text-xl font-bold tracking-tight">Other Publications</h2>
             <Badge variant="outline" className="text-xs">{other.length}</Badge>
+            <span className="text-xs text-muted-foreground">(Alphabetical)</span>
           </div>
           <div className="space-y-4">
             {other.map(renderPublication)}
