@@ -81,19 +81,19 @@ export class DatabaseStorage implements IStorage {
       await db.insert(complianceItems).values([
         {
           frameworkId: eo.id,
-          requirement: "Section 7.2: Mandates risk assessments for high-impact AI affecting rights/safety; Prohibits opaque decisions.",
-          designChoice: "Intentional non-use of predictive functions; Explicit prohibition of individual risk scoring.",
-          strategicAdvantage: "Eliminates exposure to prohibited high-risk practices; Ensures full compliance with federal mandate.",
+          requirement: "Requirement 1.1: Intentional non-use of predictive outcome modeling, Individual risk scoring, and Automated approvals.",
+          designChoice: "Non-predictive, human-governed analytics architecture.",
+          strategicAdvantage: "Preserves service-member agency and institutional accountability while eliminating exposure to high-risk practices.",
           status: "Fully Compliant",
-          tags: ["Governance", "High-Impact"],
+          tags: ["Ethics", "Design"],
         },
         {
           frameworkId: eo.id,
-          requirement: "Section 10.1: Requires auditable institutional evidence for budget reallocation.",
-          designChoice: "Aggregation of de-identified feasibility signals and constraint conflicts.",
-          strategicAdvantage: "Transforms anecdotal failures into auditable evidence; Justifies transition support funding.",
+          requirement: "Requirement 2.4: Auditable institutional evidence for budget reallocation.",
+          designChoice: "Aggregation of de-identified feasibility signals and recurring constraint conflicts.",
+          strategicAdvantage: "Transforms anecdotal transition failures into auditable institutional evidence.",
           status: "Fully Compliant",
-          tags: ["Budget", "Evidence"],
+          tags: ["Governance", "Policy"],
         },
       ]);
     }
@@ -107,7 +107,7 @@ export class DatabaseStorage implements IStorage {
           author: "Robert E. McCoy MBA, M.S. AI & Data Analytics",
           publishedDate: "January 2026",
           abstract: "Design, constraints, and ethical tradeoffs for military transition policy using the CMGF framework. Directly addresses the structural paradox of $13.5B annual spend vs. $140M transition support.",
-          url: "#",
+          url: "/papers/CMGF_Main_Paper.pdf",
         },
       ]);
     }
