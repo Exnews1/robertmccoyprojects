@@ -2,8 +2,29 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
+import path from "path";
 
 const app = express();
+
+// Serve attached_assets for PDF downloads
+app.use('/attached_assets', express.static(path.resolve(process.cwd(), 'attached_assets'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.pdf')) {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline');
+    }
+  }
+}));
+
+// Serve public folder for papers
+app.use('/papers', express.static(path.resolve(process.cwd(), 'public/papers'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.pdf')) {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline');
+    }
+  }
+}));
 const httpServer = createServer(app);
 
 declare module "http" {
