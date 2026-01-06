@@ -1,38 +1,49 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { db } from "./db";
+import {
+  frameworks,
+  complianceItems,
+  type Framework,
+  type InsertFramework,
+  type ComplianceItem,
+  type InsertComplianceItem
+} from "@shared/schema";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getFrameworks(): Promise<Framework[]>;
+  getFramework(id: number): Promise<Framework | undefined>;
+  createFramework(framework: InsertFramework): Promise<Framework>;
+  
+  getComplianceItems(frameworkId?: number): Promise<ComplianceItem[]>;
+  createComplianceItem(item: InsertComplianceItem): Promise<ComplianceItem>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getFrameworks(): Promise<Framework[]> {
+    return await db.select().from(frameworks);
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getFramework(id: number): Promise<Framework | undefined> {
+    const [framework] = await db.select().from(frameworks).where(eq(frameworks.id, id));
+    return framework;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async createFramework(framework: InsertFramework): Promise<Framework> {
+    const [newFramework] = await db.insert(frameworks).values(framework).returning();
+    return newFramework;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getComplianceItems(frameworkId?: number): Promise<ComplianceItem[]> {
+    if (frameworkId) {
+      return await db.select().from(complianceItems).where(eq(complianceItems.frameworkId, frameworkId));
+    }
+    return await db.select().from(complianceItems);
+  }
+
+  async createComplianceItem(item: InsertComplianceItem): Promise<ComplianceItem> {
+    const [newItem] = await db.insert(complianceItems).values(item).returning();
+    return newItem;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
