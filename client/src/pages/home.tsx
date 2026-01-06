@@ -7,11 +7,16 @@ import { Shield, Landmark, BarChart2, CheckCircle2, AlertCircle, Cpu, Activity, 
 import { Skeleton } from "@/components/ui/skeleton";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
-const mockChartData = [
-  { name: 'Q1', value: 45, risk: 60 },
-  { name: 'Q2', value: 55, risk: 50 },
-  { name: 'Q3', value: 75, risk: 35 },
-  { name: 'Q4', value: 85, risk: 20 },
+const fundingAllocation = [
+  { name: 'Education Benefits', total: 13500, label: '$13.5B' },
+  { name: 'Transition Support', total: 140, label: '$140M' },
+];
+
+const capabilityTrend = [
+  { name: 'Phase 1', compliance: 45, risk: 80 },
+  { name: 'Phase 2', compliance: 65, risk: 55 },
+  { name: 'Phase 3', compliance: 85, risk: 30 },
+  { name: 'Phase 4', compliance: 98, risk: 5 },
 ];
 
 export default function Home() {
@@ -180,12 +185,12 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Zap className="w-5 h-5 text-primary" />
-              SYSTEM_CAPABILITY_VECTOR
+              CAPABILITY_EVOLUTION_VECTOR
             </CardTitle>
           </CardHeader>
           <CardContent className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={mockChartData}>
+              <AreaChart data={capabilityTrend}>
                 <defs>
                   <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
@@ -199,7 +204,7 @@ export default function Home() {
                   contentStyle={{ backgroundColor: 'rgba(2, 6, 23, 0.9)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '8px' }}
                   itemStyle={{ color: 'hsl(var(--primary))', fontSize: '12px' }}
                 />
-                <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
+                <Area type="monotone" dataKey="compliance" stroke="hsl(var(--primary))" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -209,19 +214,21 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Shield className="w-5 h-5 text-primary" />
-              RISK_MITIGATION_ANALYSIS
+              FUNDING_ASYMMETRY_ANALYSIS
             </CardTitle>
           </CardHeader>
           <CardContent className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={mockChartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(59, 130, 246, 0.1)" vertical={false} />
-                <XAxis dataKey="name" stroke="rgba(255, 255, 255, 0.3)" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis stroke="rgba(255, 255, 255, 0.3)" fontSize={10} tickLine={false} axisLine={false} />
+              <BarChart data={fundingAllocation} layout="vertical" margin={{ left: 20, right: 40 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(59, 130, 246, 0.1)" horizontal={false} />
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" stroke="rgba(255, 255, 255, 0.5)" fontSize={10} width={120} tickLine={false} axisLine={false} />
                 <Tooltip 
+                  cursor={{ fill: 'rgba(59, 130, 246, 0.05)' }}
                   contentStyle={{ backgroundColor: 'rgba(2, 6, 23, 0.9)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '8px' }}
+                  formatter={(value: number) => [`$${value >= 1000 ? (value/1000).toFixed(1) + 'B' : value + 'M'}`, 'Allocation']}
                 />
-                <Bar dataKey="risk" fill="rgba(239, 68, 68, 0.6)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="total" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} barSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
