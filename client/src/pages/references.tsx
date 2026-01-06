@@ -45,11 +45,11 @@ export default function References() {
   const getTypeBadgeClass = (type: string) => {
     switch (type) {
       case "Paper":
-        return "bg-primary/20 text-primary border-primary/50";
+        return "bg-primary/20 text-primary border-primary/40";
       case "Technical Report":
-        return "bg-green-500/20 text-green-400 border-green-500/50";
+        return "bg-fuchsia-500/20 text-fuchsia-400/80 border-fuchsia-500/40";
       default:
-        return "bg-yellow-500/20 text-yellow-400 border-yellow-500/50";
+        return "bg-neutral-800 text-neutral-300 border-neutral-600";
     }
   };
 
@@ -118,10 +118,10 @@ export default function References() {
 
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
-      <section className="relative overflow-hidden rounded-xl bg-slate-950 border border-primary/30 p-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent pointer-events-none" />
+      <section className="relative overflow-hidden rounded-xl bg-neutral-900 border border-neutral-700 p-8">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10">
-          <Badge className="mb-4 bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+          <Badge className="mb-4 bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
             <BookOpen className="w-3 h-3 mr-1" /> Research Library
           </Badge>
           <h1 className="text-4xl font-black mb-4 glow-text tracking-tight">
@@ -135,14 +135,14 @@ export default function References() {
               <span className="text-2xl font-bold text-primary tracking-tighter">{publications?.length || 0}</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Total Documents</span>
             </div>
-            <div className="w-[1px] h-10 bg-primary/20" />
+            <div className="w-[1px] h-10 bg-neutral-700" />
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-primary tracking-tighter">{papers.length}</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Papers</span>
             </div>
-            <div className="w-[1px] h-10 bg-primary/20" />
+            <div className="w-[1px] h-10 bg-neutral-700" />
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-green-400 tracking-tighter">{reports.length}</span>
+              <span className="text-2xl font-bold text-fuchsia-400/80 tracking-tighter">{reports.length}</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Technical Reports</span>
             </div>
           </div>
@@ -152,18 +152,18 @@ export default function References() {
       {/* PRIMARY DOCUMENTS - Paper and Presentation */}
       <section className="space-y-4">
         <div className="flex items-center gap-3">
-          <Star className="w-5 h-5 text-yellow-500" />
+          <Star className="w-5 h-5 text-fuchsia-400/80" />
           <h2 className="text-xl font-bold tracking-tight">Primary Documents</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="high-tech-card border-primary/50" data-testid="card-primary-paper">
+          <Card className="high-tech-card border-primary/40" data-testid="card-primary-paper">
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-primary/20 text-primary border-primary/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <FileText className="w-3 h-3 mr-1" /> CMGF Paper
                   </Badge>
-                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-fuchsia-500/20 text-fuchsia-400/80 border-fuchsia-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Star className="w-3 h-3 mr-1" /> Featured
                   </Badge>
                 </div>
@@ -191,14 +191,14 @@ export default function References() {
             </CardContent>
           </Card>
 
-          <Card className="high-tech-card border-green-500/50" data-testid="card-primary-presentation">
+          <Card className="high-tech-card border-fuchsia-500/30" data-testid="card-primary-presentation">
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-fuchsia-500/20 text-fuchsia-400/80 border-fuchsia-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Presentation className="w-3 h-3 mr-1" /> CCME 2026
                   </Badge>
-                  <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/50 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Star className="w-3 h-3 mr-1" /> Featured
                   </Badge>
                 </div>
@@ -213,7 +213,7 @@ export default function References() {
                 <p className="text-xs text-muted-foreground">CCME 2026 Learner Track 1 Presentation</p>
                 <Button
                   variant="default"
-                  className="w-full mt-2 bg-green-600 hover:bg-green-700"
+                  className="w-full mt-2 bg-fuchsia-600 hover:bg-fuchsia-700"
                   asChild
                   data-testid="button-download-primary-presentation"
                 >
@@ -245,7 +245,7 @@ export default function References() {
       {reports.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <FileCode className="w-5 h-5 text-green-500" />
+            <FileCode className="w-5 h-5 text-fuchsia-400/80" />
             <h2 className="text-xl font-bold tracking-tight">Technical Reports</h2>
             <Badge variant="outline" className="text-xs">{reports.length}</Badge>
             <span className="text-xs text-muted-foreground">(Alphabetical)</span>
@@ -259,7 +259,7 @@ export default function References() {
       {other.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <BookOpen className="w-5 h-5 text-yellow-500" />
+            <BookOpen className="w-5 h-5 text-neutral-400" />
             <h2 className="text-xl font-bold tracking-tight">Other Publications</h2>
             <Badge variant="outline" className="text-xs">{other.length}</Badge>
             <span className="text-xs text-muted-foreground">(Alphabetical)</span>
