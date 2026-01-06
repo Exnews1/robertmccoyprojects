@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { insertFrameworkSchema, insertComplianceItemSchema, frameworks, complianceItems } from './schema';
+import { insertFrameworkSchema, insertComplianceItemSchema, insertPublicationSchema, frameworks, complianceItems, publications } from './schema';
 
 export const errorSchemas = {
   validation: z.object({
@@ -41,6 +41,24 @@ export const api = {
       }).optional(),
       responses: {
         200: z.array(z.custom<typeof complianceItems.$inferSelect>()),
+      },
+    },
+  },
+  publications: {
+    list: {
+      method: 'GET' as const,
+      path: '/api/publications',
+      responses: {
+        200: z.array(z.custom<typeof publications.$inferSelect>()),
+      },
+    },
+    create: {
+      method: 'POST' as const,
+      path: '/api/publications',
+      input: insertPublicationSchema,
+      responses: {
+        201: z.custom<typeof publications.$inferSelect>(),
+        400: errorSchemas.validation,
       },
     },
   },
