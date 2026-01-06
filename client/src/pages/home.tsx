@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, CheckCircle2, AlertCircle, Cpu, Activity, Users, GraduationCap, FileText, BookOpen, Award, AlertTriangle, Presentation, Eye, ArrowRight, Target, MessageSquare, Layers, DollarSign, Scale, FileWarning } from "lucide-react";
+import { Shield, CheckCircle2, AlertCircle, Cpu, Activity, Users, GraduationCap, FileText, BookOpen, Award, AlertTriangle, Eye, ArrowRight, Target, MessageSquare, Layers, DollarSign, Scale, FileWarning, Presentation } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const fundingData = [
@@ -12,6 +12,52 @@ export default function Home() {
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       
+      {/* AUTHOR & TITLE - Front and Center */}
+      <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-neutral-900 via-neutral-900 to-fuchsia-950/20 border border-fuchsia-500/30 p-8 md:p-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/5 via-transparent to-primary/5 pointer-events-none" />
+        <div className="relative z-10 text-center">
+          <Badge className="bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px] mb-4">
+            <Award className="w-3 h-3 mr-1" /> 2026 CCME Learner Track
+          </Badge>
+          
+          <h1 className="text-2xl md:text-4xl font-bold mb-4 text-foreground tracking-tight leading-tight">
+            Career Mobility Governance Framework
+          </h1>
+          <h2 className="text-lg md:text-xl text-muted-foreground mb-6">
+            Bounded AI for Military-to-Civilian Transition Support
+          </h2>
+          
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <Award className="w-5 h-5 text-fuchsia-400" />
+            <span className="text-lg font-semibold text-foreground">Robert E. McCoy</span>
+          </div>
+          <p className="text-sm text-muted-foreground mb-6">
+            MBA, M.S. AI & Data Analytics | Indiana Wesleyan University
+          </p>
+          
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href="/attached_assets/Career_Mobility_2026__CCME_1767731035930.docx"
+              download
+              className="inline-flex items-center gap-2 px-5 py-3 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold rounded-lg transition-colors"
+              data-testid="hero-download-paper"
+            >
+              <FileText className="w-4 h-4" />
+              Download Paper (DOCX)
+            </a>
+            <a
+              href="/attached_assets/CCME_2026_1767730819889.pdf"
+              download
+              className="inline-flex items-center gap-2 px-5 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors"
+              data-testid="hero-download-presentation"
+            >
+              <Presentation className="w-4 h-4" />
+              Download Presentation (PDF)
+            </a>
+          </div>
+        </div>
+      </section>
+      
       {/* EXECUTIVE SUMMARY - Problem Bounded */}
       <section className="relative overflow-hidden rounded-xl bg-neutral-900 border border-neutral-700 p-8 md:p-12">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
@@ -22,9 +68,9 @@ export default function Home() {
             </Badge>
           </div>
           
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-primary tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary tracking-tight">
             The Problem: Military-to-Civilian Transition at Scale
-          </h1>
+          </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="space-y-4">
