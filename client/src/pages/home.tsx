@@ -57,6 +57,84 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* AUTHOR BIO */}
+      <section className="relative overflow-hidden rounded-xl bg-neutral-900 border border-neutral-700 p-8" data-testid="section-author-bio">
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-6">
+            <Badge className="bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+              <Users className="w-3 h-3 mr-1" /> About the Author
+            </Badge>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-4">
+              <h3 className="text-xl font-bold text-foreground">Robert McCoy</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Robert McCoy is a lifelong servant-leader, aerospace executive, and education advocate whose career spans over five decades across military, engineering, and community leadership. With a foundation forged in both the United States Army and Navy, Robert has built a legacy of mission-driven leadership, technical excellence, and a deep commitment to empowering others through education and second chances.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                He served over 21 years in the U.S. military, including nine and a half years on active duty, holding roles as a Sonar Technician in the Navy and later as a Chief Warrant Officer and Aviator in the Army. His assignments included work on Presidential Support Staff.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Following his military service, Robert transitioned into the aerospace and defense sector, contributing to programs like the F-35 Joint Strike Fighter and NASA's Martian Lander. As Director of Operations for Belcan Corporation, he oversaw more than $42 million in annual contracts.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Today, Robert serves as the Military Partnership Executive at Indiana Wesleyan University, where he builds strategic education and workforce initiatives that connect veterans with high-demand careers in STEM, aerospace, and emerging technologies. He also serves on the board of the MidSouth Advisory Council on Military Education.
+              </p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="p-4 rounded-lg bg-neutral-800/50 border border-neutral-700">
+                <h4 className="text-xs font-bold text-primary uppercase tracking-wider mb-3">Credentials</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <GraduationCap className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>M.S. Artificial Intelligence & Data Analytics</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <GraduationCap className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>MBA</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <GraduationCap className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>B.S. Aeronautics</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-neutral-800/50 border border-neutral-700">
+                <h4 className="text-xs font-bold text-fuchsia-400/80 uppercase tracking-wider mb-3">Military Service</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <Shield className="w-4 h-4 text-fuchsia-400/80 mt-0.5 flex-shrink-0" />
+                    <span>21+ Years Combined Service</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Shield className="w-4 h-4 text-fuchsia-400/80 mt-0.5 flex-shrink-0" />
+                    <span>U.S. Army Chief Warrant Officer, Aviator</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Shield className="w-4 h-4 text-fuchsia-400/80 mt-0.5 flex-shrink-0" />
+                    <span>U.S. Navy Sonar Technician</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Shield className="w-4 h-4 text-fuchsia-400/80 mt-0.5 flex-shrink-0" />
+                    <span>Presidential Support Staff</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-neutral-800/50 border border-neutral-700">
+                <h4 className="text-xs font-bold text-neutral-300 uppercase tracking-wider mb-3">Current Role</h4>
+                <p className="text-sm text-muted-foreground">
+                  Military Partnership Executive, Indiana Wesleyan University
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       
       {/* EXECUTIVE SUMMARY - Problem Bounded */}
       <section className="relative overflow-hidden rounded-xl bg-neutral-900 border border-neutral-700 p-8 md:p-12">
