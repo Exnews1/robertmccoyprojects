@@ -38,8 +38,8 @@ export default function Publications() {
       queryClient.invalidateQueries({ queryKey: ["/api/publications"] });
       form.reset();
       toast({
-        title: "Success",
-        description: "Publication added successfully.",
+        title: "SUCCESS: DATABASE UPDATE",
+        description: "New publication record successfully committed to ledger.",
       });
     },
   });
@@ -58,77 +58,88 @@ export default function Publications() {
 
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-end border-b border-primary/20 pb-8">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight">Publications & Papers</h1>
-          <p className="text-muted-foreground mt-2">
-            Research, technical reports, and papers supporting the CMGF framework.
+          <Badge className="mb-2 bg-primary/10 text-primary border-primary/20 font-mono no-default-hover-elevate">
+            REPOS://RESEARCH_LEDGER
+          </Badge>
+          <h1 className="text-5xl font-black tracking-tighter glow-text">PUBLICATIONS</h1>
+          <p className="text-muted-foreground mt-2 font-light max-w-xl">
+            A centralized repository for technical documentation, research papers, and policy analyses supporting the 
+            Career Mobility Governance Framework.
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2 space-y-6">
           {pubs?.map((pub) => (
-            <Card key={pub.id} className="hover-elevate">
+            <Card key={pub.id} className="high-tech-card">
               <CardHeader className="flex flex-row items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-primary" />
-                    <CardTitle className="text-xl">{pub.title}</CardTitle>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <FileText className="w-5 h-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-2xl font-bold tracking-tight">{pub.title}</CardTitle>
                   </div>
-                  <CardDescription className="flex flex-wrap gap-4 mt-2">
-                    <span className="flex items-center gap-1">
-                      <User className="w-4 h-4" /> {pub.author}
+                  <div className="flex flex-wrap gap-4 mt-4 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                    <span className="flex items-center gap-1.5 bg-muted/50 px-2 py-1 rounded">
+                      <User className="w-3 h-3 text-primary" /> {pub.author}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" /> {pub.publishedDate}
+                    <span className="flex items-center gap-1.5 bg-muted/50 px-2 py-1 rounded">
+                      <Calendar className="w-3 h-3 text-primary" /> {pub.publishedDate}
                     </span>
-                    <span className="bg-secondary text-secondary-foreground px-2 py-0.5 rounded text-xs font-medium">
+                    <span className="border border-primary/30 text-primary px-2 py-1 rounded">
                       {pub.type}
                     </span>
-                  </CardDescription>
+                  </div>
                 </div>
                 {pub.url && (
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 text-primary no-default-hover-elevate" asChild>
                     <a href={pub.url} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" /> View Paper
+                      <ExternalLink className="w-4 h-4 mr-2" /> ACCESS_NODE
                     </a>
                   </Button>
                 )}
               </CardHeader>
               <CardContent>
-                <p className="text-sm leading-relaxed text-muted-foreground italic">
-                  &quot;{pub.abstract}&quot;
-                </p>
+                <div className="relative">
+                  <div className="absolute left-0 top-0 w-1 h-full bg-primary/20 rounded-full" />
+                  <p className="pl-6 text-sm leading-relaxed text-muted-foreground font-light italic">
+                    {pub.abstract}
+                  </p>
+                </div>
               </CardContent>
             </Card>
           ))}
           {pubs?.length === 0 && (
-            <div className="text-center py-20 border-2 border-dashed rounded-lg">
-              <FileText className="w-12 h-12 mx-auto text-muted-foreground opacity-20" />
-              <p className="mt-4 text-muted-foreground">No publications found. Use the form to add your first one.</p>
+            <div className="text-center py-32 border-2 border-dashed border-primary/10 rounded-2xl bg-muted/5">
+              <div className="bg-primary/5 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FileText className="w-8 h-8 text-primary/30" />
+              </div>
+              <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">No data clusters detected in primary storage.</p>
             </div>
           )}
         </div>
 
         <div>
-          <Card className="sticky top-8">
+          <Card className="high-tech-card sticky top-8">
             <CardHeader>
-              <CardTitle>Add New Publication</CardTitle>
-              <CardDescription>Share your research and papers here.</CardDescription>
+              <CardTitle className="text-lg font-bold tracking-tight">INGEST_NEW_RECORD</CardTitle>
+              <CardDescription className="font-light">Sync latest research to the CMGF core.</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...form}>
-                <form onSubmit={form.handleSubmit((v) => mutation.mutate(v))} className="space-y-4">
+                <form onSubmit={form.handleSubmit((v) => mutation.mutate(v))} className="space-y-6">
                   <FormField
                     control={form.control}
                     name="title"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Title</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Document Title</FormLabel>
                         <FormControl>
-                          <Input placeholder="Paper Title" {...field} />
+                          <Input className="bg-muted/30 border-primary/10 focus:border-primary/40" placeholder="IDENTIFY_TITLE" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -139,9 +150,9 @@ export default function Publications() {
                     name="author"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Author(s)</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Principal Investigator</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe, Jane Smith" {...field} />
+                          <Input className="bg-muted/30 border-primary/10 focus:border-primary/40" placeholder="IDENTIFY_AUTHOR" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,10 +163,10 @@ export default function Publications() {
                     name="type"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Type</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Record Type</FormLabel>
                         <FormControl>
                           <select 
-                            className="w-full h-10 px-3 py-2 bg-background border rounded-md text-sm"
+                            className="w-full h-10 px-3 py-2 bg-muted/30 border border-primary/10 focus:border-primary/40 rounded-md text-sm outline-none"
                             {...field}
                           >
                             <option value="Paper">Paper</option>
@@ -172,9 +183,9 @@ export default function Publications() {
                     name="publishedDate"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Published Date</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Timestamp</FormLabel>
                         <FormControl>
-                          <Input placeholder="January 2024" {...field} />
+                          <Input className="bg-muted/30 border-primary/10 focus:border-primary/40" placeholder="MM/YYYY" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -185,9 +196,9 @@ export default function Publications() {
                     name="url"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>URL (Optional)</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Access Point URL</FormLabel>
                         <FormControl>
-                          <Input placeholder="https://..." {...field} />
+                          <Input className="bg-muted/30 border-primary/10 focus:border-primary/40" placeholder="https://..." {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -198,11 +209,11 @@ export default function Publications() {
                     name="abstract"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Abstract/Description</FormLabel>
+                        <FormLabel className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Data Summary</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Briefly describe the key findings..."
-                            className="min-h-[100px]"
+                            className="bg-muted/30 border-primary/10 focus:border-primary/40 min-h-[120px] resize-none" 
+                            placeholder="INJECT_ABSTRACT_DATA..."
                             {...field}
                           />
                         </FormControl>
@@ -212,10 +223,10 @@ export default function Publications() {
                   />
                   <Button 
                     type="submit" 
-                    className="w-full" 
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold tracking-widest no-default-hover-elevate"
                     disabled={mutation.isPending}
                   >
-                    {mutation.isPending ? "Adding..." : <><Plus className="w-4 h-4 mr-2" /> Add Publication</>}
+                    {mutation.isPending ? "INGESTING..." : <><Plus className="w-4 h-4 mr-2" /> COMMIT_TO_LEDGER</>}
                   </Button>
                 </form>
               </Form>

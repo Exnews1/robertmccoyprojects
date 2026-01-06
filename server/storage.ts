@@ -63,7 +63,7 @@ export class DatabaseStorage implements IStorage {
   async seed() {
     const frameworksCount = await db.select().from(frameworks);
     if (frameworksCount.length === 0) {
-      await db.insert(frameworks).values([
+      const [eo] = await db.insert(frameworks).values([
         {
           name: "EO 14110",
           year: "2023",
@@ -76,6 +76,25 @@ export class DatabaseStorage implements IStorage {
           description: "Trustworthiness Framework",
           icon: "Lock",
         },
+      ]).returning();
+
+      await db.insert(complianceItems).values([
+        {
+          frameworkId: eo.id,
+          requirement: "Section 7.2: Mandates risk assessments for high-impact AI affecting rights/safety; Prohibits opaque decisions.",
+          designChoice: "Intentional non-use of predictive functions; Explicit prohibition of individual risk scoring.",
+          strategicAdvantage: "Eliminates exposure to prohibited high-risk practices; Ensures full compliance with federal mandate.",
+          status: "Fully Compliant",
+          tags: ["Governance", "High-Impact"],
+        },
+        {
+          frameworkId: eo.id,
+          requirement: "Section 10.1: Requires auditable institutional evidence for budget reallocation.",
+          designChoice: "Aggregation of de-identified feasibility signals and constraint conflicts.",
+          strategicAdvantage: "Transforms anecdotal failures into auditable evidence; Justifies transition support funding.",
+          status: "Fully Compliant",
+          tags: ["Budget", "Evidence"],
+        },
       ]);
     }
 
@@ -83,11 +102,11 @@ export class DatabaseStorage implements IStorage {
     if (pubsCount.length === 0) {
       await db.insert(publications).values([
         {
-          title: "Compliance Framework for Generative AI (CMGF)",
+          title: "A Governed, Human-in-the-Loop AI Framework for Military Career Mobility",
           type: "Paper",
-          author: "Lead Researcher",
-          publishedDate: "2024",
-          abstract: "This paper introduces the CMGF framework, designed to ensure safety and transparency in high-impact AI systems.",
+          author: "Robert E. McCoy MBA, M.S. AI & Data Analytics",
+          publishedDate: "January 2026",
+          abstract: "Design, constraints, and ethical tradeoffs for military transition policy using the CMGF framework. Directly addresses the structural paradox of $13.5B annual spend vs. $140M transition support.",
           url: "#",
         },
       ]);
