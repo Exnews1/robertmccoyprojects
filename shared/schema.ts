@@ -1,5 +1,5 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
+import { pgTable, text, serial, integer, boolean, timestamp, varchar } from "drizzle-orm/pg-core";
+import { relations, sql } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -8,7 +8,7 @@ export const frameworks = pgTable("frameworks", {
   name: text("name").notNull(),
   year: text("year").notNull(),
   description: text("description").notNull(),
-  icon: text("icon").notNull(), // FontAwesome class
+  icon: text("icon").notNull(),
 });
 
 export const complianceItems = pgTable("compliance_items", {
@@ -17,8 +17,19 @@ export const complianceItems = pgTable("compliance_items", {
   requirement: text("requirement").notNull(),
   designChoice: text("design_choice").notNull(),
   strategicAdvantage: text("strategic_advantage").notNull(),
-  status: text("status").notNull(), // e.g., "Fully Compliant"
+  status: text("status").notNull(),
   tags: text("tags").array(),
+});
+
+export const documents = pgTable("documents", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  type: text("type").notNull(), // 'publication', 'paper', 'reference'
+  url: text("url").notNull(),
+  description: text("description"),
+  author: text("author"),
+  publishedDate: timestamp("published_date"),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const frameworksRelations = relations(frameworks, ({ many }) => ({
@@ -34,8 +45,16 @@ export const complianceItemsRelations = relations(complianceItems, ({ one }) => 
 
 export const insertFrameworkSchema = createInsertSchema(frameworks).omit({ id: true });
 export const insertComplianceItemSchema = createInsertSchema(complianceItems).omit({ id: true });
+export const insertDocumentSchema = createInsertSchema(documents).omit({ id: true, createdAt: true });
 
 export type Framework = typeof frameworks.$inferSelect;
 export type InsertFramework = z.infer<typeof insertFrameworkSchema>;
 export type ComplianceItem = typeof complianceItems.$inferSelect;
 export type InsertComplianceItem = z.infer<typeof insertComplianceItemSchema>;
+export type Document = typeof documents.$inferSelect;
+export type InsertDocument = z.infer<typeof insertDocumentSchema>;
+
+// Request types
+export type CreateDocumentRequest = InsertDocument;
+export type UpdateDocumentRequest = Partial<InsertDocument>;
+export type DocumentResponse = Document;
