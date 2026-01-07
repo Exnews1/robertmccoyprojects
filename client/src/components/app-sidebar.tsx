@@ -45,11 +45,11 @@ export function AppSidebar() {
   const [location] = useLocation();
 
   return (
-    <Sidebar className="border-r border-primary/10 bg-slate-950/50 backdrop-blur-md">
+    <Sidebar className="border-r border-sidebar-border bg-sidebar">
       <SidebarContent>
         {/* PRIMARY DOCUMENTS - Front and Center */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-fuchsia-400/80 font-mono text-[10px] uppercase tracking-[0.2em] px-6 mb-2">
+          <SidebarGroupLabel className="text-fuchsia-600 dark:text-fuchsia-400/80 font-mono text-[10px] uppercase tracking-[0.2em] px-6 mb-2">
             PRIMARY DOCUMENTS
           </SidebarGroupLabel>
           <SidebarGroupContent className="px-3 space-y-2">
@@ -60,7 +60,7 @@ export function AppSidebar() {
               data-testid="sidebar-download-paper"
             >
               <a href="/attached_assets/Career_Mobility_2026__CCME_1767731035930.docx" download>
-                <Download className="w-4 h-4 text-fuchsia-400" />
+                <Download className="w-4 h-4 text-fuchsia-600 dark:text-fuchsia-400" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF Paper</div>
                   <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
@@ -84,7 +84,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator className="my-4 bg-neutral-700/50" />
+        <SidebarSeparator className="my-4 bg-border" />
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-primary/50 font-mono text-[10px] uppercase tracking-[0.2em] px-6 mb-4">
