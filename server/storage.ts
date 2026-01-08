@@ -11,6 +11,7 @@ import {
   type InsertPublication
 } from "@shared/schema";
 import { eq } from "drizzle-orm";
+import { seedPublications } from "./seed";
 
 export interface IStorage {
   getFrameworks(): Promise<Framework[]>;
@@ -52,7 +53,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPublications(): Promise<Publication[]> {
-    return await db.select().from(publications);
+    try {
+      const dbPubs = await db.select().from(publications);
+      if (dbPubs.length > 0) {
+        return dbPubs;
+      }
+    } catch (error) {
+      console.error("Database query failed, using fallback publications");
+    }
+    
+    // Fallback to hardcoded publications if database is empty or fails
+    return seedPublications.map((pub, index) => ({
+      id: index + 1,
+      title: pub.title,
+      type: pub.type,
+      url: pub.url,
+      abstract: pub.abstract,
+      author: pub.author,
+      publishedDate: pub.publishedDate
+    }));
   }
 
   async createPublication(pub: InsertPublication): Promise<Publication> {
