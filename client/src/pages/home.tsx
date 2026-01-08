@@ -27,12 +27,17 @@ export default function Home() {
             Bounded AI for Military-to-Civilian Transition Support
           </h2>
           
-          <div className="flex items-center justify-center gap-2 mb-6">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <Award className="w-5 h-5 text-fuchsia-600 dark:text-fuchsia-400" />
             <span className="text-lg font-semibold text-foreground">Robert E. McCoy</span>
           </div>
-          <p className="text-sm text-muted-foreground mb-6">
+          <p className="text-sm text-muted-foreground mb-2">
             MBA, M.S. AI & Data Analytics | Indiana Wesleyan University
+          </p>
+          <p className="text-sm mb-6">
+            <a href="mailto:robert.mccoy@indwes.edu" className="text-primary hover:underline" data-testid="link-author-email">
+              robert.mccoy@indwes.edu
+            </a>
           </p>
           
           <div className="flex flex-wrap justify-center gap-3">
@@ -227,7 +232,7 @@ export default function Home() {
       </section>
 
       {/* FUNDING VISUALIZATION */}
-      <Card className="high-tech-card">
+      <Card id="analysis" className="high-tech-card scroll-mt-24">
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="p-2 bg-primary/10 rounded-lg">
@@ -486,7 +491,7 @@ export default function Home() {
       </Card>
 
       {/* FRAMEWORK PILLARS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div id="frameworks" className="grid grid-cols-1 md:grid-cols-3 gap-6 scroll-mt-24">
         <Card className="high-tech-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-mono text-primary flex items-center gap-2">
