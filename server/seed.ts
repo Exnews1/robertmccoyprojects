@@ -1,6 +1,7 @@
 import { db } from "./db";
 import { publications } from "@shared/schema";
 import { sql } from "drizzle-orm";
+import { pool } from "./db";
 
 const seedPublications = [
   {
@@ -285,8 +286,46 @@ const seedPublications = [
   }
 ];
 
+async function ensureTablesExist() {
+  const createTablesSQL = `
+    CREATE TABLE IF NOT EXISTS frameworks (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      year TEXT NOT NULL,
+      description TEXT NOT NULL,
+      icon TEXT NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS compliance_items (
+      id SERIAL PRIMARY KEY,
+      framework_id INTEGER NOT NULL,
+      requirement TEXT NOT NULL,
+      design_choice TEXT NOT NULL,
+      strategic_advantage TEXT NOT NULL,
+      status TEXT NOT NULL,
+      tags TEXT[]
+    );
+    
+    CREATE TABLE IF NOT EXISTS publications (
+      id SERIAL PRIMARY KEY,
+      title TEXT NOT NULL,
+      type TEXT NOT NULL,
+      url TEXT,
+      abstract TEXT,
+      author TEXT,
+      published_date TEXT
+    );
+  `;
+  
+  await pool.query(createTablesSQL);
+  console.log("Database tables verified/created.");
+}
+
 export async function seedDatabase() {
   try {
+    console.log("Ensuring database tables exist...");
+    await ensureTablesExist();
+    
     console.log("Checking database for publications...");
     const existingCount = await db.select({ count: sql<number>`count(*)` }).from(publications);
     const count = Number(existingCount[0]?.count || 0);
@@ -300,9 +339,6 @@ export async function seedDatabase() {
     }
   } catch (error: any) {
     console.error("Error seeding database:", error?.message || error);
-    if (error?.message?.includes("does not exist")) {
-      console.log("Publications table may not exist. Please run: npm run db:push");
-    }
   }
 }
 
