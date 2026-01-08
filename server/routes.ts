@@ -3,6 +3,7 @@ import { Server } from "http";
 import { storage } from "./storage";
 import { insertPublicationSchema } from "@shared/schema";
 import { ZodError } from "zod";
+import { seedDatabase } from "./seed";
 
 export async function registerRoutes(httpServer: Server, app: Express) {
   app.get("/api/frameworks", async (_req: any, res: any) => {
@@ -32,6 +33,16 @@ export async function registerRoutes(httpServer: Server, app: Express) {
       } else {
         res.status(500).json({ message: "Internal server error" });
       }
+    }
+  });
+
+  app.post("/api/seed", async (_req: any, res: any) => {
+    try {
+      await seedDatabase();
+      const publications = await storage.getPublications();
+      res.json({ success: true, count: publications.length });
+    } catch (e: any) {
+      res.status(500).json({ message: e?.message || "Seed failed" });
     }
   });
 

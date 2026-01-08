@@ -287,6 +287,7 @@ const seedPublications = [
 
 export async function seedDatabase() {
   try {
+    console.log("Checking database for publications...");
     const existingCount = await db.select({ count: sql<number>`count(*)` }).from(publications);
     const count = Number(existingCount[0]?.count || 0);
     
@@ -297,7 +298,12 @@ export async function seedDatabase() {
     } else {
       console.log(`Database already has ${count} publications, skipping seed.`);
     }
-  } catch (error) {
-    console.error("Error seeding database:", error);
+  } catch (error: any) {
+    console.error("Error seeding database:", error?.message || error);
+    if (error?.message?.includes("does not exist")) {
+      console.log("Publications table may not exist. Please run: npm run db:push");
+    }
   }
 }
+
+export { seedPublications };
