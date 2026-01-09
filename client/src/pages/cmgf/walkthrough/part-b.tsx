@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -216,49 +216,31 @@ export default function PartB() {
         </Card>
 
         <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-lg font-semibold text-foreground">ESO / Human System</h2>
-            <Badge variant="outline" className="text-xs">6 Interfaces</Badge>
-          </div>
-          <p className="text-sm text-muted-foreground mb-6">
-            Human decision-making interfaces for advisors, educators, and administrators.
-          </p>
-          <div className="grid gap-4">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">ESO / Human System (6 Interfaces)</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {partBPages.map((page, index) => (
-              <Card key={page.id} className="border-border/50 hover-elevate" data-testid={`card-partb-${page.id}`}>
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
-                      <page.icon className="h-5 w-5 text-green-500" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono text-muted-foreground">B{index + 1}</span>
-                          <h3 className="font-semibold text-foreground">{page.title}</h3>
-                        </div>
-                        <a 
-                          href={page.demoUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          data-testid={`demo-b-${page.id}`}
-                        >
-                          <Button variant="outline" size="sm" className="gap-1.5 text-green-600 border-green-500/30 hover:bg-green-500/10">
-                            <ExternalLink className="h-3 w-3" />
-                            View Demo
-                          </Button>
-                        </a>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {page.responsibilities.map((resp, i) => (
-                          <span key={i} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                            {resp}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+              <Card key={page.id} className="border-border/50" data-testid={`card-partb-${page.id}`}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <page.icon className="h-5 w-5 text-green-500" />
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                      B{index + 1}
+                    </span>
                   </div>
+                  <CardTitle className="text-base">{page.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
+                  <a 
+                    href={page.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs text-green-500 hover:text-green-600"
+                    data-testid={`demo-b-${page.id}`}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View Interface Demo
+                  </a>
                 </CardContent>
               </Card>
             ))}
@@ -266,23 +248,15 @@ export default function PartB() {
         </section>
 
         <section className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <h2 className="text-lg font-semibold text-foreground">Enterprise Governance & Evidence Layer</h2>
-            <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/30">B1</Badge>
-          </div>
-          <p className="text-sm text-muted-foreground mb-4">
-            This is <strong className="text-foreground">NOT</strong> an individual decision layer. 
-            B1 exists to support policy, funding, and system design—not individuals.
-          </p>
-
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Enterprise Governance Layer (B1 — 7 Interfaces)</h2>
+          
           <Card className="mb-6 border-amber-500/20 bg-amber-500/5">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-2">
                 <Shield className="h-4 w-4 text-amber-600" />
-                <h3 className="font-medium text-foreground">Critical Governance Constraints</h3>
+                <h3 className="font-medium text-foreground text-sm">Critical Constraints</h3>
               </div>
-              <p className="text-xs text-muted-foreground mb-3">Must be explicit on every page:</p>
-              <ul className="text-sm text-muted-foreground grid grid-cols-1 md:grid-cols-2 gap-2">
+              <ul className="text-xs text-muted-foreground grid grid-cols-2 md:grid-cols-4 gap-2">
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   No individual identifiers
@@ -293,52 +267,40 @@ export default function PartB() {
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                  Population-level metrics only
+                  Population-level only
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                  Aggregation boundary checks enforced
+                  Aggregation enforced
                 </li>
               </ul>
             </CardContent>
           </Card>
 
-          <div className="grid gap-4">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {partB1Pages.map((page, index) => (
-              <Card key={page.id} className="border-border/50 hover-elevate" data-testid={`card-partb1-${page.id}`}>
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                      <page.icon className="h-5 w-5 text-amber-600" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2 mb-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono text-muted-foreground">B1.{index + 1}</span>
-                          <h3 className="font-semibold text-foreground">{page.title}</h3>
-                        </div>
-                        <a 
-                          href={page.demoUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          data-testid={`demo-${page.id}`}
-                        >
-                          <Button variant="outline" size="sm" className="gap-1.5 text-amber-600 border-amber-500/30 hover:bg-amber-500/10">
-                            <ExternalLink className="h-3 w-3" />
-                            View Demo
-                          </Button>
-                        </a>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {page.metrics.map((metric, i) => (
-                          <span key={i} className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400">
-                            {metric}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+              <Card key={page.id} className="border-border/50" data-testid={`card-partb1-${page.id}`}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <page.icon className="h-5 w-5 text-amber-600" />
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600">
+                      B1.{index + 1}
+                    </span>
                   </div>
+                  <CardTitle className="text-base">{page.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
+                  <a 
+                    href={page.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs text-amber-600 hover:text-amber-700"
+                    data-testid={`demo-${page.id}`}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View Interface Demo
+                  </a>
                 </CardContent>
               </Card>
             ))}
