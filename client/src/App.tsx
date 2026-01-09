@@ -4,57 +4,59 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
-import Home from "@/pages/home";
-import Publications from "@/pages/publications";
-import References from "@/pages/references";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import Portfolio from "@/pages/portfolio";
+import CMGFRoot from "@/pages/cmgf/index";
+import Downloads from "@/pages/cmgf/downloads";
+import Walkthrough from "@/pages/cmgf/walkthrough/index";
+import PartA from "@/pages/cmgf/walkthrough/part-a";
+import PartB from "@/pages/cmgf/walkthrough/part-b";
+import PartC from "@/pages/cmgf/walkthrough/part-c";
+import Library from "@/pages/cmgf/library";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/publications" component={Publications} />
-      <Route path="/references" component={References} />
+      <Route path="/" component={Portfolio} />
+      <Route path="/cmgf" component={CMGFRoot} />
+      <Route path="/cmgf/downloads" component={Downloads} />
+      <Route path="/cmgf/walkthrough" component={Walkthrough} />
+      <Route path="/cmgf/walkthrough/part-a" component={PartA} />
+      <Route path="/cmgf/walkthrough/part-b" component={PartB} />
+      <Route path="/cmgf/walkthrough/part-c" component={PartC} />
+      <Route path="/cmgf/library" component={Library} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
 export default function App() {
-  const style = {
-    "--sidebar-width": "20rem",
-    "--sidebar-width-icon": "4rem",
-  };
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <SidebarProvider style={style as React.CSSProperties}>
-          <div className="flex h-screen w-full bg-background">
-            <AppSidebar />
-            <div className="flex flex-col flex-1 overflow-hidden">
-              <header className="flex items-center justify-between p-4 border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50">
-                <div className="flex items-center gap-4">
-                  <SidebarTrigger data-testid="button-sidebar-toggle" className="text-primary" />
-                  <div className="h-6 w-[1px] bg-border" />
-                  <h1 className="text-sm font-bold tracking-[0.2em] text-primary uppercase font-mono">CMGF_CORE_v1.0.4</h1>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 border border-primary/10">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    <span className="text-[9px] font-mono text-muted-foreground uppercase">UPLINK_STABLE</span>
-                  </div>
-                  <ThemeToggle />
-                </div>
-              </header>
-              <main className="flex-1 overflow-y-auto">
-                <Router />
-              </main>
+        <div className="min-h-screen bg-background">
+          <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+            <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <a href="/" className="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors" data-testid="link-home">
+                  Robert McCoy
+                </a>
+                <span className="text-muted-foreground/50">|</span>
+                <a 
+                  href="mailto:robert.mccoy@indwes.edu" 
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  data-testid="link-header-email"
+                >
+                  robert.mccoy@indwes.edu
+                </a>
+              </div>
+              <ThemeToggle />
             </div>
-          </div>
-        </SidebarProvider>
+          </header>
+          <main>
+            <Router />
+          </main>
+        </div>
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>
