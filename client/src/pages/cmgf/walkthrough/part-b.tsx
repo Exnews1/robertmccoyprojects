@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Users, ChevronRight, ClipboardCheck, GraduationCap, Stamp, 
   ArrowRightLeft, FileText, ScrollText, Building2, BarChart3,
-  TrendingDown, Scale, AlertTriangle, MessageSquare, Shield
+  TrendingDown, Scale, AlertTriangle, MessageSquare, Shield, ExternalLink
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
@@ -84,49 +84,56 @@ const partB1Pages = [
     title: "Executive Overview",
     description: "High-level system health metrics and strategic indicators. Population-level insights for leadership decision-making.",
     icon: Building2,
-    metrics: ["System health", "Strategic indicators", "Population trends"]
+    metrics: ["System health", "Strategic indicators", "Population trends"],
+    demoUrl: "/demos/part-b1/executive-overview.html"
   },
   {
     id: "bottleneck-analysis",
     title: "System Bottleneck Analysis",
     description: "Identifies friction points in transition pathways. Surfaces systemic delays and capacity constraints.",
     icon: BarChart3,
-    metrics: ["Processing delays", "Capacity constraints", "Queue depths"]
+    metrics: ["Processing delays", "Capacity constraints", "Queue depths"],
+    demoUrl: "/demos/part-b1/system-bottleneck.html"
   },
   {
     id: "funding-pressure",
     title: "Funding & Resource Pressure",
     description: "Aggregated view of resource utilization and funding gaps. Supports budget justification and resource allocation.",
     icon: TrendingDown,
-    metrics: ["Utilization rates", "Funding gaps", "Resource allocation"]
+    metrics: ["Utilization rates", "Funding gaps", "Resource allocation"],
+    demoUrl: "/demos/part-b1/funding-pressure.html"
   },
   {
     id: "review-capacity",
     title: "Human Review Load & Capacity",
     description: "Monitors advisor workload and capacity across the system. Enables proactive staffing and workload balancing.",
     icon: Users,
-    metrics: ["Advisor workload", "Queue times", "Capacity ratios"]
+    metrics: ["Advisor workload", "Queue times", "Capacity ratios"],
+    demoUrl: "/demos/part-b1/human-review.html"
   },
   {
     id: "policy-friction",
     title: "Policy Friction & Exceptions",
     description: "Tracks policy exception frequency and patterns. Identifies candidates for policy revision or clarification.",
     icon: Scale,
-    metrics: ["Exception rates", "Policy patterns", "Revision candidates"]
+    metrics: ["Exception rates", "Policy patterns", "Revision candidates"],
+    demoUrl: "/demos/part-b1/policy-friction.html"
   },
   {
     id: "retention-signals",
     title: "Retention & Attrition Signals",
     description: "Aggregated indicators of transition program effectiveness. No individual predictions—population-level patterns only.",
     icon: AlertTriangle,
-    metrics: ["Program effectiveness", "Completion rates", "Engagement patterns"]
+    metrics: ["Program effectiveness", "Completion rates", "Engagement patterns"],
+    demoUrl: "/demos/part-b1/retention-signals.html"
   },
   {
     id: "interpretive-notes",
     title: "Interpretive Notes & Human Commentary",
     description: "Space for human analysts to contextualize quantitative data. Captures institutional knowledge and qualitative insights.",
     icon: MessageSquare,
-    metrics: ["Analyst notes", "Context layers", "Qualitative insights"]
+    metrics: ["Analyst notes", "Context layers", "Qualitative insights"],
+    demoUrl: "/demos/part-b1/interpretive-notes.html"
   }
 ];
 
@@ -286,9 +293,22 @@ export default function PartB() {
                       <page.icon className="h-5 w-5 text-amber-600" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-mono text-muted-foreground">B1.{index + 1}</span>
-                        <h3 className="font-semibold text-foreground">{page.title}</h3>
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono text-muted-foreground">B1.{index + 1}</span>
+                          <h3 className="font-semibold text-foreground">{page.title}</h3>
+                        </div>
+                        <a 
+                          href={page.demoUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          data-testid={`demo-${page.id}`}
+                        >
+                          <Button variant="outline" size="sm" className="gap-1.5 text-amber-600 border-amber-500/30 hover:bg-amber-500/10">
+                            <ExternalLink className="h-3 w-3" />
+                            View Demo
+                          </Button>
+                        </a>
                       </div>
                       <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
                       <div className="flex flex-wrap gap-2">
