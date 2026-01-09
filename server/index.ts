@@ -85,7 +85,12 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  await seedDatabase();
+  try {
+    await seedDatabase();
+  } catch (err) {
+    console.error("Database seeding failed, continuing without seed:", err);
+  }
+  
   await registerRoutes(httpServer, app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
