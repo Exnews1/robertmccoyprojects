@@ -1,0 +1,1270 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        <div class="flex h-screen w-[1440px] overflow-hidden bg-neutral-50">
+  <aside id="sidebar" class="w-64 bg-neutral-900 text-white flex flex-col">
+    <div class="p-4 flex items-center justify-between border-b border-neutral-800">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-diagram-project text-white"></i>
+        <span>AI Mediation</span>
+      </div>
+      <i class="fa-solid fa-chevron-down text-neutral-400 text-xs"></i>
+    </div>
+    <div class="flex flex-col flex-1 py-2">
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-diagram-project text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Flow Overview</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-signal text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Signal Display</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 bg-neutral-800">
+        <i class="fa-solid fa-list-check text-white"></i>
+        <span class="text-white text-sm">Constraint Analysis</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-cube text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Scenarios</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-book-open text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Explainability</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-shield-halved text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Governance</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-file-lines text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Audit Logs</span>
+      </div>
+    </div>
+    <div class="mt-auto border-t border-neutral-800">
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-solid fa-gear text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Settings</span>
+      </div>
+      <div class="py-2 px-4 flex items-center gap-3 hover:bg-neutral-800">
+        <i class="fa-regular fa-circle-question text-neutral-400"></i>
+        <span class="text-neutral-300 text-sm">Documentation</span>
+      </div>
+      <div class="p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=4782" alt="User" class="w-8 h-8 rounded-full"/>
+          <div class="flex flex-col">
+            <span class="text-sm">Reviewer</span>
+            <span class="text-xs text-neutral-400">ID: R-8834</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-up text-neutral-400 text-xs"></i>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <header id="header" class="bg-white border-b border-neutral-200 h-16 flex items-center justify-between px-6">
+      <div class="flex items-center gap-4">
+        <h1 class="text-xl text-neutral-900">Constraint Analysis — Checks Display</h1>
+        <span class="px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-300">Non-Authoritative Processing</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 text-sm text-neutral-600">
+          <i class="fa-solid fa-clock text-neutral-400"></i>
+          <span>Session: 2025-01-09 14:50 UTC</span>
+        </div>
+        <button class="px-4 py-2 bg-white border border-neutral-300 rounded text-sm text-neutral-700 hover:bg-neutral-50">
+          <i class="fa-solid fa-download mr-2"></i>Export Analysis
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="flex-1 overflow-y-auto bg-neutral-50">
+      <section id="analysis-overview" class="bg-white border-b border-neutral-200">
+        <div class="px-6 py-4">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-neutral-100 rounded-lg flex items-center justify-center">
+              <i class="fa-solid fa-list-check text-neutral-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-lg text-neutral-900 mb-1">Constraint Checking Complete — Conflicts Flagged Without Resolution</h2>
+              <p class="text-sm text-neutral-600 mb-3">The system has analyzed time, eligibility, and policy constraints across all inputs. Conflicts have been identified and flagged but not resolved. No recommendations, priorities, or resolutions have been generated. All flagged conflicts require human interpretation and institutional decision-making.</p>
+              <div class="flex gap-3">
+                <div class="px-3 py-1 bg-neutral-50 border border-neutral-200 rounded text-xs text-neutral-700">
+                  <i class="fa-solid fa-ban mr-1"></i>No Resolutions Proposed
+                </div>
+                <div class="px-3 py-1 bg-neutral-50 border border-neutral-200 rounded text-xs text-neutral-700">
+                  <i class="fa-solid fa-ban mr-1"></i>No Priorities Assigned
+                </div>
+                <div class="px-3 py-1 bg-neutral-50 border border-neutral-200 rounded text-xs text-neutral-700">
+                  <i class="fa-solid fa-ban mr-1"></i>No Automatic Fixes
+                </div>
+                <div class="px-3 py-1 bg-neutral-50 border border-neutral-200 rounded text-xs text-neutral-700">
+                  <i class="fa-solid fa-ban mr-1"></i>No Overrides Applied
+                </div>
+                <div class="px-3 py-1 bg-neutral-50 border border-neutral-200 rounded text-xs text-neutral-700">
+                  <i class="fa-solid fa-ban mr-1"></i>No Recommendations
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="check-summary" class="px-6 py-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg text-neutral-900">Constraint Check Summary</h3>
+            <span class="px-3 py-1 bg-neutral-50 text-neutral-700 text-xs rounded-full border border-neutral-200">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i>Conflicts Detected
+            </span>
+          </div>
+          <div class="grid grid-cols-4 gap-4">
+            <div class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+              <div class="text-2xl text-neutral-900 mb-1">47</div>
+              <div class="text-xs text-neutral-600">Total Checks Performed</div>
+            </div>
+            <div class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+              <div class="text-2xl text-neutral-900 mb-1">12</div>
+              <div class="text-xs text-neutral-600">Conflicts Flagged</div>
+            </div>
+            <div class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+              <div class="text-2xl text-neutral-900 mb-1">35</div>
+              <div class="text-xs text-neutral-600">Checks Passed</div>
+            </div>
+            <div class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+              <div class="text-2xl text-neutral-900 mb-1">0</div>
+              <div class="text-xs text-neutral-600">Resolutions Applied</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="check-categories" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <h3 class="text-lg text-neutral-900 mb-4">Constraint Check Categories</h3>
+          <div class="grid grid-cols-4 gap-4">
+            <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 transition-colors">
+              <div class="flex items-center justify-between mb-3">
+                <i class="fa-solid fa-clock text-neutral-600 text-xl"></i>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">4 Conflicts</span>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Time Constraints</div>
+              <div class="text-xs text-neutral-600">Deadlines, windows, sequencing</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 transition-colors">
+              <div class="flex items-center justify-between mb-3">
+                <i class="fa-solid fa-user-check text-neutral-600 text-xl"></i>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">3 Conflicts</span>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Eligibility Constraints</div>
+              <div class="text-xs text-neutral-600">Qualifications, prerequisites</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 transition-colors">
+              <div class="flex items-center justify-between mb-3">
+                <i class="fa-solid fa-file-contract text-neutral-600 text-xl"></i>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">5 Conflicts</span>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Policy Constraints</div>
+              <div class="text-xs text-neutral-600">Institutional rules, regulations</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 transition-colors">
+              <div class="flex items-center justify-between mb-3">
+                <i class="fa-solid fa-link text-neutral-600 text-xl"></i>
+                <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">0 Conflicts</span>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Sequencing Constraints</div>
+              <div class="text-xs text-neutral-600">Order dependencies, prerequisites</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="time-constraints" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-clock text-neutral-600 text-xl"></i>
+              <h3 class="text-lg text-neutral-900">Time Constraint Checks</h3>
+            </div>
+            <span class="px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-300">
+              4 Conflicts Flagged
+            </span>
+          </div>
+          <div class="space-y-4">
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #TC-001: Completion Deadline vs. Eligibility Window</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service member goal requires completion by Q2 2025 (June 30, 2025), but institutional eligibility window for required credential verification opens Q3 2025 (July 1, 2025). Temporal incompatibility detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint A: Completion Deadline</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> User Input (Goal Statement)</div>
+                      <div><strong>Value:</strong> 2025-06-30</div>
+                      <div><strong>Type:</strong> Hard Deadline</div>
+                      <div><strong>Priority:</strong> Not Assigned</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint B: Eligibility Window</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-2847 v3.2</div>
+                      <div><strong>Value:</strong> Opens 2025-07-01</div>
+                      <div><strong>Type:</strong> Institutional Rule</div>
+                      <div><strong>Priority:</strong> Not Assigned</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Timeline gap of 1 day detected. Constraint A requires completion before Constraint B becomes available. No automatic resolution logic applied. Both constraints derive from authoritative sources.</div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Affected Components</div>
+                  <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Timeline Planning</span>
+                    <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Credential Verification</span>
+                    <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Service Member Goal</span>
+                    <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Policy Compliance</span>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No resolution proposed. No priority assigned to either constraint. No waiver suggested. No timeline adjustment recommended. Human decision authority required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #TC-002: Processing Duration vs. Submission Deadline</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Required institutional processing time (45 business days) exceeds time remaining before submission deadline (30 calendar days). Insufficient time buffer detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint A: Processing Duration</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-1642 v2.8</div>
+                      <div><strong>Value:</strong> 45 business days</div>
+                      <div><strong>Type:</strong> Minimum Required Time</div>
+                      <div><strong>Flexibility:</strong> None Specified</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint B: Submission Deadline</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> External Agency Requirement</div>
+                      <div><strong>Value:</strong> 2025-03-15</div>
+                      <div><strong>Type:</strong> Fixed External Deadline</div>
+                      <div><strong>Current Date:</strong> 2025-02-13</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Time deficit of 15 days detected (45 business days ≈ 63 calendar days required; 30 calendar days available). Constraint A cannot be satisfied within Constraint B timeframe using standard processing.</div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Data Sources Referenced</div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-xs">
+                      <thead class="bg-neutral-50">
+                        <tr>
+                          <th class="px-3 py-2 text-left text-neutral-900">Source</th>
+                          <th class="px-3 py-2 text-left text-neutral-900">Type</th>
+                          <th class="px-3 py-2 text-left text-neutral-900">Last Updated</th>
+                          <th class="px-3 py-2 text-left text-neutral-900">Verification Status</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-neutral-200">
+                        <tr>
+                          <td class="px-3 py-2 text-neutral-700">Policy Library</td>
+                          <td class="px-3 py-2 text-neutral-700">Internal</td>
+                          <td class="px-3 py-2 text-neutral-700">2024-12-01</td>
+                          <td class="px-3 py-2 text-neutral-700">Verified</td>
+                        </tr>
+                        <tr>
+                          <td class="px-3 py-2 text-neutral-700">External Agency Portal</td>
+                          <td class="px-3 py-2 text-neutral-700">External</td>
+                          <td class="px-3 py-2 text-neutral-700">2025-01-05</td>
+                          <td class="px-3 py-2 text-neutral-700">Verified</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No expedited processing suggested. No deadline extension requested. No feasibility assessment provided. Human review required to determine institutional options.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #TC-003: Training Duration vs. Deployment Window</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Required training program duration (16 weeks) conflicts with available deployment preparation window (12 weeks). Insufficient time for sequential completion detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint A: Training Duration</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Training Catalog TC-2025-Q1</div>
+                      <div><strong>Value:</strong> 16 weeks (fixed)</div>
+                      <div><strong>Type:</strong> Program Requirement</div>
+                      <div><strong>Flexibility:</strong> None (accredited program)</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint B: Deployment Window</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Deployment Schedule DS-2025-07</div>
+                      <div><strong>Value:</strong> 2025-04-01 to 2025-06-23</div>
+                      <div><strong>Type:</strong> Preparation Period</div>
+                      <div><strong>Duration:</strong> 12 weeks</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Time deficit of 4 weeks detected. Training program cannot be completed within deployment preparation window. No overlap or concurrent execution logic identified in source documents.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No alternative training programs suggested. No deployment window adjustment proposed. No concurrent execution recommended. Service member and institutional decision required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #TC-004: Maintenance Period vs. Availability Requirement</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Scheduled system maintenance window (2025-05-10 to 2025-05-17) overlaps with required service member availability period for credential verification (2025-05-12 to 2025-05-16). 5-day overlap detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint A: Maintenance Period</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> IT Operations Schedule</div>
+                      <div><strong>Value:</strong> 2025-05-10 to 2025-05-17</div>
+                      <div><strong>Type:</strong> System Unavailability</div>
+                      <div><strong>Systems Affected:</strong> Credential DB, Verification Portal</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Constraint B: Availability Requirement</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-1893 v2.1</div>
+                      <div><strong>Value:</strong> 2025-05-12 to 2025-05-16</div>
+                      <div><strong>Type:</strong> Required Access Period</div>
+                      <div><strong>Purpose:</strong> Real-time verification</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Temporal overlap of 5 days (2025-05-12 to 2025-05-16) detected. Required systems unavailable during mandatory verification period. No alternative verification method specified in policy.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No maintenance rescheduling suggested. No alternative verification method proposed. No availability period adjustment recommended. Institutional coordination required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="eligibility-constraints" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-user-check text-neutral-600 text-xl"></i>
+              <h3 class="text-lg text-neutral-900">Eligibility Constraint Checks</h3>
+            </div>
+            <span class="px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-300">
+              3 Conflicts Flagged
+            </span>
+          </div>
+          <div class="space-y-4">
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #EC-001: Clearance Level vs. Assignment Requirements</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service member holds domestic-only security clearance (Level 3-DOM), but stated goal requires international assignment eligibility (Level 4-INT minimum). Clearance level incompatibility detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Clearance Level</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Security Clearance DB</div>
+                      <div><strong>Level:</strong> 3-DOM (Domestic Only)</div>
+                      <div><strong>Issued:</strong> 2023-08-14</div>
+                      <div><strong>Valid Until:</strong> 2028-08-14</div>
+                      <div><strong>Upgrade Eligible:</strong> Not Specified</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Requirement: Assignment Eligibility</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-3104 v1.8</div>
+                      <div><strong>Level Required:</strong> 4-INT (International)</div>
+                      <div><strong>Type:</strong> Minimum Qualification</div>
+                      <div><strong>Waiver Available:</strong> Not Specified</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Clearance level gap detected. Current clearance restricts to domestic assignments. Goal requires international clearance. No waiver or upgrade pathway information available in referenced policy documents.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No clearance upgrade initiated. No waiver request generated. No goal modification suggested. No alternative assignments recommended. Service member must resolve conflict.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #EC-002: Service Duration vs. Program Eligibility</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service member has 18 months active service duration, but selected program requires minimum 24 months active service for eligibility. Duration shortfall of 6 months detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Service Duration</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Service Record DB</div>
+                      <div><strong>Active Service:</strong> 18 months</div>
+                      <div><strong>Start Date:</strong> 2023-07-15</div>
+                      <div><strong>Verification Date:</strong> 2025-01-09</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Requirement: Program Eligibility</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Program Guidelines PG-2025-A7</div>
+                      <div><strong>Minimum Service:</strong> 24 months</div>
+                      <div><strong>Type:</strong> Hard Requirement</div>
+                      <div><strong>Rationale:</strong> Experience baseline</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service duration shortfall of 6 months detected. Service member will reach 24 months on 2025-07-15. Program application timing conflicts with current eligibility status.</div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Temporal Projection</div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-xs">
+                      <thead class="bg-neutral-50">
+                        <tr>
+                          <th class="px-3 py-2 text-left text-neutral-900">Date</th>
+                          <th class="px-3 py-2 text-left text-neutral-900">Service Duration</th>
+                          <th class="px-3 py-2 text-left text-neutral-900">Eligibility Status</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-neutral-200">
+                        <tr>
+                          <td class="px-3 py-2 text-neutral-700">2025-01-09 (Today)</td>
+                          <td class="px-3 py-2 text-neutral-700">18 months</td>
+                          <td class="px-3 py-2 text-neutral-700">Not Eligible</td>
+                        </tr>
+                        <tr>
+                          <td class="px-3 py-2 text-neutral-700">2025-07-15</td>
+                          <td class="px-3 py-2 text-neutral-700">24 months</td>
+                          <td class="px-3 py-2 text-neutral-700">Eligible</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No early eligibility waiver suggested. No alternative programs recommended. No timeline acceleration proposed. Service member must wait or select alternative path.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #EC-003: Credential Status vs. Application Requirements</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service record field "deployment_status_verified" is null. This field is mandatory prerequisite for application submission per institutional policy. Missing data prevents eligibility verification.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Credential Data</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Service Record DB</div>
+                      <div><strong>Field:</strong> deployment_status_verified</div>
+                      <div><strong>Value:</strong> NULL</div>
+                      <div><strong>Last Updated:</strong> 2025-01-03</div>
+                      <div><strong>Update Required By:</strong> Service Member</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Requirement: Application Prerequisites</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-1893 v2.1</div>
+                      <div><strong>Field Status:</strong> Required (Non-Null)</div>
+                      <div><strong>Type:</strong> Mandatory Prerequisite</div>
+                      <div><strong>Referenced In:</strong> 3 policy documents</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Missing mandatory data field prevents eligibility verification. Application cannot proceed without this information. No default value specified in policy. Data must be provided by service member or verified by institutional authority.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No data imputation performed. No default value assumed. No field marked as optional. No application submitted with incomplete data. Service member action required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="policy-constraints" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-file-contract text-neutral-600 text-xl"></i>
+              <h3 class="text-lg text-neutral-900">Policy Constraint Checks</h3>
+            </div>
+            <span class="px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-300">
+              5 Conflicts Flagged
+            </span>
+          </div>
+          <div class="space-y-4">
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #PC-001: Concurrent Enrollment Restrictions</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service member is currently enrolled in Program A (Professional Development Track), but selected Program B (Leadership Certification) has institutional policy prohibiting concurrent enrollment in multiple certification programs.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Program A Enrollment</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Program:</strong> Professional Development Track</div>
+                      <div><strong>Enrollment Date:</strong> 2024-09-01</div>
+                      <div><strong>Expected Completion:</strong> 2025-08-31</div>
+                      <div><strong>Status:</strong> Active</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Policy: Concurrent Enrollment</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-2193 v4.1</div>
+                      <div><strong>Rule:</strong> Maximum 1 certification program</div>
+                      <div><strong>Type:</strong> Institutional Restriction</div>
+                      <div><strong>Effective Date:</strong> 2024-01-01</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Policy violation detected. Service member cannot enroll in Program B while actively enrolled in Program A. Policy does not specify waiver process or sequential enrollment timeline.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No Program A withdrawal suggested. No Program B deferral recommended. No policy waiver requested. No concurrent enrollment approved. Service member decision required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #PC-002: Geographic Restriction vs. Assignment Location</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Service member has documented geographic restriction (Region 3 only) due to family circumstances, but selected assignment opportunity is located in Region 7. Geographic incompatibility detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Geographic Restriction</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Service Member Profile</div>
+                      <div><strong>Restriction:</strong> Region 3 Only</div>
+                      <div><strong>Reason:</strong> Family Circumstances</div>
+                      <div><strong>Valid Until:</strong> 2026-12-31</div>
+                      <div><strong>Modification Process:</strong> Documented</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Selected: Assignment Location</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Assignment:</strong> Leadership Role - Region 7</div>
+                      <div><strong>Location:</strong> Region 7 (Fixed)</div>
+                      <div><strong>Duration:</strong> 24 months</div>
+                      <div><strong>Remote Option:</strong> Not Available</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Geographic mismatch detected. Assignment requires physical presence in Region 7. Service member restricted to Region 3. No remote work option available for this assignment type.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No restriction modification initiated. No alternative assignments suggested. No remote work arrangement proposed. Service member must resolve geographic conflict.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #PC-003: Budget Cycle vs. Funding Availability</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Selected program requires funding allocation from FY2025 budget, but institutional policy restricts FY2025 allocations to requests submitted before 2024-10-31. Application date (2025-01-09) exceeds policy deadline by 70 days.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Policy: Budget Cycle Restrictions</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Policy POL-4782 v3.3</div>
+                      <div><strong>FY2025 Deadline:</strong> 2024-10-31</div>
+                      <div><strong>Type:</strong> Hard Deadline (No Extensions)</div>
+                      <div><strong>Rationale:</strong> Budget finalization process</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Application Date</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Application Date:</strong> 2025-01-09</div>
+                      <div><strong>Days Past Deadline:</strong> 70 days</div>
+                      <div><strong>Next Budget Cycle:</strong> FY2026 (opens 2025-07-01)</div>
+                      <div><strong>Wait Period:</strong> 173 days</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Application submitted after FY2025 budget cycle deadline. Policy prohibits late allocations. Next available funding cycle is FY2026. Service member must wait 173 days or seek alternative funding source.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No late allocation requested. No budget cycle exception proposed. No alternative funding sources identified. Service member must wait or modify plan.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #PC-004: Supervisor Approval vs. Chain of Command</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Selected program requires supervisor approval at Level 2 (Department Head), but service member's current supervisor is Level 1 (Team Lead). Chain of command gap detected per institutional policy POL-3398 v2.5.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Supervisor Level</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Current Supervisor:</strong> Team Lead (Level 1)</div>
+                      <div><strong>Approval Authority:</strong> Limited</div>
+                      <div><strong>Can Approve:</strong> Training, Leave, Equipment</div>
+                      <div><strong>Cannot Approve:</strong> Career Programs, Certifications</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Requirement: Approval Authority</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Required Level:</strong> Department Head (Level 2)</div>
+                      <div><strong>Source:</strong> Policy POL-3398 v2.5</div>
+                      <div><strong>Type:</strong> Mandatory Approval</div>
+                      <div><strong>Delegation:</strong> Not Permitted</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Approval authority gap detected. Current supervisor lacks authority to approve this program type. Service member must route request to Level 2 supervisor (Department Head). No automatic routing configured.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No automatic escalation triggered. No approval delegation requested. No authority level override applied. Service member must route to appropriate authority.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-300 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 px-4 py-3 border-b border-neutral-200">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-neutral-600"></i>
+                    <span class="text-neutral-900">Conflict #PC-005: Medical Clearance vs. Program Requirements</span>
+                  </div>
+                  <span class="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs rounded">Unresolved</span>
+                </div>
+              </div>
+              <div class="p-4">
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Description</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Selected program includes physical training component requiring medical clearance Level 2 (Unrestricted Physical Activity). Service member's current medical clearance is Level 1 (Limited Physical Activity). Clearance level incompatibility detected.</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Current Status: Medical Clearance</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Medical Records System</div>
+                      <div><strong>Level:</strong> 1 (Limited Physical Activity)</div>
+                      <div><strong>Issued:</strong> 2024-11-20</div>
+                      <div><strong>Valid Until:</strong> 2025-05-20</div>
+                      <div><strong>Restrictions:</strong> No high-intensity activities</div>
+                    </div>
+                  </div>
+                  <div class="p-3 bg-neutral-50 border border-neutral-200 rounded">
+                    <div class="text-xs text-neutral-900 mb-2">Requirement: Program Prerequisites</div>
+                    <div class="text-xs text-neutral-600 space-y-1">
+                      <div><strong>Source:</strong> Program Guidelines PG-2025-L4</div>
+                      <div><strong>Required Level:</strong> 2 (Unrestricted)</div>
+                      <div><strong>Component:</strong> Physical Training (Mandatory)</div>
+                      <div><strong>Duration:</strong> 8 weeks</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="text-sm text-neutral-900 mb-2">Conflict Analysis</div>
+                  <div class="text-sm text-neutral-700 leading-relaxed">Medical clearance level insufficient for program physical requirements. Current restrictions prohibit high-intensity activities required by program. No alternative program track without physical component identified.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 border-2 border-neutral-300 rounded">
+                  <div class="flex items-start gap-2">
+                    <i class="fa-solid fa-ban text-neutral-600 text-sm mt-0.5"></i>
+                    <div class="text-xs text-neutral-700">
+                      <strong>Non-Event:</strong> No medical clearance upgrade initiated. No program modification suggested. No physical component waiver requested. Service member must obtain appropriate clearance or select alternative program.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="passed-checks" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-check-circle text-neutral-600 text-xl"></i>
+              <h3 class="text-lg text-neutral-900">Passed Constraint Checks</h3>
+            </div>
+            <span class="px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-300">
+              35 Checks Passed
+            </span>
+          </div>
+          <div class="mb-4 p-4 bg-neutral-50 border border-neutral-200 rounded">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-circle-info text-neutral-600 mt-0.5"></i>
+              <div class="flex-1">
+                <div class="text-sm text-neutral-900 mb-1">No Conflicts Detected</div>
+                <div class="text-xs text-neutral-700 leading-relaxed">The following constraint categories passed all checks. No conflicts, incompatibilities, or policy violations detected. These checks confirm alignment between service member inputs and institutional requirements.</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Rank Requirements</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">All rank prerequisites satisfied</div>
+              <div class="text-xs text-neutral-500">8 checks passed</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Educational Prerequisites</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">All educational requirements met</div>
+              <div class="text-xs text-neutral-500">6 checks passed</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Performance Standards</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">Performance criteria satisfied</div>
+              <div class="text-xs text-neutral-500">5 checks passed</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Disciplinary Status</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">No disciplinary restrictions</div>
+              <div class="text-xs text-neutral-500">4 checks passed</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Language Proficiency</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">Language requirements satisfied</div>
+              <div class="text-xs text-neutral-500">3 checks passed</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-check text-neutral-600"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Administrative Status</div>
+              </div>
+              <div class="text-xs text-neutral-600 mb-2">All administrative checks passed</div>
+              <div class="text-xs text-neutral-500">9 checks passed</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="constraint-matrix" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <h3 class="text-lg text-neutral-900 mb-4">Constraint Check Matrix</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-neutral-50">
+                <tr>
+                  <th class="px-3 py-2 text-left text-neutral-900">Check ID</th>
+                  <th class="px-3 py-2 text-left text-neutral-900">Category</th>
+                  <th class="px-3 py-2 text-left text-neutral-900">Description</th>
+                  <th class="px-3 py-2 text-left text-neutral-900">Data Source</th>
+                  <th class="px-3 py-2 text-left text-neutral-900">Policy Reference</th>
+                  <th class="px-3 py-2 text-left text-neutral-900">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200">
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-001</td>
+                  <td class="px-3 py-2 text-neutral-700">Time</td>
+                  <td class="px-3 py-2 text-neutral-700">Completion deadline vs. eligibility window</td>
+                  <td class="px-3 py-2 text-neutral-700">User Input, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-2847 v3.2</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-002</td>
+                  <td class="px-3 py-2 text-neutral-700">Time</td>
+                  <td class="px-3 py-2 text-neutral-700">Processing duration vs. submission deadline</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy DB, External Agency</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-1642 v2.8</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-003</td>
+                  <td class="px-3 py-2 text-neutral-700">Time</td>
+                  <td class="px-3 py-2 text-neutral-700">Training duration vs. deployment window</td>
+                  <td class="px-3 py-2 text-neutral-700">Training Catalog, Deployment Schedule</td>
+                  <td class="px-3 py-2 text-neutral-700">TC-2025-Q1, DS-2025-07</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-004</td>
+                  <td class="px-3 py-2 text-neutral-700">Time</td>
+                  <td class="px-3 py-2 text-neutral-700">Maintenance period vs. availability requirement</td>
+                  <td class="px-3 py-2 text-neutral-700">IT Operations, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-1893 v2.1</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-005</td>
+                  <td class="px-3 py-2 text-neutral-700">Eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Clearance level vs. assignment requirements</td>
+                  <td class="px-3 py-2 text-neutral-700">Security Clearance DB, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-3104 v1.8</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-006</td>
+                  <td class="px-3 py-2 text-neutral-700">Eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Service duration vs. program eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Service Record DB, Program Guidelines</td>
+                  <td class="px-3 py-2 text-neutral-700">PG-2025-A7</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-007</td>
+                  <td class="px-3 py-2 text-neutral-700">Eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Credential status vs. application requirements</td>
+                  <td class="px-3 py-2 text-neutral-700">Service Record DB, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-1893 v2.1</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-008</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy</td>
+                  <td class="px-3 py-2 text-neutral-700">Concurrent enrollment restrictions</td>
+                  <td class="px-3 py-2 text-neutral-700">Enrollment DB, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-2193 v4.1</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-009</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy</td>
+                  <td class="px-3 py-2 text-neutral-700">Geographic restriction vs. assignment location</td>
+                  <td class="px-3 py-2 text-neutral-700">Service Member Profile, Assignment DB</td>
+                  <td class="px-3 py-2 text-neutral-700">N/A (Profile-based)</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-010</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy</td>
+                  <td class="px-3 py-2 text-neutral-700">Budget cycle vs. funding availability</td>
+                  <td class="px-3 py-2 text-neutral-700">Budget System, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-4782 v3.3</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-011</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy</td>
+                  <td class="px-3 py-2 text-neutral-700">Supervisor approval vs. chain of command</td>
+                  <td class="px-3 py-2 text-neutral-700">Org Chart, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-3398 v2.5</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-012</td>
+                  <td class="px-3 py-2 text-neutral-700">Policy</td>
+                  <td class="px-3 py-2 text-neutral-700">Medical clearance vs. program requirements</td>
+                  <td class="px-3 py-2 text-neutral-700">Medical Records, Program Guidelines</td>
+                  <td class="px-3 py-2 text-neutral-700">PG-2025-L4</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-100 text-neutral-700 rounded text-[10px]">Conflict</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-013</td>
+                  <td class="px-3 py-2 text-neutral-700">Eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Rank requirements</td>
+                  <td class="px-3 py-2 text-neutral-700">Service Record DB, Program Guidelines</td>
+                  <td class="px-3 py-2 text-neutral-700">PG-2025-A7</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-50 text-neutral-700 rounded text-[10px]">Passed</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-014</td>
+                  <td class="px-3 py-2 text-neutral-700">Eligibility</td>
+                  <td class="px-3 py-2 text-neutral-700">Educational prerequisites</td>
+                  <td class="px-3 py-2 text-neutral-700">Education Records, Program Guidelines</td>
+                  <td class="px-3 py-2 text-neutral-700">PG-2025-A7</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-50 text-neutral-700 rounded text-[10px]">Passed</span></td>
+                </tr>
+                <tr>
+                  <td class="px-3 py-2 text-neutral-700">CHK-015</td>
+                  <td class="px-3 py-2 text-neutral-700">Performance</td>
+                  <td class="px-3 py-2 text-neutral-700">Performance evaluation standards</td>
+                  <td class="px-3 py-2 text-neutral-700">Performance DB, Policy DB</td>
+                  <td class="px-3 py-2 text-neutral-700">POL-5621 v1.9</td>
+                  <td class="px-3 py-2"><span class="px-2 py-1 bg-neutral-50 text-neutral-700 rounded text-[10px]">Passed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="governance-compliance" class="px-6 pb-6">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <h3 class="text-lg text-neutral-900 mb-4">Governance & Compliance Verification</h3>
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div class="border border-neutral-300 rounded-lg p-4 bg-neutral-50">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 bg-neutral-200 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-shield-halved text-neutral-700"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Non-Authoritative Processing</div>
+              </div>
+              <div class="text-xs text-neutral-700 leading-relaxed">
+                All constraint checks performed without decision authority. Conflicts flagged but not resolved. No automatic overrides, waivers, or modifications applied. Human decision authority fully preserved.
+              </div>
+            </div>
+            <div class="border border-neutral-300 rounded-lg p-4 bg-neutral-50">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 bg-neutral-200 rounded-full flex items-center justify-center">
+                  <i class="fa-solid fa-clipboard-check text-neutral-700"></i>
+                </div>
+                <div class="text-sm text-neutral-900">Advisory Flagging Only</div>
+              </div>
+              <div class="text-xs text-neutral-700 leading-relaxed">
+                All flagged conflicts are advisory only. No conflict labeled as "critical," "blocking," or "must-resolve." No priority ordering applied. Human interpretation required for all conflicts.
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-neutral-50 border-2 border-neutral-300 rounded">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-ban text-neutral-600 text-xl mt-0.5"></i>
+              <div class="flex-1">
+                <div class="text-sm text-neutral-900 mb-2">Explicit Non-Events (Actions Not Taken)</div>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Resolutions:</strong> No conflict resolution proposed or applied
+                  </div>
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Priorities:</strong> No conflicts ranked by severity or urgency
+                  </div>
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Recommendations:</strong> No resolution pathways suggested
+                  </div>
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Overrides:</strong> No policy or constraint overrides applied
+                  </div>
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Waivers:</strong> No automatic waiver requests generated
+                  </div>
+                  <div class="text-xs text-neutral-700">
+                    <strong>No Modifications:</strong> No input or constraint modifications made
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="next-steps" class="px-6 pb-8">
+        <div class="bg-white rounded-lg border border-neutral-200 p-6">
+          <h3 class="text-lg text-neutral-900 mb-4">Required Human Actions</h3>
+          <div class="mb-4 p-4 bg-neutral-50 border border-neutral-200 rounded">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-user-check text-neutral-600 text-xl mt-0.5"></i>
+              <div class="flex-1">
+                <div class="text-sm text-neutral-900 mb-2">Human Review and Decision Required</div>
+                <div class="text-xs text-neutral-700 leading-relaxed">
+                  All flagged conflicts require human interpretation and institutional decision-making. No automated resolution available. Service member consultation and institutional oversight mandatory for all conflicts.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Review all 12 flagged conflicts for completeness and accuracy</div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Consult with service member on priority and preferences for conflict resolution</div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Evaluate institutional options for time, eligibility, and policy conflicts</div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Determine if waivers, extensions, or modifications are available per institutional policy</div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Route requests to appropriate approval authorities as needed</div>
+            </div>
+            <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded border border-neutral-200">
+              <i class="fa-solid fa-circle text-neutral-400 text-[6px] mt-1.5"></i>
+              <div class="text-sm text-neutral-700">Document all decisions and rationale for audit trail</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm text-neutral-900 mb-1">Constraint Analysis Complete</div>
+              <div class="text-xs text-neutral-600">All checks performed. Human interpretation required.</div>
+            </div>
+            <div class="flex gap-3">
+              <button class="px-6 py-2 bg-white border border-neutral-300 rounded text-sm text-neutral-700 hover:bg-neutral-50">
+                <i class="fa-solid fa-download mr-2"></i>Download Full Report
+              </button>
+              <button class="px-6 py-2 bg-white border border-neutral-300 rounded text-sm text-neutral-700 hover:bg-neutral-50">
+                <i class="fa-solid fa-print mr-2"></i>Print Analysis
+              </button>
+              <button class="px-6 py-2 bg-neutral-600 text-white rounded text-sm hover:bg-neutral-700">
+                <i class="fa-solid fa-user-check mr-2"></i>Begin Human Review Process
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+                        </body>
+                        </html>
+                        

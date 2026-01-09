@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Cpu, ChevronRight, FileInput, AlertTriangle, Layers, Eye, Radio, Database, ArrowRightLeft, LogOut, XCircle } from "lucide-react";
+import { Cpu, ChevronRight, FileInput, AlertTriangle, Layers, Eye, Radio, Database, ArrowRightLeft, LogOut, XCircle, ExternalLink, FileCode } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const pages = [
@@ -9,51 +9,61 @@ const pages = [
     id: "normalization",
     title: "Input Normalization",
     description: "Standardize inputs from service member interface into structured formats for analysis. No interpretation or judgment applied.",
-    icon: FileInput
+    icon: FileInput,
+    demoUrl: "/demos/part-c/input-normalization.html"
   },
   {
     id: "constraint-analysis",
     title: "Constraint Analysis",
     description: "Identify conflicts between stated goals and known constraints. Surface conflicts for human review—never resolve autonomously.",
-    icon: AlertTriangle
+    icon: AlertTriangle,
+    demoUrl: "/demos/part-c/constraint-analysis.html"
   },
   {
     id: "scenario-construction",
     title: "Scenario Construction",
     description: "Generate hypothetical pathways based on normalized inputs. All scenarios are exploratory and non-binding.",
-    icon: Layers
+    icon: Layers,
+    demoUrl: "/demos/part-c/scenario-construction.html"
   },
   {
     id: "explainability",
     title: "Explainability Layer",
     description: "Ensure all AI outputs can be traced to inputs and rules. No black-box processing. Every output must be auditable.",
-    icon: Eye
+    icon: Eye,
+    demoUrl: "/demos/part-c/explainability.html"
   },
   {
     id: "signal-generation",
     title: "Signal Generation",
     description: "Produce advisory signals for human reviewers. Signals are informational only—never prescriptive or directive.",
-    icon: Radio
+    icon: Radio,
+    demoUrl: "/demos/part-c/signal-generation.html"
   },
   {
     id: "aggregation",
     title: "Aggregation Boundary Check",
     description: "Ensure population-level aggregation only. No individual profiling permitted. Data aggregation respects privacy boundaries.",
-    icon: Database
+    icon: Database,
+    demoUrl: "/demos/part-c/aggregation-boundary.html"
   },
   {
     id: "handoff",
     title: "Human Handoff Preparation",
     description: "Package AI outputs for human review. Surface uncertainty explicitly. Prevent automation bias through design.",
-    icon: ArrowRightLeft
+    icon: ArrowRightLeft,
+    demoUrl: "/demos/part-c/human-handoff.html"
   },
   {
     id: "exit",
     title: "Exit Overview",
     description: "Clear boundary where AI processing ends and human authority begins. All subsequent decisions are human-made.",
-    icon: LogOut
+    icon: LogOut,
+    demoUrl: "/demos/part-c/exit-overview.html"
   }
 ];
+
+const specSheetUrl = "/demos/part-c/spec-sheet.html";
 
 const hardConstraints = [
   "No autonomous action",
@@ -124,7 +134,19 @@ export default function PartC() {
         </Card>
 
         <section className="mb-10">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Processing Stages</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Processing Stages</h2>
+            <a 
+              href={specSheetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 rounded text-xs text-purple-600 dark:text-purple-400 transition-colors"
+              data-testid="link-spec-sheet"
+            >
+              <FileCode className="h-3 w-3" />
+              View AI Governance Spec Sheet
+            </a>
+          </div>
           <div className="grid gap-4 md:grid-cols-2">
             {pages.map((page, index) => (
               <Card key={page.id} className="border-border/50" data-testid={`card-${page.id}`}>
@@ -133,12 +155,22 @@ export default function PartC() {
                     <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
                       <page.icon className="h-5 w-5 text-purple-500" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs font-mono text-muted-foreground">Stage {index + 1}</span>
                       </div>
                       <h3 className="font-medium text-foreground text-sm mb-1">{page.title}</h3>
-                      <p className="text-xs text-muted-foreground">{page.description}</p>
+                      <p className="text-xs text-muted-foreground mb-2">{page.description}</p>
+                      <a 
+                        href={page.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-xs text-purple-500 hover:text-purple-600"
+                        data-testid={`link-demo-${page.id}`}
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        View Stage Demo
+                      </a>
                     </div>
                   </div>
                 </CardContent>
