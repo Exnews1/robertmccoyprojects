@@ -6,32 +6,22 @@ import { CMGFNav } from "@/components/cmgf-nav";
 
 const documents = [
   {
-    id: "presentation",
-    title: "CCME 2026 Conference Presentation",
-    description: "Presented at the Council of College and Military Educators 2026 Learner Track. Addresses bounded AI governance for military-to-civilian transitions.",
-    type: "PDF",
-    icon: Presentation,
-    filename: "Career_Mobility_2026_CCME.pdf",
-    version: "1.0",
-    date: "January 2026"
-  },
-  {
     id: "paper",
     title: "CMGF Research Paper",
     description: "Complete research paper detailing the Career Mobility Governance Framework. Includes system architecture, ethical constraints, and implementation guidance.",
     type: "PDF",
     icon: FileText,
-    filename: "CMGF_Research_Paper.pdf",
+    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf",
     version: "1.0",
     date: "January 2026"
   },
   {
-    id: "supplemental",
-    title: "Supplemental Framework Documentation",
-    description: "Additional framework materials including compliance matrices, governance diagrams, and policy references.",
+    id: "presentation",
+    title: "CCME 2026 Conference Presentation",
+    description: "Presented at the Council of College and Military Educators 2026 Learner Track. Addresses bounded AI governance for military-to-civilian transitions.",
     type: "PDF",
-    icon: BookOpen,
-    filename: "CMGF_Supplemental.pdf",
+    icon: Presentation,
+    href: "/attached_assets/CCME_2026_1767730819889.pdf",
     version: "1.0",
     date: "January 2026"
   }
@@ -80,9 +70,11 @@ export default function Downloads() {
                           <span>{doc.date}</span>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm" className="flex-shrink-0" data-testid={`button-download-${doc.id}`}>
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
+                      <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                        <a href={doc.href} download>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
                       </Button>
                     </div>
                   </div>
