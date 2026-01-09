@@ -91,57 +91,6 @@ export default function CMGFRoot() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Author</h2>
-          <Card className="border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <User className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">Robert E. McCoy</h3>
-                  <p className="text-sm text-muted-foreground">MBA, M.S. AI & Data Analytics</p>
-                  <a 
-                    href="mailto:robert.mccoy@indwes.edu" 
-                    className="text-sm text-primary hover:underline mt-1 inline-block"
-                    data-testid="link-author-email"
-                  >
-                    robert.mccoy@indwes.edu
-                  </a>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="mb-12">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Author Bio</h2>
-          <Card className="border-border/50">
-            <CardContent className="p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <User className="h-8 w-8 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground text-lg">Robert E. McCoy</h3>
-                  <p className="text-sm text-muted-foreground mb-2">MBA, M.S. AI & Data Analytics</p>
-                  <p className="text-sm text-foreground mb-3">
-                    Researcher and practitioner focused on ethical AI governance, human-centered system design, and military-to-civilian career transitions. This framework emerges from direct engagement with the structural challenges facing approximately 150,000 service members transitioning annually.
-                  </p>
-                  <a 
-                    href="mailto:robert.mccoy@indwes.edu" 
-                    className="text-sm text-primary hover:underline"
-                    data-testid="link-bio-email"
-                  >
-                    robert.mccoy@indwes.edu
-                  </a>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
         <section>
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Design Principles</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
