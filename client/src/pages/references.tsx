@@ -182,9 +182,9 @@ export default function References() {
                   asChild
                   data-testid="button-download-primary-paper"
                 >
-                  <a href="/attached_assets/Career_Mobility_2026__CCME_1767731035930.docx" download target="_blank" rel="noopener noreferrer">
+                  <a href="/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
-                    Download Paper (DOCX)
+                    Download Paper (PDF)
                   </a>
                 </Button>
               </div>
