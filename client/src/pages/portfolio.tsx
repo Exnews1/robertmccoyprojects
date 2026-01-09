@@ -1,6 +1,24 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Shield, BookOpen, Users, GraduationCap, Award, Briefcase } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Shield, BookOpen, Users, GraduationCap, Award, Briefcase, Download, FileText, Presentation } from "lucide-react";
+
+const featuredDocuments = [
+  {
+    id: "paper",
+    title: "CMGF Research Paper",
+    description: "Complete framework paper with system architecture and implementation guidance",
+    icon: FileText,
+    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf"
+  },
+  {
+    id: "presentation",
+    title: "CCME 2026 Presentation",
+    description: "Conference presentation on bounded AI governance for military transitions",
+    icon: Presentation,
+    href: "/attached_assets/CCME_2026_1767730819889.pdf"
+  }
+];
 
 const projects = [
   {
@@ -28,6 +46,33 @@ export default function Portfolio() {
             </a>
           </div>
         </header>
+
+        <section className="mb-12">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Featured Documents</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {featuredDocuments.map((doc) => (
+              <Card key={doc.id} className="border-border/50 border-primary/20 bg-primary/5" data-testid={`card-featured-doc-${doc.id}`}>
+                <CardContent className="p-5">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
+                      <Button variant="default" size="sm" asChild data-testid={`button-download-${doc.id}`}>
+                        <a href={doc.href} download>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download PDF
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
         <section>
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">Projects</h2>

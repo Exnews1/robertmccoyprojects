@@ -1,8 +1,25 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+
+const canonicalDocuments = [
+  {
+    id: "paper",
+    title: "CMGF Research Paper",
+    description: "Complete research paper with system architecture and implementation guidance",
+    icon: FileText,
+    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf"
+  },
+  {
+    id: "presentation",
+    title: "CCME 2026 Presentation",
+    description: "Conference presentation on bounded AI governance",
+    icon: Presentation,
+    href: "/attached_assets/CCME_2026_1767730819889.pdf"
+  }
+];
 
 const sections = [
   {
@@ -49,6 +66,33 @@ export default function CMGFRoot() {
             An authoritative framework addressing the structural paradox of $13.5B annual education benefits versus $140M transition-specific advising. Designed for academic, policy, and institutional audiences.
           </p>
         </header>
+
+        <section className="mb-10">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Download Research Documents</h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            {canonicalDocuments.map((doc) => (
+              <Card key={doc.id} className="border-primary/20 bg-primary/5" data-testid={`card-canon-doc-${doc.id}`}>
+                <CardContent className="p-5">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
+                      <Button variant="default" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
+                        <a href={doc.href} download>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download PDF
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Overview</h2>
