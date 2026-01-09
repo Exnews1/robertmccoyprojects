@@ -1,0 +1,1267 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+<div id="cmgf-demo-nav" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#171717;padding:8px 16px;display:flex;align-items:center;gap:16px;font-family:system-ui,-apple-system,sans-serif;font-size:13px;border-bottom:1px solid #333;">
+  <a href="/cmgf" style="color:#a3a3a3;text-decoration:none;">&larr; CMGF</a>
+  <span style="color:#525252;">|</span>
+  <a href="/cmgf/walkthrough/part-a" style="color:#a3a3a3;text-decoration:none;">Part A</a>
+  <span style="color:#525252;">|</span>
+  <a href="/cmgf/walkthrough/part-b" style="color:#22c55e;text-decoration:none;font-weight:500;">Part B: Institutional</a>
+  <span style="color:#525252;">|</span>
+  <a href="/cmgf/walkthrough/part-c" style="color:#a3a3a3;text-decoration:none;">Part C</a>
+  <span style="color:#525252;">|</span>
+  <span style="color:#22c55e;font-weight:500;">ESO Human System</span>
+</div>
+<div style="height:44px;"></div>
+
+                        <div id="audit-trail-workspace" class="flex h-screen bg-white">
+  <div id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-neutral-900 text-white border-r border-neutral-800">
+    <div class="p-6 border-b border-neutral-800">
+      <div class="flex items-center space-x-3 mb-1">
+        <div class="bg-white rounded-lg p-2">
+          <i class="fa-solid fa-shield-halved text-neutral-900 text-xl"></i>
+        </div>
+        <div>
+          <div class="text-lg">CMGF System</div>
+          <div class="text-xs text-neutral-400">Human Review Layer</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="mt-4 px-3">
+      <div class="text-xs text-neutral-500 uppercase tracking-wider mb-3 px-3">Part B Navigation</div>
+      <ul class="space-y-1">
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-user-check w-5"></i>
+            <span class="ml-3 text-sm">B1: Advisor Review</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-graduation-cap w-5"></i>
+            <span class="ml-3 text-sm">B2: Educator Validation</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-gavel w-5"></i>
+            <span class="ml-3 text-sm">B3: Admin Decision</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-exchange-alt w-5"></i>
+            <span class="ml-3 text-sm">B4: Human Handoff</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg bg-neutral-800 text-white" href="#">
+            <i class="fa-solid fa-clipboard-list w-5"></i>
+            <span class="ml-3 text-sm">B5: Audit Trail</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-file-alt w-5"></i>
+            <span class="ml-3 text-sm">B6: Decision Summary</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-8 px-3">
+        <div class="text-xs text-neutral-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <ul class="space-y-1">
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-inbox w-5"></i>
+              <span class="ml-3">Review Queue</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">12</span>
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-flag w-5"></i>
+              <span class="ml-3">Flagged Cases</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">3</span>
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-clock w-5"></i>
+              <span class="ml-3">Pending Review</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">8</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="absolute bottom-0 w-full p-4 border-t border-neutral-800">
+      <div class="flex items-center space-x-3 mb-3">
+        <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=847" alt="User" class="w-10 h-10 rounded-full"/>
+        <div class="flex-1">
+          <div class="text-sm">Dr. Sarah Martinez</div>
+          <div class="text-xs text-neutral-400">Senior Advisor</div>
+        </div>
+      </div>
+      <button class="flex items-center text-neutral-300 hover:text-white text-sm w-full">
+        <i class="fa-solid fa-cog w-5"></i>
+        <span class="ml-3">Settings</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="main-content" class="ml-72 flex-1 flex flex-col">
+    <header id="header" class="bg-white border-b border-neutral-200 px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <div>
+            <h1 class="text-2xl text-neutral-900">B5: Audit Trail & Rationale Log</h1>
+            <p class="text-sm text-neutral-600 mt-1">Institutional memory and accountability documentation system</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50 flex items-center">
+            <i class="fa-solid fa-filter mr-2"></i>
+            Advanced Filters
+          </button>
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50 flex items-center">
+            <i class="fa-solid fa-download mr-2"></i>
+            Export Records
+          </button>
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50 flex items-center">
+            <i class="fa-solid fa-file-pdf mr-2"></i>
+            Generate Report
+          </button>
+          <button class="p-2 hover:bg-neutral-100 rounded-lg">
+            <i class="fa-regular fa-bell text-neutral-600"></i>
+          </button>
+          <button class="p-2 hover:bg-neutral-100 rounded-lg">
+            <i class="fa-solid fa-question-circle text-neutral-600"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section id="immutability-banner" class="bg-neutral-900 text-white px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="bg-white rounded-lg p-2">
+            <i class="fa-solid fa-lock text-neutral-900 text-xl"></i>
+          </div>
+          <div>
+            <div class="text-lg">Read-Only Audit System</div>
+            <div class="text-sm text-neutral-300">All records are immutable and permanently preserved. No deletion or modification permitted after finalization.</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="bg-neutral-800 px-4 py-2 rounded-lg border border-neutral-700">
+            <div class="text-xs text-neutral-400">Total Records</div>
+            <div class="text-sm">12,847</div>
+          </div>
+          <div class="bg-neutral-800 px-4 py-2 rounded-lg border border-neutral-700">
+            <div class="text-xs text-neutral-400">Active Cases</div>
+            <div class="text-sm">156</div>
+          </div>
+          <div class="bg-neutral-800 px-4 py-2 rounded-lg border border-neutral-700">
+            <div class="text-xs text-neutral-400">Finalized Today</div>
+            <div class="text-sm">23</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="audit-workspace-container" class="flex-1 overflow-y-auto">
+      <div class="p-8">
+        <section id="search-filters-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-search mr-2 text-neutral-600"></i>
+            Search & Filter Audit Records
+          </h3>
+
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Case ID or Service Member</label>
+              <div class="relative">
+                <i class="fa-solid fa-search absolute left-3 top-3 text-neutral-400"></i>
+                <input type="text" placeholder="Search by case ID, name, or SSN..." class="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-lg text-sm"/>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Date Range</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>Last 7 days</option>
+                <option>Last 30 days</option>
+                <option>Last 90 days</option>
+                <option>Last 6 months</option>
+                <option>Last year</option>
+                <option>Custom range</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Decision Status</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>All statuses</option>
+                <option>Approved</option>
+                <option>Denied</option>
+                <option>Revision requested</option>
+                <option>Deferred</option>
+                <option>In progress</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Review Phase</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>All phases</option>
+                <option>B1: Advisor Review</option>
+                <option>B2: Educator Validation</option>
+                <option>B3: Admin Decision</option>
+                <option>B4: Human Handoff</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Reviewer Role</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>All roles</option>
+                <option>Senior Advisor</option>
+                <option>Educator</option>
+                <option>Administrator</option>
+                <option>Program Coordinator</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Priority Level</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>All priorities</option>
+                <option>High priority</option>
+                <option>Standard</option>
+                <option>Low priority</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-700 mb-2">Record Type</label>
+              <select class="w-full border border-neutral-300 rounded-lg px-4 py-2 text-sm">
+                <option>All types</option>
+                <option>Decision records</option>
+                <option>Human annotations</option>
+                <option>AI signals</option>
+                <option>Policy citations</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between mt-4 pt-4 border-t border-neutral-200">
+            <div class="flex items-center space-x-2">
+              <button class="px-4 py-2 bg-neutral-900 text-white rounded-lg text-sm hover:bg-neutral-800">
+                <i class="fa-solid fa-search mr-2"></i>
+                Apply Filters
+              </button>
+              <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50">
+                <i class="fa-solid fa-undo mr-2"></i>
+                Reset
+              </button>
+            </div>
+            <div class="text-sm text-neutral-600">
+              Showing 847 records
+            </div>
+          </div>
+        </section>
+
+        <section id="case-detail-view-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="flex items-center space-x-3 mb-2">
+                <h2 class="text-xl text-neutral-900">CASE-2025-0847: Complete Audit Record</h2>
+                <span class="bg-neutral-900 text-white text-xs px-3 py-1 rounded-full">Finalized</span>
+                <span class="bg-neutral-100 text-neutral-800 text-xs px-3 py-1 rounded-full">Approved</span>
+              </div>
+              <p class="text-sm text-neutral-600">SSgt. Michael Chen - Cybersecurity pathway transition request</p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+                <i class="fa-solid fa-print mr-2"></i>
+                Print Record
+              </button>
+              <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+                <i class="fa-solid fa-file-pdf mr-2"></i>
+                Export PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-5 gap-4 mb-6">
+            <div class="border border-neutral-200 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-1">Case Initiated</div>
+              <div class="text-sm text-neutral-900">Jan 8, 2025</div>
+              <div class="text-xs text-neutral-600">09:23 AM EST</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-1">Decision Date</div>
+              <div class="text-sm text-neutral-900">Jan 9, 2025</div>
+              <div class="text-xs text-neutral-600">16:47 PM EST</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-1">Total Duration</div>
+              <div class="text-sm text-neutral-900">31 hours</div>
+              <div class="text-xs text-neutral-600">24 minutes</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-1">Reviewers</div>
+              <div class="text-sm text-neutral-900">3 humans</div>
+              <div class="text-xs text-neutral-600">Multi-phase</div>
+            </div>
+            <div class="border border-neutral-200 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-1">Record Status</div>
+              <div class="text-sm text-neutral-900">Immutable</div>
+              <div class="text-xs text-neutral-600">Finalized</div>
+            </div>
+          </div>
+
+          <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start space-x-3">
+              <i class="fa-solid fa-lock text-neutral-700 mt-1"></i>
+              <div>
+                <div class="text-sm text-neutral-900 mb-1">Immutability Certification</div>
+                <div class="text-sm text-neutral-700">This audit record was finalized on January 9, 2025 at 16:47:32 EST. All entries are cryptographically sealed and cannot be modified, deleted, or altered. Digital signature: 8f3a9c2e7b1d4f6a9e3c8b2d7f1a5e9c</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-neutral-900 mb-3 flex items-center">
+                <i class="fa-solid fa-timeline mr-2 text-neutral-600"></i>
+                Complete Decision Chronology
+              </h3>
+              
+              <div class="space-y-4">
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-900 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">1</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Initiated by Service Member</div>
+                        <div class="text-xs text-neutral-600">January 8, 2025 at 09:23:17 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Entry Point</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    SSgt. Michael Chen submitted pathway transition request through CMGF Part A interface. Service member explicitly requested human review rather than automated guidance. Request included: personal statement (487 words), educational background documentation, certification records (4 credentials), and career goal narrative.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-user mr-1"></i> SSgt. Michael Chen</span>
+                    <span><i class="fa-solid fa-id-badge mr-1"></i> Service Member ID: SM-847-2025</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-800 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">2</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Entered Review Queue</div>
+                        <div class="text-xs text-neutral-600">January 8, 2025 at 09:30:42 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">System Action</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Case flagged for human review based on: (1) Explicit service member request for human guidance, (2) Complex credential mapping scenario involving multiple certifications, (3) Multiple potential pathway options requiring professional interpretation. Case assigned priority level: High.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-robot mr-1"></i> CMGF System</span>
+                    <span><i class="fa-solid fa-flag mr-1"></i> Review trigger: Human request</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">3</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">AI Signals Generated</div>
+                        <div class="text-xs text-neutral-600">January 8, 2025 at 09:45:18 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">AI Processing</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed mb-3">
+                    Three contextual signals generated using pattern matching and data aggregation algorithms. Signals represent descriptive statistics only—no predictions or recommendations generated.
+                  </div>
+                  <div class="ml-11 space-y-2">
+                    <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                      <div class="text-xs text-neutral-900 mb-1">Signal 1: Credential Alignment Pattern Detection</div>
+                      <div class="text-xs text-neutral-700">Analysis of 847 similar service member profiles with AFSC 3D1X2 and comparable certifications. Data sources: CCAF Transcript Database, Certification Registry, Historical Pathway Records.</div>
+                    </div>
+                    <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                      <div class="text-xs text-neutral-900 mb-1">Signal 2: Institutional Program Alignment</div>
+                      <div class="text-xs text-neutral-700">Cross-reference of existing credits with partner institution program requirements. 40 programs identified with potential credit transfer efficiency.</div>
+                    </div>
+                    <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                      <div class="text-xs text-neutral-900 mb-1">Signal 3: Population Pattern Aggregation</div>
+                      <div class="text-xs text-neutral-700">Timeline and demographic aggregation showing typical 18-24 month completion patterns for similar profiles. Historical completion rate: 78% within 30 months.</div>
+                    </div>
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-microchip mr-1"></i> AI Signal Generator v3.2.1</span>
+                    <span><i class="fa-solid fa-database mr-1"></i> Data sources: 4 databases</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">4</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Assigned to Advisor</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 08:15:33 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">B1: Advisor Review</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Case CASE-2025-0847 assigned to Dr. Sarah Martinez (Senior Advisor, Credential Services) for human review and contextual analysis. Assignment based on advisor specialization in cybersecurity pathways and technology credentials.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-user-tie mr-1"></i> Dr. Sarah Martinez</span>
+                    <span><i class="fa-solid fa-id-card mr-1"></i> Advisor ID: ADV-1847</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">5</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Advisor Contextual Analysis Completed</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 10:42:55 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 text-neutral-900 px-2 py-1 rounded">Human Annotation</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed mb-3">
+                    Dr. Sarah Martinez completed comprehensive review of case materials, AI signals, and service member narrative. Total review time: 2 hours 27 minutes.
+                  </div>
+                  <div class="ml-11 space-y-3">
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Advisor Observations (Human Context)</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Service member demonstrates exceptional preparation and clear career focus. CISSP certification at E-5 level is noteworthy and indicates serious professional commitment. Military experience in cyber transport systems provides strong foundation for transition to civilian cybersecurity roles. However, I note that the service member is currently 45 credits into a Computer Science degree—important to consider whether continuing that program versus switching to a dedicated Cybersecurity program makes strategic sense. The CS degree with security focus may offer broader career flexibility."
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Missing Information Identified</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Would benefit from clarification on: (1) Specific career goals post-transition (penetration testing, security architecture, compliance, etc.), (2) Geographic constraints that might limit institutional options, (3) Timeline constraints related to potential separation or PCS moves, (4) Financial considerations regarding program costs and TA/GI Bill utilization."
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Preliminary Assessment</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Strong candidate for cybersecurity pathway. Recommend escalation to educator for academic validation of credit transfer efficiency and program alignment assessment. No concerns about feasibility. Service member's explicit request for human guidance is appropriate given the complexity of choosing between continuing current CS program versus switching to dedicated cybersecurity program."
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-clock mr-1"></i> Review duration: 2h 27m</span>
+                    <span><i class="fa-solid fa-pen mr-1"></i> 487 words documented</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">6</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Escalated to Educator</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 10:45:12 AM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">B2: Educator Validation</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Case routed to Prof. James Wilson (Lead Educator, Technology Programs) for academic validation and program alignment assessment. Escalation rationale: Advisor recommendation for educator review of credit transfer efficiency and program selection guidance.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-graduation-cap mr-1"></i> Prof. James Wilson</span>
+                    <span><i class="fa-solid fa-id-card mr-1"></i> Educator ID: EDU-2134</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">7</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Educator Validation Completed</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 14:18:27 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 text-neutral-900 px-2 py-1 rounded">Human Annotation</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed mb-3">
+                    Prof. James Wilson completed academic validation review including credit transfer analysis and program alignment assessment. Total review time: 3 hours 33 minutes.
+                  </div>
+                  <div class="ml-11 space-y-3">
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Academic Validation Assessment</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Reviewed service member's existing 45 credits and CCAF associate degree. Strong academic foundation with 3.7 GPA in technology coursework. Current Computer Science program at University of Maryland Global Campus appears to be progressing well. Analysis of credit transfer scenarios: (1) If continuing CS program: approximately 75 credits remaining, estimated 18-24 months to completion. (2) If switching to dedicated Cybersecurity program: would likely need to restart with ~60 credits remaining due to different core requirements, estimated 24-30 months to completion."
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Program Alignment Analysis</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Both pathways are academically viable. Computer Science with security focus offers broader career flexibility and stronger foundation in software development and systems architecture. Dedicated Cybersecurity programs offer deeper specialization in security operations, risk management, and compliance frameworks. Given service member's existing progress in CS program and strong certification portfolio (especially CISSP), recommend continuing CS degree while pursuing additional security-focused electives. This approach maximizes credit efficiency while building on existing momentum."
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Academic Risk Assessment</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "No significant academic risks identified. Service member has demonstrated strong academic performance and professional certification achievement. Deployment cycles and operational tempo may extend timeline but do not present fundamental feasibility concerns. Recommend escalation to administrator for final pathway approval with recommendation to continue current CS program."
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-clock mr-1"></i> Review duration: 3h 33m</span>
+                    <span><i class="fa-solid fa-pen mr-1"></i> 623 words documented</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">8</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Escalated to Administrator</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 14:22:45 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">B3: Admin Decision</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Case routed to Ms. Patricia Anderson (Senior Administrator, Pathway Approvals) for final institutional decision. Escalation includes complete advisor and educator annotations, AI signal summaries, and recommendation for pathway approval.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-gavel mr-1"></i> Ms. Patricia Anderson</span>
+                    <span><i class="fa-solid fa-id-card mr-1"></i> Admin ID: ADM-3421</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">9</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Final Decision Issued - APPROVED</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 16:47:32 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 text-neutral-900 px-2 py-1 rounded">Binding Decision</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed mb-3">
+                    Ms. Patricia Anderson issued final institutional decision after comprehensive review of all case materials, human annotations, and professional recommendations. Decision authority exercised under institutional policy framework for pathway approvals.
+                  </div>
+                  <div class="ml-11 space-y-3">
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Administrator Decision Rationale</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "After thorough review of advisor and educator assessments, I approve SSgt. Chen's pathway to continue his Bachelor of Science in Computer Science program at University of Maryland Global Campus with emphasis on security-focused electives. This decision is based on: (1) Strong academic performance demonstrated to date (3.7 GPA), (2) Exceptional professional certification achievement (CISSP at E-5 level), (3) Credit transfer efficiency favoring continuation of current program, (4) Educator recommendation supporting CS degree as providing broader career foundation while building on existing momentum, (5) Service member's clear career focus and preparation for cybersecurity transition. Approved pathway includes authorization for continued TA funding and recommendation for security-focused elective selection in consultation with academic advisor."
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Policy Citations</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3">
+                        <ul class="list-disc list-inside space-y-1 text-xs">
+                          <li>DoD Instruction 1322.25: Voluntary Education Programs</li>
+                          <li>Air Force Instruction 36-2670: Total Force Development</li>
+                          <li>CMGF Policy Framework Section 4.2: Pathway Approval Authority</li>
+                          <li>Human-in-the-Loop Decision Protocol v2.1</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-xs text-neutral-900 mb-1">Decision Conditions and Recommendations</div>
+                      <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                        "Service member should: (1) Continue current CS program with focus on security-related coursework, (2) Consult with UMGC academic advisor to optimize security elective selection, (3) Maintain professional certification currency (CISSP renewal), (4) Consider additional certifications aligned with specific career goals (OSCP, CEH, SANS courses) as appropriate. Follow-up review recommended at 12-month interval to assess progress and provide additional guidance as needed."
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-clock mr-1"></i> Decision time: 2h 24m</span>
+                    <span><i class="fa-solid fa-signature mr-1"></i> Digital signature verified</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">10</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Case Prepared for Handoff</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 16:52:18 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">B4: Human Handoff</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Decision package prepared for return to service member including plain-language explanation, approved pathway details, next steps guidance, and human reviewer contact information. Handoff prepared by Program Coordinator Lisa Chen.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-user mr-1"></i> Lisa Chen, Program Coordinator</span>
+                    <span><i class="fa-solid fa-file-alt mr-1"></i> Handoff package: 4 documents</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">11</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Decision Communicated to Service Member</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 17:03:45 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Communication</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Approval notification delivered to SSgt. Michael Chen via CMGF portal and email. Service member provided access to complete decision package including rationale, approved pathway details, next steps, and reviewer contact information for follow-up questions.
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-envelope mr-1"></i> Notification sent</span>
+                    <span><i class="fa-solid fa-check mr-1"></i> Delivery confirmed</span>
+                  </div>
+                </div>
+
+                <div class="border border-neutral-200 rounded-lg p-4 bg-neutral-100">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="bg-neutral-900 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">12</div>
+                      <div>
+                        <div class="text-sm text-neutral-900">Audit Record Finalized</div>
+                        <div class="text-xs text-neutral-600">January 9, 2025 at 17:05:00 PM EST</div>
+                      </div>
+                    </div>
+                    <span class="text-xs bg-neutral-300 text-neutral-900 px-2 py-1 rounded">Case Closed</span>
+                  </div>
+                  <div class="ml-11 text-sm text-neutral-700 leading-relaxed">
+                    Complete audit record sealed and archived. All decision chronology, human annotations, AI signals, and policy citations permanently preserved in immutable record format. Case status: Finalized. Record access: Read-only. Digital signature: 8f3a9c2e7b1d4f6a9e3c8b2d7f1a5e9c
+                  </div>
+                  <div class="ml-11 mt-3 flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-lock mr-1"></i> Record sealed</span>
+                    <span><i class="fa-solid fa-archive mr-1"></i> Permanently archived</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="human-annotations-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-comment-dots mr-2 text-neutral-600"></i>
+            Complete Human Annotations Archive
+          </h3>
+
+          <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-2">Annotation Preservation Policy</div>
+            <div class="text-sm text-neutral-700">
+              All human annotations, contextual observations, and professional assessments are permanently preserved exactly as written by reviewers. These annotations represent the human judgment layer that informed the final decision and are critical to accountability and transparency.
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="border border-neutral-200 rounded-lg bg-neutral-50 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=847" alt="Advisor" class="w-10 h-10 rounded-full"/>
+                  <div>
+                    <div class="text-sm text-neutral-900">Dr. Sarah Martinez</div>
+                    <div class="text-xs text-neutral-600">Senior Advisor - B1: Advisor Review</div>
+                  </div>
+                </div>
+                <span class="text-xs text-neutral-600">January 9, 2025 at 10:42:55 AM</span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Contextual Observations</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Service member demonstrates exceptional preparation and clear career focus. CISSP certification at E-5 level is noteworthy and indicates serious professional commitment. Military experience in cyber transport systems provides strong foundation for transition to civilian cybersecurity roles. However, I note that the service member is currently 45 credits into a Computer Science degree—important to consider whether continuing that program versus switching to a dedicated Cybersecurity program makes strategic sense. The CS degree with security focus may offer broader career flexibility.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Missing Information or Clarifications Needed</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Would benefit from clarification on: (1) Specific career goals post-transition (penetration testing, security architecture, compliance, etc.), (2) Geographic constraints that might limit institutional options, (3) Timeline constraints related to potential separation or PCS moves, (4) Financial considerations regarding program costs and TA/GI Bill utilization.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Concerns or Risk Factors</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    No significant concerns identified. Service member appears well-prepared and realistic about educational pathway requirements. Deployment cycles may affect timeline but do not present fundamental feasibility concerns.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Preliminary Assessment</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Strong candidate for cybersecurity pathway. Recommend escalation to educator for academic validation of credit transfer efficiency and program alignment assessment. No concerns about feasibility. Service member's explicit request for human guidance is appropriate given the complexity of choosing between continuing current CS program versus switching to dedicated cybersecurity program.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+                <span><i class="fa-solid fa-clock mr-1"></i> Review duration: 2 hours 27 minutes</span>
+                <span><i class="fa-solid fa-pen mr-1"></i> 487 words documented</span>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg bg-neutral-50 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=923" alt="Educator" class="w-10 h-10 rounded-full"/>
+                  <div>
+                    <div class="text-sm text-neutral-900">Prof. James Wilson</div>
+                    <div class="text-xs text-neutral-600">Lead Educator - B2: Educator Validation</div>
+                  </div>
+                </div>
+                <span class="text-xs text-neutral-600">January 9, 2025 at 14:18:27 PM</span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Academic Validation Assessment</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Reviewed service member's existing 45 credits and CCAF associate degree. Strong academic foundation with 3.7 GPA in technology coursework. Current Computer Science program at University of Maryland Global Campus appears to be progressing well. Analysis of credit transfer scenarios: (1) If continuing CS program: approximately 75 credits remaining, estimated 18-24 months to completion. (2) If switching to dedicated Cybersecurity program: would likely need to restart with ~60 credits remaining due to different core requirements, estimated 24-30 months to completion.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Program Alignment Analysis</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Both pathways are academically viable. Computer Science with security focus offers broader career flexibility and stronger foundation in software development and systems architecture. Dedicated Cybersecurity programs offer deeper specialization in security operations, risk management, and compliance frameworks. Given service member's existing progress in CS program and strong certification portfolio (especially CISSP), recommend continuing CS degree while pursuing additional security-focused electives. This approach maximizes credit efficiency while building on existing momentum.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Academic Risk Assessment</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    No significant academic risks identified. Service member has demonstrated strong academic performance and professional certification achievement. Deployment cycles and operational tempo may extend timeline but do not present fundamental feasibility concerns. Recommend escalation to administrator for final pathway approval with recommendation to continue current CS program.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+                <span><i class="fa-solid fa-clock mr-1"></i> Review duration: 3 hours 33 minutes</span>
+                <span><i class="fa-solid fa-pen mr-1"></i> 623 words documented</span>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg bg-neutral-50 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=456" alt="Administrator" class="w-10 h-10 rounded-full"/>
+                  <div>
+                    <div class="text-sm text-neutral-900">Ms. Patricia Anderson</div>
+                    <div class="text-xs text-neutral-600">Senior Administrator - B3: Admin Decision</div>
+                  </div>
+                </div>
+                <span class="text-xs text-neutral-600">January 9, 2025 at 16:47:32 PM</span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Administrator Decision Rationale</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    After thorough review of advisor and educator assessments, I approve SSgt. Chen's pathway to continue his Bachelor of Science in Computer Science program at University of Maryland Global Campus with emphasis on security-focused electives. This decision is based on: (1) Strong academic performance demonstrated to date (3.7 GPA), (2) Exceptional professional certification achievement (CISSP at E-5 level), (3) Credit transfer efficiency favoring continuation of current program, (4) Educator recommendation supporting CS degree as providing broader career foundation while building on existing momentum, (5) Service member's clear career focus and preparation for cybersecurity transition. Approved pathway includes authorization for continued TA funding and recommendation for security-focused elective selection in consultation with academic advisor.
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-xs text-neutral-900 mb-2">Decision Conditions and Recommendations</div>
+                  <div class="text-sm text-neutral-800 bg-white border border-neutral-200 rounded p-3 leading-relaxed">
+                    Service member should: (1) Continue current CS program with focus on security-related coursework, (2) Consult with UMGC academic advisor to optimize security elective selection, (3) Maintain professional certification currency (CISSP renewal), (4) Consider additional certifications aligned with specific career goals (OSCP, CEH, SANS courses) as appropriate. Follow-up review recommended at 12-month interval to assess progress and provide additional guidance as needed.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+                <span><i class="fa-solid fa-clock mr-1"></i> Decision time: 2 hours 24 minutes</span>
+                <span><i class="fa-solid fa-signature mr-1"></i> Digital signature: 8f3a9c2e7b1d4f6a</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ai-signals-archive-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-microchip mr-2 text-neutral-600"></i>
+            AI Signals Referenced (Read-Only)
+          </h3>
+
+          <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 mb-4">
+            <div class="flex items-start space-x-3">
+              <i class="fa-solid fa-info-circle text-neutral-700 mt-1"></i>
+              <div>
+                <div class="text-sm text-neutral-900 mb-1">AI Signal Archive Status</div>
+                <div class="text-sm text-neutral-700">AI-generated signals are preserved for reference and explainability purposes. These signals provided contextual information to human reviewers but did not constitute recommendations, predictions, or decisions.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="bg-neutral-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</div>
+                  <div class="text-sm text-neutral-900">Credential Mapping Signal</div>
+                </div>
+                <span class="text-xs text-neutral-600">Generated: Jan 8, 2025 at 09:45:18 AM</span>
+              </div>
+              <div class="text-sm text-neutral-700 mb-2">
+                Analysis of credential database indicates 847 service members with similar AFSC (3D1X2) and certification profiles (Security+, CISSP) have pursued cybersecurity-related degree programs. Common pathway patterns include Information Security (42%), Cybersecurity (31%), Computer Science with Security Focus (18%), and Information Technology (9%).
+              </div>
+              <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                <span><i class="fa-solid fa-database mr-1"></i> Data sources: 3</span>
+                <span><i class="fa-solid fa-chart-bar mr-1"></i> Sample size: n=847</span>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="bg-neutral-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</div>
+                  <div class="text-sm text-neutral-900">Program Availability Signal</div>
+                </div>
+                <span class="text-xs text-neutral-600">Generated: Jan 8, 2025 at 09:47:23 AM</span>
+              </div>
+              <div class="text-sm text-neutral-700 mb-2">
+                Cross-reference of member's existing credits (45) with institutional program requirements shows potential credit transfer efficiency. Programs with documented acceptance of CCAF credits and cybersecurity certifications include 23 institutions with Information Security programs and 17 institutions with Cybersecurity programs currently accepting applications.
+              </div>
+              <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                <span><i class="fa-solid fa-database mr-1"></i> Data sources: 2</span>
+                <span><i class="fa-solid fa-university mr-1"></i> Institutions: 40</span>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="bg-neutral-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</div>
+                  <div class="text-sm text-neutral-900">Population Pattern Signal</div>
+                </div>
+                <span class="text-xs text-neutral-600">Generated: Jan 8, 2025 at 09:48:41 AM</span>
+              </div>
+              <div class="text-sm text-neutral-700 mb-2">
+                Service members with 6+ years of service in cyber-related AFSCs pursuing bachelor's completion typically require 18-24 months for degree completion when attending part-time. Deployment cycles and operational tempo considerations may extend timelines. Historical completion rates for similar profiles: 78% within 30 months.
+              </div>
+              <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                <span><i class="fa-solid fa-database mr-1"></i> Data sources: 3</span>
+                <span><i class="fa-solid fa-percent mr-1"></i> Completion rate: 78%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="policy-citations-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-balance-scale mr-2 text-neutral-600"></i>
+            Policy Citations & Compliance Documentation
+          </h3>
+
+          <div class="space-y-3">
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-file-alt text-neutral-600 text-xl"></i>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900 mb-1">DoD Instruction 1322.25: Voluntary Education Programs</div>
+                  <div class="text-sm text-neutral-700 mb-2">
+                    Establishes policy, assigns responsibilities, and provides procedures for the administration and management of voluntary education programs for Service members on active duty.
+                  </div>
+                  <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-calendar mr-1"></i> Effective: March 29, 2013</span>
+                    <span><i class="fa-solid fa-link mr-1"></i> Reference: Section 4.2, 5.1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-file-alt text-neutral-600 text-xl"></i>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900 mb-1">Air Force Instruction 36-2670: Total Force Development</div>
+                  <div class="text-sm text-neutral-700 mb-2">
+                    Implements Air Force Policy Directive 36-26, Total Force Development, and establishes policies and procedures for the development of Air Force military and civilian personnel throughout their careers.
+                  </div>
+                  <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-calendar mr-1"></i> Effective: September 12, 2018</span>
+                    <span><i class="fa-solid fa-link mr-1"></i> Reference: Chapter 3, Section 3.4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-file-alt text-neutral-600 text-xl"></i>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900 mb-1">CMGF Policy Framework Section 4.2: Pathway Approval Authority</div>
+                  <div class="text-sm text-neutral-700 mb-2">
+                    Defines decision authority levels within the CMGF system and establishes requirements for human review and approval of educational pathway recommendations.
+                  </div>
+                  <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-calendar mr-1"></i> Effective: January 1, 2025</span>
+                    <span><i class="fa-solid fa-link mr-1"></i> Reference: Section 4.2.1-4.2.3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-file-alt text-neutral-600 text-xl"></i>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900 mb-1">Human-in-the-Loop Decision Protocol v2.1</div>
+                  <div class="text-sm text-neutral-700 mb-2">
+                    Establishes mandatory requirements for human review, decision authority, and accountability in AI-assisted systems. Prohibits automation of binding decisions and requires human rationale documentation.
+                  </div>
+                  <div class="flex items-center space-x-4 text-xs text-neutral-600">
+                    <span><i class="fa-solid fa-calendar mr-1"></i> Effective: December 15, 2024</span>
+                    <span><i class="fa-solid fa-link mr-1"></i> Reference: Section 2.1, 3.3, 5.1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="accountability-metadata-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-fingerprint mr-2 text-neutral-600"></i>
+            Accountability & Metadata
+          </h3>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="text-xs text-neutral-500 uppercase mb-3">Case Metadata</div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Case ID</span>
+                  <span class="text-neutral-900">CASE-2025-0847</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Service Member</span>
+                  <span class="text-neutral-900">SSgt. Michael Chen</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Service Member ID</span>
+                  <span class="text-neutral-900">SM-847-2025</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">AFSC</span>
+                  <span class="text-neutral-900">3D1X2</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Request Type</span>
+                  <span class="text-neutral-900">Pathway Transition</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="text-xs text-neutral-500 uppercase mb-3">Timeline Metadata</div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Initiated</span>
+                  <span class="text-neutral-900">Jan 8, 2025 09:23:17</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Finalized</span>
+                  <span class="text-neutral-900">Jan 9, 2025 17:05:00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Total Duration</span>
+                  <span class="text-neutral-900">31h 41m 43s</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Review Time</span>
+                  <span class="text-neutral-900">8h 24m</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Queue Time</span>
+                  <span class="text-neutral-900">23h 17m</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="text-xs text-neutral-500 uppercase mb-3">Human Reviewers</div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Advisor</span>
+                  <span class="text-neutral-900">Dr. Sarah Martinez</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Advisor ID</span>
+                  <span class="text-neutral-900">ADV-1847</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Educator</span>
+                  <span class="text-neutral-900">Prof. James Wilson</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Educator ID</span>
+                  <span class="text-neutral-900">EDU-2134</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Administrator</span>
+                  <span class="text-neutral-900">Ms. Patricia Anderson</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-4">
+              <div class="text-xs text-neutral-500 uppercase mb-3">System Metadata</div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">CMGF Version</span>
+                  <span class="text-neutral-900">v2.1.4</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">AI Signal Engine</span>
+                  <span class="text-neutral-900">v3.2.1</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">AI Signals Generated</span>
+                  <span class="text-neutral-900">3</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Constraint Flags</span>
+                  <span class="text-neutral-900">0</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-neutral-700">Digital Signature</span>
+                  <span class="text-neutral-900 text-xs">8f3a9c2e...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+            <div class="text-xs text-neutral-500 uppercase mb-2">Cryptographic Seal</div>
+            <div class="text-sm text-neutral-700 mb-2">
+              This audit record is cryptographically sealed to ensure integrity and prevent tampering. Any modification to the record will invalidate the digital signature.
+            </div>
+            <div class="bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-900 break-all">
+              8f3a9c2e7b1d4f6a9e3c8b2d7f1a5e9c4d8b3a7f2e6c1d9b5a8e4c7f3b6a2d9e5
+            </div>
+          </div>
+        </section>
+
+        <section id="access-log-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-eye mr-2 text-neutral-600"></i>
+            Record Access Log
+          </h3>
+
+          <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-2">Access Tracking</div>
+            <div class="text-sm text-neutral-700">
+              All access to audit records is logged and permanently preserved. This includes views, exports, and any attempts to modify or delete records.
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-neutral-100 border-b border-neutral-200">
+                <tr>
+                  <th class="text-left px-4 py-3 text-xs text-neutral-700 uppercase">Timestamp</th>
+                  <th class="text-left px-4 py-3 text-xs text-neutral-700 uppercase">User</th>
+                  <th class="text-left px-4 py-3 text-xs text-neutral-700 uppercase">Role</th>
+                  <th class="text-left px-4 py-3 text-xs text-neutral-700 uppercase">Action</th>
+                  <th class="text-left px-4 py-3 text-xs text-neutral-700 uppercase">IP Address</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200">
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 18:23:45</td>
+                  <td class="px-4 py-3 text-neutral-900">Dr. Sarah Martinez</td>
+                  <td class="px-4 py-3 text-neutral-700">Senior Advisor</td>
+                  <td class="px-4 py-3 text-neutral-700">Viewed record</td>
+                  <td class="px-4 py-3 text-neutral-600">192.168.1.47</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 17:15:22</td>
+                  <td class="px-4 py-3 text-neutral-900">SSgt. Michael Chen</td>
+                  <td class="px-4 py-3 text-neutral-700">Service Member</td>
+                  <td class="px-4 py-3 text-neutral-700">Viewed decision package</td>
+                  <td class="px-4 py-3 text-neutral-600">10.42.15.89</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 17:05:00</td>
+                  <td class="px-4 py-3 text-neutral-900">CMGF System</td>
+                  <td class="px-4 py-3 text-neutral-700">System</td>
+                  <td class="px-4 py-3 text-neutral-700">Record finalized</td>
+                  <td class="px-4 py-3 text-neutral-600">System</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 16:47:32</td>
+                  <td class="px-4 py-3 text-neutral-900">Ms. Patricia Anderson</td>
+                  <td class="px-4 py-3 text-neutral-700">Administrator</td>
+                  <td class="px-4 py-3 text-neutral-700">Decision issued</td>
+                  <td class="px-4 py-3 text-neutral-600">192.168.1.23</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 14:18:27</td>
+                  <td class="px-4 py-3 text-neutral-900">Prof. James Wilson</td>
+                  <td class="px-4 py-3 text-neutral-700">Educator</td>
+                  <td class="px-4 py-3 text-neutral-700">Validation completed</td>
+                  <td class="px-4 py-3 text-neutral-600">192.168.1.56</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 10:42:55</td>
+                  <td class="px-4 py-3 text-neutral-900">Dr. Sarah Martinez</td>
+                  <td class="px-4 py-3 text-neutral-700">Senior Advisor</td>
+                  <td class="px-4 py-3 text-neutral-700">Review completed</td>
+                  <td class="px-4 py-3 text-neutral-600">192.168.1.47</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 9, 2025 08:15:33</td>
+                  <td class="px-4 py-3 text-neutral-900">Dr. Sarah Martinez</td>
+                  <td class="px-4 py-3 text-neutral-700">Senior Advisor</td>
+                  <td class="px-4 py-3 text-neutral-700">Case opened for review</td>
+                  <td class="px-4 py-3 text-neutral-600">192.168.1.47</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 8, 2025 09:45:18</td>
+                  <td class="px-4 py-3 text-neutral-900">CMGF System</td>
+                  <td class="px-4 py-3 text-neutral-700">System</td>
+                  <td class="px-4 py-3 text-neutral-700">AI signals generated</td>
+                  <td class="px-4 py-3 text-neutral-600">System</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-neutral-900">Jan 8, 2025 09:23:17</td>
+                  <td class="px-4 py-3 text-neutral-900">SSgt. Michael Chen</td>
+                  <td class="px-4 py-3 text-neutral-700">Service Member</td>
+                  <td class="px-4 py-3 text-neutral-700">Case initiated</td>
+                  <td class="px-4 py-3 text-neutral-600">10.42.15.89</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="export-options-section" class="bg-white border border-neutral-200 rounded-lg p-6">
+          <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+            <i class="fa-solid fa-file-export mr-2 text-neutral-600"></i>
+            Export & Reporting Options
+          </h3>
+
+          <div class="grid grid-cols-3 gap-4">
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-file-pdf text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Export as PDF</div>
+              <div class="text-xs text-neutral-600">Complete audit record with all annotations</div>
+            </button>
+
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-file-excel text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Export as CSV</div>
+              <div class="text-xs text-neutral-600">Structured data for analysis</div>
+            </button>
+
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-file-code text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Export as JSON</div>
+              <div class="text-xs text-neutral-600">Machine-readable format</div>
+            </button>
+
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-print text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Print Record</div>
+              <div class="text-xs text-neutral-600">Formatted for physical archive</div>
+            </button>
+
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-chart-bar text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Generate Report</div>
+              <div class="text-xs text-neutral-600">Statistical summary and trends</div>
+            </button>
+
+            <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+              <div class="flex items-center justify-center mb-3">
+                <i class="fa-solid fa-share-alt text-neutral-700 text-3xl"></i>
+              </div>
+              <div class="text-sm text-neutral-900 mb-1">Share Record</div>
+              <div class="text-xs text-neutral-600">Secure link for authorized users</div>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer" class="ml-72 bg-neutral-100 border-t border-neutral-200 px-8 py-4">
+  <div class="flex items-center justify-between text-xs text-neutral-600">
+    <div class="flex items-center space-x-6">
+      <span>CMGF System v2.1.4</span>
+      <span>|</span>
+      <span>Part B: Human Review Layer - Audit Trail</span>
+      <span>|</span>
+      <span>Session: 2025-01-09 18:23:20</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="#" class="hover:text-neutral-900">Privacy Policy</a>
+      <a href="#" class="hover:text-neutral-900">Terms of Service</a>
+      <a href="#" class="hover:text-neutral-900">Accessibility</a>
+      <a href="#" class="hover:text-neutral-900">Contact Support</a>
+    </div>
+  </div>
+</footer>
+                        </body>
+                        </html>
+                        

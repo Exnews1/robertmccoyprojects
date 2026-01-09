@@ -19,7 +19,8 @@ const partBPages = [
       "Receive AI signals",
       "Apply human judgment",
       "Annotate rationale"
-    ]
+    ],
+    demoUrl: "/demos/part-b/advisor-review.html"
   },
   {
     id: "educator-validation",
@@ -30,7 +31,8 @@ const partBPages = [
       "Confirm academic alignment",
       "Flag institutional constraints",
       "Validate credential mapping"
-    ]
+    ],
+    demoUrl: "/demos/part-b/educator-validation.html"
   },
   {
     id: "admin-decision",
@@ -41,7 +43,8 @@ const partBPages = [
       "Execute formal decisions",
       "Provide required justification",
       "Trigger audit trail"
-    ]
+    ],
+    demoUrl: "/demos/part-b/admin-decision.html"
   },
   {
     id: "handoff-prep",
@@ -52,7 +55,8 @@ const partBPages = [
       "Ensure explainability",
       "Surface uncertainty",
       "Prevent automation bias"
-    ]
+    ],
+    demoUrl: "/demos/part-b/handoff-prep.html"
   },
   {
     id: "outcome-summary",
@@ -63,7 +67,8 @@ const partBPages = [
       "Document decisions",
       "Attribute to humans",
       "Link to context"
-    ]
+    ],
+    demoUrl: "/demos/part-b/outcome-summary.html"
   },
   {
     id: "audit-trail",
@@ -74,7 +79,8 @@ const partBPages = [
       "Log all decisions",
       "Record rationales",
       "Enable accountability"
-    ]
+    ],
+    demoUrl: "/demos/part-b/audit-trail.html"
   }
 ];
 
@@ -226,9 +232,22 @@ export default function PartB() {
                       <page.icon className="h-5 w-5 text-green-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-mono text-muted-foreground">B{index + 1}</span>
-                        <h3 className="font-semibold text-foreground">{page.title}</h3>
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono text-muted-foreground">B{index + 1}</span>
+                          <h3 className="font-semibold text-foreground">{page.title}</h3>
+                        </div>
+                        <a 
+                          href={page.demoUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          data-testid={`demo-b-${page.id}`}
+                        >
+                          <Button variant="outline" size="sm" className="gap-1.5 text-green-600 border-green-500/30 hover:bg-green-500/10">
+                            <ExternalLink className="h-3 w-3" />
+                            View Demo
+                          </Button>
+                        </a>
                       </div>
                       <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
                       <div className="flex flex-wrap gap-2">
