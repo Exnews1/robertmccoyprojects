@@ -1,0 +1,1300 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        <div class="flex h-screen bg-white">
+  <div class="w-16 flex-shrink-0 bg-neutral-900 border-r border-neutral-800 flex flex-col">
+    <div class="p-4">
+      <a class="text-white block" href="#">
+        <i class="fa-solid fa-chart-line text-xl"></i>
+      </a>
+    </div>
+    <nav class="flex-1 flex flex-col space-y-2 pt-4">
+      <a class="text-white p-4 hover:bg-neutral-800 flex justify-center" href="#">
+        <i class="fa-solid fa-th-large"></i>
+      </a>
+      <a class="text-white p-4 bg-neutral-800 flex justify-center" href="#">
+        <i class="fa-solid fa-chart-bar"></i>
+      </a>
+      <a class="text-white p-4 hover:bg-neutral-800 flex justify-center" href="#">
+        <i class="fa-solid fa-filter"></i>
+      </a>
+      <a class="text-white p-4 hover:bg-neutral-800 flex justify-center" href="#">
+        <i class="fa-solid fa-cog"></i>
+      </a>
+    </nav>
+  </div>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <header id="header" class="bg-white px-8 py-4 flex items-center justify-between border-b border-neutral-200">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-black flex items-center justify-center">
+            <span class="text-white text-sm">ESO</span>
+          </div>
+          <div>
+            <div class="text-lg text-neutral-900">ESO Global Intelligence</div>
+            <div class="text-xs text-neutral-500">System Bottleneck Analysis</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="text-sm text-neutral-600">Reporting Period: Q4 2025</div>
+        <div class="flex items-center gap-2 px-3 py-1.5 bg-neutral-100 rounded">
+          <i class="fa-solid fa-lock text-neutral-500 text-xs"></i>
+          <span class="text-sm text-neutral-700">Institutional Access Only</span>
+        </div>
+        <button class="text-neutral-600 hover:text-neutral-800">
+          <i class="fa-solid fa-search"></i>
+        </button>
+        <button class="text-neutral-600 hover:text-neutral-800">
+          <i class="fa-solid fa-th"></i>
+        </button>
+        <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=8472" alt="User" class="w-9 h-9 rounded-full border border-neutral-200"/>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-auto bg-neutral-50">
+      <div id="bottleneck-hero-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="w-10 h-10 bg-neutral-900 flex items-center justify-center rounded">
+                    <i class="fa-solid fa-filter text-white"></i>
+                  </div>
+                  <h1 class="text-3xl text-neutral-900">System Bottleneck Analysis</h1>
+                </div>
+                <p class="text-neutral-600">Detailed analysis identifying structural friction points using visualizations like heatmaps and flow diagrams</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button class="px-4 py-2 border border-neutral-300 text-neutral-700 rounded hover:bg-neutral-50 text-sm">
+                  <i class="fa-solid fa-download mr-2"></i>Export Report
+                </button>
+                <button class="px-4 py-2 bg-neutral-900 text-white rounded hover:bg-neutral-800 text-sm">
+                  <i class="fa-solid fa-refresh mr-2"></i>Refresh Data
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-5 gap-4 mb-8">
+            <div class="bg-neutral-50 border border-neutral-200 p-4 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Critical Bottlenecks</div>
+              <div class="text-3xl text-neutral-900 mb-1">8</div>
+              <div class="text-xs text-neutral-600">Requiring attention</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-4 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Avg Delay Impact</div>
+              <div class="text-3xl text-neutral-900 mb-1">14.2</div>
+              <div class="text-xs text-neutral-600">Days per case</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-4 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Cases Affected</div>
+              <div class="text-3xl text-neutral-900 mb-1">6,892</div>
+              <div class="text-xs text-neutral-600">This quarter</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-4 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Friction Score</div>
+              <div class="text-3xl text-neutral-900 mb-1">72/100</div>
+              <div class="text-xs text-neutral-600">System health</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-4 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Improvement</div>
+              <div class="text-3xl text-neutral-900 mb-1">-8%</div>
+              <div class="text-xs text-neutral-600">vs Q3 2025</div>
+            </div>
+          </div>
+
+          <div class="p-4 bg-neutral-100 border border-neutral-300 rounded">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-info-circle text-neutral-600 text-lg"></i>
+              <div class="text-sm text-neutral-700">
+                <strong>Data Transparency Notice:</strong> All data displayed in this report is aggregated, de-identified, and unsuitable for individual-level decision-making. Minimum cell size: N ≥ 25. Time windows: quarterly aggregation. No individual identifiers or case-level drill-down permitted.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="friction-heatmap-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">System Friction Heatmap</h2>
+            <p class="text-sm text-neutral-600">Visual representation of processing delays across all system stages</p>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg overflow-hidden mb-6">
+            <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-neutral-900">Processing Stage Heat Analysis</div>
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-2 text-xs">
+                    <div class="w-4 h-4 bg-neutral-200 rounded"></div>
+                    <span class="text-neutral-600">Low friction (0-5 days)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-xs">
+                    <div class="w-4 h-4 bg-neutral-400 rounded"></div>
+                    <span class="text-neutral-600">Medium friction (6-10 days)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-xs">
+                    <div class="w-4 h-4 bg-neutral-700 rounded"></div>
+                    <span class="text-neutral-600">High friction (11-15 days)</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-xs">
+                    <div class="w-4 h-4 bg-neutral-900 rounded"></div>
+                    <span class="text-neutral-600">Critical friction (15+ days)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 bg-white">
+              <div class="grid grid-cols-7 gap-3">
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Submission</div>
+                  <div class="h-32 bg-neutral-200 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">2.3d</div>
+                      <div class="text-xs text-neutral-600">Low</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Doc Check</div>
+                  <div class="h-32 bg-neutral-300 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">3.8d</div>
+                      <div class="text-xs text-neutral-600">Low</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Verification</div>
+                  <div class="h-32 bg-neutral-900 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-white mb-1">14.2d</div>
+                      <div class="text-xs text-neutral-300">Critical</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Funding</div>
+                  <div class="h-32 bg-neutral-400 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">6.4d</div>
+                      <div class="text-xs text-neutral-600">Medium</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Human Review</div>
+                  <div class="h-32 bg-neutral-400 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">5.1d</div>
+                      <div class="text-xs text-neutral-600">Medium</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Decision</div>
+                  <div class="h-32 bg-neutral-200 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">1.8d</div>
+                      <div class="text-xs text-neutral-600">Low</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-neutral-500 mb-2">Notification</div>
+                  <div class="h-32 bg-neutral-200 rounded flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="text-lg text-neutral-900 mb-1">1.2d</div>
+                      <div class="text-xs text-neutral-600">Low</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6">
+            <div class="border border-neutral-200 rounded p-5 bg-neutral-50">
+              <div class="flex items-start gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-900 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-exclamation-triangle text-white text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-900 mb-1">Critical: Credential Verification</div>
+                  <div class="text-xs text-neutral-600">14.2 days average delay</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-neutral-700">
+                  <span>Cases affected:</span>
+                  <span class="text-neutral-900">6,892</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>90th percentile:</span>
+                  <span class="text-neutral-900">28.6 days</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>Change vs Q3:</span>
+                  <span class="text-neutral-900">+11%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded p-5 bg-neutral-50">
+              <div class="flex items-start gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-600 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-clock text-white text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-900 mb-1">Medium: Funding Review</div>
+                  <div class="text-xs text-neutral-600">6.4 days average delay</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-neutral-700">
+                  <span>Cases affected:</span>
+                  <span class="text-neutral-900">7,523</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>90th percentile:</span>
+                  <span class="text-neutral-900">14.8 days</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>Change vs Q3:</span>
+                  <span class="text-neutral-900">-3%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded p-5 bg-neutral-50">
+              <div class="flex items-start gap-3 mb-3">
+                <div class="w-8 h-8 bg-neutral-600 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-user-clock text-white text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-900 mb-1">Medium: Human Review</div>
+                  <div class="text-xs text-neutral-600">5.1 days average delay</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between text-neutral-700">
+                  <span>Cases affected:</span>
+                  <span class="text-neutral-900">4,672</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>90th percentile:</span>
+                  <span class="text-neutral-900">11.3 days</span>
+                </div>
+                <div class="flex justify-between text-neutral-700">
+                  <span>Change vs Q3:</span>
+                  <span class="text-neutral-900">+7%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="flow-compression-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Flow Compression Diagram</h2>
+            <p class="text-sm text-neutral-600">Visual representation of case volume reduction through each processing stage</p>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg p-8 bg-neutral-50 mb-6">
+            <div class="relative">
+              <div class="flex items-center justify-between mb-12">
+                <div class="text-center flex-1">
+                  <div class="w-24 h-24 bg-neutral-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-xl text-white">8,247</div>
+                      <div class="text-xs text-neutral-300">100%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Submitted</div>
+                </div>
+
+                <div class="flex-shrink-0 px-4">
+                  <i class="fa-solid fa-arrow-right text-neutral-400 text-2xl"></i>
+                </div>
+
+                <div class="text-center flex-1">
+                  <div class="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-lg text-white">8,164</div>
+                      <div class="text-xs text-neutral-300">99%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Doc Complete</div>
+                </div>
+
+                <div class="flex-shrink-0 px-4">
+                  <i class="fa-solid fa-arrow-right text-neutral-400 text-2xl"></i>
+                </div>
+
+                <div class="text-center flex-1">
+                  <div class="w-20 h-20 bg-neutral-700 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-lg text-white">6,892</div>
+                      <div class="text-xs text-neutral-300">84%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Verified</div>
+                </div>
+
+                <div class="flex-shrink-0 px-4">
+                  <i class="fa-solid fa-arrow-right text-neutral-400 text-2xl"></i>
+                </div>
+
+                <div class="text-center flex-1">
+                  <div class="w-20 h-20 bg-neutral-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-lg text-white">7,523</div>
+                      <div class="text-xs text-neutral-300">91%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Funded Review</div>
+                </div>
+
+                <div class="flex-shrink-0 px-4">
+                  <i class="fa-solid fa-arrow-right text-neutral-400 text-2xl"></i>
+                </div>
+
+                <div class="text-center flex-1">
+                  <div class="w-16 h-16 bg-neutral-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-base text-white">4,672</div>
+                      <div class="text-xs text-neutral-200">57%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Human Review</div>
+                </div>
+
+                <div class="flex-shrink-0 px-4">
+                  <i class="fa-solid fa-arrow-right text-neutral-400 text-2xl"></i>
+                </div>
+
+                <div class="text-center flex-1">
+                  <div class="w-20 h-20 bg-neutral-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div class="text-center">
+                      <div class="text-lg text-white">7,184</div>
+                      <div class="text-xs text-neutral-300">87%</div>
+                    </div>
+                  </div>
+                  <div class="text-sm text-neutral-900">Completed</div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-6 gap-4 pt-8 border-t border-neutral-300">
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Drop at Doc Check</div>
+                  <div class="text-lg text-neutral-900">83</div>
+                  <div class="text-xs text-neutral-600">1.0%</div>
+                </div>
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Drop at Verification</div>
+                  <div class="text-lg text-neutral-900">272</div>
+                  <div class="text-xs text-neutral-600">3.3%</div>
+                </div>
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Drop at Funding</div>
+                  <div class="text-lg text-neutral-900">269</div>
+                  <div class="text-xs text-neutral-600">3.4%</div>
+                </div>
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Drop at Review</div>
+                  <div class="text-lg text-neutral-900">82</div>
+                  <div class="text-xs text-neutral-600">1.1%</div>
+                </div>
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Deferred</div>
+                  <div class="text-lg text-neutral-900">357</div>
+                  <div class="text-xs text-neutral-600">4.7%</div>
+                </div>
+                <div class="text-center p-4 bg-white rounded border border-neutral-200">
+                  <div class="text-xs text-neutral-500 mb-1">Denied</div>
+                  <div class="text-lg text-neutral-900">706</div>
+                  <div class="text-xs text-neutral-600">8.6%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 bg-neutral-100 border border-neutral-300 rounded">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-lightbulb text-neutral-600 text-lg"></i>
+              <div class="text-sm text-neutral-700">
+                <strong>Flow Analysis Note:</strong> The largest volume reduction (1,272 cases) occurs at the credential verification stage, representing the primary system bottleneck. This compression point accounts for 84% throughput to this stage, suggesting external dependency constraints.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="temporal-heatmap-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Temporal Bottleneck Heatmap</h2>
+            <p class="text-sm text-neutral-600">Time-based visualization of processing delays across hours and days</p>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg overflow-hidden mb-6">
+            <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-neutral-900">Peak Backlog Times by Hour of Day</div>
+                <div class="text-xs text-neutral-600">Darker = Higher backlog intensity</div>
+              </div>
+            </div>
+            <div class="p-6 bg-white">
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">00:00-02:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-400 rounded flex items-center justify-end px-3" style="width: 23%">
+                      <span class="text-xs text-white">23%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">02:00-04:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-300 rounded flex items-center justify-end px-3" style="width: 18%">
+                      <span class="text-xs text-neutral-700">18%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">04:00-06:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-300 rounded flex items-center justify-end px-3" style="width: 21%">
+                      <span class="text-xs text-neutral-700">21%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">06:00-08:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-500 rounded flex items-center justify-end px-3" style="width: 54%">
+                      <span class="text-xs text-white">54%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">08:00-10:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-800 rounded flex items-center justify-end px-3" style="width: 87%">
+                      <span class="text-xs text-white">87%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">10:00-12:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-900 rounded flex items-center justify-end px-3" style="width: 92%">
+                      <span class="text-xs text-white">92%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">12:00-14:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-700 rounded flex items-center justify-end px-3" style="width: 68%">
+                      <span class="text-xs text-white">68%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">14:00-16:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-700 rounded flex items-center justify-end px-3" style="width: 74%">
+                      <span class="text-xs text-white">74%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">16:00-18:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-500 rounded flex items-center justify-end px-3" style="width: 43%">
+                      <span class="text-xs text-white">43%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">18:00-20:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-400 rounded flex items-center justify-end px-3" style="width: 31%">
+                      <span class="text-xs text-white">31%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">20:00-22:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-400 rounded flex items-center justify-end px-3" style="width: 27%">
+                      <span class="text-xs text-white">27%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">22:00-24:00</span>
+                  <div class="flex-1 h-8 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-400 rounded flex items-center justify-end px-3" style="width: 25%">
+                      <span class="text-xs text-white">25%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg overflow-hidden">
+            <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-neutral-900">Backlog Intensity by Day of Week</div>
+                <div class="text-xs text-neutral-600">Monday shows highest concentration</div>
+              </div>
+            </div>
+            <div class="p-6 bg-white">
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">Monday</span>
+                  <div class="flex-1 h-10 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-900 rounded flex items-center justify-end px-3" style="width: 94%">
+                      <span class="text-xs text-white">94% capacity</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">Tuesday</span>
+                  <div class="flex-1 h-10 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-700 rounded flex items-center justify-end px-3" style="width: 78%">
+                      <span class="text-xs text-white">78% capacity</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">Wednesday</span>
+                  <div class="flex-1 h-10 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-700 rounded flex items-center justify-end px-3" style="width: 71%">
+                      <span class="text-xs text-white">71% capacity</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">Thursday</span>
+                  <div class="flex-1 h-10 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-600 rounded flex items-center justify-end px-3" style="width: 65%">
+                      <span class="text-xs text-white">65% capacity</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs text-neutral-600 w-24">Friday</span>
+                  <div class="flex-1 h-10 bg-neutral-200 rounded flex items-center">
+                    <div class="h-full bg-neutral-600 rounded flex items-center justify-end px-3" style="width: 58%">
+                      <span class="text-xs text-white">58% capacity</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="capacity-constraint-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Capacity Constraint Analysis</h2>
+            <p class="text-sm text-neutral-600">Identification of resource limitations and throughput restrictions</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="border border-neutral-200 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+                <div class="text-sm text-neutral-900">External Dependency Constraints</div>
+              </div>
+              <div class="p-5">
+                <div class="space-y-4">
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-700 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-building text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Educational Institution Response</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average response time: 11.3 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-700 h-full" style="width: 82%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-700 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-certificate text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Credential Verification Services</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average response time: 8.7 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-700 h-full" style="width: 67%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-600 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-file-invoice text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Financial Documentation</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average response time: 5.2 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-600 h-full" style="width: 41%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-500 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-globe text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">International Equivalency Evaluation</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average response time: 16.8 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-500 h-full" style="width: 93%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg overflow-hidden">
+              <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+                <div class="text-sm text-neutral-900">Internal Resource Constraints</div>
+              </div>
+              <div class="p-5">
+                <div class="space-y-4">
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-700 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-user-tie text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Human Advisor Availability</div>
+                      <div class="text-xs text-neutral-600 mb-2">Peak queue wait: 8.6 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-700 h-full" style="width: 76%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-600 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-users text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Specialist Review Capacity</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average wait: 6.3 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-600 h-full" style="width: 58%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-500 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-dollar-sign text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Funding Authorization Process</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average duration: 4.1 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-500 h-full" style="width: 34%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-3 p-3 bg-neutral-50 rounded">
+                    <div class="w-8 h-8 bg-neutral-400 flex items-center justify-center rounded flex-shrink-0">
+                      <i class="fa-solid fa-database text-white text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                      <div class="text-sm text-neutral-900 mb-1">Documentation Processing</div>
+                      <div class="text-xs text-neutral-600 mb-2">Average duration: 3.2 days</div>
+                      <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                        <div class="bg-neutral-400 h-full" style="width: 28%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg p-6 bg-neutral-50">
+            <div class="text-sm text-neutral-900 mb-4">Constraint Impact Matrix</div>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="bg-white border border-neutral-200 rounded p-4">
+                <div class="text-xs text-neutral-500 mb-2">High Impact / High Frequency</div>
+                <div class="space-y-2">
+                  <div class="text-xs text-neutral-900">• Educational institution delays</div>
+                  <div class="text-xs text-neutral-900">• Human advisor capacity</div>
+                </div>
+              </div>
+              <div class="bg-white border border-neutral-200 rounded p-4">
+                <div class="text-xs text-neutral-500 mb-2">High Impact / Low Frequency</div>
+                <div class="space-y-2">
+                  <div class="text-xs text-neutral-900">• International equivalency</div>
+                  <div class="text-xs text-neutral-900">• Complex credential cases</div>
+                </div>
+              </div>
+              <div class="bg-white border border-neutral-200 rounded p-4">
+                <div class="text-xs text-neutral-500 mb-2">Low Impact / High Frequency</div>
+                <div class="space-y-2">
+                  <div class="text-xs text-neutral-900">• Documentation formatting</div>
+                  <div class="text-xs text-neutral-900">• Minor clarifications</div>
+                </div>
+              </div>
+              <div class="bg-white border border-neutral-200 rounded p-4">
+                <div class="text-xs text-neutral-500 mb-2">Low Impact / Low Frequency</div>
+                <div class="space-y-2">
+                  <div class="text-xs text-neutral-900">• System technical issues</div>
+                  <div class="text-xs text-neutral-900">• Edge case reviews</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="revision-loop-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Revision Loop Analysis</h2>
+            <p class="text-sm text-neutral-600">Patterns of repeated modifications and their impact on processing time</p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 mb-6">
+            <div class="bg-neutral-50 border border-neutral-200 p-5 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Average Revisions</div>
+              <div class="text-3xl text-neutral-900 mb-1">2.3</div>
+              <div class="text-xs text-neutral-600">Per case</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-5 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">High Revision Rate</div>
+              <div class="text-3xl text-neutral-900 mb-1">34%</div>
+              <div class="text-xs text-neutral-600">Funding justification</div>
+            </div>
+            <div class="bg-neutral-50 border border-neutral-200 p-5 rounded">
+              <div class="text-xs text-neutral-500 uppercase tracking-wide mb-1">Revision Impact</div>
+              <div class="text-3xl text-neutral-900 mb-1">+12.4</div>
+              <div class="text-xs text-neutral-600">Days added per loop</div>
+            </div>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg overflow-hidden mb-6">
+            <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+              <div class="text-sm text-neutral-900">Revision Frequency by Stage</div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-neutral-50">
+                  <tr>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Processing Stage</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Cases Requiring Revision</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Revision Rate</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Avg Revisions</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Time Added</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Primary Reason</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-neutral-200">
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Initial Documentation</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">1,847</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">22%</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">1.8</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">+6.2 days</td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Incomplete forms</td>
+                  </tr>
+                  <tr class="bg-neutral-50">
+                    <td class="px-5 py-4 text-sm text-neutral-900">Credential Verification</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">1,523</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">22%</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">2.1</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">+14.8 days</td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Missing transcripts</td>
+                  </tr>
+                  <tr class="bg-neutral-50">
+                    <td class="px-5 py-4 text-sm text-neutral-900">Funding Justification</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">2,558</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">34%</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">2.7</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">+18.3 days</td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Insufficient rationale</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Human Review</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">892</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">19%</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">1.6</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">+8.7 days</td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Additional context needed</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div class="border border-neutral-200 rounded-lg p-5">
+              <div class="text-sm text-neutral-900 mb-4">Revision Loop Distribution</div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">0 revisions (first-time approval)</span>
+                    <span class="text-xs text-neutral-900">3,247 cases (39%)</span>
+                  </div>
+                  <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                    <div class="bg-neutral-400 h-full" style="width: 39%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">1-2 revisions</span>
+                    <span class="text-xs text-neutral-900">3,684 cases (45%)</span>
+                  </div>
+                  <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                    <div class="bg-neutral-600 h-full" style="width: 45%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">3-4 revisions</span>
+                    <span class="text-xs text-neutral-900">987 cases (12%)</span>
+                  </div>
+                  <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                    <div class="bg-neutral-700 h-full" style="width: 12%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">5+ revisions</span>
+                    <span class="text-xs text-neutral-900">329 cases (4%)</span>
+                  </div>
+                  <div class="w-full bg-neutral-200 h-2 rounded-full overflow-hidden">
+                    <div class="bg-neutral-900 h-full" style="width: 4%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-5">
+              <div class="text-sm text-neutral-900 mb-4">Cumulative Time Impact</div>
+              <div class="space-y-3">
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">0 revisions</span>
+                    <span class="text-xs text-neutral-900">28.4 days avg</span>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">1-2 revisions</span>
+                    <span class="text-xs text-neutral-900">42.7 days avg</span>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-neutral-700">3-4 revisions</span>
+                    <span class="text-xs text-neutral-900">68.3 days avg</span>
+                  </div>
+                </div>
+                <div class="p-3 bg-neutral-900 rounded">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-xs text-white">5+ revisions</span>
+                    <span class="text-xs text-white">94.8 days avg</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-neutral-200 text-xs text-neutral-600">
+                Cases requiring 5+ revisions take 234% longer than first-time approvals
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chokepoint-identification-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Policy Chokepoint Identification</h2>
+            <p class="text-sm text-neutral-600">Specific policy requirements creating processing friction</p>
+          </div>
+
+          <div class="border border-neutral-200 rounded-lg overflow-hidden mb-6">
+            <div class="bg-neutral-50 p-4 border-b border-neutral-200">
+              <div class="text-sm text-neutral-900">Identified Chokepoints by Severity</div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-neutral-50">
+                  <tr>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Chokepoint</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Cases Affected</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Avg Delay</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Severity</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Primary Cause</th>
+                    <th class="px-5 py-3 text-left text-xs text-neutral-500 uppercase tracking-wider">Trend</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-neutral-200">
+                  <tr class="bg-neutral-50">
+                    <td class="px-5 py-4 text-sm text-neutral-900">Credential equivalency database gaps</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">1,247</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">16.8 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-900 text-white text-xs rounded">Critical</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Missing international institutions</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">↑ 24%</td>
+                  </tr>
+                  <tr class="bg-neutral-50">
+                    <td class="px-5 py-4 text-sm text-neutral-900">Funding ceiling constraints</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">2,847</td>
+                    <td class="px-5 py-4 text-sm text-neutral-900">12.4 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-900 text-white text-xs rounded">Critical</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Exception request process</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">↑ 31%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Prior learning assessment requirements</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">892</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">9.7 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-700 text-white text-xs rounded">High</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Documentation standards unclear</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">↑ 8%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Multiple pathway concurrent pursuit restrictions</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">427</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">7.3 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-600 text-white text-xs rounded">Medium</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Approval workflow complexity</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">→ 0%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Geographic restriction waivers</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">312</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">6.8 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-600 text-white text-xs rounded">Medium</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Manual review required</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">↑ 12%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-5 py-4 text-sm text-neutral-900">Timeline extension protocols</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">734</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">5.4 days</td>
+                    <td class="px-5 py-4">
+                      <span class="inline-flex items-center px-2 py-1 bg-neutral-500 text-white text-xs rounded">Low</span>
+                    </td>
+                    <td class="px-5 py-4 text-sm text-neutral-600">Documentation requirements</td>
+                    <td class="px-5 py-4 text-sm text-neutral-700">↑ 19%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-3 mb-4">
+                <div class="w-10 h-10 bg-neutral-900 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-exclamation-circle text-white"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Critical Chokepoint: Credential Equivalency</div>
+                  <div class="text-xs text-neutral-600">Affecting 1,247 cases (+24% vs Q3)</div>
+                </div>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Root Cause Analysis</div>
+                  <div class="text-xs text-neutral-600">Database covers 68 countries; exception requests concentrated in 14 countries not yet cataloged. International credential submissions increased 47% year-over-year.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Impact Metrics</div>
+                  <div class="text-xs text-neutral-600">Average 16.8 day delay per case. 89% require third-party evaluation services. 81% eventually approved after extended review.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Pattern Observation</div>
+                  <div class="text-xs text-neutral-600">Clustering in healthcare and technical certification pathways. Highest concentration: nursing (23%), IT certifications (19%), engineering (14%).</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-3 mb-4">
+                <div class="w-10 h-10 bg-neutral-900 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-dollar-sign text-white"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Critical Chokepoint: Funding Ceiling</div>
+                  <div class="text-xs text-neutral-600">Affecting 2,847 cases (+31% vs Q3)</div>
+                </div>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Root Cause Analysis</div>
+                  <div class="text-xs text-neutral-600">High-demand technical certifications exceed $15K policy cap. Market-rate training costs increased 18% over 2 years while cap remained static.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Impact Metrics</div>
+                  <div class="text-xs text-neutral-600">Average 12.4 day delay for exception processing. 68% approval rate when ROI justification provided. Cyber security (47%) and cloud architecture (31%) most affected.</div>
+                </div>
+                <div class="p-3 bg-neutral-50 rounded">
+                  <div class="text-neutral-900 mb-1">Pattern Observation</div>
+                  <div class="text-xs text-neutral-600">Exception requests correlate with high-growth tech sectors. 89% of approved exceptions cite employment outcome data and wage comparisons.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="recommendations-section" class="bg-white border-b border-neutral-200 px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-2xl text-neutral-900 mb-2">Bottleneck Mitigation Considerations</h2>
+            <p class="text-sm text-neutral-600">Evidence-based observations for human leadership review—not automated recommendations</p>
+          </div>
+
+          <div class="p-4 bg-neutral-100 border border-neutral-300 rounded mb-6">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-shield-halved text-neutral-600 text-lg"></i>
+              <div class="text-sm text-neutral-700">
+                <strong>Governance Boundary:</strong> This section presents aggregated evidence only. No automated policy recommendations or workflow actions are generated. All interpretation and decision authority remains with human institutional leadership.
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-10 h-10 bg-neutral-100 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-database text-neutral-700"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Consideration: Credential Database Expansion</div>
+                  <div class="text-xs text-neutral-600">Related to: Critical chokepoint affecting 1,247 cases</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Evidence Supporting Attention</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• 14 countries account for 78% of equivalency exceptions</li>
+                    <li>• Third-party evaluation adds 16.8 days average delay</li>
+                    <li>• 81% eventual approval rate suggests valid credentials</li>
+                    <li>• International submissions increased 47% year-over-year</li>
+                  </ul>
+                </div>
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Potential Considerations</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Database expansion to cover high-frequency countries</li>
+                    <li>• Partnership with evaluation services for faster turnaround</li>
+                    <li>• Interim approval protocols for common institutions</li>
+                    <li>• Enhanced documentation standards to reduce back-and-forth</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-neutral-200 text-xs text-neutral-600">
+                Human review required to assess resource allocation, policy implications, and institutional partnerships.
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-10 h-10 bg-neutral-100 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-coins text-neutral-700"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Consideration: Funding Ceiling Policy Review</div>
+                  <div class="text-xs text-neutral-600">Related to: Critical chokepoint affecting 2,847 cases</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Evidence Supporting Attention</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Exception requests increased 31% quarter-over-quarter</li>
+                    <li>• Concentrated in high-growth tech sectors (78%)</li>
+                    <li>• Market training costs increased 18% over 2 years</li>
+                    <li>• 68% approval rate when ROI justification provided</li>
+                  </ul>
+                </div>
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Potential Considerations</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Differential ceiling by credential category</li>
+                    <li>• Annual cost-of-training index adjustment mechanism</li>
+                    <li>• Streamlined exception process for pre-approved programs</li>
+                    <li>• Enhanced ROI documentation standards</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-neutral-200 text-xs text-neutral-600">
+                Human review required to balance fiscal constraints, market realities, and program effectiveness goals.
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-10 h-10 bg-neutral-100 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-user-clock text-neutral-700"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Consideration: Human Review Capacity Planning</div>
+                  <div class="text-xs text-neutral-600">Related to: Peak queue wait of 8.6 days</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Evidence Supporting Attention</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Monday shows 94% capacity utilization</li>
+                    <li>• 10:00-12:00 time block consistently at 92% capacity</li>
+                    <li>• Top 20% of advisors handle 47% of complex cases</li>
+                    <li>• Q4 demand consistently 40% higher than Q2</li>
+                  </ul>
+                </div>
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Potential Considerations</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Seasonal capacity augmentation protocols</li>
+                    <li>• Workload distribution balancing mechanisms</li>
+                    <li>• Case complexity triage refinement</li>
+                    <li>• Advisor specialization by credential type</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-neutral-200 text-xs text-neutral-600">
+                Human review required to protect decision quality while managing capacity constraints and advisor well-being.
+              </div>
+            </div>
+
+            <div class="border border-neutral-200 rounded-lg p-6">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-10 h-10 bg-neutral-100 flex items-center justify-center rounded">
+                  <i class="fa-solid fa-file-alt text-neutral-700"></i>
+                </div>
+                <div>
+                  <div class="text-lg text-neutral-900 mb-1">Consideration: Documentation Standards Clarification</div>
+                  <div class="text-xs text-neutral-600">Related to: 34% revision rate in funding justification stage</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Evidence Supporting Attention</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Average 2.7 revisions per funding justification case</li>
+                    <li>• Each revision adds 18.3 days to processing time</li>
+                    <li>• "Insufficient rationale" is primary rejection reason</li>
+                    <li>• Cases with 5+ revisions show 23.4% abandonment rate</li>
+                  </ul>
+                </div>
+                <div class="bg-neutral-50 p-4 rounded">
+                  <div class="text-sm text-neutral-900 mb-2">Potential Considerations</div>
+                  <ul class="text-xs text-neutral-700 space-y-1">
+                    <li>• Enhanced submission guidance with examples</li>
+                    <li>• Pre-submission checklist requirements</li>
+                    <li>• Template library for common scenarios</li>
+                    <li>• Early feedback mechanism before formal review</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-neutral-200 text-xs text-neutral-600">
+                Human review required to balance clarity with flexibility and avoid creating new administrative burden.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer" class="bg-white border-t border-neutral-200 px-8 py-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="p-5 bg-neutral-50 border border-neutral-200 rounded-lg mb-6">
+            <div class="flex items-start gap-3 mb-3">
+              <i class="fa-solid fa-gavel text-neutral-700 text-lg"></i>
+              <div>
+                <div class="text-sm text-neutral-900 mb-2">Required Footer Statement</div>
+                <p class="text-sm text-neutral-700 leading-relaxed">
+                  This report presents aggregated institutional intelligence derived from de-identified data. It does not evaluate individuals, predict outcomes, or authorize decisions. Interpretation and action remain the responsibility of human leadership.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-sm text-neutral-600">
+            <div class="flex items-center gap-6">
+              <div>ESO Global Intelligence Report</div>
+              <div>•</div>
+              <div>Generated: December 28, 2025</div>
+              <div>•</div>
+              <div>Reporting Period: Q4 2025</div>
+            </div>
+            <div class="flex items-center gap-4">
+              <a href="/cmgf" class="hover:text-neutral-900">CMGF Root</a>
+              <a href="/cmgf/part-b" class="hover:text-neutral-900">Part B Dashboard</a>
+              <a href="/cmgf/eso/intelligence" class="hover:text-neutral-900">ESO Intelligence</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+                        </body>
+                        </html>
+                        

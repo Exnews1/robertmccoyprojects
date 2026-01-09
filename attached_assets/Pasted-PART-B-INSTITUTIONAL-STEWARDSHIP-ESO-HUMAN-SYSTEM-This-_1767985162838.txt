@@ -1,0 +1,131 @@
+PART B — INSTITUTIONAL STEWARDSHIP (ESO / HUMAN SYSTEM)
+
+This is a human workspace, not an AI workspace
+
+Purpose
+
+Part B represents formal human decision-making environments, such as:
+
+Education Services Offices (ESO)
+
+Advisors
+
+Educators
+
+Administrators
+
+This layer:
+
+Receives AI-mediated signals
+
+Performs human judgment
+
+Produces official outcomes
+
+Maintains accountability
+
+Core Part B Pages (UX-Consistent with A & C)
+
+Advisor Review Workspace
+
+Educator Validation Panel
+
+Administrator Decision Console
+
+Human Handoff Preparation
+
+Decision Outcome Summary
+
+Audit Trail & Rationale Log
+
+Design Rules:
+
+No predictive language
+
+No automation metaphors
+
+Clear role separation
+
+Decisions explicitly attributed to humans
+
+7. PART B1 — ENTERPRISE / POLICY INTELLIGENCE (AGGREGATED ONLY)
+
+This is NOT an individual decision layer
+
+Name:
+
+Enterprise Governance & Evidence Layer (B1)
+
+Purpose:
+
+B1 exists to support policy, funding, and system design, not individuals.
+
+It aggregates de-identified, normalized data to surface:
+
+System bottlenecks
+
+Credential friction
+
+Funding pressure points
+
+Human review load & capacity
+
+Retention and attrition signals
+
+Policy exception frequency
+
+Required Pages (as already drafted)
+
+Executive Overview
+
+System Bottleneck Analysis
+
+Funding & Resource Pressure
+
+Human Review Load & Capacity
+
+Policy Friction & Exceptions
+
+Retention & Attrition Signals
+
+Interpretive Notes & Human Commentary
+
+Critical Governance Constraints (Must be explicit on every page)
+
+No individual identifiers
+
+No re-identification risk
+
+Population-level metrics only
+
+Aggregation boundary checks enforced
+
+8. NAVIGATION RULES (GLOBAL)
+
+Every page on the site must include:
+
+Link to Main Project Page
+
+Link to CMGF Framework Overview
+
+Contextual “Level Up” navigation:
+
+Part A ↔ Framework
+
+Part B ↔ Framework
+
+Part B1 ↔ Part B
+
+Breadcrumbs should reflect governance hierarchy, not UI convenience.
+
+9. EXPECTED CONTENT INGEST BEHAVIOR
+
+Replit AI should assume:
+
+HTML pages for Parts A, B, and C will be provided incrementally
+
+The site must gracefully expand without refactoring
+
+Styling must remain consistent across externally supplied HTML
+
+Navigation scaffolding must auto-apply to new pages

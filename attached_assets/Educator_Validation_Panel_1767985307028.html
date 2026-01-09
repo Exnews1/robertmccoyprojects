@@ -1,0 +1,1208 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        <div id="educator-validation-panel" class="flex h-screen bg-white">
+  <div id="sidebar" class="fixed left-0 top-0 h-full w-72 bg-neutral-900 text-white border-r border-neutral-800">
+    <div class="p-6 border-b border-neutral-800">
+      <div class="flex items-center space-x-3 mb-1">
+        <div class="bg-white rounded-lg p-2">
+          <i class="fa-solid fa-shield-halved text-neutral-900 text-xl"></i>
+        </div>
+        <div>
+          <div class="text-lg">CMGF System</div>
+          <div class="text-xs text-neutral-400">Human Review Layer</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="mt-4 px-3">
+      <div class="text-xs text-neutral-500 uppercase tracking-wider mb-3 px-3">Part B Navigation</div>
+      <ul class="space-y-1">
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-user-check w-5"></i>
+            <span class="ml-3 text-sm">B1: Advisor Review</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg bg-neutral-800 text-white" href="#">
+            <i class="fa-solid fa-graduation-cap w-5"></i>
+            <span class="ml-3 text-sm">B2: Educator Validation</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-gavel w-5"></i>
+            <span class="ml-3 text-sm">B3: Admin Decision</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-exchange-alt w-5"></i>
+            <span class="ml-3 text-sm">B4: Human Handoff</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-clipboard-list w-5"></i>
+            <span class="ml-3 text-sm">B5: Audit Trail</span>
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center px-3 py-3 rounded-lg hover:bg-neutral-800 text-neutral-300" href="#">
+            <i class="fa-solid fa-file-alt w-5"></i>
+            <span class="ml-3 text-sm">B6: Decision Summary</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-8 px-3">
+        <div class="text-xs text-neutral-500 uppercase tracking-wider mb-3">Quick Actions</div>
+        <ul class="space-y-1">
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-inbox w-5"></i>
+              <span class="ml-3">Validation Queue</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">7</span>
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-exclamation-triangle w-5"></i>
+              <span class="ml-3">Academic Risks</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">2</span>
+            </a>
+          </li>
+          <li>
+            <a class="flex items-center px-3 py-2 rounded-lg hover:bg-neutral-800 text-neutral-300 text-sm" href="#">
+              <i class="fa-solid fa-check-double w-5"></i>
+              <span class="ml-3">Validated Today</span>
+              <span class="ml-auto bg-neutral-700 text-white text-xs px-2 py-1 rounded-full">5</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="absolute bottom-0 w-full p-4 border-t border-neutral-800">
+      <div class="flex items-center space-x-3 mb-3">
+        <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=592" alt="User" class="w-10 h-10 rounded-full"/>
+        <div class="flex-1">
+          <div class="text-sm">Dr. Patricia Wong</div>
+          <div class="text-xs text-neutral-400">Lead Educator</div>
+        </div>
+      </div>
+      <button class="flex items-center text-neutral-300 hover:text-white text-sm w-full">
+        <i class="fa-solid fa-cog w-5"></i>
+        <span class="ml-3">Settings</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="main-content" class="ml-72 flex-1 flex flex-col">
+    <header id="header" class="bg-white border-b border-neutral-200 px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <div>
+            <h1 class="text-2xl text-neutral-900">B2: Educator Validation Panel</h1>
+            <p class="text-sm text-neutral-600 mt-1">Validate academic and credential alignment without substituting human judgment</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50 flex items-center">
+            <i class="fa-solid fa-filter mr-2"></i>
+            Filters
+          </button>
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50 flex items-center">
+            <i class="fa-solid fa-download mr-2"></i>
+            Export
+          </button>
+          <button class="p-2 hover:bg-neutral-100 rounded-lg">
+            <i class="fa-regular fa-bell text-neutral-600"></i>
+          </button>
+          <button class="p-2 hover:bg-neutral-100 rounded-lg">
+            <i class="fa-solid fa-question-circle text-neutral-600"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section id="validation-authority-banner" class="bg-neutral-900 text-white px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="bg-white rounded-lg p-2">
+            <i class="fa-solid fa-graduation-cap text-neutral-900 text-xl"></i>
+          </div>
+          <div>
+            <div class="text-lg">Validation Authority Active — Not Approval Authority</div>
+            <div class="text-sm text-neutral-300">Your role is to validate academic feasibility and alignment. You cannot approve pathways or predict individual success.</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="bg-neutral-800 px-4 py-2 rounded-lg border border-neutral-700">
+            <div class="text-xs text-neutral-400">Active Role</div>
+            <div class="text-sm">Lead Educator</div>
+          </div>
+          <div class="bg-neutral-800 px-4 py-2 rounded-lg border border-neutral-700">
+            <div class="text-xs text-neutral-400">Authority Level</div>
+            <div class="text-sm">Validate & Escalate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="validation-workspace-container" class="flex flex-1 overflow-hidden">
+      <div id="validation-queue-panel" class="w-80 border-r border-neutral-200 bg-neutral-50 overflow-y-auto">
+        <div class="p-4 border-b border-neutral-200 bg-white">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-neutral-900">Validation Queue</h3>
+            <span class="text-xs bg-neutral-200 px-2 py-1 rounded-full">7 Cases</span>
+          </div>
+          <div class="relative">
+            <i class="fa-solid fa-search absolute left-3 top-3 text-neutral-400"></i>
+            <input type="text" placeholder="Search cases..." class="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-lg text-sm"/>
+          </div>
+        </div>
+
+        <div class="p-3 space-y-2">
+          <div class="bg-white border-l-4 border-neutral-900 rounded-lg p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-neutral-900 rounded-full"></div>
+                <span class="text-xs text-neutral-900">CASE-2025-0847</span>
+              </div>
+              <span class="text-xs bg-neutral-900 text-white px-2 py-1 rounded">From B1</span>
+            </div>
+            <div class="text-sm text-neutral-900 mb-1">SSgt. Michael Chen</div>
+            <div class="text-xs text-neutral-600 mb-2">Cybersecurity pathway validation</div>
+            <div class="text-xs text-neutral-500 mb-3">Advisor: Dr. Sarah Martinez</div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-neutral-500">Routed: 2025-01-09</span>
+              <span class="text-neutral-700">Requires validation</span>
+            </div>
+          </div>
+
+          <div class="bg-white border-l-4 border-neutral-400 rounded-lg p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-neutral-400 rounded-full"></div>
+                <span class="text-xs text-neutral-700">CASE-2025-0843</span>
+              </div>
+              <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Standard</span>
+            </div>
+            <div class="text-sm text-neutral-900 mb-1">MSgt. Robert Anderson</div>
+            <div class="text-xs text-neutral-600 mb-2">Leadership studies validation</div>
+            <div class="text-xs text-neutral-500 mb-3">Advisor: Dr. James Patterson</div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-neutral-500">Routed: 2025-01-09</span>
+              <span class="text-neutral-700">Pending review</span>
+            </div>
+          </div>
+
+          <div class="bg-white border-l-4 border-neutral-400 rounded-lg p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-neutral-400 rounded-full"></div>
+                <span class="text-xs text-neutral-700">CASE-2025-0841</span>
+              </div>
+              <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Standard</span>
+            </div>
+            <div class="text-sm text-neutral-900 mb-1">Capt. Lisa Thompson</div>
+            <div class="text-xs text-neutral-600 mb-2">Engineering program alignment</div>
+            <div class="text-xs text-neutral-500 mb-3">Advisor: Dr. Maria Garcia</div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-neutral-500">Routed: 2025-01-08</span>
+              <span class="text-neutral-700">Pending review</span>
+            </div>
+          </div>
+
+          <div class="bg-white border-l-4 border-neutral-400 rounded-lg p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-neutral-400 rounded-full"></div>
+                <span class="text-xs text-neutral-700">CASE-2025-0839</span>
+              </div>
+              <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Standard</span>
+            </div>
+            <div class="text-sm text-neutral-900 mb-1">TSgt. Kevin Martinez</div>
+            <div class="text-xs text-neutral-600 mb-2">Healthcare administration review</div>
+            <div class="text-xs text-neutral-500 mb-3">Advisor: Dr. Sarah Martinez</div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-neutral-500">Routed: 2025-01-08</span>
+              <span class="text-neutral-700">Pending review</span>
+            </div>
+          </div>
+
+          <div class="bg-white border-l-4 border-neutral-400 rounded-lg p-4 shadow-sm">
+            <div class="flex items-start justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-neutral-400 rounded-full"></div>
+                <span class="text-xs text-neutral-700">CASE-2025-0837</span>
+              </div>
+              <span class="text-xs bg-neutral-100 px-2 py-1 rounded">Standard</span>
+            </div>
+            <div class="text-sm text-neutral-900 mb-1">A1C. Sarah Johnson</div>
+            <div class="text-xs text-neutral-600 mb-2">Business administration pathway</div>
+            <div class="text-xs text-neutral-500 mb-3">Advisor: Dr. James Patterson</div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-neutral-500">Routed: 2025-01-07</span>
+              <span class="text-neutral-700">Pending review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="validation-main-content" class="flex-1 overflow-y-auto">
+        <div class="p-8">
+          <section id="case-header-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <div class="flex items-center space-x-3 mb-2">
+                  <h2 class="text-xl text-neutral-900">CASE-2025-0847</h2>
+                  <span class="bg-neutral-900 text-white text-xs px-3 py-1 rounded-full">Active Validation</span>
+                  <span class="bg-neutral-200 text-neutral-700 text-xs px-3 py-1 rounded-full">From B1 Review</span>
+                </div>
+                <p class="text-sm text-neutral-600">Routed to Educator: January 9, 2025 at 10:47 AM EST</p>
+              </div>
+              <div class="flex items-center space-x-2">
+                <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+                  <i class="fa-solid fa-print mr-2"></i>
+                  Print
+                </button>
+                <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+                  <i class="fa-solid fa-history mr-2"></i>
+                  Full History
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4">
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="text-xs text-neutral-500 mb-1">Service Member</div>
+                <div class="flex items-center space-x-2">
+                  <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=125" alt="Member" class="w-8 h-8 rounded-full"/>
+                  <div>
+                    <div class="text-sm text-neutral-900">SSgt. Michael Chen</div>
+                    <div class="text-xs text-neutral-600">E-5, Active Duty</div>
+                  </div>
+                </div>
+              </div>
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="text-xs text-neutral-500 mb-1">Pathway Focus</div>
+                <div class="text-sm text-neutral-900">Cybersecurity</div>
+                <div class="text-xs text-neutral-600">Information Security</div>
+              </div>
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="text-xs text-neutral-500 mb-1">Previous Advisor</div>
+                <div class="text-sm text-neutral-900">Dr. Sarah Martinez</div>
+                <div class="text-xs text-neutral-600">Senior Advisor</div>
+              </div>
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="text-xs text-neutral-500 mb-1">Validation Status</div>
+                <div class="text-sm text-neutral-900">Awaiting Review</div>
+                <div class="text-xs text-neutral-600">0 hours in queue</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="advisor-context-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-user-check mr-2 text-neutral-600"></i>
+              Advisor Review Summary (B1)
+            </h3>
+
+            <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-4">
+              <div class="flex items-start space-x-3">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=847" alt="Advisor" class="w-10 h-10 rounded-full"/>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="text-sm text-neutral-900">Dr. Sarah Martinez — Senior Advisor</div>
+                    <div class="text-xs text-neutral-600">Reviewed: January 9, 2025 at 10:45 AM</div>
+                  </div>
+                  <div class="text-xs text-neutral-500 uppercase mb-2">Contextual Observations</div>
+                  <div class="text-sm text-neutral-800 leading-relaxed mb-3">
+                    Service member demonstrates strong technical foundation with relevant certifications (CISSP, Security+, Network+) and hands-on experience in cyber transport systems. The explicit request for human guidance suggests thoughtful consideration of career transition. Member has already completed 45 credits toward bachelor's degree, indicating commitment to educational goals. Current AFSC (3D1X2) provides direct experience alignment with cybersecurity field. Deployment history should be considered when evaluating program timeline feasibility.
+                  </div>
+                  <div class="text-xs text-neutral-500 uppercase mb-2">Missing Information Identified</div>
+                  <div class="text-sm text-neutral-800 leading-relaxed mb-3">
+                    Need clarification on: (1) Specific career goals post-transition (government, private sector, consulting?), (2) Preferred learning modality (fully online vs. hybrid), (3) Geographic constraints or preferences, (4) Timeline constraints related to military obligations, (5) Financial considerations or TA eligibility status.
+                  </div>
+                  <div class="text-xs text-neutral-500 uppercase mb-2">Preliminary Assessment</div>
+                  <div class="text-sm text-neutral-800 leading-relaxed">
+                    Strong candidate for cybersecurity pathway transition. Credentials and experience align well with industry requirements. Recommend educator validation of specific program requirements and credit transfer potential. Case appears straightforward but would benefit from academic feasibility review before proceeding to administrator decision phase.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-neutral-300 rounded-lg p-4">
+              <div class="text-xs text-neutral-500 uppercase mb-2">Advisor Routing Rationale</div>
+              <div class="text-sm text-neutral-800">
+                Escalated to B2 for educator validation to ensure academic program alignment, verify credential mapping accuracy, and confirm feasibility of proposed pathways before administrator decision.
+              </div>
+            </div>
+          </section>
+
+          <section id="academic-profile-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-book-open mr-2 text-neutral-600"></i>
+              Academic Profile & Credentials
+            </h3>
+
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <div class="text-sm text-neutral-900 mb-3">Current Education Status</div>
+                <div class="space-y-3">
+                  <div class="border border-neutral-200 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-2">
+                      <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-graduation-cap text-neutral-600"></i>
+                        <div class="text-sm text-neutral-900">Associate Degree</div>
+                      </div>
+                      <span class="text-xs bg-neutral-200 px-2 py-1 rounded">Completed</span>
+                    </div>
+                    <div class="text-xs text-neutral-600 mb-1">Information Technology</div>
+                    <div class="text-xs text-neutral-500">Community College of the Air Force, 2023</div>
+                    <div class="text-xs text-neutral-700 mt-2">Credits: 60 semester hours</div>
+                  </div>
+
+                  <div class="border border-neutral-200 rounded-lg p-4">
+                    <div class="flex items-start justify-between mb-2">
+                      <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-laptop-code text-neutral-600"></i>
+                        <div class="text-sm text-neutral-900">Bachelor's in Progress</div>
+                      </div>
+                      <span class="text-xs bg-neutral-900 text-white px-2 py-1 rounded">In Progress</span>
+                    </div>
+                    <div class="text-xs text-neutral-600 mb-1">Computer Science</div>
+                    <div class="text-xs text-neutral-500">Online program (institution not specified)</div>
+                    <div class="text-xs text-neutral-700 mt-2">Credits completed: 45 / 120 required</div>
+                    <div class="text-xs text-neutral-700">Remaining: 75 credits</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="text-sm text-neutral-900 mb-3">Professional Certifications</div>
+                <div class="space-y-2">
+                  <div class="border border-neutral-200 rounded-lg p-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-neutral-900">CISSP</div>
+                      <div class="text-xs text-neutral-600">Certified Information Systems Security Professional</div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 px-2 py-1 rounded">Active</span>
+                  </div>
+
+                  <div class="border border-neutral-200 rounded-lg p-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-neutral-900">CompTIA Security+</div>
+                      <div class="text-xs text-neutral-600">Security Certification</div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 px-2 py-1 rounded">Active</span>
+                  </div>
+
+                  <div class="border border-neutral-200 rounded-lg p-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-neutral-900">CompTIA Network+</div>
+                      <div class="text-xs text-neutral-600">Network Certification</div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 px-2 py-1 rounded">Active</span>
+                  </div>
+
+                  <div class="border border-neutral-200 rounded-lg p-3 flex items-center justify-between">
+                    <div>
+                      <div class="text-sm text-neutral-900">Cisco CCNA</div>
+                      <div class="text-xs text-neutral-600">Cisco Certified Network Associate</div>
+                    </div>
+                    <span class="text-xs bg-neutral-200 px-2 py-1 rounded">Active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-neutral-200">
+              <div class="text-sm text-neutral-900 mb-3">Military Experience & Training</div>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="text-xs text-neutral-500 mb-1">Primary AFSC</div>
+                  <div class="text-sm text-neutral-900">3D1X2</div>
+                  <div class="text-xs text-neutral-600">Cyber Transport Systems</div>
+                </div>
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="text-xs text-neutral-500 mb-1">Years of Service</div>
+                  <div class="text-sm text-neutral-900">6 years, 3 months</div>
+                  <div class="text-xs text-neutral-600">Active Duty</div>
+                </div>
+                <div class="border border-neutral-200 rounded-lg p-4">
+                  <div class="text-xs text-neutral-500 mb-1">Deployment History</div>
+                  <div class="text-sm text-neutral-900">2 deployments</div>
+                  <div class="text-xs text-neutral-600">18 months total</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="program-alignment-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-university mr-2 text-neutral-600"></i>
+              Program Alignment Analysis
+            </h3>
+
+            <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 mb-6">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-info-circle text-neutral-700 mt-1"></i>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900 mb-1">Validation Framework</div>
+                  <div class="text-sm text-neutral-700">Your role is to validate academic feasibility and program alignment. This is NOT an approval or recommendation. You are assessing whether proposed pathways are academically sound and aligned with member's credentials and goals.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border border-neutral-200 rounded-lg">
+                <div class="bg-neutral-100 px-4 py-3 border-b border-neutral-200 flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">1</div>
+                    <div>
+                      <div class="text-neutral-900">Information Security Programs</div>
+                      <div class="text-xs text-neutral-600">Bachelor's Degree Level</div>
+                    </div>
+                  </div>
+                  <button class="text-xs text-neutral-700 hover:text-neutral-900">Expand Analysis</button>
+                </div>
+                <div class="p-4">
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Alignment Assessment</div>
+                    <div class="text-sm text-neutral-800 leading-relaxed">
+                      Information Security bachelor's programs typically require foundational coursework in networking, systems security, cryptography, and risk management. Member's CISSP certification demonstrates advanced knowledge in these areas. CCAF IT degree provides foundational credits. Current 45 credits toward computer science degree may transfer depending on institutional articulation agreements.
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Credential Mapping Validation</div>
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">CISSP Recognition</div>
+                        <div class="text-sm text-neutral-900">Commonly accepted for advanced standing in security programs</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">CompTIA Certifications</div>
+                        <div class="text-sm text-neutral-900">May satisfy prerequisite requirements</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">CCAF Credits</div>
+                        <div class="text-sm text-neutral-900">60 credits potentially transferable</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Military Experience</div>
+                        <div class="text-sm text-neutral-900">Relevant for practicum/capstone requirements</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Feasibility Factors</div>
+                    <div class="space-y-2">
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Strong prerequisite foundation through certifications and experience</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Existing credits reduce time-to-completion</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Online program availability supports active duty constraints</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Credit transfer depends on specific institutional policies</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Timeline may be affected by deployment cycles</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Institutional Examples (Reference Only)</div>
+                    <div class="text-xs text-neutral-700 leading-relaxed">
+                      AI signals identified 23 institutions with Information Security programs accepting applications. Examples include Western Governors University (competency-based), University of Maryland Global Campus (military-friendly), and SANS Technology Institute (security-focused). Specific program selection requires individual institutional review.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg">
+                <div class="bg-neutral-100 px-4 py-3 border-b border-neutral-200 flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">2</div>
+                    <div>
+                      <div class="text-neutral-900">Cybersecurity Programs</div>
+                      <div class="text-xs text-neutral-600">Bachelor's Degree Level</div>
+                    </div>
+                  </div>
+                  <button class="text-xs text-neutral-700 hover:text-neutral-900">Expand Analysis</button>
+                </div>
+                <div class="p-4">
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Alignment Assessment</div>
+                    <div class="text-sm text-neutral-800 leading-relaxed">
+                      Cybersecurity bachelor's programs emphasize defensive strategies, threat analysis, incident response, and security architecture. Member's AFSC (3D1X2) provides hands-on experience with network security operations. CISSP certification covers multiple cybersecurity domains. Existing computer science credits provide technical foundation.
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Credential Mapping Validation</div>
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">CISSP + Security+</div>
+                        <div class="text-sm text-neutral-900">Strong alignment with program outcomes</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Network Operations Experience</div>
+                        <div class="text-sm text-neutral-900">Direct relevance to curriculum</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Computer Science Credits</div>
+                        <div class="text-sm text-neutral-900">Transferable to technical requirements</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">CCNA Certification</div>
+                        <div class="text-sm text-neutral-900">Supports networking coursework</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Feasibility Factors</div>
+                    <div class="space-y-2">
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Certifications demonstrate competency in core subject areas</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Military experience provides practical context for coursework</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Growing field with strong institutional program availability</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Some programs have specific math/science prerequisites</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Lab requirements may require synchronous participation</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Institutional Examples (Reference Only)</div>
+                    <div class="text-xs text-neutral-700 leading-relaxed">
+                      AI signals identified 17 institutions with Cybersecurity programs. Examples include Purdue Global (online options), Embry-Riddle Aeronautical University (military-focused), and University of Arizona (NSA-designated). Program selection depends on individual goals and constraints.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg">
+                <div class="bg-neutral-100 px-4 py-3 border-b border-neutral-200 flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="bg-neutral-700 text-white rounded-full w-8 h-8 flex items-center justify-center text-xs">3</div>
+                    <div>
+                      <div class="text-neutral-900">Computer Science with Security Focus</div>
+                      <div class="text-xs text-neutral-600">Bachelor's Degree Level</div>
+                    </div>
+                  </div>
+                  <button class="text-xs text-neutral-700 hover:text-neutral-900">Expand Analysis</button>
+                </div>
+                <div class="p-4">
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Alignment Assessment</div>
+                    <div class="text-sm text-neutral-800 leading-relaxed">
+                      Computer Science programs with security concentration provide broader technical foundation while allowing specialization. Member already has 45 credits toward CS degree, suggesting potential for efficient completion. This pathway offers flexibility for career pivoting within technology sector while maintaining security focus.
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Credential Mapping Validation</div>
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Existing CS Credits</div>
+                        <div class="text-sm text-neutral-900">45 credits already completed in program</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Security Certifications</div>
+                        <div class="text-sm text-neutral-900">Support concentration requirements</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Technical Foundation</div>
+                        <div class="text-sm text-neutral-900">CCAF IT degree provides base knowledge</div>
+                      </div>
+                      <div class="bg-neutral-50 border border-neutral-200 rounded p-3">
+                        <div class="text-xs text-neutral-600 mb-1">Practical Experience</div>
+                        <div class="text-sm text-neutral-900">Supports elective selection</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Academic Feasibility Factors</div>
+                    <div class="space-y-2">
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Shortest path to completion given existing progress</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Broader technical foundation for career flexibility</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-check text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Security concentration maintains career focus</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">Requires verification of current institution's concentration options</div>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <i class="fa-solid fa-exclamation-circle text-neutral-600 mt-1"></i>
+                        <div class="text-sm text-neutral-800">May require additional math/science coursework</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="text-xs text-neutral-500 uppercase mb-2">Continuation vs. New Program</div>
+                    <div class="text-xs text-neutral-700 leading-relaxed">
+                      Member is currently enrolled in Computer Science program (institution not specified in case file). Continuing current program with security concentration may be most efficient path. Alternative: transferring to specialized security program may provide more focused curriculum but could result in credit loss.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="academic-risk-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-exclamation-triangle mr-2 text-neutral-600"></i>
+              Academic Risk Assessment
+            </h3>
+
+            <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-4">
+              <div class="text-xs text-neutral-500 uppercase mb-2">Risk Identification Framework</div>
+              <div class="text-sm text-neutral-700">
+                Identify potential academic risks, feasibility concerns, or misalignment factors that could impact pathway success. This assessment does NOT predict individual outcomes but flags considerations requiring attention.
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3 mb-3">
+                  <div class="bg-neutral-200 rounded-full p-2">
+                    <i class="fa-solid fa-info-circle text-neutral-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm text-neutral-900 mb-1">Credit Transfer Uncertainty</div>
+                    <div class="text-xs text-neutral-600 mb-2">MODERATE CONSIDERATION</div>
+                    <div class="text-sm text-neutral-700 leading-relaxed">
+                      Member has 45 credits completed in unspecified institution. Transfer credit acceptance varies significantly by institution. Without articulation agreement review, precise credit transfer cannot be validated. Recommendation: require institutional transcript evaluation before pathway finalization.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3 mb-3">
+                  <div class="bg-neutral-200 rounded-full p-2">
+                    <i class="fa-solid fa-info-circle text-neutral-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm text-neutral-900 mb-1">Timeline Feasibility with Military Obligations</div>
+                    <div class="text-xs text-neutral-600 mb-2">MODERATE CONSIDERATION</div>
+                    <div class="text-sm text-neutral-700 leading-relaxed">
+                      Member has deployment history (18 months over 2 deployments). Active duty constraints may impact course completion timelines. Part-time study typical for this profile requires 18-24 months for completion. Operational tempo and potential future deployments should be factored into program selection and timeline expectations.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3 mb-3">
+                  <div class="bg-neutral-200 rounded-full p-2">
+                    <i class="fa-solid fa-check-circle text-neutral-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm text-neutral-900 mb-1">Prerequisite Readiness</div>
+                    <div class="text-xs text-neutral-600 mb-2">LOW RISK</div>
+                    <div class="text-sm text-neutral-700 leading-relaxed">
+                      Member's certifications (CISSP, Security+, Network+, CCNA) demonstrate strong prerequisite knowledge. CCAF IT degree provides foundational coursework. No significant academic readiness concerns identified. Member appears well-prepared for upper-level security coursework.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3 mb-3">
+                  <div class="bg-neutral-200 rounded-full p-2">
+                    <i class="fa-solid fa-info-circle text-neutral-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm text-neutral-900 mb-1">Program Modality Constraints</div>
+                    <div class="text-xs text-neutral-600 mb-2">MODERATE CONSIDERATION</div>
+                    <div class="text-sm text-neutral-700 leading-relaxed">
+                      Active duty status requires flexible learning options. Fully online or hybrid programs recommended. Some cybersecurity programs require on-campus lab components or synchronous participation. Program selection should prioritize asynchronous, military-friendly delivery formats.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3 mb-3">
+                  <div class="bg-neutral-200 rounded-full p-2">
+                    <i class="fa-solid fa-check-circle text-neutral-700"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm text-neutral-900 mb-1">Career Field Alignment</div>
+                    <div class="text-xs text-neutral-600 mb-2">LOW RISK</div>
+                    <div class="text-sm text-neutral-700 leading-relaxed">
+                      Strong alignment between military experience (3D1X2), certifications, and proposed pathways. Cybersecurity/information security programs directly support stated career transition goals. No misalignment concerns identified between member's background and proposed academic pathways.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="educator-validation-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-clipboard-check mr-2 text-neutral-600"></i>
+              Educator Validation Assessment
+            </h3>
+
+            <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 mb-6">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-exclamation-triangle text-neutral-700 mt-1"></i>
+                <div>
+                  <div class="text-sm text-neutral-900 mb-1">Validation Authority Reminder</div>
+                  <div class="text-sm text-neutral-700">You are validating academic feasibility and alignment. You are NOT approving pathways, predicting success, or making binding recommendations. Your assessment informs administrator decision-making but does not substitute for it.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Academic Alignment Validation</label>
+                <textarea rows="4" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Document your assessment of academic alignment between member's credentials and proposed pathways..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Assess credential mapping accuracy, prerequisite readiness, and program fit</div>
+              </div>
+
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Feasibility Assessment</label>
+                <textarea rows="4" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Evaluate academic feasibility considering member's situation, constraints, and readiness..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Consider timeline, modality, institutional availability, and practical constraints</div>
+              </div>
+
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Identified Gaps or Concerns</label>
+                <textarea rows="3" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Note any academic gaps, missing information, or concerns requiring clarification..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Flag issues that need resolution before proceeding to administrator decision</div>
+              </div>
+
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Alternative Pathway Considerations (Non-Binding)</label>
+                <textarea rows="3" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Suggest alternative pathways for consideration, if applicable..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Suggestions are informational only and do not constitute recommendations</div>
+              </div>
+
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Required Follow-Up Actions</label>
+                <textarea rows="3" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Identify any required follow-up actions (transcript review, prerequisite verification, etc.)..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Specify actions needed before final decision can be made</div>
+              </div>
+
+              <div>
+                <label class="block text-sm text-neutral-900 mb-2">Overall Validation Summary</label>
+                <textarea rows="4" class="w-full border border-neutral-300 rounded-lg p-3 text-sm" placeholder="Provide comprehensive validation summary addressing alignment, feasibility, and concerns..."></textarea>
+                <div class="text-xs text-neutral-600 mt-1">Summarize your professional assessment for administrator review</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="educator-actions-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-tasks mr-2 text-neutral-600"></i>
+              Educator Actions
+            </h3>
+
+            <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 mb-4">
+              <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-info-circle text-neutral-700 mt-1"></i>
+                <div>
+                  <div class="text-sm text-neutral-900 mb-1">Action Authority Scope</div>
+                  <div class="text-sm text-neutral-700">As an educator, you may: validate alignment, flag academic risks, recommend revision, or escalate to administrator. You may NOT: approve pathways, deny requests, or make binding decisions about member pathways.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+                <div class="flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-check-circle text-neutral-700 text-2xl"></i>
+                </div>
+                <div class="text-sm text-neutral-900 mb-1">Validate Alignment</div>
+                <div class="text-xs text-neutral-600">Confirm academic feasibility and program fit</div>
+              </button>
+
+              <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+                <div class="flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-exclamation-triangle text-neutral-700 text-2xl"></i>
+                </div>
+                <div class="text-sm text-neutral-900 mb-1">Flag Academic Risk</div>
+                <div class="text-xs text-neutral-600">Identify feasibility concerns or misalignment</div>
+              </button>
+
+              <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+                <div class="flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-edit text-neutral-700 text-2xl"></i>
+                </div>
+                <div class="text-sm text-neutral-900 mb-1">Recommend Revision</div>
+                <div class="text-xs text-neutral-600">Suggest clarifications or additional information needed</div>
+              </button>
+
+              <button class="border-2 border-neutral-300 rounded-lg p-4 hover:border-neutral-900 hover:bg-neutral-50 transition-all">
+                <div class="flex items-center justify-center mb-2">
+                  <i class="fa-solid fa-arrow-circle-up text-neutral-700 text-2xl"></i>
+                </div>
+                <div class="text-sm text-neutral-900 mb-1">Escalate to Administrator</div>
+                <div class="text-xs text-neutral-600">Route to B3: Administrator Decision Console</div>
+              </button>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-neutral-200">
+              <div class="flex items-center justify-between">
+                <button class="px-6 py-3 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50">
+                  <i class="fa-solid fa-save mr-2"></i>
+                  Save Progress
+                </button>
+                <div class="flex items-center space-x-3">
+                  <button class="px-6 py-3 border border-neutral-300 rounded-lg text-sm text-neutral-700 hover:bg-neutral-50">
+                    Return to Advisor
+                  </button>
+                  <button class="px-6 py-3 bg-neutral-900 text-white rounded-lg text-sm hover:bg-neutral-800">
+                    Complete Validation & Route
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="reference-materials-section" class="bg-white border border-neutral-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-book mr-2 text-neutral-600"></i>
+              Reference Materials & Resources
+            </h3>
+
+            <div class="grid grid-cols-3 gap-4">
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-file-pdf text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Educator Validation Guidelines</div>
+                <div class="text-xs text-neutral-600">Policy reference documentation</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-university text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Partner Institution Catalog</div>
+                <div class="text-xs text-neutral-600">Program listings and requirements</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-exchange-alt text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Credit Transfer Policies</div>
+                <div class="text-xs text-neutral-600">Articulation agreements database</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-certificate text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Certification Equivalency Guide</div>
+                <div class="text-xs text-neutral-600">Academic credit mappings</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-graduation-cap text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Program Outcome Standards</div>
+                <div class="text-xs text-neutral-600">Accreditation requirements</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-chart-bar text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Completion Rate Analytics</div>
+                <div class="text-xs text-neutral-600">Historical data reference</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-shield-alt text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Cybersecurity Program Standards</div>
+                <div class="text-xs text-neutral-600">NSA/DHS designation criteria</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-users text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Military-Friendly Institutions</div>
+                <div class="text-xs text-neutral-600">Veteran services directory</div>
+              </div>
+
+              <div class="border border-neutral-200 rounded-lg p-4 hover:border-neutral-400 cursor-pointer">
+                <i class="fa-solid fa-balance-scale text-neutral-600 text-2xl mb-2"></i>
+                <div class="text-sm text-neutral-900 mb-1">Validation Framework Policy</div>
+                <div class="text-xs text-neutral-600">Authority and responsibility guide</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="validation-timeline-section" class="bg-white border border-neutral-200 rounded-lg p-6">
+            <h3 class="text-lg text-neutral-900 mb-4 flex items-center">
+              <i class="fa-solid fa-history mr-2 text-neutral-600"></i>
+              Case Timeline & Activity Log
+            </h3>
+
+            <div class="space-y-3">
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-900 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-neutral-300"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                  <div class="text-sm text-neutral-900">Educator Validation Initiated</div>
+                  <div class="text-xs text-neutral-600">January 9, 2025 at 10:50 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">Case CASE-2025-0847 opened in B2: Educator Validation Panel by Dr. Patricia Wong</div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-700 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-neutral-300"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                  <div class="text-sm text-neutral-900">Routed from Advisor Review</div>
+                  <div class="text-xs text-neutral-600">January 9, 2025 at 10:47 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">Dr. Sarah Martinez completed B1 review and escalated to educator for validation</div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-500 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-neutral-300"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                  <div class="text-sm text-neutral-900">Advisor Review Completed</div>
+                  <div class="text-xs text-neutral-600">January 9, 2025 at 10:45 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">Advisor contextual analysis and preliminary assessment documented</div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-400 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-neutral-300"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                  <div class="text-sm text-neutral-900">Case Assigned to Advisor</div>
+                  <div class="text-xs text-neutral-600">January 9, 2025 at 08:15 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">Case assigned to Dr. Sarah Martinez for B1 review</div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-400 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-neutral-300"></div>
+                </div>
+                <div class="flex-1 pb-6">
+                  <div class="text-sm text-neutral-900">AI Signals Generated</div>
+                  <div class="text-xs text-neutral-600">January 8, 2025 at 09:45 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">3 contextual signals generated (credential mapping, program availability, population patterns)</div>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-3 h-3 bg-neutral-300 rounded-full"></div>
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm text-neutral-900">Case Initiated</div>
+                  <div class="text-xs text-neutral-600">January 8, 2025 at 09:23 AM EST</div>
+                  <div class="text-sm text-neutral-700 mt-1">SSgt. Michael Chen submitted pathway transition request with explicit human review request</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div id="validation-sidebar" class="w-96 border-l border-neutral-200 bg-neutral-50 overflow-y-auto">
+        <div class="p-6">
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-3">Validation Status</div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Current Phase</span>
+                <span class="text-neutral-900">B2: Educator Validation</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Assigned To</span>
+                <span class="text-neutral-900">Dr. Patricia Wong</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Source</span>
+                <span class="text-neutral-900">B1 Escalation</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Review Time</span>
+                <span class="text-neutral-900">12 minutes</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-3">Service Member Profile</div>
+            <div class="flex items-center space-x-3 mb-4">
+              <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=125" alt="Member" class="w-12 h-12 rounded-full"/>
+              <div>
+                <div class="text-sm text-neutral-900">SSgt. Michael Chen</div>
+                <div class="text-xs text-neutral-600">E-5, Active Duty</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span class="text-neutral-700">AFSC</span>
+                <span class="text-neutral-900">3D1X2</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-neutral-700">Education</span>
+                <span class="text-neutral-900">Associate + 45 credits</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-neutral-700">Certifications</span>
+                <span class="text-neutral-900">4 active</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-neutral-700">TIS</span>
+                <span class="text-neutral-900">6 years, 3 months</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-3">Pathway Options</div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Information Security</span>
+                <span class="text-neutral-900">23 programs</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">Cybersecurity</span>
+                <span class="text-neutral-900">17 programs</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-neutral-700">CS with Security Focus</span>
+                <span class="text-neutral-900">Current program</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 mb-4">
+            <div class="text-xs text-neutral-500 uppercase mb-3">Advisor Assessment</div>
+            <div class="text-xs text-neutral-700 leading-relaxed">
+              Strong candidate for cybersecurity pathway. Credentials align well with industry requirements. Recommend educator validation of program requirements and credit transfer potential before administrator decision.
+            </div>
+          </div>
+
+          <div class="bg-neutral-900 text-white rounded-lg p-4 mb-4">
+            <div class="text-xs uppercase mb-3">Validation Authority Reminder</div>
+            <div class="text-xs leading-relaxed">
+              You are validating academic feasibility and alignment. You cannot approve pathways or predict individual success. Your assessment informs but does not substitute for administrator decisions.
+            </div>
+          </div>
+
+          <div class="bg-white border border-neutral-200 rounded-lg p-4">
+            <div class="text-xs text-neutral-500 uppercase mb-3">Quick Links</div>
+            <div class="space-y-2">
+              <a href="#" class="block text-sm text-neutral-700 hover:text-neutral-900">
+                <i class="fa-solid fa-book mr-2"></i>
+                Validation Guidelines
+              </a>
+              <a href="#" class="block text-sm text-neutral-700 hover:text-neutral-900">
+                <i class="fa-solid fa-university mr-2"></i>
+                Institution Catalog
+              </a>
+              <a href="#" class="block text-sm text-neutral-700 hover:text-neutral-900">
+                <i class="fa-solid fa-certificate mr-2"></i>
+                Credential Mappings
+              </a>
+              <a href="#" class="block text-sm text-neutral-700 hover:text-neutral-900">
+                <i class="fa-solid fa-question-circle mr-2"></i>
+                Help & Support
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer" class="ml-72 bg-neutral-100 border-t border-neutral-200 px-8 py-4">
+  <div class="flex items-center justify-between text-xs text-neutral-600">
+    <div class="flex items-center space-x-6">
+      <span>CMGF System v2.1.4</span>
+      <span>|</span>
+      <span>Part B: Human Review Layer</span>
+      <span>|</span>
+      <span>Session: 2025-01-09 18:26:35</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <a href="#" class="hover:text-neutral-900">Privacy Policy</a>
+      <a href="#" class="hover:text-neutral-900">Terms of Service</a>
+      <a href="#" class="hover:text-neutral-900">Accessibility</a>
+      <a href="#" class="hover:text-neutral-900">Contact Support</a>
+    </div>
+  </div>
+</footer>
+
+                        </body>
+                        </html>
+                        
