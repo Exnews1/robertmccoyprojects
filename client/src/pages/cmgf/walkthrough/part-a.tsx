@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { User, ChevronRight, UserCircle, Target, Award, Calendar, Compass, BarChart3, Lightbulb, MousePointer, Headphones } from "lucide-react";
+import { User, ChevronRight, UserCircle, Target, Award, Calendar, Compass, BarChart3, Lightbulb, MousePointer, Headphones, ExternalLink } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const pages = [
@@ -10,63 +10,72 @@ const pages = [
     title: "User Profile Setup",
     description: "Service members establish their baseline profile including service history, current credentials, and transition timeline.",
     icon: UserCircle,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/user-profile.html"
   },
   {
     id: "goals",
     title: "Goals and Constraints Input",
     description: "Capture individual aspirations, geographic preferences, family considerations, and timeline requirements.",
     icon: Target,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/goals-constraints.html"
   },
   {
     id: "credentials",
     title: "Credentials Assessment",
     description: "Review and translate military credentials to civilian equivalencies. Identify potential recognition gaps.",
     icon: Award,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/credentials.html"
   },
   {
     id: "planner",
     title: "Career and Education Planner",
     description: "Explore education pathways and career trajectories without commitment. Map potential routes to goals.",
     icon: Calendar,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/career-planner.html"
   },
   {
     id: "exploration",
     title: "Scenario Exploration Tools",
     description: "Generate hypothetical pathways based on stated goals and constraints. All scenarios are non-binding.",
     icon: Compass,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/scenario-exploration.html"
   },
   {
     id: "comparison",
     title: "Scenario Comparison",
     description: "Compare multiple pathways side-by-side. Evaluate trade-offs across time, cost, and goal alignment.",
     icon: BarChart3,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/scenario-comparison.html"
   },
   {
     id: "insights",
     title: "Advisory Insights",
     description: "Receive contextualized information about pathways. All insights are informational—never prescriptive.",
     icon: Lightbulb,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/advisory-insights.html"
   },
   {
     id: "actions",
     title: "Action Buttons and Resources",
     description: "Access to human advisors, official resources, and next steps. All actions initiated by the service member.",
     icon: MousePointer,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/actions-resources.html"
   },
   {
     id: "support",
     title: "Contact and Support",
     description: "Direct connections to human advisors and support resources. Technology supports—never replaces—human guidance.",
     icon: Headphones,
-    status: "Exploratory"
+    status: "Exploratory",
+    demoUrl: "/demos/part-a/contact-support.html"
   }
 ];
 
@@ -139,7 +148,17 @@ export default function PartA() {
                   <CardTitle className="text-base">{page.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">{page.description}</p>
+                  <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
+                  <a 
+                    href={page.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs text-blue-500 hover:text-blue-600"
+                    data-testid={`link-demo-${page.id}`}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View Interface Demo
+                  </a>
                 </CardContent>
               </Card>
             ))}

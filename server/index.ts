@@ -26,6 +26,9 @@ app.use('/papers', express.static(path.resolve(process.cwd(), 'public/papers'), 
     }
   }
 }));
+
+// Serve demo HTML files
+app.use('/demos', express.static(path.resolve(process.cwd(), 'public/demos')));
 const httpServer = createServer(app);
 
 declare module "http" {

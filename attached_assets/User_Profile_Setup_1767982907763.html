@@ -1,0 +1,1268 @@
+
+                <html>
+                <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                        window.FontAwesomeConfig = {
+                            autoReplaceSvg: 'nest', // Options: 'nest', 'remove', 'replace'
+                        };
+                    </script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <style>
+                    </style>
+                    <script>
+                    tailwind.config = {
+                    theme: {
+                        extend: {
+                        colors: {
+                            primary: {"50":"#fafafa","100":"#f5f5f5","200":"#e5e5e5","300":"#d4d4d4","400":"#a3a3a3","500":"#737373","600":"#525252","700":"#404040","800":"#262626","900":"#171717","950":"#0a0a0a"}
+                        }
+                        }
+                    }
+                    }
+                </script>
+                </head>
+
+                <body>
+                        <div id="header" class="fixed top-0 left-0 right-0 bg-white border-b border-neutral-200 z-50">
+  <div class="flex items-center justify-between px-6 py-4">
+    <div class="flex items-center space-x-8">
+      <div class="flex items-center">
+        <div class="bg-black rounded-md p-2 mr-3">
+          <i class="fa-solid fa-shield-halved text-white text-xl"></i>
+        </div>
+        <span class="text-xl">Military Transition Hub</span>
+      </div>
+      <nav class="flex items-center space-x-6">
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Dashboard</a>
+        <a href="#" class="text-neutral-900 border-b-2 border-black pb-1">Career Planner</a>
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Education</a>
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Resources</a>
+        <a href="#" class="text-neutral-600 hover:text-neutral-900">Community</a>
+      </nav>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="relative">
+        <input type="text" placeholder="Search resources..." class="w-64 px-4 py-2 pl-10 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+        <i class="fa-solid fa-search absolute left-3 top-3 text-neutral-400"></i>
+      </div>
+      <button class="p-2 hover:bg-neutral-100 rounded-lg relative">
+        <i class="fa-regular fa-bell text-neutral-600 text-xl"></i>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-neutral-500 rounded-full"></span>
+      </button>
+      <div class="flex items-center space-x-3 pl-4 border-l border-neutral-200">
+        <img src="https://api.dicebear.com/7.x/notionists/svg?scale=200&seed=42" alt="Profile" class="w-10 h-10 rounded-full" />
+        <div class="text-sm">
+          <div>SSgt. James Mitchell</div>
+          <div class="text-neutral-500">E-6, USAF</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main-content" class="pt-[73px] min-h-screen bg-neutral-50">
+  <div class="max-w-7xl mx-auto p-8">
+    <section id="form-header" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h1 class="text-3xl mb-2">Personal Information & Service Background</h1>
+            <p class="text-neutral-600">Complete your profile to receive personalized career and education recommendations</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button class="px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 text-sm">
+              <i class="fa-solid fa-save mr-2"></i>Save Progress
+            </button>
+            <button class="px-4 py-2 bg-black text-white rounded-lg hover:bg-neutral-800 text-sm">
+              <i class="fa-solid fa-arrow-right mr-2"></i>Continue
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4 mt-6">
+          <div class="flex-1">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-neutral-600">Profile Completion</span>
+              <span class="text-sm">35%</span>
+            </div>
+            <div class="w-full bg-neutral-200 rounded-full h-2">
+              <div class="bg-neutral-600 h-2 rounded-full" style="width: 35%"></div>
+            </div>
+          </div>
+          <div class="text-sm text-neutral-600">
+            <i class="fa-solid fa-info-circle mr-1"></i>
+            Estimated time: 15 minutes
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="personal-information" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">1</div>
+            <h2 class="text-xl">Personal Information</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">First Name <span class="text-neutral-500">*</span></label>
+            <input type="text" value="James" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Last Name <span class="text-neutral-500">*</span></label>
+            <input type="text" value="Mitchell" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Email Address <span class="text-neutral-500">*</span></label>
+            <input type="email" value="james.mitchell@mail.mil" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Phone Number <span class="text-neutral-500">*</span></label>
+            <input type="tel" value="(555) 123-4567" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Date of Birth <span class="text-neutral-500">*</span></label>
+            <input type="date" value="1992-03-15" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Gender</label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Non-binary</option>
+              <option>Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Current Address <span class="text-neutral-500">*</span></label>
+          <input type="text" placeholder="Street Address" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400 mb-3" />
+          <div class="grid grid-cols-3 gap-3">
+            <input type="text" placeholder="City" class="px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            <input type="text" placeholder="State" class="px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            <input type="text" placeholder="ZIP Code" class="px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Preferred Contact Method</label>
+          <div class="flex items-center space-x-6">
+            <label class="flex items-center cursor-pointer">
+              <input type="radio" name="contact" checked class="w-4 h-4 mr-2" />
+              <span class="text-sm">Email</span>
+            </label>
+            <label class="flex items-center cursor-pointer">
+              <input type="radio" name="contact" class="w-4 h-4 mr-2" />
+              <span class="text-sm">Phone</span>
+            </label>
+            <label class="flex items-center cursor-pointer">
+              <input type="radio" name="contact" class="w-4 h-4 mr-2" />
+              <span class="text-sm">Text Message</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-lock text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              <strong>Privacy Notice:</strong> Your personal information is securely stored and will only be used to provide career transition services. We do not share your data with third parties without your explicit consent.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="military-service" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">2</div>
+            <h2 class="text-xl">Military Service Background</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Branch of Service <span class="text-neutral-500">*</span></label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Air Force</option>
+              <option>Army</option>
+              <option>Navy</option>
+              <option>Marine Corps</option>
+              <option>Coast Guard</option>
+              <option>Space Force</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Current Rank/Grade <span class="text-neutral-500">*</span></label>
+            <input type="text" value="E-6 (Staff Sergeant)" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">MOS/AFSC/Rating <span class="text-neutral-500">*</span></label>
+            <input type="text" value="2A6X2" placeholder="e.g., 11B, 2A6X2, MM" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Job Title/Specialty <span class="text-neutral-500">*</span></label>
+            <input type="text" value="Aerospace Propulsion Technician" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Date of Entry <span class="text-neutral-500">*</span></label>
+            <input type="date" value="2017-06-15" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Expected Separation Date <span class="text-neutral-500">*</span></label>
+            <input type="date" value="2026-06-15" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Total Years of Service</label>
+            <input type="text" value="8 years" readonly class="w-full px-4 py-3 border border-neutral-300 rounded-lg bg-neutral-50" />
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Separation Type <span class="text-neutral-500">*</span></label>
+          <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+            <option>Honorable Discharge</option>
+            <option>General Discharge</option>
+            <option>Medical Retirement</option>
+            <option>Retirement (20+ years)</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Current Duty Station</label>
+          <input type="text" placeholder="e.g., Joint Base San Antonio, TX" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Deployment History</label>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="flex-1 grid grid-cols-3 gap-4">
+                <input type="text" placeholder="Location" class="px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+                <input type="text" placeholder="Duration" class="px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+                <input type="text" placeholder="Year" class="px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+              </div>
+              <button class="ml-3 p-2 text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <button class="mt-3 px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+            <i class="fa-solid fa-plus mr-2"></i>Add Deployment
+          </button>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Awards and Decorations</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Air Force Commendation Medal</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Air Force Achievement Medal</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Good Conduct Medal</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">National Defense Service Medal</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Meritorious Service Medal</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Other</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-info-circle text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              Your military service information helps us match you with employers who value military experience and understand the skills you've developed during service.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education-credentials" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">3</div>
+            <h2 class="text-xl">Education & Credentials</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Highest Level of Education <span class="text-neutral-500">*</span></label>
+          <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+            <option>High School Diploma/GED</option>
+            <option>Some College (No Degree)</option>
+            <option>Associate's Degree</option>
+            <option>Bachelor's Degree (In Progress)</option>
+            <option>Bachelor's Degree</option>
+            <option>Master's Degree</option>
+            <option>Doctoral Degree</option>
+          </select>
+        </div>
+
+        <div class="border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-sm mb-4 flex items-center justify-between">
+            <span>Education History</span>
+            <button class="px-3 py-1 border border-neutral-300 rounded-lg text-xs hover:bg-neutral-50">
+              <i class="fa-solid fa-plus mr-1"></i>Add Education
+            </button>
+          </h3>
+          
+          <div class="space-y-4">
+            <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <h4 class="mb-2">Bachelor of Science in Aviation Management</h4>
+                  <div class="text-sm text-neutral-600 mb-2">Embry-Riddle Aeronautical University (Online)</div>
+                  <div class="flex items-center space-x-4 text-sm text-neutral-600">
+                    <span><i class="fa-regular fa-calendar mr-1"></i>2020 - Present</span>
+                    <span><i class="fa-solid fa-graduation-cap mr-1"></i>45% Complete</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                    <i class="fa-solid fa-pen text-xs"></i>
+                  </button>
+                  <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                    <i class="fa-solid fa-trash text-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-3 text-sm">
+                <div>
+                  <span class="text-neutral-600">Credits Completed:</span> 54/120
+                </div>
+                <div>
+                  <span class="text-neutral-600">GPA:</span> 3.4
+                </div>
+                <div>
+                  <span class="text-neutral-600">Expected Graduation:</span> 2027
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <h4 class="mb-2">Associate of Applied Science</h4>
+                  <div class="text-sm text-neutral-600 mb-2">Community College of the Air Force</div>
+                  <div class="flex items-center space-x-4 text-sm text-neutral-600">
+                    <span><i class="fa-regular fa-calendar mr-1"></i>2017 - 2019</span>
+                    <span class="bg-neutral-600 text-white px-2 py-0.5 rounded text-xs">Completed</span>
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                    <i class="fa-solid fa-pen text-xs"></i>
+                  </button>
+                  <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                    <i class="fa-solid fa-trash text-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="text-sm text-neutral-600">
+                Major: Aircraft Maintenance Technology
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-neutral-200 rounded-lg p-6 mb-6">
+          <h3 class="text-sm mb-4 flex items-center justify-between">
+            <span>Professional Certifications & Licenses</span>
+            <button class="px-3 py-1 border border-neutral-300 rounded-lg text-xs hover:bg-neutral-50">
+              <i class="fa-solid fa-plus mr-1"></i>Add Certification
+            </button>
+          </h3>
+          
+          <div class="space-y-3">
+            <div class="flex items-center justify-between p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="flex items-center flex-1">
+                <div class="bg-neutral-600 rounded-lg p-3 mr-4">
+                  <i class="fa-solid fa-certificate text-white"></i>
+                </div>
+                <div>
+                  <h4 class="mb-1">FAA Airframe & Powerplant (A&P) License</h4>
+                  <div class="flex items-center space-x-4 text-sm text-neutral-600">
+                    <span>Issued: March 2022</span>
+                    <span>License #: AP-123456789</span>
+                    <span class="bg-neutral-600 text-white px-2 py-0.5 rounded text-xs">Active</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                  <i class="fa-solid fa-pen text-xs"></i>
+                </button>
+                <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                  <i class="fa-solid fa-trash text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between p-4 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="flex items-center flex-1">
+                <div class="bg-neutral-600 rounded-lg p-3 mr-4">
+                  <i class="fa-solid fa-certificate text-white"></i>
+                </div>
+                <div>
+                  <h4 class="mb-1">CompTIA A+ Certification</h4>
+                  <div class="flex items-center space-x-4 text-sm text-neutral-600">
+                    <span>Issued: June 2021</span>
+                    <span>Valid Until: June 2026</span>
+                    <span class="bg-neutral-600 text-white px-2 py-0.5 rounded text-xs">Active</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                  <i class="fa-solid fa-pen text-xs"></i>
+                </button>
+                <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                  <i class="fa-solid fa-trash text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Military Training & Courses</label>
+          <textarea rows="4" placeholder="List relevant military training courses, technical schools, and specialized training programs..." class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400"></textarea>
+          <div class="text-xs text-neutral-600 mt-2">
+            Examples: Advanced Aircraft Maintenance Course, Leadership School, Safety Training, etc.
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-lightbulb text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              <strong>Tip:</strong> Include all relevant certifications and training, even if they seem military-specific. Many have civilian equivalents or demonstrate valuable skills to employers.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills-experience" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">4</div>
+            <h2 class="text-xl">Skills & Experience</h2>
+          </div>
+          <span class="text-xs bg-neutral-200 text-neutral-700 px-3 py-1 rounded-full">Optional</span>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Technical Skills</label>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="bg-neutral-600 text-white px-3 py-1.5 rounded-full text-sm flex items-center">
+              Aircraft Maintenance
+              <button class="ml-2 hover:text-neutral-300">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-600 text-white px-3 py-1.5 rounded-full text-sm flex items-center">
+              Troubleshooting
+              <button class="ml-2 hover:text-neutral-300">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-600 text-white px-3 py-1.5 rounded-full text-sm flex items-center">
+              Quality Control
+              <button class="ml-2 hover:text-neutral-300">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-600 text-white px-3 py-1.5 rounded-full text-sm flex items-center">
+              Safety Compliance
+              <button class="ml-2 hover:text-neutral-300">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+          </div>
+          <div class="flex">
+            <input type="text" placeholder="Add a skill..." class="flex-1 px-4 py-2 border border-neutral-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            <button class="px-6 bg-neutral-600 text-white rounded-r-lg hover:bg-neutral-700">Add</button>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Soft Skills</label>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="bg-neutral-100 text-neutral-700 px-3 py-1.5 rounded-full text-sm flex items-center border border-neutral-300">
+              Leadership
+              <button class="ml-2 hover:text-neutral-500">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-100 text-neutral-700 px-3 py-1.5 rounded-full text-sm flex items-center border border-neutral-300">
+              Team Collaboration
+              <button class="ml-2 hover:text-neutral-500">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-100 text-neutral-700 px-3 py-1.5 rounded-full text-sm flex items-center border border-neutral-300">
+              Problem Solving
+              <button class="ml-2 hover:text-neutral-500">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+            <span class="bg-neutral-100 text-neutral-700 px-3 py-1.5 rounded-full text-sm flex items-center border border-neutral-300">
+              Communication
+              <button class="ml-2 hover:text-neutral-500">
+                <i class="fa-solid fa-times text-xs"></i>
+              </button>
+            </span>
+          </div>
+          <div class="flex">
+            <input type="text" placeholder="Add a soft skill..." class="flex-1 px-4 py-2 border border-neutral-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            <button class="px-6 bg-neutral-600 text-white rounded-r-lg hover:bg-neutral-700">Add</button>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Work Experience Summary</label>
+          <textarea rows="6" placeholder="Describe your primary duties, responsibilities, and achievements during your military service..." class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400"></textarea>
+          <div class="text-xs text-neutral-600 mt-2">
+            Focus on accomplishments, leadership roles, and quantifiable results when possible.
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Languages</label>
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <input type="text" value="English" class="flex-1 px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+              <select class="px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+                <option>Native</option>
+                <option>Fluent</option>
+                <option>Proficient</option>
+                <option>Basic</option>
+              </select>
+              <button class="p-2 text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <button class="mt-3 px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+            <i class="fa-solid fa-plus mr-2"></i>Add Language
+          </button>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-star text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              <strong>Highlight Your Strengths:</strong> Employers value military experience for discipline, reliability, and technical expertise. Be specific about your achievements and the impact you made.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="career-interests" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">5</div>
+            <h2 class="text-xl">Career Interests & Goals</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Primary Career Field of Interest <span class="text-neutral-500">*</span></label>
+          <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+            <option>Select a field...</option>
+            <option>Aviation & Aerospace</option>
+            <option>Information Technology</option>
+            <option>Healthcare</option>
+            <option>Engineering</option>
+            <option>Business & Management</option>
+            <option>Education & Training</option>
+            <option>Law Enforcement & Security</option>
+            <option>Logistics & Supply Chain</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Specific Roles or Positions of Interest</label>
+          <div class="grid grid-cols-2 gap-3 mb-3">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" checked class="w-4 h-4 mr-3" />
+              <span class="text-sm">Aircraft Mechanic</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Maintenance Supervisor</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" checked class="w-4 h-4 mr-3" />
+              <span class="text-sm">Aviation Operations</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Quality Assurance</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Technical Training</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Other</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Preferred Work Environment</label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Office</option>
+              <option>Field/Outdoor</option>
+              <option>Workshop/Hangar</option>
+              <option>Hybrid</option>
+              <option>Remote</option>
+              <option>No Preference</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Preferred Work Schedule</label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Full-time (Day Shift)</option>
+              <option>Full-time (Night Shift)</option>
+              <option>Full-time (Rotating Shifts)</option>
+              <option>Part-time</option>
+              <option>Flexible Schedule</option>
+              <option>No Preference</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Career Goals (Select all that apply)</label>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" checked class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Secure immediate employment after separation</div>
+                <div class="text-xs text-neutral-600 mt-1">Priority: Start working within 1-3 months</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" checked class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Complete Bachelor's degree</div>
+                <div class="text-xs text-neutral-600 mt-1">Continue education while working or before employment</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Pursue advanced certifications</div>
+                <div class="text-xs text-neutral-600 mt-1">Obtain additional industry certifications</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Advance to management/leadership role</div>
+                <div class="text-xs text-neutral-600 mt-1">Long-term goal within 3-5 years</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Start own business</div>
+                <div class="text-xs text-neutral-600 mt-1">Entrepreneurship or consulting</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Additional Career Aspirations or Notes</label>
+          <textarea rows="4" placeholder="Share any additional thoughts about your career transition, long-term aspirations, or specific industries you're interested in..." class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section id="location-preferences" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">6</div>
+            <h2 class="text-xl">Location & Relocation Preferences</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Preferred Geographic Location(s) <span class="text-neutral-500">*</span></label>
+          <input type="text" value="Dallas-Fort Worth, TX" placeholder="City, State or Region" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400 mb-3" />
+          <button class="px-4 py-2 border border-neutral-300 rounded-lg text-sm hover:bg-neutral-50">
+            <i class="fa-solid fa-plus mr-2"></i>Add Additional Location
+          </button>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Relocation Willingness <span class="text-neutral-500">*</span></label>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-neutral-50 border-2 border-neutral-500 rounded-lg cursor-pointer">
+              <input type="radio" name="relocation" checked class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Willing to relocate to specific locations</div>
+                <div class="text-xs text-neutral-600 mt-1">Open to moving to preferred areas listed above</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="radio" name="relocation" class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Willing to relocate anywhere</div>
+                <div class="text-xs text-neutral-600 mt-1">Open to opportunities nationwide</div>
+              </div>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="radio" name="relocation" class="w-4 h-4 mr-3" />
+              <div class="flex-1">
+                <div class="text-sm">Prefer to stay in current location</div>
+                <div class="text-xs text-neutral-600 mt-1">Not interested in relocating</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Relocation Timeline</label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Immediately available</option>
+              <option>Within 1 month</option>
+              <option>1-3 months</option>
+              <option>3-6 months</option>
+              <option>6+ months</option>
+              <option>Flexible</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Relocation Assistance Needed</label>
+            <select class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+              <option>Yes, required</option>
+              <option>Preferred but not required</option>
+              <option>Not needed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Location Considerations</label>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" checked class="w-4 h-4 mr-3" />
+              <span class="text-sm">Family proximity (spouse, children, parents)</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Cost of living considerations</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">School districts for children</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Access to VA facilities</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Climate preferences</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-map-marked-alt text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              Your location preferences help us identify opportunities that align with your personal and family needs. We'll prioritize matches in your preferred areas.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compensation-benefits" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">7</div>
+            <h2 class="text-xl">Compensation & Benefits Expectations</h2>
+          </div>
+          <span class="text-xs bg-neutral-200 text-neutral-700 px-3 py-1 rounded-full">Optional</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <div>
+            <label class="block text-sm mb-2">Minimum Desired Salary <span class="text-neutral-500">*</span></label>
+            <div class="relative">
+              <span class="absolute left-4 top-3 text-neutral-600">$</span>
+              <input type="text" value="65,000" class="w-full pl-8 pr-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            </div>
+            <div class="text-xs text-neutral-600 mt-2">Annual salary expectation</div>
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Preferred Salary Range</label>
+            <div class="relative">
+              <span class="absolute left-4 top-3 text-neutral-600">$</span>
+              <input type="text" placeholder="e.g., 65,000 - 75,000" class="w-full pl-8 pr-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+            </div>
+            <div class="text-xs text-neutral-600 mt-2">Ideal compensation range</div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Important Benefits & Perks (Rank by importance)</label>
+          <div class="space-y-3">
+            <div class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="bg-neutral-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3">1</div>
+              <div class="flex-1">Healthcare coverage (medical, dental, vision)</div>
+              <button class="text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-grip-vertical"></i>
+              </button>
+            </div>
+            <div class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="bg-neutral-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3">2</div>
+              <div class="flex-1">Retirement plan (401k, pension)</div>
+              <button class="text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-grip-vertical"></i>
+              </button>
+            </div>
+            <div class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="bg-neutral-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3">3</div>
+              <div class="flex-1">Tuition reimbursement / Education assistance</div>
+              <button class="text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-grip-vertical"></i>
+              </button>
+            </div>
+            <div class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="bg-neutral-300 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3">4</div>
+              <div class="flex-1">Paid time off (vacation, sick leave)</div>
+              <button class="text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-grip-vertical"></i>
+              </button>
+            </div>
+            <div class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <div class="bg-neutral-300 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs mr-3">5</div>
+              <div class="flex-1">Professional development opportunities</div>
+              <button class="text-neutral-500 hover:text-neutral-700">
+                <i class="fa-solid fa-grip-vertical"></i>
+              </button>
+            </div>
+          </div>
+          <div class="text-xs text-neutral-600 mt-3">
+            <i class="fa-solid fa-arrows-alt mr-1"></i>Drag to reorder by priority
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Additional Benefits of Interest</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Flexible work schedule</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Remote work options</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Performance bonuses</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Company vehicle/allowance</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Relocation assistance</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Gym membership/wellness</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200">
+          <div class="flex items-start">
+            <i class="fa-solid fa-calculator text-neutral-600 mr-3 mt-1"></i>
+            <div class="text-sm text-neutral-700">
+              <strong>Compensation Guidance:</strong> The average salary for aviation maintenance professionals in the DFW area ranges from $65,000 to $80,000, depending on experience and certifications. Your A&P license and military experience position you well within this range.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="additional-considerations" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">8</div>
+            <h2 class="text-xl">Additional Considerations & Support Needs</h2>
+          </div>
+          <span class="text-xs bg-neutral-200 text-neutral-700 px-3 py-1 rounded-full">Optional</span>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Family Situation</label>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-neutral-600 mb-2">Marital Status</label>
+              <select class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+                <option>Single</option>
+                <option>Married</option>
+                <option>Divorced</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-neutral-600 mb-2">Dependents</label>
+              <select class="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400">
+                <option>None</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3+</option>
+              </select>
+            </div>
+          </div>
+          <div class="mt-3">
+            <label class="flex items-center text-sm">
+              <input type="checkbox" class="w-4 h-4 mr-2" />
+              Spouse is also active duty or veteran
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Special Circumstances or Needs</label>
+          <div class="space-y-2">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Service-connected disability</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Need accommodation support</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Prefer veteran-friendly employers</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Interested in federal employment</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-3">Support Services Needed</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Resume writing assistance</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Interview preparation</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Career counseling</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Networking connections</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Education planning</span>
+            </label>
+            <label class="flex items-center p-3 bg-neutral-50 border border-neutral-200 rounded-lg cursor-pointer hover:bg-neutral-100">
+              <input type="checkbox" class="w-4 h-4 mr-3" />
+              <span class="text-sm">Financial counseling</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm mb-2">Additional Comments or Questions</label>
+          <textarea rows="4" placeholder="Share any additional information, concerns, or questions about your transition..." class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400"></textarea>
+        </div>
+
+        <div class="bg-gradient-to-br from-neutral-50 to-white rounded-lg p-6 border border-neutral-200">
+          <div class="flex items-start">
+            <div class="bg-neutral-600 rounded-lg p-3 mr-4">
+              <i class="fa-solid fa-handshake text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="mb-2">We're Here to Support You</h3>
+              <p class="text-sm text-neutral-700 mb-4">Your transition is important to us. Our team of career advisors and veteran support specialists are available to help you navigate every step of your journey to civilian employment.</p>
+              <div class="flex items-center space-x-4 text-sm">
+                <div class="flex items-center">
+                  <i class="fa-solid fa-phone text-neutral-600 mr-2"></i>
+                  <span>(800) 555-VETS</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fa-solid fa-envelope text-neutral-600 mr-2"></i>
+                  <span>support@transitionhub.mil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="consent-privacy" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="bg-neutral-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">9</div>
+            <h2 class="text-xl">Consent & Privacy</h2>
+          </div>
+          <span class="text-xs bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full">Required</span>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <label class="flex items-start p-4 bg-neutral-50 border-2 border-neutral-300 rounded-lg cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 mr-3 mt-0.5" />
+            <div class="text-sm">
+              <strong class="block mb-1">Information Accuracy</strong>
+              I certify that all information provided in this form is accurate and complete to the best of my knowledge.
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 bg-neutral-50 border-2 border-neutral-300 rounded-lg cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 mr-3 mt-0.5" />
+            <div class="text-sm">
+              <strong class="block mb-1">Data Sharing Consent</strong>
+              I authorize Military Transition Hub to share my profile information with potential employers, educational institutions, and service providers for the purpose of facilitating my career transition.
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 bg-neutral-50 border-2 border-neutral-300 rounded-lg cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 mr-3 mt-0.5" />
+            <div class="text-sm">
+              <strong class="block mb-1">Communication Preferences</strong>
+              I agree to receive career-related communications, including job opportunities, educational resources, and transition support information via email, phone, or text message.
+            </div>
+          </label>
+
+          <label class="flex items-start p-4 bg-neutral-50 border-2 border-neutral-300 rounded-lg cursor-pointer">
+            <input type="checkbox" class="w-5 h-5 mr-3 mt-0.5" />
+            <div class="text-sm">
+              <strong class="block mb-1">Privacy Policy</strong>
+              I have read and agree to the <a href="#" class="text-neutral-600 underline">Privacy Policy</a> and <a href="#" class="text-neutral-600 underline">Terms of Service</a>.
+            </div>
+          </label>
+        </div>
+
+        <div class="bg-neutral-50 rounded-lg p-4 border border-neutral-200 mb-6">
+          <h3 class="text-sm mb-3 flex items-center">
+            <i class="fa-solid fa-shield-halved text-neutral-600 mr-2"></i>
+            Your Privacy Matters
+          </h3>
+          <ul class="space-y-2 text-sm text-neutral-700">
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-neutral-600 mr-2 mt-0.5"></i>
+              <span>Your data is encrypted and stored securely</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-neutral-600 mr-2 mt-0.5"></i>
+              <span>We never sell your personal information</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-neutral-600 mr-2 mt-0.5"></i>
+              <span>You can update or delete your information at any time</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fa-solid fa-check text-neutral-600 mr-2 mt-0.5"></i>
+              <span>All sharing is done with your explicit consent</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-2">Electronic Signature <span class="text-neutral-500">*</span></label>
+            <input type="text" placeholder="Type your full name" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+          <div>
+            <label class="block text-sm mb-2">Date <span class="text-neutral-500">*</span></label>
+            <input type="date" value="2025-01-09" class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="form-actions" class="mb-8">
+      <div class="bg-white rounded-xl border border-neutral-200 p-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg mb-2">Ready to Continue?</h3>
+            <p class="text-sm text-neutral-600">Your information has been auto-saved. You can return at any time to complete or update your profile.</p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button class="px-6 py-3 border-2 border-neutral-300 rounded-lg hover:bg-neutral-50">
+              <i class="fa-solid fa-save mr-2"></i>Save as Draft
+            </button>
+            <button class="px-6 py-3 border-2 border-neutral-300 rounded-lg hover:bg-neutral-50">
+              <i class="fa-solid fa-arrow-left mr-2"></i>Previous
+            </button>
+            <button class="px-8 py-3 bg-black text-white rounded-lg hover:bg-neutral-800 text-lg">
+              Submit & Continue
+              <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="help-resources" class="mb-8">
+      <div class="bg-gradient-to-br from-neutral-50 to-white rounded-xl border border-neutral-200 p-8">
+        <h2 class="text-xl mb-6">Need Help?</h2>
+        <div class="grid grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 border border-neutral-200">
+              <i class="fa-solid fa-headset text-neutral-600 text-2xl"></i>
+            </div>
+            <h3 class="mb-2">Live Support</h3>
+            <p class="text-sm text-neutral-600 mb-3">Chat with a transition specialist</p>
+            <button class="text-sm text-neutral-600 hover:underline">Start Chat →</button>
+          </div>
+          <div class="text-center">
+            <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 border border-neutral-200">
+              <i class="fa-solid fa-book-open text-neutral-600 text-2xl"></i>
+            </div>
+            <h3 class="mb-2">Help Guide</h3>
+            <p class="text-sm text-neutral-600 mb-3">Step-by-step form instructions</p>
+            <button class="text-sm text-neutral-600 hover:underline">View Guide →</button>
+          </div>
+          <div class="text-center">
+            <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3 border border-neutral-200">
+              <i class="fa-solid fa-video text-neutral-600 text-2xl"></i>
+            </div>
+            <h3 class="mb-2">Video Tutorial</h3>
+            <p class="text-sm text-neutral-600 mb-3">Watch a walkthrough</p>
+            <button class="text-sm text-neutral-600 hover:underline">Watch Video →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer id="footer" class="bg-neutral-100 border-t border-neutral-200 py-8 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-4 gap-8 mb-8">
+      <div>
+        <h3 class="mb-4">About</h3>
+        <ul class="space-y-2 text-sm text-neutral-600">
+          <li><a href="#" class="hover:text-neutral-900">Our Mission</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Success Stories</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Partner Organizations</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4">Resources</h3>
+        <ul class="space-y-2 text-sm text-neutral-600">
+          <li><a href="#" class="hover:text-neutral-900">Career Guides</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Education Planning</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Financial Tools</a></li>
+          <li><a href="#" class="hover:text-neutral-900">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4">Support</h3>
+        <ul class="space-y-2 text-sm text-neutral-600">
+          <li><a href="#" class="hover:text-neutral-900">Contact Us</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Schedule Consultation</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Help Center</a></li>
+          <li><a href="#" class="hover:text-neutral-900">Feedback</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mb-4">Connect</h3>
+        <div class="flex space-x-3 mb-4">
+          <a href="#" class="w-10 h-10 bg-white border border-neutral-300 rounded-lg flex items-center justify-center hover:bg-neutral-50">
+            <i class="fa-brands fa-facebook text-neutral-600"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-white border border-neutral-300 rounded-lg flex items-center justify-center hover:bg-neutral-50">
+            <i class="fa-brands fa-twitter text-neutral-600"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-white border border-neutral-300 rounded-lg flex items-center justify-center hover:bg-neutral-50">
+            <i class="fa-brands fa-linkedin text-neutral-600"></i>
+          </a>
+        </div>
+        <p class="text-xs text-neutral-600">Get updates on new resources and opportunities</p>
+      </div>
+    </div>
+    <div class="border-t border-neutral-300 pt-6 flex items-center justify-between text-sm text-neutral-600">
+      <div>© 2025 Military Transition Hub. All rights reserved.</div>
+      <div class="flex items-center space-x-4">
+        <a href="#" class="hover:text-neutral-900">Terms of Service</a>
+        <a href="#" class="hover:text-neutral-900">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+                        </body>
+                        </html>
+                        
