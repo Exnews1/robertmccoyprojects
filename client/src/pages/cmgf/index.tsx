@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, Radio } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const canonicalDocuments = [
@@ -22,6 +22,14 @@ const canonicalDocuments = [
 ];
 
 const sections = [
+  {
+    id: "demo",
+    title: "Interactive Demo",
+    description: "Glass cockpit interface demonstrating bounded AI with human-in-the-loop architecture.",
+    icon: Radio,
+    route: "/cmgf/demo",
+    featured: true
+  },
   {
     id: "downloads",
     title: "Canonical Downloads",
@@ -112,12 +120,24 @@ export default function CMGFRoot() {
 
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {sections.map((section) => (
               <Link key={section.id} href={section.route}>
-                <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-section-${section.id}`}>
+                <Card 
+                  className={`h-full hover-elevate cursor-pointer group ${
+                    (section as any).featured 
+                      ? "border-primary/50 bg-gradient-to-br from-primary/10 to-transparent" 
+                      : "border-border/50"
+                  }`} 
+                  data-testid={`card-section-${section.id}`}
+                >
                   <CardHeader className="pb-2">
-                    <section.icon className="h-6 w-6 text-primary mb-2" />
+                    <div className="flex items-center justify-between">
+                      <section.icon className={`h-6 w-6 ${(section as any).featured ? "text-primary" : "text-primary"} mb-2`} />
+                      {(section as any).featured && (
+                        <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">NEW</span>
+                      )}
+                    </div>
                     <CardTitle className="text-lg">{section.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -125,7 +145,7 @@ export default function CMGFRoot() {
                       {section.description}
                     </CardDescription>
                     <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                      <span>Enter</span>
+                      <span>{(section as any).featured ? "Launch Demo" : "Enter"}</span>
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
                   </CardContent>
