@@ -330,12 +330,26 @@ export async function seedDatabase() {
     const existingCount = await db.select({ count: sql<number>`count(*)` }).from(publications);
     const count = Number(existingCount[0]?.count || 0);
     
-    if (count === 0) {
-      console.log("Database empty, seeding publications...");
-      await db.insert(publications).values(seedPublications);
-      console.log(`Seeded ${seedPublications.length} publications successfully.`);
+    // Seed if database has fewer publications than our seed list
+    const expectedMinimum = seedPublications.length;
+    if (count < expectedMinimum) {
+      console.log(`Database has ${count} publications, expected at least ${expectedMinimum}. Adding missing publications...`);
+      
+      // Get existing titles to avoid duplicates
+      const existing = await db.select({ title: publications.title }).from(publications);
+      const existingTitles = new Set(existing.map(p => p.title));
+      
+      // Filter to only new publications
+      const newPublications = seedPublications.filter(p => !existingTitles.has(p.title));
+      
+      if (newPublications.length > 0) {
+        await db.insert(publications).values(newPublications);
+        console.log(`Added ${newPublications.length} new publications.`);
+      } else {
+        console.log("No new publications to add.");
+      }
     } else {
-      console.log(`Database already has ${count} publications, skipping seed.`);
+      console.log(`Database has ${count} publications, seed complete.`);
     }
   } catch (error: any) {
     console.error("Error seeding database:", error?.message || error);
