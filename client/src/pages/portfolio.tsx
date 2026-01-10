@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Plane, ExternalLink } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -15,8 +15,8 @@ const projects = [
   {
     id: "turbine",
     title: "AI Turbine Vision",
-    description: "Computer vision system for aircraft turbine blade inspection. AI-powered defect detection with human oversight for aviation maintenance.",
-    icon: Plane,
+    description: "Industrial power monitoring station with real-time turbine diagnostics. AI-powered system monitoring for industrial power supply environments.",
+    icon: Factory,
     route: "https://turbine.robertmccoyprojects.com",
     status: "Live Demo",
     external: true
