@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, Radio } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const canonicalDocuments = [
@@ -22,14 +22,6 @@ const canonicalDocuments = [
 ];
 
 const sections = [
-  {
-    id: "demo",
-    title: "Interactive Demo",
-    description: "Glass cockpit interface demonstrating bounded AI with human-in-the-loop architecture.",
-    icon: Radio,
-    route: "/cmgf/demo",
-    featured: true
-  },
   {
     id: "downloads",
     title: "Canonical Downloads",
