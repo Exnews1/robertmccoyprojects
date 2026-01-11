@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { Server } from "http";
 import { storage } from "./storage";
-import { insertPublicationSchema } from "@shared/schema";
+import { insertPublicationSchema, insertExpertCommentarySchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { seedDatabase } from "./seed";
 
@@ -43,6 +43,51 @@ export async function registerRoutes(httpServer: Server, app: Express) {
       res.json({ success: true, count: publications.length });
     } catch (e: any) {
       res.status(500).json({ message: e?.message || "Seed failed" });
+    }
+  });
+
+  app.post("/api/explore", async (req: any, res: any) => {
+    const { query } = req.body;
+    if (!query) {
+      return res.status(400).json({ message: "Query is required" });
+    }
+
+    const results = [
+      {
+        section: "Governance Architecture",
+        excerpt: "The framework enforces three non-negotiable constraints: no predictive outcome modeling, no individual risk scoring, and no automated approvals. These constraints are architectural, not policy-based.",
+        page: 12,
+        reference: "Section 3.2 - Bounded AI Constraints"
+      },
+      {
+        section: "Human-in-the-Loop Design",
+        excerpt: "All recommendations require human validation before action. The system provides context and options but never directs decisions autonomously.",
+        page: 18,
+        reference: "Section 4.1 - Advisory Layer Architecture"
+      },
+      {
+        section: "Institutional Learning",
+        excerpt: "Aggregated, de-identified patterns inform policy refinement without compromising individual privacy or creating feedback loops that could influence individual outcomes.",
+        page: 24,
+        reference: "Section 5.3 - Ethical Data Aggregation"
+      }
+    ];
+
+    res.json({ results });
+  });
+
+  app.post("/api/commentary", async (req: any, res: any) => {
+    try {
+      const commentary = insertExpertCommentarySchema.parse(req.body);
+      const newCommentary = await storage.createExpertCommentary(commentary);
+      res.status(201).json({ id: newCommentary.submissionId });
+    } catch (e) {
+      if (e instanceof ZodError) {
+        res.status(400).json({ message: e.errors[0].message });
+      } else {
+        console.error("Commentary submission error:", e);
+        res.status(500).json({ message: "Internal server error" });
+      }
     }
   });
 

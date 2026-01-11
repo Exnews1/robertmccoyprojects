@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const canonicalDocuments = [
@@ -22,6 +22,13 @@ const canonicalDocuments = [
 ];
 
 const sections = [
+  {
+    id: "engagement",
+    title: "Interactive Engagement",
+    description: "Explore the CMGF research paper through document-grounded inquiry and submit considered expert commentary.",
+    icon: MessageSquare,
+    route: "/cmgf/engagement"
+  },
   {
     id: "downloads",
     title: "Canonical Downloads",

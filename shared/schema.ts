@@ -31,6 +31,19 @@ export const publications = pgTable("publications", {
   publishedDate: text("published_date"),
 });
 
+export const expertCommentary = pgTable("expert_commentary", {
+  id: serial("id").primaryKey(),
+  submissionId: text("submission_id").notNull(),
+  type: text("type").notNull(),
+  category: text("category").notNull(),
+  message: text("message").notNull(),
+  name: text("name"),
+  organization: text("organization"),
+  email: text("email"),
+  consent: boolean("consent").default(false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const frameworksRelations = relations(frameworks, ({ many }) => ({
   complianceItems: many(complianceItems),
 }));
@@ -45,6 +58,7 @@ export const complianceItemsRelations = relations(complianceItems, ({ one }) => 
 export const insertFrameworkSchema = createInsertSchema(frameworks).omit({ id: true });
 export const insertComplianceItemSchema = createInsertSchema(complianceItems).omit({ id: true });
 export const insertPublicationSchema = createInsertSchema(publications).omit({ id: true });
+export const insertExpertCommentarySchema = createInsertSchema(expertCommentary).omit({ id: true, submissionId: true, createdAt: true });
 
 export type Framework = typeof frameworks.$inferSelect;
 export type InsertFramework = z.infer<typeof insertFrameworkSchema>;
@@ -52,3 +66,5 @@ export type ComplianceItem = typeof complianceItems.$inferSelect;
 export type InsertComplianceItem = z.infer<typeof insertComplianceItemSchema>;
 export type Publication = typeof publications.$inferSelect;
 export type InsertPublication = z.infer<typeof insertPublicationSchema>;
+export type ExpertCommentary = typeof expertCommentary.$inferSelect;
+export type InsertExpertCommentary = z.infer<typeof insertExpertCommentarySchema>;

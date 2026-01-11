@@ -3,12 +3,15 @@ import {
   frameworks,
   complianceItems,
   publications,
+  expertCommentary,
   type Framework,
   type InsertFramework,
   type ComplianceItem,
   type InsertComplianceItem,
   type Publication,
-  type InsertPublication
+  type InsertPublication,
+  type ExpertCommentary,
+  type InsertExpertCommentary
 } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import { seedPublications } from "./seed";
@@ -23,6 +26,8 @@ export interface IStorage {
 
   getPublications(): Promise<Publication[]>;
   createPublication(pub: InsertPublication): Promise<Publication>;
+
+  createExpertCommentary(commentary: InsertExpertCommentary): Promise<ExpertCommentary>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -77,6 +82,15 @@ export class DatabaseStorage implements IStorage {
   async createPublication(pub: InsertPublication): Promise<Publication> {
     const [newPub] = await db.insert(publications).values(pub).returning();
     return newPub;
+  }
+
+  async createExpertCommentary(commentary: InsertExpertCommentary): Promise<ExpertCommentary> {
+    const submissionId = `CMGF-${Date.now().toString(36).toUpperCase()}`;
+    const [newCommentary] = await db.insert(expertCommentary).values({
+      ...commentary,
+      submissionId,
+    }).returning();
+    return newCommentary;
   }
 
   async seed() {
