@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search } from "lucide-react";
 
-const projects = [
+const mainProjects = [
   {
     id: "cmgf",
     title: "Career Mobility Governance Framework",
@@ -20,7 +20,10 @@ const projects = [
     route: "/explorer",
     status: "Research Tool",
     external: false
-  },
+  }
+];
+
+const otherProjects = [
   {
     id: "turbine",
     title: "AI Turbine Vision",
@@ -50,53 +53,60 @@ export default function Portfolio() {
 
         <section>
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">Projects</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => {
-              const CardWrapper = ({ children }: { children: React.ReactNode }) => 
-                project.external ? (
-                  <a 
-                    href={project.route} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    data-testid={`link-project-${project.id}`}
-                  >
-                    {children}
-                  </a>
-                ) : (
-                  <Link href={project.route} data-testid={`link-project-${project.id}`}>
-                    {children}
-                  </Link>
-                );
+          <div className="grid gap-6 md:grid-cols-2">
+            {mainProjects.map((project) => (
+              <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
+                <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      <project.icon className="h-8 w-8 text-primary" />
+                      <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
+                        {project.status}
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl">{project.title}</CardTitle>
+                    <CardDescription className="text-muted-foreground">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+                      <span>View Project</span>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-              return (
-                <CardWrapper key={project.id}>
-                  <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <project.icon className="h-8 w-8 text-primary" />
-                        <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                          {project.status}
-                        </span>
-                      </div>
-                      <CardTitle className="text-xl">{project.title}</CardTitle>
-                      <CardDescription className="text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                        <span>{project.external ? "Visit Site" : "View Project"}</span>
-                        {project.external ? (
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        ) : (
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CardWrapper>
-              );
-            })}
+        <section className="mt-12">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Other Projects</h2>
+          <div className="grid gap-4">
+            {otherProjects.map((project) => (
+              <a 
+                key={project.id}
+                href={project.route} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                data-testid={`link-project-${project.id}`}
+              >
+                <Card className="hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <project.icon className="h-6 w-6 text-muted-foreground" />
+                    <div className="flex-1">
+                      <h3 className="font-medium text-foreground">{project.title}</h3>
+                      <p className="text-sm text-muted-foreground">{project.description}</p>
+                    </div>
+                    <span className="text-xs font-mono px-2 py-1 rounded-full bg-muted text-muted-foreground">
+                      {project.status}
+                    </span>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
           </div>
         </section>
 

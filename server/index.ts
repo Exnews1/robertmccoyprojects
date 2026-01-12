@@ -4,6 +4,7 @@ import { serveStatic } from "./static";
 import { createServer } from "http";
 import path from "path";
 import { seedDatabase } from "./seed";
+import { seedLibrary } from "./library-seed";
 
 const app = express();
 
@@ -89,6 +90,12 @@ app.use((req, res, next) => {
     await seedDatabase();
   } catch (err) {
     console.error("Database seeding failed, continuing without seed:", err);
+  }
+  
+  try {
+    await seedLibrary();
+  } catch (err) {
+    console.error("Library seeding failed, continuing without seed:", err);
   }
   
   await registerRoutes(httpServer, app);
