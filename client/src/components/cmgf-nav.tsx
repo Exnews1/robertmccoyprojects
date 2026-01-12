@@ -6,8 +6,8 @@ const navItems = [
   { href: "/cmgf", label: "CMGF", icon: Home },
   { href: "/cmgf/walkthrough", label: "Walkthrough", icon: BookOpen },
   { href: "/cmgf/walkthrough/part-a", label: "Part A", icon: User },
-  { href: "/cmgf/walkthrough/part-b", label: "Part B", icon: Users },
-  { href: "/cmgf/walkthrough/part-c", label: "Part C", icon: Cpu },
+  { href: "/cmgf/walkthrough/part-b", label: "Part B", icon: Cpu },
+  { href: "/cmgf/walkthrough/part-c", label: "Part C", icon: Users },
   { href: "/cmgf/downloads", label: "Downloads", icon: Download },
   { href: "/cmgf/library", label: "Library", icon: Library },
 ];

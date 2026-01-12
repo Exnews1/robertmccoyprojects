@@ -1,77 +1,146 @@
 import { Link } from "wouter";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Cpu, ChevronRight, FileInput, AlertTriangle, Layers, Eye, Radio, Database, ArrowRightLeft, LogOut, XCircle, ExternalLink, FileCode } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Users, ChevronRight, ClipboardCheck, GraduationCap, Stamp, 
+  ArrowRightLeft, FileText, ScrollText, Building2, BarChart3,
+  TrendingDown, Scale, AlertTriangle, MessageSquare, Shield, ExternalLink
+} from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
-const pages = [
+const partCPages = [
   {
-    id: "normalization",
-    title: "Input Normalization",
-    description: "Standardize inputs from service member interface into structured formats for analysis. No interpretation or judgment applied.",
-    icon: FileInput,
-    demoUrl: "/demos/part-c/input-normalization.html"
+    id: "advisor-review",
+    title: "Advisor Review Workspace",
+    description: "Advisors receive AI-generated signals and apply human judgment. All interpretations are annotated with rationale for transparency and audit.",
+    icon: ClipboardCheck,
+    responsibilities: [
+      "Receive AI signals",
+      "Apply human judgment",
+      "Annotate rationale"
+    ],
+    demoUrl: "/demos/part-b/advisor-review.html"
   },
   {
-    id: "constraint-analysis",
-    title: "Constraint Analysis",
-    description: "Identify conflicts between stated goals and known constraints. Surface conflicts for human review—never resolve autonomously.",
-    icon: AlertTriangle,
-    demoUrl: "/demos/part-c/constraint-analysis.html"
+    id: "educator-validation",
+    title: "Educator Validation Panel",
+    description: "Educators confirm academic alignment and flag institutional constraints. Ensures educational pathways are viable and appropriately matched.",
+    icon: GraduationCap,
+    responsibilities: [
+      "Confirm academic alignment",
+      "Flag institutional constraints",
+      "Validate credential mapping"
+    ],
+    demoUrl: "/demos/part-b/educator-validation.html"
   },
   {
-    id: "scenario-construction",
-    title: "Scenario Construction",
-    description: "Generate hypothetical pathways based on normalized inputs. All scenarios are exploratory and non-binding.",
-    icon: Layers,
-    demoUrl: "/demos/part-c/scenario-construction.html"
+    id: "admin-decision",
+    title: "Administrator Decision Console",
+    description: "Administrators execute formal decisions with required justification. Every approval triggers a complete audit trail.",
+    icon: Stamp,
+    responsibilities: [
+      "Execute formal decisions",
+      "Provide required justification",
+      "Trigger audit trail"
+    ],
+    demoUrl: "/demos/part-b/admin-decision.html"
   },
   {
-    id: "explainability",
-    title: "Explainability Layer",
-    description: "Ensure all AI outputs can be traced to inputs and rules. No black-box processing. Every output must be auditable.",
-    icon: Eye,
-    demoUrl: "/demos/part-c/explainability.html"
-  },
-  {
-    id: "signal-generation",
-    title: "Signal Generation",
-    description: "Produce advisory signals for human reviewers. Signals are informational only—never prescriptive or directive.",
-    icon: Radio,
-    demoUrl: "/demos/part-c/signal-generation.html"
-  },
-  {
-    id: "aggregation",
-    title: "Aggregation Boundary Check",
-    description: "Ensure population-level aggregation only. No individual profiling permitted. Data aggregation respects privacy boundaries.",
-    icon: Database,
-    demoUrl: "/demos/part-c/aggregation-boundary.html"
-  },
-  {
-    id: "handoff",
+    id: "handoff-prep",
     title: "Human Handoff Preparation",
-    description: "Package AI outputs for human review. Surface uncertainty explicitly. Prevent automation bias through design.",
+    description: "Ensures all AI outputs are explainable before human review. Surfaces uncertainty and prevents automation bias in decision-making.",
     icon: ArrowRightLeft,
-    demoUrl: "/demos/part-c/human-handoff.html"
+    responsibilities: [
+      "Ensure explainability",
+      "Surface uncertainty",
+      "Prevent automation bias"
+    ],
+    demoUrl: "/demos/part-b/handoff-prep.html"
   },
   {
-    id: "exit",
-    title: "Exit Overview",
-    description: "Clear boundary where AI processing ends and human authority begins. All subsequent decisions are human-made.",
-    icon: LogOut,
-    demoUrl: "/demos/part-c/exit-overview.html"
+    id: "outcome-summary",
+    title: "Decision Outcome Summary",
+    description: "Documents all human decisions with clear attribution. Links outcomes to the signals and context that informed them.",
+    icon: FileText,
+    responsibilities: [
+      "Document decisions",
+      "Attribute to humans",
+      "Link to context"
+    ],
+    demoUrl: "/demos/part-b/outcome-summary.html"
+  },
+  {
+    id: "audit-trail",
+    title: "Audit Trail & Rationale Log",
+    description: "Maintains complete record of all decisions, rationales, and supporting evidence. Enables institutional accountability and process improvement.",
+    icon: ScrollText,
+    responsibilities: [
+      "Log all decisions",
+      "Record rationales",
+      "Enable accountability"
+    ],
+    demoUrl: "/demos/part-b/audit-trail.html"
   }
 ];
 
-const specSheetUrl = "/demos/part-c/spec-sheet.html";
-
-const hardConstraints = [
-  "No autonomous action",
-  "No individual profiling",
-  "Aggregation only at population level",
-  "Advisory signals only",
-  "No predictive modeling",
-  "No success scoring"
+const partC1Pages = [
+  {
+    id: "executive-overview",
+    title: "Executive Overview",
+    description: "High-level system health metrics and strategic indicators. Population-level insights for leadership decision-making.",
+    icon: Building2,
+    metrics: ["System health", "Strategic indicators", "Population trends"],
+    demoUrl: "/demos/part-b1/executive-overview.html"
+  },
+  {
+    id: "bottleneck-analysis",
+    title: "System Bottleneck Analysis",
+    description: "Identifies friction points in transition pathways. Surfaces systemic delays and capacity constraints.",
+    icon: BarChart3,
+    metrics: ["Processing delays", "Capacity constraints", "Queue depths"],
+    demoUrl: "/demos/part-b1/system-bottleneck.html"
+  },
+  {
+    id: "funding-pressure",
+    title: "Funding & Resource Pressure",
+    description: "Aggregated view of resource utilization and funding gaps. Supports budget justification and resource allocation.",
+    icon: TrendingDown,
+    metrics: ["Utilization rates", "Funding gaps", "Resource allocation"],
+    demoUrl: "/demos/part-b1/funding-pressure.html"
+  },
+  {
+    id: "review-capacity",
+    title: "Human Review Load & Capacity",
+    description: "Monitors advisor workload and capacity across the system. Enables proactive staffing and workload balancing.",
+    icon: Users,
+    metrics: ["Advisor workload", "Queue times", "Capacity ratios"],
+    demoUrl: "/demos/part-b1/human-review.html"
+  },
+  {
+    id: "policy-friction",
+    title: "Policy Friction & Exceptions",
+    description: "Tracks policy exception frequency and patterns. Identifies candidates for policy revision or clarification.",
+    icon: Scale,
+    metrics: ["Exception rates", "Policy patterns", "Revision candidates"],
+    demoUrl: "/demos/part-b1/policy-friction.html"
+  },
+  {
+    id: "retention-signals",
+    title: "Retention & Attrition Signals",
+    description: "Aggregated indicators of transition program effectiveness. No individual predictions—population-level patterns only.",
+    icon: AlertTriangle,
+    metrics: ["Program effectiveness", "Completion rates", "Engagement patterns"],
+    demoUrl: "/demos/part-b1/retention-signals.html"
+  },
+  {
+    id: "interpretive-notes",
+    title: "Interpretive Notes & Human Commentary",
+    description: "Space for human analysts to contextualize quantitative data. Captures institutional knowledge and qualitative insights.",
+    icon: MessageSquare,
+    metrics: ["Analyst notes", "Context layers", "Qualitative insights"],
+    demoUrl: "/demos/part-b1/interpretive-notes.html"
+  }
 ];
 
 export default function PartC() {
@@ -97,117 +166,167 @@ export default function PartC() {
 
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xs font-mono px-2 py-1 rounded bg-purple-500/10 text-purple-500">Part C</span>
-            <Cpu className="h-6 w-6 text-purple-500" />
+            <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30">Part C</Badge>
+            <Users className="h-6 w-6 text-green-500" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground mb-3">AI Mediation Framework</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-3">Institutional Stewardship</h1>
           <div className="flex flex-wrap gap-4 text-sm mb-4">
             <div>
               <span className="text-muted-foreground">Role:</span>
-              <span className="ml-2 font-medium text-foreground">Non-authoritative AI</span>
+              <span className="ml-2 font-medium text-foreground">Human Judgment & Accountability</span>
             </div>
             <div>
-              <span className="text-muted-foreground">Function:</span>
-              <span className="ml-2 font-medium text-foreground">Translation, Constraint Detection, Pattern Analysis</span>
+              <span className="text-muted-foreground">Authority:</span>
+              <span className="ml-2 font-medium text-foreground">Human-only decisions</span>
             </div>
           </div>
           <p className="text-muted-foreground max-w-3xl">
-            The AI layer serves as infrastructure—never authority. It performs translation, constraint detection, and pattern analysis while enforcing strict boundaries on autonomous action.
+            This is a <strong className="text-foreground">human workspace</strong>, not an AI workspace. 
+            Part C represents formal human decision-making environments including Education Services Offices (ESO), 
+            advisors, educators, and administrators. This layer receives AI-mediated signals, performs human judgment, 
+            produces official outcomes, and maintains accountability.
           </p>
         </header>
 
-        <Card className="mb-8 border-red-500/20 bg-red-500/5">
+        <Card className="mb-8 border-green-500/20 bg-green-500/5">
           <CardContent className="p-4">
-            <h3 className="font-medium text-foreground mb-3 flex items-center gap-2">
-              <XCircle className="h-5 w-5 text-red-500" />
-              Hard Constraints (System-Wide)
-            </h3>
-            <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-              {hardConstraints.map((constraint, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm">
-                  <XCircle className="h-3 w-3 text-red-500 flex-shrink-0" />
-                  <span className="text-foreground">{constraint}</span>
-                </div>
-              ))}
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="h-4 w-4 text-green-500" />
+              <h3 className="font-medium text-foreground">Design Rules</h3>
             </div>
+            <ul className="text-sm text-muted-foreground grid grid-cols-1 md:grid-cols-2 gap-2">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                No predictive language
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                No automation metaphors
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                Clear role separation
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                Decisions explicitly attributed to humans
+              </li>
+            </ul>
           </CardContent>
         </Card>
 
-        <section className="mb-10">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Processing Stages</h2>
-            <a 
-              href={specSheetUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-500/10 hover:bg-purple-500/20 rounded text-xs text-purple-600 dark:text-purple-400 transition-colors"
-              data-testid="link-spec-sheet"
-            >
-              <FileCode className="h-3 w-3" />
-              View AI Governance Spec Sheet
-            </a>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {pages.map((page, index) => (
-              <Card key={page.id} className="border-border/50" data-testid={`card-${page.id}`}>
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                      <page.icon className="h-5 w-5 text-purple-500" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs font-mono text-muted-foreground">Stage {index + 1}</span>
-                      </div>
-                      <h3 className="font-medium text-foreground text-sm mb-1">{page.title}</h3>
-                      <p className="text-xs text-muted-foreground mb-2">{page.description}</p>
-                      <a 
-                        href={page.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-xs text-purple-500 hover:text-purple-600"
-                        data-testid={`link-demo-${page.id}`}
-                      >
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        View Stage Demo
-                      </a>
-                    </div>
+        <section className="mb-12">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">ESO / Human System (6 Interfaces)</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {partCPages.map((page, index) => (
+              <Card key={page.id} className="border-border/50" data-testid={`card-partc-${page.id}`}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <page.icon className="h-5 w-5 text-green-500" />
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                      C{index + 1}
+                    </span>
                   </div>
+                  <CardTitle className="text-base">{page.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
+                  <a 
+                    href={page.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs text-green-500 hover:text-green-600"
+                    data-testid={`demo-c-${page.id}`}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View Interface Demo
+                  </a>
                 </CardContent>
               </Card>
             ))}
           </div>
         </section>
 
-        <Card className="mb-8 border-border/50">
-          <CardContent className="p-6">
-            <h3 className="font-semibold text-foreground mb-3">Architectural Principle</h3>
-            <p className="text-sm text-muted-foreground">
-              AI in this framework is bounded by design. It cannot recommend, approve, or predict. It can only translate information, detect constraint conflicts, and generate advisory signals for human review. All outputs are explainable, auditable, and non-binding. The moment AI attempts to exceed these boundaries, the system rejects the operation.
-            </p>
-          </CardContent>
-        </Card>
+        <section className="mb-12">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Enterprise Governance Layer (C1 — 7 Interfaces)</h2>
+          
+          <Card className="mb-6 border-amber-500/20 bg-amber-500/5">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Shield className="h-4 w-4 text-amber-600" />
+                <h3 className="font-medium text-foreground text-sm">Critical Constraints</h3>
+              </div>
+              <ul className="text-xs text-muted-foreground grid grid-cols-2 md:grid-cols-4 gap-2">
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  No individual identifiers
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  No re-identification risk
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  Population-level only
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  Aggregation enforced
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {partC1Pages.map((page, index) => (
+              <Card key={page.id} className="border-border/50" data-testid={`card-partc1-${page.id}`}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between mb-2">
+                    <page.icon className="h-5 w-5 text-amber-600" />
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600">
+                      C1.{index + 1}
+                    </span>
+                  </div>
+                  <CardTitle className="text-base">{page.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-3">{page.description}</p>
+                  <a 
+                    href={page.demoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-xs text-amber-600 hover:text-amber-700"
+                    data-testid={`demo-${page.id}`}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" />
+                    View Interface Demo
+                  </a>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
         <div className="pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
             <Link href="/cmgf">
-              <Button variant="outline" size="sm">CMGF Main</Button>
+              <Button variant="outline" size="sm" data-testid="link-cmgf-main">CMGF Main</Button>
             </Link>
             <Link href="/cmgf/walkthrough">
-              <Button variant="outline" size="sm">Walkthrough Overview</Button>
+              <Button variant="outline" size="sm" data-testid="link-walkthrough">Walkthrough Overview</Button>
             </Link>
             <Link href="/cmgf/walkthrough/part-a">
-              <Button variant="outline" size="sm">Part A: Service Member</Button>
+              <Button variant="outline" size="sm" data-testid="link-part-a">Part A: Service Member</Button>
             </Link>
             <Link href="/cmgf/walkthrough/part-b">
-              <Button variant="outline" size="sm">Part B: Advisory Layer</Button>
+              <Button variant="outline" size="sm" data-testid="link-part-b">Part B: AI Mediation</Button>
             </Link>
             <Link href="/cmgf/downloads">
-              <Button variant="outline" size="sm">Downloads</Button>
+              <Button variant="outline" size="sm" data-testid="link-downloads">Downloads</Button>
             </Link>
             <Link href="/cmgf/library">
-              <Button variant="outline" size="sm">Library</Button>
+              <Button variant="outline" size="sm" data-testid="link-library">Library</Button>
             </Link>
           </div>
         </div>

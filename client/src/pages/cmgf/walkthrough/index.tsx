@@ -19,24 +19,24 @@ const parts = [
   {
     id: "part-b",
     label: "Part B",
-    title: "Advisory & Human Review Layer",
-    role: "Human Judgment",
-    authority: "Human-only",
-    description: "AI outputs are reviewed, contextualized, and decided upon by humans. All decisions require justification and trigger audit trails.",
-    icon: Users,
-    route: "/cmgf/walkthrough/part-b",
-    color: "text-green-500"
-  },
-  {
-    id: "part-c",
-    label: "Part C",
     title: "AI Mediation Framework",
     role: "Non-authoritative AI",
     authority: "Translation & Analysis",
     description: "AI performs translation, constraint detection, and pattern analysis. Advisory signals only—no autonomous action permitted.",
     icon: Cpu,
-    route: "/cmgf/walkthrough/part-c",
+    route: "/cmgf/walkthrough/part-b",
     color: "text-purple-500"
+  },
+  {
+    id: "part-c",
+    label: "Part C",
+    title: "Advisory & Human Review Layer",
+    role: "Human Judgment",
+    authority: "Human-only",
+    description: "AI outputs are reviewed, contextualized, and decided upon by humans. All decisions require justification and trigger audit trails.",
+    icon: Users,
+    route: "/cmgf/walkthrough/part-c",
+    color: "text-green-500"
   }
 ];
 
@@ -169,10 +169,10 @@ export default function Walkthrough() {
               <Button variant="outline" size="sm">Part A: Service Member</Button>
             </Link>
             <Link href="/cmgf/walkthrough/part-b">
-              <Button variant="outline" size="sm">Part B: Advisory Layer</Button>
+              <Button variant="outline" size="sm">Part B: AI Mediation</Button>
             </Link>
             <Link href="/cmgf/walkthrough/part-c">
-              <Button variant="outline" size="sm">Part C: AI Mediation</Button>
+              <Button variant="outline" size="sm">Part C: Advisory Layer</Button>
             </Link>
             <Link href="/cmgf/downloads">
               <Button variant="outline" size="sm">Downloads</Button>
