@@ -4,6 +4,7 @@ import {
   complianceItems,
   publications,
   expertCommentary,
+  libraryEntries,
   type Framework,
   type InsertFramework,
   type ComplianceItem,
@@ -11,7 +12,9 @@ import {
   type Publication,
   type InsertPublication,
   type ExpertCommentary,
-  type InsertExpertCommentary
+  type InsertExpertCommentary,
+  type LibraryEntry,
+  type InsertLibraryEntry
 } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import { seedPublications } from "./seed";
@@ -28,6 +31,10 @@ export interface IStorage {
   createPublication(pub: InsertPublication): Promise<Publication>;
 
   createExpertCommentary(commentary: InsertExpertCommentary): Promise<ExpertCommentary>;
+
+  getLibraryEntries(): Promise<LibraryEntry[]>;
+  createLibraryEntry(entry: InsertLibraryEntry): Promise<LibraryEntry>;
+  updateLibraryEntryEmbedding(id: number, embedding: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -91,6 +98,19 @@ export class DatabaseStorage implements IStorage {
       submissionId,
     }).returning();
     return newCommentary;
+  }
+
+  async getLibraryEntries(): Promise<LibraryEntry[]> {
+    return await db.select().from(libraryEntries);
+  }
+
+  async createLibraryEntry(entry: InsertLibraryEntry): Promise<LibraryEntry> {
+    const [newEntry] = await db.insert(libraryEntries).values(entry).returning();
+    return newEntry;
+  }
+
+  async updateLibraryEntryEmbedding(id: number, embedding: string): Promise<void> {
+    await db.update(libraryEntries).set({ embedding }).where(eq(libraryEntries.id, id));
   }
 
   async seed() {

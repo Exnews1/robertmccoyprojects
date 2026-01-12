@@ -44,6 +44,23 @@ export const expertCommentary = pgTable("expert_commentary", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const libraryEntries = pgTable("library_entries", {
+  id: serial("id").primaryKey(),
+  entryId: text("entry_id").notNull().unique(),
+  title: text("title").notNull(),
+  authors: text("authors"),
+  organization: text("organization"),
+  year: integer("year"),
+  documentType: text("document_type").notNull(),
+  summary: text("summary").notNull(),
+  topics: text("topics").array(),
+  url: text("url"),
+  sourceLabel: text("source_label"),
+  visibility: text("visibility").default("public"),
+  embedding: text("embedding"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const frameworksRelations = relations(frameworks, ({ many }) => ({
   complianceItems: many(complianceItems),
 }));
@@ -59,6 +76,7 @@ export const insertFrameworkSchema = createInsertSchema(frameworks).omit({ id: t
 export const insertComplianceItemSchema = createInsertSchema(complianceItems).omit({ id: true });
 export const insertPublicationSchema = createInsertSchema(publications).omit({ id: true });
 export const insertExpertCommentarySchema = createInsertSchema(expertCommentary).omit({ id: true, submissionId: true, createdAt: true });
+export const insertLibraryEntrySchema = createInsertSchema(libraryEntries).omit({ id: true, createdAt: true });
 
 export type Framework = typeof frameworks.$inferSelect;
 export type InsertFramework = z.infer<typeof insertFrameworkSchema>;
@@ -68,3 +86,5 @@ export type Publication = typeof publications.$inferSelect;
 export type InsertPublication = z.infer<typeof insertPublicationSchema>;
 export type ExpertCommentary = typeof expertCommentary.$inferSelect;
 export type InsertExpertCommentary = z.infer<typeof insertExpertCommentarySchema>;
+export type LibraryEntry = typeof libraryEntries.$inferSelect;
+export type InsertLibraryEntry = z.infer<typeof insertLibraryEntrySchema>;

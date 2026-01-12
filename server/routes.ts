@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertPublicationSchema, insertExpertCommentarySchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { seedDatabase } from "./seed";
+import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
 
 export async function registerRoutes(httpServer: Server, app: Express) {
   app.get("/api/frameworks", async (_req: any, res: any) => {
@@ -89,6 +90,60 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         res.status(500).json({ message: "Internal server error" });
       }
     }
+  });
+
+  app.post("/api/search", async (req: any, res: any) => {
+    try {
+      const { query } = req.body;
+      if (!query || typeof query !== "string") {
+        return res.status(400).json({ message: "Query is required" });
+      }
+
+      const entries = await storage.getLibraryEntries();
+      
+      if (entries.length === 0) {
+        return res.json({ results: [] });
+      }
+
+      let queryEmbedding: number[];
+      try {
+        queryEmbedding = await generateEmbedding(query);
+      } catch (error) {
+        console.error("Embedding generation failed:", error);
+        return res.status(500).json({ message: "Search temporarily unavailable" });
+      }
+
+      const scoredEntries = entries
+        .filter(entry => entry.embedding)
+        .map(entry => {
+          const entryEmbedding = JSON.parse(entry.embedding!) as number[];
+          const score = cosineSimilarity(queryEmbedding, entryEmbedding);
+          return { entry, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+
+      const results = scoredEntries.map(({ entry, score }) => ({
+        id: entry.entryId,
+        title: entry.title,
+        summary: entry.summary,
+        year: entry.year,
+        documentType: entry.documentType,
+        sourceLabel: entry.sourceLabel,
+        url: entry.url,
+        relevance: getRelevanceLabel(score)
+      }));
+
+      res.json({ results });
+    } catch (error) {
+      console.error("Search error:", error);
+      res.status(500).json({ message: "Search failed" });
+    }
+  });
+
+  app.get("/api/library", async (_req: any, res: any) => {
+    const entries = await storage.getLibraryEntries();
+    res.json(entries);
   });
 
   return app;

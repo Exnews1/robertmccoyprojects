@@ -13,6 +13,7 @@ import PartB from "@/pages/cmgf/walkthrough/part-b";
 import PartC from "@/pages/cmgf/walkthrough/part-c";
 import Library from "@/pages/cmgf/library";
 import Engagement from "@/pages/cmgf/engagement";
+import Explorer from "@/pages/explorer";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 function Router() {
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/cmgf/walkthrough/part-c" component={PartC} />
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
+      <Route path="/explorer" component={Explorer} />
       <Route component={NotFound} />
     </Switch>
   );
