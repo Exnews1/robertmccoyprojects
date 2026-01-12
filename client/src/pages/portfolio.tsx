@@ -5,7 +5,7 @@ import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalL
 const mainProjects = [
   {
     id: "cmgf",
-    title: "Career Mobility Governance Framework",
+    title: "Career Mobility Governance Framework (CMGF)",
     description: "A governed AI framework for military learner mobility. Human-centered system design for service member career transitions.",
     icon: Shield,
     route: "/cmgf",
