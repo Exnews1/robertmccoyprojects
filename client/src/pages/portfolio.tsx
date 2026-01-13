@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin } from "lucide-react";
 
 const mainProjects = [
   {
@@ -44,10 +45,14 @@ export default function Portfolio() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Research and operational systems focused on human-centered governance, ethical AI design, and institutional accountability.
           </p>
-          <div className="mt-4 text-sm text-muted-foreground">
+          <div className="mt-4 flex items-center justify-center gap-4 text-sm text-muted-foreground">
             <a href="mailto:robert.mccoy@indwes.edu" className="hover:text-primary transition-colors" data-testid="link-email">
               robert.mccoy@indwes.edu
             </a>
+            <span className="text-muted-foreground/30">|</span>
+            <Link href="/contact" className="hover:text-primary transition-colors" data-testid="link-contact">
+              Submit Inquiry
+            </Link>
           </div>
         </header>
 
@@ -107,6 +112,47 @@ export default function Portfolio() {
                 </Card>
               </a>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-16 pt-16 border-t border-border" data-testid="section-publications">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Publications & Working Papers</h2>
+          <div className="space-y-4">
+            <Card className="border-border/50">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <FileText className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="font-medium text-foreground">The Future Is Now: A Governed AI Framework for Military Learner Mobility</h3>
+                      <Badge variant="outline" className="text-xs">Working Paper</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      McCoy, R.E. (2026). Career Mobility Governance Framework. Prepared for CCME 2026.
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      A bounded AI architecture for military career transitions preserving human agency while enabling institutional learning.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-border/50">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <FileText className="h-5 w-5 text-muted-foreground mt-1 flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <h3 className="font-medium text-foreground">AI as Decision Infrastructure for Military Career Mobility</h3>
+                      <Badge variant="outline" className="text-xs">In Development</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      McCoy, R.E. (Forthcoming). Executive briefing on AI governance for senior policy stakeholders.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -192,6 +238,34 @@ export default function Portfolio() {
                   <p className="text-primary">Indiana Wesleyan University</p>
                 </CardContent>
               </Card>
+
+              <Card className="border-primary/30 bg-primary/5">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-mono uppercase tracking-wider text-primary flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    Advisory Roles
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm text-muted-foreground">
+                  <div className="flex items-start gap-2">
+                    <Building2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Board Member, MidSouth Advisory Council on Military Education</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="pt-2">
+                <a 
+                  href="https://www.linkedin.com/in/robertemccoy" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  data-testid="link-linkedin"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn Profile</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>

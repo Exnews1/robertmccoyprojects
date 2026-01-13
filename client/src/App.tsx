@@ -14,7 +14,9 @@ import PartC from "@/pages/cmgf/walkthrough/part-c";
 import Library from "@/pages/cmgf/library";
 import Engagement from "@/pages/cmgf/engagement";
 import Explorer from "@/pages/explorer";
+import Contact from "@/pages/contact";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AccessibilityControls } from "@/components/accessibility-controls";
 
 function Router() {
   return (
@@ -29,6 +31,7 @@ function Router() {
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/explorer" component={Explorer} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -54,7 +57,10 @@ export default function App() {
                   robert.mccoy@indwes.edu
                 </a>
               </div>
-              <ThemeToggle />
+              <div className="flex items-center gap-1">
+                <AccessibilityControls />
+                <ThemeToggle />
+              </div>
             </div>
           </header>
           <main>

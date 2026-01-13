@@ -1,8 +1,12 @@
 import { Link } from "wouter";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { useToast } from "@/hooks/use-toast";
 
 const canonicalDocuments = [
   {
@@ -52,7 +56,30 @@ const sections = [
   }
 ];
 
+const citationFormats = {
+  apa: `McCoy, R. E. (2026). The future is now: A governed AI framework for military learner mobility. Career Mobility Governance Framework, v1.0. Retrieved from https://robertmccoyprojects.com/cmgf`,
+  chicago: `McCoy, Robert E. "The Future Is Now: A Governed AI Framework for Military Learner Mobility." Career Mobility Governance Framework, v1.0. January 2026. https://robertmccoyprojects.com/cmgf.`,
+  mla: `McCoy, Robert E. "The Future Is Now: A Governed AI Framework for Military Learner Mobility." Career Mobility Governance Framework, v1.0, Jan. 2026, robertmccoyprojects.com/cmgf.`
+};
+
 export default function CMGFRoot() {
+  const { toast } = useToast();
+  const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+
+  const handleCopyCitation = (format: keyof typeof citationFormats) => {
+    navigator.clipboard.writeText(citationFormats[format]);
+    setCopiedFormat(format);
+    toast({
+      title: "Citation copied",
+      description: `${format.toUpperCase()} format copied to clipboard`,
+    });
+    setTimeout(() => setCopiedFormat(null), 2000);
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <CMGFNav />
@@ -65,14 +92,77 @@ export default function CMGFRoot() {
           <span className="text-foreground">CMGF</span>
         </nav>
 
-        <header className="mb-12">
+        <header className="mb-8">
+          <div className="flex items-center gap-3 flex-wrap mb-3">
+            <Badge variant="outline" className="font-mono text-xs">v1.0</Badge>
+            <span className="text-xs text-muted-foreground">Last updated: January 2026</span>
+          </div>
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             The Future Is Now: A Governed AI Framework for Military Learner Mobility
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
+          <p className="text-lg text-muted-foreground max-w-3xl mb-4">
             An authoritative framework addressing the structural paradox of $13.5B annual education benefits versus $140M transition-specific advising. Designed for academic, policy, and institutional audiences.
           </p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" data-testid="button-cite-work">
+                  <Quote className="h-4 w-4 mr-2" />
+                  Cite This Work
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-lg">
+                <DialogHeader>
+                  <DialogTitle>Cite This Work</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  {(Object.keys(citationFormats) as Array<keyof typeof citationFormats>).map((format) => (
+                    <div key={format} className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium uppercase">{format}</span>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={() => handleCopyCitation(format)}
+                          data-testid={`button-copy-citation-${format}`}
+                        >
+                          {copiedFormat === format ? (
+                            <Check className="h-4 w-4 text-green-500" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                      <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md font-mono text-xs leading-relaxed">
+                        {citationFormats[format]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </DialogContent>
+            </Dialog>
+            <Button variant="outline" size="sm" onClick={handlePrint} data-testid="button-print">
+              <Printer className="h-4 w-4 mr-2" />
+              Print View
+            </Button>
+          </div>
         </header>
+
+        <section className="mb-10 print:break-inside-avoid">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-mono uppercase tracking-wider text-primary">Executive Summary</CardTitle>
+            </CardHeader>
+            <CardContent className="prose prose-sm dark:prose-invert max-w-none">
+              <p className="text-foreground leading-relaxed">
+                The Career Mobility Governance Framework (CMGF) proposes a bounded AI architecture for military-to-civilian career transitions. The framework addresses a critical institutional gap: while the Department of Defense invests $13.5 billion annually in education benefits, only $140 million supports transition-specific advising. This structural imbalance leaves service members navigating complex career decisions without adequate institutional support.
+              </p>
+              <p className="text-foreground leading-relaxed mt-3">
+                CMGF introduces three non-negotiable constraints: no predictive outcome modeling, no individual risk scoring, and no automated approvals. AI operates as infrastructure—providing visibility, structure, and decision support—while human advisors and service members retain full decision authority. The framework enables institutional learning through aggregated, de-identified signals without surveillance or control of individual choices.
+              </p>
+            </CardContent>
+          </Card>
+        </section>
 
         <section className="mb-10">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Download Research Documents</h2>
@@ -101,22 +191,7 @@ export default function CMGFRoot() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Overview</h2>
-          <Card className="border-border/50">
-            <CardContent className="p-6">
-              <div className="prose prose-neutral dark:prose-invert max-w-none">
-                <p className="text-foreground leading-relaxed">
-                  The Career Mobility Governance Framework (CMGF) addresses a critical institutional gap: while the Department of Defense invests substantially in education benefits, the infrastructure supporting career transitions remains structurally underfunded. This framework provides a bounded, human-in-the-loop AI architecture that preserves individual agency while enabling institutional learning.
-                </p>
-                <p className="text-foreground leading-relaxed mt-4">
-                  The system enforces three non-negotiable constraints: no predictive outcome modeling, no individual risk scoring, and no automated approvals. AI serves as infrastructure—never as authority.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
+        
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

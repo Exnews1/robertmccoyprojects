@@ -71,6 +71,7 @@ export default function Explorer() {
         </nav>
 
         <header className="mb-10 text-center">
+          <div className="text-xs text-muted-foreground mb-3">Last updated: January 2026</div>
           <div className="flex items-center justify-center gap-3 mb-4">
             <BookOpen className="h-10 w-10 text-primary" />
           </div>

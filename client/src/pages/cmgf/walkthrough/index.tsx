@@ -74,6 +74,7 @@ export default function Walkthrough() {
         </nav>
 
         <header className="mb-12">
+          <div className="text-xs text-muted-foreground mb-2">Last updated: January 2026</div>
           <h1 className="text-3xl font-bold text-foreground mb-3">Framework Walkthrough</h1>
           <p className="text-muted-foreground max-w-3xl">
             The CMGF operates through three interconnected layers, each with distinct roles and authority boundaries. This architecture ensures human judgment is preserved at every decision point.
