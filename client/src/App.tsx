@@ -66,6 +66,17 @@ export default function App() {
           <main>
             <Router />
           </main>
+          <footer className="border-t border-border/50 bg-card/30 py-6 mt-16">
+            <div className="max-w-6xl mx-auto px-6 text-center text-xs text-muted-foreground/60">
+              <a 
+                href="mailto:data@robertmccoyprojects.com" 
+                className="hover:text-muted-foreground transition-colors"
+                data-testid="link-footer-email"
+              >
+                data@robertmccoyprojects.com
+              </a>
+            </div>
+          </footer>
         </div>
         <Toaster />
       </TooltipProvider>
