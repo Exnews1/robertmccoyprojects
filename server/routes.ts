@@ -7,6 +7,11 @@ import { seedDatabase } from "./seed";
 import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
 
 export async function registerRoutes(httpServer: Server, app: Express) {
+  // Zoho domain verification
+  app.get("/zoho-domain-verification.html", (_req: any, res: any) => {
+    res.type('text/html').send('90531183');
+  });
+
   app.get("/api/frameworks", async (_req: any, res: any) => {
     const frameworks = await storage.getFrameworks();
     res.json(frameworks);
