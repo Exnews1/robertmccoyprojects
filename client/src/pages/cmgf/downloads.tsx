@@ -18,7 +18,17 @@ const documents = [
   {
     id: "presentation",
     title: "CCME 2026 Conference Presentation",
-    description: "Presented at the Council of College and Military Educators 2026 Learner Track. Addresses bounded AI governance for military-to-civilian transitions.",
+    description: "Main presentation for the Council of College and Military Educators 2026 Learner Track. Addresses bounded AI governance for military-to-civilian transitions.",
+    type: "PPTX",
+    icon: Presentation,
+    href: "/attached_assets/CCME_2026_Main.pptx",
+    version: "2.0",
+    date: "January 2026"
+  },
+  {
+    id: "presentation-long",
+    title: "Research Presentation Long Version",
+    description: "Extended research presentation with additional detail and supporting materials.",
     type: "PDF",
     icon: Presentation,
     href: "/attached_assets/CCME_2026_1767730819889.pdf",
