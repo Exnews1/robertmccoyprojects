@@ -28,7 +28,7 @@ const otherProjects = [
   {
     id: "turbine",
     title: "AI Turbine Vision",
-    description: "Industrial power monitoring station with real-time turbine diagnostics. AI-powered system monitoring for industrial power supply environments.",
+    description: "Integrated power generation and demand management system. AI monitors turbine output while regulating a connected manufacturing/logistics facility that creates the demand. Real-time diagnostics, load balancing, and automated system regulation demonstrate closed-loop industrial AI governance.",
     icon: Factory,
     route: "https://turbine.robertmccoyprojects.com",
     status: "Live Demo",
