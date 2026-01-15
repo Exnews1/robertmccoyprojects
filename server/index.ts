@@ -8,12 +8,16 @@ import { seedLibrary } from "./library-seed";
 
 const app = express();
 
-// Serve attached_assets for PDF downloads
+// Serve attached_assets for downloads
 app.use('/attached_assets', express.static(path.resolve(process.cwd(), 'attached_assets'), {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.pdf')) {
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', 'inline');
+    }
+    if (filePath.endsWith('.pptx')) {
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+      res.setHeader('Content-Disposition', 'attachment; filename="' + path.basename(filePath) + '"');
     }
   }
 }));
