@@ -25,15 +25,37 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission - in production this would go to an API
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Inquiry submitted",
-      description: "Thank you for your interest. You will receive a response within 2-3 business days.",
-    });
+    try {
+      const response = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          organization: formData.organization || null,
+          inquiryType: formData.inquiryType,
+          message: formData.message
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+      
+      setIsSubmitted(true);
+      toast({
+        title: "Inquiry submitted",
+        description: "Thank you for your interest. You will receive a response within 2-3 business days.",
+      });
+    } catch (error) {
+      toast({
+        title: "Submission failed",
+        description: "Please try again or contact directly via email.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {

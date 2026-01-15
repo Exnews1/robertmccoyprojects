@@ -1,7 +1,7 @@
 import { Express } from "express";
 import { Server } from "http";
 import { storage } from "./storage";
-import { insertPublicationSchema, insertExpertCommentarySchema } from "@shared/schema";
+import { insertPublicationSchema, insertExpertCommentarySchema, insertInquirySchema } from "@shared/schema";
 import { ZodError } from "zod";
 import { seedDatabase } from "./seed";
 import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
@@ -149,6 +149,26 @@ export async function registerRoutes(httpServer: Server, app: Express) {
   app.get("/api/library", async (_req: any, res: any) => {
     const entries = await storage.getLibraryEntries();
     res.json(entries);
+  });
+
+  app.post("/api/inquiries", async (req: any, res: any) => {
+    try {
+      const inquiry = insertInquirySchema.parse(req.body);
+      const newInquiry = await storage.createInquiry(inquiry);
+      res.status(201).json({ success: true, id: newInquiry.id });
+    } catch (e) {
+      if (e instanceof ZodError) {
+        res.status(400).json({ message: e.errors[0].message });
+      } else {
+        console.error("Inquiry submission error:", e);
+        res.status(500).json({ message: "Internal server error" });
+      }
+    }
+  });
+
+  app.get("/api/inquiries", async (_req: any, res: any) => {
+    const inqs = await storage.getInquiries();
+    res.json(inqs);
   });
 
   return app;

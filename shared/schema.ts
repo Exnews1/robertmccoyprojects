@@ -61,6 +61,17 @@ export const libraryEntries = pgTable("library_entries", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const inquiries = pgTable("inquiries", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  organization: text("organization"),
+  inquiryType: text("inquiry_type").notNull(),
+  message: text("message").notNull(),
+  status: text("status").default("unread"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const frameworksRelations = relations(frameworks, ({ many }) => ({
   complianceItems: many(complianceItems),
 }));
@@ -77,6 +88,7 @@ export const insertComplianceItemSchema = createInsertSchema(complianceItems).om
 export const insertPublicationSchema = createInsertSchema(publications).omit({ id: true });
 export const insertExpertCommentarySchema = createInsertSchema(expertCommentary).omit({ id: true, submissionId: true, createdAt: true });
 export const insertLibraryEntrySchema = createInsertSchema(libraryEntries).omit({ id: true, createdAt: true });
+export const insertInquirySchema = createInsertSchema(inquiries).omit({ id: true, status: true, createdAt: true });
 
 export type Framework = typeof frameworks.$inferSelect;
 export type InsertFramework = z.infer<typeof insertFrameworkSchema>;
@@ -88,3 +100,5 @@ export type ExpertCommentary = typeof expertCommentary.$inferSelect;
 export type InsertExpertCommentary = z.infer<typeof insertExpertCommentarySchema>;
 export type LibraryEntry = typeof libraryEntries.$inferSelect;
 export type InsertLibraryEntry = z.infer<typeof insertLibraryEntrySchema>;
+export type Inquiry = typeof inquiries.$inferSelect;
+export type InsertInquiry = z.infer<typeof insertInquirySchema>;
