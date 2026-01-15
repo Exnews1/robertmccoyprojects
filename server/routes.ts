@@ -5,6 +5,7 @@ import { insertPublicationSchema, insertExpertCommentarySchema, insertInquirySch
 import { ZodError } from "zod";
 import { seedDatabase } from "./seed";
 import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
+import { sendInquiryNotification } from "./gmail";
 
 export async function registerRoutes(httpServer: Server, app: Express) {
   // Zoho domain verification
@@ -155,6 +156,15 @@ export async function registerRoutes(httpServer: Server, app: Express) {
     try {
       const inquiry = insertInquirySchema.parse(req.body);
       const newInquiry = await storage.createInquiry(inquiry);
+      
+      sendInquiryNotification({
+        name: inquiry.name,
+        email: inquiry.email,
+        organization: inquiry.organization,
+        inquiryType: inquiry.inquiryType,
+        message: inquiry.message
+      }).catch(err => console.error("Email notification failed:", err));
+      
       res.status(201).json({ success: true, id: newInquiry.id });
     } catch (e) {
       if (e instanceof ZodError) {
