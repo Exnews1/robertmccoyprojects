@@ -73,11 +73,11 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-presentation"
             >
-              <a href="/attached_assets/CCME_2026_Main.pptx" download>
+              <a href="/attached_assets/CCME_2026_Main.pdf" download>
                 <Presentation className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CCME 2026 Slides</div>
-                  <div className="text-[10px] text-muted-foreground">Presentation - PPTX</div>
+                  <div className="text-[10px] text-muted-foreground">Presentation - PDF</div>
                 </div>
               </a>
             </Button>

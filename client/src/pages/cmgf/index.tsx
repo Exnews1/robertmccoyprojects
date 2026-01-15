@@ -21,7 +21,7 @@ const canonicalDocuments = [
     title: "CCME 2026 Presentation",
     description: "Main conference presentation on bounded AI governance",
     icon: Presentation,
-    href: "/attached_assets/CCME_2026_Main.pptx"
+    href: "/attached_assets/CCME_2026_Main.pdf"
   },
   {
     id: "presentation-long",
