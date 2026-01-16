@@ -1,7 +1,8 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, Presentation, BookOpen, ChevronRight } from "lucide-react";
+import { Download, FileText, Presentation, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const documents = [
@@ -60,6 +61,31 @@ export default function Downloads() {
             Authoritative documents for the Career Mobility Governance Framework. Files are versioned and immutable once published.
           </p>
         </header>
+
+        <Card className="mb-8 border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo-downloads">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row md:items-center gap-6">
+              <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <Zap className="h-7 w-7 text-primary" />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-lg font-bold text-foreground">CMGF Platform Demo</h3>
+                  <Badge variant="default" className="text-xs">LIVE</Badge>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Experience the Career Mobility Governance Framework in action—Service Member Hub, AI Services, and Advisor Toolkit.
+                </p>
+                <Button size="default" asChild data-testid="button-launch-demo-downloads">
+                  <a href="https://demo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Launch Demo
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="space-y-4">
           {documents.map((doc) => (

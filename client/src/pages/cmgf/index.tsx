@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 
@@ -167,6 +167,33 @@ export default function CMGFRoot() {
               <p className="text-foreground leading-relaxed mt-3">
                 CMGF introduces three non-negotiable constraints: no predictive outcome modeling, no individual risk scoring, and no automated approvals. AI operates as infrastructure—providing visibility, structure, and decision support—while human advisors and service members retain full decision authority. The framework enables institutional learning through aggregated, de-identified signals without surveillance or control of individual choices.
               </p>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="mb-10">
+          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-xl font-bold text-foreground">CMGF Platform Demo</h3>
+                    <Badge variant="default" className="text-xs">LIVE</Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    Experience the Career Mobility Governance Framework in action. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—a comprehensive platform connecting service members, career advisors, and AI-powered tools.
+                  </p>
+                  <Button size="default" asChild data-testid="button-launch-cmgf-demo">
+                    <a href="https://demo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Launch Demo
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </section>
