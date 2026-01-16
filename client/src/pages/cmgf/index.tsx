@@ -187,7 +187,7 @@ export default function CMGFRoot() {
                     Experience the Career Mobility Governance Framework in action. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—a comprehensive platform connecting service members, career advisors, and AI-powered tools.
                   </p>
                   <Button size="default" asChild data-testid="button-launch-cmgf-demo">
-                    <a href="https://demo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Launch Demo
                     </a>

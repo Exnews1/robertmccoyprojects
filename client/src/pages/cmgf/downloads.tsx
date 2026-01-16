@@ -77,7 +77,7 @@ export default function Downloads() {
                   Experience the Career Mobility Governance Framework in action—Service Member Hub, AI Services, and Advisor Toolkit.
                 </p>
                 <Button size="default" asChild data-testid="button-launch-demo-downloads">
-                  <a href="https://demo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Launch Demo
                   </a>
