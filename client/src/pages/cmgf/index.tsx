@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 
@@ -14,21 +14,32 @@ const canonicalDocuments = [
     title: "CMGF Research Paper",
     description: "Complete research paper with system architecture and implementation guidance",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf"
+    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf",
+    isExternal: false
   },
   {
     id: "presentation",
     title: "CCME 2026 Presentation",
     description: "Main conference presentation on bounded AI governance",
     icon: Presentation,
-    href: "/attached_assets/CCME_2026_Main.pdf"
+    href: "/attached_assets/CCME_2026_Main.pdf",
+    isExternal: false
   },
   {
     id: "presentation-long",
     title: "Research Presentation Long Version",
     description: "Extended presentation with additional detail",
     icon: Presentation,
-    href: "/attached_assets/CCME_2026_1767730819889.pdf"
+    href: "/attached_assets/CCME_2026_1767730819889.pdf",
+    isExternal: false
+  },
+  {
+    id: "demo",
+    title: "AI Turbine Vision Demo",
+    description: "Live demonstration of AI-regulated closed-loop demand management system",
+    icon: Zap,
+    href: "https://demo.robertmccoyprojects.com",
+    isExternal: true
   }
 ];
 
@@ -172,7 +183,7 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Download Research Documents</h2>
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Research Documents & Demo</h2>
           <div className="grid gap-4 md:grid-cols-2">
             {canonicalDocuments.map((doc) => (
               <Card key={doc.id} className="border-primary/20 bg-primary/5" data-testid={`card-canon-doc-${doc.id}`}>
@@ -184,12 +195,21 @@ export default function CMGFRoot() {
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
                       <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
-                      <Button variant="default" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
-                        <a href={doc.href} download>
-                          <Download className="h-4 w-4 mr-2" />
-                          Download PDF
-                        </a>
-                      </Button>
+                      {doc.isExternal ? (
+                        <Button variant="default" size="sm" asChild data-testid={`button-canon-launch-${doc.id}`}>
+                          <a href={doc.href} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Launch Demo
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button variant="default" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
+                          <a href={doc.href} download>
+                            <Download className="h-4 w-4 mr-2" />
+                            Download PDF
+                          </a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </CardContent>
