@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, Presentation, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { Download, FileText, Presentation, BookOpen, ChevronRight } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 const documents = [
@@ -13,8 +13,7 @@ const documents = [
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf",
     version: "1.0",
-    date: "January 2026",
-    isExternal: false
+    date: "January 2026"
   },
   {
     id: "presentation",
@@ -24,8 +23,7 @@ const documents = [
     icon: Presentation,
     href: "/attached_assets/CCME_2026_Main.pdf",
     version: "2.0",
-    date: "January 2026",
-    isExternal: false
+    date: "January 2026"
   },
   {
     id: "presentation-long",
@@ -35,19 +33,7 @@ const documents = [
     icon: Presentation,
     href: "/attached_assets/CCME_2026_1767730819889.pdf",
     version: "1.0",
-    date: "January 2026",
-    isExternal: false
-  },
-  {
-    id: "demo",
-    title: "AI Turbine Vision Demo",
-    description: "Live demonstration of AI-regulated closed-loop demand management system for integrated power generation and manufacturing/logistics facilities.",
-    type: "LIVE",
-    icon: Zap,
-    href: "https://demo.robertmccoyprojects.com",
-    version: "1.0",
-    date: "January 2026",
-    isExternal: true
+    date: "January 2026"
   }
 ];
 
@@ -94,21 +80,12 @@ export default function Downloads() {
                           <span>{doc.date}</span>
                         </div>
                       </div>
-                      {doc.isExternal ? (
-                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-launch-${doc.id}`}>
-                          <a href={doc.href} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4 mr-2" />
-                            Launch
-                          </a>
-                        </Button>
-                      ) : (
-                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
-                          <a href={doc.href} download>
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </a>
-                        </Button>
-                      )}
+                      <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                        <a href={doc.href} download>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
                     </div>
                   </div>
                 </div>
