@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { ChevronRight, Search, ExternalLink, FileText, AlertCircle, BookOpen } from "lucide-react";
+import { ChevronRight, Search, ExternalLink, FileText, AlertCircle, BookOpen, MessageSquare, Sparkles } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 interface SearchResult {
@@ -18,16 +18,28 @@ interface SearchResult {
   relevance: "High" | "Medium" | "Low";
 }
 
+interface AnswerSource {
+  id: string;
+  title: string;
+}
+
+interface AnswerResponse {
+  answer: string | null;
+  message?: string;
+  sources: AnswerSource[];
+  relatedSources: SearchResult[];
+}
+
 const exampleQueries = [
-  "Evidence on automation and workforce transition",
-  "Governance constraints in AI decision systems",
-  "Military education benefit utilization",
-  "Human-in-the-loop system architecture"
+  "What is a stacked credential?",
+  "How does CMGF ensure human oversight?",
+  "What are the NIST AI RMF core functions?",
+  "What is the education-transition paradox?"
 ];
 
 export default function Explorer() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [answerResponse, setAnswerResponse] = useState<AnswerResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
 
@@ -37,12 +49,12 @@ export default function Explorer() {
     setLoading(true);
     setSearched(true);
     try {
-      const response = await apiRequest("POST", "/api/search", { query });
+      const response = await apiRequest("POST", "/api/answer", { query });
       const data = await response.json();
-      setResults(data.results || []);
+      setAnswerResponse(data);
     } catch (error) {
       console.error("Search failed:", error);
-      setResults([]);
+      setAnswerResponse(null);
     }
     setLoading(false);
   }
@@ -77,8 +89,8 @@ export default function Explorer() {
           </div>
           <h1 className="text-3xl font-bold text-foreground mb-3">CMGF Reference Explorer</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Semantic search over curated military career mobility research. 
-            This tool supports discovery of relevant sources. Interpretation remains with the reader.
+            Ask questions about military career mobility research. 
+            Answers are grounded in curated sources with full citations.
           </p>
         </header>
 
@@ -87,11 +99,11 @@ export default function Explorer() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <label htmlFor="search-query" className="text-sm font-medium text-foreground">
-                  Explore the research library
+                  Ask a question or explore a topic
                 </label>
                 <Textarea
                   id="search-query"
-                  placeholder="Enter a topic or question to explore..."
+                  placeholder="Enter a question to get a grounded answer with citations..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   className="min-h-[100px] resize-none"
@@ -100,7 +112,7 @@ export default function Explorer() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs text-muted-foreground">Examples:</span>
+                <span className="text-xs text-muted-foreground">Try:</span>
                 {exampleQueries.map((example, idx) => (
                   <button
                     key={idx}
@@ -120,67 +132,120 @@ export default function Explorer() {
                 data-testid="button-explore-library"
               >
                 <Search className="h-4 w-4 mr-2" />
-                {loading ? "Searching..." : "Explore Library"}
+                {loading ? "Searching..." : "Get Answer"}
               </Button>
             </div>
           </CardContent>
         </Card>
 
-        {searched && (
-          <section className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-foreground">
-                {results.length > 0 ? `${results.length} Relevant Sources` : "No Results Found"}
-              </h2>
-            </div>
-
-            {results.length === 0 && (
-              <Card className="border-border/50">
-                <CardContent className="p-6 text-center">
-                  <FileText className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground">
-                    No matching entries found. Try a different query or broader terms.
+        {searched && answerResponse && (
+          <>
+            {answerResponse.answer ? (
+              <Card className="mb-8 border-primary/30 bg-primary/5">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-1">Grounded Answer</h3>
+                      <p className="text-xs text-muted-foreground">
+                        Based on {answerResponse.sources.length} source{answerResponse.sources.length !== 1 ? 's' : ''}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <p className="text-foreground leading-relaxed mb-4" data-testid="text-answer">
+                    {answerResponse.answer}
                   </p>
+
+                  {answerResponse.sources.length > 0 && (
+                    <div className="border-t border-border/50 pt-4">
+                      <h4 className="text-xs font-medium text-muted-foreground mb-2">SOURCES CITED</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {answerResponse.sources.map((source, idx) => (
+                          <Badge key={source.id} variant="outline" className="text-xs">
+                            [{idx + 1}] {source.title}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="mb-8 border-amber-500/30 bg-amber-500/5">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3">
+                    <MessageSquare className="h-6 w-6 text-amber-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">No Grounded Answer Available</h3>
+                      <p className="text-sm text-muted-foreground" data-testid="text-no-answer-message">
+                        {answerResponse.message || "No sources in the library directly address this question."}
+                      </p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             )}
 
-            <div className="space-y-4">
-              {results.map((result) => (
-                <Card key={result.id} className="border-border/50" data-testid={`card-result-${result.id}`}>
-                  <CardContent className="p-5">
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-foreground mb-1">{result.title}</h3>
-                        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                          {result.sourceLabel && <span>{result.sourceLabel}</span>}
-                          {result.year && <span>({result.year})</span>}
-                          <span className="text-muted-foreground/50">|</span>
-                          <span>{result.documentType}</span>
-                        </div>
-                      </div>
-                      <Badge variant={getRelevanceBadgeVariant(result.relevance)}>
-                        {result.relevance}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {result.summary}
-                    </p>
+            {answerResponse.relatedSources && answerResponse.relatedSources.length > 0 && (
+              <section className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-foreground">
+                    Related Sources ({answerResponse.relatedSources.length})
+                  </h2>
+                </div>
 
-                    {result.url && (
-                      <Button variant="outline" size="sm" asChild data-testid={`button-view-source-${result.id}`}>
-                        <a href={result.url} target="_blank" rel="noopener noreferrer">
-                          View Source
-                          <ExternalLink className="h-3 w-3 ml-2" />
-                        </a>
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
+                <div className="space-y-4">
+                  {answerResponse.relatedSources.map((result) => (
+                    <Card key={result.id} className="border-border/50" data-testid={`card-result-${result.id}`}>
+                      <CardContent className="p-5">
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-foreground mb-1">{result.title}</h3>
+                            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                              {result.sourceLabel && <span>{result.sourceLabel}</span>}
+                              {result.year && <span>({result.year})</span>}
+                              <span className="text-muted-foreground/50">|</span>
+                              <span>{result.documentType}</span>
+                            </div>
+                          </div>
+                          <Badge variant={getRelevanceBadgeVariant(result.relevance)}>
+                            {result.relevance}
+                          </Badge>
+                        </div>
+                        
+                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                          {result.summary}
+                        </p>
+
+                        {result.url && (
+                          <Button variant="outline" size="sm" asChild data-testid={`button-view-source-${result.id}`}>
+                            <a href={result.url} target="_blank" rel="noopener noreferrer">
+                              View Source
+                              <ExternalLink className="h-3 w-3 ml-2" />
+                            </a>
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
+        )}
+
+        {searched && !answerResponse && (
+          <Card className="mb-8 border-border/50">
+            <CardContent className="p-6 text-center">
+              <FileText className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+              <p className="text-muted-foreground">
+                Search failed. Please try again.
+              </p>
+            </CardContent>
+          </Card>
         )}
 
         <Card className="border-amber-500/30 bg-amber-500/5">
@@ -190,10 +255,10 @@ export default function Explorer() {
               <div>
                 <h4 className="font-medium text-foreground mb-1">System Boundaries</h4>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>Search operates only over curated research summaries</li>
-                  <li>No generative interpretation or synthesis</li>
+                  <li>Answers are grounded only in curated library sources</li>
+                  <li>Citations link claims to specific documents</li>
                   <li>No personalization or query storage</li>
-                  <li>Full documents linked for reader interpretation</li>
+                  <li>Full documents linked for deeper reading</li>
                 </ul>
               </div>
             </div>

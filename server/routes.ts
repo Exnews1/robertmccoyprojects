@@ -152,6 +152,153 @@ export async function registerRoutes(httpServer: Server, app: Express) {
     res.json(entries);
   });
 
+  // Regenerate embeddings for all library entries (dev only)
+  app.post("/api/library/regenerate-embeddings", async (_req: any, res: any) => {
+    // Only allow in development to prevent abuse/cost spikes
+    if (process.env.NODE_ENV === "production") {
+      return res.status(403).json({ message: "This endpoint is disabled in production" });
+    }
+    
+    try {
+      const entries = await storage.getLibraryEntries();
+      let updated = 0;
+      
+      for (const entry of entries) {
+        try {
+          const embedding = await generateEmbedding(entry.summary);
+          await storage.updateLibraryEntryEmbedding(entry.id, JSON.stringify(embedding));
+          updated++;
+        } catch (err) {
+          console.error(`Failed to generate embedding for entry ${entry.id}:`, err);
+        }
+      }
+      
+      res.json({ success: true, updated, total: entries.length });
+    } catch (error) {
+      console.error("Embedding regeneration error:", error);
+      res.status(500).json({ message: "Failed to regenerate embeddings" });
+    }
+  });
+
+  // RAG-style answer endpoint with citations
+  app.post("/api/answer", async (req: any, res: any) => {
+    try {
+      const { query } = req.body;
+      if (!query || typeof query !== "string") {
+        return res.status(400).json({ message: "Query is required" });
+      }
+
+      const entries = await storage.getLibraryEntries();
+      
+      if (entries.length === 0) {
+        return res.json({ 
+          answer: null, 
+          message: "No sources available in the library.",
+          sources: [],
+          relatedSources: []
+        });
+      }
+
+      let queryEmbedding: number[];
+      try {
+        queryEmbedding = await generateEmbedding(query);
+      } catch (error) {
+        console.error("Embedding generation failed:", error);
+        return res.status(500).json({ message: "Search temporarily unavailable" });
+      }
+
+      // Score all entries
+      const scoredEntries = entries
+        .filter(entry => entry.embedding)
+        .map(entry => {
+          const entryEmbedding = JSON.parse(entry.embedding!) as number[];
+          const score = cosineSimilarity(queryEmbedding, entryEmbedding);
+          return { entry, score };
+        })
+        .sort((a, b) => b.score - a.score);
+
+      // Get top relevant sources (score >= 0.35)
+      const relevantSources = scoredEntries.filter(s => s.score >= 0.35).slice(0, 3);
+      const relatedSources = scoredEntries.slice(0, 5);
+
+      if (relevantSources.length === 0) {
+        return res.json({
+          answer: null,
+          message: "No sources in the library directly address this question. Please try a different query or browse the related sources below.",
+          sources: [],
+          relatedSources: relatedSources.map(({ entry, score }) => ({
+            id: entry.entryId,
+            title: entry.title,
+            summary: entry.summary,
+            year: entry.year,
+            documentType: entry.documentType,
+            sourceLabel: entry.sourceLabel,
+            url: entry.url,
+            relevance: getRelevanceLabel(score)
+          }))
+        });
+      }
+
+      // Build context from relevant sources for LLM
+      const sourceContext = relevantSources.map(({ entry }, idx) => 
+        `[Source ${idx + 1}: "${entry.title}"]\n${entry.summary}`
+      ).join("\n\n");
+
+      const sourceList = relevantSources.map(({ entry }) => ({
+        id: entry.entryId,
+        title: entry.title
+      }));
+
+      // Use OpenAI to generate a grounded answer
+      const OpenAI = (await import("openai")).default;
+      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are a research assistant for the Career Mobility Governance Framework (CMGF) project. Your task is to answer questions using ONLY the provided source documents. 
+
+Rules:
+1. Answer ONLY based on information in the provided sources
+2. Include inline citations like [Source 1] or [Source 2] when referencing specific information
+3. If the sources don't contain enough information to fully answer the question, say so
+4. Keep answers concise but informative (2-4 sentences)
+5. Never make up information not found in the sources
+6. Do not provide personal opinions or interpretations beyond what the sources state`
+          },
+          {
+            role: "user",
+            content: `Question: ${query}\n\nAvailable Sources:\n${sourceContext}\n\nProvide a grounded answer with citations:`
+          }
+        ],
+        max_tokens: 500,
+        temperature: 0.3
+      });
+
+      const answer = completion.choices[0]?.message?.content || null;
+
+      res.json({
+        answer,
+        sources: sourceList,
+        relatedSources: relatedSources.map(({ entry, score }) => ({
+          id: entry.entryId,
+          title: entry.title,
+          summary: entry.summary,
+          year: entry.year,
+          documentType: entry.documentType,
+          sourceLabel: entry.sourceLabel,
+          url: entry.url,
+          relevance: getRelevanceLabel(score)
+        }))
+      });
+    } catch (error) {
+      console.error("Answer generation error:", error);
+      res.status(500).json({ message: "Failed to generate answer" });
+    }
+  });
+
   app.post("/api/inquiries", async (req: any, res: any) => {
     try {
       const inquiry = insertInquirySchema.parse(req.body);
