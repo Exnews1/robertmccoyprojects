@@ -38,6 +38,19 @@ Database tables:
 - `frameworks` - Compliance framework definitions
 - `compliance_items` - Individual compliance requirements linked to frameworks
 - `publications` - Research papers and publications
+- `library_entries` - Research library with semantic embeddings for RAG search
+- `inquiries` - Professional inquiry form submissions
+
+### Reference Explorer (RAG Feature)
+The Reference Explorer at `/explorer` provides grounded Q&A over the research library:
+- **Semantic Search**: Uses OpenAI embeddings (text-embedding-3-small) for similarity matching
+- **RAG Answer Generation**: GPT-4o generates answers strictly from library sources with inline citations
+- **Relevance Threshold**: Only sources with score >= 0.35 are used for answer generation
+- **Bounded AI**: Answers are document-grounded only, no generative interpretation beyond source content
+- **Endpoints**:
+  - `POST /api/answer` - Returns grounded answer + cited sources + related sources
+  - `POST /api/search` - Returns simple semantic search results (legacy)
+  - `POST /api/library/regenerate-embeddings` - Dev only, regenerates all embeddings
 
 ### Shared Code
 The `shared/` directory contains code used by both frontend and backend:
