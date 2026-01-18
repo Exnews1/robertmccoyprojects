@@ -41,7 +41,7 @@ export function cosineSimilarity(a: number[], b: number[]): number {
 }
 
 export function getRelevanceLabel(score: number): "High" | "Medium" | "Low" {
-  if (score >= 0.7) return "High";
-  if (score >= 0.5) return "Medium";
+  if (score >= 0.4) return "High";
+  if (score >= 0.3) return "Medium";
   return "Low";
 }
