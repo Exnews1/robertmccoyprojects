@@ -69,12 +69,14 @@ export default function Downloads() {
                 <Zap className="h-7 w-7 text-primary" />
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 flex-wrap mb-2">
                   <h3 className="text-lg font-bold text-foreground">CMGF Platform Demo</h3>
                   <Badge variant="default" className="text-xs">LIVE</Badge>
+                  <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
+                  <Badge variant="outline" className="text-xs">EO 14110</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Experience the Career Mobility Governance Framework in action—Service Member Hub, AI Services, and Advisor Toolkit.
+                  Multi-module platform with Service Member Hub, AI Services, and Advisor Toolkit—featuring governance compliance and human-in-the-loop AI.
                 </p>
                 <Button size="default" asChild data-testid="button-launch-demo-downloads">
                   <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">

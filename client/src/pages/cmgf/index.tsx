@@ -179,12 +179,14 @@ export default function CMGFRoot() {
                   <Zap className="h-8 w-8 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
                     <h3 className="text-xl font-bold text-foreground">CMGF Platform Demo</h3>
                     <Badge variant="default" className="text-xs">LIVE</Badge>
+                    <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
+                    <Badge variant="outline" className="text-xs">EO 14110</Badge>
                   </div>
                   <p className="text-muted-foreground mb-4">
-                    Experience the Career Mobility Governance Framework in action. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—a comprehensive platform connecting service members, career advisors, and AI-powered tools.
+                    Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
                   </p>
                   <Button size="default" asChild data-testid="button-launch-cmgf-demo">
                     <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
