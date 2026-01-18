@@ -14,6 +14,7 @@ import PartC from "@/pages/cmgf/walkthrough/part-c";
 import Library from "@/pages/cmgf/library";
 import Engagement from "@/pages/cmgf/engagement";
 import Explorer from "@/pages/explorer";
+import MOSTranslator from "@/pages/mos-translator";
 import Contact from "@/pages/contact";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/explorer" component={Explorer} />
+      <Route path="/mos-translator" component={MOSTranslator} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
