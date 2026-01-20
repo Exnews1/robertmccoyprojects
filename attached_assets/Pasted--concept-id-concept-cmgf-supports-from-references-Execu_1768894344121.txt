@@ -1,0 +1,150 @@
+[
+  {
+    "concept_id": "concept_cmgf",
+    "supports_from_references": [
+      "Executive Order No. 14110 (2023)",
+      "NIST (2023). Artificial intelligence risk management framework (AI RMF 1.0).",
+      "Office of Management and Budget (2024). Advancing governance, innovation, and risk management for agency use of artificial intelligence.",
+      "Government Accountability Office (2023). Artificial intelligence: Actions needed to improve DOD’s workforce management (GAO-24-105645).",
+      "Government Accountability Office (2024). Artificial intelligence: Agencies are implementing management and personnel requirements (GAO-24-107332).",
+      "Defense Innovation Board (2023). Campaign for an AI-ready force.",
+      "Department of Defense (2023). Task Force Lima memorandum."
+    ]
+  },
+  {
+    "concept_id": "concept_prescriptive_ai",
+    "supports_from_references": [
+      "NIST (2023). AI RMF 1.0.",
+      "Office of Management and Budget (2024). Advancing governance, innovation, and risk management for agency use of artificial intelligence.",
+      "Executive Order No. 14110 (2023)",
+      "Defense Innovation Board (2023). Campaign for an AI-ready force.",
+      "Government Accountability Office (2024). GAO-24-107332."
+    ],
+    "note": "In your paper, the prescriptive framing is system-defined and governance-justified; it is not treated as a predictive analytics construct."
+  },
+  {
+    "concept_id": "concept_bounded_ai",
+    "supports_from_references": [
+      "NIST (2023). AI RMF 1.0.",
+      "Executive Order No. 14110 (2023)",
+      "Office of Management and Budget (2024). Advancing governance, innovation, and risk management for agency use of artificial intelligence.",
+      "Government Accountability Office (2024). GAO-24-107332."
+    ]
+  },
+  {
+    "concept_id": "concept_hitl",
+    "supports_from_references": [
+      "NIST (2023). AI RMF 1.0.",
+      "Office of Management and Budget (2024). Advancing governance, innovation, and risk management for agency use of artificial intelligence.",
+      "Executive Order No. 14110 (2023)",
+      "Defense Innovation Board (2023). Campaign for an AI-ready force.",
+      "Department of Defense (2024). Responsible Artificial Intelligence Strategy & Implementation Pathway."
+    ]
+  },
+  {
+    "concept_id": "concept_career_mobility",
+    "supports_from_references": [
+      "Kleykamp et al. (2024). RAND: Federal programs to assist military-to-civilian employment transitions.",
+      "McKinsey & Company (2022). From the military to the workforce: How to leverage veterans’ skills.",
+      "Barr et al. (2021). NBER Working Paper No. 29024 (Post-9/11 GI Bill effects).",
+      "Institute for Veterans and Military Families (IVMF) (2019). Work after service.",
+      "CAEL (2018). Pathways to opportunity: Financial flexibility and workforce readiness.",
+      "RAND Corporation (2022). How veterans fare in the civilian labor market."
+    ]
+  },
+  {
+    "concept_id": "concept_transition_friction",
+    "supports_from_references": [
+      "Kleykamp et al. (2024). RAND.",
+      "Institute for Veterans and Military Families (IVMF) (2019). Work after service.",
+      "Government Accountability Office (2023). GAO-24-105645.",
+      "MITRE (2019). Military-to-Civilian Readiness: The transition process.",
+      "National Resource Center (2022) (as cited in the paper’s discussion of advising/voice)."
+    ]
+  },
+  {
+    "concept_id": "concept_underemployment",
+    "supports_from_references": [
+      "Kleykamp et al. (2024). The RAND structural funding and outcomes analysis.",
+      "Davenport, Savych, & Loughran (2024). Veteran underemployment and post-service earnings outcomes (PSU/SSRI link in references).",
+      "RAND Corporation (2022). How veterans fare in the civilian labor market.",
+      "SHRM (2023). Veteran hiring barriers and solutions."
+    ]
+  },
+  {
+    "concept_id": "concept_stacked_credentials",
+    "supports_from_references": [
+      "CAEL (2018). Pathways to opportunity.",
+      "Institute for Veterans and Military Families (IVMF) (2019). Work after service.",
+      "Digital Education Council (2025). AI literacy framework / AI in the workplace.",
+      "Pearson VUE (2025). 2025 value of IT certification candidate report."
+    ]
+  },
+  {
+    "concept_id": "concept_credential_portability",
+    "supports_from_references": [
+      "American Council on Education (n.d.). College credit for military training and experiences.",
+      "CAEL (2018). Pathways to opportunity.",
+      "Ithaka S+R (2024) (referenced in your literature review re: holistic credit mobility).",
+      "Institute for Veterans and Military Families (IVMF) (2019). Work after service."
+    ]
+  },
+  {
+    "concept_id": "concept_tuition_assistance",
+    "supports_from_references": [
+      "Kleykamp et al. (2024). RAND (Big Four program funding context includes TA).",
+      "American Council on Education (n.d.). (context for credit/education pathways used alongside benefits).",
+      "Office of Management and Budget (2025). M-25-21 (governance framing for agency AI use; appears in methods/validation discussion)."
+    ],
+    "note": "Your paper references TA as a governed funding constraint and planning boundary, not merely a benefit description."
+  },
+  {
+    "concept_id": "concept_credentialing_assistance",
+    "supports_from_references": [
+      "Department of Defense (2024a). Task Force Lima Executive Summary (as referenced in your governance discussion).",
+      "Army Times (2024). Army credentialing benefit cuts (COOL-related funding constraints discussed).",
+      "Inside Higher Ed (2024). Army education benefit cuts coverage (COOL/credentialing pressure).",
+      "EANGUS (2024). Army education funding policy impacts on certifications.",
+      "Department of Defense (2024). Responsible AI Strategy & Implementation Pathway (governance constraints on how benefits data is used)."
+    ],
+    "note": "In CMGF, CA is explicitly operationalized through service COOL programs (family relationship)."
+  },
+  {
+    "concept_id": "concept_cool",
+    "supports_from_references": [
+      "Department of Defense (2024a). Task Force Lima Executive Summary (DoD modernization context in your paper).",
+      "American Council on Education (n.d.). (parallel translation infrastructure context used in your paper’s translation section).",
+      "Kleykamp et al. (2024). RAND (credentialing/transition ecosystem funding and fragmentation).",
+      "Army Times (2024); Inside Higher Ed (2024); EANGUS (2024) (COOL/credential benefit pressure and policy shifts referenced)."
+    ]
+  },
+  {
+    "concept_id": "concept_skill_alignment",
+    "supports_from_references": [
+      "Office of Personnel Management (2024). AI Classification Policy and Talent Acquisition Guidance (skills/competencies framing).",
+      "Bureau of Labor Statistics (2025a, 2025b). AI impacts in employment projections (skills/task shift framing).",
+      "Wells (2024). Employer preference for AI skills (skills-first signal used in your labor-market argument).",
+      "Pearson VUE (2025). Value of IT certification (attestable skill signals)."
+    ],
+    "note": "Your paper treats alignment as documented overlap and signaling, not predictive matching."
+  },
+  {
+    "concept_id": "concept_salary_contextualization",
+    "supports_from_references": [
+      "Bureau of Labor Statistics (2025a, 2025b). Occupational projections and AI impacts context (descriptive labor-market use).",
+      "Kleykamp et al. (2024). RAND (earnings regression/transition wage framing).",
+      "McKinsey & Company (2022). Wage regression estimate cited in your paper’s figures and discussion."
+    ],
+    "note": "This concept is governance-critical because CMGF explicitly avoids predictive earnings claims."
+  },
+  {
+    "concept_id": "concept_education_transition_paradox",
+    "supports_from_references": [
+      "Kleykamp et al. (2024). RAND (education funding magnitude vs transition support gap).",
+      "Barr et al. (2021). NBER (education participation with short-term earnings loss).",
+      "McKinsey & Company (2022). Wage regression during transition.",
+      "Institute for Veterans and Military Families (IVMF) (2019). Work after service (persistent underemployment and alignment gaps)."
+    ],
+    "note": "This is presented in your paper as a synthesized structural claim grounded across multiple cited sources."
+  }
+]
