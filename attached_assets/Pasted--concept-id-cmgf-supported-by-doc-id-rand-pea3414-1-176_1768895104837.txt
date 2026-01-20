@@ -1,0 +1,91 @@
+[
+  {
+    "concept_id": "cmgf",
+    "supported_by": [
+      {
+        "doc_id": "rand_pea3414_1",
+        "justification": "Supports human-centered AI, workforce governance, and non-automated decision support."
+      },
+      {
+        "doc_id": "gao-24-105645",
+        "justification": "Documents governance gaps in DOD workforce systems motivating CMGF design."
+      }
+    ]
+  },
+  {
+    "concept_id": "prescriptive_ai",
+    "supported_by": [
+      {
+        "doc_id": "rand_pea3414_1",
+        "justification": "Establishes AI as decision support requiring transparency and oversight."
+      },
+      {
+        "doc_id": "gao-24-107332",
+        "justification": "Emphasizes human accountability in AI-enabled workforce systems."
+      }
+    ]
+  },
+  {
+    "concept_id": "bounded_ai",
+    "supported_by": [
+      {
+        "doc_id": "gao-24-107352",
+        "justification": "Highlights risk controls and constrained AI deployment practices."
+      }
+    ]
+  },
+  {
+    "concept_id": "human_in_the_loop",
+    "supported_by": [
+      {
+        "doc_id": "rand_pea3414_1",
+        "justification": "Explicitly promotes human-centered AI and oversight."
+      }
+    ]
+  },
+  {
+    "concept_id": "transition_friction",
+    "supported_by": [
+      {
+        "doc_id": "rand_kleykamp_transitions",
+        "justification": "Identifies fragmentation and inefficiencies in transition programs."
+      }
+    ]
+  },
+  {
+    "concept_id": "underemployment",
+    "supported_by": [
+      {
+        "doc_id": "rand_kleykamp_transitions",
+        "justification": "Documents underemployment and delayed labor market integration."
+      }
+    ]
+  },
+  {
+    "concept_id": "credential_assistance",
+    "supported_by": [
+      {
+        "doc_id": "rand_kleykamp_transitions",
+        "justification": "Details credential funding mechanisms and workforce alignment."
+      }
+    ]
+  },
+  {
+    "concept_id": "tuition_assistance",
+    "supported_by": [
+      {
+        "doc_id": "gao-24-107332",
+        "justification": "Identifies TA as a major education funding mechanism within DOD."
+      }
+    ]
+  },
+  {
+    "concept_id": "education_transition_paradox",
+    "supported_by": [
+      {
+        "doc_id": "rand_kleykamp_transitions",
+        "justification": "Shows education-heavy funding with weak employment outcomes."
+      }
+    ]
+  }
+]
