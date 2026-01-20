@@ -1,0 +1,117 @@
+[
+  {
+    "id": "concept_cmgf",
+    "type": "framework",
+    "canonical_term": "Career Mobility Governance Framework (CMGF)",
+    "definition": "The Career Mobility Governance Framework (CMGF) is a governed AI-assisted decision-support architecture designed to support military service member career planning and transition while preserving human authority, transparency, and institutional accountability.",
+    "domain_tags": ["ai-governance", "military-transition", "career-mobility"],
+    "system_specific": true
+  },
+  {
+    "id": "concept_prescriptive_ai",
+    "type": "concept",
+    "canonical_term": "Prescriptive AI",
+    "definition": "Prescriptive AI refers to AI-enabled systems that surface constrained options and planning pathways based on documented data and policy rules without predicting outcomes or executing decisions. Within CMGF, prescriptive AI functions strictly as advisory infrastructure.",
+    "domain_tags": ["ai-governance", "decision-support"],
+    "system_specific": true
+  },
+  {
+    "id": "concept_bounded_ai",
+    "type": "concept",
+    "canonical_term": "Bounded AI",
+    "definition": "Bounded AI describes an AI design approach in which system outputs are explicitly constrained by predefined data sources, documented policies, and governance rules, preventing speculative reasoning or autonomous decision-making.",
+    "domain_tags": ["ai-governance", "responsible-ai"],
+    "system_specific": true
+  },
+  {
+    "id": "concept_hitl",
+    "type": "concept",
+    "canonical_term": "Human-in-the-Loop (HITL)",
+    "definition": "Human-in-the-Loop refers to system designs that intentionally retain human judgment and approval authority over AI-assisted recommendations, ensuring that decision responsibility remains with human actors.",
+    "domain_tags": ["ai-governance", "human-oversight"]
+  },
+  {
+    "id": "concept_career_mobility",
+    "type": "concept",
+    "canonical_term": "Career Mobility",
+    "definition": "Career mobility refers to an individual’s ability to transition, advance, and adapt across occupational roles over time, particularly during military-to-civilian transitions influenced by credentialing, skills translation, and labor-market alignment.",
+    "domain_tags": ["workforce", "transition-economics"]
+  },
+  {
+    "id": "concept_transition_friction",
+    "type": "concept",
+    "canonical_term": "Transition Friction",
+    "definition": "Transition friction describes structural, informational, and funding-related barriers that impede effective military-to-civilian career transitions, often resulting in underemployment or delayed workforce integration.",
+    "domain_tags": ["military-transition", "policy-analysis"]
+  },
+  {
+    "id": "concept_underemployment",
+    "type": "concept",
+    "canonical_term": "Underemployment",
+    "definition": "Underemployment refers to employment outcomes in which veterans are employed below their skill level, experience, or earning potential following military separation.",
+    "domain_tags": ["labor-economics", "veteran-employment"]
+  },
+  {
+    "id": "concept_stacked_credentials",
+    "type": "concept",
+    "canonical_term": "Stacked Credentials",
+    "definition": "Stacked credentials are sequences of industry-recognized certifications or educational achievements that build progressively toward higher qualifications or degrees and support incremental career advancement.",
+    "domain_tags": ["credentials", "education-pathways"]
+  },
+  {
+    "id": "concept_credential_portability",
+    "type": "concept",
+    "canonical_term": "Credential Portability",
+    "definition": "Credential portability refers to the extent to which credentials earned within military or educational systems are recognized and valued across civilian employers and industries.",
+    "domain_tags": ["credentials", "workforce-alignment"]
+  },
+  {
+    "id": "concept_tuition_assistance",
+    "type": "benefit",
+    "canonical_term": "Tuition Assistance (TA)",
+    "definition": "Tuition Assistance is a Department of Defense education benefit that supports service members’ pursuit of postsecondary education while on active duty, subject to annual funding caps and service-specific eligibility rules.",
+    "domain_tags": ["military-benefits", "education-funding"]
+  },
+  {
+    "id": "concept_credentialing_assistance",
+    "type": "benefit",
+    "canonical_term": "Credentialing Assistance (CA)",
+    "definition": "Credentialing Assistance is a Department of Defense benefit that funds industry-recognized certifications aligned with military occupations and workforce needs. CA is operationalized through service-specific COOL programs.",
+    "domain_tags": ["military-benefits", "credentials"],
+    "related_programs": [
+      "Army COOL",
+      "Navy COOL",
+      "Air Force COOL",
+      "Space Force COOL"
+    ]
+  },
+  {
+    "id": "concept_cool",
+    "type": "program_family",
+    "canonical_term": "Credentialing Opportunities On-Line (COOL)",
+    "definition": "COOL programs are service-specific platforms that map military occupational specialties to civilian-recognized credentials eligible for Credentialing Assistance funding.",
+    "domain_tags": ["credential-mapping", "skills-translation"]
+  },
+  {
+    "id": "concept_skill_alignment",
+    "type": "concept",
+    "canonical_term": "Skill Alignment",
+    "definition": "Skill alignment refers to the documented overlap between military-acquired skills and civilian occupational requirements, often derived from standardized frameworks such as O*NET.",
+    "domain_tags": ["skills-translation", "labor-market-data"]
+  },
+  {
+    "id": "concept_salary_contextualization",
+    "type": "concept",
+    "canonical_term": "Salary Contextualization",
+    "definition": "Salary contextualization refers to the presentation of labor-market wage data as descriptive ranges based on authoritative sources rather than predictive earnings forecasts.",
+    "domain_tags": ["labor-economics", "data-governance"]
+  },
+  {
+    "id": "concept_education_transition_paradox",
+    "type": "concept",
+    "canonical_term": "Education-Transition Paradox",
+    "definition": "The education-transition paradox describes the structural tension in which education is promoted as the primary transition mechanism for service members while education funding mechanisms are constrained, fragmented, or insufficiently aligned to transition timelines.",
+    "domain_tags": ["policy-analysis", "military-transition"],
+    "system_specific": true
+  }
+]
