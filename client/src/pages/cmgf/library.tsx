@@ -18,21 +18,26 @@ export default function Library() {
 
   const types = ["all", ...Array.from(new Set(publications.map(p => p.type)))];
 
-  const filtered = publications.filter(pub => {
-    const matchesSearch = search === "" || 
-      pub.title.toLowerCase().includes(search.toLowerCase()) ||
-      (pub.author?.toLowerCase().includes(search.toLowerCase())) ||
-      (pub.abstract?.toLowerCase().includes(search.toLowerCase()));
-    const matchesFilter = filter === "all" || pub.type === filter;
-    return matchesSearch && matchesFilter;
-  });
+  const [sortBy, setSortBy] = useState<"title" | "author">("title");
 
-  const grouped = filtered.reduce((acc, pub) => {
-    const type = pub.type;
-    if (!acc[type]) acc[type] = [];
-    acc[type].push(pub);
-    return acc;
-  }, {} as Record<string, Publication[]>);
+  const filtered = publications
+    .filter(pub => {
+      const matchesSearch = search === "" || 
+        pub.title.toLowerCase().includes(search.toLowerCase()) ||
+        (pub.author?.toLowerCase().includes(search.toLowerCase())) ||
+        (pub.abstract?.toLowerCase().includes(search.toLowerCase()));
+      const matchesFilter = filter === "all" || pub.type === filter;
+      return matchesSearch && matchesFilter;
+    })
+    .sort((a, b) => {
+      if (sortBy === "title") {
+        return a.title.localeCompare(b.title);
+      } else {
+        const authorA = a.author || "ZZZ";
+        const authorB = b.author || "ZZZ";
+        return authorA.localeCompare(authorB);
+      }
+    });
 
   return (
     <div className="min-h-screen bg-background">
@@ -57,18 +62,40 @@ export default function Library() {
           </p>
         </header>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search publications..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10"
-              data-testid="input-search"
-            />
+        <div className="flex flex-col gap-4 mb-8">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search publications..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10"
+                data-testid="input-search"
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <span className="text-xs text-muted-foreground">Sort by:</span>
+              <Button
+                variant={sortBy === "title" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSortBy("title")}
+                data-testid="button-sort-title"
+              >
+                Title
+              </Button>
+              <Button
+                variant={sortBy === "author" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSortBy("author")}
+                data-testid="button-sort-author"
+              >
+                Author
+              </Button>
+            </div>
           </div>
           <div className="flex gap-2 flex-wrap">
+            <span className="text-xs text-muted-foreground self-center">Filter:</span>
             {types.map(type => (
               <Button
                 key={type}
@@ -95,48 +122,44 @@ export default function Library() {
             </CardContent>
           </Card>
         ) : (
-          <div className="space-y-8">
-            {Object.entries(grouped).map(([type, pubs]) => (
-              <section key={type}>
-                <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4 flex items-center gap-2">
-                  <FileText className="h-4 w-4" />
-                  {type} ({pubs.length})
-                </h2>
-                <div className="space-y-3">
-                  {pubs.map((pub) => (
-                    <Card key={pub.id} className="border-border/50" data-testid={`card-publication-${pub.id}`}>
-                      <CardContent className="p-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-medium text-foreground text-sm mb-1">{pub.title}</h3>
-                            {pub.author && (
-                              <p className="text-xs text-muted-foreground mb-1">{pub.author}</p>
-                            )}
-                            {pub.publishedDate && (
-                              <p className="text-xs text-muted-foreground mb-2">{pub.publishedDate}</p>
-                            )}
-                            {pub.abstract && (
-                              <p className="text-xs text-muted-foreground line-clamp-2">{pub.abstract}</p>
-                            )}
-                          </div>
-                          {pub.url && (
-                            <a
-                              href={pub.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-shrink-0"
-                            >
-                              <Button variant="ghost" size="icon" data-testid={`button-link-${pub.id}`}>
-                                <ExternalLink className="h-4 w-4" />
-                              </Button>
-                            </a>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </section>
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground mb-4">
+              {filtered.length} publication{filtered.length !== 1 ? 's' : ''} 
+              {filter !== "all" && ` in ${filter}`}
+              {sortBy === "title" ? ", sorted A–Z by title" : ", sorted A–Z by author"}
+            </p>
+            {filtered.map((pub) => (
+              <Card key={pub.id} className="border-border/50" data-testid={`card-publication-${pub.id}`}>
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-foreground text-sm mb-1">{pub.title}</h3>
+                      {pub.author && (
+                        <p className="text-xs text-muted-foreground mb-1">{pub.author}</p>
+                      )}
+                      <div className="flex gap-3 text-xs text-muted-foreground mb-2">
+                        {pub.publishedDate && <span>{pub.publishedDate}</span>}
+                        {pub.type && <span className="text-primary/70">{pub.type}</span>}
+                      </div>
+                      {pub.abstract && (
+                        <p className="text-xs text-muted-foreground line-clamp-2">{pub.abstract}</p>
+                      )}
+                    </div>
+                    {pub.url && (
+                      <a
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-shrink-0"
+                      >
+                        <Button variant="ghost" size="icon" data-testid={`button-link-${pub.id}`}>
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </a>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         )}
