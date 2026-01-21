@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Shield } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 
@@ -60,13 +60,6 @@ const sections = [
     description: "Supporting materials, policy references, and academic resources.",
     icon: Library,
     route: "/cmgf/library"
-  },
-  {
-    id: "mos-translator",
-    title: "MOS Translator",
-    description: "Translate military occupational specialties to civilian career matches with salary data.",
-    icon: Shield,
-    route: "/mos-translator"
   }
 ];
 
