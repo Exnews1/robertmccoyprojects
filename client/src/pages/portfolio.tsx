@@ -115,47 +115,6 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section className="mt-16 pt-16 border-t border-border" data-testid="section-publications">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Publications & Working Papers</h2>
-          <div className="space-y-4">
-            <Card className="border-border/50">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-4">
-                  <FileText className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="font-medium text-foreground">The Future Is Now: A Governed AI Framework for Military Learner Mobility</h3>
-                      <Badge variant="outline" className="text-xs">Working Paper</Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      McCoy, R.E. (2026). Career Mobility Governance Framework. Prepared for CCME 2026.
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      A bounded AI architecture for military career transitions preserving human agency while enabling institutional learning.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="border-border/50">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-4">
-                  <FileText className="h-5 w-5 text-muted-foreground mt-1 flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="font-medium text-foreground">AI as Decision Infrastructure for Military Career Mobility</h3>
-                      <Badge variant="outline" className="text-xs">In Development</Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground mb-2">
-                      McCoy, R.E. (Forthcoming). Executive briefing on AI governance for senior policy stakeholders.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
         <section className="mt-16 pt-16 border-t border-border" data-testid="section-author-bio">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">About the Author</h2>
           <div className="grid gap-8 lg:grid-cols-3">
