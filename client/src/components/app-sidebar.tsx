@@ -59,11 +59,11 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-paper"
             >
-              <a href="/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf" download>
+              <a href="/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx" download>
                 <Download className="w-4 h-4 text-fuchsia-600 dark:text-fuchsia-400" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF Paper</div>
-                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - PDF</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
                 </div>
               </a>
             </Button>

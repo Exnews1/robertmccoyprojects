@@ -12,7 +12,7 @@ const sampleLibraryEntries: Omit<InsertLibraryEntry, "embedding">[] = [
     documentType: "Research Paper",
     summary: "This paper presents the Career Mobility Governance Framework (CMGF), a bounded AI architecture designed to support military service member career transitions. The framework enforces three non-negotiable constraints: no predictive outcome modeling, no individual risk scoring, and no automated approvals. AI serves as infrastructure rather than authority, preserving human judgment in all decision pathways.",
     topics: ["AI Governance", "Military Transition", "Human-in-the-Loop", "Career Mobility"],
-    url: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf",
+    url: "/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx",
     sourceLabel: "CMGF Core Research",
     visibility: "public"
   },

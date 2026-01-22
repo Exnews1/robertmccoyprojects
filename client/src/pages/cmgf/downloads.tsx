@@ -10,10 +10,10 @@ const documents = [
     id: "paper",
     title: "CMGF Research Paper",
     description: "Complete research paper detailing the Career Mobility Governance Framework. Includes system architecture, ethical constraints, and implementation guidance.",
-    type: "PDF",
+    type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_1767988417551.pdf",
-    version: "1.0",
+    href: "/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx",
+    version: "1.1",
     date: "January 2026"
   },
   {
