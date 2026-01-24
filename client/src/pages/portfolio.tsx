@@ -215,7 +215,7 @@ export default function Portfolio() {
 
               <div className="pt-2">
                 <a 
-                  href="https://www.linkedin.com/in/robertemccoy" 
+                  href="https://www.linkedin.com/in/robert-mccoy-mba-9451142a0/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
