@@ -102,3 +102,13 @@ export type LibraryEntry = typeof libraryEntries.$inferSelect;
 export type InsertLibraryEntry = z.infer<typeof insertLibraryEntrySchema>;
 export type Inquiry = typeof inquiries.$inferSelect;
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;
+
+// Site analytics
+export const siteStats = pgTable("site_stats", {
+  id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(),
+  value: integer("value").notNull().default(0),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export type SiteStats = typeof siteStats.$inferSelect;

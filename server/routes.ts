@@ -328,5 +328,15 @@ Rules:
     res.json(inqs);
   });
 
+  app.get("/api/visitors", async (_req: any, res: any) => {
+    const count = await storage.getVisitorCount();
+    res.json({ count });
+  });
+
+  app.post("/api/visitors", async (_req: any, res: any) => {
+    const count = await storage.incrementVisitorCount();
+    res.json({ count });
+  });
+
   return app;
 }

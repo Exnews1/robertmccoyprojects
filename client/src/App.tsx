@@ -1,6 +1,6 @@
 import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient, apiRequest } from "./lib/queryClient";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
@@ -17,6 +17,41 @@ import Explorer from "@/pages/explorer";
 import Contact from "@/pages/contact";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
+import { useEffect, useRef } from "react";
+import { Users } from "lucide-react";
+
+function Footer() {
+  const hasTracked = useRef(false);
+  
+  const { data: visitorData } = useQuery<{ count: number }>({
+    queryKey: ["/api/visitors"],
+  });
+
+  useEffect(() => {
+    if (!hasTracked.current) {
+      hasTracked.current = true;
+      apiRequest("POST", "/api/visitors").catch(() => {});
+    }
+  }, []);
+
+  return (
+    <footer className="border-t border-border/50 bg-card/30 py-6 mt-16">
+      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+        <a 
+          href="mailto:data@robertmccoyprojects.com" 
+          className="hover:text-muted-foreground transition-colors"
+          data-testid="link-footer-email"
+        >
+          data@robertmccoyprojects.com
+        </a>
+        <div className="flex items-center gap-1.5" data-testid="visitor-counter">
+          <Users className="w-3 h-3" />
+          <span>{visitorData?.count?.toLocaleString() || "—"} visitors</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
 
 function Router() {
   return (
@@ -66,17 +101,7 @@ export default function App() {
           <main>
             <Router />
           </main>
-          <footer className="border-t border-border/50 bg-card/30 py-6 mt-16">
-            <div className="max-w-6xl mx-auto px-6 text-center text-xs text-muted-foreground/60">
-              <a 
-                href="mailto:data@robertmccoyprojects.com" 
-                className="hover:text-muted-foreground transition-colors"
-                data-testid="link-footer-email"
-              >
-                data@robertmccoyprojects.com
-              </a>
-            </div>
-          </footer>
+          <Footer />
         </div>
         <Toaster />
       </TooltipProvider>

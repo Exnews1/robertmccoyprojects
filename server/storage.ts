@@ -6,6 +6,7 @@ import {
   expertCommentary,
   libraryEntries,
   inquiries,
+  siteStats,
   type Framework,
   type InsertFramework,
   type ComplianceItem,
@@ -19,7 +20,7 @@ import {
   type Inquiry,
   type InsertInquiry
 } from "@shared/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { seedPublications } from "./seed";
 
 export interface IStorage {
@@ -41,6 +42,9 @@ export interface IStorage {
 
   createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
   getInquiries(): Promise<Inquiry[]>;
+
+  getVisitorCount(): Promise<number>;
+  incrementVisitorCount(): Promise<number>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -126,6 +130,23 @@ export class DatabaseStorage implements IStorage {
 
   async getInquiries(): Promise<Inquiry[]> {
     return await db.select().from(inquiries);
+  }
+
+  async getVisitorCount(): Promise<number> {
+    const [stat] = await db.select().from(siteStats).where(eq(siteStats.key, 'visitors'));
+    return stat?.value || 0;
+  }
+
+  async incrementVisitorCount(): Promise<number> {
+    const [existing] = await db.select().from(siteStats).where(eq(siteStats.key, 'visitors'));
+    if (existing) {
+      const newValue = existing.value + 1;
+      await db.update(siteStats).set({ value: newValue, updatedAt: new Date() }).where(eq(siteStats.key, 'visitors'));
+      return newValue;
+    } else {
+      await db.insert(siteStats).values({ key: 'visitors', value: 1 });
+      return 1;
+    }
   }
 
   async seed() {
