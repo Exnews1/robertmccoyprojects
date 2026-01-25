@@ -4,7 +4,7 @@ import {
   GraduationCap, Cpu, Award, Gavel, HandHelping, Server, Users, Trophy,
   School, Building, Wrench, Briefcase, TrendingUp, Bot, Scale, Presentation,
   Brain, ClipboardCheck, Calculator, Route, BarChart3, TreeDeciduous, Globe, Layers,
-  CheckCircle2, ArrowRight, X, ArrowLeft
+  CheckCircle2, ArrowRight, X, ArrowLeft, FileText, Download, BookOpen, AlertTriangle, Shield, User
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -249,6 +249,230 @@ export default function EducationAI() {
             <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center border border-border">
               <Brain className="w-32 h-32 text-primary/50" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Paper Section */}
+      <section id="main-paper" className="py-16 px-6 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-y border-border">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-8 items-center">
+            <div className="lg:col-span-3">
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium text-primary uppercase tracking-wider">Main Paper</span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                The Role of Artificial Intelligence in the Future of Education
+              </h2>
+              <p className="text-lg text-muted-foreground mb-4">
+                A Review of Applications, Challenges, and Ethical Imperatives
+              </p>
+              <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                <span className="flex items-center gap-1">
+                  <User className="w-4 h-4" />
+                  Robert McCoy
+                </span>
+                <span>January 2026</span>
+              </div>
+              
+              <div className="bg-card/80 rounded-lg p-4 mb-6 border border-border">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  While AI offers powerful tools to enhance educational efficiency and accessibility, its deployment is not pedagogically neutral and requires robust human oversight, unwavering ethical vigilance, and a human-centered design philosophy to mitigate the significant risks of perpetuating social inequity and fostering the dehumanization of the learning process.
+                </p>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" asChild data-testid="button-download-paper">
+                  <a href="/education-ai/The_Role_of_AI_in_Education_McCoy_2026.docx" download>
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Paper
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild data-testid="button-view-paper-overview">
+                  <a href="#paper-overview">
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    View Overview
+                  </a>
+                </Button>
+              </div>
+            </div>
+            
+            <div className="lg:col-span-2">
+              <Card className="p-6 bg-card/90">
+                <h3 className="font-semibold mb-4 flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-primary" />
+                  Key Themes
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Bot className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-sm">AI-Driven Assessment</span>
+                      <p className="text-xs text-muted-foreground">LLMs for automated grading and personalized feedback</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-md bg-amber-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <AlertTriangle className="w-4 h-4 text-amber-500" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-sm">Algorithmic Bias</span>
+                      <p className="text-xs text-muted-foreground">Risk of perpetuating social inequities through AI</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-md bg-green-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Shield className="w-4 h-4 text-green-500" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-sm">Human-in-the-Loop</span>
+                      <p className="text-xs text-muted-foreground">HITL frameworks for responsible AI integration</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-md bg-purple-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <HandHelping className="w-4 h-4 text-purple-500" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-sm">Inclusive Design</span>
+                      <p className="text-xs text-muted-foreground">Empowering diverse learners through accessibility</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Paper Overview Section */}
+      <section id="paper-overview" className="py-16 px-6 scroll-mt-20">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Paper Overview</h2>
+          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            Detailed breakdown of the research findings and recommendations
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6 hover-elevate" data-testid="section-promise">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-md bg-green-500/10 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-green-500" />
+                </div>
+                <h3 className="font-semibold">The Promise of AI-Driven Tools</h3>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <span>Automated assessment at unprecedented scale with immediate personalized feedback</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <span>Adaptive learning systems within student's "Zone of Proximal Development"</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <span>Enhanced accessibility through automatic format conversion</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                  <span>AI-powered coaching for personalized skill development</span>
+                </li>
+              </ul>
+            </Card>
+            
+            <Card className="p-6 hover-elevate" data-testid="section-challenges">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-md bg-amber-500/10 flex items-center justify-center">
+                  <AlertTriangle className="w-5 h-5 text-amber-500" />
+                </div>
+                <h3 className="font-semibold">Challenges in AI Assessment</h3>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <span>Different LLMs exhibit "grading philosophies" (Liberal, Restrictive, Balanced)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <span>Human teachers assign higher grades (mean 0.726) than all 18 AI models tested</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <span>Best model achieved only ICC 0.470 with human grades ("moderate" agreement)</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <X className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <span>Model size impacts quality - full versions outperform "mini"/"nano" variants</span>
+                </li>
+              </ul>
+            </Card>
+            
+            <Card className="p-6 hover-elevate" data-testid="section-ethics">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-md bg-red-500/10 flex items-center justify-center">
+                  <Scale className="w-5 h-5 text-red-500" />
+                </div>
+                <h3 className="font-semibold">Ethical Imperatives</h3>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <Shield className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <span>AI systems can perpetuate social inequities via algorithmic bias</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Shield className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <span>Non-native English speakers disadvantaged by emphasis on mechanics</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Shield className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <span>HITL model redefines AI as recommendation engine, not decision-maker</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Shield className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <span>Explainable AI (XAI) provides transparency into AI decision logic</span>
+                </li>
+              </ul>
+            </Card>
+            
+            <Card className="p-6 hover-elevate" data-testid="section-recommendations">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
+                  <Route className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-semibold">Key Recommendations</h3>
+              </div>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span><strong>Align Model Selection with Pedagogy:</strong> Choice of AI tool is a pedagogical decision</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span><strong>Mandate HITL Frameworks:</strong> Human as final arbiter for high-stakes assessments</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span><strong>Promote Critical AI Literacy:</strong> Foster understanding of bias, privacy, and ethics</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ArrowRight className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                  <span><strong>Human-Centered Design:</strong> Prioritize student and educator well-being</span>
+                </li>
+              </ul>
+            </Card>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <Button size="lg" asChild data-testid="button-download-paper-bottom">
+              <a href="/education-ai/The_Role_of_AI_in_Education_McCoy_2026.docx" download>
+                <Download className="w-4 h-4 mr-2" />
+                Download Full Paper
+              </a>
+            </Button>
           </div>
         </div>
       </section>
