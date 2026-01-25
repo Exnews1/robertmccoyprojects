@@ -184,6 +184,7 @@ function AnimatedStatNumber({ target, suffix = "" }: { target: number; suffix?: 
 
 export default function EducationAI() {
   const [selectedPathway, setSelectedPathway] = useState<typeof pathways[0] | null>(null);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string; alt: string } | null>(null);
 
   useEffect(() => {
     document.title = "AI Education Futures Hub - Robert McCoy Projects";
@@ -446,8 +447,16 @@ export default function EducationAI() {
           </p>
           
           <div className="grid gap-8">
-            <Card className="p-4 overflow-hidden" data-testid="viz-adoption-trends">
-              <h3 className="font-semibold mb-4 flex items-center gap-2">
+            <Card 
+              className="p-4 overflow-hidden cursor-pointer hover-elevate group" 
+              data-testid="viz-adoption-trends"
+              onClick={() => setSelectedImage({
+                src: "/education-ai/images/ai_education_adoption_trends.png",
+                title: "Global AI Adoption Trends (2020-2026)",
+                alt: "AI adoption trends across educational sectors from 2020 to 2026"
+              })}
+            >
+              <h3 className="font-semibold mb-4 flex items-center gap-2 group-hover:text-primary transition-colors">
                 <BarChart3 className="w-5 h-5 text-primary" />
                 Global AI Adoption Trends (2020-2026)
               </h3>
@@ -456,11 +465,23 @@ export default function EducationAI() {
                 alt="AI adoption trends across educational sectors from 2020 to 2026"
                 className="w-full rounded-lg"
               />
+              <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Click to enlarge</span>
+                <ArrowRight className="w-3 h-3 ml-1" />
+              </div>
             </Card>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="p-4 overflow-hidden" data-testid="viz-mind-map">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
+              <Card 
+                className="p-4 overflow-hidden cursor-pointer hover-elevate group" 
+                data-testid="viz-mind-map"
+                onClick={() => setSelectedImage({
+                  src: "/education-ai/images/ai_education_mind_map.png",
+                  title: "AI Education Pathways Mind Map",
+                  alt: "Comprehensive mind map of AI in education pathways"
+                })}
+              >
+                <h3 className="font-semibold mb-4 flex items-center gap-2 group-hover:text-primary transition-colors">
                   <Brain className="w-5 h-5 text-primary" />
                   AI Education Pathways Mind Map
                 </h3>
@@ -469,10 +490,22 @@ export default function EducationAI() {
                   alt="Comprehensive mind map of AI in education pathways"
                   className="w-full rounded-lg"
                 />
+                <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>Click to enlarge</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
+                </div>
               </Card>
               
-              <Card className="p-4 overflow-hidden" data-testid="viz-regional">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
+              <Card 
+                className="p-4 overflow-hidden cursor-pointer hover-elevate group" 
+                data-testid="viz-regional"
+                onClick={() => setSelectedImage({
+                  src: "/education-ai/images/ai_education_regional_perspectives.png",
+                  title: "Regional Perspectives",
+                  alt: "Regional perspectives on AI adoption in education"
+                })}
+              >
+                <h3 className="font-semibold mb-4 flex items-center gap-2 group-hover:text-primary transition-colors">
                   <Globe className="w-5 h-5 text-primary" />
                   Regional Perspectives
                 </h3>
@@ -481,12 +514,24 @@ export default function EducationAI() {
                   alt="Regional perspectives on AI adoption in education"
                   className="w-full rounded-lg"
                 />
+                <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>Click to enlarge</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
+                </div>
               </Card>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="p-4 overflow-hidden" data-testid="viz-technology">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
+              <Card 
+                className="p-4 overflow-hidden cursor-pointer hover-elevate group" 
+                data-testid="viz-technology"
+                onClick={() => setSelectedImage({
+                  src: "/education-ai/images/ai_education_technology_details.png",
+                  title: "Technology Details",
+                  alt: "Detailed AI technology adoption patterns"
+                })}
+              >
+                <h3 className="font-semibold mb-4 flex items-center gap-2 group-hover:text-primary transition-colors">
                   <Layers className="w-5 h-5 text-primary" />
                   Technology Details
                 </h3>
@@ -495,10 +540,22 @@ export default function EducationAI() {
                   alt="Detailed AI technology adoption patterns"
                   className="w-full rounded-lg"
                 />
+                <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>Click to enlarge</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
+                </div>
               </Card>
               
-              <Card className="p-4 overflow-hidden" data-testid="viz-decision-tree">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
+              <Card 
+                className="p-4 overflow-hidden cursor-pointer hover-elevate group" 
+                data-testid="viz-decision-tree"
+                onClick={() => setSelectedImage({
+                  src: "/education-ai/images/ai_education_decision_tree.png",
+                  title: "Decision Tree & Pathways",
+                  alt: "AI education decision tree for implementation"
+                })}
+              >
+                <h3 className="font-semibold mb-4 flex items-center gap-2 group-hover:text-primary transition-colors">
                   <TreeDeciduous className="w-5 h-5 text-primary" />
                   Decision Tree & Pathways
                 </h3>
@@ -507,11 +564,35 @@ export default function EducationAI() {
                   alt="AI education decision tree for implementation"
                   className="w-full rounded-lg"
                 />
+                <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>Click to enlarge</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
+                </div>
               </Card>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Image Lightbox Dialog */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-5xl max-h-[90vh] p-2">
+          {selectedImage && (
+            <>
+              <DialogHeader className="p-2">
+                <DialogTitle>{selectedImage.title}</DialogTitle>
+              </DialogHeader>
+              <div className="overflow-auto">
+                <img 
+                  src={selectedImage.src} 
+                  alt={selectedImage.alt}
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Research Foundation Section */}
       <section className="py-16 px-6">
