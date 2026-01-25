@@ -1,21 +1,149 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { 
   GraduationCap, Cpu, Award, Gavel, HandHelping, Server, Users, Trophy,
   School, Building, Wrench, Briefcase, TrendingUp, Bot, Scale, Presentation,
-  Brain, ClipboardCheck, Calculator, Route, BarChart3, TreeDeciduous, Globe, Layers
+  Brain, ClipboardCheck, Calculator, Route, BarChart3, TreeDeciduous, Globe, Layers,
+  CheckCircle2, ArrowRight, X
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const pathways = [
-  { id: "pedagogical", name: "Pedagogical Transformation", icon: GraduationCap, color: "#7B68EE", description: "Personalized learning, adaptive systems, AI co-teachers, competency-based education" },
-  { id: "technology", name: "Technology Evolution", icon: Cpu, color: "#F77F00", description: "GenAI, intelligent tutoring, learning analytics, emotion AI, neuroadaptive systems" },
-  { id: "assessment", name: "Assessment & Credentialing", icon: Award, color: "#9B59B6", description: "Micro-credentials, blockchain verification, continuous assessment, automated grading" },
-  { id: "governance", name: "Governance & Ethics", icon: Gavel, color: "#06A77D", description: "Privacy frameworks, bias mitigation, transparency, policy development, accountability" },
-  { id: "equity", name: "Equity & Access", icon: HandHelping, color: "#E74C3C", description: "Digital divide solutions, inclusive design, affordability, accessibility, language support" },
-  { id: "infrastructure", name: "Infrastructure & Systems", icon: Server, color: "#3498DB", description: "Connectivity, computing power, data systems, interoperability standards, integration" },
-  { id: "stakeholders", name: "Stakeholder Ecosystem", icon: Users, color: "#F39C12", description: "Teachers, students, parents, administrators, policymakers - roles and responsibilities" },
-  { id: "outcomes", name: "Learning Outcomes", icon: Trophy, color: "#2E86AB", description: "Achievement gains, engagement, retention, skill development, career readiness" },
+  { 
+    id: "pedagogical", 
+    name: "Pedagogical Transformation", 
+    icon: GraduationCap, 
+    color: "#7B68EE", 
+    description: "Personalized learning, adaptive systems, AI co-teachers, competency-based education",
+    subPathways: [
+      { name: "Personalized Learning", adoption: 48, maturity: "Established" },
+      { name: "Competency-Based Education", adoption: 35, maturity: "Growing" },
+      { name: "Multimodal Instruction", adoption: 28, maturity: "Emerging" },
+      { name: "AI Co-Teachers", adoption: 22, maturity: "Emerging" },
+      { name: "Adaptive Systems", adoption: 42, maturity: "Established" },
+    ],
+    keyApplications: ["Intelligent tutoring systems", "Adaptive learning platforms", "Personalized learning paths", "Real-time feedback systems"],
+    successFactors: ["Teacher professional development", "Evidence-based design", "Student agency and choice", "Continuous improvement cycles"]
+  },
+  { 
+    id: "technology", 
+    name: "Technology Evolution", 
+    icon: Cpu, 
+    color: "#F77F00", 
+    description: "GenAI, intelligent tutoring, learning analytics, emotion AI, neuroadaptive systems",
+    subPathways: [
+      { name: "Generative AI", adoption: 60, maturity: "Explosive Growth" },
+      { name: "Intelligent Tutoring Systems", adoption: 42, maturity: "Established" },
+      { name: "Learning Analytics", adoption: 38, maturity: "Growing" },
+      { name: "Emotion AI", adoption: 15, maturity: "Emerging" },
+      { name: "Neuroadaptive Systems", adoption: 3, maturity: "Research" },
+    ],
+    keyApplications: ["ChatGPT & Claude", "Khan Academy Khanmigo", "Duolingo Max", "Gradescope"],
+    successFactors: ["Clear use cases", "Integration with LMS", "Teacher training", "Data privacy compliance"]
+  },
+  { 
+    id: "assessment", 
+    name: "Assessment & Credentialing", 
+    icon: Award, 
+    color: "#9B59B6", 
+    description: "Micro-credentials, blockchain verification, continuous assessment, automated grading",
+    subPathways: [
+      { name: "Micro-Credentials", adoption: 38, maturity: "Growing" },
+      { name: "Blockchain Verification", adoption: 18, maturity: "Emerging" },
+      { name: "Continuous Assessment", adoption: 45, maturity: "Established" },
+      { name: "Automated Grading", adoption: 35, maturity: "Growing" },
+      { name: "Competency Tracking", adoption: 25, maturity: "Emerging" },
+    ],
+    keyApplications: ["Open Badges", "Digital credentials", "Essay scoring AI", "Proctoring systems"],
+    successFactors: ["Industry recognition", "Interoperability standards", "Student data ownership", "Valid assessment design"]
+  },
+  { 
+    id: "governance", 
+    name: "Governance & Ethics", 
+    icon: Gavel, 
+    color: "#06A77D", 
+    description: "Privacy frameworks, bias mitigation, transparency, policy development, accountability",
+    subPathways: [
+      { name: "Privacy Frameworks", adoption: 62, maturity: "Established" },
+      { name: "Bias Mitigation", adoption: 38, maturity: "Growing" },
+      { name: "Transparency Standards", adoption: 28, maturity: "Emerging" },
+      { name: "Policy Development", adoption: 45, maturity: "Growing" },
+      { name: "Academic Integrity", adoption: 68, maturity: "Urgent" },
+    ],
+    keyApplications: ["FERPA/GDPR compliance", "AI acceptable use policies", "Plagiarism detection", "Audit frameworks"],
+    successFactors: ["Stakeholder input", "Clear guidelines", "Regular review cycles", "Enforcement mechanisms"]
+  },
+  { 
+    id: "equity", 
+    name: "Equity & Access", 
+    icon: HandHelping, 
+    color: "#E74C3C", 
+    description: "Digital divide solutions, inclusive design, affordability, accessibility, language support",
+    subPathways: [
+      { name: "Digital Divide Solutions", adoption: 35, maturity: "Critical Need" },
+      { name: "Inclusive Design", adoption: 42, maturity: "Growing" },
+      { name: "Affordability Strategies", adoption: 52, maturity: "Established" },
+      { name: "Accessibility Compliance", adoption: 48, maturity: "Established" },
+      { name: "Language Support", adoption: 38, maturity: "Growing" },
+    ],
+    keyApplications: ["Device lending programs", "Offline-first solutions", "Universal design", "Multilingual AI"],
+    successFactors: ["Community partnerships", "Sustainable funding", "User-centered design", "Ongoing monitoring"]
+  },
+  { 
+    id: "infrastructure", 
+    name: "Infrastructure & Systems", 
+    icon: Server, 
+    color: "#3498DB", 
+    description: "Connectivity, computing power, data systems, interoperability standards, integration",
+    subPathways: [
+      { name: "Connectivity Requirements", adoption: 58, maturity: "Foundational" },
+      { name: "Computing Power", adoption: 65, maturity: "Established" },
+      { name: "Data Systems", adoption: 42, maturity: "Growing" },
+      { name: "Interoperability Standards", adoption: 48, maturity: "Established" },
+      { name: "Platform Integration", adoption: 72, maturity: "Established" },
+    ],
+    keyApplications: ["Cloud LMS platforms", "API integrations", "SSO solutions", "Data warehouses"],
+    successFactors: ["Scalable architecture", "Vendor partnerships", "Technical staff training", "Security protocols"]
+  },
+  { 
+    id: "stakeholders", 
+    name: "Stakeholder Ecosystem", 
+    icon: Users, 
+    color: "#F39C12", 
+    description: "Teachers, students, parents, administrators, policymakers - roles and responsibilities",
+    subPathways: [
+      { name: "Teacher Professional Development", adoption: 29, maturity: "Critical Need" },
+      { name: "Student Digital Literacy", adoption: 38, maturity: "Growing" },
+      { name: "Parent Engagement", adoption: 22, maturity: "Emerging" },
+      { name: "Administrator Leadership", adoption: 45, maturity: "Growing" },
+      { name: "Policymaker Guidance", adoption: 38, maturity: "Growing" },
+    ],
+    keyApplications: ["Teacher training programs", "AI literacy curriculum", "Parent portals", "Leadership academies"],
+    successFactors: ["Co-design processes", "Clear communication", "Ongoing support", "Feedback mechanisms"]
+  },
+  { 
+    id: "outcomes", 
+    name: "Learning Outcomes", 
+    icon: Trophy, 
+    color: "#2E86AB", 
+    description: "Achievement gains, engagement, retention, skill development, career readiness",
+    subPathways: [
+      { name: "Achievement Gains (15-25%)", adoption: 0, maturity: "Evidence-Based" },
+      { name: "Engagement Metrics (20-30%)", adoption: 0, maturity: "Evidence-Based" },
+      { name: "Retention Improvements (10-15%)", adoption: 0, maturity: "Emerging Evidence" },
+      { name: "Skill Development", adoption: 0, maturity: "Mixed Evidence" },
+      { name: "Career Readiness", adoption: 0, maturity: "Emerging Evidence" },
+    ],
+    keyApplications: ["Standardized test gains", "Completion rate tracking", "Skills assessments", "Employment outcomes"],
+    successFactors: ["Valid measurement", "Longitudinal tracking", "Control group comparisons", "Contextual analysis"]
+  },
 ];
 
 const sectors = [
@@ -55,6 +183,8 @@ function AnimatedStatNumber({ target, suffix = "" }: { target: number; suffix?: 
 }
 
 export default function EducationAI() {
+  const [selectedPathway, setSelectedPathway] = useState<typeof pathways[0] | null>(null);
+
   useEffect(() => {
     document.title = "AI Education Futures Hub - Robert McCoy Projects";
   }, []);
@@ -144,6 +274,7 @@ export default function EducationAI() {
                 key={pathway.id} 
                 className="p-6 hover-elevate cursor-pointer group"
                 data-testid={`pathway-card-${pathway.id}`}
+                onClick={() => setSelectedPathway(pathway)}
               >
                 <div 
                   className="w-14 h-14 rounded-md flex items-center justify-center mb-4"
@@ -153,11 +284,96 @@ export default function EducationAI() {
                 </div>
                 <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">{pathway.name}</h3>
                 <p className="text-sm text-muted-foreground">{pathway.description}</p>
+                <div className="mt-3 flex items-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span>View details</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
+                </div>
               </Card>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Pathway Detail Dialog */}
+      <Dialog open={!!selectedPathway} onOpenChange={(open) => !open && setSelectedPathway(null)}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          {selectedPathway && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-4">
+                  <div 
+                    className="w-12 h-12 rounded-md flex items-center justify-center"
+                    style={{ backgroundColor: selectedPathway.color }}
+                  >
+                    <selectedPathway.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <DialogTitle className="text-xl">{selectedPathway.name}</DialogTitle>
+                    <DialogDescription className="mt-1">
+                      {selectedPathway.description}
+                    </DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                <div>
+                  <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">Sub-Pathways & Adoption</h4>
+                  <div className="space-y-3">
+                    {selectedPathway.subPathways.map((sub, idx) => (
+                      <div key={idx} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                        <div className="flex-1">
+                          <span className="font-medium text-sm">{sub.name}</span>
+                          <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                            {sub.maturity}
+                          </span>
+                        </div>
+                        {sub.adoption > 0 && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-24 h-2 bg-muted rounded-full overflow-hidden">
+                              <div 
+                                className="h-full rounded-full transition-all"
+                                style={{ 
+                                  width: `${sub.adoption}%`,
+                                  backgroundColor: selectedPathway.color 
+                                }}
+                              />
+                            </div>
+                            <span className="text-xs text-muted-foreground w-8">{sub.adoption}%</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">Key Applications</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPathway.keyApplications.map((app, idx) => (
+                      <span key={idx} className="text-sm px-3 py-1.5 bg-card border border-border rounded-md">
+                        {app}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-3 text-sm uppercase tracking-wide text-muted-foreground">Success Factors</h4>
+                  <ul className="space-y-2">
+                    {selectedPathway.successFactors.map((factor, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span>{factor}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Sectors Section */}
       <section id="sectors" className="py-16 px-6 bg-card/50 scroll-mt-20">
