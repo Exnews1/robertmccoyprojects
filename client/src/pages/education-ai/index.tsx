@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { EducationAICharts } from "@/components/education-ai-charts";
 
 const pathways = [
   { 
@@ -449,12 +450,24 @@ export default function EducationAI() {
         </div>
       </section>
 
-      {/* Data Visualizations Section */}
-      <section id="visualizations" className="py-16 px-6 bg-card/50 scroll-mt-20">
+      {/* Interactive Charts Section */}
+      <section id="charts" className="py-16 px-6 bg-card/50 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">Data Visualizations</h2>
+          <h2 className="text-3xl font-bold text-center mb-4">Interactive Data Charts</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-            Research-backed data visualizations showing AI adoption trends and patterns
+            Explore AI adoption trends through interactive visualizations based on analysis of 557 peer-reviewed papers
+          </p>
+          
+          <EducationAICharts />
+        </div>
+      </section>
+
+      {/* Static Visualizations Section */}
+      <section id="visualizations" className="py-16 px-6 scroll-mt-20">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Research Visualizations</h2>
+          <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            Static research images and mind maps - click to enlarge
           </p>
           
           <div className="grid gap-8">
