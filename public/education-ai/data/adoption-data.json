@@ -1,0 +1,252 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-01-25",
+    "source": "Analysis of 557 peer-reviewed papers",
+    "coverage": "2020-2026"
+  },
+  "marketSize": {
+    "unit": "USD Billions",
+    "data": {
+      "2020": 2.1,
+      "2021": 2.8,
+      "2022": 3.6,
+      "2023": 4.5,
+      "2024": 5.8,
+      "2025": 8.5,
+      "2026": 11.5
+    },
+    "cagr": 34.1
+  },
+  "sectorAdoption": {
+    "k12": {
+      "name": "K-12 Education",
+      "adoption2020": 15,
+      "adoption2023": 45,
+      "adoption2024": 55,
+      "adoption2026": 75,
+      "genAI": 60,
+      "topBarriers": ["training", "budget", "infrastructure"],
+      "keyApplications": [
+        "Personalized learning paths",
+        "Automated grading",
+        "Virtual tutors",
+        "Student engagement analytics"
+      ]
+    },
+    "higherEd": {
+      "name": "Higher Education",
+      "adoption2020": 20,
+      "adoption2023": 38,
+      "adoption2024": 47,
+      "adoption2026": 65,
+      "facultyPositive": 78,
+      "topBarriers": ["academicIntegrity", "training", "policy"],
+      "keyApplications": [
+        "Research assistance",
+        "Plagiarism detection",
+        "Learning analytics",
+        "Adaptive coursework"
+      ]
+    },
+    "vocational": {
+      "name": "Vocational Training",
+      "adoption2020": 12,
+      "adoption2023": 35,
+      "adoption2024": 45,
+      "adoption2026": 60,
+      "industryAlignment": 85,
+      "topBarriers": ["cost", "infrastructure", "skillsGap"],
+      "keyApplications": [
+        "Skills-based assessment",
+        "Virtual simulations",
+        "Competency tracking",
+        "Industry certification"
+      ]
+    },
+    "corporate": {
+      "name": "Corporate Learning",
+      "adoption2020": 25,
+      "adoption2023": 50,
+      "adoption2024": 60,
+      "adoption2026": 75,
+      "roiFocused": true,
+      "topBarriers": ["integration", "dataPrivacy", "changeManagement"],
+      "keyApplications": [
+        "Performance support",
+        "Skills gap analysis",
+        "Leadership development",
+        "Compliance training"
+      ]
+    }
+  },
+  "technologyAdoption": {
+    "generativeAI": {
+      "name": "Generative AI (ChatGPT, Claude, etc.)",
+      "adoption2023": 15,
+      "adoption2024": 60,
+      "growth": "explosive",
+      "useCases": ["Content creation", "Tutoring", "Assessment", "Feedback"]
+    },
+    "chatbots": {
+      "name": "Chatbots & Virtual Assistants",
+      "adoption2023": 45,
+      "adoption2024": 55,
+      "growth": "steady",
+      "useCases": ["Student support", "FAQ", "Enrollment", "Administrative"]
+    },
+    "adaptiveLearning": {
+      "name": "Adaptive Learning Systems",
+      "adoption2023": 40,
+      "adoption2024": 48,
+      "growth": "moderate",
+      "useCases": ["Personalization", "Remediation", "Pacing", "Pathways"]
+    },
+    "intelligentTutoring": {
+      "name": "Intelligent Tutoring Systems",
+      "adoption2023": 35,
+      "adoption2024": 42,
+      "growth": "moderate",
+      "useCases": ["Math tutoring", "Language learning", "STEM support", "Practice"]
+    },
+    "learningAnalytics": {
+      "name": "Learning Analytics",
+      "adoption2023": 32,
+      "adoption2024": 38,
+      "growth": "steady",
+      "useCases": ["Performance tracking", "Prediction", "Intervention", "Reporting"]
+    },
+    "emotionAI": {
+      "name": "Emotion AI & Affective Computing",
+      "adoption2023": 8,
+      "adoption2024": 15,
+      "growth": "emerging",
+      "useCases": ["Engagement detection", "Stress monitoring", "Adaptation", "Wellbeing"]
+    }
+  },
+  "regionalData": {
+    "northAmerica": {
+      "name": "North America",
+      "adoption2024": 62,
+      "marketShare": 38,
+      "cagr": 32.5,
+      "topCountries": ["USA", "Canada"],
+      "leaders": ["USA (62%)", "Canada (55%)"]
+    },
+    "europe": {
+      "name": "Europe",
+      "adoption2024": 52,
+      "marketShare": 28,
+      "cagr": 30.2,
+      "topCountries": ["UK", "Germany", "France"],
+      "leaders": ["UK (58%)", "Germany (54%)", "France (50%)"]
+    },
+    "asiaPacific": {
+      "name": "Asia-Pacific",
+      "adoption2024": 58,
+      "marketShare": 25,
+      "cagr": 42.8,
+      "topCountries": ["Singapore", "South Korea", "China", "Japan"],
+      "leaders": ["Singapore (65%)", "South Korea (60%)", "China (58%)"]
+    },
+    "latinAmerica": {
+      "name": "Latin America",
+      "adoption2024": 28,
+      "marketShare": 6,
+      "cagr": 38.5,
+      "topCountries": ["Brazil", "Mexico", "Argentina"],
+      "leaders": ["Brazil (32%)", "Mexico (28%)", "Chile (30%)"]
+    },
+    "middleEastAfrica": {
+      "name": "Middle East & Africa",
+      "adoption2024": 22,
+      "marketShare": 3,
+      "cagr": 45.2,
+      "topCountries": ["UAE", "Saudi Arabia", "South Africa"],
+      "leaders": ["UAE (48%)", "Saudi Arabia (35%)", "South Africa (25%)"]
+    }
+  },
+  "barriers": {
+    "training": {
+      "name": "Inadequate Training",
+      "prevalence": 71,
+      "severity": "high",
+      "solutions": ["Professional development", "Peer learning", "Vendor training"]
+    },
+    "cost": {
+      "name": "Cost & Budget Constraints",
+      "prevalence": 68,
+      "severity": "high",
+      "solutions": ["Phased implementation", "Open source tools", "Shared resources"]
+    },
+    "infrastructure": {
+      "name": "Infrastructure Gaps",
+      "prevalence": 67,
+      "severity": "high",
+      "solutions": ["Cloud solutions", "BYOD policies", "Partnerships"]
+    },
+    "privacy": {
+      "name": "Privacy & Data Concerns",
+      "prevalence": 62,
+      "severity": "medium",
+      "solutions": ["Clear policies", "Compliance frameworks", "Transparency"]
+    },
+    "resistance": {
+      "name": "Resistance to Change",
+      "prevalence": 54,
+      "severity": "medium",
+      "solutions": ["Change management", "Stakeholder engagement", "Pilot programs"]
+    }
+  },
+  "digitalDivide": {
+    "highIncome": {
+      "adoption": 47,
+      "infrastructure": 85,
+      "training": 72
+    },
+    "lowIncome": {
+      "adoption": 8,
+      "infrastructure": 25,
+      "training": 18
+    },
+    "gap": 6,
+    "urgency": "critical"
+  },
+  "investment": {
+    "2024": {
+      "totalInvestment": 7.2,
+      "unit": "USD Billions",
+      "startups": 680,
+      "cagr": 51.2
+    },
+    "topCategories": [
+      "Generative AI tools",
+      "Learning management systems",
+      "Assessment platforms",
+      "Analytics solutions"
+    ]
+  },
+  "facultyReadiness": {
+    "positiveAttitude": 78,
+    "adequateTraining": 29,
+    "activeUse": 42,
+    "dimensions": {
+      "awareness": 82,
+      "skills": 35,
+      "confidence": 48,
+      "integration": 38,
+      "innovation": 25
+    }
+  },
+  "studentReadiness": {
+    "positiveAttitude": 85,
+    "adequateSkills": 45,
+    "activeUse": 68,
+    "dimensions": {
+      "awareness": 88,
+      "skills": 52,
+      "confidence": 65,
+      "criticalUse": 38,
+      "ethicalUse": 42
+    }
+  }
+}

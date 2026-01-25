@@ -1,0 +1,128 @@
+{
+  "caseStudies": [
+    {
+      "id": "cs001",
+      "title": "Georgia State University: AI-Powered Advising Reduces Summer Melt",
+      "sector": "Higher Education",
+      "region": "North America",
+      "year": 2023,
+      "intervention": "AI Chatbot for Student Advising",
+      "context": {
+        "institution": "Georgia State University",
+        "studentPopulation": 53000,
+        "demographics": "Highly diverse, majority-minority, first-generation students",
+        "challenge": "Summer melt (students who enroll but don't show up in fall)"
+      },
+      "solution": {
+        "technology": "AI chatbot (Pounce) for proactive student communication",
+        "implementation": "Automated text messages addressing common barriers (FAFSA, housing, registration)",
+        "timeline": "Pilot 2016, scaled 2017-2023"
+      },
+      "outcomes": {
+        "summerMelt": "Reduced by 21%",
+        "enrollment": "Increased by 3.9%",
+        "completionRate": "Improved by 7%",
+        "roi": "Positive within first year"
+      },
+      "lessonsLearned": [
+        "Proactive outreach is critical",
+        "Personalization increases engagement",
+        "Human advisors still essential for complex cases",
+        "Continuous improvement based on student feedback"
+      ],
+      "replicationGuide": {
+        "requirements": ["SMS platform", "Student information system integration", "Dedicated staff for monitoring"],
+        "cost": "$50,000-$100,000 initial + $30,000/year maintenance",
+        "timeline": "6-12 months to implement",
+        "criticalSuccessFactors": ["Leadership buy-in", "Data infrastructure", "Pilot testing"]
+      },
+      "sources": [
+        "Castleman & Page (2016)",
+        "Georgia State University reports"
+      ]
+    },
+    {
+      "id": "cs002",
+      "title": "Duolingo: AI-Powered Language Learning at Global Scale",
+      "sector": "Corporate/Lifelong Learning",
+      "region": "Global",
+      "year": 2024,
+      "intervention": "Generative AI Tutor (Duolingo Max)",
+      "context": {
+        "platform": "Duolingo",
+        "userBase": "500+ million users worldwide",
+        "challenge": "Providing personalized, conversational practice at scale",
+        "demographics": "Global, all ages, free and premium users"
+      },
+      "solution": {
+        "technology": "GPT-4 powered conversational AI tutor",
+        "features": ["Roleplay conversations", "Explain My Answer", "Personalized feedback"],
+        "implementation": "Launched March 2023, expanded 2024"
+      },
+      "outcomes": {
+        "engagement": "35% increase in daily active users",
+        "retention": "22% improvement in 30-day retention",
+        "learningGains": "18% faster progression through levels",
+        "subscriptions": "Premium subscriptions up 40%"
+      },
+      "lessonsLearned": [
+        "GenAI enables conversational practice at scale",
+        "Guardrails essential for appropriate content",
+        "Freemium model accelerates adoption",
+        "Continuous A/B testing drives improvement"
+      ],
+      "replicationGuide": {
+        "requirements": ["LLM API access", "Content moderation system", "User feedback loops"],
+        "cost": "Variable based on API usage ($0.01-$0.10 per interaction)",
+        "timeline": "3-6 months for MVP",
+        "criticalSuccessFactors": ["Clear use case", "Safety guardrails", "User testing"]
+      },
+      "sources": [
+        "Duolingo blog posts 2023-2024",
+        "Third-party app analytics"
+      ]
+    },
+    {
+      "id": "cs003",
+      "title": "Estonia: National AI Curriculum for K-12",
+      "sector": "K-12 Education",
+      "region": "Europe",
+      "year": 2023,
+      "intervention": "Nationwide AI Literacy Curriculum",
+      "context": {
+        "country": "Estonia",
+        "studentPopulation": "130,000 K-12 students",
+        "challenge": "Preparing all students for AI-driven economy",
+        "policy": "Part of national digital transformation strategy"
+      },
+      "solution": {
+        "curriculum": "Age-appropriate AI literacy from grade 1-12",
+        "training": "All teachers trained in AI fundamentals",
+        "resources": "Free, open-source AI education materials",
+        "timeline": "Pilot 2020, nationwide rollout 2022-2023"
+      },
+      "outcomes": {
+        "studentLiteracy": "85% of students demonstrate basic AI understanding",
+        "teacherReadiness": "92% of teachers completed AI training",
+        "engagement": "High student interest in CS/STEM careers (+15%)",
+        "internationalRecognition": "Model for other nations"
+      },
+      "lessonsLearned": [
+        "National coordination enables rapid scaling",
+        "Teacher training is prerequisite for success",
+        "Open resources reduce cost barriers",
+        "Age-appropriate progression is critical"
+      ],
+      "replicationGuide": {
+        "requirements": ["National curriculum authority", "Teacher training infrastructure", "Digital resources"],
+        "cost": "$5-10 per student per year",
+        "timeline": "2-3 years for full implementation",
+        "criticalSuccessFactors": ["Political will", "Teacher buy-in", "Continuous updates"]
+      },
+      "sources": [
+        "Estonian Ministry of Education reports",
+        "UNESCO case study"
+      ]
+    }
+  ]
+}

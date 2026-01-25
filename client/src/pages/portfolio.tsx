@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain } from "lucide-react";
 
 const mainProjects = [
   {
@@ -20,6 +20,15 @@ const mainProjects = [
     icon: Search,
     route: "/explorer",
     status: "Research Tool",
+    external: false
+  },
+  {
+    id: "education-ai",
+    title: "AI Education Futures Hub",
+    description: "Evidence-based guidance for implementing AI across K-12, Higher Ed, Vocational, and Corporate learning. Based on 557 research papers.",
+    icon: Brain,
+    route: "/education-ai",
+    status: "Research Library",
     external: false
   }
 ];

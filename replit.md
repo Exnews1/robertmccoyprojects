@@ -52,6 +52,22 @@ The Reference Explorer at `/explorer` provides grounded Q&A over the research li
   - `POST /api/search` - Returns simple semantic search results (legacy)
   - `POST /api/library/regenerate-embeddings` - Dev only, regenerates all embeddings
 
+### AI Education Futures Hub
+The AI Education Hub at `/education-ai` provides evidence-based guidance for AI implementation in education:
+- **Research Base**: Built on analysis of 557 peer-reviewed papers (2020-2026)
+- **8 Implementation Pathways**: Pedagogical, Technology, Assessment, Governance, Equity, Infrastructure, Stakeholders, Outcomes
+- **4 Sector Guides**: K-12, Higher Ed, Vocational, Corporate learning
+- **Static Data Files** (in `public/education-ai/data/`):
+  - `adoption-data.json` - Market data, sector adoption rates, regional statistics
+  - `pathways.json` - Detailed implementation pathway definitions
+  - `case-studies.json` - Real-world AI education case studies
+- **Research Visualizations** (in `public/education-ai/images/`):
+  - `ai_education_adoption_trends.png` - Global adoption trends 2020-2026
+  - `ai_education_mind_map.png` - Pathways mind map
+  - `ai_education_regional_perspectives.png` - Regional adoption data
+  - `ai_education_technology_details.png` - Technology adoption patterns
+  - `ai_education_decision_tree.png` - Implementation decision tree
+
 ### Shared Code
 The `shared/` directory contains code used by both frontend and backend:
 - `schema.ts` - Drizzle table definitions and inferred TypeScript types
