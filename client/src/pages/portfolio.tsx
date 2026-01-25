@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User } from "lucide-react";
 
 const mainProjects = [
   {
@@ -58,6 +58,11 @@ export default function Portfolio() {
             <a href="mailto:robert.mccoy@indwes.edu" className="hover:text-primary transition-colors" data-testid="link-email">
               robert.mccoy@indwes.edu
             </a>
+            <span className="text-muted-foreground/30">|</span>
+            <Link href="/profile" className="hover:text-primary transition-colors flex items-center gap-1" data-testid="link-profile">
+              <User className="w-3.5 h-3.5" />
+              Systems Profile
+            </Link>
             <span className="text-muted-foreground/30">|</span>
             <Link href="/contact" className="hover:text-primary transition-colors" data-testid="link-contact">
               Submit Inquiry
