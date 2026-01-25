@@ -57,11 +57,11 @@ The AI Education Hub at `/education-ai` provides evidence-based guidance for AI 
 - **Research Base**: Built on analysis of 557 peer-reviewed papers (2020-2026)
 - **8 Implementation Pathways**: Pedagogical, Technology, Assessment, Governance, Equity, Infrastructure, Stakeholders, Outcomes
 - **4 Sector Guides**: K-12, Higher Ed, Vocational, Corporate learning
-- **Static Data Files** (in `public/education-ai/data/`):
+- **Static Data Files** (in `client/public/education-ai/data/`):
   - `adoption-data.json` - Market data, sector adoption rates, regional statistics
   - `pathways.json` - Detailed implementation pathway definitions
   - `case-studies.json` - Real-world AI education case studies
-- **Research Visualizations** (in `public/education-ai/images/`):
+- **Research Visualizations** (in `client/public/education-ai/images/`):
   - `ai_education_adoption_trends.png` - Global adoption trends 2020-2026
   - `ai_education_mind_map.png` - Pathways mind map
   - `ai_education_regional_perspectives.png` - Regional adoption data
