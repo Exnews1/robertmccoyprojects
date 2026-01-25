@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 import { 
   GraduationCap, Cpu, Award, Gavel, HandHelping, Server, Users, Trophy,
   School, Building, Wrench, Briefcase, TrendingUp, Bot, Scale, Presentation,
   Brain, ClipboardCheck, Calculator, Route, BarChart3, TreeDeciduous, Globe, Layers,
-  CheckCircle2, ArrowRight, X
+  CheckCircle2, ArrowRight, X, ArrowLeft
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -192,8 +193,18 @@ export default function EducationAI() {
 
   return (
     <div className="education-ai-page">
+      {/* Back Navigation */}
+      <div className="px-6 pt-6 max-w-6xl mx-auto">
+        <Link href="/">
+          <Button variant="ghost" size="sm" className="gap-2" data-testid="link-back-portfolio">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Portfolio
+          </Button>
+        </Link>
+      </div>
+
       {/* Hero Section */}
-      <section className="py-16 px-6 max-w-6xl mx-auto">
+      <section className="py-12 px-6 max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
