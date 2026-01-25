@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive data visualizations showing AI adoption trends in education across sectors and regions">
+    <title>Data Visualizations | AI Education Futures Hub</title>
+    
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <style>
+        .viz-page {
+            padding: var(--spacing-2xl) var(--spacing-md);
+        }
+        
+        .viz-hero {
+            text-align: center;
+            padding: var(--spacing-4xl) var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-teal) 100%);
+            color: var(--white);
+            margin-bottom: var(--spacing-4xl);
+        }
+        
+        .viz-hero h1 {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .viz-hero p {
+            font-size: var(--font-size-lg);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .chart-container {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--spacing-3xl);
+        }
+        
+        .chart-header {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .chart-header h2 {
+            font-size: var(--font-size-2xl);
+            color: var(--dark-gray);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .chart-header p {
+            color: var(--medium-gray);
+            font-size: var(--font-size-base);
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .chart-wrapper.large {
+            height: 500px;
+        }
+        
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-3xl);
+        }
+        
+        .chart-insights {
+            background: var(--light-gray);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .chart-insights h3 {
+            font-size: var(--font-size-lg);
+            color: var(--dark-gray);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .chart-insights ul {
+            list-style: disc;
+            margin-left: var(--spacing-xl);
+        }
+        
+        .chart-insights li {
+            color: var(--medium-gray);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .filter-controls {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+        }
+        
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        .filter-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+        
+        @media (max-width: 768px) {
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
+            
+            .viz-hero h1 {
+                font-size: var(--font-size-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../index.html">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Education Futures</span>
+                </a>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html#pathways">Pathways</a></li>
+                <li><a href="../index.html#sectors">Sectors</a></li>
+                <li><a href="../index.html#tools">Tools</a></li>
+                <li><a href="data-visualizations.html">Data</a></li>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="viz-hero">
+        <h1>Interactive Data Visualizations</h1>
+        <p>Explore comprehensive AI adoption trends in education through interactive charts and graphs. Based on analysis of 557 peer-reviewed research papers covering 2020-2026.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="viz-page container">
+        
+        <!-- Market Growth Chart -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-chart-line"></i> AI in Education Market Growth (2020-2026)</h2>
+                <p>Global market size showing 34.1% compound annual growth rate</p>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="marketGrowthChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>Market size increased from $2.1B in 2020 to projected $11.5B in 2026</li>
+                    <li>Explosive growth accelerated post-2023 with GenAI adoption</li>
+                    <li>Investment CAGR (51.2%) significantly outpaces market CAGR (34.1%)</li>
+                    <li>Expected to reach $20B+ by 2030 if current trends continue</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sector Adoption Comparison -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-school"></i> Sector Adoption Rates (2020-2026)</h2>
+                <p>Comparative adoption across K-12, Higher Ed, Vocational, and Corporate sectors</p>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="sectorAdoptionChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>Corporate learning leads with 60% adoption in 2024 (ROI-driven)</li>
+                    <li>K-12 shows fastest growth: 15% (2020) → 75% (2026 projected)</li>
+                    <li>Higher Ed adoption varies dramatically by country income level (47% vs 8%)</li>
+                    <li>All sectors expected to exceed 60% adoption by 2026</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Regional Comparison -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-globe"></i> Regional Adoption & Growth Rates</h2>
+                <p>AI adoption percentages and growth rates across 5 global regions</p>
+            </div>
+            <div class="chart-wrapper large">
+                <canvas id="regionalChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>North America leads in adoption (62%) but slower growth (32.5% CAGR)</li>
+                    <li>Asia-Pacific shows highest growth rate (42.8% CAGR) with 58% adoption</li>
+                    <li>Middle East & Africa fastest growing (45.2% CAGR) from low base (22%)</li>
+                    <li>Europe maintains steady growth (30.2% CAGR) with 52% adoption</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technology Adoption -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-microchip"></i> Technology Type Adoption (2024)</h2>
+                <p>Penetration rates of different AI technologies in education</p>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="technologyChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>Generative AI (60%) surged from near-zero in 2022 to market leader</li>
+                    <li>Chatbots/Virtual Assistants (55%) remain popular for student support</li>
+                    <li>Adaptive Learning (48%) and ITS (42%) show steady, established growth</li>
+                    <li>Emotion AI (15%) emerging technology with high potential</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Barriers Analysis -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Barriers to AI Adoption</h2>
+                <p>Top challenges preventing or slowing AI implementation in education</p>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="barriersChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>Inadequate training (71%) is the #1 barrier - critical gap to address</li>
+                    <li>Cost constraints (68%) and infrastructure gaps (67%) nearly tied</li>
+                    <li>Privacy concerns (62%) significant but declining as frameworks mature</li>
+                    <li>Resistance to change (54%) decreasing as success stories emerge</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Two-Column Charts -->
+        <div class="chart-grid">
+            <!-- Digital Divide -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2><i class="fas fa-balance-scale"></i> Digital Divide Gap</h2>
+                    <p>6x adoption gap between high and low-income countries</p>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="digitalDivideChart"></canvas>
+                </div>
+                <div class="chart-insights">
+                    <h3>Key Insight:</h3>
+                    <ul>
+                        <li>Critical 6:1 disparity requires urgent policy intervention</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Readiness Gap -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2><i class="fas fa-chalkboard-teacher"></i> Faculty Readiness Paradox</h2>
+                    <p>Positive attitudes vs. adequate training gap</p>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="readinessChart"></canvas>
+                </div>
+                <div class="chart-insights">
+                    <h3>Key Insight:</h3>
+                    <ul>
+                        <li>49-point gap between positive attitudes (78%) and training (29%)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Trends -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h2><i class="fas fa-dollar-sign"></i> Investment & Startup Growth</h2>
+                <p>AI EdTech investment and startup ecosystem expansion</p>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="investmentChart"></canvas>
+            </div>
+            <div class="chart-insights">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>$7.2B total investment in 2024, growing at 51.2% CAGR</li>
+                    <li>680 active AI education startups globally</li>
+                    <li>Investment growth outpaces market growth - indicating future potential</li>
+                    <li>Top categories: GenAI tools, LMS platforms, assessment, analytics</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>AI Education Futures Hub</h4>
+                    <p>Evidence-based guidance for navigating the AI transformation in education</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../index.html#pathways">Pathways</a></li>
+                        <li><a href="../index.html#sectors">Sectors</a></li>
+                        <li><a href="data-visualizations.html">Data Visualizations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Research Library</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Frameworks</a></li>
+                        <li><a href="#">Tools</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Data Sources</h4>
+                    <ul>
+                        <li>557 Research Papers</li>
+                        <li>SciSpace Database</li>
+                        <li>Google Scholar</li>
+                        <li>ArXiv & PubMed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 AI Education Futures Hub. Research-based insights for educational transformation.</p>
+                <p>Based on analysis of 557 peer-reviewed papers | Last updated: January 2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>
