@@ -1,0 +1,50 @@
+[
+  {
+    "id": "enrollment",
+    "area": "Student Enrollment",
+    "description": "AI-powered chatbots, predictive analytics for recruitment",
+    "benefits": "24/7 support, personalized outreach, improved conversion rates",
+    "examples": "Georgia State University (Pounce chatbot), ASU",
+    "icon": "users"
+  },
+  {
+    "id": "onboarding",
+    "area": "Student Onboarding",
+    "description": "Automated orientation, personalized learning paths",
+    "benefits": "Streamlined processes, better student preparation",
+    "examples": "Multiple U.S. universities",
+    "icon": "clipboard-check"
+  },
+  {
+    "id": "advising",
+    "area": "Academic Advising",
+    "description": "AI advisors, course recommendations, degree planning",
+    "benefits": "Scalable support, data-driven guidance, early intervention",
+    "examples": "Georgia State, University of Maryland",
+    "icon": "graduation-cap"
+  },
+  {
+    "id": "portals",
+    "area": "Student Information Portals",
+    "description": "Intelligent search, personalized dashboards, predictive alerts",
+    "benefits": "Enhanced user experience, proactive support",
+    "examples": "Campus-wide implementations",
+    "icon": "layout-dashboard"
+  },
+  {
+    "id": "lms",
+    "area": "Learning Management",
+    "description": "Adaptive learning platforms, intelligent tutoring systems",
+    "benefits": "Personalized instruction, improved outcomes",
+    "examples": "ALEKS, Carnegie Learning",
+    "icon": "book-open"
+  },
+  {
+    "id": "assessment",
+    "area": "Assessment & Grading",
+    "description": "Automated grading, plagiarism detection, learning analytics",
+    "benefits": "Time savings, consistency, insights",
+    "examples": "Turnitin, Gradescope",
+    "icon": "file-check"
+  }
+]

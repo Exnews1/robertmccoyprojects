@@ -1,0 +1,9 @@
+System Type,Category,Description,Examples,Considerations
+Prescriptive,Conversational AI,What universities SHOULD implement: AI chatbots for student support,"Georgia State Pounce, admission chatbots","Ensure accuracy, human escalation paths"
+Prescriptive,Adaptive Learning,What universities SHOULD use: Personalized learning platforms,"ALEKS, Carnegie Learning, Knewton","Monitor effectiveness, student privacy"
+Prescriptive,Predictive Analytics,What universities SHOULD leverage: Early warning systems for at-risk students,"Retention analytics, success prediction","Avoid bias, ensure intervention quality"
+Prescriptive,Intelligent Tutoring,What universities SHOULD provide: AI-powered tutoring systems,"Math tutors, writing assistants",Complement human instruction
+Proscriptive,Biased Algorithms,What universities SHOULD AVOID: AI systems with demographic bias,Unvalidated admission algorithms,Regular bias audits required
+Proscriptive,Privacy Violations,What universities SHOULD NOT do: Excessive data collection without consent,Unauthorized student tracking,FERPA compliance mandatory
+Proscriptive,Over-automation,What universities SHOULD LIMIT: Removing human judgment entirely,Fully automated high-stakes decisions,Maintain human oversight
+Proscriptive,Opaque Systems,What universities SHOULD PROHIBIT: Black-box AI without explainability,Unexplainable decision systems,Transparency requirements

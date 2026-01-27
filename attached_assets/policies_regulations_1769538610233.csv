@@ -1,0 +1,9 @@
+Level,Policy/Regulation,Year,Key Requirements,Enforcement
+Federal,FERPA (Family Educational Rights and Privacy Act),1974,"Protect student education records, limit disclosure without consent",U.S. Department of Education
+Federal,COPPA (Children's Online Privacy Protection Act),1998,Parental consent for data collection from children under 13,Federal Trade Commission
+Federal,U.S. Dept of Education AI Guidance,2025,"Responsible AI use, equity, transparency, human oversight",Guidance (non-binding)
+Federal,Executive Order on AI in Education,2025,Promote AI innovation while protecting students,White House
+Federal,AI Bill of Rights Framework,2022,"Safe systems, algorithmic discrimination protections, privacy",White House OSTP
+State,California Consumer Privacy Act (CCPA),2018,"Consumer data rights, opt-out provisions",California AG
+State,Virginia Consumer Data Protection Act,2023,Data protection requirements for consumers,Virginia AG
+Institutional,University AI Governance Policies,2023-2025,"Ethical AI use, academic integrity, transparency",University administration
