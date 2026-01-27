@@ -1,0 +1,217 @@
+{
+  "section": "Potential Partnerships",
+  "description": "Strategic partnerships with AI, cloud, and data organizations that support Indiana Wesleyan University’s mission of ethical innovation, student success, workforce alignment, and responsible AI adoption.",
+  "governance_principles": [
+    "Human in the loop decision making",
+    "Transparency and explainability",
+    "Student data privacy and FERPA compliance",
+    "No automated high stakes decision authority",
+    "Documented evaluation and auditability",
+    "Alignment with institutional mission and values"
+  ],
+  "partnership_categories": [
+    {
+      "category_id": "ai_platform_providers",
+      "category_name": "AI Platform and Model Providers",
+      "category_description": "Organizations providing large language models and AI platforms for teaching, research, and administrative support.",
+      "potential_partners": [
+        {
+          "partner_name": "OpenAI",
+          "partnership_type": "Enterprise AI Access and Education Pilot",
+          "use_cases": [
+            "Faculty supported instructional design",
+            "Student academic writing and tutoring assistance",
+            "Advising decision support tools",
+            "Administrative workflow augmentation"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Improved academic confidence and feedback cycles",
+              "Equitable access to AI assisted learning tools",
+              "Exposure to industry relevant AI systems"
+            ],
+            "faculty": [
+              "Reduced administrative workload",
+              "Enhanced curriculum development support",
+              "Professional development in AI literacy"
+            ],
+            "institution": [
+              "Campus wide AI standardization",
+              "Measured productivity and learning gains",
+              "Positioning as a responsible AI pilot institution"
+            ]
+          },
+          "governance_considerations": [
+            "Clear acceptable use policies",
+            "No retention of student identifiable data",
+            "Transparent disclosure of AI assisted interactions"
+          ]
+        },
+        {
+          "partner_name": "Google",
+          "partnership_type": "AI Assisted Learning and Collaboration Tools",
+          "use_cases": [
+            "AI supported research assistance",
+            "Accessibility and learning support tools",
+            "Faculty productivity enhancement"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Improved accessibility and learning support",
+              "Familiar platform integration"
+            ],
+            "faculty": [
+              "Streamlined research and content creation",
+              "AI enhanced collaboration"
+            ],
+            "institution": [
+              "Scalable deployment",
+              "Integration with existing collaboration tools"
+            ]
+          },
+          "governance_considerations": [
+            "Clear boundaries between assistance and authorship",
+            "Faculty oversight of instructional use"
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "cloud_and_data_platforms",
+      "category_name": "Cloud and Data Infrastructure Providers",
+      "category_description": "Organizations providing cloud computing, data platforms, and AI development environments.",
+      "potential_partners": [
+        {
+          "partner_name": "Microsoft Azure",
+          "partnership_type": "Cloud Infrastructure and AI Services",
+          "use_cases": [
+            "Student labs and applied AI coursework",
+            "Secure institutional data analytics",
+            "Administrative automation"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Hands on experience with enterprise cloud systems",
+              "Preparation for industry certifications"
+            ],
+            "faculty": [
+              "Access to scalable computing resources",
+              "Support for applied research and instruction"
+            ],
+            "institution": [
+              "Modernized IT and analytics infrastructure",
+              "Improved data driven decision making"
+            ]
+          },
+          "governance_considerations": [
+            "Role based access control",
+            "Data residency and security compliance",
+            "Clear separation of instructional and operational data"
+          ]
+        },
+        {
+          "partner_name": "AWS Academy",
+          "partnership_type": "Curriculum and Cloud Credits Partnership",
+          "use_cases": [
+            "AI and data analytics coursework",
+            "Faculty training and certification",
+            "Student skill development pathways"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Industry aligned curriculum",
+              "Practical cloud and AI experience"
+            ],
+            "faculty": [
+              "Ready to deploy instructional materials",
+              "Reduced curriculum development burden"
+            ],
+            "institution": [
+              "Workforce aligned academic programs",
+              "Enhanced program credibility"
+            ]
+          },
+          "governance_considerations": [
+            "Curriculum alignment with institutional values",
+            "Transparent assessment standards"
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "research_and_innovation",
+      "category_name": "Research and Innovation Consortiums",
+      "category_description": "Partnerships focused on applied research, innovation pilots, and publication.",
+      "potential_partners": [
+        {
+          "partner_name": "OpenAI Next Generation Education Initiatives",
+          "partnership_type": "Research and Pilot Sponsorship",
+          "use_cases": [
+            "AI governance research",
+            "Student success and advising analytics",
+            "Ethical AI deployment models"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Participation in real world research",
+              "Exposure to responsible AI practices"
+            ],
+            "faculty": [
+              "Research funding and publication opportunities",
+              "Cross institutional collaboration"
+            ],
+            "institution": [
+              "National visibility",
+              "Reputation as a governance focused AI leader"
+            ]
+          },
+          "governance_considerations": [
+            "Research transparency",
+            "Ethical review and approval processes"
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "regional_industry_partners",
+      "category_name": "Indiana Industry and Workforce Partners",
+      "category_description": "Regional employers and organizations aligned with workforce development and applied learning.",
+      "potential_partners": [
+        {
+          "partner_name": "Indiana Based Technology and Industry Organizations",
+          "partnership_type": "Applied Projects and Internship Pipeline",
+          "use_cases": [
+            "Capstone projects",
+            "Internships and apprenticeships",
+            "Applied AI problem solving"
+          ],
+          "potential_benefits": {
+            "students": [
+              "Real world experience",
+              "Improved employability"
+            ],
+            "faculty": [
+              "Industry informed curriculum feedback",
+              "Applied research opportunities"
+            ],
+            "institution": [
+              "Stronger employer relationships",
+              "Demonstrated workforce impact"
+            ]
+          },
+          "governance_considerations": [
+            "Clear intellectual property agreements",
+            "Student protection and academic oversight"
+          ]
+        }
+      ]
+    }
+  ],
+  "evaluation_metrics": [
+    "Student learning outcomes",
+    "Faculty workload reduction",
+    "Advising effectiveness",
+    "Equity and access indicators",
+    "Compliance and risk audit results"
+  ]
+}
