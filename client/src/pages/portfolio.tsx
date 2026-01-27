@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School } from "lucide-react";
 
 const mainProjects = [
   {
@@ -29,6 +29,15 @@ const mainProjects = [
     icon: Brain,
     route: "/education-ai",
     status: "Research Library",
+    external: false
+  },
+  {
+    id: "universities-ai",
+    title: "AI Use Cases in U.S. Universities",
+    description: "Data-driven exploration of AI applications, policies, and governance frameworks across American higher education institutions.",
+    icon: School,
+    route: "/universities-ai",
+    status: "Analysis",
     external: false
   }
 ];

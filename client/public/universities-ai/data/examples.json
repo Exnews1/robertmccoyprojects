@@ -1,0 +1,50 @@
+[
+  {
+    "id": "georgia-state",
+    "university": "Georgia State University",
+    "initiative": "Pounce Chatbot",
+    "description": "AI-powered text messaging system that provides personalized outreach and guidance for pre-enrollment tasks, reducing summer melt by 3.3%.",
+    "area": "Student Onboarding",
+    "impact": "Improved enrollment rates for first-generation students"
+  },
+  {
+    "id": "stanford",
+    "university": "Stanford University",
+    "initiative": "Stanford HAI Policy Research",
+    "description": "Human-Centered AI Institute leading research on AI governance, policy frameworks, and responsible AI deployment in education.",
+    "area": "Policy & Research",
+    "impact": "Annual AI Index Report shaping national AI policy discourse"
+  },
+  {
+    "id": "maryland",
+    "university": "University of Maryland",
+    "initiative": "Bias-Aware Engineering Chatbot",
+    "description": "AI chatbot designed to complement traditional advising and address inequities for underrepresented engineering students.",
+    "area": "Academic Advising",
+    "impact": "Equitable access to advising for first-generation students"
+  },
+  {
+    "id": "ut-austin",
+    "university": "University of Texas at Austin",
+    "initiative": "GRADE Admissions System",
+    "description": "Explainable AI system using logistic regression to estimate applicant admission probability while maintaining transparency.",
+    "area": "Admissions",
+    "impact": "Reduced review time while maintaining explainability"
+  },
+  {
+    "id": "asu",
+    "university": "Arizona State University",
+    "initiative": "Adaptive Learning at Scale",
+    "description": "Large-scale deployment of AI-powered adaptive learning platforms and predictive analytics for student success.",
+    "area": "Learning Management",
+    "impact": "Personalized learning paths for diverse student population"
+  },
+  {
+    "id": "harvard",
+    "university": "Harvard University",
+    "initiative": "AI Ethics & Governance Research",
+    "description": "Edmond & Lily Safra Center for Ethics research on AI governance frameworks and corporate responsibility for AI deployment.",
+    "area": "Ethics & Policy",
+    "impact": "Boundaries of Tolerance Framework for AI governance"
+  }
+]

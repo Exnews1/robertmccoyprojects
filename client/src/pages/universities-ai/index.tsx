@@ -13,11 +13,10 @@ import {
   FileCheck,
   CheckCircle2,
   XCircle,
-  Download,
   Building2,
   Scale,
   FileText,
-  ExternalLink
+  MapPin
 } from "lucide-react";
 
 interface Application {
@@ -57,6 +56,15 @@ interface Stats {
   authoritativeSources: number;
 }
 
+interface UniversityExample {
+  id: string;
+  university: string;
+  initiative: string;
+  description: string;
+  area: string;
+  impact: string;
+}
+
 const iconMap: Record<string, typeof Users> = {
   "users": Users,
   "clipboard-check": ClipboardCheck,
@@ -71,6 +79,7 @@ export default function UniversitiesAI() {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [systems, setSystems] = useState<Systems | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [examples, setExamples] = useState<UniversityExample[]>([]);
   const [policyFilter, setPolicyFilter] = useState<string>("all");
   const [loading, setLoading] = useState(true);
 
@@ -80,11 +89,13 @@ export default function UniversitiesAI() {
       fetch("/universities-ai/data/policies.json").then(r => r.json()),
       fetch("/universities-ai/data/systems.json").then(r => r.json()),
       fetch("/universities-ai/data/stats.json").then(r => r.json()),
-    ]).then(([apps, pols, sys, st]) => {
+      fetch("/universities-ai/data/examples.json").then(r => r.json()),
+    ]).then(([apps, pols, sys, st, exs]) => {
       setApplications(apps);
       setPolicies(pols);
       setSystems(sys);
       setStats(st);
+      setExamples(exs);
       setLoading(false);
     }).catch(err => {
       console.error("Failed to load data:", err);
@@ -199,7 +210,42 @@ export default function UniversitiesAI() {
         </div>
       </section>
 
-      <section id="policies" className="py-16 bg-card/30" data-testid="section-policies">
+      <section id="examples" className="py-16 bg-card/30" data-testid="section-examples">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
+            U.S. University Examples
+          </h2>
+          <p className="text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
+            Real-world AI implementations from leading American institutions
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {examples.map((example) => (
+              <Card key={example.id} className="border-border/50" data-testid={`card-example-${example.id}`}>
+                <CardHeader>
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-primary">{example.university}</span>
+                  </div>
+                  <CardTitle className="text-lg">{example.initiative}</CardTitle>
+                  <CardDescription>{example.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="secondary">{example.area}</Badge>
+                  </div>
+                  <div>
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Impact</span>
+                    <p className="text-sm text-foreground mt-1">{example.impact}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="policies" className="py-16" data-testid="section-policies">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             Policies & Regulations
@@ -235,7 +281,7 @@ export default function UniversitiesAI() {
               </thead>
               <tbody>
                 {filteredPolicies.map((policy, idx) => (
-                  <tr key={idx} className="border-b border-border/50 hover:bg-muted/30" data-testid={`row-policy-${idx}`}>
+                  <tr key={idx} className="border-b border-border/50" data-testid={`row-policy-${idx}`}>
                     <td className="py-3 px-4">
                       <Badge 
                         variant={policy.level === "Federal" ? "default" : policy.level === "State" ? "secondary" : "outline"}
@@ -256,7 +302,7 @@ export default function UniversitiesAI() {
       </section>
 
       {systems && (
-        <section id="systems" className="py-16" data-testid="section-systems">
+        <section id="systems" className="py-16 bg-card/30" data-testid="section-systems">
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
               Prescriptive vs Proscriptive Systems
@@ -273,15 +319,18 @@ export default function UniversitiesAI() {
                 </div>
                 <div className="space-y-4">
                   {systems.prescriptive.map((item) => (
-                    <Card key={item.id} className="border-l-4 border-l-green-500 border-border/50" data-testid={`card-prescriptive-${item.id}`}>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium text-foreground mb-1">{item.category}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
-                        <div className="flex flex-wrap gap-2 text-xs">
-                          <span className="text-muted-foreground">Examples: {item.examples}</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground/70 mt-2 italic">{item.considerations}</p>
-                      </CardContent>
+                    <Card key={item.id} className="border-border/50 overflow-hidden" data-testid={`card-prescriptive-${item.id}`}>
+                      <div className="flex">
+                        <div className="w-1 bg-green-500 flex-shrink-0" />
+                        <CardContent className="pt-4 flex-1">
+                          <h4 className="font-medium text-foreground mb-1">{item.category}</h4>
+                          <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                          <div className="flex flex-wrap gap-2 text-xs">
+                            <span className="text-muted-foreground">Examples: {item.examples}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground/70 mt-2 italic">{item.considerations}</p>
+                        </CardContent>
+                      </div>
                     </Card>
                   ))}
                 </div>
@@ -294,15 +343,18 @@ export default function UniversitiesAI() {
                 </div>
                 <div className="space-y-4">
                   {systems.proscriptive.map((item) => (
-                    <Card key={item.id} className="border-l-4 border-l-red-500 border-border/50" data-testid={`card-proscriptive-${item.id}`}>
-                      <CardContent className="pt-4">
-                        <h4 className="font-medium text-foreground mb-1">{item.category}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
-                        <div className="flex flex-wrap gap-2 text-xs">
-                          <span className="text-muted-foreground">Examples: {item.examples}</span>
-                        </div>
-                        <p className="text-xs text-muted-foreground/70 mt-2 italic">{item.considerations}</p>
-                      </CardContent>
+                    <Card key={item.id} className="border-border/50 overflow-hidden" data-testid={`card-proscriptive-${item.id}`}>
+                      <div className="flex">
+                        <div className="w-1 bg-red-500 flex-shrink-0" />
+                        <CardContent className="pt-4 flex-1">
+                          <h4 className="font-medium text-foreground mb-1">{item.category}</h4>
+                          <p className="text-sm text-muted-foreground mb-2">{item.description}</p>
+                          <div className="flex flex-wrap gap-2 text-xs">
+                            <span className="text-muted-foreground">Examples: {item.examples}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground/70 mt-2 italic">{item.considerations}</p>
+                        </CardContent>
+                      </div>
                     </Card>
                   ))}
                 </div>
@@ -312,7 +364,7 @@ export default function UniversitiesAI() {
         </section>
       )}
 
-      <section id="resources" className="py-16 bg-card/30" data-testid="section-resources">
+      <section id="resources" className="py-16" data-testid="section-resources">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             Resources & References

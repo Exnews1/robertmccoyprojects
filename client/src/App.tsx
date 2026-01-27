@@ -17,6 +17,7 @@ import Explorer from "@/pages/explorer";
 import Contact from "@/pages/contact";
 import EducationAI from "@/pages/education-ai/index";
 import Profile from "@/pages/profile";
+import UniversitiesAI from "@/pages/universities-ai/index";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef } from "react";
@@ -69,6 +70,7 @@ function Router() {
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/explorer" component={Explorer} />
       <Route path="/education-ai" component={EducationAI} />
+      <Route path="/universities-ai" component={UniversitiesAI} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
