@@ -1,50 +1,164 @@
 [
   {
     "id": "enrollment",
-    "area": "Student Enrollment",
+    "area": "Student Enrollment & Recruitment",
     "description": "AI-powered chatbots, predictive analytics for recruitment",
     "benefits": "24/7 support, personalized outreach, improved conversion rates",
     "examples": "Georgia State University (Pounce chatbot), ASU",
-    "icon": "users"
+    "icon": "users",
+    "useCases": [
+      {
+        "title": "Enrollment Yield Prediction",
+        "description": "Machine learning algorithms predict the likelihood that admitted students will actually enroll, analyzing historical data on student characteristics, behaviors, and outcomes."
+      },
+      {
+        "title": "Scholarship Optimization",
+        "description": "Systems combining ML classifiers with genetic algorithms optimize scholarship allocation to maximize enrollment yield and tuition revenue within budget constraints, analyzing FAFSA data and institutional records."
+      },
+      {
+        "title": "Admissions Bias Analysis",
+        "description": "AI models evaluate predictive admissions systems for bias across demographic groups, incorporating fairness metrics to assess gender, race, and first-generation student status."
+      },
+      {
+        "title": "Explainable Admission Scoring",
+        "description": "UT Austin's GRADE system uses logistic regression to estimate admission probability while maintaining transparency, reducing review time while preserving explainability."
+      }
+    ],
+    "detailedContent": "AI technologies have become central to enrollment management strategies at U.S. colleges and universities. Institutions face intense competition for students, and AI-powered tools offer more efficient and effective recruitment processes. Predictive models analyze historical data on student characteristics, behaviors, and outcomes to forecast which prospective students are most likely to enroll."
   },
   {
     "id": "onboarding",
-    "area": "Student Onboarding",
+    "area": "Student Onboarding & Orientation",
     "description": "Automated orientation, personalized learning paths",
-    "benefits": "Streamlined processes, better student preparation",
-    "examples": "Multiple U.S. universities",
-    "icon": "clipboard-check"
+    "benefits": "Streamlined processes, better student preparation, reduced summer melt",
+    "examples": "Georgia State University",
+    "icon": "clipboard-check",
+    "useCases": [
+      {
+        "title": "Summer Melt Prevention",
+        "description": "Georgia State's conversational AI uses text-message-based communication to guide students through pre-enrollment tasks like immunization records, financial aid paperwork, and deposit payments."
+      },
+      {
+        "title": "Deep Reinforcement Learning",
+        "description": "AI systems employ deep reinforcement learning to optimize the timing, content, and frequency of outreach messages, learning what works best for different student profiles."
+      },
+      {
+        "title": "Personalized Task Guidance",
+        "description": "Systems provide individualized step-by-step guidance for each pre-enrollment requirement, adapting to student responses and progress."
+      },
+      {
+        "title": "First-Generation Student Support",
+        "description": "AI-powered support particularly benefits first-generation college students who lack family members with college experience to guide them through complex administrative processes."
+      }
+    ],
+    "detailedContent": "The transition from high school to college represents a critical juncture where many students encounter obstacles that can derail their educational plans. 'Summer melt'—when admitted students fail to enroll in fall—has been a persistent challenge. Georgia State's AI-driven intervention increased enrollment by 3.3 percentage points and reduced failed summer matriculation by 21%."
   },
   {
     "id": "advising",
-    "area": "Academic Advising",
+    "area": "Academic Advising & Student Support",
     "description": "AI advisors, course recommendations, degree planning",
     "benefits": "Scalable support, data-driven guidance, early intervention",
-    "examples": "Georgia State, University of Maryland",
-    "icon": "graduation-cap"
+    "examples": "Georgia State, University of Maryland, Elon University",
+    "icon": "graduation-cap",
+    "useCases": [
+      {
+        "title": "Bias-Aware Advising Chatbots",
+        "description": "University of Maryland's engineering chatbot addresses inequities for underrepresented students, answering questions about course requirements while freeing human advisors for complex needs."
+      },
+      {
+        "title": "Predictive Analytics for At-Risk Students",
+        "description": "Systems analyze course grades, attendance patterns, LMS engagement, and demographic characteristics to identify students at risk of academic difficulty or attrition."
+      },
+      {
+        "title": "Course Tracking and Planning",
+        "description": "Elon University's AI helps students navigate degree requirements, identify optimal course sequences, and alerts to scheduling conflicts or prerequisite issues."
+      },
+      {
+        "title": "Early Warning Systems",
+        "description": "AI integrates with student information systems like Banner to provide real-time alerts to advisors about students who may need intervention."
+      }
+    ],
+    "detailedContent": "Traditional advising models often struggle to provide timely, personalized support, particularly at large institutions where advisor-to-student ratios can exceed 1:500. AI-powered advising systems augment human advisors by providing data-driven insights and 24/7 access to basic advising information."
   },
   {
     "id": "portals",
     "area": "Student Information Portals",
     "description": "Intelligent search, personalized dashboards, predictive alerts",
-    "benefits": "Enhanced user experience, proactive support",
-    "examples": "Campus-wide implementations",
-    "icon": "layout-dashboard"
+    "benefits": "Enhanced user experience, proactive support, 24/7 availability",
+    "examples": "Georgia State Pounce, NVCC Ace, USC Tommy Bot",
+    "icon": "layout-dashboard",
+    "useCases": [
+      {
+        "title": "24/7 Student Support Chatbots",
+        "description": "Georgia State's Pounce provides real-time answers about admissions, financial aid, and registration. NVCC's Ace offers step-by-step guidance for course registration outside business hours."
+      },
+      {
+        "title": "Mental Health Support",
+        "description": "Colorado State University uses chatbots for mental health support, demonstrating AI versatility across different student service domains."
+      },
+      {
+        "title": "AI-Powered Study Tools",
+        "description": "Stanford's QuizBot uses natural language processing for personalized review sessions, reporting 20% increase in student retention of course material."
+      },
+      {
+        "title": "Financial Aid Communication",
+        "description": "Chatbots provide instant, accurate information about complex financial aid processes while handling nuances of individual student situations."
+      }
+    ],
+    "detailedContent": "Student information portals serve as the primary digital interface between students and institutions. Chatbots have become common features, using natural language processing to understand questions and provide relevant responses 24/7, including nights and weekends when human staff are unavailable."
   },
   {
     "id": "lms",
-    "area": "Learning Management",
+    "area": "Learning Management & Adaptive Systems",
     "description": "Adaptive learning platforms, intelligent tutoring systems",
-    "benefits": "Personalized instruction, improved outcomes",
-    "examples": "ALEKS, Carnegie Learning",
-    "icon": "book-open"
+    "benefits": "Personalized instruction, improved outcomes, individualized pacing",
+    "examples": "ALEKS, Carnegie Learning, Knewton",
+    "icon": "book-open",
+    "useCases": [
+      {
+        "title": "Adaptive Math Learning",
+        "description": "Kent State uses ALEKS for developmental math, providing placement testing, progress tracking, and personalized recommendations based on demonstrated knowledge patterns."
+      },
+      {
+        "title": "Intelligent Tutoring Systems",
+        "description": "Systems adjust difficulty and content sequencing based on student performance, providing individualized experiences for students with different preparation levels."
+      },
+      {
+        "title": "Generative AI for Problem-Solving",
+        "description": "Students use tools like ChatGPT for problem-solving and receiving explanations, though institutions grapple with academic integrity implications."
+      },
+      {
+        "title": "Active Learning Enhancement",
+        "description": "Research explores how AI tools enhance active learning in large computer science classes where individual instructor attention is limited."
+      }
+    ],
+    "detailedContent": "Adaptive learning systems adjust the difficulty and sequencing of content based on student performance, providing more individualized learning experiences. This is particularly valuable for students with varying preparation levels in courses like developmental mathematics."
   },
   {
     "id": "assessment",
-    "area": "Assessment & Grading",
+    "area": "Assessment & Analytics",
     "description": "Automated grading, plagiarism detection, learning analytics",
-    "benefits": "Time savings, consistency, insights",
-    "examples": "Turnitin, Gradescope",
-    "icon": "file-check"
+    "benefits": "Time savings, consistency, actionable insights",
+    "examples": "Turnitin, Gradescope, SET Analysis",
+    "icon": "file-check",
+    "useCases": [
+      {
+        "title": "Automated Code Assessment",
+        "description": "AI applications assess programming assignments at scale, providing immediate feedback while raising questions about appropriate AI use in academic work."
+      },
+      {
+        "title": "Student Evaluation Analysis",
+        "description": "NLP and large language models analyze thousands of student comments from teaching evaluations, extracting themes and providing actionable insights to instructors."
+      },
+      {
+        "title": "Plagiarism and AI Detection",
+        "description": "Systems detect both traditional plagiarism and AI-generated content, helping maintain academic integrity in the generative AI era."
+      },
+      {
+        "title": "Learning Analytics Dashboards",
+        "description": "Institutions aggregate engagement data across platforms to identify at-risk students and measure intervention effectiveness."
+      }
+    ],
+    "detailedContent": "AI is transforming how institutions handle assessment and feedback. From automated grading to sophisticated analysis of student evaluations, these tools help institutions make sense of large volumes of data while maintaining consistency and providing actionable insights."
   }
 ]

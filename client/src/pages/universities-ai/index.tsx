@@ -3,6 +3,13 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { 
   ArrowLeft, 
   Users, 
@@ -16,8 +23,15 @@ import {
   Building2,
   Scale,
   FileText,
-  MapPin
+  MapPin,
+  ChevronRight,
+  Lightbulb
 } from "lucide-react";
+
+interface UseCase {
+  title: string;
+  description: string;
+}
 
 interface Application {
   id: string;
@@ -26,6 +40,8 @@ interface Application {
   benefits: string;
   examples: string;
   icon: string;
+  useCases?: UseCase[];
+  detailedContent?: string;
 }
 
 interface Policy {
@@ -82,6 +98,7 @@ export default function UniversitiesAI() {
   const [examples, setExamples] = useState<UniversityExample[]>([]);
   const [policyFilter, setPolicyFilter] = useState<string>("all");
   const [loading, setLoading] = useState(true);
+  const [selectedApp, setSelectedApp] = useState<Application | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -175,21 +192,32 @@ export default function UniversitiesAI() {
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             AI Applications in U.S. Universities
           </h2>
-          <p className="text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
+          <p className="text-muted-foreground mb-2 text-center max-w-2xl mx-auto">
             How American institutions leverage AI across the student lifecycle
+          </p>
+          <p className="text-sm text-primary mb-8 text-center">
+            Click any card to view detailed use cases
           </p>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {applications.map((app) => {
               const IconComponent = iconMap[app.icon] || FileText;
               return (
-                <Card key={app.id} className="border-border/50" data-testid={`card-app-${app.id}`}>
+                <Card 
+                  key={app.id} 
+                  className="border-border/50 cursor-pointer hover-elevate group" 
+                  onClick={() => setSelectedApp(app)}
+                  data-testid={`card-app-${app.id}`}
+                >
                   <CardHeader>
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <IconComponent className="w-5 h-5 text-primary" />
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-primary/10">
+                          <IconComponent className="w-5 h-5 text-primary" />
+                        </div>
+                        <CardTitle className="text-lg">{app.area}</CardTitle>
                       </div>
-                      <CardTitle className="text-lg">{app.area}</CardTitle>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
                     <CardDescription>{app.description}</CardDescription>
                   </CardHeader>
@@ -198,10 +226,12 @@ export default function UniversitiesAI() {
                       <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Benefits</span>
                       <p className="text-sm text-foreground mt-1">{app.benefits}</p>
                     </div>
-                    <div>
-                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Examples</span>
-                      <p className="text-sm text-foreground mt-1">{app.examples}</p>
-                    </div>
+                    {app.useCases && (
+                      <div className="flex items-center gap-1 text-xs text-primary">
+                        <Lightbulb className="w-3 h-3" />
+                        <span>{app.useCases.length} use cases</span>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               );
@@ -209,6 +239,61 @@ export default function UniversitiesAI() {
           </div>
         </div>
       </section>
+
+      <Dialog open={!!selectedApp} onOpenChange={(open) => !open && setSelectedApp(null)}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto" data-testid="dialog-app-detail">
+          {selectedApp && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  {(() => {
+                    const IconComponent = iconMap[selectedApp.icon] || FileText;
+                    return (
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <IconComponent className="w-6 h-6 text-primary" />
+                      </div>
+                    );
+                  })()}
+                  <DialogTitle className="text-xl">{selectedApp.area}</DialogTitle>
+                </div>
+                <DialogDescription>
+                  {selectedApp.detailedContent || selectedApp.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-4 mt-4">
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary">{selectedApp.examples}</Badge>
+                </div>
+
+                {selectedApp.useCases && selectedApp.useCases.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                      <Lightbulb className="w-4 h-4 text-primary" />
+                      Use Cases
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedApp.useCases.map((useCase, idx) => (
+                        <Card key={idx} className="border-border/50" data-testid={`usecase-${idx}`}>
+                          <CardContent className="pt-4">
+                            <h5 className="font-medium text-foreground mb-1">{useCase.title}</h5>
+                            <p className="text-sm text-muted-foreground">{useCase.description}</p>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="pt-4 border-t border-border/50">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Key Benefits</span>
+                  <p className="text-sm text-foreground mt-1">{selectedApp.benefits}</p>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <section id="examples" className="py-16 bg-card/30" data-testid="section-examples">
         <div className="max-w-6xl mx-auto px-6">
