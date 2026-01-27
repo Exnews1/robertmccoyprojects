@@ -1,0 +1,629 @@
+title,url,markdown,author,description,date,image,favicon
+,https://www.nea.org/sites/default/files/2025-06/5.1-ai-policy-overview-of-federal-regulations-final.pdf,"# Federal Regulations Related to Artificial Intelligence
+
+The United States does not have a comprehensive law that covers data privacy; instead, there are federal and state laws that cover various types of data privacy, such as financial data or health information. As of 2024, only California and Virginia have enacted comprehensive state privacy laws.
+
+In recent years, two major federal legislative proposals—the American Privacy Rights Act and the American Data Privacy and Protection Act—surfaced, both aiming in different ways to address data privacy, algorithm transparency, and other concerns in a comprehensive manner. While these proposals are not likely to pass any time soon, it is encouraging to see substantive, high-quality policy proposals circulating.
+
+Related to the data privacy of students, there are currently two federal laws worth mentioning.
+
+# 1\. The Family Educational Rights and Privacy Act of 1974 (FERPA)
+
+FERPA is the federal law that protects the privacy of student education records and applies to all schools and education agencies that receive funds under an applicable program of the U.S. Department of Education.
+
+The last regulatory updates to FERPA predate the widespread use of technology in learning environments, including the storage of education records, the technological generation of records, and the use of technology to support and assess students. School districts and education institutions that are subject to FERPA must interpret this law for how data is accessed, used, and stored in light of artificial intelligence. For instance, using a program to detect AI usage may require students’ work to be processed through an outside third party, which may be a violation of FERPA.
+
+In 2023, UC Santa Cruz issued guidance and warned that using services that purport to detect when AI is used in assignments should not be used without disclosure and consent required under FERPA unless certain preconditions were undertaken pertaining to the service having been purchased and vetted by the institution or that the tool is “protected from external access.”1
+
+Some of the key components of FERPA as it relates to schools include the following:
+
+Parents and guardians have rights to access, review, and request amendments to their child's education records until the student turns 18 or enters post-secondary education. Schools must obtain written consent before disclosing personally identifiable information (PII), with certain exceptions (e.g., health/safety emergencies, transfers, legal
+
+requirements).
+
+Education records include items like grades, disciplinary records, and transcripts, while directory information (e.g., name, grade level) can be shared unless parents and guardians opt out.
+
+Educators and schools must protect student data, including when using digital tools and educational apps, ensuring vendors comply with FERPA rules.
+
+Annual notifications to parents and guardians are required about their FERPA rights, with the ability to opt out of directory information sharing.
+
+# 2\. The Children’s Online Privacy Protection Act (COPPA)
+
+COPPA sets specific requirements for operators of websites or online services that knowingly collect personal data from children under the age of 13. Primarily, it requires direct parental or guardian notification and parental or guardian consent for the collection of these children’s personal information and allows parents and guardians to control what happens to this data. It establishes that companies that collect this information must have clear policies for what information is collected and how it is secured.
+
+COPPA aims to safeguard young students' personal information from being collected and used without parental or guardian consent, thereby enhancing their online privacy and safety.
+
+Schools often use various online educational tools and platforms. In certain situations, schools can provide consent on behalf of parents and guardians for the collection of students' personal information, particularly when the data is used solely for educational purposes. This places a responsibility on educators and administrators to ensure that the digital tools they employ comply with COPPA regulations and adequately protect student data.
+
+In January 2025, the Federal Trade Commission (FTC) finalized amendments to the COPPA rule to address evolving digital practices and enhance children’s online privacy protections. Key updates include:2
+
+Separate Parental or Guardian Consent for Data Disclosure: Operators are now required to obtain distinct verifiable parental or guardian consent before disclosing a child's personal information to third parties. This change aims to give parents and guardians more control over their children's data, especially concerning targeted advertising practices.
+
+Data Retention and Deletion Policies: The amendments mandate that operators retain children's personal information only as long as necessary to fulfill the purpose for which it was collected. They must establish and disclose data retention policies and are prohibited from retaining such information indefinitely.
+
+Enhanced Oversight of Safe Harbor Programs: The FTC introduced stricter
+
+requirements for COPPA Safe Harbor programs, including more detailed reporting and public disclosure of member operators. This measure aims to increase transparency and accountability among organizations that self-regulate under COPPA guidelines.
+
+These updates underscore the importance for educators and school administrators to stay informed about COPPA regulations. Ensuring that the educational technologies and online services used within schools comply with these enhanced privacy protections is crucial to safeguard student data effectively.
+
+# Higher Education
+
+Unfortunately, there are few federal regulations that govern AI directly at the higher education level. Unlike at the Pre-K–12 level, where a local or state education agency or school district may issue guidance for AI, in higher education, institutions and systems may vary widely in terms of disparate policy. While there may be a few examples of university system offices issuing guidance, for the most part, AI guidance is issued by individual institutions or, in many cases, can vary even from department to department within one school.
+
+At the higher education level, a greater degree of academic freedom and autonomy is given to faculty to decide what is taught and how. Attempts at restricting course content or methods could be seen as violating academic freedom. Since most students at higher education institutions are legally adults, there is also a greater degree of control and autonomy given to the student in terms of their own data.
+
+With that said, there are some federal laws that would still apply at the higher education level, including the following:
+
+The Family Educational Rights and Privacy Act (FERPA) still applies at the higher education level. Students 18 years and older, are required to consent the disclosure of education records. AI tools that use education records and related personally identifiable information must have the consent of students under FERPA.
+
+Disclosure of medical “treatment records,” including mental health records, are governed under FERPA.
+
+Laws that prevent bias and discrimination, like Title IX and Title VI of the Civil Rights Act, should guide the creation, use, and applications of AI products to minimize bias and ensure that it does not lead to discrimination against protected classes.
+
+# Intellectual Property and Research
+
+U.S. Copyright Law, enshrined in Title VII of the U.S. Code guides copyright and ownership of created works, including journal articles, books, and other covered intellectual property.
+
+Recent guidance from the U.S. copyright office maintains that human-created works, like journal articles or books, are governed under Title VII and that “copyright protects the original expression in a work created by a human author.” 3 It further stated, however, that copyright “does not extend to the purely AI-generated material.” The Copyright Office has indicated that guidance on the use of AI data-scraping copyrighted material will be forthcoming.",,,,,
+AI in Higher Education: Protecting Student Data Privacy | EdTech Magazine,https://edtechmagazine.com/higher/article/2026/01/ai-higher-education-protecting-student-data-privacy-perfcon,"[Skip to main content](https://edtechmagazine.com/higher/article/2026/01/ai-higher-education-protecting-student-data-privacy-perfcon#main-content)
+
+[![Home](https://edtechmagazine.com/themes/cdw/images/logo-cdw@2x.png)](http://www.cdw.com/ ""CDW"")[![Home](https://edtechmagazine.com/themes/cdw/images/logos/sites/cdw_edtech_higher_dark.png)![Home](https://edtechmagazine.com/themes/cdw/images/logos/sites/cdw_edtech_higher.png)](https://edtechmagazine.com/higher/ ""Home"")MENU
+
+[Log in](https://edtechmagazine.com/higher/user)
+
+Search
+
+![Person coding on computer](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/cdw_article_hero/public/articles/%5Bcdw_tech_site%3Afield_site_shortname%5D/202601/GettyImages-2233679888.jpg?itok=7eaWOBdP)
+
+[Home](https://edtechmagazine.com/higher/)»[Artificial Intelligence](https://edtechmagazine.com/higher/artificial-intelligence)
+
+[Close](https://edtechmagazine.com/higher/article/2026/01/ai-higher-education-protecting-student-data-privacy-perfcon#)
+
+![](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/maganize_modal/hied-modal-image_0.jpg)
+
+### New Workspace Modernization Research from CDW
+
+See how IT leaders are tackling workspace modernization opportunities and challenges.
+
+[Click Here to Read the Report](https://shorturl.at/pdHeO)
+
+ListenPause
+
+00:00
+
+While artificial intelligence has long supported higher education research initiatives, it’s now expanding into areas that touch student data. Examples include face recognition in surveillance cameras and personal information stored in learning management systems.
+
+As vetted vendors enable AI features in new, free tools that are marketed to faculty and students, IT departments face mounting pressure to keep private information and sensitive data secure.
+
+[_**Click the banner below** for expert guidance on incorporating artificial intelligence in higher education._](https://www.cdw.com/content/cdw/en/articles/networking/as-higher-education-evolves-institutions-should-engage-stakeholders-differently.html)
+
+[![XS_Q225_AI_cta_desktop04](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/2026-01/XS_Q225_AI_cta_desktop04_0.gif)](https://www.cdw.com/content/cdw/en/articles/networking/as-higher-education-evolves-institutions-should-engage-stakeholders-differently.html)[![XS_Q225_AI_cta_mobile04](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/2026-01/XS_Q225_AI_cta_mobile04_0.gif)](https://www.cdw.com/content/cdw/en/articles/networking/as-higher-education-evolves-institutions-should-engage-stakeholders-differently.html)
+
+## Types of Data Collected and Processed in Higher Education
+
+The data and systems that use AI will vary among institutions and departments, says Jay James, cybersecurity operations manager at [Auburn University](https://www.auburn.edu/). Faculty may use AI-driven tools for research, grading assistance, or validating student-produced work — all of which pose their own cybersecurity risks.
+
+Even with policies in place, faculty, staff or students may bypass institutional controls by signing up for free AI tools, potentially exposing protected university data. These technologies are also increasingly embedded in admissions and recruitment workflows, explains Justin Miller, associate professor of practice in [cyber studies](https://online.utulsa.edu/programs/graduate-degrees/cybersecurity/) at the [University of Tulsa](https://utulsa.edu/).
+
+“AI-driven platforms routinely gather the obvious data — assignments, grades, application materials — but they also capture a layer of behavioral metadata that most people never notice,” explains Miller, who is also a retired senior special agent with the [U.S. Secret Service](https://www.secretservice.gov/).
+
+For example, recruitment platforms may track the behavior pattern of prospective students, such as how long they linger on admission requirements webpages or how frequently they visit a page with application deadlines, says Miller.
+
+“This invisible data helps build a predictive profile.”
+
+Many AI use cases rely on aggregated data and build a summary profile of a student type rather than tracking an individual person. However, student data is still being collected in multiple systems, some of which may be unknown to university cybersecurity teams.
+
+[_**WATCH:** Industry experts discuss the top AI trends in 2026._](https://www.cdw.com/content/cdw/en/articles/ai/4-tech-trends-ai-2026.html)
+
+## Compliance Challenges: Navigating FERPA and Biometric Privacy Laws
+
+Higher education can often be a minefield of laws and regulations to follow, such as contract requirements from the federal government, biometric privacy laws and recording consent laws at the state level, and the [Family Educational Rights and Privacy Act](https://edtechmagazine.com/higher/article/2022/05/how-ensure-ferpa-compliance-colleges-and-universities-perfcon).
+
+“Universities operate in a complex legal landscape,” says Miller, who recommends establishing an AI committee that brings together stakeholders from IT, legal, HR and academic leadership. Close collaboration between IT and legal is paramount for navigating laws, as they can evolve swiftly. This is especially true of collecting and storing biometric data, which is explicitly banned in certain states.
+
+The committee should also be responsible for developing an [AI security framework](https://edtechmagazine.com/higher/article/2024/06/data-security-best-practices-ai-tools-higher-education). As Miller describes it, the framework should include “clear standards for what data is collected, how it is used and what third-party vendors are permitted to do with it.”
+
+James echoes Miller’s recommendation, noting that AI impacts almost every institutional function.
+
+“AI is a technology that touches research, instruction, student access, administrative operations and cybersecurity,” he says. “The institutions that approach AI as a cross-functional effort rather than a technology department initiative will be in a better position to be successful.”
+
+![Justin Miller](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/pull_quote_130_x_130_/public/2026-01/Justin%20Miller.jpg?itok=zwRFVedo)
+
+The most overlooked issue is ensuring that student data is not used to train external AI models.”
+
+Justin Miller
+Associate Professor of Practice in Cyber Studies, University of Tulsa
+
+## Cyberthreats and Data Breaches: Risks Facing Student Data Security
+
+The role of the university chief information officer is not an enviable one lately. While traditional, trusted cybersecurity measures should be the norm, AI introduces new layers of risk and complexities. However, one non-negotiable should be investigating how data is used and stored by AI tools.
+
+“AI is creating a revolution in data management, and universities need to build strong guardrails to ensure that student data is collected and stored securely. That begins with policy and governance,” explains Miller.
+
+Miller says that IT should ask three critical questions of any AI vendor:
+
+- Will student data be used to train public models?
+- How long is the data retained?
+- Who owns the insights and outputs generated from the data?
+
+[_**RELATED:** Identity and access management’s role is evolving in the era of AI._](https://www.cdw.com/content/cdw/en/articles/security/navigating-identity-access-management-in-era-ai.html)
+
+Vendors should never be allowed to use student data for model training, nor should vendors retain that data.
+
+“The most overlooked issue is ensuring that student data is not used to train external AI models,” says Miller. “Data should be completely segregated and retained for the shortest possible period of time, so it never enhances the vendor’s external model. Institutions should require minimal retention, preferably deletion immediately after the session. And ownership must remain with the university and the student.”
+
+Some higher education institutions are addressing this risk by maintaining local control of AI infrastructure. For example, the [University of Montana](https://www.umt.edu/) worked with [Amazon Web Services](https://www.cdw.com/content/cdw/en/brand/aws.html) and [Microsoft](https://www.cdw.com/content/cdw/en/brand/microsoft.html) to create a university-owned data center that runs enterprise-grade models directly from these companies. This system ensures all data is hosted in the university system and isn’t used to train any models.
+
+“We’re doing what we can to control the situation,” says Zach Rossmiller, associate vice president and CIO at the University of Montana.
+
+[_**SUBSCRIBE:** Sign up to get the latest_ EdTech _content delivered to your inbox weekly._](https://edtechmagazine.com/k12/cdw_subscription_v3/register-web?form=newsletter)
+
+[![het_newsletter_animated_q125_signup_desktop](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/2026-01/het_newsletter_animated_q125_signup_desktop_0.gif)](https://edtechmagazine.com/k12/cdw_subscription_v3/register-web?form=newsletter)[![het_newsletter_animated_q125_signup_mobile](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/2026-01/het_newsletter_animated_q125_signup_mobile_0.gif)](https://edtechmagazine.com/k12/cdw_subscription_v3/register-web?form=newsletter)
+
+Rossmiller and his team noticed that additional challenges tend to arise when approved vendors begin to offer new AI features that haven’t been vetted. In those instances, features must be disabled until a secondary vetting review is completed to understand how data is being handled.
+
+These conversations can be challenging to have with faculty, staff and students who are eager to adopt technology and efficiencies into their lives. Rossmiller has found that once he and his team begin to explain the “why” behind their actions — how the AI models work, what the risks are and how the university plans to keep their data and personal information secure — they’re met with gratitude and understanding.
+
+“This is not just an IT problem; [it’s a shared responsibility across the institution](https://edtechmagazine.com/higher/article/2025/12/ai-higher-education-guide-teachers-perfcon) to ask hard questions about AI privacy, governance and risk before we turn features on. Our students deserve nothing less,” he says. “AI is moving fast, but our responsibility stays the same: Protect our students’ information and maintain the trust they place in us. Every decision we make on AI features is anchored in that responsibility.”
+
+[_**EXPLORE:** AI Is reshaping cloud strategy and governance in higher education._](https://edtechmagazine.com/higher/article/2025/12/how-ai-reshaping-cloud-strategy-and-governance-higher-education)
+
+## Best Practices for Protecting Data Used by AI
+
+Beyond the recommendations already outlined, a resounding recommendation from James, Miller and Rossmiller is communicating with faculty, staff and students about the university’s data collection policies.
+
+“Students don’t want to be surprised by how AI uses their information, and they certainly don’t want to receive yet another breach notification telling them that their data has been exposed, and that they’re being offered free credit monitoring,” says Miller. “We need clear expectations about what data is collected, why it’s collected, how long it’s retained and how it’s protected to build trust.”
+
+Miller recommends building an AI transparency page on the institution’s website to explain these very details.
+
+“You’re simply giving students clear information without expanding your attack surface,” explains Miller. “Clear communication builds trust, shows respect for the students’ information, and reduces the likelihood of misunderstandings or legal challenges.”
+
+Rossmiller hopes for a day when AI literacy is fully entrenched in the higher education curriculum, including faculty training. When students and faculty understand how AI works, it’s easier to [understand the risks associated with the tool](https://edtechmagazine.com/higher/media/video/educause-2024-risks-and-rewards-artificial-intelligence-higher-education).
+
+“Higher education is positioned to help lead the charge,” says Rossmiller.
+
+pixdeluxe/Getty Images
+
+
+[Twitter](https://edtechmagazine.com/#twitter) [Facebook](https://edtechmagazine.com/#facebook) [LinkedIn](https://edtechmagazine.com/#linkedin) [Reddit](https://edtechmagazine.com/#reddit) [Flipboard](https://edtechmagazine.com/#flipboard) [Email](https://edtechmagazine.com/#email)
+
+[![](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/CTA_Slides/Insider%20Promo_footer_article%20page%20%281%29.png)](https://edtechmagazine.com/higher/cdw_subscription_v3/register-web?form=insider)
+
+### More On
+
+- [Curriculum](https://edtechmagazine.com/higher/classroom/curriculum)
+- [Data Management](https://edtechmagazine.com/higher/data-analytics/data-management)
+- [Compliance](https://edtechmagazine.com/higher/management/compliance)
+- [IT Governance](https://edtechmagazine.com/higher/management/it-governance)
+- [Policies](https://edtechmagazine.com/higher/management/policies)
+- [Training](https://edtechmagazine.com/higher/management/training)
+- [Data protection](https://edtechmagazine.com/higher/security/data-protection)
+- [Privacy](https://edtechmagazine.com/higher/security/privacy)
+- [Threat Prevention](https://edtechmagazine.com/higher/security/threat-prevention)
+
+### Related Articles
+
+[![Concept image of student mental health benefitting from AI](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/related_stories_thumb/public/articles/%5Bcdw_tech_site%3Afield_site_shortname%5D/202601/HiEdQ425_Brereton_hero.jpg?itok=WQYQJW4_)](https://edtechmagazine.com/higher/how-ai-supports-student-mental-health-in-higher-education-perfcon)
+
+[Artificial Intelligence](https://edtechmagazine.com/higher/artificial-intelligence)
+
+[![AI hero image](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/related_stories_thumb/public/articles/%5Bcdw_tech_site%3Afield_site_shortname%5D/202601/CDW_web_Hero_template.jpg?itok=7O19FHlH)](https://edtechmagazine.com/higher/article/2026/01/your-ai-falling-short-its-probably-bad-data)
+
+[Artificial Intelligence](https://edtechmagazine.com/higher/artificial-intelligence)
+
+[![Person walking with phone and headphones](https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/related_stories_thumb/public/articles/%5Bcdw_tech_site%3Afield_site_shortname%5D/202512/GettyImages-2183592718.jpg?itok=iU9ZC0uy)](https://edtechmagazine.com/higher/article/2025/12/how-ai-reshaping-cloud-strategy-and-governance-higher-education)
+
+[Artificial Intelligence](https://edtechmagazine.com/higher/artificial-intelligence)
+
+Copyright © 2026CDW LLC 200 N. Milwaukee Avenue,Vernon Hills, IL 60061
+
+[Do Not Sell My Personal Information](https://edtechmagazine.com/higher/article/2026/01/ai-higher-education-protecting-student-data-privacy-perfcon#)
+
+login.dotomi.com
+
+# login.dotomi.com is blocked
+
+This page has been blocked by an extension
+
+- Try disabling your extensions.
+
+ERR\_BLOCKED\_BY\_CLIENT
+
+Reload
+
+
+This page has been blocked by an extension
+
+![](<Base64-Image-Removed>)![](<Base64-Image-Removed>)
+
+Copy link
+
+✓
+
+Thanks for sharing!
+
+Find any service
+
+[AddToAny](https://www.addtoany.com/ ""Share Buttons"")
+
+[More…](https://edtechmagazine.com/higher/article/2026/01/ai-higher-education-protecting-student-data-privacy-perfcon#addtoany ""Show all"")
+
+A2A",,"As AI adoption accelerates across campuses, higher education leaders must balance innovation with data privacy, security and governance.",,https://edtechmagazine.com/higher/sites/edtechmagazine.com.higher/files/styles/cdw_hero/public/articles/%5Bcdw_tech_site%3Afield_site_shortname%5D/202601/GettyImages-2233679888.jpg?itok=_IZucKsk,https://edtechmagazine.com/higher/themes/cdw_edtech_higher/favicon.ico
+,https://publicinterestprivacy.org/ai-laws/,"From Data Privacy to Discrimination: Examining the Legal Ramifications of AI in Schools – Public Interest Privacy Center [Skip to content](https://publicinterestprivacy.org/ai-laws/#content)
+
+# **From Data Privacy to Discrimination:**
+
+## _Examining the Legal Ramifications of AI in Schools_
+
+_April 2024_
+
+**Morgan Sexton and Amelia Vance**
+
+_CC BY-NC 4.0_
+
+![](https://publicinterestprivacy.org/wp-content/uploads/2024/04/2024-04-04-700x510-13.png)
+
+# Introduction
+
+The incorporation of artificial intelligence (AI) seems to be everywhere at the moment - and schools are no different! While using AI to improve systems and educational outcomes for students is an exciting prospect, it should be done carefully and with consideration for the legal landscape. AI in education is subject to a myriad of education, child privacy, consumer, and civil rights laws. We've created this brief to provide an overview of the laws that educators and administrators should be considering before integrating AI powered tools.
+
+## Federal
+
+Many existing federal laws will impact how AI can be used in education, including laws that were passed long before modern technology was widely incorporated into classroom instruction. The following are some examples of major federal laws and how they may apply to AI in education.
+
+## Family Educational Rights and Privacy Act (FERPA)
+
+FERPA requires schools to protect the privacy of personally identifiable information (PII) in education records and give parents (and eligible students) certain rights to this information. The amount of PII in education records increases with more technology in schools, especially with AI systems that are trained on and continually using student data. FERPA’s high standard for de-identification can limit the type and amount of student PII that can be used in AI systems, since the risk of being able to re-identify students grows as more information is included and AI systems may reveal sensitive student information. Additionally, it can be difficult to determine whether AI tools protect PII in accordance with FERPA and to facilitate the exercising of parents and eligible students’ FERPA rights.
+
+_**TIP**: Consult with a vendor’s privacy policies or other statements about a product to better understand how they may protect student PII._
+
+## **The Elementary and Secondary Education Act (ESEA) and the Every Student Succeeds Act (ESSA)**
+
+ESEA, the primary law governing K-12 education, directs educators to implement interventions that are grounded in research. ESSA, the latest reauthorization of ESEA, requires “evidence-based interventions.” Interventions applied under ESSA (including technologies adopted with AI) are required to meet ESSA’s tiers of evidence, which is usually accomplished through formal studies and research.
+
+## Individuals with Disabilities in Education Act (IDEA)
+
+IDEA ensures that students with disabilities have access to a free and appropriate public education. IDEA includes specific privacy and nondiscrimination requirements, which can be implicated by the use of AI in schools. AI tools can be used as part of a student’s individualized education plan to provide the student with educational services that are customized to support their needs.
+
+![10](data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20510'%3E%3C/svg%3E)
+
+**Protection of Pupil Rights Amendment (PPRA)**
+
+PPRA requires schools to give parents an opportunity to opt-in or opt-out of certain data collection from students involving eight protected topics. AI tools that ask for (or otherwise enable students to input) information related to the eight protected topics may implicate parental consent rights under PPRA. Additionally, PPRA can be implicated when AI tools are used in the administration of surveys to students.
+
+## **Title VI of the Civil Rights Act of 1964 (Title 6)**
+
+Title 6 prohibits discrimination on the basis of race, national origin, or color in educational programs and activities. AI tools used in schools may perpetuate race-based discrimination when the systems are trained on undiverse datasets or reflect the biases of the system’s creator or historical racial inequalities. Using such tools can further promote systemic racism and inequalities in education.
+
+## **Title IX of the Education Amendments of 1972 (Title 9)**
+
+Title 9 prohibits discrimination on the basis of sex in educational programs and activities. AI tools used in schools may perpetuate sex-based discrimination when the systems are trained on unrepresentative datasets or reflect gender stereotypes or the biases of the system’s creator. This can be harmful to students using such AI tools, especially students whose sexual orientations or gender identities are not represented in the dataset.
+
+## **The Americans with Disabilities Act (ADA)**
+
+Title II of the ADA prohibits disability discrimination by all public entities, including educational agencies and institutions. Assistive technologies with AI functionalities can help students with disabilities access educational experiences. Disability discrimination can result when schools implement overly-broad bans on the use of AI or require the use of AI tools that are not designed to be accessible or inclusive for those with disabilities.
+
+![25](data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20700%20510'%3E%3C/svg%3E)
+
+## **Section 504 of the Rehabilitation Act (Section 504)**
+
+Section 504 prohibits disability discrimination in educational programs and activities. Similar to the ADA (discussed above), assistive technologies with AI functionalities can help students with disabilities gain access to educational experiences. Disability discrimination can result when schools implement overly-broad bans on the use of AI or require the use of AI tools that are not designed to be accessible or inclusive for those with disabilities.
+
+## **Children’s Online Privacy Protection Act (COPPA)**
+
+COPPA requires companies to obtain verifiable consent from parents (or schools, where applicable) before collecting or disclosing data from children under 13. COPPA does not regulate schools directly, but often regulates school technology providers (including edtech companies) that collect data from students under 13. COPPA is implicated whenever AI tools used in schools collect information from children and may limit how children’s data can be used to train AI tools.
+
+## **Children’s Internet Protection Act (CIPA)**
+
+CIPA requires entities that receive E-Rate funding to engage in internet filtering and monitor internet content. Schools often use AI tools to facilitate this online content filtering and student monitoring.
+
+## **Section 5 of the Federal Trade Commission Act (FTC Act)**
+
+Section 5 of the FTC Act prohibits unfair or deceptive trade practices and empowers the Federal Trade Commission (FTC) to bring enforcement action against companies who violate the act. The FTC has repeatedly used this authority to regulate companies’ (including edtech providers) implementation of AI tools and data governance practices.
+
+## State
+
+Unlike at the federal level where laws are often slower to adapt to technological advancements, state policymakers have more flexibility to address potential concerns surrounding AI in a more timely manner. Many states have taken significant measures to regulate AI, such as forming specialized task forces, issuing executive orders, and publishing guidance.
+
+In addition to laws specifically focused on AI in education, a wide variety of state laws can impact the use of AI in education, including:
+
+## **AI and Government Laws**
+
+Several states have passed laws regulating how governmental entities can use AI tools. Public schools are governmental entities, which means the use of AI in education may be regulated under these laws unless there is a specific exception for schools and their service providers.
+
+![2023-12-12 Canva Adapted Image (32)](data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201920%201080'%3E%3C/svg%3E)
+
+## State Student Privacy Laws
+
+States have passed almost 150 student privacy laws since 2014. These laws tend to fall into two broad categories: laws regulating educational institutions and laws regulating vendors. Both types of state student privacy laws may regulate how AI tools are permitted to be used in classrooms, as well as how student data can be used to train algorithms.
+
+## **State Consumer Privacy Laws**
+
+16 states\* have passed comprehensive consumer privacy laws as of April 2024, some of which regulate nonprofits. These laws may give consumers certain rights when AI tools are used, including the right to opt-out of automated decision-making, and may provide heightened protections for children.
+
+## **Record Retention and Management Laws**
+
+Every state has a law related to the retention and management of education records. These laws may be implicated when student information is used to train algorithms or is otherwise input into AI tools.
+
+## **State Child Privacy Laws**
+
+Several states have passed laws that create or expand privacy rights for minors. One example is children’s online safety bills that require technology providers to protect children from potential harms on their platforms, including through prohibiting the use of AI to increase children’s engagement on the platform.
+
+![Students at Sutton Middle School use online research to answer questions during a lesson in history class.](data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201024%20683'%3E%3C/svg%3E)
+
+## **State Unfair and Deceptive Practices Laws**
+
+Every state has a law prohibiting unfair and deceptive practices that often mirrors and builds upon Section 5 of the FTC Act (discussed above), some of which regulate nonprofits. Many state unfair and deceptive practices laws govern the use of AI tools.
+
+## **Laws Restricting Specific Technologies**
+
+Several states have passed laws restricting or prohibiting the use of emerging technologies that incorporate certain AI-powered functionalities. This may include regulating the use of biometric and facial recognition systems (such as New York’s moratorium on the use of facial recognition technologies in schools), personalized recommendation and content filtering algorithms, automated decision-making with material legal implications, and many others. State laws imposing technology-specific restrictions may impact how different AI-powered technologies can be utilized in education.
+
+\*16 states have passed comprehensive consumer privacy laws since 2018, most of which have been passed in the last 2-3 years. This includes: [CA](https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?division=3.&part=4.&lawCode=CIV&title=1.81.5), [CO](https://coag.gov/resources/colorado-privacy-act/), [CT](https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&bill_num=SB00006&which_year=2022), [DE](https://legis.delaware.gov/BillDetail?LegislationId=140388), [FL](https://www.flsenate.gov/Session/Bill/2023/262), [IA](https://www.legis.iowa.gov/legislation/BillBook?ga=90&ba=SF%20262), [IN](https://iga.in.gov/legislative/2023/bills/senate/5/details), [KY](https://apps.legislature.ky.gov/record/24RS/hb15.html), [MT](https://laws.leg.mt.gov/legprd/LAW0210W$BSIV.ActionQuery?P_BILL_NO1=384&P_BLTP_BILL_TYP_CD=SB&Z_ACTION=Find&P_SESS=20231), [NH](https://www.gencourt.state.nh.us/bill_status/billinfo.aspx?id=865&inflect=1), [NJ](https://www.njleg.state.nj.us/bill-search/2022/S332), [OR](https://olis.oregonlegislature.gov/liz/2023R1/Measures/Overview/SB619), [TN](https://wapp.capitol.tn.gov/apps/BillInfo/Default.aspx?BillNumber=HB1181&GA=113), [TX](https://capitol.texas.gov/BillLookup/History.aspx?LegSess=88R&Bill=HB4), [UT](https://le.utah.gov/~2022/bills/static/SB0227.html), and [VA](https://law.lis.virginia.gov/vacodefull/title59.1/chapter53/). _(Note: Florida's law is narrower than others.)_
+
+## Local Entities
+
+Local government and other entities can also play a key role in regulating AI in education. Private and independent schools may have their own AI policies. Be sure to check if your local entities have passed their own AI guidance or policies, including your city or county–some have banned governmental entities from using AI-based technologies [like facial recognition](https://www.banfacialrecognition.com/map/)–and your local school board.
+
+# Closing Thoughts
+
+While there are many potential benefits to incorporating AI in education, schools must also be mindful of the legal implications that come with its use. From safeguarding student privacy to addressing biases and discrimination, schools are responsible for adhering to a variety of complex federal, state, and local laws and regulations when implementing AI. Our aim is to shed light on the legal landscape surrounding the use of AI in schools as it is rapidly changing, equipping educators and administrators with the baseline knowledge they need to identify the relevant laws.
+
+### 1 thought on “From Data Privacy to Discrimination: Examining the Legal Ramifications of AI in Schools”
+
+1. Pingback: [AI in Education – Allison Roberts](https://alliecatmar.com/staging/ai-in-education/)
+
+
+Comments are closed.",,,,,
+An Important Consideration Regarding AI and Education – Cornell Journal of Law and Public Policy,https://publications.lawschool.cornell.edu/jlpp/2024/11/01/an-important-consideration-regarding-ai-and-education/,"## An Important Consideration Regarding AI and Education
+
+1 Nov 2024
+
+![](https://publications.lawschool.cornell.edu/jlpp/wp-content/uploads/sites/3/2024/10/AI-and-Education.jpg)
+
+( [Source](https://www.gettingsmart.com/podcast/the-future-is-here-artificial-intelligence-what-it-means-for-our-kids-2/))
+
+Artificial intelligence is a growing field of technology that has the potential to [fundamentally transform the American education industry](https://www.unesco.org/en/digital-education/artificial-intelligence). The field has already [produced many beneficial innovations](https://www.brookings.edu/articles/how-artificial-intelligence-is-transforming-the-world/) and has contemplated new ideas which look promising for the near future. For teachers, advances in this area can be helpful because this technology can: [automate administrative tasks, improve student assessments and analytics, and personalize learning content as well as educational experiences](https://www.weforum.org/agenda/2024/04/future-learning-ai-revolutionizing-education-4-0/). With respect to students, artificial intelligence can increase their academic growth because these programs can: [assess a student’s performance and learning style and adjust accordingly, engage students in a more personalized and interactive manner, and help improve their writing skills](https://www.powerschool.com/blog/ai-in-education/#:~:text=AI%20can%20generate%20custom%20learning,with%2C%20maximizing%20their%20learning%20efficiency.). Furthermore, even though some of these benefits have yet to be fully realized, many companies have already created a wide variety of [learning language models](https://www.soterosoft.com/blog/what-is-a-language-learning-model/#:~:text=A%20Language%20Learning%20Model%20(LLM,generate%2C%20and%20interpret%20human%20language.) that already partially accomplish some of these goals.
+
+One of the most famous examples of this is [Chat GPT-3](https://openai.com/index/chatgpt/). This is a learning language model that was [launched on November 30, 2022 by Open AI](https://www.digitallearninginstitute.com/blog/the-impact-of-chat-gpt-on-education), and it [basically interacts with users by having conversations with them](https://openai.com/index/chatgpt/). Anyone who accesses this platform can [enter in a prompt and immediately receive answers, references, and suggestions](https://www.digitallearninginstitute.com/blog/the-impact-of-chat-gpt-on-education) to help them with their specific situation. This is a step up from previous learning language models because the program has already been [trained on massive amounts of data and it continually learns from these interactions without having any intervention](https://www.boardofinnovation.com/blog/using-chat-gpt-for-innovators-enhancing-creativity-and-innovation/#:~:text=It%20uses%20a%20technique%20called,by%20human%20biases%20or%20preconceptions.). Nonetheless, learning language models like Chat GPT-3 are heavily reliant on [collecting data](https://www.forcepoint.com/blog/insights/does-chatgpt-save-data) from people who use their services; this data collection allows companies to generate revenue and improve their learning language models. If schools started to integrate these programs into their own systems, to achieve some of the benefits that were previously mentioned, potential legal issues may arise because this integration might violate privacy laws that apply to the education industry.
+
+A federal privacy law that could be implicated by using things like Chat-GPT in the classroom is the [Federal Education Rights and Privacy Act](https://www.ed.gov/laws-and-policy/ferpa/ferpa-overview) (“FERPA”). FERPA is a law that [“protects the privacy of student education records” by requiring schools to have written permission from either a parent or student in order to release any information that is contained within the applicable student’s education record](https://www.ed.gov/laws-and-policy/ferpa/ferpa-overview). A student’s education record can include, but is not limited to, things such as: [grades, transcripts, and disciplinary records](https://www.bwf.com/navigating-responsible-ai-a-look-through-ferpa-and-hipaa-compliance/). This act only allows disclosure of this information, without the consent of a parent or the student themselves, [if it is given to a party that is enumerated as an exception within the act or if certain conditions are met](https://www.ed.gov/laws-and-policy/ferpa/ferpa-overview). Examples of these exempted non-consensual disclosures include: [other school officials and contractors who have been outsourced institutional services or functions](https://studentprivacy.ed.gov/ferpa#0.1_se34.1.99_131). Nonetheless, schools are also [allowed to disclose directory information without this aforementioned consent, but they must notify students and parents of this and afford them a reasonable amount of time to request nondisclosure](https://www.ed.gov/laws-and-policy/ferpa/ferpa-overview) of such information. FERPA [applies to all schools that receive funds through any United States Department of Education program](https://www.ed.gov/laws-and-policy/ferpa/ferpa-overview). Consequently, FERPA affects almost all public schools, and a large number of [private postsecondary schools](https://www.cdc.gov/phlp/php/resources/family-educational-rights-and-privacy-act-ferpa.html#:~:text=Because%20parochial%20and%20private%20schools,and%20are%20subject%20to%20FERPA.), but it does not impact many [private schools at the elementary or secondary level](https://www.cdc.gov/phlp/php/resources/family-educational-rights-and-privacy-act-ferpa.html#:~:text=Because%20parochial%20and%20private%20schools,and%20are%20subject%20to%20FERPA.). Furthermore, educational institutions who receive Department of Education funding are required to comply with FERPA if they want to continue to receive such funding.
+
+Learning language models can complicate an educational institution’s compliance with FERPA because many of these systems are [trained on student data and continually utilize it](https://publicinterestprivacy.org/ai-laws/) to improve their programs. [FERPA has a high standard for de-identifying personally identifiable information regarding students, and the more information that is fed into these programs increases the likelihood that sensitive information may be revealed](https://publicinterestprivacy.org/ai-laws/). Moreover, even if information is stripped of obvious identifying information, companies could still theoretically associate data with particular students. In this regard, the integration of artificial intelligence into an educational institution’s learning systems can increase the possibility of non-compliance with FERPA’s mandates. However, these risks do not completely foreclose schools and other educational institutions from using artificial intelligence to enhance their teaching capabilities. These institutions should still try to integrate these programs into their education systems, because of the potential benefits that they may provide, but education institutes covered by FERPA will need to do their [due diligence](https://www.bwf.com/navigating-responsible-ai-a-look-through-ferpa-and-hipaa-compliance/) on these programs. This due diligence should include conversations with companies regarding things such as how they [collect, protect, anonymize, and use](https://www.bwf.com/navigating-responsible-ai-a-look-through-ferpa-and-hipaa-compliance/) student data.
+
+Suggested Citation: Brian Kam, _An Important Consideration Regarding AI and Education_, Cornell J.L. & Pub. Pol’y, The Issue Spotter, (Oct. 31, 2024), [https://jlpp.org/an-important-consideration-regarding-ai-and-education](https://jlpp.org/an-important-consideration-regarding-ai-and-education).
+
+![](https://jlpp.org/wp-content/uploads/2024/10/Brian-Kam-Headshot-225x300.jpg)Brian Kam is a second-year law student at Cornell Law School. He graduated from the University of California, Los Angeles with a degree in Political Science. Besides his involvement with Cornell Law School’s Journal of Law and Public Policy, he is also an Associate for the Legal Information Institute’s Supreme Court Bulletin, and he is the Treasurer of the California Law Students Association.
+
+We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.Ok",,,,https://publications.lawschool.cornell.edu/jlpp/wp-content/uploads/sites/3/2024/10/AI-and-Education.jpg,https://publications.lawschool.cornell.edu/android-icon-192x192.png
+Ed/AI legal compliance,https://fpf.org/wp-content/uploads/2024/10/Ed_AI_legal_compliance.pdf_FInal_OCT24.pdf,"# Vetting Generative AI Tools for Use in Schools
+
+David Sallay, Future of Privacy Forum, April 2024
+
+# AUTHORED BY
+
+# David Sallay
+
+Director for Youth & Education Privacy
+
+# ACKNOWLEDGEMENTS
+
+The author would like to thank Jim Siegl, Alexa Mooney, Daniel Hales, Anne Flanagan, and the many experts and stakeholders whom were consulted for their contributions to the report
+
+The Future of Privacy Forum (FPF) is a non-profit organization that serves as a catalyst for privacy leadership and scholarship, advancing principled data practices in support of emerging technologies. Learn more about our work by visiting fpf.org .
+
+# Table of Contents
+
+Executive Summary 3
+
+Introduction 5
+
+What should a school include in a legal compliance review? 6
+
+What is unique about AI tools in edtech? 8
+
+Understand the most common use cases \_10
+
+Does the use case require student PII? 11
+
+Is the technology able to meet requirements for transparency and explainability? 14
+
+Will the company use student PII for product improvement? 16
+
+Ensuring that student PII does not appear in the AI edtech tool’s output
+
+Will the tool be used for substantive decision making?
+
+Takeaways 1
+
+# Incorporating Generative AI Into Your School’s App Vetting Checklist 21
+
+# Executive Summary
+
+Edtech tools using artificial intelligence have been in schools for years, but due to the recent widespread release of AI tools that can generate text, images, audio, and video, the topic has risen to the top of public discourse. Schools are developing policies to cover adopting new AI tools, and many organizations have released frameworks of what those policies should cover. These frameworks typically have been light on detail when it comes to privacy, stating that schools need to follow privacy laws, but not explaining how those laws should be implemented as teachers, students, and others use rapidly-evolving AI technologies in the classroom. To address this gap, the Future of Privacy Forum’s Vetting Generative AI Tools for Use in Schools explains the steps schools should consider incorporating into their more general edtech vetting and AI policies. It is crucial to keep in mind that three main classroom communities are using AI tools - students, teachers, and institutions - and AI by these stakeholders can implicate different privacy equities.
+
+# Laws, policies, and agreements that should be included in a legal compliance review
+
+The landscape of privacy laws applying to schools includes federal and state privacy laws, which provide parents and eligible students with rights related to sensitive data collections, transparency, correcting inaccurate information, and place obligations on schools to require specific contract provisions with vendors and maintain prescribed data retention and deletion practices. Adding to this are laws that cover vendor responsibilities, including newer ones relating specifically to AI and high risk decision making. Along with applicable laws, many school districts have local policies in place governing app vetting that should be considered when assessing the appropriateness of an AI tool for school use. Additionally, many companies offering AI tools are already contracted under a written agreement with schools for other services. It is imperative for schools to review these agreements and determine if the use of an AI tool aligns with the terms of the original agreement or if additional terms should be negotiated for specific AI tool use.
+
+# Unique attributes of AI in edtech
+
+Existing student privacy laws have many requirements that a school needs to consider when contracting with any edtech vendor, including those using AI. Because of this, it is important for schools to know what is unique about AI tools, which can then be added to existing review processes. The main differences schools be aware of are
+
+Use case dependent. Since generative AI edtech tools can take more user input to perform any number of tasks as output compared to traditional edtech tools, schools will need to consider the specific use cases for the tool. ● Data collection. Student privacy laws typically will cover use cases where the tool requires student personally identifiable information (PII) as input or where the output from the tool will become part of the student’s record. There are many use cases that do not require student PII, which the school can use without implicating most student privacy laws. Even still, there are many use cases where a school may not be able to control all the information the tool collects, so schools should consider whether the data collection risk can be mitigated or avoided altogether. Transparency and explainability. For tools that use student PII, the school will need to consider how it will meet requirements for transparency and explainability to teachers, parents, and students. State privacy laws frequently require schools to publicly share information on what student data they share and its recipients. Many edtech companies are creating AI transparency pages to better explain the data their tools use and how they make decisions. Product improvement. Many Generative AI tools rely on large amounts of data to continuously train the underlying model that generates responses. Other tools train a model initially but do not use student data to further train the tool. An important question schools need to ask is whether the vendor will use student PII to train the model, and if so, if any additional products the vendor creates with the model are educational or commercial, and if that additional use is permitted under state law. Unauthorized disclosure of student PII. If student PII is used to train the model, then there exists the chance that snippets of the PII will appear in future output from the tool. The school will need to understand the steps the company takes to prevent these sorts of unauthorized disclosures. High risk decision making. Some proposed use cases that involve substantive decision making may be governed by long standing rules or new AI laws.Other uses may have such a high risk of harm to students that schools should be cautious in pursuing them. Potential options schools may consider are only permitting these cases with parental consent, requiring that a human be in the loop, or prohibiting the use case.
+
+# Introduction
+
+Algorithms, analytics, and Artificial Intelligence have been used by K–12 and higher education for some time,1 but recently rose to the top of the public discourse due to the proliferation of new powerful AI tools powered by generative pretrained transformers (GPTs), commonly referred to as generative AI. Generative AI tools rely on large language models that crunch data from multiple sources to produce AI-generated content at unprecedented speed, scale and accuracy. Initially, concerns about this new generation of AI tools related to questions about academic honesty and plagiarism,2 though by the start of the 2023 school year, K–12 organizations seemed more willing to adopt3 them while calling for the development of policies4 and frameworks5,6 to safely use them. Issues to be addressed included protecting copyright, addressing the inaccurate “hallucinations” the tools frequently produce, and also complying with existing law, including privacy laws like the Family Educational Rights and Privacy Act (FERPA) and state laws like California’s Student Online Personal Information Protection Act (SOPIPA). As of 2024, schools are struggling to address policies that determine the use of AI tools by multiple audiences, including edtech vendors and service providers, students, teachers, and school administrative staff. The dawn of generative AI tooling and the reality of the proliferation of their use has made the conversation about AI use policies seem more urgent than ever
+
+Policies and frameworks proposed by US states and professional organizations supporting schools typically look at the use of AI tools holistically (not just the use of generative AI tooling), answering big-picture questions related to pedagogy, procurement, equity, and many others.7 Privacy is often included in these frameworks, though when it comes to legal compliance, they often say little more than that schools should ensure that their adoption complies with state and federal privacy laws, like FERPA, and ensure a process is in place to vet the tools. However, if a school does not know how laws like FERPA and state student privacy laws that protect student personally identifiable information (PII) would apply to the complexities of machine learning systems, this very general direction does not provide adequate guidance.
+
+To address this emerging gap, FPF’s Vetting Generative AI Tools for Use in Schools publication explains the steps a school should typically take to vet an AI tool for compliance with student privacy laws. AI refers to a wider spectrum of tools and technologies,8 some of which have been in schools for years and belonging to the broader field of AI in education.9 This publication will look specifically at text-based generative AI tools—the sort of technology that is top of mind for many school districts right now—because it best illustrates the process for vetting any AI tool, highlighting the questions the reviewer would ask and the ones they likely could not answer without further explanation from the vendor. Our approach, with minor tech-specific modifications, would also be useful when analyzing emerging AI technologies that generate images, audio, video, or other content.
+
+# What should a school include in a legal compliance review?
+
+Most of the privacy laws a reviewer should consider apply directly to the school. For example, FERPA “applies to all schools that receive funds under an applicable program of the U.S. Department of Education.”10 As FERPA does not apply to companies, a given edtech product cannot be “FERPA-compliant,”11 so vetting considers how a tool can be used by a school in a FERPA-compliant manner.12 There are several laws and other legal instruments that a school should consider:
+
+# Federal privacy laws
+
+○ Family Educational Rights and Privacy Act (FERPA), which includes requirements for schools to allow parents and eligible students to inspect and review education records, have a fair process for contesting the accuracy of records, and only share records with consent or by ensuring certain protections are in place.
+
+○ Protection of Pupil Rights Amendment (PPRA), which requires that schools provide parents with the ability to review instructional materials and places restrictions on the collection of certain sensitive information.
+
+○ Children’s Online Privacy Protection Act (COPPA), which is administered by the Federal Trade Commission (FTC) and applies to for-profit companies that collect personal information from children younger than 13. In 2023, the FTC proposed updated regulations to COPPA,13 which would codify long standing guidance on how it applies in the school context.
+
+State student privacy laws. There are more than 128 state student privacy laws,14 which cover additional requirements relating to schools sharing student PII with edtech vendors. These vary state-to-state, but frequently place requirements on the schools (e.g., provide more transparency to parents about sharing of student PII, require specific contract provisions with vendors) and on companies (e.g., prohibitions on creating profiles on students for noneducational purposes, selling student data, using student PII for targeted advertising). State laws also address record retention and deletion by requiring schools to classify records they maintain to adhere to different retention schedules and by placing requirements on vendors to delete records containing student PII at the school’s request or following the termination of the contract.
+
+Other state consumer privacy laws. These laws typically include provisions that exclude data protected by FERPA; however, some include provisions related to automated decision making, which may cover some use cases proposed by schools.
+
+Local policies. Since many schools and districts will already have policies in place that cover app vetting, the reviewer will want to ensure that they follow those existing policies.
+
+Terms of service and existing vendor agreements. The reviewer should also consider the tool’s terms of use and ensure that the proposed use is in alignment. For instance, ChatGPT’s terms of service prohibits children under 13 from using the service and only permits teens to use it via parental consent.15 Furthermore, many of the AI tools that a reviewer considers will be offered by companies the school already has written
+
+agreements with. In this case, the reviewer will want to consider whether the new AI tool and use case are already covered by the agreement or if additional terms should be negotiated.
+
+# What is unique about AI tools in edtech?
+
+Federal and state student privacy laws and local policies already place specific requirements on schools sharing student PII with edtech companies. The process by which a school reviews any new edtech vendor for their compliance with these laws should be part of a larger app vetting process.16 Any legal compliance review will require schools to understand how the data flows from the student to the vendor throughout the data lifecycle, starting with providing any required notice to parents and potentially getting consent before moving onto data collection, data usage and storage, any additional sharing of the data, and finally ending with the eventual deletion of the data.
+
+In most ways, the same principles for vetting edtech tools that collect, use, protect and share student data apply to the emerging technologies of generative AI (e.g., determine if the data exchange follows the requirements of FERPA’s school official exception, have the vendor sign a data protection agreement), but there are some specific unique considerations. Schools should understand what is unique about generative AI tools in the K–12 education privacy context and add that to an existing app vetting process where one exists, rather than inventing a brand new standalone policy for AI. If the school does not have an app vetting process in place yet, they should develop a comprehensive process that considers how to review all apps, including those with AI, instead of proposing two separate processes.17
+
+Due to the specific characteristics of the technology, generative AI tools are more likely to create unique legal compliance issues in the following areas:
+
+Use case dependent. Generative AI tools are powerful in the sense that the user can use plain language to request the tool to perform any number of tasks compared to traditional edtech tools, which generally have more limited outputs (e.g., a math program that only tells the student whether they answered the question correctly or not). Because of this, it is essential that the reviewer consider the specific use cases for the tool as well as whether the tool will prevent unauthorized use cases. Some use cases will relate to when the input entered into the tool contains student PII. The output of a generative AI tool may also be protected, though it will depend on whether the output contains student PII, which it may not (e.g., if an educator entered student PII including test scores and requested output that summarized how the class performed without including any identifiers). The reviewer will want to consider both the inputs and outputs of specific use cases to determine which protections the law requires.
+
+Data collection and processing including potentially proprietary information. Similar to the example above, since generative AI tools generally use an open-ended textbox interface that will prompt the user to provide certain information (i.e., input), the school may not be able to control all the information the tool collects. This risk will be exacerbated if the tool is put in front of students, who may be more inclined to provide information they should not, including student PII and proprietary information from third party sources.
+
+Transparency and explainability. Generative AI tools rely on massive amounts of data to train their models, and that training compounds over time. Even the tool’s designers may not be able to explain why it made the decisions it did as a result of a discrete input from a student. Schools will need to consider how they will meet federal and state requirements to provide parents with transparency and reasonable explanations of what data the tools receive and how they use, maintain, and ultimately dispose of it. Since the vendor will know their product best, they should be prepared to share this information with schools or offer built in safeguards for users as is the commercial trend with business-to-business (B2B) generative AI systems.
+
+Product improvement. Large language model (LLM) tools continue to learn by adding new input into the training data set. Existing student privacy law typically allows for student PII or de-identified data to be used for product improvement for the services provided to the schools, but would not permit it without parental consent if the student PII is used to develop noneducational products. Because of this, the reviewer will need to know if the vendor intends to use student PII to further train their model and if so, what kind of products will use the training data set. This is more likely to be an issue with a vendor providing a general purpose business-to-consumer (B2C) tool than one that is specifically designed for K–12 schools and follows a B2B style model.
+
+Unauthorized disclosure of student PII. Student privacy laws prohibit edtech companies from additional disclosures of student PII except under limited circumstances as directed by the school. Many edtech vendors offering generative AI are contracting with a third party to provide the LLM, and so the school will need to ensure that the proper contract terms are in place for this subcontracting, the same as with any other edtech tool. Where this becomes especially relevant is generative AI output since if student PII is included in the tool’s training set, then there exists the possibility that it will be included in identifiable format in responses to unauthorized users. In this case, the reviewer will want to ensure that the tool takes steps to either prevent student PII from entering the training dataset or from having it be reproduced in identifiable form.
+
+High-risk decision making. Many proposed use cases for generative AI are to save users time by quickly processing documents. Existing federal and state privacy laws do not typically restrict what schools use data for or how they process it, provided that the use case is within the educational context. Newer state laws that target AI in general, however, recognize the risks in entirely automated decision making and have started adding restrictions to their use.
+
+# Understand the most common use cases
+
+Since generative AI tools can be used in a variety of use cases-–ranging from saving time, personalizing learning, providing support (e.g., tutoring), and assisting with creativity-–it is essential that the reviewer first understand the context that the school plans to deploy the tool.
+
+According to Holmes and Tuomi,18 AI edtech tools generally fall into three distinct categories: student-focused, teacher-focused, and institution-focused. This analysis will consider examples of each, namely:
+
+|     |     |
+| --- | --- |
+| Focus of Al edtech tool | Generative Al Examples |
+| Student-focused | Intelligent tutoring system that personalizes learning based on student inputs Mental health chatbot that will discuss the student's personal problems Tool to assist student in writing a personal essay Creativity tool (e.g., photo editing program) that uses Al to quickly generate new images Tool that helps a student generate |
+| Teacher-focused | login Tool used to assist teacher in grading papers,including identifying plagiarism |
+
+|     |     |
+| --- | --- |
+| Focus of Al edtech tool | Generative Al Examples |
+|  | Wizard used to quickly design the teacher's landing page in the Learning Management System Tool used to generate lesson plan |
+| Institution-focused | applications Tool used to generate text for announcements to send to parents Tool used to analyze student attendance and behavior |
+
+Each of these proposed uses will carry different risks, and the purpose of vetting the AI tool is to consider these risks and ultimately determine which course of action to take (e.g., approve, approve only with parental consent, not approve). This publication will largely focus on the risk of not being compliant with federal and state law but will also note some of the risks not covered by current law including perception risks, which are ones where the proposed use may be technically legal, but would likely lead to concerns or complaints from parents, students, or teachers.
+
+# Does the use case require student PII?
+
+FERPA protects education records, which are records that directly relate to a student and are maintained by the school or by a party acting under the direct control of the school on the school’s behalf.19 If the reviewer determines that the use case involves disclosing existing or creating new FERPA protected education records, the school will need to ensure that they are following the protections required by FERPA and able to provide parents and eligible students with the rights granted to them by FERPA.
+
+Typically, records maintained by an edtech tool that the school has students use meet the definition of a record under FERPA and in state student privacy laws if these records include student PII in the input or output. To determine if the record directly relates to the student, the reviewer would want to know whether the record contained student PII as defined in FERPA or state law. Typically, this includes direct identifiers, such as a student’s name, or student ID, as well as indirect identifiers like a birth date. Use cases that would involve direct identifiers include an educator copying a spreadsheet of student scores and requesting that the AI tool perform an analysis or where the educator enters an individual student’s PII and requests that the tool quickly produce an individualized education program (IEP). At this point, several of the example use cases are clearly more likely to include student PII in either the input or output.
+
+|     |     |     |
+| --- | --- | --- |
+| Focus of Al edtech tool | Likely to include student Pll in the input/output | Likely does not include student Pll in the input/output |
+| Student focused | Intelligent tutoring system that personalizes learning based on student inputs Mental health chatbot that will discuss the student's personal problems Student uses the tool to assist in writing a personal essay | Creativity tool (e.g., photo editing program) that uses Al to quickly generate new images Tool that helps a student generate computer code and does not require a log in |
+| Teacher focused | Tool used to assist teacher in grading papers Tool used to analyze spreadsheet of student's scores Tool used to generate letters of recommendation | Tool used to generate lesson plan ideas Wizard used to quickly design the teacher's landing page in the Learning Management System |
+
+|     |     |     |
+| --- | --- | --- |
+| Focus of Al edtech tool | Likely to include student Pll in the input/output | Likely does not include student Pll in the input/output |
+| Institution focused | Tool used to review admissions applications Tool used to analyze student attendance and behavior | Tool used to generate text for announcements to send to parents Tool used to assist in hiring educators and other staff |
+
+There may be some gray area use cases because they only use de-identified records, which are not covered by federal and state student privacy laws. In fact, well intentioned informal guidance at the school may be to tell educators to simply not enter any student PII into the tool, but de-identification is rarely that simple.20 Without clear guidelines and training, it is not clear that all educators know what constitutes student PII. For example, if instead of a student’s name, the educator uses a substitute, such as a student ID, those are also PII in FERPA and in many state laws. If the educator is having students create their own accounts to use the tool, the account creation often requests an email address or other credentials, which are also by definition PII.21 While not a specific step in the vetting process, this demonstrates that establishing and communicating an app vetting policy needs to be complimented by regular privacy training for staff and educators who will use the tools.22
+
+Assuming the educator figures out a way to remove all direct and indirect identifiers, there is still one last criteria in FERPA, which is the reasonable person standard. This includes any other information that alone or in combination could allow a reasonable person in the school community, without any personal knowledge of the situation, to link the record back to the student.23 Since users tend to be conversational with these tools, if the plan is to have students use the tool directly, the reviewer should understand the exact use cases the educator had in
+
+mind to determine whether the student’s input meets this final criteria. If, for example, the student is using the tool as a writing partner to brainstorm ideas for a personal essay for class—even without direct identifiers like a name or student ID—that is more likely to involve student PII that would meet the reasonable person standard than a creativity tool where the student can request that specific images be generated or the use case of having the student generate computer code. In the case of the former, the reviewer would be right to say that a reasonable member of the school community could identify the student, and that the data entered should follow the required protections of state and federal law.
+
+Depending on the specific use case, the reviewer may also need to consider if another federal K-12 student privacy law, the Protection of Pupil Rights Amendment (PPRA), applies.24 PPRA gives parents the right to opt in or opt out of certain sensitive data collections that fall under specific protected categories, such as political or religious views, sexual behaviors, or mental health issues. Whether the data collection requires an opt in or opt out depends on whether the usage is funded by the US Department of Education or not, though certain state laws may require parental consent regardless of funding source.25 Regardless of whether the usage technically falls under the scope of these laws or not, due to the unpredictable nature of generative AI tools, the reviewer should address the perception risk and ask the vendor how the product will handle these and similar sensitive topics should a student spontaneously start asking the question that lead to responses that cover these and similar topics.26
+
+# Is the technology able to meet requirements for transparency and explainability?
+
+Having determined that records created by these tools include student PII either in the input or output, the reviewer next needs to determine how the school will meet requirements for transparency and explainability. Under FERPA, this include providing access to inspect and review education records27 and to provide a fair process to request that inaccurate records be corrected.28 State laws may take this further, requiring that the school proactively share information, often on the school or district’s website, about the recipient of student PII and the specific PII that is shared.
+
+FERPA requires schools to respond to reasonable requests for explanations and interpretations of the records, which in use cases where the tool creates new records as part of the output may be challenging since how AI technology works can be a black box, and in many cases even the technology’s own developers cannot always explain how it makes decisions.29 Beyond legal compliance, studies have shown that this black box creates a perception risk, and students and teachers are more likely to accept and trust AI technologies when given explanations of how they work.30 Therefore, the reviewer will want to reach out to the vendor for more clarification on how they can work together to process these requests.31 Many edtech vendors are currently considering the use of AI transparency pages to proactively provide schools with this information.32
+
+FERPA also requires schools to have a process in place wherein parents can request that the school amend inaccurate records. Since generative AI tools can fabricate information, called hallucinations, this should cause the reviewer to more deeply scrutinize use cases where the tool will create new education records as part of the output, especially where the planned use is for substantive decisions (e.g., grading a student’s paper, designing a student’s IEP). Generative AI tools are marketed as being time savers, but the school would need to weigh the time saved in quickly generating these decisions against the time spent looking for and correcting hallucinations or in processing requests to amend inaccurate records. Furthermore, using generative AI tools to make substantive decisions may be in violation of the company’s terms of service.33
+
+# Will the company use student PII for product improvement?
+
+The general rule under FERPA is that schools may only share records with an edtech company with written parental consent; however, there are several common-sense exceptions to this rule, which the reviewer should consider first when approving before going the parental consent
+
+route. The most common exception when sharing with edtech is “school official,” which permits schools to share with services that perform a service the school would otherwise use its employees for and that are under the direct control of the school. Many state laws add to this requirement by specifying that the direct control should be achieved by a contract with the school that guarantees specific privacy protections.34
+
+One of these requirements that is relevant to generative AI relates to product improvement, specifically whether the service (or its third parties) will use student PII to improve the underlying Large Language Model (LLM). Many edtech products incorporate services like ChatGPT using an Application Programing Interface (API) and have terms35 that state that their product does not use user input to train the ChatGPT AI model.
+
+If the generative AI tool will use data inputs to further train its larger model, the reviewer will need to understand whether the data will be de-identified and what kind of additional tools the company will create from the LLM. Existing FERPA guidance holds that a company “may use data (even in individually identifiable form) to improve its delivery of these applications. The provider may also use any non-PII data, such as metadata with all direct and indirect identifiers removed, to create new products and services.”36 State laws frequently include similar language, such as when California’s Student Online Personal Information Protection Act clarifies that none of the restrictions on vendors “shall be construed to prohibit the operator’s use of information for maintaining, developing, supporting, improving, or diagnosing the operator’s site, service, or application,”37 though in some states the requirements may be more restrictive. For example, New York’s Ed Law 2-D specifies that vendors may not use data “for any other purposes than those explicitly authorized in its contract,”38 and Florida’s student privacy law only permits product improvement with de-identified data.39 Therefore, the reviewer would need to know which types of products the training set was going to help improve, whether they all are educational products, and whether those uses are explicitly authorized in the contract. If the company uses student PII to train noneducational products, then it likely would not pass any of these requirements.
+
+The distinction between the use of student PII to improve the product the school has authorized rather than to create new products is also seen in the recent proposed COPPA rule, which limits the use of student PII for improvement to “the specific educational service that the school has authorized.”40 Furthermore, the FTC has stated that the school may provide consent in place of the parent only if the usage is entirely within the educational context; therefore, if children under 13 will use the generative AI tool, a key question the reviewer should ask is whether the data exchange falls entirely within the educational context or if any of it is in a commercial context. If, for instance, the vendor will use data collected from the child to further train the model and then build noneducational products based on that model, then the school likely cannot provide verifiable consent in place of the parent, and parental consent would be the only approved route for the school to take.
+
+# Ensuring that student PII does not appear in the AI edtech tool’s output
+
+When receiving data under FERPA’s school official exception, vendors are not permitted to reshare student PII except under the direction of the school and when following another FERPA exception. State laws frequently include similar provisions specifically prohibiting resharing or selling student PII.
+
+Since generative AI tools repurpose user input into the training model and use that to create new output, the reviewer would want the company to be explicit with how they would prevent student records from being shared further. This is especially important if student PII will enter the tool’s LLM. For example, in at least one case, Google Bard was accidentally leaking snippets of user chats into public Google search results.41 Though Google has since resolved this specific issue, it highlights the need to ask the question when approving the use of a new AI tool.
+
+# Will the tool be used for substantive decision making?
+
+case of using a generative AI tool to facilitate admissions decisions, the reviewer should also be aware of more general state consumer privacy laws that cover legal or similarly significant effects of any automated decision making. Both Colorado43 and Virginia’s44 laws explicitly list education enrollment in their list of use cases that would require an opt out. Depending on the tool, these use cases may also be in violation of the terms of service.45 Schools using AI tools to make substantive decisions should ensure that there are internal processes in place to manage internal and external risk and ensure that the use of such tools are fit for purpose.
+
+Use cases that are not fully addressed by these types of laws may be in the near future as more states are considering AI specific laws to address any gaps not covered by a patchwork of privacy laws. Even absent specific laws that address AI, there may be an elevated risk of harm to a student. For example, even if a mental health app met all of the privacy requirements in FERPA,46 the unpredictable nature of the tool’s answers could lead to giving potentially dangerous advice. In one case, a generative AI chatbot was quick to give advice that was essentially advocating for an eating disorder.47 Another area of concern is the level of bias these tools may reintroduce. For example, a recent Stanford University study found that when used for writing letters of recommendation, generative AI tools have written letters that discriminate against women meaning the model is biased in its design.48,49 In cases where these use cases are permitted by the law, the reviewer should still consider whether parental consent or ensuring that having a human be in the loop are appropriate to mitigate the risk of harm to students.
+
+Federal and state student privacy laws typically only cover data about students, but some uses will cover educators and other school staff, especially in the area of hiring. For schools considering this use case, FPF has published a separate best practices guide.50
+
+# Takeaways
+
+The main takeaway for schools is if they do not currently have a process for vetting edtech tools, this AI moment around generative AI demonstrates the need for such policies. Schools that already have a process should consider what makes AI unique and add that to the existing process instead of creating a new one. To ensure that schools have adequate capacity to review edtech, state legislatures should ensure that these initiatives are funded and staffed.51 As this review makes clear there are many use cases for generative AI tools that are unlikely to use student PII as an input or create protected records as output, and so student privacy laws are not implicated. Many other use cases will include student PII and will need to follow legal requirements, but if they consider what makes this technology unique as part of their app vetting, then this should be achievable. Finally, there are some use cases where the risks to the student’s privacy are so high that the school should only allow them in limited cases with parental consent, if not outright prohibiting them.
+
+For vendors looking to have their products used in schools, the main takeaway should be that there are existing requirements and protections that schools are going to expect to see, and vendors are going to need to demonstrate that they meet those requirements, or if the existing product currently does not pass muster, vendors will need to create a K–12 education-specific product that does. In order to establish direct control, schools are likely going to request that vendors sign a data protection agreement that covers the relevant legal requirements. If the vendors are not willing to do this, schools will not allow the products in their schools. So that schools can be transparent with parents and students regarding their use of AI, vendors should also consider ways to proactively be transparent to schools about their use of AI and take advantage of edtech professional development conferences to train school staff on the appropriate use of their tools.
+
+# Incorporating Generative AI Into Your School’s App Vetting Checklist
+
+Determine your local requirements for vetting all edtech: Vetting a generative AI tool will have much in common with vetting any edtech tool. Ideally, your school/district already has policies in place for this review. If not, the school should develop a more comprehensive policy for vetting edtech. A comprehensive policy based on existing federal and state laws may include the following:
+
+○ Keeping student data safe from commercial purposes (e.g., not selling data, prohibiting targeted advertising)
+
+○ Requiring data breach notification
+
+○ Requirements for data minimization, de-identification, and aggregation
+
+○ Specific requirements for vendor contracts
+
+$\\bigcirc$ How to address what is unique about AI technologies
+
+Describe the proposed use case(s): Since generative AI tools can be used for a variety of applications, the reviewer will need to understand the specific use cases and whether they are covered by existing student privacy laws, consumer privacy law, or AI laws.
+
+○ Will the use case require student PII as input?
+
+$0$ Will the tool’s output also be considered student PII?
+
+$\\bigcirc$ Does the use case involve substantive decision making? If so, determine which precautions are adequate to address risk:
+
+human-in-the-loop consent/opt out prohibiting the use case
+
+Prepare to address transparency and explainability: If the use case involves student PII, the school needs to be prepared to answer the following:
+
+○ Are you able to explain how the tool will be used and how the data will flow to teachers, parents, and students?
+
+○ Does the vendor provide an AI transparency page that explains how the tool works?
+
+Determine if student PII from the tool will train the large language model (LLM):
+
+○ If so, determine if additional tools built on the model will be educational products
+
+Check if your state law will permit additional product development with student PII or if data must be de-identified. ○ Ask the vendor how they ensure that student PII will not be redisclosed in output
+
+1350 EYE STREET NW \| SUITE 350 \| WASHINGTON, DC 20005
+
+[info@fpf.org](mailto:info@fpf.org) \| FPF.ORG",,,,,

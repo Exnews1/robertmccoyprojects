@@ -30,7 +30,8 @@ import {
   ArrowRightLeft,
   Handshake,
   Shield,
-  AlertTriangle
+  AlertTriangle,
+  ExternalLink
 } from "lucide-react";
 
 interface UseCase {
@@ -137,6 +138,33 @@ interface PartnershipData {
   evaluation_metrics: string[];
 }
 
+interface PolicySource {
+  title: string;
+  source: string;
+  date: string;
+  url: string;
+  key_points: string[];
+  type: string;
+}
+
+interface PolicyCategory {
+  id: string;
+  name: string;
+  description: string;
+  sources: PolicySource[];
+}
+
+interface PolicyReferencesData {
+  section: string;
+  description: string;
+  last_updated: string;
+  categories: PolicyCategory[];
+  governance_framework: {
+    title: string;
+    principles: { principle: string; description: string }[];
+  };
+}
+
 const iconMap: Record<string, typeof Users> = {
   "users": Users,
   "clipboard-check": ClipboardCheck,
@@ -154,11 +182,13 @@ export default function UniversitiesAI() {
   const [examples, setExamples] = useState<UniversityExample[]>([]);
   const [transferData, setTransferData] = useState<TransferData | null>(null);
   const [partnershipData, setPartnershipData] = useState<PartnershipData | null>(null);
+  const [policyRefsData, setPolicyRefsData] = useState<PolicyReferencesData | null>(null);
   const [policyFilter, setPolicyFilter] = useState<string>("all");
   const [loading, setLoading] = useState(true);
   const [selectedApp, setSelectedApp] = useState<Application | null>(null);
   const [selectedTech, setSelectedTech] = useState<TransferTechnology | null>(null);
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
+  const [showPolicyRefs, setShowPolicyRefs] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -169,7 +199,8 @@ export default function UniversitiesAI() {
       fetch("/universities-ai/data/examples.json").then(r => r.json()),
       fetch("/universities-ai/data/transfer-technologies.json").then(r => r.json()),
       fetch("/universities-ai/data/partnerships.json").then(r => r.json()),
-    ]).then(([apps, pols, sys, st, exs, transfer, partners]) => {
+      fetch("/universities-ai/data/policy-references.json").then(r => r.json()),
+    ]).then(([apps, pols, sys, st, exs, transfer, partners, policyRefs]) => {
       setApplications(apps);
       setPolicies(pols);
       setSystems(sys);
@@ -177,6 +208,7 @@ export default function UniversitiesAI() {
       setExamples(exs);
       setTransferData(transfer);
       setPartnershipData(partners);
+      setPolicyRefsData(policyRefs);
       setLoading(false);
     }).catch(err => {
       console.error("Failed to load data:", err);
@@ -861,7 +893,11 @@ export default function UniversitiesAI() {
               </CardContent>
             </Card>
 
-            <Card className="border-border/50 text-center" data-testid="card-resource-references">
+            <Card 
+              className="border-border/50 text-center cursor-pointer hover-elevate" 
+              onClick={() => setShowPolicyRefs(true)}
+              data-testid="card-resource-references"
+            >
               <CardContent className="pt-6">
                 <Scale className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="font-semibold text-foreground mb-2">Policy References</h3>
@@ -874,6 +910,91 @@ export default function UniversitiesAI() {
           </div>
         </div>
       </section>
+
+      <Dialog open={showPolicyRefs} onOpenChange={setShowPolicyRefs}>
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto" data-testid="dialog-policy-refs">
+          {policyRefsData && (
+            <>
+              <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Scale className="w-6 h-6 text-primary" />
+                  </div>
+                  <DialogTitle className="text-xl">{policyRefsData.section}</DialogTitle>
+                </div>
+                <DialogDescription>
+                  {policyRefsData.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6 mt-4">
+                <div className="p-4 rounded-lg bg-card border border-border/50">
+                  <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-primary" />
+                    {policyRefsData.governance_framework.title}
+                  </h4>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {policyRefsData.governance_framework.principles.map((p, idx) => (
+                      <div key={idx} className="text-sm">
+                        <span className="font-medium text-foreground">{p.principle}:</span>
+                        <span className="text-muted-foreground ml-1">{p.description}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {policyRefsData.categories.map((category) => (
+                  <div key={category.id}>
+                    <h4 className="font-semibold text-foreground mb-2">{category.name}</h4>
+                    <p className="text-sm text-muted-foreground mb-3">{category.description}</p>
+                    <div className="space-y-3">
+                      {category.sources.map((source, idx) => (
+                        <Card key={idx} className="border-border/50" data-testid={`card-source-${category.id}-${idx}`}>
+                          <CardContent className="pt-4">
+                            <div className="flex items-start justify-between gap-4 mb-2">
+                              <div>
+                                <h5 className="font-medium text-foreground">{source.title}</h5>
+                                <div className="flex flex-wrap items-center gap-2 mt-1">
+                                  <Badge variant="outline" className="text-xs">{source.type}</Badge>
+                                  <span className="text-xs text-muted-foreground">{source.source}</span>
+                                  <span className="text-xs text-muted-foreground">• {source.date}</span>
+                                </div>
+                              </div>
+                              <a 
+                                href={source.url} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="shrink-0"
+                              >
+                                <Button size="sm" variant="outline" data-testid={`btn-source-link-${category.id}-${idx}`}>
+                                  <ExternalLink className="w-3 h-3 mr-1" />
+                                  View
+                                </Button>
+                              </a>
+                            </div>
+                            <ul className="mt-3 space-y-1">
+                              {source.key_points.map((point, i) => (
+                                <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                                  <CheckCircle2 className="w-3 h-3 text-primary mt-1 shrink-0" />
+                                  {point}
+                                </li>
+                              ))}
+                            </ul>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+                <p className="text-xs text-muted-foreground text-center pt-4 border-t border-border/50">
+                  Last updated: {policyRefsData.last_updated} • All links point to official government and authoritative sources
+                </p>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <section className="py-12 border-t border-border/50">
         <div className="max-w-6xl mx-auto px-6 text-center">

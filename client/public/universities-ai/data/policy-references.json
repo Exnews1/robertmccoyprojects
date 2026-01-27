@@ -1,0 +1,216 @@
+{
+  "section": "Federal AI Policy References",
+  "description": "Key federal regulations, guidance, and policy frameworks governing AI use in higher education",
+  "last_updated": "2025",
+  "categories": [
+    {
+      "id": "federal-guidance",
+      "name": "U.S. Department of Education Guidance",
+      "description": "Official federal guidance on AI use in educational settings",
+      "sources": [
+        {
+          "title": "Dear Colleague Letter on AI in Education",
+          "source": "U.S. Department of Education",
+          "date": "July 22, 2025",
+          "url": "https://www.ed.gov/media/document/opepd-ai-dear-colleague-letter-7222025-110427.pdf",
+          "key_points": [
+            "Guidance on leveraging federal grant funds to improve education outcomes through AI",
+            "AI-based high-quality instructional materials are allowable uses",
+            "AI-enhanced high-impact tutoring is an allowable use",
+            "AI for college and career pathway exploration, advising, and navigation",
+            "Emphasizes importance of engaging affected stakeholders, especially parents",
+            "Addresses responsible adoption principles including user privacy"
+          ],
+          "type": "Guidance"
+        },
+        {
+          "title": "Supplemental Priority: Advancing AI in Education",
+          "source": "Secretary of Education",
+          "date": "July 2025",
+          "url": "https://www.federalregister.gov/documents/2025/07/21/2025-13650/proposed-priority-and-definitions-secretarys-supplemental-priority-and-definitions-on-advancing",
+          "key_points": [
+            "Integrating AI literacy into teaching practices",
+            "Expanding AI and computer science education in K-12 and higher ed",
+            "Supporting professional development for educators on AI",
+            "Using AI to personalize learning and support differentiated instruction",
+            "Enhancing classroom efficiency and reducing administrative burdens"
+          ],
+          "type": "Proposed Rule"
+        },
+        {
+          "title": "Executive Order: Advancing AI Education for American Youth",
+          "source": "White House",
+          "date": "April 23, 2025",
+          "url": "https://www.whitehouse.gov/presidential-actions/2025/04/advancing-artificial-intelligence-education-for-american-youth/",
+          "key_points": [
+            "Directs agencies to support AI education initiatives",
+            "Emphasizes preparing students with AI skills for future workforce",
+            "Calls for responsible AI integration in educational settings"
+          ],
+          "type": "Executive Order"
+        }
+      ]
+    },
+    {
+      "id": "privacy-regulations",
+      "name": "Student Data Privacy Regulations",
+      "description": "Federal laws protecting student data in AI applications",
+      "sources": [
+        {
+          "title": "Family Educational Rights and Privacy Act (FERPA)",
+          "source": "U.S. Department of Education",
+          "date": "1974 (Ongoing)",
+          "url": "https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html",
+          "key_points": [
+            "Protects privacy of student education records",
+            "Applies to all schools receiving federal funds",
+            "Parents/guardians have rights to access and review records",
+            "Written consent required before disclosing PII",
+            "AI tools using education records must comply",
+            "Students 18+ must consent to disclosure of education records"
+          ],
+          "type": "Federal Law"
+        },
+        {
+          "title": "Children's Online Privacy Protection Act (COPPA)",
+          "source": "Federal Trade Commission",
+          "date": "1998 (Updated January 2025)",
+          "url": "https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa",
+          "key_points": [
+            "Protects children under 13 from data collection without parental consent",
+            "2025 updates require separate consent for data disclosure to third parties",
+            "New data retention and deletion requirements",
+            "Enhanced oversight of Safe Harbor programs",
+            "Schools may provide consent for educational purposes"
+          ],
+          "type": "Federal Law"
+        }
+      ]
+    },
+    {
+      "id": "civil-rights",
+      "name": "Civil Rights and Bias Prevention",
+      "description": "Laws preventing discrimination in AI applications",
+      "sources": [
+        {
+          "title": "Title VI of the Civil Rights Act",
+          "source": "U.S. Department of Justice",
+          "date": "1964",
+          "url": "https://www.justice.gov/crt/fcs/TitleVI",
+          "key_points": [
+            "Prohibits discrimination based on race, color, or national origin",
+            "Applies to AI systems receiving federal funding",
+            "AI tools must not perpetuate bias against protected classes",
+            "Institutions must audit AI systems for discriminatory outcomes"
+          ],
+          "type": "Federal Law"
+        },
+        {
+          "title": "Title IX of the Education Amendments",
+          "source": "U.S. Department of Education",
+          "date": "1972",
+          "url": "https://www2.ed.gov/about/offices/list/ocr/docs/tix_dis.html",
+          "key_points": [
+            "Prohibits sex discrimination in education programs",
+            "AI systems must not discriminate based on sex/gender",
+            "Applies to admissions, financial aid, and academic AI tools"
+          ],
+          "type": "Federal Law"
+        }
+      ]
+    },
+    {
+      "id": "intellectual-property",
+      "name": "Intellectual Property and AI",
+      "description": "Copyright and ownership guidance for AI-generated content",
+      "sources": [
+        {
+          "title": "U.S. Copyright Office AI Guidance",
+          "source": "U.S. Copyright Office",
+          "date": "2023-2024",
+          "url": "https://www.copyright.gov/ai/",
+          "key_points": [
+            "Human-created works are governed under Title VII",
+            "Copyright protects original expression created by human authors",
+            "Purely AI-generated material is not protected by copyright",
+            "Guidance on AI data-scraping of copyrighted material forthcoming"
+          ],
+          "type": "Agency Guidance"
+        }
+      ]
+    },
+    {
+      "id": "ed-use-cases",
+      "name": "Department of Education AI Use Cases",
+      "description": "Official inventory of AI implementations within the U.S. Department of Education",
+      "sources": [
+        {
+          "title": "Aidan Chatbot (Federal Student Aid)",
+          "source": "Federal Student Aid",
+          "date": "Ongoing",
+          "url": "https://studentaid.gov",
+          "key_points": [
+            "Virtual assistant using natural language processing",
+            "Answers common financial aid questions",
+            "Over 2.6 million unique customer interactions",
+            "Available on StudentAid.gov"
+          ],
+          "type": "Implementation"
+        },
+        {
+          "title": "CAISY - AI Assessment System",
+          "source": "Office of Finance and Operations",
+          "date": "Ongoing",
+          "url": "https://www.ed.gov/about/ed-overview/artificial-intelligence-ai-guidance",
+          "key_points": [
+            "Enhances decision-making and operational efficiency",
+            "Delivers real-time insights and predictive analytics",
+            "Skillsoft Percipio Assessment integration"
+          ],
+          "type": "Implementation"
+        },
+        {
+          "title": "AWS Bedrock Integration",
+          "source": "Federal Student Aid",
+          "date": "Ongoing",
+          "url": "https://www.ed.gov/about/ed-overview/artificial-intelligence-ai-guidance",
+          "key_points": [
+            "Foundation model integration for text generation",
+            "Supports summarization and conversational AI",
+            "Personalization and content creation capabilities"
+          ],
+          "type": "Implementation"
+        }
+      ]
+    }
+  ],
+  "governance_framework": {
+    "title": "Key Governance Principles for AI in Higher Education",
+    "principles": [
+      {
+        "principle": "Privacy by Design",
+        "description": "Integrate privacy protections into AI systems from the outset, ensuring FERPA and COPPA compliance"
+      },
+      {
+        "principle": "Transparency",
+        "description": "Provide clear disclosure about AI use, data collection, and algorithmic decision-making"
+      },
+      {
+        "principle": "Human Oversight",
+        "description": "Maintain human review for high-stakes decisions affecting student outcomes"
+      },
+      {
+        "principle": "Bias Prevention",
+        "description": "Regularly audit AI systems for discriminatory outcomes across protected classes"
+      },
+      {
+        "principle": "Data Minimization",
+        "description": "Collect only necessary data and establish clear retention policies"
+      },
+      {
+        "principle": "Stakeholder Engagement",
+        "description": "Involve students, parents, faculty, and staff in AI adoption decisions"
+      }
+    ]
+  }
+}
