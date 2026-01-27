@@ -25,7 +25,8 @@ import {
   FileText,
   MapPin,
   ChevronRight,
-  Lightbulb
+  Lightbulb,
+  Download
 } from "lucide-react";
 
 interface UseCase {
@@ -466,7 +467,12 @@ export default function UniversitiesAI() {
                 <p className="text-sm text-muted-foreground mb-4">
                   APA7-formatted comprehensive analysis
                 </p>
-                <Badge variant="secondary">Coming Soon</Badge>
+                <a href="/universities-ai/AI_in_US_Higher_Education_Report.docx" download>
+                  <Button size="sm" data-testid="btn-download-report">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download DOCX
+                  </Button>
+                </a>
               </CardContent>
             </Card>
 
