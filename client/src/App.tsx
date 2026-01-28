@@ -20,6 +20,7 @@ import Profile from "@/pages/profile";
 import UniversitiesAI from "@/pages/universities-ai/index";
 import IncarcerationResearch from "@/pages/incarceration-research/index";
 import AITypes from "@/pages/ai-types/index";
+import WorkforceAI from "@/pages/workforce-ai/index";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef } from "react";
@@ -75,6 +76,7 @@ function Router() {
       <Route path="/universities-ai" component={UniversitiesAI} />
       <Route path="/incarceration-research" component={IncarcerationResearch} />
       <Route path="/ai-types" component={AITypes} />
+      <Route path="/workforce-ai" component={WorkforceAI} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />

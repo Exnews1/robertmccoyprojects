@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School, Scale } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School, Scale, TrendingUp } from "lucide-react";
 
 const cmgfProjects = [
   {
@@ -62,6 +62,15 @@ const aiEducationProjects = [
     icon: Brain,
     route: "/ai-types",
     status: "Educational",
+    external: false
+  },
+  {
+    id: "workforce-ai",
+    title: "AI Workforce Readiness",
+    description: "Doctoral-level analysis of AI in the workplace, US workforce readiness, and AI literacy frameworks. Based on 423 peer-reviewed papers.",
+    icon: TrendingUp,
+    route: "/workforce-ai",
+    status: "Research",
     external: false
   }
 ];
