@@ -70,6 +70,15 @@
             color: hsl(220 70% 55%);
             font-family: 'JetBrains Mono', monospace;
         }
+        
+        .doi-link {
+            color: hsl(220 70% 65%);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .doi-link:hover {
+            color: hsl(220 70% 75%);
+        }
     </style>
 </head>
 <body class="min-h-screen text-foreground">
@@ -101,7 +110,7 @@
                 Evidence-based research supporting the Career Mobility Governance Framework. 
                 A synthesis of 900+ peer-reviewed sources across military career mobility domains.
             </p>
-            <div class="mt-4 flex items-center justify-center gap-4 text-sm text-muted-foreground">
+            <div class="mt-4 flex items-center justify-center gap-4 text-base text-muted-foreground">
                 <span>CMGF Companion</span>
                 <span class="text-muted-foreground/30">|</span>
                 <span>2015-2026 Research</span>
@@ -118,7 +127,7 @@
             <div class="grid gap-6 md:grid-cols-2">
                 <div class="card p-6">
                     <h3 class="text-lg font-semibold text-foreground mb-2">Comprehensive Evidence Base</h3>
-                    <p class="text-sm text-muted-foreground leading-relaxed">
+                    <p class="text-base text-muted-foreground leading-relaxed">
                         Over 900 peer-reviewed sources synthesized across five critical domains: career mobility outcomes, 
                         credentialing pathways, AI-assisted advising systems, military skills translation, and veteran 
                         student experiences.
@@ -126,7 +135,7 @@
                 </div>
                 <div class="card p-6">
                     <h3 class="text-lg font-semibold text-foreground mb-2">Policy-Ready Analysis</h3>
-                    <p class="text-sm text-muted-foreground leading-relaxed">
+                    <p class="text-base text-muted-foreground leading-relaxed">
                         Rigorous methodological critique, cross-pillar integration, and actionable recommendations 
                         designed for high-level government officials considering improvements to servicemember support systems.
                     </p>
@@ -134,25 +143,37 @@
             </div>
         </section>
 
-        <!-- Key Statistics -->
+        <!-- Key Statistics with Citations -->
         <section class="mb-12">
             <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Critical Statistics</h2>
             <div class="grid gap-4 md:grid-cols-4">
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">95% vs 83%</div>
-                    <div class="text-xs text-muted-foreground">Employment Rate Difference</div>
+                    <div class="text-base text-muted-foreground mb-2">Employment Rate Difference</div>
+                    <div class="text-sm border-t border-border pt-2 mt-2">
+                        <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
+                    </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">$16,872</div>
-                    <div class="text-xs text-muted-foreground">Income Gain (2 Years)</div>
+                    <div class="text-base text-muted-foreground mb-2">Income Gain (2 Years)</div>
+                    <div class="text-sm border-t border-border pt-2 mt-2">
+                        <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
+                    </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">98%</div>
-                    <div class="text-xs text-muted-foreground">NCLEX Pass Rate</div>
+                    <div class="text-base text-muted-foreground mb-2">NCLEX Pass Rate</div>
+                    <div class="text-sm border-t border-border pt-2 mt-2">
+                        <a href="https://doi.org/10.3928/01484834-20190719-03" target="_blank" class="doi-link">McNeal et al., 2019</a>
+                    </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">80%</div>
-                    <div class="text-xs text-muted-foreground">STEM Completion</div>
+                    <div class="text-base text-muted-foreground mb-2">STEM Completion</div>
+                    <div class="text-sm border-t border-border pt-2 mt-2">
+                        <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">Morris et al., 2023</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -165,13 +186,13 @@
                 <a href="pillar1.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-route text-2xl text-primary"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">174 sources</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">174 sources</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Pillar 1: Career Mobility</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Transition outcomes, employment rates, education benefits, and MOS transferability.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>Explore</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -180,13 +201,13 @@
                 <a href="pillar2.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-layer-group text-2xl text-accent"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">222 sources</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">222 sources</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Pillar 2: Empowerment & Credentials</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Credentialing Assistance, COOL, CBE, prior learning assessment, and apprenticeships.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>Explore</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -195,13 +216,13 @@
                 <a href="pillar3.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-robot text-2xl" style="color: hsl(180 60% 45%)"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">217 sources</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">217 sources</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Pillar 3: AI-Assisted Advising</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Human-in-the-loop frameworks, AI governance, ISR integration, and ethical considerations.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>Explore</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -210,13 +231,13 @@
                 <a href="pillar4.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-exchange-alt text-2xl" style="color: hsl(35 90% 50%)"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">166 sources</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">166 sources</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Pillar 4: Skills Translation</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Employer perceptions, MOS mapping, competency frameworks, and sector outcomes.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>Explore</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -225,13 +246,13 @@
                 <a href="pillar5.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-users text-2xl" style="color: hsl(270 60% 55%)"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">188 sources</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">188 sources</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Pillar 5: Learner Voice</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Student experiences, barriers, identity transitions, and effective interventions.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>Explore</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -240,13 +261,13 @@
                 <a href="integration.html" class="card p-6 group pillar-card">
                     <div class="flex items-center justify-between mb-3">
                         <i class="fas fa-puzzle-piece text-2xl" style="color: hsl(20 80% 50%)"></i>
-                        <span class="stat-badge text-xs px-2 py-1 rounded-full">Synthesis</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Synthesis</span>
                     </div>
                     <h3 class="text-lg font-semibold text-foreground mb-2">Cross-Pillar Integration</h3>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Interconnected themes, policy recommendations, and implementation guidance.
                     </p>
-                    <div class="flex items-center text-sm text-primary">
+                    <div class="flex items-center text-base text-primary">
                         <span>View Integration</span>
                         <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </div>
@@ -259,15 +280,15 @@
         <section class="mb-8">
             <div class="card p-8 text-center">
                 <h2 class="text-xl font-semibold text-foreground mb-3">Supporting Evidence-Based Policy</h2>
-                <p class="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                <p class="text-base text-muted-foreground mb-6 max-w-2xl mx-auto">
                     This research synthesis provides the empirical foundation for improving military education and transition systems 
                     through the Career Mobility Governance Framework.
                 </p>
                 <div class="flex justify-center gap-4">
-                    <a href="references.html" class="bg-primary text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+                    <a href="references.html" class="bg-primary text-white px-6 py-2 rounded-md text-base font-medium hover:bg-primary/90 transition-colors">
                         View All References
                     </a>
-                    <a href="integration.html" class="border border-border text-foreground px-6 py-2 rounded-md text-sm font-medium hover:bg-secondary transition-colors">
+                    <a href="integration.html" class="border border-border text-foreground px-6 py-2 rounded-md text-base font-medium hover:bg-secondary transition-colors">
                         Policy Recommendations
                     </a>
                 </div>

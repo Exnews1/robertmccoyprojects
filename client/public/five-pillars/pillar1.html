@@ -59,6 +59,14 @@
             background-color: hsl(220 10% 14%); 
             border-left: 4px solid hsl(220 70% 55%); 
         }
+        .doi-link {
+            color: hsl(220 70% 65%);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .doi-link:hover {
+            color: hsl(220 70% 75%);
+        }
     </style>
 </head>
 <body class="min-h-screen text-foreground">
@@ -94,24 +102,36 @@
 
         <section class="mb-12">
             <div class="card p-6 mb-8">
-                <h2 class="text-lg font-semibold text-foreground mb-3">Executive Summary</h2>
-                <p class="text-muted-foreground leading-relaxed mb-4">
+                <h2 class="text-xl font-semibold text-foreground mb-4">Executive Summary</h2>
+                <p class="text-base text-muted-foreground leading-relaxed mb-6">
                     Post-9/11 veterans show mixed civilian employment and earnings outcomes: higher education uptake but variable job matches, 
                     persistent underemployment for some groups, and rising disability payments. Rigorous interventions and credential translation 
                     improve employment; policy should target skill alignment and benefit navigation.
                 </p>
                 <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
-                        <div class="text-xl font-bold text-primary">174</div>
-                        <div class="text-xs text-muted-foreground">Sources Analyzed</div>
+                    <div class="bg-primary/10 border border-primary/20 p-4 rounded text-center">
+                        <div class="text-2xl font-bold text-primary mb-1">95% vs 83%</div>
+                        <div class="text-base text-muted-foreground mb-2">Employment Rate at 2 Years</div>
+                        <div class="text-sm border-t border-primary/20 pt-2 mt-2">
+                            <span class="text-muted-foreground">Source: </span>
+                            <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
+                        </div>
                     </div>
-                    <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
-                        <div class="text-xl font-bold text-primary">95% vs 83%</div>
-                        <div class="text-xs text-muted-foreground">Employment Rate (RCT)</div>
+                    <div class="bg-primary/10 border border-primary/20 p-4 rounded text-center">
+                        <div class="text-2xl font-bold text-primary mb-1">$16,872</div>
+                        <div class="text-base text-muted-foreground mb-2">Cumulative Income Gain</div>
+                        <div class="text-sm border-t border-primary/20 pt-2 mt-2">
+                            <span class="text-muted-foreground">Source: </span>
+                            <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
+                        </div>
                     </div>
-                    <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
-                        <div class="text-xl font-bold text-primary">$16,872</div>
-                        <div class="text-xs text-muted-foreground">Income Gain (2 yrs)</div>
+                    <div class="bg-primary/10 border border-primary/20 p-4 rounded text-center">
+                        <div class="text-2xl font-bold text-primary mb-1">7.2% vs 6.0%</div>
+                        <div class="text-base text-muted-foreground mb-2">Unemployment Rate Gap</div>
+                        <div class="text-sm border-t border-primary/20 pt-2 mt-2">
+                            <span class="text-muted-foreground">Source: </span>
+                            <a href="https://journalistsresource.org/economics/veteran-unemployment-research/" target="_blank" class="doi-link">Ordway, 2018</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,117 +139,143 @@
 
         <section class="mb-12">
             <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key Research Findings</h2>
-            <p class="text-sm text-muted-foreground mb-6">Click any card to explore detailed research synthesis</p>
+            <p class="text-base text-muted-foreground mb-6">Click any card to explore detailed research synthesis</p>
 
             <div class="grid md:grid-cols-2 gap-6">
                 
                 <div class="card research-card p-6" onclick="toggleDetail('detail1')">
                     <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-semibold text-foreground">Transition Outcomes & Evidence</h3>
+                        <h3 class="text-lg font-semibold text-foreground">Transition Outcomes & Evidence</h3>
                         <i class="fas fa-chevron-down text-primary" id="icon-detail1"></i>
                     </div>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Longitudinal and quasi-experimental studies report both modest earnings premiums for some subgroups and elevated 
                         unemployment or underemployment risks for others.
                     </p>
                     <div class="flex gap-2">
                         <span class="stat-badge text-xs px-2 py-1 rounded">RCT Evidence</span>
-                        <span class="stat-badge text-xs px-2 py-1 rounded">Quasi-Exp</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Quasi-Experimental</span>
                     </div>
                 </div>
 
                 <div id="detail1" class="hidden md:col-span-2 card p-6 border-l-4 border-l-primary">
-                    <h4 class="font-semibold text-foreground mb-4">Detailed Research Synthesis</h4>
-                    <ul class="space-y-3 text-sm text-muted-foreground">
-                        <li><strong class="text-foreground">Enrollment and degree effects:</strong> Post-9/11 GI Bill recipients increased months enrolled and marginally raised bachelor's attainment (+1.2 pp) while showing a small negative effect on average annual earnings nine years post-separation.</li>
-                        <li><strong class="text-foreground">RCT employment gains:</strong> Intensive multifaceted employment coaching raised employment rates (95% vs 83% at two years) and cumulative income (~$16,872 greater).</li>
-                        <li><strong class="text-foreground">Unemployment comparisons:</strong> Post-9/11 veterans were more likely to be unemployed than comparable nonveterans (7.2% vs 6.0% in some CPS-based work).</li>
+                    <h4 class="text-lg font-semibold text-foreground mb-4">Detailed Research Synthesis</h4>
+                    <ul class="space-y-4 text-base text-muted-foreground">
+                        <li>
+                            <strong class="text-foreground">RCT employment gains:</strong> Intensive multifaceted employment coaching raised employment rates (95% vs 83% at two years) and cumulative income (~$16,872 greater) 
+                            <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">(Bond et al., 2022)</a>.
+                        </li>
+                        <li>
+                            <strong class="text-foreground">Enrollment and degree effects:</strong> Post-9/11 GI Bill recipients increased months enrolled and marginally raised bachelor's attainment (+1.2 pp) while showing a small negative effect on average annual earnings nine years post-separation 
+                            <a href="https://doi.org/10.3386/w29024" target="_blank" class="doi-link">(Barr et al., 2021)</a>.
+                        </li>
+                        <li>
+                            <strong class="text-foreground">Unemployment comparisons:</strong> Post-9/11 veterans were more likely to be unemployed than comparable nonveterans (7.2% vs 6.0% in CPS-based work) 
+                            <a href="https://journalistsresource.org/economics/veteran-unemployment-research/" target="_blank" class="doi-link">(Ordway, 2018)</a>.
+                        </li>
+                        <li>
+                            <strong class="text-foreground">Overqualification and PTSD:</strong> Veterans with PTSD symptoms report higher perceived overqualification and employment discrimination 
+                            <a href="https://doi.org/10.1016/j.jvb.2019.103329" target="_blank" class="doi-link">(Davenport et al., 2019)</a>.
+                        </li>
                     </ul>
-                    <button onclick="toggleDetail('detail1')" class="mt-4 text-sm text-primary hover:underline">
+                    <button onclick="toggleDetail('detail1')" class="mt-4 text-base text-primary hover:underline">
                         <i class="fas fa-chevron-up mr-1"></i> Collapse
                     </button>
                 </div>
 
                 <div class="card research-card p-6" onclick="toggleDetail('detail2')">
                     <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-semibold text-foreground">Barriers & MOS Transferability</h3>
+                        <h3 class="text-lg font-semibold text-foreground">Barriers & MOS Transferability</h3>
                         <i class="fas fa-chevron-down text-primary" id="icon-detail2"></i>
                     </div>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Transition barriers cluster into credentialing, employer perception gaps, health-related constraints, 
                         and access/navigation obstacles.
                     </p>
-                    <div class="bg-red-500/10 border-l-2 border-red-500 p-3 rounded text-xs text-muted-foreground">
+                    <div class="bg-red-500/10 border-l-2 border-red-500 p-3 rounded text-base text-muted-foreground">
                         <strong class="text-foreground">Critical:</strong> Military-specific MOS tasks often lack civilian analogues.
                     </div>
                 </div>
 
                 <div id="detail2" class="hidden md:col-span-2 card p-6 border-l-4 border-l-red-500">
-                    <h4 class="font-semibold text-foreground mb-4">Barrier Analysis</h4>
-                    <div class="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                    <h4 class="text-lg font-semibold text-foreground mb-4">Barrier Analysis</h4>
+                    <div class="grid md:grid-cols-2 gap-6 text-base text-muted-foreground">
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Credential Mismatch</h5>
-                            <p>Civilian employers often require licenses that don't map directly to MOS training.</p>
+                            <p>Civilian employers often require licenses that don't map directly to MOS training 
+                            <a href="https://doi.org/10.7249/RR1095" target="_blank" class="doi-link">(Guo et al., 2016)</a>.</p>
                         </div>
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Skill Translation Gaps</h5>
-                            <p>Veterans and employers report difficulty translating military tasks into civilian job descriptions.</p>
+                            <p>Veterans and employers report difficulty translating military tasks into civilian job descriptions 
+                            <a href="https://doi.org/10.1177/0095327X16659875" target="_blank" class="doi-link">(Schulker, 2017)</a>.</p>
                         </div>
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Health Impacts</h5>
-                            <p>Disability compensation and service-connected conditions complicate employment trajectories.</p>
+                            <p>Disability compensation and service-connected conditions complicate employment trajectories 
+                            <a href="https://doi.org/10.3386/w30622" target="_blank" class="doi-link">(Bruhn et al., 2022)</a>.</p>
                         </div>
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Program Access</h5>
-                            <p>Many programs don't offer the barrier-reduction components veterans find most helpful.</p>
+                            <p>Many programs don't offer the barrier-reduction components veterans find most helpful 
+                            <a href="https://doi.org/10.21061/jvs.v4i2.113" target="_blank" class="doi-link">(Flatt & Rhodes, 2019)</a>.</p>
                         </div>
                     </div>
-                    <button onclick="toggleDetail('detail2')" class="mt-4 text-sm text-primary hover:underline">
+                    <button onclick="toggleDetail('detail2')" class="mt-4 text-base text-primary hover:underline">
                         <i class="fas fa-chevron-up mr-1"></i> Collapse
                     </button>
                 </div>
 
                 <div class="card research-card p-6" onclick="toggleDetail('detail3')">
                     <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-semibold text-foreground">Education Benefits Utilization</h3>
+                        <h3 class="text-lg font-semibold text-foreground">Education Benefits Utilization</h3>
                         <i class="fas fa-chevron-down text-primary" id="icon-detail3"></i>
                     </div>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Post-9/11 GI Bill usage patterns shaped veterans' educational trajectories, with heterogeneous 
                         returns by institution type and field of study.
                     </p>
                     <div class="flex gap-3 text-center">
-                        <div class="flex-1 bg-green-500/10 border border-green-500/20 p-2 rounded">
-                            <div class="text-lg font-bold text-green-400">~1.4M</div>
-                            <div class="text-xs text-muted-foreground">GI Bill Users</div>
+                        <div class="flex-1 bg-green-500/10 border border-green-500/20 p-3 rounded">
+                            <div class="text-xl font-bold text-green-400">~1.4M</div>
+                            <div class="text-sm text-muted-foreground">GI Bill Users</div>
                         </div>
-                        <div class="flex-1 bg-primary/10 border border-primary/20 p-2 rounded">
-                            <div class="text-lg font-bold text-primary">84%</div>
-                            <div class="text-xs text-muted-foreground">Used Programs</div>
+                        <div class="flex-1 bg-primary/10 border border-primary/20 p-3 rounded">
+                            <div class="text-xl font-bold text-primary">+1.2pp</div>
+                            <div class="text-sm text-muted-foreground">BA Attainment</div>
                         </div>
                     </div>
                 </div>
 
                 <div id="detail3" class="hidden md:col-span-2 card p-6 border-l-4 border-l-green-500">
-                    <h4 class="font-semibold text-foreground mb-4">Benefits Utilization Analysis</h4>
+                    <h4 class="text-lg font-semibold text-foreground mb-4">Benefits Utilization Analysis</h4>
                     <div class="citation-box p-4 rounded mb-4">
-                        <ul class="text-sm text-muted-foreground space-y-2">
-                            <li><strong class="text-foreground">Degree and earnings tradeoffs:</strong> While PGIB increased college participation, some groups experienced worse longer-run earnings trajectories.</li>
-                            <li><strong class="text-foreground">Sector effects:</strong> Veterans from for-profit institutions frequently graduate with higher debt burdens.</li>
-                            <li><strong class="text-foreground">Vocational training:</strong> Veterans who used benefits for job-specific training realized faster labor market attachment.</li>
+                        <ul class="text-base text-muted-foreground space-y-3">
+                            <li>
+                                <strong class="text-foreground">Degree and earnings tradeoffs:</strong> While PGIB increased college participation, some groups experienced worse longer-run earnings trajectories 
+                                <a href="https://doi.org/10.3386/w29024" target="_blank" class="doi-link">(Barr et al., 2021)</a>.
+                            </li>
+                            <li>
+                                <strong class="text-foreground">Sector effects:</strong> Veterans from for-profit institutions frequently graduate with higher debt burdens 
+                                <a href="https://doi.org/10.1080/10668926.2019.1629127" target="_blank" class="doi-link">(Morrill & Somers, 2020)</a>.
+                            </li>
+                            <li>
+                                <strong class="text-foreground">Vocational training:</strong> Veterans who used benefits for job-specific training realized faster labor market attachment 
+                                <a href="https://doi.org/10.1007/s12122-021-09321-y" target="_blank" class="doi-link">(Makridis & Hirsch, 2021)</a>.
+                            </li>
                         </ul>
                     </div>
-                    <button onclick="toggleDetail('detail3')" class="mt-4 text-sm text-primary hover:underline">
+                    <button onclick="toggleDetail('detail3')" class="mt-4 text-base text-primary hover:underline">
                         <i class="fas fa-chevron-up mr-1"></i> Collapse
                     </button>
                 </div>
 
                 <div class="card research-card p-6" onclick="toggleDetail('detail4')">
                     <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-semibold text-foreground">Theoretical Frameworks</h3>
+                        <h3 class="text-lg font-semibold text-foreground">Theoretical Frameworks</h3>
                         <i class="fas fa-chevron-down text-primary" id="icon-detail4"></i>
                     </div>
-                    <p class="text-sm text-muted-foreground mb-4">
+                    <p class="text-base text-muted-foreground mb-4">
                         Scholars apply human capital, signaling, and life course frameworks to explain veterans' career mobility.
                     </p>
                     <div class="flex flex-wrap gap-2">
@@ -240,11 +286,11 @@
                 </div>
 
                 <div id="detail4" class="hidden md:col-span-2 card p-6 border-l-4 border-l-accent">
-                    <h4 class="font-semibold text-foreground mb-4">Theoretical & Methodological Analysis</h4>
-                    <div class="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                    <h4 class="text-lg font-semibold text-foreground mb-4">Theoretical & Methodological Analysis</h4>
+                    <div class="grid md:grid-cols-2 gap-6 text-base text-muted-foreground">
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Theoretical Perspectives</h5>
-                            <ul class="space-y-1">
+                            <ul class="space-y-2">
                                 <li><strong>Human capital:</strong> Training as investments; transferability depends on specificity</li>
                                 <li><strong>Signaling:</strong> Civilian credentials required to signal competence</li>
                                 <li><strong>Life course:</strong> Multiple life domains interacting with employment</li>
@@ -252,14 +298,15 @@
                         </div>
                         <div>
                             <h5 class="font-medium text-foreground mb-2">Methodological Approaches</h5>
-                            <ul class="space-y-1">
-                                <li><strong>RCTs:</strong> Causal evidence for employment interventions</li>
+                            <ul class="space-y-2">
+                                <li><strong>RCTs:</strong> Causal evidence for employment interventions 
+                                <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">(Bond et al., 2022)</a></li>
                                 <li><strong>Quasi-experimental:</strong> Administrative records for long-run trends</li>
                                 <li><strong>Longitudinal surveys:</strong> TVMI, B&B for multi-domain tracking</li>
                             </ul>
                         </div>
                     </div>
-                    <button onclick="toggleDetail('detail4')" class="mt-4 text-sm text-primary hover:underline">
+                    <button onclick="toggleDetail('detail4')" class="mt-4 text-base text-primary hover:underline">
                         <i class="fas fa-chevron-up mr-1"></i> Collapse
                     </button>
                 </div>
@@ -267,11 +314,36 @@
             </div>
         </section>
 
+        <!-- Key References Section -->
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key References</h2>
+            <div class="citation-box p-6 rounded">
+                <div class="space-y-4 text-base">
+                    <p class="text-muted-foreground leading-relaxed">
+                        Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Gade, D., & Drake, R. E. (2022). A randomized controlled trial of an employment program for veterans transitioning from the military: Two-year outcomes. <em>Administration and Policy in Mental Health and Mental Health Services Research, 49</em>(6), 1040-1054. 
+                        <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">https://doi.org/10.1007/s10488-022-01208-z</a>
+                    </p>
+                    <p class="text-muted-foreground leading-relaxed">
+                        Barr, A., Kawano, L., & Sacerdote, B. (2021). <em>You can't handle the truth: The effects of the Post-9/11 GI Bill on higher education and earnings</em> (NBER Working Paper No. 29024). National Bureau of Economic Research. 
+                        <a href="https://doi.org/10.3386/w29024" target="_blank" class="doi-link">https://doi.org/10.3386/w29024</a>
+                    </p>
+                    <p class="text-muted-foreground leading-relaxed">
+                        Davenport, S., Bergman, M. E., Bergman, S. M., & Fearrington, M. E. (2019). Underemployment as a consequence of veterans' difficulty with civilian employment. <em>Journal of Vocational Behavior, 115</em>, 103329. 
+                        <a href="https://doi.org/10.1016/j.jvb.2019.103329" target="_blank" class="doi-link">https://doi.org/10.1016/j.jvb.2019.103329</a>
+                    </p>
+                    <p class="text-muted-foreground leading-relaxed">
+                        Guo, C., Pollak, J., & Bauman, M. (2016). <em>Ten frequently asked questions about veterans' transitions: Results of a decade of RAND work on veteran life</em> (Research Report RR-1095). RAND Corporation. 
+                        <a href="https://doi.org/10.7249/RR1095" target="_blank" class="doi-link">https://doi.org/10.7249/RR1095</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <div class="flex justify-between mt-12">
-            <a href="index.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <a href="index.html" class="text-base text-muted-foreground hover:text-primary transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Back to Overview
             </a>
-            <a href="pillar2.html" class="bg-primary text-white px-4 py-2 rounded text-sm hover:bg-primary/90 transition-colors">
+            <a href="pillar2.html" class="bg-primary text-white px-4 py-2 rounded text-base hover:bg-primary/90 transition-colors">
                 Pillar 2: Empowerment <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
