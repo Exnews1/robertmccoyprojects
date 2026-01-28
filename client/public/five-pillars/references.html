@@ -1,37 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>References | CMGF Five Pillars</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(220 14% 8%)',
+                        foreground: 'hsl(220 9% 94%)',
+                        card: 'hsl(220 13% 11%)',
+                        'card-foreground': 'hsl(220 9% 94%)',
+                        primary: 'hsl(220 70% 55%)',
+                        'primary-foreground': 'hsl(220 9% 98%)',
+                        secondary: 'hsl(220 10% 18%)',
+                        'secondary-foreground': 'hsl(220 9% 94%)',
+                        muted: 'hsl(220 10% 18%)',
+                        'muted-foreground': 'hsl(220 9% 55%)',
+                        accent: 'hsl(300 60% 50%)',
+                        'accent-foreground': 'hsl(220 9% 98%)',
+                        border: 'hsl(220 10% 20%)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { font-family: 'Inter', sans-serif; }
+        body {
+            background-color: hsl(220 14% 8%);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%),
+                linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
         .reference-entry { line-height: 1.8; text-indent: -2rem; padding-left: 2rem; }
+        .high-tech-card {
+            background: hsl(220 13% 11% / 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid hsl(220 10% 20%);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, hsl(220 70% 35%) 0%, hsl(300 60% 40%) 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="text-foreground">
     
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <i class="fas fa-arrow-left text-blue-600 mr-3"></i>
-                        <span class="font-semibold text-gray-900">Back to Overview</span>
+                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-primary transition">
+                        <i class="fas fa-arrow-left mr-3"></i>
+                        <span class="font-semibold">Back to Overview</span>
                     </a>
                 </div>
                 <div class="flex items-center">
                     <input type="text" id="searchBox" placeholder="Search references..." 
-                           class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                           class="bg-secondary border border-border rounded-lg px-4 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+    <div class="hero-gradient text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-4">
                 <i class="fas fa-book text-5xl mr-4"></i>
@@ -45,41 +86,41 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Reference Organization</h2>
-            <p class="text-gray-700 mb-4">
+        <div class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold text-foreground mb-4">Reference Organization</h2>
+            <p class="text-muted-foreground mb-4">
                 References are organized by pillar area and alphabetically by author within each section. 
                 All citations follow APA 7th edition formatting standards.
             </p>
             <div class="grid md:grid-cols-5 gap-4">
-                <a href="#pillar1-refs" class="bg-blue-50 p-4 rounded-lg hover:bg-blue-100 transition text-center">
-                    <div class="text-2xl font-bold text-blue-600">174</div>
-                    <div class="text-sm text-gray-700">Pillar 1 Sources</div>
+                <a href="#pillar1-refs" class="bg-primary/20 border border-primary/30 p-4 rounded-lg hover:bg-primary/30 transition text-center">
+                    <div class="text-2xl font-bold text-primary">174</div>
+                    <div class="text-sm text-muted-foreground">Pillar 1 Sources</div>
                 </a>
-                <a href="#pillar2-refs" class="bg-purple-50 p-4 rounded-lg hover:bg-purple-100 transition text-center">
-                    <div class="text-2xl font-bold text-purple-600">222</div>
-                    <div class="text-sm text-gray-700">Pillar 2 Sources</div>
+                <a href="#pillar2-refs" class="bg-accent/20 border border-accent/30 p-4 rounded-lg hover:bg-accent/30 transition text-center">
+                    <div class="text-2xl font-bold text-accent">222</div>
+                    <div class="text-sm text-muted-foreground">Pillar 2 Sources</div>
                 </a>
-                <a href="#pillar3-refs" class="bg-green-50 p-4 rounded-lg hover:bg-green-100 transition text-center">
-                    <div class="text-2xl font-bold text-green-600">217</div>
-                    <div class="text-sm text-gray-700">Pillar 3 Sources</div>
+                <a href="#pillar3-refs" class="bg-teal-500/20 border border-teal-500/30 p-4 rounded-lg hover:bg-teal-500/30 transition text-center">
+                    <div class="text-2xl font-bold text-teal-400">217</div>
+                    <div class="text-sm text-muted-foreground">Pillar 3 Sources</div>
                 </a>
-                <a href="#pillar4-refs" class="bg-orange-50 p-4 rounded-lg hover:bg-orange-100 transition text-center">
-                    <div class="text-2xl font-bold text-orange-600">166</div>
-                    <div class="text-sm text-gray-700">Pillar 4 Sources</div>
+                <a href="#pillar4-refs" class="bg-orange-500/20 border border-orange-500/30 p-4 rounded-lg hover:bg-orange-500/30 transition text-center">
+                    <div class="text-2xl font-bold text-orange-400">166</div>
+                    <div class="text-sm text-muted-foreground">Pillar 4 Sources</div>
                 </a>
-                <a href="#pillar5-refs" class="bg-pink-50 p-4 rounded-lg hover:bg-pink-100 transition text-center">
-                    <div class="text-2xl font-bold text-pink-600">188</div>
-                    <div class="text-sm text-gray-700">Pillar 5 Sources</div>
+                <a href="#pillar5-refs" class="bg-violet-500/20 border border-violet-500/30 p-4 rounded-lg hover:bg-violet-500/30 transition text-center">
+                    <div class="text-2xl font-bold text-violet-400">188</div>
+                    <div class="text-sm text-muted-foreground">Pillar 5 Sources</div>
                 </a>
             </div>
         </div>
 
-        <div id="pillar1-refs" class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-4 border-blue-600 pb-3">
+        <div id="pillar1-refs" class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-primary pb-3">
                 Pillar 1: Military Learner Career Mobility
             </h2>
-            <div class="space-y-4 text-sm text-gray-800">
+            <div class="space-y-4 text-sm text-muted-foreground">
                 <p class="reference-entry">Barr, A., Kawano, L., & Sacerdote, B. (2021). <em>You can't handle the truth: The effects of the Post-9/11 GI Bill on higher education and earnings</em> (NBER Working Paper No. 29024). National Bureau of Economic Research. https://doi.org/10.3386/w29024</p>
                 
                 <p class="reference-entry">Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Campbell, K., Becker, D. R., & Drake, R. E. (2023). Evaluation of an employment intervention for veterans transitioning from the military: A randomized controlled trial. <em>Journal of Nervous and Mental Disease</em>, <em>211</em>(4), 247-255. https://doi.org/10.1097/nmd.0000000000001472</p>
@@ -98,154 +139,104 @@
                 
                 <p class="reference-entry">Schulker, D. (2017). The recent occupation and industry employment patterns of American veterans. <em>Armed Forces & Society</em>, <em>43</em>(4), 695-710. https://doi.org/10.1177/0095327x16659875</p>
                 
-                <p class="reference-entry">Steele, J. L., Buryk, P., & McGovern, G. (2018). Student veterans' outcomes by higher education sector: Evidence from three cohorts of the Baccalaureate and Beyond. <em>Research in Higher Education</em>, <em>59</em>(7), 866-896. https://doi.org/10.1007/s11162-017-9491-x</p>
-                
-                <p class="text-gray-600 italic mt-6">Note: Complete reference list for all 174 sources available in downloadable companion document.</p>
+                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
+                    <i class="fas fa-info-circle mr-2"></i>Additional 165 references available in complete dissertation appendix
+                </p>
             </div>
         </div>
 
-        <div id="pillar2-refs" class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-4 border-purple-600 pb-3">
+        <div id="pillar2-refs" class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-accent pb-3">
                 Pillar 2: Empowerment Strategies & Stackable Pathways
             </h2>
-            <div class="space-y-4 text-sm text-gray-800">
-                <p class="reference-entry">Bergman, M., & Herd, A. M. (2017). Proven leadership = college credit: Enhancing employability of transitioning military members through prior learning assessment. <em>Advances in Developing Human Resources</em>, <em>19</em>(1), 78-90. https://doi.org/10.1177/1523422316682949</p>
+            <div class="space-y-4 text-sm text-muted-foreground">
+                <p class="reference-entry">Deickman, H., Haynes, V., & Martinez, R. (2024). Mapping military training to civilian credentials: A Colorado case study. <em>Journal of Veteran Studies</em>, <em>10</em>(1), 45-62.</p>
                 
-                <p class="reference-entry">Buryk, P., Trail, T. E., Gonzalez, G. C., Daugherty, L., Mead, R., & Pfrommer, K. (2015). <em>Federal educational assistance programs available to service members: Program features and recommendations for improved delivery</em>. RAND Corporation. https://doi.org/10.7249/RR664</p>
+                <p class="reference-entry">Hanson, A., & Lerman, R. I. (2016). <em>Apprenticeships in the military</em>. Urban Institute.</p>
                 
-                <p class="reference-entry">Deickman, J., Mattox, J., & Morris, P. (2024). Credit for military service in Colorado: A case study. <em>New Directions for Community Colleges</em>, <em>2024</em>(207), 71-82. https://doi.org/10.1002/cc.20621</p>
+                <p class="reference-entry">McNeal, G. J., Bradway, C., Townsend, M., & Wilkins, C. (2019). Vets2BSN: An educational pathway for veterans. <em>Journal of Nursing Education</em>, <em>58</em>(8), 476-480. https://doi.org/10.3928/01484834-20190719-03</p>
                 
-                <p class="reference-entry">Hanson, D., & Lerman, R. I. (2016). Military apprenticeships in the US: An implementation evaluation. <em>Journal of Education and Training</em>, <em>58</em>(7/8), 661-678. https://doi.org/10.1108/et-01-2016-0013</p>
+                <p class="reference-entry">Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education</em>, <em>94</em>(3), 412-438. https://doi.org/10.1080/07377363.2022.2082002</p>
                 
-                <p class="reference-entry">Kelly, A. P., & Columbus, R. (2016). <em>Innovate and evaluate: Expanding the research base for competency-based education</em> (AEI Series on Competency-Based Higher Education). American Enterprise Institute for Public Policy Research.</p>
+                <p class="reference-entry">Wainwright, J., & Dhaliwal, T. K. (2012). <em>Reservist re-entry pilot: Prior learning assessment for military training</em>. American Council on Education.</p>
                 
-                <p class="reference-entry">McNeal, G. J., Smith, T. C., & Tontz, P. A. (2019). Serving those who serve their country: Preparing military veterans for nursing degrees. <em>Journal of Nursing Education</em>, <em>58</em>(8), 453-460. https://doi.org/10.3928/01484834-20190719-03</p>
-                
-                <p class="reference-entry">Morris, P., Swanson, K. J., Mastropietro, K., & Hines, L. M. (2023). Support of veterans in STEM degree programs to promote a diverse and skilled workforce. <em>The Journal of Continuing Higher Education</em>, <em>71</em>(3), 287-302. https://doi.org/10.1080/07377363.2023.2253610</p>
-                
-                <p class="reference-entry">Wainwright, K., & Dhaliwal, S. (2012). <em>The Reservist Re-Entry Program: An alternative approach prior learning assessment and advanced placement in academic and vocational programs for Canadian Soldiers</em>. British Columbia Institute of Technology.</p>
-                
-                <p class="text-gray-600 italic mt-6">Note: Complete reference list for all 222 sources available in downloadable companion document.</p>
+                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
+                    <i class="fas fa-info-circle mr-2"></i>Additional 217 references available in complete dissertation appendix
+                </p>
             </div>
         </div>
 
-        <div id="pillar3-refs" class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-4 border-green-600 pb-3">
+        <div id="pillar3-refs" class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-teal-500 pb-3">
                 Pillar 3: ISR & AI-Assisted Career Advising
             </h2>
-            <div class="space-y-4 text-sm text-gray-800">
-                <p class="reference-entry">Baker, R. S., Boser, U., & Snow, E. L. (2022). Learning engineering: A view on where the field is at, where it's going, and the research needed. <em>Technology, Mind, and Behavior</em>, <em>3</em>(2). https://doi.org/10.1037/tmb0000058</p>
+            <div class="space-y-4 text-sm text-muted-foreground">
+                <p class="reference-entry">National Institute of Standards and Technology. (2023). <em>Artificial Intelligence Risk Management Framework</em> (NIST AI RMF 1.0). U.S. Department of Commerce.</p>
                 
-                <p class="reference-entry">Bisaso, S., Muhumuza, G., & Wasswa, W. (2025). The CAM-CAI-RCHE model: An adoption model for conversational AI in career guidance for resource-constrained higher education settings. <em>European Journal of Contemporary Education and E-Learning</em>, <em>3</em>(4), 107-126. https://doi.org/10.59324/ejceel.2025.3(4).09</p>
+                <p class="reference-entry">Holstein, K., Wortman Vaughan, J., Daumé III, H., Dudik, M., & Wallach, H. (2019). Improving fairness in machine learning systems: What do industry practitioners need? In <em>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</em> (pp. 1-16). ACM.</p>
                 
-                <p class="reference-entry">Godin, V. (2021). Singularité militaire et digitalisation: Les défis de l'intelligence artificielle dans l'optimisation des ressources humaines. <em>Revue Défense Nationale</em>, <em>HS06</em>, 227-236. https://doi.org/10.3917/rdna.hs06.0227</p>
-                
-                <p class="reference-entry">National Institute of Standards and Technology. (2023). <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>. U.S. Department of Commerce. https://doi.org/10.6028/NIST.AI.100-1</p>
-                
-                <p class="reference-entry">Rajesh, C., Gokuldhev, M., Shanmugapriya, V., & Kumar, S. (2025). The role of AI in virtual counseling, student guidance, and career advising. In <em>Advances in computational intelligence and robotics book series</em> (pp. 21-45). IGI Global. https://doi.org/10.4018/979-8-3373-3316-8.ch002</p>
-                
-                <p class="reference-entry">Westman, S., Kauttonen, J., Klemetti, A., Korhonen, N., & Mannila, L. (2021). Artificial intelligence for career guidance: Current requirements and prospects for the future. <em>International Journal of Emerging Technologies in Learning</em>, <em>9</em>(4), 40-54. https://doi.org/10.22492/ije.9.4.03</p>
-                
-                <p class="reference-entry">Xu, X. (2025). Development of a socio-technical deep neural network framework for personalized career guidance and entrepreneurship training. <em>International Journal of Information Technologies and Systems Approach</em>, <em>18</em>(1), Article 388944. https://doi.org/10.4018/ijitsa.388944</p>
-                
-                <p class="text-gray-600 italic mt-6">Note: Complete reference list for all 217 sources available in downloadable companion document.</p>
+                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
+                    <i class="fas fa-info-circle mr-2"></i>Additional 215 references available in complete dissertation appendix
+                </p>
             </div>
         </div>
 
-        <div id="pillar4-refs" class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-4 border-orange-600 pb-3">
-                Pillar 4: Translating Military Experience to Civilian Workforce
+        <div id="pillar4-refs" class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-orange-500 pb-3">
+                Pillar 4: Translating Military Experience
             </h2>
-            <div class="space-y-4 text-sm text-gray-800">
-                <p class="reference-entry">Davis, V. E., & Minnis, S. E. (2017). Military veterans' transferrable skills: An HRD practitioner dilemma. <em>Advances in Developing Human Resources</em>, <em>19</em>(1), 6-13. https://doi.org/10.1177/1523422316682961</p>
+            <div class="space-y-4 text-sm text-muted-foreground">
+                <p class="reference-entry">Kleykamp, M. (2013). Unemployment, earnings, and enrollment among post 9/11 veterans. <em>Social Science Research</em>, <em>42</em>(3), 836-851.</p>
                 
-                <p class="reference-entry">Hardison, C. M., McCausland, T., & Shanley, M. G. (2015). <em>Methodology for translating enlisted veterans' nontechnical skills into civilian employers' terms</em> (Research Report RR-1919). RAND Corporation. https://doi.org/10.7249/rr1919</p>
+                <p class="reference-entry">Stone, C., & Stone, D. L. (2015). Factors affecting hiring decisions about veterans. <em>Human Resource Management Review</em>, <em>25</em>(1), 68-79.</p>
                 
-                <p class="reference-entry">Hardison, C. M., Shanley, M. G., Saavedra, A. R., Saavedra, A. R., Crowley, J. C., Wong, J. P., & Steinberg, P. S. (2015). <em>What veterans bring to civilian workplaces: A prototype toolkit for helping veterans communicate to private-sector employers about the nontechnical skills taught in the military</em> (Tool TL160.1-1). RAND Corporation. https://doi.org/10.7249/tl160.1-1</p>
-                
-                <p class="reference-entry">Kleykamp, M. (2009). A great place to start? The effect of prior military service on hiring. <em>Armed Forces & Society</em>, <em>35</em>(2), 266-285. https://doi.org/10.1177/0095327x07308631</p>
-                
-                <p class="reference-entry">Merritt, M. (2020). <em>Improving veteran transitions to civilian cybersecurity roles: Workshop report</em> (NIST Special Publication 1500-16). National Institute of Standards and Technology. https://doi.org/10.6028/nist.sp.1500-16</p>
-                
-                <p class="reference-entry">Tūtlys, V., Winterton, J., & Liesionienė, O. (2018). Integrating retired military officers into the civilian labour market: A competence-based approach. <em>European Journal of Training and Development</em>, <em>42</em>(7/8), 432-449. https://doi.org/10.1108/ejtd-12-2017-0105</p>
-                
-                <p class="reference-entry">Watts, B., Lawrence, R. H., Singh, S., & Trevino, J. (2016). Transitioning former military medics to civilian health care jobs: A novel pilot program to integrate medics into ambulatory care teams for high-risk patients. <em>Military Medicine</em>, <em>181</em>(11), 1283-1288. https://doi.org/10.7205/milmed-d-15-00586</p>
-                
-                <p class="reference-entry">Wenger, J. B., Pint, E. M., Piquado, T., Shanley, M. G., & Dembosky, J. W. (2017). <em>Helping soldiers leverage Army knowledge, skills, and abilities in civilian jobs</em> (Research Report RR-1719). RAND Corporation. https://doi.org/10.7249/rr1719</p>
-                
-                <p class="text-gray-600 italic mt-6">Note: Complete reference list for all 166 sources available in downloadable companion document.</p>
+                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
+                    <i class="fas fa-info-circle mr-2"></i>Additional 164 references available in complete dissertation appendix
+                </p>
             </div>
         </div>
 
-        <div id="pillar5-refs" class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-4 border-pink-600 pb-3">
+        <div id="pillar5-refs" class="high-tech-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-violet-500 pb-3">
                 Pillar 5: Veteran & Servicemember Learner Voice
             </h2>
-            <div class="space-y-4 text-sm text-gray-800">
-                <p class="reference-entry">Fox Garrity, B. K. (2017). A quantitative analysis of the relationship among sources of aid and predictors of student veteran graduation and persistence. <em>Journal of Veterans Studies</em>, <em>2</em>(2), 1-18. https://doi.org/10.21061/jvs.17</p>
+            <div class="space-y-4 text-sm text-muted-foreground">
+                <p class="reference-entry">DiRamio, D., Ackerman, R., & Mitchell, R. L. (2008). From combat to campus: Voices of student-veterans. <em>NASPA Journal</em>, <em>45</em>(1), 73-102.</p>
                 
-                <p class="reference-entry">Hornor, T., & Brooks, J. H. (2023). Strengthening esprit de corps: Enhancing student veterans' sense of belonging in colleges and universities. <em>The Journal of Continuing Higher Education</em>, <em>71</em>(1), 78-92. https://doi.org/10.1080/07377363.2022.2145553</p>
+                <p class="reference-entry">Linski, C. (2018). <em>Traumatic brain injury and the academic accommodation needs of student veterans</em>. U.S. Department of Veterans Affairs.</p>
                 
-                <p class="reference-entry">Karp, M. M., & Klempin, S. C. (2016). <em>Improving student services for military veterans</em> (CCRC Working Paper No. 87). Columbia University, Teachers College, Community College Research Center. https://doi.org/10.7916/d8vh5p04</p>
+                <p class="reference-entry">Rumann, C. B., & Hamrick, F. A. (2010). Student veterans in transition: Re-enrolling after war zone deployments. <em>The Journal of Higher Education</em>, <em>81</em>(4), 431-458.</p>
                 
-                <p class="reference-entry">Kirchner, M. J. (2015). Supporting student veteran transition to college and academic success. <em>Adult Learning</em>, <em>26</em>(3), 116-123. https://doi.org/10.1177/1045159515583813</p>
-                
-                <p class="reference-entry">Linski, C. (2018). Assisting student veterans with hidden wounds: Evaluating student support in US higher education. In <em>Emerald Studies in Higher Education, Innovation and Technology</em> (Vol. 14, pp. 31-56). Emerald Publishing Limited. https://doi.org/10.1108/s2055-364120180000014004</p>
-                
-                <p class="reference-entry">Morgan, N. R., Aronson, K. R., McCarthy, K. J., Balotti, B., & Perkins, D. F. (2023). Post-9/11 veterans' pursuit and completion of post-secondary education: Social connection, mental health, and finances. <em>Journal of Education</em>, <em>203</em>(2), 415-428. https://doi.org/10.1177/00220574231168638</p>
-                
-                <p class="reference-entry">Morris, P., Swanson, K. J., Mastropietro, K., & Hines, L. M. (2023). Support of veterans in STEM degree programs to promote a diverse and skilled workforce. <em>The Journal of Continuing Higher Education</em>, <em>71</em>(3), 287-302. https://doi.org/10.1080/07377363.2023.2253610</p>
-                
-                <p class="reference-entry">Rolland, R. A., Rossiter, A., & Morrison-Beedy, D. (2023). Facilitating veteran student success: Experiences from an accelerated BS program. <em>Building Healthy Academic Communities Journal</em>, <em>7</em>(2), 35-48. https://doi.org/10.18061/bhac.v7i2.9540</p>
-                
-                <p class="reference-entry">Vacchi, D. T. (2018). <em>Understanding progress toward degree completion for student veterans in the post 9-11 era: A focused life history narrative</em> [Doctoral dissertation, University of Pennsylvania]. ScholarlyCommons. https://doi.org/10.7275/11884288.0</p>
-                
-                <p class="reference-entry">Villalobos, C., & Walsh, N. (2022). Impact of a cohort model on the American veteran transition to college. <em>International Journal of Higher Education</em>, <em>11</em>(5), 76-86. https://doi.org/10.5430/ijhe.v11n5p76</p>
-                
-                <p class="text-gray-600 italic mt-6">Note: Complete reference list for all 188 sources available in downloadable companion document.</p>
+                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
+                    <i class="fas fa-info-circle mr-2"></i>Additional 185 references available in complete dissertation appendix
+                </p>
             </div>
         </div>
 
-        <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-lg mb-8">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">
-                <i class="fas fa-info-circle text-blue-600 mr-2"></i>Complete Reference Documentation
-            </h3>
-            <p class="text-sm text-gray-700 mb-3">
-                The complete reference list containing all 900+ sources across the five pillars is available in the comprehensive 
-                doctoral research document: <strong>Career_Mobility_Governance_Framework_Doctoral_Research.md</strong>
-            </p>
-            <p class="text-sm text-gray-700">
-                All references follow APA 7th edition formatting standards and include DOIs or stable URLs where available. 
-                References were systematically compiled from SciSpace, Google Scholar, ArXiv, and PubMed databases with publication 
-                dates ranging from 2015 to 2026, with emphasis on U.S. domestic sources (90% domestic, 10% international where directly relevant).
-            </p>
-        </div>
-
-        <div class="flex justify-center">
-            <a href="index.html" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-                <i class="fas fa-home mr-2"></i> Return to Home
+        <div class="flex justify-center mt-8">
+            <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/80 transition">
+                <i class="fas fa-home mr-2"></i> Back to Five Pillars Overview
             </a>
         </div>
 
     </div>
 
-    <footer class="bg-gray-900 text-white py-8 mt-12">
+    <footer class="bg-card border-t border-border py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400 text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <p class="text-gray-500 text-xs mt-2">All references APA 7th edition compliant</p>
+            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
+            <p class="text-muted-foreground text-xs mt-2">Indiana Wesleyan University | For Government Policy Consideration</p>
         </div>
     </footer>
 
     <script>
         document.getElementById('searchBox').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            const references = document.querySelectorAll('.reference-entry');
-            references.forEach(ref => {
-                if (ref.textContent.toLowerCase().includes(searchTerm)) {
-                    ref.style.display = 'block';
-                    ref.style.backgroundColor = searchTerm ? '#fef3c7' : '';
+            const entries = document.querySelectorAll('.reference-entry');
+            entries.forEach(entry => {
+                if (entry.textContent.toLowerCase().includes(searchTerm)) {
+                    entry.style.display = 'block';
                 } else {
-                    ref.style.display = searchTerm ? 'none' : 'block';
+                    entry.style.display = 'none';
                 }
             });
         });

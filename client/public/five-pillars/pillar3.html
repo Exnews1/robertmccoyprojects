@@ -1,40 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pillar 3: ISR & AI-Assisted Career Advising | CMGF Five Pillars</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(220 14% 8%)',
+                        foreground: 'hsl(220 9% 94%)',
+                        card: 'hsl(220 13% 11%)',
+                        'card-foreground': 'hsl(220 9% 94%)',
+                        primary: 'hsl(220 70% 55%)',
+                        'primary-foreground': 'hsl(220 9% 98%)',
+                        secondary: 'hsl(220 10% 18%)',
+                        'secondary-foreground': 'hsl(220 9% 94%)',
+                        muted: 'hsl(220 10% 18%)',
+                        'muted-foreground': 'hsl(220 9% 55%)',
+                        accent: 'hsl(300 60% 50%)',
+                        'accent-foreground': 'hsl(220 9% 98%)',
+                        border: 'hsl(220 10% 20%)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        .research-card { transition: all 0.3s ease; }
-        .research-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-        .stat-highlight { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .citation-box { background-color: #f8fafc; border-left: 4px solid #3b82f6; }
+        body {
+            background-color: hsl(220 14% 8%);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%),
+                linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+        .research-card { 
+            transition: all 0.3s ease; 
+            background: hsl(220 13% 11% / 0.8);
+            border: 1px solid hsl(220 10% 20%);
+        }
+        .research-card:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: hsl(180 60% 45% / 0.4);
+        }
+        .stat-highlight { background: linear-gradient(135deg, hsl(180 60% 35%) 0%, hsl(220 70% 45%) 100%); }
+        .citation-box { 
+            background-color: hsl(220 10% 14%); 
+            border-left: 4px solid hsl(180 60% 45%); 
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, hsl(180 60% 25%) 0%, hsl(200 70% 35%) 50%, hsl(220 70% 40%) 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="text-foreground">
     
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <i class="fas fa-arrow-left text-blue-600 mr-3"></i>
-                        <span class="font-semibold text-gray-900">Back to Overview</span>
+                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-teal-400 transition">
+                        <i class="fas fa-arrow-left mr-3"></i>
+                        <span class="font-semibold">Back to Overview</span>
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="pillar2.html" class="text-gray-700 hover:text-blue-600"><i class="fas fa-arrow-left mr-1"></i> Previous</a>
-                    <a href="pillar4.html" class="text-gray-700 hover:text-blue-600">Next <i class="fas fa-arrow-right ml-1"></i></a>
+                    <a href="pillar2.html" class="text-muted-foreground hover:text-teal-400 transition"><i class="fas fa-arrow-left mr-1"></i> Previous</a>
+                    <a href="pillar4.html" class="text-muted-foreground hover:text-teal-400 transition">Next <i class="fas fa-arrow-right ml-1"></i></a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="bg-gradient-to-r from-teal-600 to-blue-600 text-white py-16">
+    <div class="hero-gradient text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center mb-4">
                 <i class="fas fa-robot text-5xl mr-4"></i>
@@ -48,82 +94,72 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">Executive Summary</h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+        <div class="research-card rounded-xl p-8 mb-8">
+            <h2 class="text-3xl font-bold text-foreground mb-4">Executive Summary</h2>
+            <p class="text-lg text-muted-foreground leading-relaxed mb-4">
                 AI-assisted, human-in-the-loop career advising shows promising accuracy and scalability gains but uneven transparency 
                 and governance; hybrid socio-technical designs and explicit oversight protocols better preserve counselor agency while 
                 reducing workload. Policy should mandate explainability, auditability, and phased deployment with evaluative metrics.
             </p>
             <div class="grid md:grid-cols-3 gap-4 mt-6">
-                <div class="bg-teal-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-teal-600 mb-1">217</div>
-                    <div class="text-sm text-gray-700">Research Papers Analyzed</div>
+                <div class="bg-teal-500/20 border border-teal-500/30 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-teal-400 mb-1">217</div>
+                    <div class="text-sm text-muted-foreground">Research Papers Analyzed</div>
                 </div>
-                <div class="bg-blue-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-blue-600 mb-1">2018-2026</div>
-                    <div class="text-sm text-gray-700">Publication Range</div>
+                <div class="bg-primary/20 border border-primary/30 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-primary mb-1">2018-2026</div>
+                    <div class="text-sm text-muted-foreground">Publication Range</div>
                 </div>
-                <div class="bg-purple-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-purple-600 mb-1">NIST AI RMF</div>
-                    <div class="text-sm text-gray-700">Governance Framework</div>
+                <div class="bg-accent/20 border border-accent/30 p-4 rounded-lg">
+                    <div class="text-2xl font-bold text-accent mb-1">NIST AI RMF</div>
+                    <div class="text-sm text-muted-foreground">Governance Framework</div>
                 </div>
             </div>
         </div>
 
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Layer 1: Key Research Findings</h2>
-        <p class="text-gray-700 mb-8">Click any card to explore detailed research synthesis (Layer 2)</p>
+        <h2 class="text-3xl font-bold text-foreground mb-6">Layer 1: Key Research Findings</h2>
+        <p class="text-muted-foreground mb-8">Click any card to explore detailed research synthesis (Layer 2)</p>
 
         <div class="grid md:grid-cols-2 gap-6 mb-12">
             
-            <div class="research-card bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="toggleDetail('detail1')">
+            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail1')">
                 <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-900">Current State of Evidence</h3>
-                    <i class="fas fa-chevron-down text-teal-600 text-xl" id="icon-detail1"></i>
+                    <h3 class="text-xl font-bold text-foreground">Current State of Evidence</h3>
+                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail1"></i>
                 </div>
-                <p class="text-gray-700 mb-4">
+                <p class="text-muted-foreground mb-4">
                     AI tools for career advising span recommender systems, conversational agents, predictive models, and closed-loop 
                     adaptive platforms with improved matching accuracy and user satisfaction.
                 </p>
                 <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm">Recommender Systems</span>
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Conversational AI</span>
-                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Predictive Models</span>
+                    <span class="bg-teal-500/20 text-teal-400 px-3 py-1 rounded-full text-sm border border-teal-500/30">Recommender Systems</span>
+                    <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm border border-primary/30">Conversational AI</span>
+                    <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm border border-accent/30">Predictive Models</span>
                 </div>
             </div>
 
-            <div id="detail1" class="hidden col-span-2 bg-gray-50 rounded-xl p-8 border-l-4 border-teal-600">
-                <h4 class="text-2xl font-bold text-gray-900 mb-4">Layer 2: Evidence Synthesis</h4>
+            <div id="detail1" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-teal-500">
+                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Evidence Synthesis</h4>
                 
                 <div class="mb-6">
-                    <h5 class="text-lg font-semibold text-gray-900 mb-3">Empirical Outcomes</h5>
-                    <ul class="space-y-3 text-gray-700">
+                    <h5 class="text-lg font-semibold text-foreground mb-3">Empirical Outcomes</h5>
+                    <ul class="space-y-3 text-muted-foreground">
                         <li class="flex items-start">
-                            <i class="fas fa-chart-line text-teal-600 mt-1 mr-3"></i>
-                            <span><strong>Improved recommendation accuracy:</strong> Field and experimental deployments report high-performing end-to-end systems with task-specific accuracy metrics (e.g., top-k coverage and classification accuracy).</span>
+                            <i class="fas fa-chart-line text-teal-400 mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Improved recommendation accuracy:</strong> Field and experimental deployments report high-performing end-to-end systems with task-specific accuracy metrics.</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-user-check text-blue-600 mt-1 mr-3"></i>
-                            <span><strong>User acceptance and trust:</strong> Often hinge on perceived accuracy more than algorithmic transparency; one study found trustworthiness rated higher than transparency, and accuracy predicted intention to follow recommendations.</span>
+                            <i class="fas fa-user-check text-primary mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">User acceptance and trust:</strong> Often hinge on perceived accuracy more than algorithmic transparency; trustworthiness rated higher than transparency.</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-expand-arrows-alt text-green-600 mt-1 mr-3"></i>
-                            <span><strong>Scalability and access:</strong> Gains from conversational agents and recommender automation documented in resource-constrained settings and institutional pilots, improving service coverage while changing counselor workflows.</span>
+                            <i class="fas fa-expand-arrows-alt text-green-400 mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Scalability and access:</strong> Gains from conversational agents and recommender automation documented in resource-constrained settings.</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-heart text-red-600 mt-1 mr-3"></i>
-                            <span><strong>Mental health intersections:</strong> AI augments scalability but requires safeguards for sensitive guidance contexts in counseling environments.</span>
+                            <i class="fas fa-heart text-red-400 mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Mental health intersections:</strong> AI augments scalability but requires safeguards for sensitive guidance contexts.</span>
                         </li>
-                    </ul>
-                </div>
-
-                <div class="citation-box p-4 rounded-lg mb-6">
-                    <h5 class="font-semibold text-gray-900 mb-2">Methodological Notes</h5>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li>Many evaluations use institution-specific datasets or single-institution trials, limiting generalizability.</li>
-                        <li>Metrics focus heterogeneously on predictive accuracy, top-k recommendation coverage, and self-reported satisfaction.</li>
-                        <li>Few studies consistently report longitudinal outcomes (employment transitions, retention).</li>
-                        <li>Studies that measure both objective performance and user comprehension find trade-offs between opaque high-performing models and simpler explainable models.</li>
                     </ul>
                 </div>
 
@@ -132,131 +168,95 @@
                 </button>
             </div>
 
-            <div class="research-card bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="toggleDetail('detail2')">
+            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail2')">
                 <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-900">Human-in-the-Loop Frameworks</h3>
-                    <i class="fas fa-chevron-down text-teal-600 text-xl" id="icon-detail2"></i>
+                    <h3 class="text-xl font-bold text-foreground">Human-in-the-Loop Frameworks</h3>
+                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail2"></i>
                 </div>
-                <p class="text-gray-700 mb-4">
+                <p class="text-muted-foreground mb-4">
                     HITL approaches cluster around hybrid interaction models, staged agency frameworks, and closed-loop feedback 
                     that preserve counselor authority while automating routine tasks.
                 </p>
-                <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded">
-                    <p class="text-sm text-gray-800"><strong>Key Insight:</strong> Explicit human veto and override mechanisms recommended for higher-stakes decisions.</p>
+                <div class="bg-teal-500/20 border-l-4 border-teal-500 p-4 rounded">
+                    <p class="text-sm text-foreground"><strong>Key Insight:</strong> Explicit human veto and override mechanisms recommended for higher-stakes decisions.</p>
                 </div>
             </div>
 
-            <div id="detail2" class="hidden col-span-2 bg-gray-50 rounded-xl p-8 border-l-4 border-blue-600">
-                <h4 class="text-2xl font-bold text-gray-900 mb-4">Layer 2: HITL Framework Analysis</h4>
+            <div id="detail2" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-primary">
+                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: HITL Framework Analysis</h4>
                 
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-layer-group text-teal-600 mr-2"></i>Modes of Agency
+                    <div class="research-card p-6 rounded-lg">
+                        <h5 class="text-lg font-semibold text-foreground mb-3">
+                            <i class="fas fa-layer-group text-teal-400 mr-2"></i>Modes of Agency
                         </h5>
-                        <p class="text-gray-700 text-sm">
+                        <p class="text-muted-foreground text-sm">
                             Maturity models range from AI-suggest, AI-assist, to AI-autonomous recommendation, with explicit human 
                             veto and override mechanisms recommended for higher-stakes decisions.
                         </p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-sync-alt text-blue-600 mr-2"></i>Closed-Loop Feedback
+                    <div class="research-card p-6 rounded-lg">
+                        <h5 class="text-lg font-semibold text-foreground mb-3">
+                            <i class="fas fa-sync-alt text-primary mr-2"></i>Closed-Loop Feedback
                         </h5>
-                        <p class="text-gray-700 text-sm">
+                        <p class="text-muted-foreground text-sm">
                             Architectures collect user responses and counselor corrections to retrain or recalibrate models, 
                             enabling continuous improvement and contextual adaptation.
                         </p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-comments text-purple-600 mr-2"></i>Conversational HITL
-                        </h5>
-                        <p class="text-gray-700 text-sm">
-                            Incorporate human escalation paths for ambiguous or high-risk queries and use contextual prompts 
-                            to elicit richer user profiles before automated matching.
-                        </p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-check-double text-green-600 mr-2"></i>Effectiveness Evidence
-                        </h5>
-                        <p class="text-gray-700 text-sm">
-                            Trials embedding counselor correction loops report improved alignment with institutional goals 
-                            and increased counselor satisfaction when interfaces preserve interpretability and control.
-                        </p>
-                    </div>
                 </div>
 
-                <div class="citation-box p-4 rounded-lg">
-                    <h5 class="font-semibold text-gray-900 mb-2">Robust Evaluation Requirements</h5>
-                    <ul class="text-sm text-gray-700 space-y-1">
-                        <li>(a) Pre-specified decision points where human override is measured</li>
-                        <li>(b) Metrics of counselor workload and decision quality</li>
-                        <li>(c) Longitudinal tracking of learner outcomes to detect drift or unintended consequences</li>
-                    </ul>
-                </div>
-
-                <button onclick="toggleDetail('detail2')" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                <button onclick="toggleDetail('detail2')" class="mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition">
                     <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
                 </button>
             </div>
 
-            <div class="research-card bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="toggleDetail('detail3')">
+            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail3')">
                 <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-900">Governance Instruments for Educational AI</h3>
-                    <i class="fas fa-chevron-down text-teal-600 text-xl" id="icon-detail3"></i>
+                    <h3 class="text-xl font-bold text-foreground">Governance Instruments</h3>
+                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail3"></i>
                 </div>
-                <p class="text-gray-700 mb-4">
+                <p class="text-muted-foreground mb-4">
                     Governance emphasizes transparency, accountability, explainability, data governance, and contextualized adoption 
                     strategies with both technical XAI measures and institutional policy mechanisms.
                 </p>
                 <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Model Cards</span>
-                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Audit Processes</span>
-                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Stakeholder Engagement</span>
+                    <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm border border-primary/30">Model Cards</span>
+                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm border border-green-500/30">Audit Processes</span>
+                    <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm border border-accent/30">Stakeholder Engagement</span>
                 </div>
             </div>
 
-            <div id="detail3" class="hidden col-span-2 bg-gray-50 rounded-xl p-8 border-l-4 border-green-600">
-                <h4 class="text-2xl font-bold text-gray-900 mb-4">Layer 2: Governance Framework Comparison</h4>
+            <div id="detail3" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-green-500">
+                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Governance Framework Comparison</h4>
                 
                 <div class="overflow-x-auto mb-6">
-                    <table class="min-w-full bg-white rounded-lg overflow-hidden">
-                        <thead class="bg-gray-100">
+                    <table class="min-w-full rounded-lg overflow-hidden">
+                        <thead class="bg-secondary">
                             <tr>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-900">Governance Approach</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-900">Core Mechanisms</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-900">Operational Artifacts</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Governance Approach</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Core Mechanisms</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Operational Artifacts</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200">
+                        <tbody class="divide-y divide-border bg-card">
                             <tr>
-                                <td class="px-4 py-3 text-sm text-gray-700 font-medium">Participatory Maturity Model</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">Stakeholder workshops, modes of AI agency, staged deployment</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">Agency rubric, intervention thresholds</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Participatory Maturity Model</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">Stakeholder workshops, modes of AI agency, staged deployment</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">Agency rubric, intervention thresholds</td>
                             </tr>
                             <tr>
-                                <td class="px-4 py-3 text-sm text-gray-700 font-medium">Transparency-Accuracy Tradeoff Audit</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">Explainability requirements, accuracy reporting, user-facing explanations</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">Model cards, dashboarded metrics</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Transparency-Accuracy Tradeoff</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">Explainability requirements, accuracy reporting</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">Model cards, dashboarded metrics</td>
                             </tr>
                             <tr>
-                                <td class="px-4 py-3 text-sm text-gray-700 font-medium">Contextual Adoption Model</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">Local data customization, ethics safeguards, capacity building</td>
-                                <td class="px-4 py-3 text-sm text-gray-700">CAM-CAI-RCHE adoption steps, governance checklists</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Contextual Adoption Model</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">Local data customization, ethics safeguards</td>
+                                <td class="px-4 py-3 text-sm text-muted-foreground">CAM-CAI-RCHE adoption steps</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <div class="citation-box p-4 rounded-lg">
-                    <h5 class="font-semibold text-gray-900 mb-2">Practical Governance Recommendations</h5>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li><strong>Model documentation and audits:</strong> Model cards, provenance logs, and performance-by-subgroup reports enable accountability.</li>
-                        <li><strong>Stakeholder-centered adoption:</strong> Including students, advisors, and institutional leaders improves relevance and legitimacy.</li>
-                        <li><strong>Integration with learning engineering:</strong> Coupling design-based experimentation with governance enables iterative evaluation.</li>
-                    </ul>
                 </div>
 
                 <button onclick="toggleDetail('detail3')" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
@@ -264,149 +264,53 @@
                 </button>
             </div>
 
-            <div class="research-card bg-white rounded-xl shadow-lg p-6 cursor-pointer" onclick="toggleDetail('detail4')">
+            <div class="research-card rounded-xl p-6 cursor-pointer col-span-2" onclick="toggleDetail('detail4')">
                 <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-900">Ethical Considerations & Policy Levers</h3>
-                    <i class="fas fa-chevron-down text-teal-600 text-xl" id="icon-detail4"></i>
+                    <h3 class="text-xl font-bold text-foreground">Military ISR Integration & Implementation Roadmap</h3>
+                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail4"></i>
                 </div>
-                <p class="text-gray-700 mb-4">
-                    Ethical discourse centers on fairness, privacy, transparency, undue automation, and distributive impacts; 
-                    policy levers emphasize auditability, human oversight mandates, and rights-based data governance.
-                </p>
-                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
-                    <p class="text-sm text-gray-800"><strong>Key Risk:</strong> Algorithmic bias may reproduce labor-market inequities if training data lack representativeness.</p>
-                </div>
-            </div>
-
-            <div id="detail4" class="hidden col-span-2 bg-gray-50 rounded-xl p-8 border-l-4 border-red-600">
-                <h4 class="text-2xl font-bold text-gray-900 mb-4">Layer 2: Ethical Risk Analysis</h4>
-                
-                <div class="grid md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-balance-scale text-red-600 mr-2"></i>Algorithmic Bias
-                        </h5>
-                        <p class="text-gray-700 text-sm">
-                            May reproduce labor-market inequities if training data lack representativeness or contain historic discrimination signals.
-                        </p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-lock text-orange-600 mr-2"></i>Privacy Risks
-                        </h5>
-                        <p class="text-gray-700 text-sm">
-                            Arise from cross-linking educational, psychometric, and labor-market datasets without clear consent frameworks.
-                        </p>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
-                        <h5 class="text-lg font-semibold text-gray-900 mb-3">
-                            <i class="fas fa-brain text-purple-600 mr-2"></i>Automation Bias
-                        </h5>
-                        <p class="text-gray-700 text-sm">
-                            Risk that counselors defer to model outputs absent adequate explainability or oversight, leading to de-skilling.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="citation-box p-4 rounded-lg">
-                    <h5 class="font-semibold text-gray-900 mb-2">Policy Recommendations</h5>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li><strong>Mandate explainability thresholds:</strong> For models used in decision-influencing recommendations, with HITL veto authority.</li>
-                        <li><strong>Require subgroup performance reporting:</strong> Pre-deployment fairness audits to detect disparate impacts.</li>
-                        <li><strong>Establish data governance protocols:</strong> Tailored to lifelong advising ecosystems with retention limits and purpose limitation.</li>
-                        <li><strong>Phased pilots with evaluative metrics:</strong> Including accuracy, calibration, counselor workload, and long-term outcomes.</li>
-                    </ul>
-                </div>
-
-                <button onclick="toggleDetail('detail4')" class="mt-6 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-            <div class="research-card bg-white rounded-xl shadow-lg p-6 cursor-pointer col-span-2" onclick="toggleDetail('detail5')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-gray-900">Military Advising, ISR Integration & Implementation Roadmap</h3>
-                    <i class="fas fa-chevron-down text-teal-600 text-xl" id="icon-detail5"></i>
-                </div>
-                <p class="text-gray-700 mb-4">
+                <p class="text-muted-foreground mb-4">
                     Military Education Service Officers (ESOs) and Installation Status Report (ISR) workflows are ripe for socio-technical 
-                    augmentation: AI can automate data synthesis, surface anomalies for human review, and reduce ESO administrative burden 
-                    while preserving command-level oversight.
+                    augmentation: AI can automate data synthesis, surface anomalies for human review, and reduce ESO administrative burden.
                 </p>
                 <div class="grid md:grid-cols-3 gap-4 mt-4">
-                    <div class="bg-teal-100 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-teal-700">Phase 1</div>
-                        <div class="text-xs text-gray-700">Pilot ISR Triage</div>
+                    <div class="bg-teal-500/20 border border-teal-500/30 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-teal-400">Phase 1</div>
+                        <div class="text-xs text-muted-foreground">Pilot ISR Triage</div>
                     </div>
-                    <div class="bg-blue-100 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-blue-700">Phase 2</div>
-                        <div class="text-xs text-gray-700">Anomaly Detection</div>
+                    <div class="bg-primary/20 border border-primary/30 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-primary">Phase 2</div>
+                        <div class="text-xs text-muted-foreground">Anomaly Detection</div>
                     </div>
-                    <div class="bg-purple-100 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-purple-700">Phase 3</div>
-                        <div class="text-xs text-gray-700">Multi-Installation Scale</div>
+                    <div class="bg-accent/20 border border-accent/30 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-accent">Phase 3</div>
+                        <div class="text-xs text-muted-foreground">Multi-Installation Scale</div>
                     </div>
                 </div>
             </div>
 
-            <div id="detail5" class="hidden col-span-2 bg-gray-50 rounded-xl p-8 border-l-4 border-purple-600">
-                <h4 class="text-2xl font-bold text-gray-900 mb-4">Layer 2: Military ISR Implementation</h4>
+            <div id="detail4" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-accent">
+                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Military ISR Implementation</h4>
                 
                 <div class="mb-6">
-                    <h5 class="text-lg font-semibold text-gray-900 mb-3">How AI Can Support ISR and Reduce ESO Burden</h5>
-                    <ul class="space-y-3 text-gray-700">
+                    <h5 class="text-lg font-semibold text-foreground mb-3">How AI Can Support ISR and Reduce ESO Burden</h5>
+                    <ul class="space-y-3 text-muted-foreground">
                         <li class="flex items-start">
-                            <i class="fas fa-database text-teal-600 mt-1 mr-3"></i>
-                            <span><strong>Data aggregation and triage:</strong> AI modules can consolidate disparate personnel, training, and readiness feeds into prioritized ISR items for ESO attention, reducing manual collation time.</span>
+                            <i class="fas fa-database text-teal-400 mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Data aggregation and triage:</strong> AI modules can consolidate disparate personnel, training, and readiness feeds into prioritized ISR items for ESO attention.</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-exclamation-triangle text-orange-600 mt-1 mr-3"></i>
-                            <span><strong>Anomaly detection and explainable alerts:</strong> Flag deviations in readiness or career-path compliance, with human-readable rationales and provenance to support fast, accountable decisions.</span>
+                            <i class="fas fa-exclamation-triangle text-orange-400 mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Anomaly detection and explainable alerts:</strong> Flag deviations in readiness or career-path compliance with human-readable rationales.</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-sync text-blue-600 mt-1 mr-3"></i>
-                            <span><strong>Closed-loop correction:</strong> Allows ESOs to annotate AI outputs so models adapt to military-specific career rules and avoid persistent misclassification.</span>
+                            <i class="fas fa-sync text-primary mt-1 mr-3"></i>
+                            <span><strong class="text-foreground">Closed-loop correction:</strong> Allows ESOs to annotate AI outputs so models adapt to military-specific career rules.</span>
                         </li>
                     </ul>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h5 class="text-lg font-semibold text-gray-900 mb-3">Implementation Roadmap</h5>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="bg-teal-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</div>
-                            <div>
-                                <strong class="text-gray-900">Phase 1:</strong>
-                                <p class="text-sm text-gray-700">Pilot AI-assisted ISR triage with narrow scope and counselor-in-the-loop review; collect workload and decision-quality metrics.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</div>
-                            <div>
-                                <strong class="text-gray-900">Phase 2:</strong>
-                                <p class="text-sm text-gray-700">Introduce explainable anomaly detection with human override and subgroup performance monitoring; conduct independent audits.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</div>
-                            <div>
-                                <strong class="text-gray-900">Phase 3:</strong>
-                                <p class="text-sm text-gray-700">Scale to multi-installation deployment contingent on validated fairness, reliability, and human factors outcomes; embed continual governance reviews.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="citation-box p-4 rounded-lg">
-                    <h5 class="font-semibold text-gray-900 mb-2">Role Adaptation and Governance</h5>
-                    <ul class="text-sm text-gray-700 space-y-2">
-                        <li><strong>Preserve officer agency:</strong> Formalize override protocols, audit trails, and command review gates for career-affecting recommendations.</li>
-                        <li><strong>Operational validation:</strong> Include simulated and live exercises to assess model robustness under mission tempo.</li>
-                        <li><strong>Unique constraints:</strong> Military personnel data necessitates stricter consent models and chain-of-command accountability than civilian deployments.</li>
-                    </ul>
-                </div>
-
-                <button onclick="toggleDetail('detail5')" class="mt-6 bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition">
+                <button onclick="toggleDetail('detail4')" class="mt-6 bg-accent text-white px-6 py-2 rounded-lg hover:bg-accent/80 transition">
                     <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
                 </button>
             </div>
@@ -414,7 +318,7 @@
         </div>
 
         <div class="flex justify-between mt-8">
-            <a href="pillar2.html" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition">
+            <a href="pillar2.html" class="bg-secondary text-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition border border-border">
                 <i class="fas fa-arrow-left mr-2"></i> Pillar 2: Empowerment & Credentials
             </a>
             <a href="pillar4.html" class="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition">
@@ -423,10 +327,10 @@
         </div>
     </div>
 
-    <footer class="bg-gray-900 text-white py-8 mt-12">
+    <footer class="bg-card border-t border-border py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400 text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <a href="references.html" class="text-blue-400 hover:text-blue-300 text-sm">View All 900+ References</a>
+            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
+            <a href="references.html" class="text-primary hover:text-primary/80 text-sm">View All 900+ References</a>
         </div>
     </footer>
 
