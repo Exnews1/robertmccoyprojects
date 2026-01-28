@@ -1,0 +1,9 @@
+Religion,Percentage_Estimate,Notes,Source,Data_Quality
+Protestant/Christian,50.0,Most common,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Catholic,15.0,Second most common,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Muslim/Islamic,9.0,Growing population,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Jewish,1.0,Small percentage,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Buddhist,2.0,Small percentage,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Native American Spirituality,3.0,Indigenous practices,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Other/None,20.0,No affiliation or other,Pew Research Center Prison Chaplain Survey,Survey-based estimate
+Conversion During Incarceration,73.0,Chaplains report conversion efforts,Religion in Prisons 50-State Survey (2024),Chaplain-reported

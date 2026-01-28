@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "state prison policies sentencing laws mandatory minimums three strikes by state 2024",
+  "results": [
+    {
+      "title": "How Mandatory Minimums Perpetuate Mass Incarceration and What to Do About It \u2013 The Sentencing Project",
+      "url": "https://www.sentencingproject.org/fact-sheet/how-mandatory-minimums-perpetuate-mass-incarceration-and-what-to-do-about-it/",
+      "domain": "www.sentencingproject.org",
+      "description": "Eliminating mandatory minimum sentencing laws is essential to creating a more just and equitable criminal justice system.",
+      "favicon_url": "https://www.sentencingproject.org/favicon.ico"
+    },
+    {
+      "title": "New laws shrank CA prison population. What happened after release - CalMatters",
+      "url": "https://calmatters.org/justice/2025/09/california-prisons-recidivism-study/",
+      "domain": "calmatters.org",
+      "description": "California adopted major sentencing changes under Govs. Gavin Newsom and Jerry Brown. A new report shows very few people went back to prison after release.",
+      "favicon_url": "https://calmatters.org/wp-content/uploads/2025/12/cropped-calmatters-favicon-32x32.png"
+    },
+    {
+      "title": "A Primer: Three Strikes: The Impact After More Than a Decade",
+      "url": "https://lao.ca.gov/2005/3_strikes/3_strikes_102005.htm",
+      "domain": "lao.ca.gov",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": "Three-strikes laws | Research Starters | EBSCO Research",
+      "url": "https://www.ebsco.com/research-starters/law/three-strikes-laws",
+      "domain": "www.ebsco.com",
+      "description": "<p>Three-strikes laws are legal statutes implemented in various U.S. states designed to impose severe penalties on repeat offenders, particularly for serious and violent crimes. The concept, inspired by the phrase &quot;three strikes and you&#039;re out&quot; from baseball, gained traction in the 1980s during a wave of tough-on-crime policies. The primary aim is to deter crime and enhance community safety by incapacitating repeat offenders, with some states mandating sentences ranging from 25 years to life for third-time offenders. Although these laws sparked widespread interest, they have been more impactful in California, where the legislation resulted in a significant increase in the prison population and has contributed to ongoing issues of overcrowding and fiscal strain. California&#039;s version of the law includes provisions that allow for longer sentences even for non-violent crimes, which has led to discussions about the principles of proportionality and the Eighth Amendment&#039;s prohibition against cruel and unusual punishment. Over the years, there have been efforts to reform these laws, reflecting ongoing debates about their effectiveness and implications on the justice system.</p>\n",
+      "favicon_url": "https://www.ebsco.com/favicon.ico"
+    },
+    {
+      "title": "Sentencing policy | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/research/sentencing_policy/",
+      "domain": "www.prisonpolicy.org",
+      "description": "Research about Sentencing policy and the criminal justice system",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    }
+  ]
+}

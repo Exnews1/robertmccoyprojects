@@ -1,0 +1,180 @@
+{
+  "created_date": "2026-01-24T19:53:59.002056",
+  "datasets": {
+    "incarceration_statistics": {
+      "filename": "data_incarceration_statistics.csv",
+      "rows": 7,
+      "columns": [
+        "Metric",
+        "Value",
+        "Source",
+        "Source_Type",
+        "URL"
+      ],
+      "description": "Dataset containing incarceration statistics with full source traceability"
+    },
+    "racial_demographics": {
+      "filename": "data_racial_demographics.csv",
+      "rows": 5,
+      "columns": [
+        "Race_Ethnicity",
+        "Incarceration_Rate_per_100k",
+        "Rate_Ratio_vs_White",
+        "Percentage_of_Prison_Population",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing racial demographics with full source traceability"
+    },
+    "sex_demographics": {
+      "filename": "data_sex_demographics.csv",
+      "rows": 5,
+      "columns": [
+        "Category",
+        "Value",
+        "Unit",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing sex demographics with full source traceability"
+    },
+    "age_distribution": {
+      "filename": "data_age_distribution.csv",
+      "rows": 9,
+      "columns": [
+        "Age_Group",
+        "Percentage",
+        "Peak_Age_Range",
+        "Source",
+        "Notes"
+      ],
+      "description": "Dataset containing age distribution with full source traceability"
+    },
+    "education_levels": {
+      "filename": "data_education_levels.csv",
+      "rows": 6,
+      "columns": [
+        "Education_Level",
+        "Percentage_or_Rate",
+        "Metric_Type",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing education levels with full source traceability"
+    },
+    "religious_affiliation": {
+      "filename": "data_religious_affiliation.csv",
+      "rows": 8,
+      "columns": [
+        "Religion",
+        "Percentage_Estimate",
+        "Notes",
+        "Source",
+        "Data_Quality"
+      ],
+      "description": "Dataset containing religious affiliation with full source traceability"
+    },
+    "correctional_facilities": {
+      "filename": "data_correctional_facilities.csv",
+      "rows": 9,
+      "columns": [
+        "Facility_Type",
+        "Count_or_Percentage",
+        "Unit",
+        "Population_Housed",
+        "Source"
+      ],
+      "description": "Dataset containing correctional facilities with full source traceability"
+    },
+    "sentence_length": {
+      "filename": "data_sentence_length.csv",
+      "rows": 7,
+      "columns": [
+        "Category",
+        "Value_Years",
+        "Count",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing sentence length with full source traceability"
+    },
+    "recidivism_rates": {
+      "filename": "data_recidivism_rates.csv",
+      "rows": 8,
+      "columns": [
+        "Metric",
+        "Percentage",
+        "Time_Period",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing recidivism rates with full source traceability"
+    },
+    "violence_statistics": {
+      "filename": "data_violence_statistics.csv",
+      "rows": 7,
+      "columns": [
+        "Metric",
+        "Value",
+        "Unit",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing violence statistics with full source traceability"
+    },
+    "mental_health_profile": {
+      "filename": "data_mental_health_profile.csv",
+      "rows": 9,
+      "columns": [
+        "Condition_Category",
+        "Prevalence_Percentage",
+        "Population_Type",
+        "Source",
+        "Source_Citation"
+      ],
+      "description": "Dataset containing mental health profile with full source traceability"
+    },
+    "criminogenic_effects": {
+      "filename": "data_criminogenic_effects.csv",
+      "rows": 8,
+      "columns": [
+        "Finding",
+        "Effect_Direction",
+        "Effect_Size",
+        "Population_Affected",
+        "Source",
+        "Key_Studies"
+      ],
+      "description": "Dataset containing criminogenic effects with full source traceability"
+    },
+    "geographic_distribution": {
+      "filename": "data_geographic_distribution.csv",
+      "rows": 10,
+      "columns": [
+        "State",
+        "Incarceration_Rate_per_100k",
+        "Total_Incarcerated",
+        "Rank",
+        "Source"
+      ],
+      "description": "Dataset containing geographic distribution with full source traceability"
+    }
+  },
+  "data_sources": {
+    "government": [
+      "Bureau of Justice Statistics (BJS)",
+      "Federal Bureau of Prisons (BOP)",
+      "US Sentencing Commission",
+      "PREA Data Collection"
+    ],
+    "research_organizations": [
+      "Prison Policy Initiative",
+      "The Sentencing Project",
+      "Council on Criminal Justice",
+      "Pew Research Center"
+    ],
+    "academic_papers": "74 peer-reviewed papers from comprehensive literature search"
+  },
+  "citation_format": "APA 7th Edition",
+  "traceability": "All data points include source attribution and can be traced to original research"
+}

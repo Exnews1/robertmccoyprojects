@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "U.S. correctional facilities types security levels federal state prisons 2024 statistics",
+  "results": [
+    {
+      "title": "BOP Statistics: Prison Security Levels",
+      "url": "https://www.bop.gov/about/statistics/statistics_inmate_sec_levels.jsp",
+      "domain": "www.bop.gov",
+      "description": null,
+      "favicon_url": "https://www.bop.gov/favicon-16.png"
+    },
+    {
+      "title": "Federal Prisoner Statistics Collected under the First Step Act, 2024",
+      "url": "https://bjs.ojp.gov/document/fpscufsa24.pdf",
+      "domain": "bjs.ojp.gov",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": "[PDF] People in Jail and Prison in 2024 Report",
+      "url": "https://vera-institute.files.svdcdn.com/production/downloads/publications/People-in-Jail-and-Prison-in-2024-Report.pdf",
+      "domain": "vera-institute.files.svdcdn.com",
+      "description": "Jails: Nationally, between fall 2022 and spring 2024, the number of people held in local jails fluctuated around the same level of just over 660,000 people. ...",
+      "favicon_url": ""
+    },
+    {
+      "title": "Mass Incarceration: The Whole Pie 2025 | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/reports/pie2025.html",
+      "domain": "www.prisonpolicy.org",
+      "description": "The big picture on how many people are locked up in the United States and why - 2025.",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    },
+    {
+      "title": "Federal Prisoner Statistics Collected Under the First Step Act, 2024 | Bureau of Justice Statistics",
+      "url": "https://bjs.ojp.gov/library/publications/federal-prisoner-statistics-collected-under-first-step-act-2024",
+      "domain": "bjs.ojp.gov",
+      "description": null,
+      "favicon_url": "https://bjs.ojp.gov/themes/custom/ojp/assets/images/ojp/favicon.png"
+    }
+  ]
+}

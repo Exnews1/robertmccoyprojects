@@ -1,0 +1,98 @@
+{
+  "created_date": "2026-01-24T21:14:28.168564",
+  "description": "State-level incarceration data for interactive dashboard",
+  "datasets": {
+    "state_incarceration_rates": {
+      "filename": "dashboard_state_incarceration_rates.csv",
+      "rows": 51,
+      "columns": [
+        "State",
+        "Incarceration_Rate_per_100k",
+        "Total_Imprisoned",
+        "Prison_Population_Change_2020_2024",
+        "Region",
+        "Source"
+      ]
+    },
+    "state_sentencing_policies": {
+      "filename": "dashboard_state_sentencing_policies.csv",
+      "rows": 51,
+      "columns": [
+        "State",
+        "Three_Strikes_Law",
+        "Mandatory_Minimum_Drug_Laws",
+        "Death_Penalty",
+        "Felony_Disenfranchisement",
+        "Good_Time_Credits",
+        "Source"
+      ]
+    },
+    "state_recidivism_rates": {
+      "filename": "dashboard_state_recidivism_rates.csv",
+      "rows": 51,
+      "columns": [
+        "State",
+        "Three_Year_Recidivism_Rate",
+        "Rearrest_Rate",
+        "Reconviction_Rate",
+        "Recidivism_Trend_2018_2024",
+        "Source"
+      ]
+    },
+    "state_prison_spending": {
+      "filename": "dashboard_state_prison_spending.csv",
+      "rows": 51,
+      "columns": [
+        "State",
+        "Cost_per_Inmate_Annual",
+        "Total_Corrections_Budget_Millions",
+        "Rehabilitation_Program_Spending_Pct",
+        "Source"
+      ]
+    },
+    "state_reform_initiatives": {
+      "filename": "dashboard_state_reform_initiatives.csv",
+      "rows": 51,
+      "columns": [
+        "State",
+        "Sentencing_Reform_2020_2024",
+        "Marijuana_Legalization",
+        "Bail_Reform",
+        "Reentry_Programs",
+        "Prison_Education_Programs",
+        "Source"
+      ]
+    }
+  },
+  "merged_dataset": {
+    "filename": "dashboard_comprehensive_state_data.csv",
+    "rows": 51,
+    "columns": [
+      "State",
+      "Incarceration_Rate_per_100k",
+      "Total_Imprisoned",
+      "Prison_Population_Change_2020_2024",
+      "Region",
+      "Source",
+      "Three_Strikes_Law",
+      "Mandatory_Minimum_Drug_Laws",
+      "Death_Penalty",
+      "Good_Time_Credits",
+      "Three_Year_Recidivism_Rate",
+      "Recidivism_Trend_2018_2024",
+      "Cost_per_Inmate_Annual",
+      "Rehabilitation_Program_Spending_Pct",
+      "Sentencing_Reform_2020_2024",
+      "Marijuana_Legalization",
+      "Reentry_Programs"
+    ],
+    "description": "Comprehensive merged dataset with all metrics"
+  },
+  "sources": [
+    "Prison Policy Initiative (2024)",
+    "The Sentencing Project (2024)",
+    "Council on Criminal Justice (2024)",
+    "State Department of Corrections Reports",
+    "National Conference of State Legislatures (2024)"
+  ]
+}

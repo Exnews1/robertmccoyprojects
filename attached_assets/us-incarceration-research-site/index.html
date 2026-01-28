@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.S. Incarceration Research Hub | Comprehensive Data & Analysis</title>
+    <meta name="description" content="Comprehensive research platform on U.S. incarceration statistics, demographics, policies, and trends. Evidence-based analysis with interactive data visualizations.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-gradient-to-r from-blue-900 to-blue-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-balance-scale text-3xl"></i>
+                    <div>
+                        <h1 class="text-xl font-bold">U.S. Incarceration Research Hub</h1>
+                        <p class="text-xs text-blue-200">Evidence-Based Criminal Justice Analysis</p>
+                    </div>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <div id="nav-links" class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-blue-200 transition">Home</a>
+                    <a href="#overview" class="hover:text-blue-200 transition">Overview</a>
+                    <a href="#demographics" class="hover:text-blue-200 transition">Demographics</a>
+                    <a href="#state-comparison" class="hover:text-blue-200 transition">State Data</a>
+                    <a href="#political-analysis" class="hover:text-blue-200 transition">Political Analysis</a>
+                    <a href="#research" class="hover:text-blue-200 transition">Research</a>
+                    <a href="#about" class="hover:text-blue-200 transition">About</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">U.S. Incarceration Research Hub</h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100">Comprehensive Data, Analysis, and Insights on the American Criminal Justice System</p>
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-6 min-w-[200px]">
+                    <div class="text-4xl font-bold text-yellow-300">2.4M</div>
+                    <div class="text-sm">People Incarcerated</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-6 min-w-[200px]">
+                    <div class="text-4xl font-bold text-yellow-300">0.71%</div>
+                    <div class="text-sm">Of U.S. Population</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-6 min-w-[200px]">
+                    <div class="text-4xl font-bold text-yellow-300">708</div>
+                    <div class="text-sm">Per 100,000 Rate</div>
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-6 min-w-[200px]">
+                    <div class="text-4xl font-bold text-yellow-300">51</div>
+                    <div class="text-sm">States + DC Analyzed</div>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#overview" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-lg transition shadow-lg">
+                    Explore Data
+                </a>
+                <a href="#state-comparison" class="bg-white hover:bg-gray-100 text-blue-900 font-bold py-3 px-8 rounded-lg transition shadow-lg">
+                    Compare States
+                </a>
+                <a href="data/US_Incarceration_System_Comprehensive_Report_APA.docx" download class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg">
+                    <i class="fas fa-download mr-2"></i>Download Report
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats Section -->
+    <section id="overview" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">National Overview</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-gradient-to-br from-red-500 to-red-600 text-white p-6 rounded-lg shadow-lg">
+                    <i class="fas fa-users text-4xl mb-3"></i>
+                    <h3 class="text-2xl font-bold mb-2">Total Incarcerated</h3>
+                    <p class="text-4xl font-bold">2,419,100</p>
+                    <p class="text-sm mt-2 opacity-90">As of 2024</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+                    <i class="fas fa-percentage text-4xl mb-3"></i>
+                    <h3 class="text-2xl font-bold mb-2">% of Population</h3>
+                    <p class="text-4xl font-bold">0.71%</p>
+                    <p class="text-sm mt-2 opacity-90">1 in 141 Americans</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-lg shadow-lg">
+                    <i class="fas fa-chart-line text-4xl mb-3"></i>
+                    <h3 class="text-2xl font-bold mb-2">Incarceration Rate</h3>
+                    <p class="text-4xl font-bold">708</p>
+                    <p class="text-sm mt-2 opacity-90">Per 100,000 people</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-lg shadow-lg">
+                    <i class="fas fa-globe-americas text-4xl mb-3"></i>
+                    <h3 class="text-2xl font-bold mb-2">Global Ranking</h3>
+                    <p class="text-4xl font-bold">#1</p>
+                    <p class="text-sm mt-2 opacity-90">Highest in the world</p>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4 text-blue-900">
+                    <i class="fas fa-lightbulb mr-2"></i>Key Findings
+                </h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>The United States has the highest incarceration rate in the world, with 708 people per 100,000 in prison</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>Red (Republican) states incarcerate 16% more people than Blue (Democratic) states on average</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>Louisiana has the highest rate (1.11% of population) while Minnesota has the lowest (0.38%)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>Black Americans are incarcerated at 5.9× the rate of White Americans</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>67.5% of released prisoners are re-arrested within 3 years</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demographics Section -->
+    <section id="demographics" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Demographics</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Race/Ethnicity -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-users-cog mr-2 text-blue-600"></i>Race & Ethnicity
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Black/African American</span>
+                                <span class="font-bold text-red-600">38.2%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-red-600 h-4 rounded-full" style="width: 38.2%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">5.9× higher rate than White Americans</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">White</span>
+                                <span class="font-bold text-blue-600">37.5%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: 37.5%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Hispanic/Latino</span>
+                                <span class="font-bold text-orange-600">21.4%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-orange-600 h-4 rounded-full" style="width: 21.4%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">2.3× higher rate than White Americans</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Other</span>
+                                <span class="font-bold text-green-600">2.9%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-green-600 h-4 rounded-full" style="width: 2.9%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-venus-mars mr-2 text-purple-600"></i>Gender Distribution
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Male</span>
+                                <span class="font-bold text-blue-600">92.8%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: 92.8%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">2,244,600 people</p>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Female</span>
+                                <span class="font-bold text-pink-600">7.2%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-pink-600 h-4 rounded-full" style="width: 7.2%"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">174,500 people</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-info-circle text-purple-600 mr-2"></i>
+                            <strong>Note:</strong> Female incarceration has grown 834% since 1980, nearly double the rate of male incarceration growth.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Age Distribution -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-birthday-cake mr-2 text-green-600"></i>Age Distribution
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-semibold">18-24 years</span>
+                            <span class="font-bold text-blue-600">14.2%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-semibold">25-29 years</span>
+                            <span class="font-bold text-blue-600">18.7%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-blue-100 rounded border-2 border-blue-500">
+                            <span class="font-semibold">30-34 years (Peak)</span>
+                            <span class="font-bold text-blue-700">19.5%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-semibold">35-39 years</span>
+                            <span class="font-bold text-blue-600">16.8%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <span class="font-semibold">40+ years</span>
+                            <span class="font-bold text-blue-600">30.8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Levels -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-graduation-cap mr-2 text-yellow-600"></i>Education Levels
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Less than High School</span>
+                                <span class="font-bold text-red-600">40%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-red-600 h-4 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">High School/GED</span>
+                                <span class="font-bold text-orange-600">30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-orange-600 h-4 rounded-full" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">Some College</span>
+                                <span class="font-bold text-yellow-600">20%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-yellow-600 h-4 rounded-full" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-semibold">College Degree</span>
+                                <span class="font-bold text-green-600">10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-green-600 h-4 rounded-full" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                            <strong>Critical:</strong> 40% of incarcerated individuals lack a high school diploma, compared to 12% in the general population.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- State Comparison Section -->
+    <section id="state-comparison" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">State-by-State Analysis</h2>
+            
+            <div class="mb-8 text-center">
+                <a href="state-dashboard.html" class="inline-block bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-lg transition shadow-lg text-lg">
+                    <i class="fas fa-chart-bar mr-2"></i>Launch Interactive State Dashboard
+                </a>
+                <p class="text-gray-600 mt-3">Compare all 50 states + DC with interactive visualizations and filters</p>
+            </div>
+
+            <!-- Top/Bottom States Preview -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
+                <!-- Highest Rates -->
+                <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-4 text-red-800">
+                        <i class="fas fa-arrow-up mr-2"></i>Highest Incarceration Rates
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">1. Louisiana</span>
+                            <span class="text-red-700 font-bold">1.11%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">2. Mississippi</span>
+                            <span class="text-red-700 font-bold">1.05%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">3. Arizona</span>
+                            <span class="text-red-700 font-bold">1.04%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">4. District of Columbia</span>
+                            <span class="text-red-700 font-bold">1.03%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">5. Oregon</span>
+                            <span class="text-red-700 font-bold">1.02%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lowest Rates -->
+                <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-4 text-green-800">
+                        <i class="fas fa-arrow-down mr-2"></i>Lowest Incarceration Rates
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">1. Minnesota</span>
+                            <span class="text-green-700 font-bold">0.38%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">2. New Jersey</span>
+                            <span class="text-green-700 font-bold">0.43%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">3. New York</span>
+                            <span class="text-green-700 font-bold">0.50%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">4. Connecticut</span>
+                            <span class="text-green-700 font-bold">0.50%</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+                            <span class="font-semibold">5. Maryland</span>
+                            <span class="text-green-700 font-bold">0.53%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Political Analysis Section -->
+    <section id="political-analysis" class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Political Party Analysis</h2>
+            
+            <div class="bg-white rounded-lg shadow-xl p-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Red States -->
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">🔴 Red States</h3>
+                        <div class="space-y-2">
+                            <p class="text-3xl font-bold">0.827%</p>
+                            <p class="text-sm opacity-90">Average incarceration rate</p>
+                            <hr class="border-white opacity-30 my-3">
+                            <p class="text-lg font-semibold">28 states</p>
+                            <p class="text-sm opacity-90">164.8M population</p>
+                            <p class="text-sm opacity-90">1.36M imprisoned</p>
+                        </div>
+                    </div>
+
+                    <!-- Blue States -->
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">🔵 Blue States</h3>
+                        <div class="space-y-2">
+                            <p class="text-3xl font-bold">0.610%</p>
+                            <p class="text-sm opacity-90">Average incarceration rate</p>
+                            <hr class="border-white opacity-30 my-3">
+                            <p class="text-lg font-semibold">20 states</p>
+                            <p class="text-sm opacity-90">142.4M population</p>
+                            <p class="text-sm opacity-90">868K imprisoned</p>
+                        </div>
+                    </div>
+
+                    <!-- Purple States -->
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">🟣 Purple States</h3>
+                        <div class="space-y-2">
+                            <p class="text-3xl font-bold">0.680%</p>
+                            <p class="text-sm opacity-90">Average incarceration rate</p>
+                            <hr class="border-white opacity-30 my-3">
+                            <p class="text-lg font-semibold">3 states</p>
+                            <p class="text-sm opacity-90">27.6M population</p>
+                            <p class="text-sm opacity-90">188K imprisoned</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Finding -->
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-3 text-yellow-900">
+                        <i class="fas fa-star mr-2"></i>Critical Finding
+                    </h3>
+                    <p class="text-lg text-gray-700 mb-3">
+                        <strong>Red states incarcerate 16.0% MORE people than blue states</strong> (as a percentage of population).
+                    </p>
+                    <p class="text-gray-600">
+                        This represents a difference of 0.12 percentage points. If red states matched blue state rates, approximately 263,000 fewer people would be in prison.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pattern Analysis -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-chart-pie mr-2 text-red-600"></i>Top 10 Highest Rates
+                    </h3>
+                    <p class="text-gray-700 mb-3">Party distribution in states with highest incarceration:</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-1">
+                                <span>Red States</span>
+                                <span class="font-bold">50%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-red-600 h-3 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-3">
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-1">
+                                <span>Blue States</span>
+                                <span class="font-bold">50%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-600 h-3 rounded-full" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-chart-pie mr-2 text-green-600"></i>Bottom 10 Lowest Rates
+                    </h3>
+                    <p class="text-gray-700 mb-3">Party distribution in states with lowest incarceration:</p>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-1">
+                                <span>Blue States</span>
+                                <span class="font-bold">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-600 h-3 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-3">
+                        <div class="flex-1">
+                            <div class="flex justify-between mb-1">
+                                <span>Red States</span>
+                                <span class="font-bold">10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-red-600 h-3 rounded-full" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Data Section -->
+    <section id="research" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Research & Downloads</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Comprehensive Report -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-file-alt text-6xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Comprehensive Report</h3>
+                    <p class="text-gray-700 mb-4">12,000+ word analysis covering all aspects of U.S. incarceration. APA 7th edition format.</p>
+                    <a href="data/US_Incarceration_System_Comprehensive_Report_APA.docx" download class="block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>Download DOCX
+                    </a>
+                </div>
+
+                <!-- State Data CSV -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-table text-6xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">State-by-State Data</h3>
+                    <p class="text-gray-700 mb-4">Complete dataset with population, incarceration rates, and political party for all 51 jurisdictions.</p>
+                    <a href="data/state_incarceration_by_party.csv" download class="block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>Download CSV
+                    </a>
+                </div>
+
+                <!-- Percentage Analysis -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chart-line text-6xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Percentage Analysis Report</h3>
+                    <p class="text-gray-700 mb-4">Detailed analysis of what % of each state's population is incarcerated with political comparisons.</p>
+                    <a href="data/INCARCERATION_PERCENTAGES_REPORT.docx" download class="block bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>Download DOCX
+                    </a>
+                </div>
+
+                <!-- Demographics Data -->
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-users text-6xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Demographics Datasets</h3>
+                    <p class="text-gray-700 mb-4">13 CSV files covering race, gender, age, education, religion, and more with source citations.</p>
+                    <a href="data/datasets_metadata.json" download class="block bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>View Metadata
+                    </a>
+                </div>
+
+                <!-- Analysis Tables -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chart-bar text-6xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Analysis Tables</h3>
+                    <p class="text-gray-700 mb-4">Comprehensive tables with key findings and APA citations for all 13 demographic categories.</p>
+                    <a href="data/comprehensive_analysis_tables.md" download class="block bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>Download MD
+                    </a>
+                </div>
+
+                <!-- Party Comparison -->
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 border-2 border-indigo-300 rounded-lg p-6 hover:shadow-xl transition">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-balance-scale text-6xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Political Party Summary</h3>
+                    <p class="text-gray-700 mb-4">JSON summary of red vs blue state incarceration statistics with detailed breakdowns.</p>
+                    <a href="data/party_comparison_summary.json" download class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center transition">
+                        <i class="fas fa-download mr-2"></i>Download JSON
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">About This Research</h2>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-info-circle mr-2 text-blue-600"></i>Project Overview
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        This comprehensive research platform provides evidence-based analysis of the United States incarceration system. All data is sourced from authoritative government agencies, peer-reviewed research, and reputable criminal justice organizations.
+                    </p>
+                    <p class="text-gray-700">
+                        The research covers demographics, state-by-state comparisons, political party analysis, recidivism rates, facility types, spending data, and reform initiatives across all 50 states plus the District of Columbia.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-database mr-2 text-green-600"></i>Data Sources
+                    </h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>U.S. Census Bureau (2024)</strong> - Population data for all states</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Prison Policy Initiative (2024)</strong> - Incarceration rates and prison data</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Bureau of Justice Statistics</strong> - Demographics and recidivism data</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>The Sentencing Project (2024)</strong> - Sentencing policy and reform data</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>Ballotpedia (2024)</strong> - Political party control classifications</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                            <span><strong>74 Peer-Reviewed Papers</strong> - Academic research from SciSpace and Google Scholar</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>Methodology & Limitations
+                    </h3>
+                    <div class="space-y-3 text-gray-700">
+                        <p>
+                            <strong>Political Classification:</strong> States are classified as Red (Republican trifecta), Blue (Democratic trifecta), or Purple (split control) based on 2024 gubernatorial and legislative control.
+                        </p>
+                        <p>
+                            <strong>Incarceration Data:</strong> Includes state and federal prison populations. Does not include jail populations (pre-trial detention and short sentences in local facilities).
+                        </p>
+                        <p>
+                            <strong>Correlation vs. Causation:</strong> Political party control correlates with incarceration rates but does not prove causation. Many factors influence rates including historical policies, crime rates, socioeconomic conditions, and judicial practices.
+                        </p>
+                        <p>
+                            <strong>Data Currency:</strong> All data represents 2024 estimates and may not reflect very recent policy changes or population shifts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <i class="fas fa-balance-scale mr-2"></i>U.S. Incarceration Research Hub
+                    </h3>
+                    <p class="text-gray-400">
+                        Evidence-based criminal justice research and analysis platform providing comprehensive data on the American incarceration system.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#overview" class="hover:text-white transition">National Overview</a></li>
+                        <li><a href="#demographics" class="hover:text-white transition">Demographics</a></li>
+                        <li><a href="#state-comparison" class="hover:text-white transition">State Comparisons</a></li>
+                        <li><a href="#political-analysis" class="hover:text-white transition">Political Analysis</a></li>
+                        <li><a href="#research" class="hover:text-white transition">Research & Data</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Data & Reports</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="data/US_Incarceration_System_Comprehensive_Report_APA.docx" download class="hover:text-white transition">Download Full Report</a></li>
+                        <li><a href="data/state_incarceration_by_party.csv" download class="hover:text-white transition">State Data (CSV)</a></li>
+                        <li><a href="state-dashboard.html" class="hover:text-white transition">Interactive Dashboard</a></li>
+                        <li><a href="data/datasets_metadata.json" download class="hover:text-white transition">Dataset Metadata</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p class="mb-2">
+                    <strong>Data Sources:</strong> U.S. Census Bureau, Prison Policy Initiative, Bureau of Justice Statistics, The Sentencing Project, Ballotpedia
+                </p>
+                <p class="mb-4">
+                    <strong>Last Updated:</strong> January 2026 | <strong>Data Current:</strong> 2024
+                </p>
+                <p class="text-sm">
+                    © 2026 U.S. Incarceration Research Hub. All data sourced from public government agencies and peer-reviewed research.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
