@@ -15,20 +15,6 @@ const canonicalDocuments = [
     description: "Complete research paper with system architecture and implementation guidance",
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx"
-  },
-  {
-    id: "presentation",
-    title: "CCME 2026 Presentation",
-    description: "Main conference presentation on bounded AI governance",
-    icon: Presentation,
-    href: "/attached_assets/CCME_2026_Main.pdf"
-  },
-  {
-    id: "presentation-long",
-    title: "Research Presentation Long Version",
-    description: "Extended presentation with additional detail",
-    icon: Presentation,
-    href: "/attached_assets/CCME_2026_1767730819889.pdf"
   }
 ];
 
