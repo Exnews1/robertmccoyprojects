@@ -23,6 +23,18 @@ const mainProjects = [
     external: false
   },
   {
+    id: "incarceration-research",
+    title: "U.S. Incarceration Research Hub",
+    description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
+    icon: Scale,
+    route: "/incarceration-research",
+    status: "Research Hub",
+    external: false
+  }
+];
+
+const aiEducationProjects = [
+  {
     id: "education-ai",
     title: "AI Education Futures Hub",
     description: "Evidence-based guidance for implementing AI across K-12, Higher Ed, Vocational, and Corporate learning. Based on 557 research papers.",
@@ -38,15 +50,6 @@ const mainProjects = [
     icon: School,
     route: "/universities-ai",
     status: "Analysis",
-    external: false
-  },
-  {
-    id: "incarceration-research",
-    title: "U.S. Incarceration Research Hub",
-    description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
-    icon: Scale,
-    route: "/incarceration-research",
-    status: "Research Hub",
     external: false
   }
 ];
@@ -92,6 +95,36 @@ export default function Portfolio() {
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">Projects</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {mainProjects.map((project) => (
+              <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
+                <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      <project.icon className="h-8 w-8 text-primary" />
+                      <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
+                        {project.status}
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl">{project.title}</CardTitle>
+                    <CardDescription className="text-muted-foreground">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+                      <span>View Project</span>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12" data-testid="section-ai-education">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">AI and Education</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {aiEducationProjects.map((project) => (
               <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
                 <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
                   <CardHeader>
