@@ -68,7 +68,7 @@ function Router() {
       <Route path="/cmgf/walkthrough/part-c" component={PartC} />
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
-      <Route path="/explorer" component={Explorer} />
+      <Route path="/cmgf/explorer" component={Explorer} />
       <Route path="/education-ai" component={EducationAI} />
       <Route path="/universities-ai" component={UniversitiesAI} />
       <Route path="/profile" component={Profile} />

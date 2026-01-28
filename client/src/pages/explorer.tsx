@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, Search, ExternalLink, FileText, AlertCircle, BookOpen, MessageSquare, Sparkles } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
+import { CMGFNav } from "@/components/cmgf-nav";
 
 interface SearchResult {
   id: string;
@@ -73,10 +74,15 @@ export default function Explorer() {
 
   return (
     <div className="min-h-screen bg-background">
+      <CMGFNav />
       <div className="max-w-4xl mx-auto px-6 py-8">
         <nav className="mb-8 text-sm">
           <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
+          </Link>
+          <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
+          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+            CMGF
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
           <span className="text-foreground">Reference Explorer</span>

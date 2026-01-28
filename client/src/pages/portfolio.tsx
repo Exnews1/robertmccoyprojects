@@ -18,7 +18,7 @@ const mainProjects = [
     title: "CMGF Reference Explorer",
     description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
     icon: Search,
-    route: "/explorer",
+    route: "/cmgf/explorer",
     status: "Research Tool",
     external: false
   },
