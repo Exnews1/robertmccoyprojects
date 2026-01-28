@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "Bureau of Justice Statistics U.S. prison incarceration demographics 2024 2025 race sex education statistics",
+  "results": [
+    {
+      "title": "Jails Report Series: 2024 Preliminary Data Release | Bureau of Justice Statistics",
+      "url": "https://bjs.ojp.gov/library/publications/jails-report-series-2024-preliminary-data-release",
+      "domain": "bjs.ojp.gov",
+      "description": null,
+      "favicon_url": "https://bjs.ojp.gov/themes/custom/ojp/assets/images/ojp/favicon.png"
+    },
+    {
+      "title": "Individuals in the Federal Bureau of Prisons | United States Sentencing Commission",
+      "url": "https://www.ussc.gov/research/quick-facts/individuals-federal-bureau-prisons",
+      "domain": "www.ussc.gov",
+      "description": "",
+      "favicon_url": "https://www.ussc.gov/sites/default/files/favicon_1.ico"
+    },
+    {
+      "title": "BOP Statistics: Inmate Race",
+      "url": "https://www.bop.gov/about/statistics/statistics_inmate_race.jsp",
+      "domain": "www.bop.gov",
+      "description": null,
+      "favicon_url": "https://www.bop.gov/favicon-16.png"
+    },
+    {
+      "title": "Racial and ethnic disparities | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/research/racial_and_ethnic_disparities/",
+      "domain": "www.prisonpolicy.org",
+      "description": "Research about Racial and ethnic disparities and the criminal justice system",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    },
+    {
+      "title": "People in Jail and Prison in 2024 Report",
+      "url": "https://vera-institute.files.svdcdn.com/production/downloads/publications/People-in-Jail-and-Prison-in-2024-Report.pdf",
+      "domain": "vera-institute.files.svdcdn.com",
+      "description": "New data compiled by the Vera. Institute of Justice (Vera) shows that, by spring 2024, incarceration had returned to 2019 levels in many states like Georgia and ...",
+      "favicon_url": ""
+    }
+  ]
+}

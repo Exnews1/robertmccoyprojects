@@ -1,0 +1,10 @@
+Facility_Type,Count_or_Percentage,Unit,Population_Housed,Source
+Total Federal Facilities,122.0,Count,155972,Federal Bureau of Prisons (2024)
+Minimum Security,14.6,Percentage,22763,Federal Bureau of Prisons (2024)
+Low Security,36.2,Percentage,56461,Federal Bureau of Prisons (2024)
+Medium Security,32.8,Percentage,51159,Federal Bureau of Prisons (2024)
+High Security,12.1,Percentage,18872,Federal Bureau of Prisons (2024)
+Administrative,4.3,Percentage,6717,Federal Bureau of Prisons (2024)
+State Prisons,1566.0,Count (approx),1200000,Bureau of Justice Statistics (2024)
+Local Jails,3000.0,Count (approx),750000,Bureau of Justice Statistics (2024)
+Private Prisons (Federal),16.0,Percentage of inmates,24955,Federal Bureau of Prisons (2024)

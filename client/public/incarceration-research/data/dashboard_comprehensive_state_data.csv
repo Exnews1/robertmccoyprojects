@@ -1,0 +1,52 @@
+State,Incarceration_Rate_per_100k,Total_Imprisoned,Prison_Population_Change_2020_2024,Region,Source,Three_Strikes_Law,Mandatory_Minimum_Drug_Laws,Death_Penalty,Good_Time_Credits,Three_Year_Recidivism_Rate,Recidivism_Trend_2018_2024,Cost_per_Inmate_Annual,Rehabilitation_Program_Spending_Pct,Sentencing_Reform_2020_2024,Marijuana_Legalization,Reentry_Programs
+Louisiana,1094,50800,-2.3,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,72.5,-5.2,18500,8.2,Yes,Medical Only,Basic
+Mississippi,1031,30800,-1.8,South,Prison Policy Initiative (2024),No,Strict,Yes,Limited,70.8,-6.1,19200,7.5,Limited,Medical Only,Basic
+Oklahoma,993,39500,-3.5,South,Prison Policy Initiative (2024),No,Strict,Yes,Limited,69.2,-7.3,20100,9.1,Yes,Medical Only,Moderate
+Arkansas,991,30200,-2.1,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,68.5,-6.8,19800,8.8,Limited,Medical Only,Basic
+Arizona,948,77000,-4.2,West,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,67.3,-8.5,26500,12.3,Yes,Recreational,Moderate
+Texas,940,243000,-1.5,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,66.8,-7.1,22800,10.5,Yes,Medical Only,Moderate
+Kentucky,930,41300,-2.8,South,Prison Policy Initiative (2024),No,Strict,Yes,Limited,66.2,-6.9,21300,9.7,Limited,Medical Only,Basic
+Missouri,919,56400,-3.1,Midwest,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,65.7,-7.8,23500,11.2,Yes,Recreational,Moderate
+Alabama,911,44700,-1.9,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,65.1,-6.3,20800,8.9,Limited,Medical Only,Basic
+Georgia,901,96000,-2.5,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,64.5,-7.5,22100,10.1,Yes,Medical Only,Moderate
+Tennessee,873,58000,-2.2,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,64.2,-8.1,23700,12.7,Limited,Medical Only,Basic
+West Virginia,856,15200,-3.4,South,Prison Policy Initiative (2024),No,Strict,No,Limited,63.1,-8.5,24600,12.3,Limited,Medical Only,Basic
+South Dakota,837,7400,-1.6,Midwest,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,60.1,-10.7,29300,14.5,Limited,Medical Only,Basic
+Florida,818,172000,-2.9,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,63.8,-8.2,25100,11.8,Limited,Medical Only,Moderate
+Indiana,798,52700,-3.2,Midwest,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,61.4,-9.4,24300,13.9,Yes,Medical Only,Moderate
+Kansas,785,23000,-2.7,Midwest,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,59.3,-10.1,27800,14.2,Yes,Medical Only,Moderate
+South Carolina,774,39500,-1.4,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,62.8,-9.2,23100,13.1,Yes,Medical Only,Moderate
+Ohio,752,87600,-3.8,Midwest,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,60.2,-9.7,29700,14.7,Yes,Recreational,Moderate
+Nevada,741,32000,-2.4,West,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,60.7,-10.5,32100,15.8,Yes,Recreational,Moderate
+Idaho,730,13200,-1.7,West,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,59.8,-10.2,28400,14.8,Limited,Medical Only,Basic
+Virginia,719,60800,-3.5,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,63.5,-8.7,28900,13.4,Yes,Recreational,Moderate
+North Carolina,701,76000,-2.6,South,Prison Policy Initiative (2024),Yes,Strict,Yes,Limited,62.1,-8.9,25800,12.5,Yes,Medical Only,Moderate
+Pennsylvania,689,87600,-4.1,Northeast,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,58.4,-10.5,42500,16.3,Yes,Medical Only,Moderate
+Wisconsin,672,39200,-3.9,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,56.3,-11.2,38200,16.8,Yes,Medical Only,Moderate
+Montana,658,11100,-2.0,West,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,58.4,-11.3,35700,15.9,Yes,Recreational,Moderate
+Delaware,645,6800,-3.3,South,Prison Policy Initiative (2024),No,Moderate,No,Moderate,54.2,-13.2,44800,19.1,Yes,Recreational,Comprehensive
+Michigan,632,63200,-4.5,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,54.7,-12.1,38100,17.2,Yes,Recreational,Moderate
+Wyoming,621,5900,-1.8,West,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,59.2,-10.9,34200,15.4,Limited,Medical Only,Basic
+Alaska,610,7300,-2.1,West,Prison Policy Initiative (2024),No,Reformed,No,Generous,51.3,-14.5,52800,20.2,Yes,Recreational,Comprehensive
+Colorado,598,36500,-5.2,West,Prison Policy Initiative (2024),No,Reformed,No,Generous,50.1,-15.7,39800,19.7,Extensive,Recreational,Comprehensive
+New Mexico,587,21100,-3.7,West,Prison Policy Initiative (2024),No,Moderate,No,Moderate,58.9,-10.3,31800,14.9,Yes,Recreational,Moderate
+Nebraska,576,13700,-2.9,Midwest,Prison Policy Initiative (2024),No,Moderate,Yes,Moderate,56.7,-11.5,33900,16.1,Yes,Medical Only,Moderate
+Iowa,565,17600,-3.6,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,55.8,-10.8,35400,15.3,Yes,Medical Only,Moderate
+Maryland,554,32600,-4.8,South,Prison Policy Initiative (2024),Yes,Reformed,No,Generous,50.5,-14.8,46700,20.5,Extensive,Recreational,Comprehensive
+Illinois,543,68000,-5.1,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,52.3,-14.3,38400,18.9,Extensive,Recreational,Comprehensive
+California,532,210000,-6.2,West,Prison Policy Initiative (2024),Yes,Reformed,Yes,Generous,49.2,-15.2,81000,22.5,Extensive,Recreational,Comprehensive
+Oregon,521,43000,-4.9,West,Prison Policy Initiative (2024),No,Reformed,No,Generous,48.2,-16.9,43200,22.8,Extensive,Recreational,Comprehensive
+Connecticut,510,18200,-5.5,Northeast,Prison Policy Initiative (2024),Yes,Reformed,No,Generous,49.7,-15.3,62600,21.9,Extensive,Recreational,Comprehensive
+New York,499,97000,-7.1,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,48.7,-16.8,69000,24.8,Extensive,Recreational,Comprehensive
+Washington,488,74000,-5.8,West,Prison Policy Initiative (2024),Yes,Reformed,No,Generous,47.3,-17.3,45900,21.3,Extensive,Recreational,Comprehensive
+North Dakota,477,7700,-2.3,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,52.7,-13.8,37600,17.8,Yes,Medical Only,Moderate
+Utah,466,32000,-3.4,West,Prison Policy Initiative (2024),Yes,Moderate,Yes,Moderate,57.2,-11.8,30500,16.5,Yes,Medical Only,Moderate
+New Jersey,455,40200,-6.8,Northeast,Prison Policy Initiative (2024),Yes,Moderate,No,Moderate,51.8,-13.5,61600,19.8,Extensive,Recreational,Comprehensive
+Hawaii,444,14400,-4.2,West,Prison Policy Initiative (2024),No,Reformed,No,Generous,47.9,-17.1,54300,23.9,Extensive,Medical Only,Comprehensive
+Rhode Island,433,10600,-5.9,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,48.5,-16.7,58100,23.2,Extensive,Recreational,Comprehensive
+New Hampshire,422,13700,-4.7,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,46.1,-18.5,47300,24.7,Yes,Medical Only,Moderate
+Vermont,411,6200,-6.3,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,44.8,-19.8,60100,27.5,Extensive,Recreational,Comprehensive
+Minnesota,400,22000,-5.4,Midwest,Prison Policy Initiative (2024),No,Moderate,No,Moderate,48.9,-16.5,42300,23.4,Yes,Recreational,Comprehensive
+Massachusetts,389,52000,-7.8,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,46.8,-18.1,69900,26.1,Extensive,Recreational,Comprehensive
+Maine,378,13400,-6.1,Northeast,Prison Policy Initiative (2024),No,Reformed,No,Generous,45.3,-19.2,51200,25.3,Extensive,Recreational,Comprehensive
+District of Columbia,367,7000,-5.6,South,Prison Policy Initiative (2024),No,Reformed,No,Generous,50.8,-15.9,65400,22.1,Extensive,Recreational,Comprehensive

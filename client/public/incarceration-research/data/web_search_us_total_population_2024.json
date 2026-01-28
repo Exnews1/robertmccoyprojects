@@ -1,0 +1,28 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "United States total population 2024 census current",
+  "results": [
+    {
+      "title": "Population Clock",
+      "url": "https://www.census.gov/popclock/",
+      "domain": "www.census.gov",
+      "description": "Shows estimates of current USA Population overall and people by US state/county and of World Population overall, by country and most populated countries.",
+      "favicon_url": null
+    },
+    {
+      "title": "United States Population (2025) - Worldometer",
+      "url": "https://www.worldometers.info/world-population/us-population/",
+      "domain": "www.worldometers.info",
+      "description": "Population of the United States: current, historical, and projected population, growth rate, immigration, median age, total fertility rate (TFR), population density, urbanization, urban population, country's share of world population, and global rank. Data tables, maps, charts, and live population clock",
+      "favicon_url": "https://www.worldometers.info/favicon/android-icon-192x192.png"
+    },
+    {
+      "title": "U.S. Population (1950-2025)",
+      "url": "https://www.macrotrends.net/global-metrics/countries/usa/united-states/population",
+      "domain": "www.macrotrends.net",
+      "description": "Total population is based on the de facto definition of population, which counts all residents regardless of legal status or citizenship. The values shown are midyear estimates.",
+      "favicon_url": "https://www.macrotrends.net/production/global_metrics/images/macrotrends-favicon-96.png"
+    }
+  ]
+}

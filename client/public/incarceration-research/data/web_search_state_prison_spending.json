@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "state prison spending per inmate corrections budget by state 2024",
+  "results": [
+    {
+      "title": "Mapped: U.S. States by Cost Per Prisoner",
+      "url": "https://www.visualcapitalist.com/cost-per-prisoner-in-us-states/",
+      "domain": "www.visualcapitalist.com",
+      "description": "In this map, we illustrate the annual cost per prisoner across all U.S. states. It ranges from $23,000 to $307,000 per prisoner.",
+      "favicon_url": "https://www.visualcapitalist.com/wp-content/uploads/2021/04/cropped-logo-32x32.png"
+    },
+    {
+      "title": "Economics of incarceration | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/research/economics_of_incarceration/",
+      "domain": "www.prisonpolicy.org",
+      "description": "Research about Economics of incarceration and the criminal justice system",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    },
+    {
+      "title": "How much do states spend on housing prisoners? | USAFacts",
+      "url": "https://usafacts.org/articles/how-much-do-states-spend-on-prisons/",
+      "domain": "usafacts.org",
+      "description": "States in the South spend the least per inmate and have some of the highest prison incarceration rates in the nation. ",
+      "favicon_url": "https://usafacts.org/favicon-32x32.png"
+    },
+    {
+      "title": "Prison Spending by State 2026",
+      "url": "https://worldpopulationreview.com/state-rankings/prison-spending-by-state",
+      "domain": "worldpopulationreview.com",
+      "description": "Discover population, economy, health, and more with the most comprehensive global statistics at your fingertips.",
+      "favicon_url": "https://worldpopulationreview.com/favicon.ico"
+    },
+    {
+      "title": "Study: Mass. spends more per prisoner than any other state",
+      "url": "https://www.corrections1.com/re-entry-and-recidivism/study-mass-spends-more-per-prisoner-than-any-other-state",
+      "domain": "www.corrections1.com",
+      "description": "The state spends $307,468 per prisoner, which is double Vermont, the second-place state, and dwarfs the $23,000 Arkansas spends on each prisoner",
+      "favicon_url": "https://www.corrections1.com/favicon-32x32.png"
+    }
+  ]
+}

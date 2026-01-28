@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "state prison reform policies rehabilitation programs by state 2024",
+  "results": [
+    {
+      "title": "\n              50 States, 1 Goal: Examining State-Level Recidivism Trends in the Second Chance Act Era - CSG Justice Center\n          ",
+      "url": "https://csgjusticecenter.org/publications/50-states-1-goal/",
+      "domain": "csgjusticecenter.org",
+      "description": "Advancing safety and second chances",
+      "favicon_url": "https://csgjusticecenter.org/wp-content/themes/csgjc/resources/assets/images/favicon.png"
+    },
+    {
+      "title": "\n\tSentencing and Corrections Legislation 2024 Year-End Summary\n",
+      "url": "https://www.ncsl.org/civil-and-criminal-justice/sentencing-and-corrections-legislation-2024-year-end-summary",
+      "domain": "www.ncsl.org",
+      "description": "The summary explores trends in sentencing and corrections legislation in 2024 including criminal penalties, conditions of confinement and corrections oversight.",
+      "favicon_url": null
+    },
+    {
+      "title": "Top Trends in Criminal Legal Reform, 2024 \u2013 The Sentencing Project",
+      "url": "https://www.sentencingproject.org/newsletter/top-trends-in-criminal-legal-reform-2024/",
+      "domain": "www.sentencingproject.org",
+      "description": "Learn about key criminal legal reforms advocates took to challenge mass incarceration in at least 9 states in 2024.",
+      "favicon_url": "https://www.sentencingproject.org/favicon.ico"
+    },
+    {
+      "title": null,
+      "url": "https://www.courts.wa.gov/subsite/mjc/docs/2024/2.3%20Sentencing-reform-in-WA%20Beckett%202023.pdf",
+      "domain": "www.courts.wa.gov",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": "Winnable criminal justice reforms in 2026 | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/reports/winnable2026.html",
+      "domain": "www.prisonpolicy.org",
+      "description": "34 high-impact policy ideas for state legislators and advocates looking to reform their criminal legal system without making it bigger.",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    }
+  ]
+}

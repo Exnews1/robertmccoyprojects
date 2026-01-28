@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "state incarceration rates by state 2024 all 50 states prison population statistics",
+  "results": [
+    {
+      "title": "States of Incarceration: The Global Context 2024 | Prison Policy Initiative",
+      "url": "https://www.prisonpolicy.org/global/2024.html",
+      "domain": "www.prisonpolicy.org",
+      "description": "Criminal justice policy in every region of the United States is out of step with the rest of the world.",
+      "favicon_url": "https://static.prisonpolicy.org/favicon.png?v=2"
+    },
+    {
+      "title": "U.S. Criminal Justice Data \u2013 The Sentencing Project",
+      "url": "https://www.sentencingproject.org/research/us-criminal-justice-data/",
+      "domain": "www.sentencingproject.org",
+      "description": "The Sentencing Project compiles state-level data to provide a snapshot of key indicators of mass incarceration's impact in the United States.",
+      "favicon_url": "https://www.sentencingproject.org/favicon.ico"
+    },
+    {
+      "title": "Prison Population by State 2026",
+      "url": "https://worldpopulationreview.com/state-rankings/prison-population-by-state",
+      "domain": "worldpopulationreview.com",
+      "description": "Discover population, economy, health, and more with the most comprehensive global statistics at your fingertips.",
+      "favicon_url": "https://worldpopulationreview.com/favicon.ico"
+    },
+    {
+      "title": "List of U.S. states and territories by incarceration and correctional supervision rate - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_incarceration_and_correctional_supervision_rate",
+      "domain": "en.wikipedia.org",
+      "description": null,
+      "favicon_url": "https://en.wikipedia.org/static/favicon/wikipedia.ico"
+    },
+    {
+      "title": "Jails Report Series: 2024 Preliminary Data Release | Bureau of Justice Statistics",
+      "url": "https://bjs.ojp.gov/library/publications/jails-report-series-2024-preliminary-data-release",
+      "domain": "bjs.ojp.gov",
+      "description": null,
+      "favicon_url": "https://bjs.ojp.gov/themes/custom/ojp/assets/images/ojp/favicon.png"
+    }
+  ]
+}
