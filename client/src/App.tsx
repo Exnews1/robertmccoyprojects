@@ -18,6 +18,7 @@ import Contact from "@/pages/contact";
 import EducationAI from "@/pages/education-ai/index";
 import Profile from "@/pages/profile";
 import UniversitiesAI from "@/pages/universities-ai/index";
+import IncarcerationResearch from "@/pages/incarceration-research/index";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef } from "react";
@@ -71,6 +72,7 @@ function Router() {
       <Route path="/cmgf/explorer" component={Explorer} />
       <Route path="/education-ai" component={EducationAI} />
       <Route path="/universities-ai" component={UniversitiesAI} />
+      <Route path="/incarceration-research" component={IncarcerationResearch} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />

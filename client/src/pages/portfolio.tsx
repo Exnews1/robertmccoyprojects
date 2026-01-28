@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School } from "lucide-react";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School, Scale } from "lucide-react";
 
 const mainProjects = [
   {
@@ -38,6 +38,15 @@ const mainProjects = [
     icon: School,
     route: "/universities-ai",
     status: "Analysis",
+    external: false
+  },
+  {
+    id: "incarceration-research",
+    title: "U.S. Incarceration Research Hub",
+    description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
+    icon: Scale,
+    route: "/incarceration-research",
+    status: "Research Hub",
     external: false
   }
 ];
