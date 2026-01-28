@@ -94,7 +94,7 @@ export default function Portfolio() {
             <span className="text-muted-foreground/30">|</span>
             <Link href="/profile" className="hover:text-primary transition-colors flex items-center gap-1" data-testid="link-profile">
               <User className="w-3.5 h-3.5" />
-              Systems Profile
+              Author's Profile
             </Link>
             <span className="text-muted-foreground/30">|</span>
             <Link href="/contact" className="hover:text-primary transition-colors" data-testid="link-contact">
