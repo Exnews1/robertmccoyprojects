@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pillar 4: Translating Military Experience to Civilian Workforce | CMGF Five Pillars</title>
+    <title>Pillar 4: Skills Translation | Five Pillars | Robert McCoy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -25,6 +25,7 @@
                         accent: 'hsl(300 60% 50%)',
                         'accent-foreground': 'hsl(220 9% 98%)',
                         border: 'hsl(220 10% 20%)',
+                        amber: 'hsl(35 90% 50%)',
                     }
                 }
             }
@@ -41,257 +42,226 @@
                 linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
         }
-        .research-card { 
-            transition: all 0.3s ease; 
-            background: hsl(220 13% 11% / 0.8);
-            border: 1px solid hsl(220 10% 20%);
+        .card {
+            background: hsl(220 13% 11%);
+            border: 1px solid hsl(220 10% 20% / 0.5);
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
-        .research-card:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-color: hsl(35 90% 50% / 0.4);
+        .card:hover { border-color: hsl(220 10% 25%); }
+        .research-card { cursor: pointer; }
+        .research-card:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+        .stat-badge {
+            background: hsl(35 90% 50% / 0.1);
+            color: hsl(35 90% 50%);
+            font-family: 'JetBrains Mono', monospace;
         }
-        .stat-highlight { background: linear-gradient(135deg, hsl(35 90% 40%) 0%, hsl(20 80% 45%) 100%); }
         .citation-box { 
             background-color: hsl(220 10% 14%); 
             border-left: 4px solid hsl(35 90% 50%); 
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, hsl(35 90% 30%) 0%, hsl(20 80% 40%) 50%, hsl(35 70% 45%) 100%);
-        }
     </style>
 </head>
-<body class="text-foreground">
+<body class="min-h-screen text-foreground">
     
-    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-amber-400 transition">
-                        <i class="fas fa-arrow-left mr-3"></i>
-                        <span class="font-semibold">Back to Overview</span>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="pillar3.html" class="text-muted-foreground hover:text-amber-400 transition"><i class="fas fa-arrow-left mr-1"></i> Previous</a>
-                    <a href="pillar5.html" class="text-muted-foreground hover:text-amber-400 transition">Next <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
+    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
+                <span class="text-muted-foreground/50">|</span>
+                <a href="index.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">Five Pillars</a>
+                <span class="text-muted-foreground/50">|</span>
+                <span class="text-sm" style="color: hsl(35 90% 50%)">Pillar 4</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="pillar3.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <i class="fas fa-arrow-left mr-1"></i> Pillar 3
+                </a>
+                <a href="pillar5.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    Pillar 5 <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="hero-gradient text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center mb-4">
-                <i class="fas fa-exchange-alt text-5xl mr-4"></i>
-                <div>
-                    <h1 class="text-4xl font-bold">Pillar 4: Translating Military Experience to Civilian Workforce</h1>
-                    <p class="text-lg opacity-90 mt-2">Evidence from 166 peer-reviewed sources (2015-2026)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 py-16">
         
-        <div class="research-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-4">Executive Summary</h2>
-            <p class="text-lg text-muted-foreground leading-relaxed mb-4">
-                Veteran skills often translate imperfectly into civilian signals: employers vary in recognition and hiring outcomes, 
-                MOS-to-occupation crosswalks and credentialing are uneven, and targeted bridging programs plus standardized competency 
-                mapping improve placement and wages. Policy should align credentialing, employer education, and skills-based hiring.
-            </p>
-            <div class="grid md:grid-cols-3 gap-4 mt-6">
-                <div class="bg-amber-500/20 border border-amber-500/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-amber-400 mb-1">166</div>
-                    <div class="text-sm text-muted-foreground">Research Papers Analyzed</div>
-                </div>
-                <div class="bg-orange-500/20 border border-orange-500/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-orange-400 mb-1">2015-2026</div>
-                    <div class="text-sm text-muted-foreground">Publication Range</div>
-                </div>
-                <div class="bg-red-500/20 border border-red-500/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-red-400 mb-1">O*NET Aligned</div>
-                    <div class="text-sm text-muted-foreground">Competency Framework</div>
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-exchange-alt text-3xl" style="color: hsl(35 90% 50%)"></i>
+                <div>
+                    <h1 class="text-3xl font-bold text-foreground">Translating Military Experience</h1>
+                    <p class="text-muted-foreground">Pillar 4 | 166 peer-reviewed sources (2015-2026)</p>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <h2 class="text-3xl font-bold text-foreground mb-6">Layer 1: Key Research Findings</h2>
-        <p class="text-muted-foreground mb-8">Click any card to explore detailed research synthesis (Layer 2)</p>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-12">
-            
-            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail1')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Employer Hiring Outcomes</h3>
-                    <i class="fas fa-chevron-down text-amber-400 text-xl" id="icon-detail1"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    Veteran hiring outcomes reflect heterogeneous employer perceptions, audit experiments, and HR-manager reports 
-                    showing conditional premiums for some veterans and persistent mismatches for others.
+        <section class="mb-12">
+            <div class="card p-6 mb-8">
+                <h2 class="text-lg font-semibold text-foreground mb-3">Executive Summary</h2>
+                <p class="text-muted-foreground leading-relaxed mb-4">
+                    Veteran skills often translate imperfectly into civilian signals: employers vary in recognition and hiring outcomes, 
+                    MOS-to-occupation crosswalks are uneven, and targeted bridging programs improve placement and wages.
                 </p>
-                <div class="bg-red-500/20 border-l-4 border-red-500 p-4 rounded">
-                    <p class="text-sm text-foreground"><strong>Critical Barrier:</strong> Perceived nontransferability, terminology differences, and uncertainty about credential equivalence.</p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-3 rounded text-center" style="background: hsl(35 90% 50% / 0.1); border: 1px solid hsl(35 90% 50% / 0.2)">
+                        <div class="text-xl font-bold" style="color: hsl(35 90% 50%)">166</div>
+                        <div class="text-xs text-muted-foreground">Sources Analyzed</div>
+                    </div>
+                    <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
+                        <div class="text-xl font-bold text-primary">O*NET</div>
+                        <div class="text-xs text-muted-foreground">Aligned Framework</div>
+                    </div>
+                    <div class="bg-red-500/10 border border-red-500/20 p-3 rounded text-center">
+                        <div class="text-xl font-bold text-red-400">Gap</div>
+                        <div class="text-xs text-muted-foreground">Translation Barrier</div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div id="detail1" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-amber-500">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Employer Evidence Synthesis</h4>
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key Research Findings</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
                 
-                <div class="mb-6">
-                    <ul class="space-y-3 text-muted-foreground">
-                        <li class="flex items-start">
-                            <i class="fas fa-search text-amber-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Hiring audit evidence:</strong> Employers give preferential callbacks to veterans in transferable roles but not to combat-arms veterans.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-clipboard-list text-primary mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Decision factors:</strong> Applicant attributes, observer characteristics, job requirements, and perceived transferability all influence hiring.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-user-tie text-green-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">HR practitioner perspectives:</strong> Document challenges in resume translation, recognition of military training, and ambiguity about competencies.</span>
-                        </li>
+                <div class="card research-card p-6" onclick="toggleDetail('detail1')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Employer Hiring Outcomes</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(35 90% 50%)" id="icon-detail1"></i>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        Veteran hiring reflects heterogeneous employer perceptions and conditional premiums for some veterans.
+                    </p>
+                    <div class="bg-red-500/10 border-l-2 border-red-500 p-3 rounded text-xs text-muted-foreground">
+                        <strong class="text-foreground">Barrier:</strong> Perceived nontransferability and terminology differences.
+                    </div>
+                </div>
+
+                <div id="detail1" class="hidden md:col-span-2 card p-6" style="border-left: 4px solid hsl(35 90% 50%)">
+                    <h4 class="font-semibold text-foreground mb-4">Employer Evidence Synthesis</h4>
+                    <ul class="text-sm text-muted-foreground space-y-2">
+                        <li><strong class="text-foreground">Audit evidence:</strong> Employers give preferential callbacks to veterans in transferable roles but not combat-arms veterans.</li>
+                        <li><strong class="text-foreground">Decision factors:</strong> Applicant attributes, observer characteristics, job requirements all influence hiring.</li>
+                        <li><strong class="text-foreground">HR perspectives:</strong> Challenges in resume translation and recognition of military training.</li>
                     </ul>
+                    <button onclick="toggleDetail('detail1')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
                 </div>
 
-                <button onclick="toggleDetail('detail1')" class="mt-6 bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
+                <div class="card research-card p-6" onclick="toggleDetail('detail2')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">MOS Translation Barriers</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(35 90% 50%)" id="icon-detail2"></i>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        Mapping MOS into civilian occupations uses several methodologies but faces taxonomy gaps.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Crosswalks</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Toolkits</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">O*NET</span>
+                    </div>
+                </div>
+
+                <div id="detail2" class="hidden md:col-span-2 card p-6 border-l-4 border-l-orange-500">
+                    <h4 class="font-semibold text-foreground mb-4">Translation Barriers Analysis</h4>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                        <div>
+                            <h5 class="font-medium text-foreground mb-2">Crosswalk Studies</h5>
+                            <p>Occupation surveys identify best-match civilian occupations and highlight KSA misalignments.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-foreground mb-2">Translation Toolkits</h5>
+                            <p>Prototype toolkits translate nontechnical skills into civilian language.</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleDetail('detail2')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
+                </div>
+
+                <div class="card research-card p-6 md:col-span-2" onclick="toggleDetail('detail3')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Sector Labor Outcomes</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(35 90% 50%)" id="icon-detail3"></i>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        Different sectors show varied veteran absorption; stronger insertion where credentials align or employers adopt bridging.
+                    </p>
+                    <div class="grid md:grid-cols-4 gap-3">
+                        <div class="bg-teal-500/10 border border-teal-500/20 p-3 rounded text-center">
+                            <i class="fas fa-shield-alt text-teal-400 text-xl mb-1"></i>
+                            <div class="text-xs text-muted-foreground">Cybersecurity</div>
+                        </div>
+                        <div class="bg-red-500/10 border border-red-500/20 p-3 rounded text-center">
+                            <i class="fas fa-heartbeat text-red-400 text-xl mb-1"></i>
+                            <div class="text-xs text-muted-foreground">Healthcare</div>
+                        </div>
+                        <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
+                            <i class="fas fa-gavel text-primary text-xl mb-1"></i>
+                            <div class="text-xs text-muted-foreground">Law Enforcement</div>
+                        </div>
+                        <div class="p-3 rounded text-center" style="background: hsl(35 90% 50% / 0.1); border: 1px solid hsl(35 90% 50% / 0.2)">
+                            <i class="fas fa-wrench text-xl mb-1" style="color: hsl(35 90% 50%)"></i>
+                            <div class="text-xs text-muted-foreground">Skilled Trades</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="detail3" class="hidden md:col-span-2 card p-6 border-l-4 border-l-green-500">
+                    <h4 class="font-semibold text-foreground mb-4">Sector-Specific Evidence</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-secondary">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-foreground">Sector</th>
+                                    <th class="px-4 py-2 text-left text-foreground">Evidence</th>
+                                    <th class="px-4 py-2 text-left text-foreground">Outcomes</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border text-muted-foreground">
+                                <tr>
+                                    <td class="px-4 py-2">Cybersecurity & IT</td>
+                                    <td class="px-4 py-2">NIST workshops recommend structured translation</td>
+                                    <td class="px-4 py-2">Improved match with certifications</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Healthcare</td>
+                                    <td class="px-4 py-2">Pilot ambulatory care technician positions</td>
+                                    <td class="px-4 py-2">Successful integration</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Law Enforcement</td>
+                                    <td class="px-4 py-2">MP training converts to LE certification</td>
+                                    <td class="px-4 py-2">Reduced training time</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button onclick="toggleDetail('detail3')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
+                </div>
+
             </div>
+        </section>
 
-            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail2')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">MOS Translation Barriers</h3>
-                    <i class="fas fa-chevron-down text-amber-400 text-xl" id="icon-detail2"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    Mapping military occupational specialties into civilian occupations uses several methodological approaches, 
-                    yet effectiveness is constrained by taxonomy gaps, contextual mismatches, and inconsistent credential recognition.
-                </p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full text-sm border border-amber-500/30">Crosswalk Studies</span>
-                    <span class="bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full text-sm border border-orange-500/30">Translation Toolkits</span>
-                    <span class="bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm border border-red-500/30">O*NET Mapping</span>
-                </div>
-            </div>
-
-            <div id="detail2" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-orange-500">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Translation Barriers Analysis</h4>
-                
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div class="research-card p-6 rounded-lg">
-                        <h5 class="text-lg font-semibold text-foreground mb-3">
-                            <i class="fas fa-project-diagram text-amber-400 mr-2"></i>Crosswalk Studies
-                        </h5>
-                        <p class="text-muted-foreground text-sm">
-                            Occupation surveys and MOS-to-civilian matches identify best-match civilian occupations and highlight 
-                            misalignments between soldier-rated important KSAs and civilian job descriptors.
-                        </p>
-                    </div>
-                    <div class="research-card p-6 rounded-lg">
-                        <h5 class="text-lg font-semibold text-foreground mb-3">
-                            <i class="fas fa-tools text-primary mr-2"></i>Translation Toolkits
-                        </h5>
-                        <p class="text-muted-foreground text-sm">
-                            Prototype toolkits translate nontechnical skills into civilian language and provide course-by-course mappings.
-                        </p>
-                    </div>
-                </div>
-
-                <button onclick="toggleDetail('detail2')" class="mt-6 bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-            <div class="research-card rounded-xl p-6 cursor-pointer col-span-2" onclick="toggleDetail('detail3')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Sector Labor Outcomes</h3>
-                    <i class="fas fa-chevron-down text-amber-400 text-xl" id="icon-detail3"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    Different civilian sectors show varied absorption of veteran talent; evidence from program pilots, occupational analyses, 
-                    and job-match studies indicates stronger insertion where credentials align or where employers adopt bridging strategies.
-                </p>
-                <div class="grid md:grid-cols-4 gap-4 mt-4">
-                    <div class="bg-teal-500/20 border border-teal-500/30 p-3 rounded-lg text-center">
-                        <i class="fas fa-shield-alt text-teal-400 text-2xl mb-2"></i>
-                        <div class="text-sm font-medium text-foreground">Cybersecurity</div>
-                    </div>
-                    <div class="bg-red-500/20 border border-red-500/30 p-3 rounded-lg text-center">
-                        <i class="fas fa-heartbeat text-red-400 text-2xl mb-2"></i>
-                        <div class="text-sm font-medium text-foreground">Healthcare</div>
-                    </div>
-                    <div class="bg-primary/20 border border-primary/30 p-3 rounded-lg text-center">
-                        <i class="fas fa-gavel text-primary text-2xl mb-2"></i>
-                        <div class="text-sm font-medium text-foreground">Law Enforcement</div>
-                    </div>
-                    <div class="bg-orange-500/20 border border-orange-500/30 p-3 rounded-lg text-center">
-                        <i class="fas fa-wrench text-orange-400 text-2xl mb-2"></i>
-                        <div class="text-sm font-medium text-foreground">Skilled Trades</div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="detail3" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-green-500">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Sector-Specific Evidence</h4>
-                
-                <p class="text-muted-foreground mb-6">
-                    Veterans achieve better labor outcomes in sectors that (a) recognize military credentials, (b) provide clear pathways 
-                    to civilian certification, or (c) create tailored onboarding roles.
-                </p>
-
-                <div class="overflow-x-auto mb-6">
-                    <table class="min-w-full rounded-lg overflow-hidden">
-                        <thead class="bg-secondary">
-                            <tr>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Sector</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Evidence of Veteran Fit</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Outcomes</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-border bg-card">
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Cybersecurity & IT</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">NIST workshops recommend structured translation</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Improved match rates with certification pathways</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Healthcare</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Pilot ambulatory care technician positions</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Successful hires and functioning integration</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Law Enforcement</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">MP training converts to civilian LE certification</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Reduced training time and enhanced employability</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <button onclick="toggleDetail('detail3')" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-        </div>
-
-        <div class="flex justify-between mt-8">
-            <a href="pillar3.html" class="bg-secondary text-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition border border-border">
-                <i class="fas fa-arrow-left mr-2"></i> Pillar 3: AI-Assisted Advising
+        <div class="flex justify-between mt-12">
+            <a href="pillar3.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Pillar 3: AI Advising
             </a>
-            <a href="pillar5.html" class="bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition">
+            <a href="pillar5.html" class="px-4 py-2 rounded text-sm text-white transition-colors" style="background: hsl(35 90% 50%)">
                 Pillar 5: Learner Voice <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
     </div>
 
-    <footer class="bg-card border-t border-border py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <a href="references.html" class="text-primary hover:text-primary/80 text-sm">View All 900+ References</a>
+    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+            <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
+            <a href="references.html" class="hover:text-muted-foreground transition-colors">View All 900+ References</a>
         </div>
     </footer>
 

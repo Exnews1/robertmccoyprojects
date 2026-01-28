@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pillar 3: ISR & AI-Assisted Career Advising | CMGF Five Pillars</title>
+    <title>Pillar 3: AI-Assisted Advising | Five Pillars | Robert McCoy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -25,6 +25,7 @@
                         accent: 'hsl(300 60% 50%)',
                         'accent-foreground': 'hsl(220 9% 98%)',
                         border: 'hsl(220 10% 20%)',
+                        teal: 'hsl(180 60% 45%)',
                     }
                 }
             }
@@ -41,296 +42,249 @@
                 linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
         }
-        .research-card { 
-            transition: all 0.3s ease; 
-            background: hsl(220 13% 11% / 0.8);
-            border: 1px solid hsl(220 10% 20%);
+        .card {
+            background: hsl(220 13% 11%);
+            border: 1px solid hsl(220 10% 20% / 0.5);
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
-        .research-card:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-color: hsl(180 60% 45% / 0.4);
+        .card:hover { border-color: hsl(220 10% 25%); }
+        .research-card { cursor: pointer; }
+        .research-card:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+        .stat-badge {
+            background: hsl(180 60% 45% / 0.1);
+            color: hsl(180 60% 45%);
+            font-family: 'JetBrains Mono', monospace;
         }
-        .stat-highlight { background: linear-gradient(135deg, hsl(180 60% 35%) 0%, hsl(220 70% 45%) 100%); }
         .citation-box { 
             background-color: hsl(220 10% 14%); 
             border-left: 4px solid hsl(180 60% 45%); 
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, hsl(180 60% 25%) 0%, hsl(200 70% 35%) 50%, hsl(220 70% 40%) 100%);
-        }
     </style>
 </head>
-<body class="text-foreground">
+<body class="min-h-screen text-foreground">
     
-    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-teal-400 transition">
-                        <i class="fas fa-arrow-left mr-3"></i>
-                        <span class="font-semibold">Back to Overview</span>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="pillar2.html" class="text-muted-foreground hover:text-teal-400 transition"><i class="fas fa-arrow-left mr-1"></i> Previous</a>
-                    <a href="pillar4.html" class="text-muted-foreground hover:text-teal-400 transition">Next <i class="fas fa-arrow-right ml-1"></i></a>
-                </div>
+    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
+                <span class="text-muted-foreground/50">|</span>
+                <a href="index.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">Five Pillars</a>
+                <span class="text-muted-foreground/50">|</span>
+                <span class="text-sm" style="color: hsl(180 60% 45%)">Pillar 3</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="pillar2.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <i class="fas fa-arrow-left mr-1"></i> Pillar 2
+                </a>
+                <a href="pillar4.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    Pillar 4 <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="hero-gradient text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center mb-4">
-                <i class="fas fa-robot text-5xl mr-4"></i>
-                <div>
-                    <h1 class="text-4xl font-bold">Pillar 3: ISR & AI-Assisted Career Advising</h1>
-                    <p class="text-lg opacity-90 mt-2">Evidence from 217 peer-reviewed sources (2018-2026)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 py-16">
         
-        <div class="research-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-4">Executive Summary</h2>
-            <p class="text-lg text-muted-foreground leading-relaxed mb-4">
-                AI-assisted, human-in-the-loop career advising shows promising accuracy and scalability gains but uneven transparency 
-                and governance; hybrid socio-technical designs and explicit oversight protocols better preserve counselor agency while 
-                reducing workload. Policy should mandate explainability, auditability, and phased deployment with evaluative metrics.
-            </p>
-            <div class="grid md:grid-cols-3 gap-4 mt-6">
-                <div class="bg-teal-500/20 border border-teal-500/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-teal-400 mb-1">217</div>
-                    <div class="text-sm text-muted-foreground">Research Papers Analyzed</div>
-                </div>
-                <div class="bg-primary/20 border border-primary/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-primary mb-1">2018-2026</div>
-                    <div class="text-sm text-muted-foreground">Publication Range</div>
-                </div>
-                <div class="bg-accent/20 border border-accent/30 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-accent mb-1">NIST AI RMF</div>
-                    <div class="text-sm text-muted-foreground">Governance Framework</div>
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-robot text-3xl" style="color: hsl(180 60% 45%)"></i>
+                <div>
+                    <h1 class="text-3xl font-bold text-foreground">ISR & AI-Assisted Career Advising</h1>
+                    <p class="text-muted-foreground">Pillar 3 | 217 peer-reviewed sources (2018-2026)</p>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <h2 class="text-3xl font-bold text-foreground mb-6">Layer 1: Key Research Findings</h2>
-        <p class="text-muted-foreground mb-8">Click any card to explore detailed research synthesis (Layer 2)</p>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-12">
-            
-            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail1')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Current State of Evidence</h3>
-                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail1"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    AI tools for career advising span recommender systems, conversational agents, predictive models, and closed-loop 
-                    adaptive platforms with improved matching accuracy and user satisfaction.
+        <section class="mb-12">
+            <div class="card p-6 mb-8">
+                <h2 class="text-lg font-semibold text-foreground mb-3">Executive Summary</h2>
+                <p class="text-muted-foreground leading-relaxed mb-4">
+                    AI-assisted, human-in-the-loop career advising shows promising accuracy and scalability gains but uneven transparency 
+                    and governance; hybrid socio-technical designs and explicit oversight protocols better preserve counselor agency while 
+                    reducing workload.
                 </p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="bg-teal-500/20 text-teal-400 px-3 py-1 rounded-full text-sm border border-teal-500/30">Recommender Systems</span>
-                    <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm border border-primary/30">Conversational AI</span>
-                    <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm border border-accent/30">Predictive Models</span>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-teal/10 border border-teal/20 p-3 rounded text-center" style="background: hsl(180 60% 45% / 0.1); border-color: hsl(180 60% 45% / 0.2)">
+                        <div class="text-xl font-bold" style="color: hsl(180 60% 45%)">217</div>
+                        <div class="text-xs text-muted-foreground">Sources Analyzed</div>
+                    </div>
+                    <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
+                        <div class="text-xl font-bold text-primary">NIST AI RMF</div>
+                        <div class="text-xs text-muted-foreground">Framework</div>
+                    </div>
+                    <div class="bg-accent/10 border border-accent/20 p-3 rounded text-center">
+                        <div class="text-xl font-bold text-accent">HITL</div>
+                        <div class="text-xs text-muted-foreground">Human-in-Loop</div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div id="detail1" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-teal-500">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Evidence Synthesis</h4>
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key Research Findings</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
                 
-                <div class="mb-6">
-                    <h5 class="text-lg font-semibold text-foreground mb-3">Empirical Outcomes</h5>
-                    <ul class="space-y-3 text-muted-foreground">
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-line text-teal-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Improved recommendation accuracy:</strong> Field and experimental deployments report high-performing end-to-end systems with task-specific accuracy metrics.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-user-check text-primary mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">User acceptance and trust:</strong> Often hinge on perceived accuracy more than algorithmic transparency; trustworthiness rated higher than transparency.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-expand-arrows-alt text-green-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Scalability and access:</strong> Gains from conversational agents and recommender automation documented in resource-constrained settings.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-heart text-red-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Mental health intersections:</strong> AI augments scalability but requires safeguards for sensitive guidance contexts.</span>
-                        </li>
+                <div class="card research-card p-6" onclick="toggleDetail('detail1')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Current State of Evidence</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(180 60% 45%)" id="icon-detail1"></i>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        AI tools span recommender systems, conversational agents, predictive models, and closed-loop adaptive platforms.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Recommenders</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Conversational AI</span>
+                    </div>
+                </div>
+
+                <div id="detail1" class="hidden md:col-span-2 card p-6" style="border-left: 4px solid hsl(180 60% 45%)">
+                    <h4 class="font-semibold text-foreground mb-4">Evidence Synthesis</h4>
+                    <ul class="text-sm text-muted-foreground space-y-2">
+                        <li><strong class="text-foreground">Improved accuracy:</strong> Field deployments report high-performing end-to-end systems.</li>
+                        <li><strong class="text-foreground">User trust:</strong> Often hinges on perceived accuracy more than transparency.</li>
+                        <li><strong class="text-foreground">Scalability:</strong> Gains from conversational agents documented in resource-constrained settings.</li>
+                        <li><strong class="text-foreground">Mental health:</strong> AI augments scalability but requires safeguards.</li>
                     </ul>
+                    <button onclick="toggleDetail('detail1')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
                 </div>
 
-                <button onclick="toggleDetail('detail1')" class="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail2')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Human-in-the-Loop Frameworks</h3>
-                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail2"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    HITL approaches cluster around hybrid interaction models, staged agency frameworks, and closed-loop feedback 
-                    that preserve counselor authority while automating routine tasks.
-                </p>
-                <div class="bg-teal-500/20 border-l-4 border-teal-500 p-4 rounded">
-                    <p class="text-sm text-foreground"><strong>Key Insight:</strong> Explicit human veto and override mechanisms recommended for higher-stakes decisions.</p>
-                </div>
-            </div>
-
-            <div id="detail2" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-primary">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: HITL Framework Analysis</h4>
-                
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div class="research-card p-6 rounded-lg">
-                        <h5 class="text-lg font-semibold text-foreground mb-3">
-                            <i class="fas fa-layer-group text-teal-400 mr-2"></i>Modes of Agency
-                        </h5>
-                        <p class="text-muted-foreground text-sm">
-                            Maturity models range from AI-suggest, AI-assist, to AI-autonomous recommendation, with explicit human 
-                            veto and override mechanisms recommended for higher-stakes decisions.
-                        </p>
+                <div class="card research-card p-6" onclick="toggleDetail('detail2')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Human-in-the-Loop Frameworks</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(180 60% 45%)" id="icon-detail2"></i>
                     </div>
-                    <div class="research-card p-6 rounded-lg">
-                        <h5 class="text-lg font-semibold text-foreground mb-3">
-                            <i class="fas fa-sync-alt text-primary mr-2"></i>Closed-Loop Feedback
-                        </h5>
-                        <p class="text-muted-foreground text-sm">
-                            Architectures collect user responses and counselor corrections to retrain or recalibrate models, 
-                            enabling continuous improvement and contextual adaptation.
-                        </p>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        HITL approaches cluster around hybrid interaction models and staged agency frameworks.
+                    </p>
+                    <div class="bg-primary/10 border-l-2 border-primary p-3 rounded text-xs text-muted-foreground">
+                        <strong class="text-foreground">Key:</strong> Explicit human veto and override for high-stakes decisions.
                     </div>
                 </div>
 
-                <button onclick="toggleDetail('detail2')" class="mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/80 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-            <div class="research-card rounded-xl p-6 cursor-pointer" onclick="toggleDetail('detail3')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Governance Instruments</h3>
-                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail3"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    Governance emphasizes transparency, accountability, explainability, data governance, and contextualized adoption 
-                    strategies with both technical XAI measures and institutional policy mechanisms.
-                </p>
-                <div class="flex flex-wrap gap-2 mt-3">
-                    <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-sm border border-primary/30">Model Cards</span>
-                    <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm border border-green-500/30">Audit Processes</span>
-                    <span class="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm border border-accent/30">Stakeholder Engagement</span>
-                </div>
-            </div>
-
-            <div id="detail3" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-green-500">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Governance Framework Comparison</h4>
-                
-                <div class="overflow-x-auto mb-6">
-                    <table class="min-w-full rounded-lg overflow-hidden">
-                        <thead class="bg-secondary">
-                            <tr>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Governance Approach</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Core Mechanisms</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-foreground">Operational Artifacts</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-border bg-card">
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Participatory Maturity Model</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Stakeholder workshops, modes of AI agency, staged deployment</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Agency rubric, intervention thresholds</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Transparency-Accuracy Tradeoff</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Explainability requirements, accuracy reporting</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Model cards, dashboarded metrics</td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-muted-foreground font-medium">Contextual Adoption Model</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">Local data customization, ethics safeguards</td>
-                                <td class="px-4 py-3 text-sm text-muted-foreground">CAM-CAI-RCHE adoption steps</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <button onclick="toggleDetail('detail3')" class="mt-6 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
-            </div>
-
-            <div class="research-card rounded-xl p-6 cursor-pointer col-span-2" onclick="toggleDetail('detail4')">
-                <div class="flex items-start justify-between mb-4">
-                    <h3 class="text-xl font-bold text-foreground">Military ISR Integration & Implementation Roadmap</h3>
-                    <i class="fas fa-chevron-down text-teal-400 text-xl" id="icon-detail4"></i>
-                </div>
-                <p class="text-muted-foreground mb-4">
-                    Military Education Service Officers (ESOs) and Installation Status Report (ISR) workflows are ripe for socio-technical 
-                    augmentation: AI can automate data synthesis, surface anomalies for human review, and reduce ESO administrative burden.
-                </p>
-                <div class="grid md:grid-cols-3 gap-4 mt-4">
-                    <div class="bg-teal-500/20 border border-teal-500/30 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-teal-400">Phase 1</div>
-                        <div class="text-xs text-muted-foreground">Pilot ISR Triage</div>
+                <div id="detail2" class="hidden md:col-span-2 card p-6 border-l-4 border-l-primary">
+                    <h4 class="font-semibold text-foreground mb-4">HITL Framework Analysis</h4>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                        <div>
+                            <h5 class="font-medium text-foreground mb-2">Modes of Agency</h5>
+                            <p>AI-suggest, AI-assist, AI-autonomous with human veto mechanisms for high-stakes decisions.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-foreground mb-2">Closed-Loop Feedback</h5>
+                            <p>Architectures collect user responses and counselor corrections to retrain models.</p>
+                        </div>
                     </div>
-                    <div class="bg-primary/20 border border-primary/30 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-primary">Phase 2</div>
-                        <div class="text-xs text-muted-foreground">Anomaly Detection</div>
+                    <button onclick="toggleDetail('detail2')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
+                </div>
+
+                <div class="card research-card p-6" onclick="toggleDetail('detail3')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Governance Instruments</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(180 60% 45%)" id="icon-detail3"></i>
                     </div>
-                    <div class="bg-accent/20 border border-accent/30 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-accent">Phase 3</div>
-                        <div class="text-xs text-muted-foreground">Multi-Installation Scale</div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        Governance emphasizes transparency, accountability, and explainability with both technical XAI and policy mechanisms.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Model Cards</span>
+                        <span class="stat-badge text-xs px-2 py-1 rounded">Audit</span>
                     </div>
                 </div>
-            </div>
 
-            <div id="detail4" class="hidden col-span-2 bg-secondary/50 rounded-xl p-8 border-l-4 border-accent">
-                <h4 class="text-2xl font-bold text-foreground mb-4">Layer 2: Military ISR Implementation</h4>
-                
-                <div class="mb-6">
-                    <h5 class="text-lg font-semibold text-foreground mb-3">How AI Can Support ISR and Reduce ESO Burden</h5>
-                    <ul class="space-y-3 text-muted-foreground">
-                        <li class="flex items-start">
-                            <i class="fas fa-database text-teal-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Data aggregation and triage:</strong> AI modules can consolidate disparate personnel, training, and readiness feeds into prioritized ISR items for ESO attention.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-exclamation-triangle text-orange-400 mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Anomaly detection and explainable alerts:</strong> Flag deviations in readiness or career-path compliance with human-readable rationales.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-sync text-primary mt-1 mr-3"></i>
-                            <span><strong class="text-foreground">Closed-loop correction:</strong> Allows ESOs to annotate AI outputs so models adapt to military-specific career rules.</span>
-                        </li>
+                <div id="detail3" class="hidden md:col-span-2 card p-6 border-l-4 border-l-green-500">
+                    <h4 class="font-semibold text-foreground mb-4">Governance Framework Comparison</h4>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-secondary">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-foreground">Approach</th>
+                                    <th class="px-4 py-2 text-left text-foreground">Mechanisms</th>
+                                    <th class="px-4 py-2 text-left text-foreground">Artifacts</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-border text-muted-foreground">
+                                <tr>
+                                    <td class="px-4 py-2">Participatory Model</td>
+                                    <td class="px-4 py-2">Stakeholder workshops, staged deployment</td>
+                                    <td class="px-4 py-2">Agency rubric</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Transparency Tradeoff</td>
+                                    <td class="px-4 py-2">Explainability, accuracy reporting</td>
+                                    <td class="px-4 py-2">Model cards</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2">Contextual Adoption</td>
+                                    <td class="px-4 py-2">Local data, ethics safeguards</td>
+                                    <td class="px-4 py-2">CAM-CAI steps</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button onclick="toggleDetail('detail3')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
+                </div>
+
+                <div class="card research-card p-6 md:col-span-2" onclick="toggleDetail('detail4')">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-semibold text-foreground">Military ISR Integration Roadmap</h3>
+                        <i class="fas fa-chevron-down" style="color: hsl(180 60% 45%)" id="icon-detail4"></i>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">
+                        ESO and ISR workflows are ripe for AI augmentation: automate data synthesis, surface anomalies, reduce admin burden.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-3">
+                        <div class="bg-teal/10 border border-teal/20 p-3 rounded text-center" style="background: hsl(180 60% 45% / 0.1); border-color: hsl(180 60% 45% / 0.2)">
+                            <div class="font-bold" style="color: hsl(180 60% 45%)">Phase 1</div>
+                            <div class="text-xs text-muted-foreground">Pilot ISR Triage</div>
+                        </div>
+                        <div class="bg-primary/10 border border-primary/20 p-3 rounded text-center">
+                            <div class="font-bold text-primary">Phase 2</div>
+                            <div class="text-xs text-muted-foreground">Anomaly Detection</div>
+                        </div>
+                        <div class="bg-accent/10 border border-accent/20 p-3 rounded text-center">
+                            <div class="font-bold text-accent">Phase 3</div>
+                            <div class="text-xs text-muted-foreground">Multi-Installation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="detail4" class="hidden md:col-span-2 card p-6 border-l-4 border-l-accent">
+                    <h4 class="font-semibold text-foreground mb-4">Military ISR Implementation</h4>
+                    <ul class="text-sm text-muted-foreground space-y-2">
+                        <li><strong class="text-foreground">Data aggregation:</strong> AI consolidates disparate feeds into prioritized ISR items for ESO attention.</li>
+                        <li><strong class="text-foreground">Anomaly detection:</strong> Flag deviations in readiness with human-readable rationales.</li>
+                        <li><strong class="text-foreground">Closed-loop correction:</strong> ESOs annotate AI outputs so models adapt to military-specific rules.</li>
                     </ul>
+                    <button onclick="toggleDetail('detail4')" class="mt-4 text-sm text-primary hover:underline">
+                        <i class="fas fa-chevron-up mr-1"></i> Collapse
+                    </button>
                 </div>
 
-                <button onclick="toggleDetail('detail4')" class="mt-6 bg-accent text-white px-6 py-2 rounded-lg hover:bg-accent/80 transition">
-                    <i class="fas fa-chevron-up mr-2"></i> Collapse Detail
-                </button>
             </div>
+        </section>
 
-        </div>
-
-        <div class="flex justify-between mt-8">
-            <a href="pillar2.html" class="bg-secondary text-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition border border-border">
-                <i class="fas fa-arrow-left mr-2"></i> Pillar 2: Empowerment & Credentials
+        <div class="flex justify-between mt-12">
+            <a href="pillar2.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Pillar 2: Credentials
             </a>
-            <a href="pillar4.html" class="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition">
+            <a href="pillar4.html" class="px-4 py-2 rounded text-sm text-white transition-colors" style="background: hsl(180 60% 45%)">
                 Pillar 4: Skills Translation <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
     </div>
 
-    <footer class="bg-card border-t border-border py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <a href="references.html" class="text-primary hover:text-primary/80 text-sm">View All 900+ References</a>
+    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+            <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
+            <a href="references.html" class="hover:text-muted-foreground transition-colors">View All 900+ References</a>
         </div>
     </footer>
 

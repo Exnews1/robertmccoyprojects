@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>References | CMGF Five Pillars</title>
+    <title>References | Five Pillars | Robert McCoy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -41,190 +41,178 @@
                 linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
         }
-        .reference-entry { line-height: 1.8; text-indent: -2rem; padding-left: 2rem; }
-        .high-tech-card {
-            background: hsl(220 13% 11% / 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid hsl(220 10% 20%);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        .card {
+            background: hsl(220 13% 11%);
+            border: 1px solid hsl(220 10% 20% / 0.5);
+            border-radius: 0.5rem;
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, hsl(220 70% 35%) 0%, hsl(300 60% 40%) 100%);
+        .reference-entry { 
+            line-height: 1.8; 
+            text-indent: -2rem; 
+            padding-left: 2rem; 
         }
     </style>
 </head>
-<body class="text-foreground">
+<body class="min-h-screen text-foreground">
     
-    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-primary transition">
-                        <i class="fas fa-arrow-left mr-3"></i>
-                        <span class="font-semibold">Back to Overview</span>
+    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
+                <span class="text-muted-foreground/50">|</span>
+                <a href="index.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">Five Pillars</a>
+                <span class="text-muted-foreground/50">|</span>
+                <span class="text-sm text-primary">References</span>
+            </div>
+            <div class="flex items-center">
+                <input type="text" id="searchBox" placeholder="Search references..." 
+                       class="bg-secondary border border-border rounded px-3 py-1.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary">
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-16">
+        
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-book text-3xl text-primary"></i>
+                <div>
+                    <h1 class="text-3xl font-bold text-foreground">Complete Reference List</h1>
+                    <p class="text-muted-foreground">APA 7th Edition | 900+ Peer-Reviewed Sources (2015-2026)</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="mb-12">
+            <div class="card p-6 mb-8">
+                <h2 class="text-lg font-semibold text-foreground mb-3">Reference Organization</h2>
+                <p class="text-sm text-muted-foreground mb-4">
+                    References are organized by pillar area and alphabetically by author within each section. 
+                    All citations follow APA 7th edition formatting standards.
+                </p>
+                <div class="grid grid-cols-5 gap-4">
+                    <a href="#pillar1-refs" class="bg-primary/10 border border-primary/20 p-3 rounded text-center hover:bg-primary/20 transition">
+                        <div class="text-xl font-bold text-primary">174</div>
+                        <div class="text-xs text-muted-foreground">Pillar 1</div>
+                    </a>
+                    <a href="#pillar2-refs" class="bg-accent/10 border border-accent/20 p-3 rounded text-center hover:bg-accent/20 transition">
+                        <div class="text-xl font-bold text-accent">222</div>
+                        <div class="text-xs text-muted-foreground">Pillar 2</div>
+                    </a>
+                    <a href="#pillar3-refs" class="bg-teal-500/10 border border-teal-500/20 p-3 rounded text-center hover:bg-teal-500/20 transition">
+                        <div class="text-xl font-bold text-teal-400">217</div>
+                        <div class="text-xs text-muted-foreground">Pillar 3</div>
+                    </a>
+                    <a href="#pillar4-refs" class="bg-orange-500/10 border border-orange-500/20 p-3 rounded text-center hover:bg-orange-500/20 transition">
+                        <div class="text-xl font-bold text-orange-400">166</div>
+                        <div class="text-xs text-muted-foreground">Pillar 4</div>
+                    </a>
+                    <a href="#pillar5-refs" class="bg-violet-500/10 border border-violet-500/20 p-3 rounded text-center hover:bg-violet-500/20 transition">
+                        <div class="text-xl font-bold text-violet-400">188</div>
+                        <div class="text-xs text-muted-foreground">Pillar 5</div>
                     </a>
                 </div>
-                <div class="flex items-center">
-                    <input type="text" id="searchBox" placeholder="Search references..." 
-                           class="bg-secondary border border-border rounded-lg px-4 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
-                </div>
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <div class="hero-gradient text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center mb-4">
-                <i class="fas fa-book text-5xl mr-4"></i>
-                <div>
-                    <h1 class="text-4xl font-bold">Complete Reference List</h1>
-                    <p class="text-lg opacity-90 mt-2">APA 7th Edition | 900+ Peer-Reviewed Sources (2015-2026)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
-        <div class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-2xl font-bold text-foreground mb-4">Reference Organization</h2>
-            <p class="text-muted-foreground mb-4">
-                References are organized by pillar area and alphabetically by author within each section. 
-                All citations follow APA 7th edition formatting standards.
-            </p>
-            <div class="grid md:grid-cols-5 gap-4">
-                <a href="#pillar1-refs" class="bg-primary/20 border border-primary/30 p-4 rounded-lg hover:bg-primary/30 transition text-center">
-                    <div class="text-2xl font-bold text-primary">174</div>
-                    <div class="text-sm text-muted-foreground">Pillar 1 Sources</div>
-                </a>
-                <a href="#pillar2-refs" class="bg-accent/20 border border-accent/30 p-4 rounded-lg hover:bg-accent/30 transition text-center">
-                    <div class="text-2xl font-bold text-accent">222</div>
-                    <div class="text-sm text-muted-foreground">Pillar 2 Sources</div>
-                </a>
-                <a href="#pillar3-refs" class="bg-teal-500/20 border border-teal-500/30 p-4 rounded-lg hover:bg-teal-500/30 transition text-center">
-                    <div class="text-2xl font-bold text-teal-400">217</div>
-                    <div class="text-sm text-muted-foreground">Pillar 3 Sources</div>
-                </a>
-                <a href="#pillar4-refs" class="bg-orange-500/20 border border-orange-500/30 p-4 rounded-lg hover:bg-orange-500/30 transition text-center">
-                    <div class="text-2xl font-bold text-orange-400">166</div>
-                    <div class="text-sm text-muted-foreground">Pillar 4 Sources</div>
-                </a>
-                <a href="#pillar5-refs" class="bg-violet-500/20 border border-violet-500/30 p-4 rounded-lg hover:bg-violet-500/30 transition text-center">
-                    <div class="text-2xl font-bold text-violet-400">188</div>
-                    <div class="text-sm text-muted-foreground">Pillar 5 Sources</div>
-                </a>
-            </div>
-        </div>
-
-        <div id="pillar1-refs" class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-primary pb-3">
+        <div id="pillar1-refs" class="card p-6 mb-8">
+            <h2 class="text-xl font-bold text-foreground mb-4 pb-3 border-b-2 border-primary">
                 Pillar 1: Military Learner Career Mobility
             </h2>
-            <div class="space-y-4 text-sm text-muted-foreground">
-                <p class="reference-entry">Barr, A., Kawano, L., & Sacerdote, B. (2021). <em>You can't handle the truth: The effects of the Post-9/11 GI Bill on higher education and earnings</em> (NBER Working Paper No. 29024). National Bureau of Economic Research. https://doi.org/10.3386/w29024</p>
+            <div class="space-y-3 text-sm text-muted-foreground">
+                <p class="reference-entry">Barr, A., Kawano, L., & Sacerdote, B. (2021). <em>You can't handle the truth: The effects of the Post-9/11 GI Bill on higher education and earnings</em> (NBER Working Paper No. 29024). National Bureau of Economic Research.</p>
                 
-                <p class="reference-entry">Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Campbell, K., Becker, D. R., & Drake, R. E. (2023). Evaluation of an employment intervention for veterans transitioning from the military: A randomized controlled trial. <em>Journal of Nervous and Mental Disease</em>, <em>211</em>(4), 247-255. https://doi.org/10.1097/nmd.0000000000001472</p>
+                <p class="reference-entry">Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Campbell, K., Becker, D. R., & Drake, R. E. (2023). Evaluation of an employment intervention for veterans transitioning from the military: A randomized controlled trial. <em>Journal of Nervous and Mental Disease</em>, <em>211</em>(4), 247-255.</p>
                 
-                <p class="reference-entry">Bruhn, J., Greenberg, K., Gudgeon, M. R. W., & Stanton, C. (2022). <em>The effects of combat deployments on veterans' outcomes</em> (NBER Working Paper No. 30622). National Bureau of Economic Research. https://doi.org/10.3386/w30622</p>
+                <p class="reference-entry">Bruhn, J., Greenberg, K., Gudgeon, M. R. W., & Stanton, C. (2022). <em>The effects of combat deployments on veterans' outcomes</em> (NBER Working Paper No. 30622). National Bureau of Economic Research.</p>
                 
-                <p class="reference-entry">Davenport, S., Weiss, N. H., Gorman, K. R., Ryder, A. L., Blow, A. J., Schick, M. R., & Carlson, R. G. (2020). Posttraumatic stress disorder and employment discrimination based on overqualification among post-9/11 veterans. <em>Psychological Trauma: Theory, Research, Practice, and Policy</em>, <em>12</em>(8), 819-827.</p>
+                <p class="reference-entry">Guo, C., Pollak, J., & Bauman, M. (2016). <em>Ten frequently asked questions about veterans' transitions: Results of a decade of RAND work on veteran life</em>. RAND Corporation.</p>
                 
-                <p class="reference-entry">Flatt, C. R., & Rhodes, D. (2019). The relationship between training program participation and gainful civilian employment of Gulf War-Era II veterans. <em>Journal of Veterans Studies</em>, <em>4</em>(2), 77-91. https://doi.org/10.21061/jvs.v4i2.113</p>
+                <p class="reference-entry">Makridis, C., & Hirsch, B. T. (2021). The labor market earnings of veterans: Is military experience more or less valuable than civilian experience? <em>Journal of Labor Research</em>, <em>42</em>(3-4), 299-328.</p>
                 
-                <p class="reference-entry">Guo, C., Pollak, J., & Bauman, M. (2016). <em>Ten frequently asked questions about veterans' transitions: Results of a decade of RAND work on veteran life</em> (Research Report RR-1095). RAND Corporation. https://doi.org/10.7249/RR1095</p>
-                
-                <p class="reference-entry">Makridis, C., & Hirsch, B. T. (2021). The labor market earnings of veterans: Is military experience more or less valuable than civilian experience? <em>Journal of Labor Research</em>, <em>42</em>(3-4), 299-328. https://doi.org/10.1007/s12122-021-09321-y</p>
-                
-                <p class="reference-entry">Morrill, S., & Somers, P. (2020). From benefits to success: Veterans' educational outcomes in the post-9/11 era. <em>Community College Journal of Research and Practice</em>, <em>44</em>(9), 655-670. https://doi.org/10.1080/10668926.2019.1629127</p>
-                
-                <p class="reference-entry">Schulker, D. (2017). The recent occupation and industry employment patterns of American veterans. <em>Armed Forces & Society</em>, <em>43</em>(4), 695-710. https://doi.org/10.1177/0095327x16659875</p>
-                
-                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
-                    <i class="fas fa-info-circle mr-2"></i>Additional 165 references available in complete dissertation appendix
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                    Additional 169 references available in complete dissertation appendix
                 </p>
             </div>
         </div>
 
-        <div id="pillar2-refs" class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-accent pb-3">
+        <div id="pillar2-refs" class="card p-6 mb-8">
+            <h2 class="text-xl font-bold text-foreground mb-4 pb-3 border-b-2 border-accent">
                 Pillar 2: Empowerment Strategies & Stackable Pathways
             </h2>
-            <div class="space-y-4 text-sm text-muted-foreground">
+            <div class="space-y-3 text-sm text-muted-foreground">
                 <p class="reference-entry">Deickman, H., Haynes, V., & Martinez, R. (2024). Mapping military training to civilian credentials: A Colorado case study. <em>Journal of Veteran Studies</em>, <em>10</em>(1), 45-62.</p>
                 
                 <p class="reference-entry">Hanson, A., & Lerman, R. I. (2016). <em>Apprenticeships in the military</em>. Urban Institute.</p>
                 
-                <p class="reference-entry">McNeal, G. J., Bradway, C., Townsend, M., & Wilkins, C. (2019). Vets2BSN: An educational pathway for veterans. <em>Journal of Nursing Education</em>, <em>58</em>(8), 476-480. https://doi.org/10.3928/01484834-20190719-03</p>
+                <p class="reference-entry">McNeal, G. J., Bradway, C., Townsend, M., & Wilkins, C. (2019). Vets2BSN: An educational pathway for veterans. <em>Journal of Nursing Education</em>, <em>58</em>(8), 476-480.</p>
                 
-                <p class="reference-entry">Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education</em>, <em>94</em>(3), 412-438. https://doi.org/10.1080/07377363.2022.2082002</p>
+                <p class="reference-entry">Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education</em>, <em>94</em>(3), 412-438.</p>
                 
-                <p class="reference-entry">Wainwright, J., & Dhaliwal, T. K. (2012). <em>Reservist re-entry pilot: Prior learning assessment for military training</em>. American Council on Education.</p>
-                
-                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
-                    <i class="fas fa-info-circle mr-2"></i>Additional 217 references available in complete dissertation appendix
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                    Additional 218 references available in complete dissertation appendix
                 </p>
             </div>
         </div>
 
-        <div id="pillar3-refs" class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-teal-500 pb-3">
+        <div id="pillar3-refs" class="card p-6 mb-8">
+            <h2 class="text-xl font-bold text-foreground mb-4 pb-3 border-b-2 border-teal-500">
                 Pillar 3: ISR & AI-Assisted Career Advising
             </h2>
-            <div class="space-y-4 text-sm text-muted-foreground">
+            <div class="space-y-3 text-sm text-muted-foreground">
                 <p class="reference-entry">National Institute of Standards and Technology. (2023). <em>Artificial Intelligence Risk Management Framework</em> (NIST AI RMF 1.0). U.S. Department of Commerce.</p>
                 
-                <p class="reference-entry">Holstein, K., Wortman Vaughan, J., Daumé III, H., Dudik, M., & Wallach, H. (2019). Improving fairness in machine learning systems: What do industry practitioners need? In <em>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</em> (pp. 1-16). ACM.</p>
+                <p class="reference-entry">Holstein, K., Wortman Vaughan, J., Daumé III, H., Dudik, M., & Wallach, H. (2019). Improving fairness in machine learning systems: What do industry practitioners need? In <em>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</em>. ACM.</p>
                 
-                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
-                    <i class="fas fa-info-circle mr-2"></i>Additional 215 references available in complete dissertation appendix
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                    Additional 215 references available in complete dissertation appendix
                 </p>
             </div>
         </div>
 
-        <div id="pillar4-refs" class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-orange-500 pb-3">
+        <div id="pillar4-refs" class="card p-6 mb-8">
+            <h2 class="text-xl font-bold text-foreground mb-4 pb-3 border-b-2 border-orange-500">
                 Pillar 4: Translating Military Experience
             </h2>
-            <div class="space-y-4 text-sm text-muted-foreground">
+            <div class="space-y-3 text-sm text-muted-foreground">
                 <p class="reference-entry">Kleykamp, M. (2013). Unemployment, earnings, and enrollment among post 9/11 veterans. <em>Social Science Research</em>, <em>42</em>(3), 836-851.</p>
                 
                 <p class="reference-entry">Stone, C., & Stone, D. L. (2015). Factors affecting hiring decisions about veterans. <em>Human Resource Management Review</em>, <em>25</em>(1), 68-79.</p>
                 
-                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
-                    <i class="fas fa-info-circle mr-2"></i>Additional 164 references available in complete dissertation appendix
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                    Additional 164 references available in complete dissertation appendix
                 </p>
             </div>
         </div>
 
-        <div id="pillar5-refs" class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6 border-b-4 border-violet-500 pb-3">
+        <div id="pillar5-refs" class="card p-6 mb-8">
+            <h2 class="text-xl font-bold text-foreground mb-4 pb-3 border-b-2 border-violet-500">
                 Pillar 5: Veteran & Servicemember Learner Voice
             </h2>
-            <div class="space-y-4 text-sm text-muted-foreground">
+            <div class="space-y-3 text-sm text-muted-foreground">
                 <p class="reference-entry">DiRamio, D., Ackerman, R., & Mitchell, R. L. (2008). From combat to campus: Voices of student-veterans. <em>NASPA Journal</em>, <em>45</em>(1), 73-102.</p>
                 
                 <p class="reference-entry">Linski, C. (2018). <em>Traumatic brain injury and the academic accommodation needs of student veterans</em>. U.S. Department of Veterans Affairs.</p>
                 
                 <p class="reference-entry">Rumann, C. B., & Hamrick, F. A. (2010). Student veterans in transition: Re-enrolling after war zone deployments. <em>The Journal of Higher Education</em>, <em>81</em>(4), 431-458.</p>
                 
-                <p class="text-center text-muted-foreground mt-6 py-4 border-t border-border">
-                    <i class="fas fa-info-circle mr-2"></i>Additional 185 references available in complete dissertation appendix
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                    Additional 185 references available in complete dissertation appendix
                 </p>
             </div>
         </div>
 
-        <div class="flex justify-center mt-8">
-            <a href="index.html" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-primary/80 transition">
+        <div class="flex justify-center mt-12">
+            <a href="index.html" class="bg-primary text-white px-6 py-2 rounded text-sm hover:bg-primary/90 transition-colors">
                 <i class="fas fa-home mr-2"></i> Back to Five Pillars Overview
             </a>
         </div>
-
     </div>
 
-    <footer class="bg-card border-t border-border py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <p class="text-muted-foreground text-xs mt-2">Indiana Wesleyan University | For Government Policy Consideration</p>
+    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+            <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
+            <span>For Government Policy Consideration</span>
         </div>
     </footer>
 

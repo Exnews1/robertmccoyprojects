@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cross-Pillar Integration & Policy Recommendations | CMGF Five Pillars</title>
+    <title>Cross-Pillar Integration | Five Pillars | Robert McCoy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -41,213 +41,208 @@
                 linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
         }
-        .high-tech-card {
-            background: hsl(220 13% 11% / 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid hsl(220 10% 20%);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        .card {
+            background: hsl(220 13% 11%);
+            border: 1px solid hsl(220 10% 20% / 0.5);
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
-        .high-tech-card:hover {
-            border-color: hsl(220 70% 55% / 0.4);
-        }
-        .hero-gradient {
-            background: linear-gradient(135deg, hsl(35 90% 30%) 0%, hsl(20 80% 40%) 50%, hsl(35 70% 45%) 100%);
-        }
-        .policy-gradient {
-            background: linear-gradient(135deg, hsl(220 70% 35%) 0%, hsl(300 60% 40%) 100%);
-        }
+        .card:hover { border-color: hsl(220 10% 25%); }
     </style>
 </head>
-<body class="text-foreground">
+<body class="min-h-screen text-foreground">
     
-    <nav class="bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center text-muted-foreground hover:text-primary transition">
-                        <i class="fas fa-arrow-left mr-3"></i>
-                        <span class="font-semibold">Back to Overview</span>
-                    </a>
-                </div>
-                <div class="flex items-center">
-                    <a href="references.html" class="text-muted-foreground hover:text-primary font-medium transition">View References</a>
-                </div>
+    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
+                <span class="text-muted-foreground/50">|</span>
+                <a href="index.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">Five Pillars</a>
+                <span class="text-muted-foreground/50">|</span>
+                <span class="text-sm" style="color: hsl(20 80% 50%)">Integration</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="references.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    References <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="hero-gradient text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center mb-4">
-                <i class="fas fa-puzzle-piece text-5xl mr-4"></i>
-                <div>
-                    <h1 class="text-4xl font-bold">Cross-Pillar Integration</h1>
-                    <p class="text-lg opacity-90 mt-2">Synthesis of interconnected themes and comprehensive policy recommendations</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-6xl mx-auto px-6 py-16">
         
-        <div class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold text-foreground mb-6">Integrated Framework Overview</h2>
-            <p class="text-lg text-muted-foreground leading-relaxed mb-6">
-                The five pillars are not independent domains but form an interconnected ecosystem of support for military learner career mobility. 
-                Effective transition support requires integrated, learner-centered systems combining credential recognition, intensive coaching, 
-                technology-enabled decision support, and culturally competent service delivery.
-            </p>
+        <header class="mb-12">
+            <div class="flex items-center gap-4 mb-4">
+                <i class="fas fa-puzzle-piece text-3xl" style="color: hsl(20 80% 50%)"></i>
+                <div>
+                    <h1 class="text-3xl font-bold text-foreground">Cross-Pillar Integration</h1>
+                    <p class="text-muted-foreground">Synthesis of interconnected themes and policy recommendations</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="mb-12">
+            <div class="card p-6 mb-8">
+                <h2 class="text-lg font-semibold text-foreground mb-3">Integrated Framework Overview</h2>
+                <p class="text-muted-foreground leading-relaxed">
+                    The five pillars are not independent domains but form an interconnected ecosystem of support for military learner career mobility. 
+                    Effective transition support requires integrated, learner-centered systems combining credential recognition, intensive coaching, 
+                    technology-enabled decision support, and culturally competent service delivery.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Integration Points</h2>
             
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-primary/20 border border-primary/30 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-foreground mb-3">
-                        <i class="fas fa-link text-primary mr-2"></i>Integration Point 1
+                <div class="card p-6 border-l-4 border-l-primary">
+                    <h3 class="font-semibold text-foreground mb-2">
+                        <i class="fas fa-link text-primary mr-2"></i>Career Mobility + Credentialing
                     </h3>
-                    <p class="text-muted-foreground text-sm leading-relaxed">
-                        <strong class="text-foreground">Career Mobility + Credentialing:</strong> Post-9/11 GI Bill utilization patterns (Pillar 1) directly inform 
-                        credentialing pathway design (Pillar 2). Veterans who pursue stackable credentials aligned to labor market demand show 
-                        better employment outcomes than those in mismatched degree programs.
+                    <p class="text-sm text-muted-foreground">
+                        Post-9/11 GI Bill utilization patterns (Pillar 1) inform credentialing pathway design (Pillar 2). 
+                        Veterans pursuing stackable credentials aligned to labor market demand show better outcomes.
                     </p>
                 </div>
                 
-                <div class="bg-accent/20 border border-accent/30 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-foreground mb-3">
-                        <i class="fas fa-link text-accent mr-2"></i>Integration Point 2
+                <div class="card p-6 border-l-4 border-l-accent">
+                    <h3 class="font-semibold text-foreground mb-2">
+                        <i class="fas fa-link text-accent mr-2"></i>AI Advising + Skills Translation
                     </h3>
-                    <p class="text-muted-foreground text-sm leading-relaxed">
-                        <strong class="text-foreground">AI Advising + Skills Translation:</strong> AI-assisted career advising systems (Pillar 3) can automate MOS-to-civilian 
-                        occupation mapping (Pillar 4), reducing ESO workload while providing veterans with personalized, explainable career pathway recommendations.
+                    <p class="text-sm text-muted-foreground">
+                        AI-assisted career advising systems (Pillar 3) can automate MOS-to-civilian occupation mapping (Pillar 4), 
+                        reducing ESO workload while providing personalized recommendations.
                     </p>
                 </div>
                 
-                <div class="bg-green-500/20 border border-green-500/30 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-foreground mb-3">
-                        <i class="fas fa-link text-green-400 mr-2"></i>Integration Point 3
+                <div class="card p-6 border-l-4 border-l-green-500">
+                    <h3 class="font-semibold text-foreground mb-2">
+                        <i class="fas fa-link text-green-400 mr-2"></i>Learner Voice + Program Design
                     </h3>
-                    <p class="text-muted-foreground text-sm leading-relaxed">
-                        <strong class="text-foreground">Learner Voice + Program Design:</strong> Veteran student experiences (Pillar 5) reveal that institutional barriers, 
-                        financial complexity, and social isolation compound each other. Effective interventions must address multiple barriers simultaneously 
-                        through cohort models and veteran resource centers.
+                    <p class="text-sm text-muted-foreground">
+                        Veteran student experiences (Pillar 5) reveal compounding institutional barriers. Effective interventions 
+                        must address multiple barriers simultaneously through cohort models and veteran resource centers.
                     </p>
                 </div>
                 
-                <div class="bg-orange-500/20 border border-orange-500/30 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold text-foreground mb-3">
-                        <i class="fas fa-link text-orange-400 mr-2"></i>Integration Point 4
+                <div class="card p-6" style="border-left: 4px solid hsl(20 80% 50%)">
+                    <h3 class="font-semibold text-foreground mb-2">
+                        <i class="fas fa-link mr-2" style="color: hsl(20 80% 50%)"></i>Credentialing + Skills Translation
                     </h3>
-                    <p class="text-muted-foreground text-sm leading-relaxed">
-                        <strong class="text-foreground">Credentialing + Skills Translation:</strong> Standardized competency mapping (Pillar 2) directly enables employer recognition 
-                        of military experience (Pillar 4). Verified, portable credential registries bridge the military-civilian translation gap.
+                    <p class="text-sm text-muted-foreground">
+                        Standardized competency mapping (Pillar 2) directly enables employer recognition of military experience (Pillar 4). 
+                        Verified, portable credential registries bridge the military-civilian translation gap.
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="policy-gradient text-white rounded-xl p-8 mb-8">
-            <h2 class="text-3xl font-bold mb-6">Six Priority Policy Recommendations</h2>
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Six Priority Policy Recommendations</h2>
             
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">1</span>
-                        <h3 class="text-lg font-bold">Mandate Outcome-Based Evaluation</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">1</span>
+                        <h3 class="font-semibold text-foreground">Mandate Outcome-Based Evaluation</h3>
                     </div>
-                    <p class="text-sm opacity-90">
+                    <p class="text-sm text-muted-foreground">
                         Require longitudinal outcome tracking (employment, earnings, credential completion) for all transition programs. 
-                        Fund evaluation infrastructure to enable causal inference about program effectiveness.
+                        Fund evaluation infrastructure to enable causal inference.
                     </p>
                 </div>
                 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">2</span>
-                        <h3 class="text-lg font-bold">Standardize Competency Mapping</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">2</span>
+                        <h3 class="font-semibold text-foreground">Standardize Competency Mapping</h3>
                     </div>
-                    <p class="text-sm opacity-90">
-                        Adopt interoperable competency frameworks aligned to O*NET and industry credentials. Create a national registry 
-                        of verified MOS-to-credential mappings with transparent learning outcome documentation.
+                    <p class="text-sm text-muted-foreground">
+                        Adopt interoperable competency frameworks aligned to O*NET. Create a national registry of verified 
+                        MOS-to-credential mappings with transparent documentation.
                     </p>
                 </div>
                 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">3</span>
-                        <h3 class="text-lg font-bold">Deploy Human-Centered AI Advising</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">3</span>
+                        <h3 class="font-semibold text-foreground">Deploy Human-Centered AI Advising</h3>
                     </div>
-                    <p class="text-sm opacity-90">
-                        Implement AI-assisted career advising systems with mandatory explainability, human override authority, and subgroup 
-                        fairness auditing. Phased pilots with counselor-in-the-loop review before scale deployment.
+                    <p class="text-sm text-muted-foreground">
+                        Implement AI-assisted career advising with mandatory explainability, human override authority, and 
+                        subgroup fairness auditing. Phased pilots with counselor-in-the-loop review.
                     </p>
                 </div>
                 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">4</span>
-                        <h3 class="text-lg font-bold">Scale Cohort-Based Programs</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">4</span>
+                        <h3 class="font-semibold text-foreground">Scale Cohort-Based Programs</h3>
                     </div>
-                    <p class="text-sm opacity-90">
-                        Fund expansion of veteran cohort models that combine peer support, targeted advising, and mental health integration. 
-                        Prioritize programs addressing multiple barrier domains simultaneously.
+                    <p class="text-sm text-muted-foreground">
+                        Fund expansion of veteran cohort models that combine peer support, targeted advising, and mental health 
+                        integration. Prioritize programs addressing multiple barriers simultaneously.
                     </p>
                 </div>
                 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">5</span>
-                        <h3 class="text-lg font-bold">Invest in Employer Education</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">5</span>
+                        <h3 class="font-semibold text-foreground">Invest in Employer Education</h3>
                     </div>
-                    <p class="text-sm opacity-90">
-                        Develop employer-facing translation toolkits and recruiter training to improve military experience recognition. 
-                        Incentivize skills-based hiring practices through tax credits or wage-subsidy pilots.
+                    <p class="text-sm text-muted-foreground">
+                        Develop employer-facing translation toolkits and recruiter training. Incentivize skills-based hiring 
+                        practices through tax credits or wage-subsidy pilots.
                     </p>
                 </div>
                 
-                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+                <div class="card p-6">
                     <div class="flex items-start mb-3">
-                        <span class="bg-white text-primary font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3">6</span>
-                        <h3 class="text-lg font-bold">Coordinate Federal-State Systems</h3>
+                        <span class="bg-primary text-white font-bold w-6 h-6 rounded-full flex items-center justify-center mr-3 text-sm">6</span>
+                        <h3 class="font-semibold text-foreground">Coordinate Federal-State Systems</h3>
                     </div>
-                    <p class="text-sm opacity-90">
-                        Standardize VA-campus enrollment processes to reduce administrative friction. Create interoperable data systems 
-                        linking military training records, civilian credentials, and employment outcomes.
+                    <p class="text-sm text-muted-foreground">
+                        Standardize VA-campus enrollment processes. Create interoperable data systems linking military training 
+                        records, civilian credentials, and employment outcomes.
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="high-tech-card rounded-xl p-8 mb-8">
-            <h2 class="text-2xl font-bold text-foreground mb-6">Research Gaps & Future Directions</h2>
+        <section class="mb-12">
+            <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Research Gaps & Future Directions</h2>
             
             <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-secondary p-6 rounded-lg border border-border">
-                    <h3 class="text-lg font-bold text-foreground mb-3">
+                <div class="card p-6">
+                    <h3 class="font-semibold text-foreground mb-3">
                         <i class="fas fa-flask text-primary mr-2"></i>Methodology
                     </h3>
-                    <ul class="text-sm text-muted-foreground space-y-2">
+                    <ul class="text-sm text-muted-foreground space-y-1">
                         <li>More RCTs for employment interventions</li>
                         <li>Long-term outcome tracking (5+ years)</li>
                         <li>Multi-site replication studies</li>
-                        <li>Subgroup-specific intervention evaluations</li>
+                        <li>Subgroup-specific evaluations</li>
                     </ul>
                 </div>
                 
-                <div class="bg-secondary p-6 rounded-lg border border-border">
-                    <h3 class="text-lg font-bold text-foreground mb-3">
+                <div class="card p-6">
+                    <h3 class="font-semibold text-foreground mb-3">
                         <i class="fas fa-robot text-accent mr-2"></i>Technology
                     </h3>
-                    <ul class="text-sm text-muted-foreground space-y-2">
-                        <li>XAI for career recommendation systems</li>
+                    <ul class="text-sm text-muted-foreground space-y-1">
+                        <li>XAI for career recommendation</li>
                         <li>Fairness auditing in military contexts</li>
                         <li>Human factors in HITL advising</li>
                         <li>Multi-installation AI deployment</li>
                     </ul>
                 </div>
                 
-                <div class="bg-secondary p-6 rounded-lg border border-border">
-                    <h3 class="text-lg font-bold text-foreground mb-3">
+                <div class="card p-6">
+                    <h3 class="font-semibold text-foreground mb-3">
                         <i class="fas fa-users text-green-400 mr-2"></i>Population
                     </h3>
-                    <ul class="text-sm text-muted-foreground space-y-2">
+                    <ul class="text-sm text-muted-foreground space-y-1">
                         <li>Female veteran pathways</li>
                         <li>Minority veteran subgroup analysis</li>
                         <li>Reserve/Guard-specific transitions</li>
@@ -255,23 +250,22 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="flex justify-between mt-8">
-            <a href="pillar5.html" class="bg-secondary text-foreground px-6 py-3 rounded-lg hover:bg-secondary/80 transition border border-border">
+        <div class="flex justify-between mt-12">
+            <a href="pillar5.html" class="text-sm text-muted-foreground hover:text-primary transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Pillar 5: Learner Voice
             </a>
-            <a href="references.html" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/80 transition">
+            <a href="references.html" class="bg-primary text-white px-4 py-2 rounded text-sm hover:bg-primary/90 transition-colors">
                 View All References <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
-
     </div>
 
-    <footer class="bg-card border-t border-border py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-muted-foreground text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
-            <a href="references.html" class="text-primary hover:text-primary/80 text-sm">View All 900+ References</a>
+    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+            <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
+            <a href="references.html" class="hover:text-muted-foreground transition-colors">View All 900+ References</a>
         </div>
     </footer>
 
