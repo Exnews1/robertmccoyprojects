@@ -12,15 +12,6 @@ const cmgfProjects = [
     route: "/cmgf",
     status: "Active Research",
     external: false
-  },
-  {
-    id: "explorer",
-    title: "CMGF Reference Explorer",
-    description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
-    icon: Search,
-    route: "/cmgf/explorer",
-    status: "Research Tool",
-    external: false
   }
 ];
 

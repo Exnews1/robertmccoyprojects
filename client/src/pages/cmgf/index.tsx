@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 
@@ -33,6 +33,14 @@ const canonicalDocuments = [
 ];
 
 const sections = [
+  {
+    id: "explorer",
+    title: "Reference Explorer",
+    description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
+    icon: Search,
+    route: "/cmgf/explorer",
+    featured: true
+  },
   {
     id: "engagement",
     title: "Interactive Engagement",
