@@ -68,6 +68,20 @@ The AI Education Hub at `/education-ai` provides evidence-based guidance for AI 
   - `ai_education_technology_details.png` - Technology adoption patterns
   - `ai_education_decision_tree.png` - Implementation decision tree
 
+### U.S. Incarceration Research Hub
+The Incarceration Research Hub at `/incarceration-research` provides comprehensive U.S. criminal justice system data analysis:
+- **Key Statistics**: 2.4M incarcerated, 708 per 100k rate (highest globally), 67.5% recidivism
+- **Demographics Analysis**: Race/ethnicity breakdowns showing disparate impact (Black 5.9× White rate)
+- **Political Analysis**: Red vs Blue state comparison (16% higher incarceration in Republican states)
+- **State Comparison**: Interactive lists of highest/lowest incarceration states with region filtering
+- **State Detail Dialog**: Click any state to view detailed policies (Three Strikes, Death Penalty, Marijuana)
+- **Static Data Files** (in `client/public/incarceration-research/data/`):
+  - 36 CSV files with comprehensive state-level data
+  - 19 JSON files including party_comparison_summary.json
+  - dashboard_comprehensive_state_data.csv - Main state comparison data
+- **CSV Parsing**: Uses custom parseCSVLine function to handle quoted fields correctly
+- **Design Pattern**: Uses inner div accent strips instead of border-l on rounded Cards
+
 ### Shared Code
 The `shared/` directory contains code used by both frontend and backend:
 - `schema.ts` - Drizzle table definitions and inferred TypeScript types
