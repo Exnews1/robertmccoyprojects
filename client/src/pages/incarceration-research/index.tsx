@@ -39,6 +39,26 @@ interface PartyComparison {
   source: string;
 }
 
+function parseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current.trim());
+  return result;
+}
+
 const keyFindings = [
   { 
     stat: "2.4M", 
@@ -111,22 +131,24 @@ export default function IncarcerationResearch() {
         
         const csvText = await stateResponse.text();
         const lines = csvText.trim().split("\n");
-        const headers = lines[0].split(",");
+        const headers = parseCSVLine(lines[0]);
+        
+        const numericFields = ["Incarceration_Rate_per_100k", "Total_Imprisoned", "Prison_Population_Change_2020_2024", 
+                              "Three_Year_Recidivism_Rate", "Cost_per_Inmate_Annual", "Rehabilitation_Program_Spending_Pct"];
         
         const parsed: StateData[] = lines.slice(1).map(line => {
-          const values = line.split(",");
+          const values = parseCSVLine(line);
           const obj: Record<string, string | number> = {};
           headers.forEach((header, i) => {
-            const val = values[i];
-            if (["Incarceration_Rate_per_100k", "Total_Imprisoned", "Prison_Population_Change_2020_2024", 
-                 "Three_Year_Recidivism_Rate", "Cost_per_Inmate_Annual", "Rehabilitation_Program_Spending_Pct"].includes(header)) {
+            const val = values[i] || '';
+            if (numericFields.includes(header)) {
               obj[header] = parseFloat(val) || 0;
             } else {
               obj[header] = val;
             }
           });
           return obj as unknown as StateData;
-        }).filter(d => d.State);
+        }).filter(d => d.State && d.State.length > 0);
 
         setStateData(parsed);
         
@@ -177,11 +199,11 @@ export default function IncarcerationResearch() {
         <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {keyFindings.map((finding, index) => (
-              <Card key={index} className="text-center">
+              <Card key={index} className="text-center" data-testid={`card-stat-${index}`}>
                 <CardContent className="pt-6">
                   <finding.icon className="h-8 w-8 mx-auto mb-3 text-primary" />
-                  <div className="text-3xl font-bold text-foreground mb-1">{finding.stat}</div>
-                  <div className="text-sm font-medium text-foreground mb-2">{finding.label}</div>
+                  <div className="text-3xl font-bold text-foreground mb-1" data-testid={`text-stat-value-${index}`}>{finding.stat}</div>
+                  <div className="text-sm font-medium text-foreground mb-2" data-testid={`text-stat-label-${index}`}>{finding.label}</div>
                   <p className="text-xs text-muted-foreground">{finding.description}</p>
                 </CardContent>
               </Card>
@@ -189,35 +211,40 @@ export default function IncarcerationResearch() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <Card className="border-l-4 border-l-primary">
+        <section className="mb-12" data-testid="section-key-findings">
+          <Card>
             <CardContent className="p-6">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-primary" />
-                Key Findings
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>The United States has the highest incarceration rate in the world, with 708 people per 100,000 in prison</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>Red (Republican) states incarcerate 16% more people than Blue (Democratic) states on average</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>Louisiana has the highest rate (1.11% of population) while Minnesota has the lowest (0.38%)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>Black Americans are incarcerated at 5.9× the rate of White Americans</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                  <span>67.5% of released prisoners are re-arrested within 3 years</span>
-                </li>
-              </ul>
+              <div className="flex gap-4">
+                <div className="w-1 bg-primary rounded-full shrink-0" />
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5 text-primary" />
+                    Key Findings
+                  </h3>
+                  <ul className="space-y-3 text-muted-foreground">
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>The United States has the highest incarceration rate in the world, with 708 people per 100,000 in prison</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>Red (Republican) states incarcerate 16% more people than Blue (Democratic) states on average</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>Louisiana has the highest rate (1.11% of population) while Minnesota has the lowest (0.38%)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>Black Americans are incarcerated at 5.9× the rate of White Americans</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>67.5% of released prisoners are re-arrested within 3 years</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </section>
@@ -413,6 +440,7 @@ export default function IncarcerationResearch() {
                         href={resource.file} 
                         download
                         className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                        data-testid={`link-download-${resource.type.toLowerCase()}-${index}`}
                       >
                         <Download className="h-3 w-3" />
                         Download {resource.type}
@@ -482,44 +510,44 @@ export default function IncarcerationResearch() {
             </DialogDescription>
           </DialogHeader>
           {selectedState && (
-            <div className="space-y-4">
+            <div className="space-y-4" data-testid="dialog-state-details">
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-3 bg-muted/50 rounded-lg">
                   <div className="text-xs text-muted-foreground">Incarceration Rate</div>
-                  <div className="text-xl font-bold">{selectedState.Incarceration_Rate_per_100k}</div>
+                  <div className="text-xl font-bold" data-testid="text-state-rate">{selectedState.Incarceration_Rate_per_100k}</div>
                   <div className="text-xs text-muted-foreground">per 100,000</div>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-lg">
                   <div className="text-xs text-muted-foreground">Total Imprisoned</div>
-                  <div className="text-xl font-bold">{selectedState.Total_Imprisoned.toLocaleString()}</div>
+                  <div className="text-xl font-bold" data-testid="text-state-total">{selectedState.Total_Imprisoned.toLocaleString()}</div>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-lg">
                   <div className="text-xs text-muted-foreground">Recidivism Rate (3yr)</div>
-                  <div className="text-xl font-bold">{selectedState.Three_Year_Recidivism_Rate}%</div>
+                  <div className="text-xl font-bold" data-testid="text-state-recidivism">{selectedState.Three_Year_Recidivism_Rate}%</div>
                 </div>
                 <div className="p-3 bg-muted/50 rounded-lg">
                   <div className="text-xs text-muted-foreground">Cost per Inmate</div>
-                  <div className="text-xl font-bold">${selectedState.Cost_per_Inmate_Annual.toLocaleString()}</div>
+                  <div className="text-xl font-bold" data-testid="text-state-cost">${selectedState.Cost_per_Inmate_Annual.toLocaleString()}</div>
                   <div className="text-xs text-muted-foreground">annually</div>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <h4 className="font-medium text-sm">Policies</h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant={selectedState.Three_Strikes_Law === "Yes" ? "destructive" : "secondary"}>
+                <div className="flex flex-wrap gap-2" data-testid="badges-state-policies">
+                  <Badge variant={selectedState.Three_Strikes_Law === "Yes" ? "destructive" : "secondary"} data-testid="badge-three-strikes">
                     Three Strikes: {selectedState.Three_Strikes_Law}
                   </Badge>
-                  <Badge variant={selectedState.Death_Penalty === "Yes" ? "destructive" : "secondary"}>
+                  <Badge variant={selectedState.Death_Penalty === "Yes" ? "destructive" : "secondary"} data-testid="badge-death-penalty">
                     Death Penalty: {selectedState.Death_Penalty}
                   </Badge>
-                  <Badge variant="outline">
+                  <Badge variant="outline" data-testid="badge-marijuana">
                     Marijuana: {selectedState.Marijuana_Legalization}
                   </Badge>
                 </div>
               </div>
 
-              <div className="text-xs text-muted-foreground pt-2 border-t">
+              <div className="text-xs text-muted-foreground pt-2 border-t" data-testid="text-population-change">
                 Population change 2020-2024: {selectedState.Prison_Population_Change_2020_2024}%
               </div>
             </div>
