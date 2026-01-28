@@ -58,11 +58,11 @@ const aiEducationProjects = [
   {
     id: "ai-types",
     title: "AI Types & Classifications",
-    description: "Comprehensive educational resource covering AI types, NIST AI RMF 1.0 Framework, prescriptive AI constraint spectrum, and human-in-the-loop evolution.",
+    description: "Comprehensive educational resource covering AI types by capability, functionality, and learning approach. Includes 20+ AI model explanations and selection guides.",
     icon: Brain,
-    route: "https://pircjskt.scispace.co",
+    route: "/ai-types",
     status: "Educational",
-    external: true
+    external: false
   }
 ];
 
