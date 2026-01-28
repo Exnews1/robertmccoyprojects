@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,55 +7,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        background: 'hsl(220 14% 8%)',
-                        foreground: 'hsl(220 9% 94%)',
-                        card: 'hsl(220 13% 11%)',
-                        'card-foreground': 'hsl(220 9% 94%)',
-                        primary: 'hsl(220 70% 55%)',
-                        'primary-foreground': 'hsl(220 9% 98%)',
-                        secondary: 'hsl(220 10% 18%)',
-                        'secondary-foreground': 'hsl(220 9% 94%)',
-                        muted: 'hsl(220 10% 18%)',
-                        'muted-foreground': 'hsl(220 9% 55%)',
-                        accent: 'hsl(300 60% 50%)',
-                        'accent-foreground': 'hsl(220 9% 98%)',
-                        border: 'hsl(220 10% 20%)',
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { background: 'hsl(220 14% 8%)', foreground: 'hsl(220 9% 94%)', card: 'hsl(220 13% 11%)', primary: 'hsl(220 70% 55%)', secondary: 'hsl(220 10% 18%)', muted: 'hsl(220 10% 18%)', 'muted-foreground': 'hsl(220 9% 55%)', accent: 'hsl(300 60% 50%)', border: 'hsl(220 10% 20%)' } } } }
+    </script>
+    <script>
+        if (localStorage.getItem('theme') === 'light') { document.documentElement.classList.remove('dark'); } else { document.documentElement.classList.add('dark'); }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body {
-            background-color: hsl(220 14% 8%);
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%),
-                linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-        }
-        .card {
-            background: hsl(220 13% 11%);
-            border: 1px solid hsl(220 10% 20% / 0.5);
-            border-radius: 0.5rem;
-        }
-        .reference-entry { 
-            line-height: 1.8; 
-            text-indent: -2rem; 
-            padding-left: 2rem; 
-        }
+        .dark body { background-color: hsl(220 14% 8%); color: hsl(220 9% 94%); background-image: radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%), linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px); background-size: 100% 100%, 40px 40px, 40px 40px; }
+        body { background-color: hsl(220 20% 97%); color: hsl(220 9% 15%); background-image: radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.02) 0%, transparent 50%), linear-gradient(rgba(100, 100, 120, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 120, 0.03) 1px, transparent 1px); background-size: 100% 100%, 40px 40px, 40px 40px; }
+        .dark .card { background: hsl(220 13% 11%); border: 1px solid hsl(220 10% 20% / 0.5); }
+        .card { background: hsl(0 0% 100%); border: 1px solid hsl(220 10% 85%); border-radius: 0.5rem; }
+        .dark .site-header { background: hsl(220 13% 11% / 0.8); border-color: hsl(220 10% 20% / 0.5); }
+        .site-header { background: hsl(0 0% 100% / 0.8); border-color: hsl(220 10% 85%); }
+        .dark .site-footer { background: hsl(220 13% 11% / 0.3); }
+        .site-footer { background: hsl(220 20% 95%); }
+        .text-foreground { color: hsl(220 9% 15%); }
+        .dark .text-foreground { color: hsl(220 9% 94%); }
+        .text-muted-foreground { color: hsl(220 9% 45%); }
+        .dark .text-muted-foreground { color: hsl(220 9% 55%); }
+        .reference-entry { line-height: 1.8; text-indent: -2rem; padding-left: 2rem; }
+        .theme-toggle { padding: 0.5rem; border-radius: 0.375rem; transition: all 0.2s ease; }
+        .theme-toggle:hover { background: hsl(220 10% 90%); }
+        .dark .theme-toggle:hover { background: hsl(220 10% 20%); }
+        .dark #searchBox { background: hsl(220 10% 18%); border-color: hsl(220 10% 25%); color: hsl(220 9% 94%); }
+        #searchBox { background: hsl(220 20% 95%); border-color: hsl(220 10% 80%); color: hsl(220 9% 15%); }
     </style>
 </head>
-<body class="min-h-screen text-foreground">
+<body class="min-h-screen">
     
-    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+    <header class="site-header sticky top-0 z-50 border-b backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="https://robertmccoyprojects.com" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
@@ -64,9 +46,13 @@
                 <span class="text-muted-foreground/50">|</span>
                 <span class="text-sm text-primary">References</span>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center gap-4">
                 <input type="text" id="searchBox" placeholder="Search references..." 
-                       class="bg-secondary border border-border rounded px-3 py-1.5 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary">
+                       class="border rounded px-3 py-1.5 text-sm placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary">
+                <button onclick="toggleTheme()" class="theme-toggle text-muted-foreground hover:text-foreground" title="Toggle light/dark mode">
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                    <i class="fas fa-moon inline dark:hidden"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -122,7 +108,7 @@
             <div class="space-y-3 text-sm text-muted-foreground">
                 <p class="reference-entry">Barr, A., Kawano, L., & Sacerdote, B. (2021). <em>You can't handle the truth: The effects of the Post-9/11 GI Bill on higher education and earnings</em> (NBER Working Paper No. 29024). National Bureau of Economic Research.</p>
                 
-                <p class="reference-entry">Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Campbell, K., Becker, D. R., & Drake, R. E. (2023). Evaluation of an employment intervention for veterans transitioning from the military: A randomized controlled trial. <em>Journal of Nervous and Mental Disease</em>, <em>211</em>(4), 247-255.</p>
+                <p class="reference-entry">Bond, G. R., Al-Abdulmunem, M., Ressler, D. R., Campbell, K., Becker, D. R., & Drake, R. E. (2022). Evaluation of an employment intervention for veterans transitioning from the military: A randomized controlled trial. <em>Administration and Policy in Mental Health and Mental Health Services Research</em>, <em>49</em>(6), 1040-1054.</p>
                 
                 <p class="reference-entry">Bruhn, J., Greenberg, K., Gudgeon, M. R. W., & Stanton, C. (2022). <em>The effects of combat deployments on veterans' outcomes</em> (NBER Working Paper No. 30622). National Bureau of Economic Research.</p>
                 
@@ -130,7 +116,7 @@
                 
                 <p class="reference-entry">Makridis, C., & Hirsch, B. T. (2021). The labor market earnings of veterans: Is military experience more or less valuable than civilian experience? <em>Journal of Labor Research</em>, <em>42</em>(3-4), 299-328.</p>
                 
-                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-current/10 text-xs">
                     Additional 169 references available in complete dissertation appendix
                 </p>
             </div>
@@ -149,7 +135,7 @@
                 
                 <p class="reference-entry">Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education</em>, <em>94</em>(3), 412-438.</p>
                 
-                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-current/10 text-xs">
                     Additional 218 references available in complete dissertation appendix
                 </p>
             </div>
@@ -164,7 +150,7 @@
                 
                 <p class="reference-entry">Holstein, K., Wortman Vaughan, J., Daumé III, H., Dudik, M., & Wallach, H. (2019). Improving fairness in machine learning systems: What do industry practitioners need? In <em>Proceedings of the 2019 CHI Conference on Human Factors in Computing Systems</em>. ACM.</p>
                 
-                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-current/10 text-xs">
                     Additional 215 references available in complete dissertation appendix
                 </p>
             </div>
@@ -179,7 +165,7 @@
                 
                 <p class="reference-entry">Stone, C., & Stone, D. L. (2015). Factors affecting hiring decisions about veterans. <em>Human Resource Management Review</em>, <em>25</em>(1), 68-79.</p>
                 
-                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-current/10 text-xs">
                     Additional 164 references available in complete dissertation appendix
                 </p>
             </div>
@@ -196,7 +182,7 @@
                 
                 <p class="reference-entry">Rumann, C. B., & Hamrick, F. A. (2010). Student veterans in transition: Re-enrolling after war zone deployments. <em>The Journal of Higher Education</em>, <em>81</em>(4), 431-458.</p>
                 
-                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-border text-xs">
+                <p class="text-center text-muted-foreground/60 mt-4 pt-4 border-t border-current/10 text-xs">
                     Additional 185 references available in complete dissertation appendix
                 </p>
             </div>
@@ -209,14 +195,16 @@
         </div>
     </div>
 
-    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+    <footer class="site-footer border-t py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
             <span>For Government Policy Consideration</span>
         </div>
     </footer>
 
     <script>
+        function toggleTheme() { const html = document.documentElement; if (html.classList.contains('dark')) { html.classList.remove('dark'); localStorage.setItem('theme', 'light'); } else { html.classList.add('dark'); localStorage.setItem('theme', 'dark'); } }
+        
         document.getElementById('searchBox').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const entries = document.querySelectorAll('.reference-entry');
@@ -229,6 +217,5 @@
             });
         });
     </script>
-
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,72 +7,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        background: 'hsl(220 14% 8%)',
-                        foreground: 'hsl(220 9% 94%)',
-                        card: 'hsl(220 13% 11%)',
-                        'card-foreground': 'hsl(220 9% 94%)',
-                        primary: 'hsl(220 70% 55%)',
-                        'primary-foreground': 'hsl(220 9% 98%)',
-                        secondary: 'hsl(220 10% 18%)',
-                        'secondary-foreground': 'hsl(220 9% 94%)',
-                        muted: 'hsl(220 10% 18%)',
-                        'muted-foreground': 'hsl(220 9% 55%)',
-                        accent: 'hsl(300 60% 50%)',
-                        'accent-foreground': 'hsl(220 9% 98%)',
-                        border: 'hsl(220 10% 20%)',
-                        violet: 'hsl(270 60% 55%)',
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { background: 'hsl(220 14% 8%)', foreground: 'hsl(220 9% 94%)', card: 'hsl(220 13% 11%)', primary: 'hsl(220 70% 55%)', secondary: 'hsl(220 10% 18%)', muted: 'hsl(220 10% 18%)', 'muted-foreground': 'hsl(220 9% 55%)', accent: 'hsl(300 60% 50%)', border: 'hsl(220 10% 20%)', violet: 'hsl(270 60% 55%)' } } } }
+    </script>
+    <script>
+        if (localStorage.getItem('theme') === 'light') { document.documentElement.classList.remove('dark'); } else { document.documentElement.classList.add('dark'); }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body {
-            background-color: hsl(220 14% 8%);
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%),
-                linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-        }
-        .card {
-            background: hsl(220 13% 11%);
-            border: 1px solid hsl(220 10% 20% / 0.5);
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-        }
-        .card:hover { border-color: hsl(220 10% 25%); }
+        .dark body { background-color: hsl(220 14% 8%); color: hsl(220 9% 94%); background-image: radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%), linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px); background-size: 100% 100%, 40px 40px, 40px 40px; }
+        body { background-color: hsl(220 20% 97%); color: hsl(220 9% 15%); background-image: radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.02) 0%, transparent 50%), linear-gradient(rgba(100, 100, 120, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 120, 0.03) 1px, transparent 1px); background-size: 100% 100%, 40px 40px, 40px 40px; }
+        .dark .card { background: hsl(220 13% 11%); border: 1px solid hsl(220 10% 20% / 0.5); }
+        .card { background: hsl(0 0% 100%); border: 1px solid hsl(220 10% 85%); border-radius: 0.5rem; transition: all 0.2s ease; }
+        .card:hover { border-color: hsl(220 10% 75%); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+        .dark .card:hover { border-color: hsl(220 10% 25%); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
         .research-card { cursor: pointer; }
-        .research-card:hover { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-        .stat-badge {
-            background: hsl(270 60% 55% / 0.1);
-            color: hsl(270 60% 55%);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .citation-box { 
-            background-color: hsl(220 10% 14%); 
-            border-left: 4px solid hsl(270 60% 55%); 
-        }
-        .doi-link {
-            color: hsl(220 70% 65%);
-            text-decoration: underline;
-            font-weight: 500;
-        }
-        .doi-link:hover {
-            color: hsl(220 70% 75%);
-        }
+        .stat-badge { background: hsl(270 60% 55% / 0.1); color: hsl(270 60% 55%); font-family: 'JetBrains Mono', monospace; }
+        .dark .citation-box { background-color: hsl(220 10% 14%); border-left: 4px solid hsl(270 60% 55%); }
+        .citation-box { background-color: hsl(270 30% 96%); border-left: 4px solid hsl(270 60% 55%); }
+        .doi-link { color: hsl(220 70% 50%); text-decoration: underline; font-weight: 500; }
+        .dark .doi-link { color: hsl(220 70% 65%); }
+        .dark .site-header { background: hsl(220 13% 11% / 0.8); border-color: hsl(220 10% 20% / 0.5); }
+        .site-header { background: hsl(0 0% 100% / 0.8); border-color: hsl(220 10% 85%); }
+        .dark .site-footer { background: hsl(220 13% 11% / 0.3); }
+        .site-footer { background: hsl(220 20% 95%); }
+        .text-foreground { color: hsl(220 9% 15%); }
+        .dark .text-foreground { color: hsl(220 9% 94%); }
+        .text-muted-foreground { color: hsl(220 9% 45%); }
+        .dark .text-muted-foreground { color: hsl(220 9% 55%); }
+        .theme-toggle { padding: 0.5rem; border-radius: 0.375rem; transition: all 0.2s ease; }
+        .theme-toggle:hover { background: hsl(220 10% 90%); }
+        .dark .theme-toggle:hover { background: hsl(220 10% 20%); }
     </style>
 </head>
-<body class="min-h-screen text-foreground">
-    
-    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+<body class="min-h-screen">
+    <header class="site-header sticky top-0 z-50 border-b backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="https://robertmccoyprojects.com" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">Robert McCoy</a>
@@ -82,18 +51,17 @@
                 <span class="text-sm" style="color: hsl(270 60% 55%)">Pillar 5</span>
             </div>
             <div class="flex items-center gap-4">
-                <a href="pillar4.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
-                    <i class="fas fa-arrow-left mr-1"></i> Pillar 4
-                </a>
-                <a href="integration.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">
-                    Integration <i class="fas fa-arrow-right ml-1"></i>
-                </a>
+                <a href="pillar4.html" class="text-xs text-muted-foreground hover:text-primary transition-colors"><i class="fas fa-arrow-left mr-1"></i> Pillar 4</a>
+                <a href="integration.html" class="text-xs text-muted-foreground hover:text-primary transition-colors">Integration <i class="fas fa-arrow-right ml-1"></i></a>
+                <button onclick="toggleTheme()" class="theme-toggle text-muted-foreground hover:text-foreground" title="Toggle light/dark mode">
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                    <i class="fas fa-moon inline dark:hidden"></i>
+                </button>
             </div>
         </div>
     </header>
 
     <div class="max-w-6xl mx-auto px-6 py-16">
-        
         <header class="mb-12">
             <div class="flex items-center gap-4 mb-4">
                 <i class="fas fa-users text-3xl" style="color: hsl(270 60% 55%)"></i>
@@ -107,10 +75,7 @@
         <section class="mb-12">
             <div class="card p-6 mb-8">
                 <h2 class="text-xl font-semibold text-foreground mb-4">Executive Summary</h2>
-                <p class="text-base text-muted-foreground leading-relaxed mb-6">
-                    Veteran learners face layered institutional, financial, social, and psychological barriers that interact with identity 
-                    shifts from soldier to student; targeted cohort models, veteran centers, and peer networks show measurable breakthroughs.
-                </p>
+                <p class="text-base text-muted-foreground leading-relaxed mb-6">Veteran learners face layered institutional, financial, social, and psychological barriers that interact with identity shifts from soldier to student; targeted cohort models, veteran centers, and peer networks show measurable breakthroughs.</p>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="p-4 rounded text-center" style="background: hsl(270 60% 55% / 0.1); border: 1px solid hsl(270 60% 55% / 0.2)">
                         <div class="text-2xl font-bold" style="color: hsl(270 60% 55%)">80%</div>
@@ -121,7 +86,7 @@
                         </div>
                     </div>
                     <div class="bg-green-500/10 border border-green-500/20 p-4 rounded text-center">
-                        <div class="text-2xl font-bold text-green-400">+24pp</div>
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400">+24pp</div>
                         <div class="text-base text-muted-foreground mb-2">Above Institutional Average</div>
                         <div class="text-sm border-t border-green-500/20 pt-2 mt-2">
                             <span class="text-muted-foreground">Source: </span>
@@ -129,7 +94,7 @@
                         </div>
                     </div>
                     <div class="bg-red-500/10 border border-red-500/20 p-4 rounded text-center">
-                        <div class="text-2xl font-bold text-red-400">300K+</div>
+                        <div class="text-2xl font-bold text-red-600 dark:text-red-400">300K+</div>
                         <div class="text-base text-muted-foreground mb-2">TBI Cases (2000-2014)</div>
                         <div class="text-sm border-t border-red-500/20 pt-2 mt-2">
                             <span class="text-muted-foreground">Source: </span>
@@ -142,67 +107,48 @@
 
         <section class="mb-12">
             <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key Research Findings</h2>
-
             <div class="grid md:grid-cols-2 gap-6">
-                
                 <div class="card research-card p-6" onclick="toggleDetail('detail1')">
                     <div class="flex items-start justify-between mb-3">
                         <h3 class="text-lg font-semibold text-foreground">Student Experiences & Data</h3>
                         <i class="fas fa-chevron-down" style="color: hsl(270 60% 55%)" id="icon-detail1"></i>
                     </div>
-                    <p class="text-base text-muted-foreground mb-4">
-                        Veteran learners describe heterogeneous pathways and report both strengths and concrete obstacles.
-                    </p>
+                    <p class="text-base text-muted-foreground mb-4">Veteran learners describe heterogeneous pathways and report both strengths and concrete obstacles.</p>
                     <div class="flex gap-3 text-center">
                         <div class="flex-1 p-2 rounded" style="background: hsl(270 60% 55% / 0.1); border: 1px solid hsl(270 60% 55% / 0.2)">
                             <div class="text-lg font-bold" style="color: hsl(270 60% 55%)">9,000+</div>
                             <div class="text-sm text-muted-foreground">Veterans Studied</div>
                         </div>
                         <div class="flex-1 bg-red-500/10 border border-red-500/20 p-2 rounded">
-                            <div class="text-lg font-bold text-red-400">44%</div>
+                            <div class="text-lg font-bold text-red-600 dark:text-red-400">44%</div>
                             <div class="text-sm text-muted-foreground">PTSD Symptoms</div>
                         </div>
                     </div>
                 </div>
-
                 <div id="detail1" class="hidden md:col-span-2 card p-6" style="border-left: 4px solid hsl(270 60% 55%)">
                     <h4 class="text-lg font-semibold text-foreground mb-4">Evidence Synthesis</h4>
                     <ul class="text-base text-muted-foreground space-y-3">
-                        <li>
-                            <strong class="text-foreground">Population scale:</strong> More than 9,000 post-9/11 veterans followed; majority obtained postsecondary degree within four years 
-                            <a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">(Rumann & Hamrick, 2010)</a>.
-                        </li>
-                        <li>
-                            <strong class="text-foreground">Institutional data:</strong> Enrollment patterns and aid sources predicted graduation and persistence.
-                        </li>
-                        <li>
-                            <strong class="text-foreground">Health impacts:</strong> Over 300,000 TBI cases (2000-2014) and high rates of PTSD symptoms documented 
-                            <a href="https://www.va.gov/vetdata/" target="_blank" class="doi-link">(VA, 2018)</a>.
-                        </li>
+                        <li><strong class="text-foreground">Population scale:</strong> More than 9,000 post-9/11 veterans followed; majority obtained postsecondary degree within four years <a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">(Rumann & Hamrick, 2010)</a>.</li>
+                        <li><strong class="text-foreground">Institutional data:</strong> Enrollment patterns and aid sources predicted graduation and persistence.</li>
+                        <li><strong class="text-foreground">Health impacts:</strong> Over 300,000 TBI cases (2000-2014) and high rates of PTSD symptoms documented <a href="https://www.va.gov/vetdata/" target="_blank" class="doi-link">(VA, 2018)</a>.</li>
                     </ul>
-                    <button onclick="toggleDetail('detail1')" class="mt-4 text-base text-primary hover:underline">
-                        <i class="fas fa-chevron-up mr-1"></i> Collapse
-                    </button>
+                    <button onclick="toggleDetail('detail1')" class="mt-4 text-base text-primary hover:underline"><i class="fas fa-chevron-up mr-1"></i> Collapse</button>
                 </div>
-
                 <div class="card research-card p-6" onclick="toggleDetail('detail2')">
                     <div class="flex items-start justify-between mb-3">
                         <h3 class="text-lg font-semibold text-foreground">Barriers & Identity Conflicts</h3>
                         <i class="fas fa-chevron-down" style="color: hsl(270 60% 55%)" id="icon-detail2"></i>
                     </div>
-                    <p class="text-base text-muted-foreground mb-4">
-                        Interlocking institutional, financial, social, and psychological barriers while negotiating identity transitions.
-                    </p>
+                    <p class="text-base text-muted-foreground mb-4">Interlocking institutional, financial, social, and psychological barriers while negotiating identity transitions.</p>
                     <div class="bg-red-500/10 border-l-2 border-red-500 p-3 rounded text-base text-muted-foreground">
                         <strong class="text-foreground">Key:</strong> Barriers interact - financial strain amplifies stress.
                     </div>
                 </div>
-
                 <div id="detail2" class="hidden md:col-span-2 card p-6 border-l-4 border-l-red-500">
                     <h4 class="text-lg font-semibold text-foreground mb-4">Barrier Domain Analysis</h4>
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-base">
-                            <thead class="bg-secondary">
+                            <thead class="bg-secondary dark:bg-secondary">
                                 <tr>
                                     <th class="px-4 py-2 text-left text-foreground">Domain</th>
                                     <th class="px-4 py-2 text-left text-foreground">Findings</th>
@@ -210,126 +156,67 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-border text-muted-foreground">
-                                <tr>
-                                    <td class="px-4 py-2 font-medium">Institutional</td>
-                                    <td class="px-4 py-2">VA certification difficulties, inflexible scheduling</td>
-                                    <td class="px-4 py-2"><a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">DiRamio et al., 2008</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-2 font-medium">Financial</td>
-                                    <td class="px-4 py-2">Aid-source effects, no direct VA funding-graduation relationship</td>
-                                    <td class="px-4 py-2"><a href="https://doi.org/10.3386/w29024" target="_blank" class="doi-link">Barr et al., 2021</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-2 font-medium">Social</td>
-                                    <td class="px-4 py-2">Isolation and belonging deficits predict persistence</td>
-                                    <td class="px-4 py-2"><a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">Rumann & Hamrick, 2010</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-2 font-medium">Psychological</td>
-                                    <td class="px-4 py-2">PTSD, TBI, and stigma; high PTSD symptom prevalence</td>
-                                    <td class="px-4 py-2"><a href="https://www.va.gov/vetdata/" target="_blank" class="doi-link">Linski, 2018</a></td>
-                                </tr>
+                                <tr><td class="px-4 py-2 font-medium">Institutional</td><td class="px-4 py-2">VA certification difficulties, inflexible scheduling</td><td class="px-4 py-2"><a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">DiRamio et al., 2008</a></td></tr>
+                                <tr><td class="px-4 py-2 font-medium">Financial</td><td class="px-4 py-2">Aid-source effects, no direct VA funding-graduation relationship</td><td class="px-4 py-2"><a href="https://doi.org/10.3386/w29024" target="_blank" class="doi-link">Barr et al., 2021</a></td></tr>
+                                <tr><td class="px-4 py-2 font-medium">Social</td><td class="px-4 py-2">Isolation and belonging deficits predict persistence</td><td class="px-4 py-2"><a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">Rumann & Hamrick, 2010</a></td></tr>
+                                <tr><td class="px-4 py-2 font-medium">Psychological</td><td class="px-4 py-2">PTSD, TBI, and stigma; high PTSD symptom prevalence</td><td class="px-4 py-2"><a href="https://www.va.gov/vetdata/" target="_blank" class="doi-link">Linski, 2018</a></td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <button onclick="toggleDetail('detail2')" class="mt-4 text-base text-primary hover:underline">
-                        <i class="fas fa-chevron-up mr-1"></i> Collapse
-                    </button>
+                    <button onclick="toggleDetail('detail2')" class="mt-4 text-base text-primary hover:underline"><i class="fas fa-chevron-up mr-1"></i> Collapse</button>
                 </div>
-
                 <div class="card research-card p-6" onclick="toggleDetail('detail3')">
                     <div class="flex items-start justify-between mb-3">
                         <h3 class="text-lg font-semibold text-foreground">Effective Supports & Outcomes</h3>
                         <i class="fas fa-chevron-down" style="color: hsl(270 60% 55%)" id="icon-detail3"></i>
                     </div>
-                    <p class="text-base text-muted-foreground mb-4">
-                        Dedicated veteran centers, cohort models, STEM scholarships, and peer networks show measurable improvements.
-                    </p>
+                    <p class="text-base text-muted-foreground mb-4">Dedicated veteran centers, cohort models, STEM scholarships, and peer networks show measurable improvements.</p>
                     <div class="flex gap-2">
                         <span class="stat-badge text-xs px-2 py-1 rounded">Cohorts</span>
                         <span class="stat-badge text-xs px-2 py-1 rounded">VRCs</span>
                         <span class="stat-badge text-xs px-2 py-1 rounded">Peer Networks</span>
                     </div>
                 </div>
-
                 <div id="detail3" class="hidden md:col-span-2 card p-6 border-l-4 border-l-green-500">
                     <h4 class="text-lg font-semibold text-foreground mb-4">Intervention Evidence</h4>
                     <ul class="text-base text-muted-foreground space-y-3">
-                        <li>
-                            <strong class="text-foreground">Cohort models:</strong> Improved transition experiences and campus integration 
-                            <a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">(DiRamio et al., 2008)</a>.
-                        </li>
-                        <li>
-                            <strong class="text-foreground">STEM scholarship cohort:</strong> 80% completion rate, +24 percentage points above institutional average 
-                            <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">(Morris et al., 2023)</a>.
-                        </li>
-                        <li>
-                            <strong class="text-foreground">Veteran resource centers:</strong> Associated with higher veteran success scores.
-                        </li>
+                        <li><strong class="text-foreground">Cohort models:</strong> Improved transition experiences and campus integration <a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">(DiRamio et al., 2008)</a>.</li>
+                        <li><strong class="text-foreground">STEM scholarship cohort:</strong> 80% completion rate, +24 percentage points above institutional average <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">(Morris et al., 2023)</a>.</li>
+                        <li><strong class="text-foreground">Veteran resource centers:</strong> Associated with higher veteran success scores.</li>
                     </ul>
-                    <button onclick="toggleDetail('detail3')" class="mt-4 text-base text-primary hover:underline">
-                        <i class="fas fa-chevron-up mr-1"></i> Collapse
-                    </button>
+                    <button onclick="toggleDetail('detail3')" class="mt-4 text-base text-primary hover:underline"><i class="fas fa-chevron-up mr-1"></i> Collapse</button>
                 </div>
-
             </div>
         </section>
 
-        <!-- Key References Section -->
         <section class="mb-12">
             <h2 class="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Key References</h2>
             <div class="citation-box p-6 rounded">
                 <div class="space-y-4 text-base">
-                    <p class="text-muted-foreground leading-relaxed">
-                        DiRamio, D., Ackerman, R., & Mitchell, R. L. (2008). From combat to campus: Voices of student-veterans. <em>NASPA Journal, 45</em>(1), 73-102. 
-                        <a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">https://doi.org/10.2202/1949-6605.1908</a>
-                    </p>
-                    <p class="text-muted-foreground leading-relaxed">
-                        Rumann, C. B., & Hamrick, F. A. (2010). Student veterans in transition: Re-enrolling after war zone deployments. <em>The Journal of Higher Education, 81</em>(4), 431-458. 
-                        <a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">https://doi.org/10.1080/00221546.2010.11779056</a>
-                    </p>
-                    <p class="text-muted-foreground leading-relaxed">
-                        Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education, 94</em>(3), 412-438. 
-                        <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">https://doi.org/10.1080/07377363.2022.2082002</a>
-                    </p>
-                    <p class="text-muted-foreground leading-relaxed">
-                        Linski, C. (2018). <em>Traumatic brain injury and the academic accommodation needs of student veterans</em>. U.S. Department of Veterans Affairs.
-                    </p>
+                    <p class="text-muted-foreground leading-relaxed">DiRamio, D., Ackerman, R., & Mitchell, R. L. (2008). From combat to campus: Voices of student-veterans. <em>NASPA Journal, 45</em>(1), 73-102. <a href="https://doi.org/10.2202/1949-6605.1908" target="_blank" class="doi-link">https://doi.org/10.2202/1949-6605.1908</a></p>
+                    <p class="text-muted-foreground leading-relaxed">Rumann, C. B., & Hamrick, F. A. (2010). Student veterans in transition: Re-enrolling after war zone deployments. <em>The Journal of Higher Education, 81</em>(4), 431-458. <a href="https://doi.org/10.1080/00221546.2010.11779056" target="_blank" class="doi-link">https://doi.org/10.1080/00221546.2010.11779056</a></p>
+                    <p class="text-muted-foreground leading-relaxed">Morris, T. L., Rodriguez, A., & Peterson, K. (2023). Military STEM scholarship program outcomes: A mixed-methods evaluation. <em>Journal of Higher Education, 94</em>(3), 412-438. <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">https://doi.org/10.1080/07377363.2022.2082002</a></p>
+                    <p class="text-muted-foreground leading-relaxed">Linski, C. (2018). <em>Traumatic brain injury and the academic accommodation needs of student veterans</em>. U.S. Department of Veterans Affairs.</p>
                 </div>
             </div>
         </section>
 
         <div class="flex justify-between mt-12">
-            <a href="pillar4.html" class="text-base text-muted-foreground hover:text-primary transition-colors">
-                <i class="fas fa-arrow-left mr-2"></i> Pillar 4: Skills Translation
-            </a>
-            <a href="integration.html" class="px-4 py-2 rounded text-base text-white transition-colors" style="background: hsl(270 60% 55%)">
-                Cross-Pillar Integration <i class="fas fa-arrow-right ml-2"></i>
-            </a>
+            <a href="pillar4.html" class="text-base text-muted-foreground hover:text-primary transition-colors"><i class="fas fa-arrow-left mr-2"></i> Pillar 4: Skills Translation</a>
+            <a href="integration.html" class="px-4 py-2 rounded text-base text-white transition-colors" style="background: hsl(270 60% 55%)">Cross-Pillar Integration <i class="fas fa-arrow-right ml-2"></i></a>
         </div>
     </div>
 
-    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+    <footer class="site-footer border-t py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
-            <a href="references.html" class="hover:text-muted-foreground transition-colors">View All 900+ References</a>
+            <a href="references.html" class="hover:text-foreground transition-colors">View All 900+ References</a>
         </div>
     </footer>
 
     <script>
-        function toggleDetail(id) {
-            const detail = document.getElementById(id);
-            const icon = document.getElementById('icon-' + id);
-            if (detail) {
-                detail.classList.toggle('hidden');
-                if (icon) {
-                    icon.classList.toggle('fa-chevron-down');
-                    icon.classList.toggle('fa-chevron-up');
-                }
-            }
-        }
+        function toggleTheme() { const html = document.documentElement; if (html.classList.contains('dark')) { html.classList.remove('dark'); localStorage.setItem('theme', 'light'); } else { html.classList.add('dark'); localStorage.setItem('theme', 'dark'); } }
+        function toggleDetail(id) { const detail = document.getElementById(id); const icon = document.getElementById('icon-' + id); if (detail) { detail.classList.toggle('hidden'); if (icon) { icon.classList.toggle('fa-chevron-down'); icon.classList.toggle('fa-chevron-up'); } } }
     </script>
-
 </body>
 </html>

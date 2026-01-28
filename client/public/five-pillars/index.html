@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,30 +31,61 @@
             }
         }
     </script>
+    <script>
+        // Check for saved theme preference or default to dark
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
         * { font-family: 'Inter', sans-serif; }
         
-        body {
+        /* Dark mode styles */
+        .dark body {
             background-color: hsl(220 14% 8%);
             background-image: 
                 radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.03) 0%, transparent 50%),
                 linear-gradient(rgba(100, 100, 120, 0.015) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(100, 100, 120, 0.015) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: hsl(220 9% 94%);
         }
         
-        .card {
+        /* Light mode styles */
+        body {
+            background-color: hsl(220 20% 97%);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(100, 100, 120, 0.02) 0%, transparent 50%),
+                linear-gradient(rgba(100, 100, 120, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(100, 100, 120, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: hsl(220 9% 15%);
+        }
+        
+        /* Dark mode card */
+        .dark .card {
             background: hsl(220 13% 11%);
             border: 1px solid hsl(220 10% 20% / 0.5);
+        }
+        .dark .card:hover {
+            border-color: hsl(220 10% 25%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Light mode card */
+        .card {
+            background: hsl(0 0% 100%);
+            border: 1px solid hsl(220 10% 85%);
             border-radius: 0.5rem;
             transition: all 0.2s ease;
         }
-        
         .card:hover {
-            border-color: hsl(220 10% 25%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-color: hsl(220 10% 75%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         
         .pillar-card {
@@ -72,19 +103,69 @@
         }
         
         .doi-link {
-            color: hsl(220 70% 65%);
+            color: hsl(220 70% 50%);
             text-decoration: underline;
             font-weight: 500;
         }
         .doi-link:hover {
+            color: hsl(220 70% 40%);
+        }
+        .dark .doi-link {
+            color: hsl(220 70% 65%);
+        }
+        .dark .doi-link:hover {
             color: hsl(220 70% 75%);
+        }
+        
+        /* Dark header */
+        .dark .site-header {
+            background: hsl(220 13% 11% / 0.8);
+            border-color: hsl(220 10% 20% / 0.5);
+        }
+        
+        /* Light header */
+        .site-header {
+            background: hsl(0 0% 100% / 0.8);
+            border-color: hsl(220 10% 85%);
+        }
+        
+        /* Dark footer */
+        .dark .site-footer {
+            background: hsl(220 13% 11% / 0.3);
+            border-color: hsl(220 10% 20% / 0.5);
+        }
+        
+        /* Light footer */
+        .site-footer {
+            background: hsl(220 20% 95%);
+            border-color: hsl(220 10% 85%);
+        }
+        
+        /* Text colors for light mode */
+        .text-foreground { color: hsl(220 9% 15%); }
+        .dark .text-foreground { color: hsl(220 9% 94%); }
+        
+        .text-muted-foreground { color: hsl(220 9% 45%); }
+        .dark .text-muted-foreground { color: hsl(220 9% 55%); }
+        
+        /* Theme toggle button */
+        .theme-toggle {
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle:hover {
+            background: hsl(220 10% 90%);
+        }
+        .dark .theme-toggle:hover {
+            background: hsl(220 10% 20%);
         }
     </style>
 </head>
-<body class="min-h-screen text-foreground">
+<body class="min-h-screen">
     
-    <!-- Header matching main site -->
-    <header class="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-md">
+    <!-- Header -->
+    <header class="site-header sticky top-0 z-50 border-b backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="https://robertmccoyprojects.com" class="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors">
@@ -97,6 +178,10 @@
                 <a href="https://robertmccoyprojects.com" class="text-xs text-muted-foreground hover:text-primary transition-colors">
                     <i class="fas fa-arrow-left mr-1"></i> Portfolio
                 </a>
+                <button onclick="toggleTheme()" class="theme-toggle text-muted-foreground hover:text-foreground" title="Toggle light/dark mode">
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                    <i class="fas fa-moon inline dark:hidden"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -150,28 +235,28 @@
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">95% vs 83%</div>
                     <div class="text-base text-muted-foreground mb-2">Employment Rate Difference</div>
-                    <div class="text-sm border-t border-border pt-2 mt-2">
+                    <div class="text-sm border-t border-current/10 pt-2 mt-2">
                         <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
                     </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">$16,872</div>
                     <div class="text-base text-muted-foreground mb-2">Income Gain (2 Years)</div>
-                    <div class="text-sm border-t border-border pt-2 mt-2">
+                    <div class="text-sm border-t border-current/10 pt-2 mt-2">
                         <a href="https://doi.org/10.1007/s10488-022-01208-z" target="_blank" class="doi-link">Bond et al., 2022</a>
                     </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">98%</div>
                     <div class="text-base text-muted-foreground mb-2">NCLEX Pass Rate</div>
-                    <div class="text-sm border-t border-border pt-2 mt-2">
+                    <div class="text-sm border-t border-current/10 pt-2 mt-2">
                         <a href="https://doi.org/10.3928/01484834-20190719-03" target="_blank" class="doi-link">McNeal et al., 2019</a>
                     </div>
                 </div>
                 <div class="card p-4 text-center">
                     <div class="text-2xl font-bold text-primary mb-1">80%</div>
                     <div class="text-base text-muted-foreground mb-2">STEM Completion</div>
-                    <div class="text-sm border-t border-border pt-2 mt-2">
+                    <div class="text-sm border-t border-current/10 pt-2 mt-2">
                         <a href="https://doi.org/10.1080/07377363.2022.2082002" target="_blank" class="doi-link">Morris et al., 2023</a>
                     </div>
                 </div>
@@ -288,7 +373,7 @@
                     <a href="references.html" class="bg-primary text-white px-6 py-2 rounded-md text-base font-medium hover:bg-primary/90 transition-colors">
                         View All References
                     </a>
-                    <a href="integration.html" class="border border-border text-foreground px-6 py-2 rounded-md text-base font-medium hover:bg-secondary transition-colors">
+                    <a href="integration.html" class="border border-current/20 text-foreground px-6 py-2 rounded-md text-base font-medium hover:bg-current/5 transition-colors">
                         Policy Recommendations
                     </a>
                 </div>
@@ -297,15 +382,28 @@
 
     </div>
 
-    <!-- Footer matching main site -->
-    <footer class="border-t border-border/50 bg-card/30 py-6 mt-16">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+    <!-- Footer -->
+    <footer class="site-footer border-t py-6 mt-16">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
             <span>&copy; 2026 Robert McCoy | Indiana Wesleyan University</span>
-            <a href="mailto:data@robertmccoyprojects.com" class="hover:text-muted-foreground transition-colors">
+            <a href="mailto:data@robertmccoyprojects.com" class="hover:text-foreground transition-colors">
                 data@robertmccoyprojects.com
             </a>
         </div>
     </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+    </script>
 
 </body>
 </html>
