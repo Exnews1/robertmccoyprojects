@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pillar 3 | CMGF Five Pillars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .research-card { transition: all 0.3s ease; }
+        .research-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-arrow-left text-blue-600 mr-3"></i>
+                        <span class="font-semibold text-gray-900">Back to Overview</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold">Pillar 3: ISR & AI-Assisted Career Advising</h1>
+            <p class="text-lg opacity-90 mt-2">Evidence from 217 peer-reviewed sources on human-in-the-loop AI systems (2018-2026)</p>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Research Content</h2>
+            <p class="text-lg text-gray-700">AI-assisted, human-in-the-loop career advising shows promising accuracy and scalability gains but uneven transparency and governance. Research covers AI recommendation systems, explainability frameworks, NIST AI RMF alignment, and Installation Status Report integration to reduce ESO burden while maintaining human oversight.</p>
+        </div>
+        <div class="flex justify-between">
+            <a href="pillar2.html" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition">
+                <i class="fas fa-arrow-left mr-2"></i> Previous
+            </a>
+            <a href="pillar4.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                Next <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400 text-sm">The Five Pillars Feeding the CMGF Tool | &copy; 2026 Robert McCoy</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDetail(id) {
+            const detail = document.getElementById(id);
+            if (detail) detail.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
