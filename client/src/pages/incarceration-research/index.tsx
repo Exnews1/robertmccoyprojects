@@ -171,7 +171,7 @@ export default function IncarcerationResearch() {
   const topStates = sortedByRate.slice(0, 10);
   const bottomStates = [...filteredStates].sort((a, b) => a.Incarceration_Rate_per_100k - b.Incarceration_Rate_per_100k).slice(0, 5);
 
-  const regions = ["all", ...new Set(stateData.map(s => s.Region))].filter(Boolean);
+  const regions = ["all", ...Array.from(new Set(stateData.map(s => s.Region)))].filter(Boolean);
 
   return (
     <div className="min-h-screen bg-background">
@@ -195,6 +195,29 @@ export default function IncarcerationResearch() {
             Evidence-based research exploring policies, demographics, and outcomes across all 50 states.
           </p>
         </header>
+
+        <section className="mb-8">
+          <Link href="/incarceration-research/hard-truths" data-testid="link-hard-truths">
+            <Card className="hover-elevate cursor-pointer border-primary/30 bg-primary/5">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <Scale className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Hard Truths of the Incarceration System</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Evidence-based analysis from 728 scholarly papers on economics, prison life, education, and mental health
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-primary shrink-0" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </section>
 
         <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
