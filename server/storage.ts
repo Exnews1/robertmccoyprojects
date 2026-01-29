@@ -39,6 +39,9 @@ export interface IStorage {
   getLibraryEntries(): Promise<LibraryEntry[]>;
   createLibraryEntry(entry: InsertLibraryEntry): Promise<LibraryEntry>;
   updateLibraryEntryEmbedding(id: number, embedding: string): Promise<void>;
+  clearLibraryEntries(): Promise<void>;
+  bulkCreateLibraryEntries(entries: InsertLibraryEntry[]): Promise<number>;
+  getLibraryEntriesWithoutEmbeddings(): Promise<LibraryEntry[]>;
 
   createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
   getInquiries(): Promise<Inquiry[]>;
@@ -121,6 +124,26 @@ export class DatabaseStorage implements IStorage {
 
   async updateLibraryEntryEmbedding(id: number, embedding: string): Promise<void> {
     await db.update(libraryEntries).set({ embedding }).where(eq(libraryEntries.id, id));
+  }
+
+  async clearLibraryEntries(): Promise<void> {
+    await db.delete(libraryEntries);
+  }
+
+  async bulkCreateLibraryEntries(entries: InsertLibraryEntry[]): Promise<number> {
+    if (entries.length === 0) return 0;
+    const batchSize = 50;
+    let inserted = 0;
+    for (let i = 0; i < entries.length; i += batchSize) {
+      const batch = entries.slice(i, i + batchSize);
+      await db.insert(libraryEntries).values(batch).onConflictDoNothing();
+      inserted += batch.length;
+    }
+    return inserted;
+  }
+
+  async getLibraryEntriesWithoutEmbeddings(): Promise<LibraryEntry[]> {
+    return await db.select().from(libraryEntries).where(sql`embedding IS NULL`);
   }
 
   async createInquiry(inquiry: InsertInquiry): Promise<Inquiry> {

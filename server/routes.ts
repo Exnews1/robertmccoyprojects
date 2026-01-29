@@ -152,6 +152,79 @@ export async function registerRoutes(httpServer: Server, app: Express) {
     res.json(entries);
   });
 
+  // Import sources from CMGF JSON database
+  app.post("/api/library/import", async (req: any, res: any) => {
+    try {
+      const { clearExisting = false, sources } = req.body;
+      
+      if (!sources || !Array.isArray(sources)) {
+        return res.status(400).json({ message: "Sources array is required" });
+      }
+
+      if (clearExisting) {
+        await storage.clearLibraryEntries();
+      }
+
+      // Map JSON sources to library entry format
+      const entries = sources.map((source: any) => ({
+        entryId: String(source.id),
+        title: source.title || "Untitled",
+        authors: Array.isArray(source.authors) ? source.authors.join(", ") : source.authors,
+        organization: source.journal || null,
+        year: source.year ? parseInt(source.year) : null,
+        documentType: source.publication_type || "Journal Article",
+        summary: source.abstract || `${source.title} - ${source.publication_type || "Research"}`,
+        topics: source.pillars || [],
+        url: source.doi ? `https://doi.org/${source.doi}` : (source.url || null),
+        sourceLabel: source.journal || null,
+        visibility: "public",
+        embedding: null
+      }));
+
+      const inserted = await storage.bulkCreateLibraryEntries(entries);
+      res.json({ success: true, imported: inserted, total: sources.length });
+    } catch (error: any) {
+      console.error("Import error:", error);
+      res.status(500).json({ message: error?.message || "Import failed" });
+    }
+  });
+
+  // Generate embeddings for entries without them (batched)
+  app.post("/api/library/generate-embeddings", async (req: any, res: any) => {
+    try {
+      const { batchSize = 20 } = req.body;
+      const entries = await storage.getLibraryEntriesWithoutEmbeddings();
+      
+      if (entries.length === 0) {
+        return res.json({ success: true, updated: 0, remaining: 0, message: "All entries have embeddings" });
+      }
+
+      const batch = entries.slice(0, batchSize);
+      let updated = 0;
+      
+      for (const entry of batch) {
+        try {
+          const textForEmbedding = entry.summary || entry.title;
+          const embedding = await generateEmbedding(textForEmbedding);
+          await storage.updateLibraryEntryEmbedding(entry.id, JSON.stringify(embedding));
+          updated++;
+        } catch (err) {
+          console.error(`Failed to generate embedding for entry ${entry.id}:`, err);
+        }
+      }
+      
+      res.json({ 
+        success: true, 
+        updated, 
+        remaining: entries.length - updated,
+        message: `Generated embeddings for ${updated} entries. ${entries.length - updated} remaining.`
+      });
+    } catch (error: any) {
+      console.error("Embedding generation error:", error);
+      res.status(500).json({ message: error?.message || "Embedding generation failed" });
+    }
+  });
+
   // Regenerate embeddings for all library entries (dev only)
   app.post("/api/library/regenerate-embeddings", async (_req: any, res: any) => {
     // Only allow in development to prevent abuse/cost spikes
