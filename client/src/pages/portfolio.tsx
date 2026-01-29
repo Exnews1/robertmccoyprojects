@@ -33,6 +33,15 @@ const incarcerationProjects = [
     route: "/incarceration-research",
     status: "Research Hub",
     external: false
+  },
+  {
+    id: "human-capital",
+    title: "Human Capital Institutional Throughput",
+    description: "Comparative analysis of military and correctional education systems. Evidence-based framework for optimizing public infrastructure based on 453 peer-reviewed papers.",
+    icon: TrendingUp,
+    route: "/human-capital",
+    status: "Research Framework",
+    external: false
   }
 ];
 
