@@ -93,8 +93,21 @@ The Incarceration Research Hub at `/incarceration-research` provides comprehensi
   - 36 CSV files with comprehensive state-level data
   - 19 JSON files including party_comparison_summary.json
   - dashboard_comprehensive_state_data.csv - Main state comparison data
+  - hard_truths_statistics.json - Key statistics for Hard Truths page
 - **CSV Parsing**: Uses custom parseCSVLine function to handle quoted fields correctly
 - **Design Pattern**: Uses inner div accent strips instead of border-l on rounded Cards
+
+### Hard Truths of the Incarceration System
+The Hard Truths page at `/incarceration-research/hard-truths` provides evidence-based analysis from 728 scholarly papers:
+- **Research Base**: Analysis of 728 peer-reviewed papers and 40 primary sources (2015-2026)
+- **4 Major Sections**: Collapsible accordion UI with color-coded themes
+  - **Economics** (green): $39B annual spending, 790% population growth since 1970, cost per prisoner analysis
+  - **Prison Life** (orange): Violence statistics, solitary confinement data, PREA implementation
+  - **Education & Entry** (blue): 65% numeracy deficit, high school completion rates, GED completion analysis
+  - **Rights & Mental Health** (red): 66-76% untreated mental illness, recidivism rates, post-release challenges
+- **Data Visualization**: Key statistics displayed with colored accent cards
+- **Navigation**: Bidirectional linking with main Incarceration Research Hub
+- **Accessibility**: Collapsible sections with ARIA attributes, data-testid for testing
 
 ### Shared Code
 The `shared/` directory contains code used by both frontend and backend:
