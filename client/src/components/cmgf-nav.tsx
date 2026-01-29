@@ -1,10 +1,11 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, BookOpen, Download, Library, User, Users, Cpu, Search } from "lucide-react";
+import { Home, BookOpen, Download, Library, User, Users, Cpu, Search, Layers } from "lucide-react";
 
 const navItems = [
   { href: "/cmgf", label: "CMGF", icon: Home },
-  { href: "/cmgf/explorer", label: "Reference Explorer", icon: Search },
+  { href: "/cmgf/five-pillars", label: "Five Pillars", icon: Layers },
+  { href: "/explorer", label: "Reference Explorer", icon: Search },
   { href: "/cmgf/walkthrough", label: "Walkthrough", icon: BookOpen },
   { href: "/cmgf/walkthrough/part-a", label: "Part A", icon: User },
   { href: "/cmgf/walkthrough/part-b", label: "Part B", icon: Cpu },

@@ -41,15 +41,29 @@ Database tables:
 - `library_entries` - Research library with semantic embeddings for RAG search
 - `inquiries` - Professional inquiry form submissions
 
+### Five Pillars Reference Database
+The Five Pillars page at `/cmgf/five-pillars` organizes 797 peer-reviewed sources by CMGF pillar:
+- **Pillar 1**: Military Learner Career Mobility (174 sources)
+- **Pillar 2**: Empowerment Strategies & Stackable Pathways (222 sources)
+- **Pillar 3**: ISR & AI-Assisted Career Advising (217 sources)
+- **Pillar 4**: Translating Military Experience (166 sources)
+- **Pillar 5**: Veteran & Servicemember Learner Voice (188 sources)
+- **Features**: Accessible accordion UI, search filtering, external DOI links
+- **Data Source**: library_entries table with topics array containing pillar assignments
+
 ### Reference Explorer (RAG Feature)
 The Reference Explorer at `/explorer` provides grounded Q&A over the research library:
 - **Semantic Search**: Uses OpenAI embeddings (text-embedding-3-small) for similarity matching
 - **RAG Answer Generation**: GPT-4o generates answers strictly from library sources with inline citations
 - **Relevance Threshold**: Only sources with score >= 0.35 are used for answer generation
 - **Bounded AI**: Answers are document-grounded only, no generative interpretation beyond source content
+- **Source Database**: 797 peer-reviewed sources (2015-2026) with embeddings for semantic search
 - **Endpoints**:
   - `POST /api/answer` - Returns grounded answer + cited sources + related sources
   - `POST /api/search` - Returns simple semantic search results (legacy)
+  - `GET /api/library` - Returns all library entries
+  - `POST /api/library/import` - Bulk import sources from JSON
+  - `POST /api/library/generate-embeddings` - Generate embeddings for entries without them
   - `POST /api/library/regenerate-embeddings` - Dev only, regenerates all embeddings
 
 ### AI Education Futures Hub
