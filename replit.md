@@ -109,6 +109,20 @@ The Hard Truths page at `/incarceration-research/hard-truths` provides evidence-
 - **Navigation**: Bidirectional linking with main Incarceration Research Hub
 - **Accessibility**: Collapsible sections with ARIA attributes, data-testid for testing
 
+### Human Capital Institutional Throughput Framework
+The Human Capital Framework page at `/human-capital` provides comparative analysis of military and correctional education systems:
+- **Research Base**: Analysis of 453 peer-reviewed papers across military education, correctional education, human capital economics, and institutional systems
+- **Core Framework**: ΔH = f(E) × (1 − C) equation modeling human capital change as function of investment and friction
+- **Key Findings**: 45pp efficiency gap between military (85% throughput) and correctional (40% throughput) systems, $600B potential economic value
+- **5 Collapsible Sections**: Framework, Military System A, Correctional System B, Mandela Rules, Economic Case
+- **System Comparison Table**: Side-by-side metrics for throughput, success rates, investment levels
+- **Research Figures**: Institutional Throughput Flow Model, BASE Cost ROI Model
+- **Static Data Files** (in `client/public/human-capital/`):
+  - `data/Website_Content_Blocks.json` - Content blocks for page sections
+  - `images/Figure1_Institutional_Throughput_Flow_Model.png` - Flow diagram
+  - `images/Figure2_BASE_Cost_ROI_Model.png` - Cost/ROI analysis
+  - 30+ CSV research data files
+
 ### Shared Code
 The `shared/` directory contains code used by both frontend and backend:
 - `schema.ts` - Drizzle table definitions and inferred TypeScript types

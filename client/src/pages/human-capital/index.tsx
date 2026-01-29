@@ -2,14 +2,13 @@ import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   ChevronDown, 
   Home, 
   ChevronRight, 
   Scale, 
   TrendingUp, 
-  Users, 
   DollarSign,
   GraduationCap,
   Shield,
@@ -21,17 +20,6 @@ import {
   Target,
   BarChart3
 } from "lucide-react";
-
-interface ContentData {
-  hero_section: string;
-  framework_overview: string;
-  military_model_summary: string;
-  correctional_model_summary: string;
-  mandela_rules_alignment: string;
-  economic_case_summary: string;
-  policy_implications: string;
-  research_references_apa: string[];
-}
 
 const keyStats = [
   { value: "453", label: "Research Papers", description: "Peer-reviewed sources analyzed", icon: BookOpen },
@@ -49,15 +37,7 @@ const systemComparison = [
 ];
 
 export default function HumanCapitalFramework() {
-  const [contentData, setContentData] = useState<ContentData | null>(null);
   const [openSections, setOpenSections] = useState<Set<string>>(new Set(["framework"]));
-
-  useEffect(() => {
-    fetch("/human-capital/data/Website_Content_Blocks.json")
-      .then(res => res.json())
-      .then(data => setContentData(data))
-      .catch(err => console.error("Failed to load content:", err));
-  }, []);
 
   const toggleSection = (section: string) => {
     setOpenSections(prev => {
@@ -303,8 +283,8 @@ export default function HumanCapitalFramework() {
               <Card key={index} className="text-center" data-testid={`card-stat-${index}`}>
                 <CardContent className="pt-6">
                   <stat.icon className="h-8 w-8 mx-auto mb-3 text-primary" />
-                  <div className="text-3xl font-bold text-foreground mb-1">{stat.value}</div>
-                  <div className="text-sm font-medium text-foreground mb-2">{stat.label}</div>
+                  <div className="text-3xl font-bold text-foreground mb-1" data-testid={`text-stat-value-${index}`}>{stat.value}</div>
+                  <div className="text-sm font-medium text-foreground mb-2" data-testid={`text-stat-label-${index}`}>{stat.label}</div>
                   <p className="text-xs text-muted-foreground">{stat.description}</p>
                 </CardContent>
               </Card>
@@ -328,23 +308,23 @@ export default function HumanCapitalFramework() {
           </Card>
         </section>
 
-        <section className="mb-12">
+        <section className="mb-12" data-testid="section-system-comparison">
           <h2 className="text-2xl font-bold mb-6">System Comparison</h2>
           <Card>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full" role="table">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left p-4 font-semibold">Metric</th>
-                      <th className="text-left p-4 font-semibold text-green-600">Military (System A)</th>
-                      <th className="text-left p-4 font-semibold text-orange-600">Correctional (System B)</th>
+                      <th scope="col" className="text-left p-4 font-semibold">Metric</th>
+                      <th scope="col" className="text-left p-4 font-semibold text-green-600">Military (System A)</th>
+                      <th scope="col" className="text-left p-4 font-semibold text-orange-600">Correctional (System B)</th>
                     </tr>
                   </thead>
                   <tbody>
                     {systemComparison.map((row, index) => (
-                      <tr key={index} className="border-b last:border-0">
-                        <td className="p-4 font-medium">{row.metric}</td>
+                      <tr key={index} className="border-b last:border-0" data-testid={`row-comparison-${index}`}>
+                        <th scope="row" className="p-4 font-medium text-left">{row.metric}</th>
                         <td className="p-4 text-muted-foreground">{row.military}</td>
                         <td className="p-4 text-muted-foreground">{row.correctional}</td>
                       </tr>
@@ -395,26 +375,28 @@ export default function HumanCapitalFramework() {
           </div>
         </section>
 
-        <section className="mb-12">
+        <section className="mb-12" data-testid="section-research-figures">
           <h2 className="text-2xl font-bold mb-6">Research Figures</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
+            <Card data-testid="card-figure-1">
               <CardContent className="p-4">
                 <img 
                   src="/human-capital/images/Figure1_Institutional_Throughput_Flow_Model.png" 
                   alt="Institutional Throughput Flow Model showing population flow through military and correctional systems"
                   className="w-full rounded-lg mb-4"
+                  data-testid="img-figure-1"
                 />
                 <h4 className="font-semibold mb-2">Figure 1: Institutional Throughput Flow Model</h4>
                 <p className="text-sm text-muted-foreground">Visual representation of population → institutions → investment → outcomes</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card data-testid="card-figure-2">
               <CardContent className="p-4">
                 <img 
                   src="/human-capital/images/Figure2_BASE_Cost_ROI_Model.png" 
                   alt="BASE Cost ROI Model showing cost structure and return on investment analysis"
                   className="w-full rounded-lg mb-4"
+                  data-testid="img-figure-2"
                 />
                 <h4 className="font-semibold mb-2">Figure 2: BASE vs E vs R Cost Interaction Model</h4>
                 <p className="text-sm text-muted-foreground">Cost structure comparison and ROI as function of recidivism reduction</p>
