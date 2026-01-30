@@ -207,6 +207,83 @@ export default function FivePillars() {
           )}
         </div>
 
+        {/* Show flat search results when filtering */}
+        {isFiltering && totalFilteredSources > 0 && (
+          <Card className="mb-6 border-primary/30" data-testid="search-results-list">
+            <CardContent className="p-0">
+              <div className="p-4 border-b border-border bg-primary/5">
+                <h3 className="font-semibold text-foreground">Search Results</h3>
+              </div>
+              <div className="divide-y divide-border max-h-[500px] overflow-y-auto">
+                {entries
+                  .filter(e => {
+                    const s = search.toLowerCase();
+                    return e.title.toLowerCase().includes(s) ||
+                      e.authors?.toLowerCase().includes(s) ||
+                      e.summary?.toLowerCase().includes(s) ||
+                      e.topics?.some(t => t.toLowerCase().includes(s));
+                  })
+                  .slice(0, 50)
+                  .map((source) => (
+                    <div 
+                      key={source.id} 
+                      className="p-4 hover:bg-muted/30 transition-colors"
+                      data-testid={`search-result-${source.id}`}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-foreground text-sm mb-1 line-clamp-2">
+                            {source.title}
+                          </h4>
+                          {source.authors && (
+                            <p className="text-xs text-muted-foreground mb-1 line-clamp-1">
+                              {source.authors}
+                            </p>
+                          )}
+                          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mb-2">
+                            {source.year && <span>{source.year}</span>}
+                            {source.documentType && (
+                              <>
+                                <span className="text-muted-foreground/50">|</span>
+                                <span>{source.documentType}</span>
+                              </>
+                            )}
+                          </div>
+                          {source.topics && source.topics.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              {source.topics.map((topic, idx) => (
+                                <Badge key={idx} variant="outline" className="text-xs">
+                                  {topic.replace("Pillar ", "P")}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                        {source.url && (
+                          <a
+                            href={source.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-shrink-0"
+                          >
+                            <Button variant="ghost" size="icon" data-testid={`button-result-${source.id}`}>
+                              <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                {totalFilteredSources > 50 && (
+                  <div className="p-4 text-center text-sm text-muted-foreground bg-muted/20">
+                    Showing 50 of {totalFilteredSources} results. Refine your search to see more specific results.
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
