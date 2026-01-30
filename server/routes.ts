@@ -351,6 +351,10 @@ CMGF Five Pillars Context:
 - Pillar 4: Translating Military Experience (skills translation, competency mapping)
 - Pillar 5: Veteran & Servicemember Learner Voice
 
+Key Acronyms:
+- ISR: Installation Status Report
+- ESO: Education Service Officer
+
 Rules:
 1. Answer ONLY based on information in the provided sources
 2. Include inline citations like [Source 1] or [Source 2] when referencing specific information
