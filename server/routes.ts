@@ -307,6 +307,8 @@ export async function registerRoutes(httpServer: Server, app: Express) {
             documentType: entry.documentType,
             sourceLabel: entry.sourceLabel,
             url: entry.url,
+            authors: entry.authors,
+            topics: entry.topics,
             relevance: getRelevanceLabel(score)
           }))
         });
@@ -363,6 +365,8 @@ Rules:
           documentType: entry.documentType,
           sourceLabel: entry.sourceLabel,
           url: entry.url,
+          authors: entry.authors,
+          topics: entry.topics,
           relevance: getRelevanceLabel(score)
         }))
       });

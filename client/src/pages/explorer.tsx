@@ -16,6 +16,8 @@ interface SearchResult {
   documentType: string;
   sourceLabel: string | null;
   url: string | null;
+  authors: string | null;
+  topics: string[] | null;
   relevance: "High" | "Medium" | "Low";
 }
 
@@ -210,6 +212,9 @@ export default function Explorer() {
                         <div className="flex items-start justify-between gap-4 mb-3">
                           <div className="flex-1">
                             <h3 className="font-semibold text-foreground mb-1">{result.title}</h3>
+                            {result.authors && (
+                              <p className="text-xs text-muted-foreground mb-1">{result.authors}</p>
+                            )}
                             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
                               {result.sourceLabel && <span>{result.sourceLabel}</span>}
                               {result.year && <span>({result.year})</span>}
@@ -222,9 +227,19 @@ export default function Explorer() {
                           </Badge>
                         </div>
                         
-                        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                        <p className="text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-3">
                           {result.summary}
                         </p>
+
+                        {result.topics && result.topics.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mb-3">
+                            {result.topics.map((topic, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-xs">
+                                {topic.replace("Pillar ", "P")}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
 
                         {result.url && (
                           <Button variant="outline" size="sm" asChild data-testid={`button-view-source-${result.id}`}>
