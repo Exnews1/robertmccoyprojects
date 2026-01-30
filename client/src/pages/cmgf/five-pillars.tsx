@@ -78,8 +78,30 @@ interface GroupedSources {
 }
 
 export default function FivePillars() {
-  const [expandedPillar, setExpandedPillar] = useState<string | null>("pillar-1");
+  const [expandedPillars, setExpandedPillars] = useState<Set<string>>(new Set(["pillar-1"]));
   const [search, setSearch] = useState("");
+
+  function togglePillar(pillarId: string) {
+    setExpandedPillars(prev => {
+      const next = new Set(prev);
+      if (next.has(pillarId)) {
+        next.delete(pillarId);
+      } else {
+        next.add(pillarId);
+      }
+      return next;
+    });
+  }
+
+  const isFiltering = search.trim().length > 0;
+
+  // Auto-expand pillars with results when searching
+  function getExpandedState(pillarId: string, hasResults: boolean) {
+    if (isFiltering) {
+      return hasResults;
+    }
+    return expandedPillars.has(pillarId);
+  }
 
   const { data: entries = [], isLoading, isError, refetch } = useQuery<LibraryEntry[]>({
     queryKey: ["/api/library"],
@@ -117,7 +139,6 @@ export default function FivePillars() {
   });
 
   const totalFilteredSources = pillarCounts.reduce((sum, p) => sum + p.filteredCount, 0);
-  const isFiltering = search.trim().length > 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -221,15 +242,16 @@ export default function FivePillars() {
         ) : (
           <div className="space-y-4">
             {pillarCounts.map((pillar) => {
-              const isExpanded = expandedPillar === pillar.id;
               const sources = filterSources(groupedByPillar[pillar.filterKey] || []);
+              const hasResults = sources.length > 0;
+              const isExpanded = getExpandedState(pillar.id, hasResults);
               const IconComponent = pillar.icon;
               
               return (
                 <Collapsible
                   key={pillar.id}
                   open={isExpanded}
-                  onOpenChange={(open) => setExpandedPillar(open ? pillar.id : null)}
+                  onOpenChange={() => togglePillar(pillar.id)}
                 >
                   <Card 
                     className={`${pillar.borderColor} overflow-hidden`}
