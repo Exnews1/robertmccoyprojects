@@ -288,14 +288,12 @@ export async function registerRoutes(httpServer: Server, app: Express) {
           const entryEmbedding = JSON.parse(entry.embedding!) as number[];
           let score = cosineSimilarity(queryEmbedding, entryEmbedding);
           
-          // Boost score for keyword matches in title, topics, or summary
+          // Boost score for keyword matches in title or summary (not topics/pillar names)
           const titleLower = (entry.title || "").toLowerCase();
-          const topicsLower = (entry.topics || []).join(" ").toLowerCase();
           const summaryLower = (entry.summary || "").toLowerCase();
           
           if (titleLower.includes(queryLower)) score += 0.15;
-          if (topicsLower.includes(queryLower)) score += 0.20;
-          if (summaryLower.includes(queryLower)) score += 0.05;
+          if (summaryLower.includes(queryLower)) score += 0.10;
           
           return { entry, score };
         })
@@ -349,7 +347,7 @@ export async function registerRoutes(httpServer: Server, app: Express) {
 CMGF Five Pillars Context:
 - Pillar 1: Military Learner Career Mobility
 - Pillar 2: Empowerment Strategies & Stackable Pathways (credentials, micro-credentials)
-- Pillar 3: ISR & AI-Assisted Career Advising (Institutional Student Records, AI career guidance systems)
+- Pillar 3: ISR & AI-Assisted Career Advising (Installation Status Report, AI career guidance systems)
 - Pillar 4: Translating Military Experience (skills translation, competency mapping)
 - Pillar 5: Veteran & Servicemember Learner Voice
 

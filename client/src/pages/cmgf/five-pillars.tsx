@@ -122,8 +122,7 @@ export default function FivePillars() {
     return sources.filter(e =>
       e.title.toLowerCase().includes(s) ||
       e.authors?.toLowerCase().includes(s) ||
-      e.summary?.toLowerCase().includes(s) ||
-      e.topics?.some(t => t.toLowerCase().includes(s))
+      e.summary?.toLowerCase().includes(s)
     );
   }
 
@@ -220,8 +219,7 @@ export default function FivePillars() {
                     const s = search.toLowerCase();
                     return e.title.toLowerCase().includes(s) ||
                       e.authors?.toLowerCase().includes(s) ||
-                      e.summary?.toLowerCase().includes(s) ||
-                      e.topics?.some(t => t.toLowerCase().includes(s));
+                      e.summary?.toLowerCase().includes(s);
                   })
                   .slice(0, 50)
                   .map((source) => (
