@@ -280,12 +280,23 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         return res.status(500).json({ message: "Search temporarily unavailable" });
       }
 
-      // Score all entries
+      // Score all entries with hybrid approach (semantic + keyword/topic matching)
+      const queryLower = query.toLowerCase();
       const scoredEntries = entries
         .filter(entry => entry.embedding)
         .map(entry => {
           const entryEmbedding = JSON.parse(entry.embedding!) as number[];
-          const score = cosineSimilarity(queryEmbedding, entryEmbedding);
+          let score = cosineSimilarity(queryEmbedding, entryEmbedding);
+          
+          // Boost score for keyword matches in title, topics, or summary
+          const titleLower = (entry.title || "").toLowerCase();
+          const topicsLower = (entry.topics || []).join(" ").toLowerCase();
+          const summaryLower = (entry.summary || "").toLowerCase();
+          
+          if (titleLower.includes(queryLower)) score += 0.15;
+          if (topicsLower.includes(queryLower)) score += 0.20;
+          if (summaryLower.includes(queryLower)) score += 0.05;
+          
           return { entry, score };
         })
         .sort((a, b) => b.score - a.score);
@@ -333,7 +344,14 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         messages: [
           {
             role: "system",
-            content: `You are a research assistant for the Career Mobility Governance Framework (CMGF) project. Your task is to answer questions using ONLY the provided source documents. 
+            content: `You are a research assistant for the Career Mobility Governance Framework (CMGF) project, which focuses on military learner career mobility and transition support. Your task is to answer questions using ONLY the provided source documents.
+
+CMGF Five Pillars Context:
+- Pillar 1: Military Learner Career Mobility
+- Pillar 2: Empowerment Strategies & Stackable Pathways (credentials, micro-credentials)
+- Pillar 3: ISR & AI-Assisted Career Advising (Institutional Student Records, AI career guidance systems)
+- Pillar 4: Translating Military Experience (skills translation, competency mapping)
+- Pillar 5: Veteran & Servicemember Learner Voice
 
 Rules:
 1. Answer ONLY based on information in the provided sources
