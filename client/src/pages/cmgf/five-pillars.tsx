@@ -92,11 +92,6 @@ export default function FivePillars() {
     );
   });
 
-  const pillarCounts = pillars.map(p => ({
-    ...p,
-    count: groupedByPillar[p.filterKey]?.length || 0
-  }));
-
   const totalSources = entries.length;
 
   function filterSources(sources: LibraryEntry[]) {
@@ -105,9 +100,24 @@ export default function FivePillars() {
     return sources.filter(e =>
       e.title.toLowerCase().includes(s) ||
       e.authors?.toLowerCase().includes(s) ||
-      e.summary?.toLowerCase().includes(s)
+      e.summary?.toLowerCase().includes(s) ||
+      e.topics?.some(t => t.toLowerCase().includes(s))
     );
   }
+
+  // Calculate filtered counts for each pillar
+  const pillarCounts = pillars.map(p => {
+    const allSources = groupedByPillar[p.filterKey] || [];
+    const filteredSources = filterSources(allSources);
+    return {
+      ...p,
+      count: allSources.length,
+      filteredCount: filteredSources.length
+    };
+  });
+
+  const totalFilteredSources = pillarCounts.reduce((sum, p) => sum + p.filteredCount, 0);
+  const isFiltering = search.trim().length > 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,23 +148,42 @@ export default function FivePillars() {
           <div className="flex flex-wrap gap-2">
             {pillarCounts.map(p => (
               <Badge key={p.id} variant="outline" className={`${p.borderColor} ${p.color}`}>
-                Pillar {p.number}: {p.count} sources
+                Pillar {p.number}: {isFiltering ? `${p.filteredCount}/${p.count}` : `${p.count}`} sources
               </Badge>
             ))}
           </div>
         </header>
 
-        <div className="mb-6">
+        <div className="mb-6 space-y-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search across all pillars..."
+              placeholder="Search by title, author, abstract, or pillar (e.g., ISR, career, credential)..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-10"
               data-testid="input-search-pillars"
             />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground text-sm"
+                data-testid="button-clear-search"
+              >
+                Clear
+              </button>
+            )}
           </div>
+          {isFiltering && (
+            <div className="flex items-center gap-2 text-sm" data-testid="search-results-summary">
+              <Badge variant="secondary" className="bg-primary/10 text-primary">
+                {totalFilteredSources} result{totalFilteredSources !== 1 ? 's' : ''} found
+              </Badge>
+              <span className="text-muted-foreground">
+                for "{search}" across all pillars
+              </span>
+            </div>
+          )}
         </div>
 
         {isLoading ? (
