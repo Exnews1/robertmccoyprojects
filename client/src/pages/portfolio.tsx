@@ -1,100 +1,8 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Factory, ExternalLink, Search, FileText, Building2, Linkedin, Brain, User, School, Scale, TrendingUp, Columns } from "lucide-react";
-
-const cmgfProjects = [
-  {
-    id: "cmgf",
-    title: "Career Mobility Governance Framework (CMGF)",
-    description: "A governed AI framework for military learner mobility. Human-centered system design for service member career transitions.",
-    icon: Shield,
-    route: "/cmgf",
-    status: "Active Research",
-    external: false
-  },
-  {
-    id: "five-pillars",
-    title: "The Five Pillars: A CMGF Companion",
-    description: "Evidence-based research supporting the CMGF. Synthesis of 900+ peer-reviewed sources across career mobility, credentialing, AI advising, skills translation, and learner voice.",
-    icon: Columns,
-    route: "/five-pillars/index.html",
-    status: "Research Companion",
-    external: true
-  }
-];
-
-const incarcerationProjects = [
-  {
-    id: "incarceration-research",
-    title: "U.S. Incarceration Research Hub",
-    description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
-    icon: Scale,
-    route: "/incarceration-research",
-    status: "Research Hub",
-    external: false
-  },
-  {
-    id: "human-capital",
-    title: "Human Capital Institutional Throughput",
-    description: "Comparative analysis of military and correctional education systems. Evidence-based framework for optimizing public infrastructure based on 453 peer-reviewed papers.",
-    icon: TrendingUp,
-    route: "/human-capital",
-    status: "Research Framework",
-    external: false
-  }
-];
-
-const aiEducationProjects = [
-  {
-    id: "education-ai",
-    title: "AI Education Futures Hub",
-    description: "Evidence-based guidance for implementing AI across K-12, Higher Ed, Vocational, and Corporate learning. Based on 557 research papers.",
-    icon: Brain,
-    route: "/education-ai",
-    status: "Research Library",
-    external: false
-  },
-  {
-    id: "universities-ai",
-    title: "AI Use Cases in U.S. Universities",
-    description: "Data-driven exploration of AI applications, policies, and governance frameworks across American higher education institutions.",
-    icon: School,
-    route: "/universities-ai",
-    status: "Analysis",
-    external: false
-  },
-  {
-    id: "ai-types",
-    title: "AI Types & Classifications",
-    description: "Comprehensive educational resource covering AI types by capability, functionality, and learning approach. Includes 20+ AI model explanations and selection guides.",
-    icon: Brain,
-    route: "/ai-types",
-    status: "Educational",
-    external: false
-  },
-  {
-    id: "workforce-ai",
-    title: "AI Workforce Readiness",
-    description: "Doctoral-level analysis of AI in the workplace, US workforce readiness, and AI literacy frameworks. Based on 423 peer-reviewed papers.",
-    icon: TrendingUp,
-    route: "/workforce-ai",
-    status: "Research",
-    external: false
-  }
-];
-
-const otherProjects = [
-  {
-    id: "turbine",
-    title: "AI Turbine Vision",
-    description: "Integrated power generation and demand management system. AI monitors turbine output while regulating a connected manufacturing/logistics facility that creates the demand. Real-time diagnostics, load balancing, and automated system regulation demonstrate closed-loop industrial AI governance.",
-    icon: Factory,
-    route: "https://turbine.robertmccoyprojects.com",
-    status: "Live Demo",
-    external: true
-  }
-];
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Building2, Linkedin, User, Columns, BookOpen, Search, FileText, ChevronRight } from "lucide-react";
 
 export default function Portfolio() {
   return (
@@ -105,7 +13,7 @@ export default function Portfolio() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Research and operational systems focused on human-centered governance, ethical AI design, and institutional accountability.
           </p>
-          <div className="mt-4 flex items-center justify-center gap-4 text-sm text-muted-foreground">
+          <div className="mt-4 flex items-center justify-center gap-4 flex-wrap text-sm text-muted-foreground">
             <a href="mailto:robert.mccoy@indwes.edu" className="hover:text-primary transition-colors" data-testid="link-email">
               robert.mccoy@indwes.edu
             </a>
@@ -121,191 +29,158 @@ export default function Portfolio() {
           </div>
         </header>
 
-        <section data-testid="section-cmgf-projects">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">CMGF Projects</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {cmgfProjects.map((project) => 
-              project.external ? (
-                <a 
-                  key={project.id} 
-                  href={project.route} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  data-testid={`link-project-${project.id}`}
-                >
-                  <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <project.icon className="h-8 w-8 text-primary" />
-                        <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                          {project.status}
-                        </span>
-                      </div>
-                      <CardTitle className="text-xl flex items-center gap-2">
-                        {project.title}
-                        <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                      </CardTitle>
-                      <CardDescription className="text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                        <span>View Project</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
-              ) : (
-                <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
-                  <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <project.icon className="h-8 w-8 text-primary" />
-                        <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                          {project.status}
-                        </span>
-                      </div>
-                      <CardTitle className="text-xl">{project.title}</CardTitle>
-                      <CardDescription className="text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                        <span>View Project</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            )}
-          </div>
-        </section>
+        <section className="mb-16" data-testid="section-cmgf-hero">
+          <Link href="/cmgf" data-testid="link-cmgf-main">
+            <Card className="hover-elevate cursor-pointer group border-primary/30 bg-gradient-to-br from-primary/5 to-transparent overflow-visible" data-testid="card-cmgf-hero">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
+                  <Shield className="h-12 w-12 text-primary" />
+                  <Badge variant="secondary" className="text-xs font-mono">
+                    Primary Research
+                  </Badge>
+                </div>
+                <CardTitle className="text-2xl md:text-3xl mb-2">Career Mobility Governance Framework (CMGF)</CardTitle>
+                <CardDescription className="text-base text-muted-foreground">
+                  A governed AI framework for military learner mobility. Human-centered system design enabling ethical, transparent, and accountable career transition support for service members.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="flex items-center text-primary group-hover:translate-x-1 transition-transform">
+                  <span className="font-medium">Explore CMGF</span>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
 
-        <section className="mt-12" data-testid="section-ai-education">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">AI and Education</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {aiEducationProjects.map((project) => 
-              project.external ? (
-                <a 
-                  key={project.id} 
-                  href={project.route} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  data-testid={`link-project-${project.id}`}
-                >
-                  <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <project.icon className="h-8 w-8 text-primary" />
-                        <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                          {project.status}
-                        </span>
-                      </div>
-                      <CardTitle className="text-xl">{project.title}</CardTitle>
-                      <CardDescription className="text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                        <span>View Project</span>
-                        <ExternalLink className="ml-2 h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </a>
-              ) : (
-                <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
-                  <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <project.icon className="h-8 w-8 text-primary" />
-                        <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                          {project.status}
-                        </span>
-                      </div>
-                      <CardTitle className="text-xl">{project.title}</CardTitle>
-                      <CardDescription className="text-muted-foreground">
-                        {project.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                        <span>View Project</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            )}
-          </div>
-        </section>
-
-        <section className="mt-12" data-testid="section-incarceration-projects">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">Incarceration Projects</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {incarcerationProjects.map((project) => (
-              <Link key={project.id} href={project.route} data-testid={`link-project-${project.id}`}>
-                <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <project.icon className="h-8 w-8 text-primary" />
-                      <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
-                        {project.status}
-                      </span>
-                    </div>
-                    <CardTitle className="text-xl">{project.title}</CardTitle>
-                    <CardDescription className="text-muted-foreground">
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                      <span>View Project</span>
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-12">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Other Projects</h2>
-          <div className="grid gap-4">
-            {otherProjects.map((project) => (
-              <a 
-                key={project.id}
-                href={project.route} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                data-testid={`link-project-${project.id}`}
-              >
-                <Card className="hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <project.icon className="h-6 w-6 text-muted-foreground" />
-                    <div className="flex-1">
-                      <h3 className="font-medium text-foreground">{project.title}</h3>
-                      <p className="text-sm text-muted-foreground">{project.description}</p>
-                    </div>
-                    <span className="text-xs font-mono px-2 py-1 rounded-full bg-muted text-muted-foreground">
-                      {project.status}
+          <div className="grid gap-4 md:grid-cols-3 mt-6">
+            <Link href="/cmgf/five-pillars" data-testid="link-five-pillars">
+              <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-five-pillars">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Columns className="h-6 w-6 text-primary" />
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                      797 Sources
                     </span>
-                    <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  </CardContent>
-                </Card>
-              </a>
-            ))}
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-1">The Five Pillars</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Evidence base supporting CMGF across career mobility, credentialing, AI advising, skills translation, and learner voice.
+                  </p>
+                  <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+                    <span>View Pillars</span>
+                    <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/cmgf/library" data-testid="link-research-library">
+              <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-research-library">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <BookOpen className="h-6 w-6 text-primary" />
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                      67 References
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-1">Research Library</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Complete reference list from the CMGF paper. Reports and journal articles supporting the framework.
+                  </p>
+                  <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+                    <span>Browse Library</span>
+                    <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/explorer" data-testid="link-reference-explorer">
+              <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-reference-explorer">
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Search className="h-6 w-6 text-primary" />
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                      RAG Search
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-1">Reference Explorer</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    AI-powered Q&A grounded in Five Pillars research. Ask questions, get cited answers from 797 sources.
+                  </p>
+                  <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
+                    <span>Ask Questions</span>
+                    <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </section>
 
-        <section className="mt-16 pt-16 border-t border-border" data-testid="section-author-bio">
+        <section className="mb-16" data-testid="section-ongoing-research">
+          <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
+            <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Ongoing Research</h2>
+            <Link href="/ongoing-research" data-testid="link-view-all-research">
+              <Button variant="outline" size="sm">
+                View All Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+          <p className="text-muted-foreground mb-6 max-w-2xl">
+            Additional research exploring AI governance, education futures, workforce readiness, and institutional systems analysis.
+          </p>
+          <Card className="border-border/50">
+            <CardContent className="p-6">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <Link href="/education-ai" data-testid="link-quick-education-ai">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">AI Education Futures</span>
+                    <span className="text-xs text-muted-foreground/60">557 papers</span>
+                  </div>
+                </Link>
+                <Link href="/workforce-ai" data-testid="link-quick-workforce-ai">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">AI Workforce Readiness</span>
+                    <span className="text-xs text-muted-foreground/60">423 papers</span>
+                  </div>
+                </Link>
+                <Link href="/universities-ai" data-testid="link-quick-universities-ai">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">AI in Universities</span>
+                  </div>
+                </Link>
+                <Link href="/incarceration-research" data-testid="link-quick-incarceration">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">Incarceration Research</span>
+                    <span className="text-xs text-muted-foreground/60">728 papers</span>
+                  </div>
+                </Link>
+                <Link href="/human-capital" data-testid="link-quick-human-capital">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">Human Capital Framework</span>
+                    <span className="text-xs text-muted-foreground/60">453 papers</span>
+                  </div>
+                </Link>
+                <Link href="/ai-types" data-testid="link-quick-ai-types">
+                  <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <span className="text-sm">AI Types & Classifications</span>
+                  </div>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="pt-16 border-t border-border" data-testid="section-author-bio">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">About the Author</h2>
           <div className="grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-4">
@@ -317,10 +192,7 @@ export default function Portfolio() {
                 He served over 21 years in the U.S. military, including nine and a half years on active duty, holding roles as a Sonar Technician in the Navy and later as a Chief Warrant Officer and Aviator in the Army. His assignments included work on Presidential Support Staff.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Following his military service, Robert transitioned into the aerospace and defense sector, contributing to programs like the F-35 Joint Strike Fighter and NASA's Martian Lander. As Director of Operations for Belcan Corporation, he oversaw more than $42 million in annual contracts.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Today, Robert serves as the Military Partnership Executive at Indiana Wesleyan University, where he builds strategic education and workforce initiatives that connect veterans with high-demand careers in STEM, aerospace, and emerging technologies. He also serves on the board of the MidSouth Advisory Council on Military Education.
+                Today, Robert serves as the Military Partnership Executive at Indiana Wesleyan University, where he builds strategic education and workforce initiatives that connect veterans with high-demand careers in STEM, aerospace, and emerging technologies.
               </p>
             </div>
             
@@ -367,10 +239,6 @@ export default function Portfolio() {
                   <div className="flex items-start gap-2">
                     <Shield className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                     <span>U.S. Navy Sonar Technician</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                    <span>Presidential Support Staff</span>
                   </div>
                 </CardContent>
               </Card>

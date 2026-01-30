@@ -24,6 +24,7 @@ import IncarcerationHardTruths from "@/pages/incarceration-research/hard-truths"
 import HumanCapitalFramework from "@/pages/human-capital/index";
 import AITypes from "@/pages/ai-types/index";
 import WorkforceAI from "@/pages/workforce-ai/index";
+import OngoingResearch from "@/pages/ongoing-research";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef } from "react";
@@ -84,6 +85,7 @@ function Router() {
       <Route path="/human-capital" component={HumanCapitalFramework} />
       <Route path="/ai-types" component={AITypes} />
       <Route path="/workforce-ai" component={WorkforceAI} />
+      <Route path="/ongoing-research" component={OngoingResearch} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
