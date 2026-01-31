@@ -14,6 +14,7 @@ import PartC from "@/pages/cmgf/walkthrough/part-c";
 import Library from "@/pages/cmgf/library";
 import Engagement from "@/pages/cmgf/engagement";
 import FivePillars from "@/pages/cmgf/five-pillars";
+import CMGFPresentation from "@/pages/cmgf/presentation";
 import Explorer from "@/pages/explorer";
 import Contact from "@/pages/contact";
 import EducationAI from "@/pages/education-ai/index";
@@ -76,6 +77,7 @@ function Router() {
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/cmgf/five-pillars" component={FivePillars} />
+      <Route path="/cmgf/presentation" component={CMGFPresentation} />
       <Route path="/cmgf/explorer" component={Explorer} />
       <Route path="/explorer" component={Explorer} />
       <Route path="/education-ai" component={EducationAI} />
