@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, Presentation, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { Download, FileText, Scroll, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 
@@ -14,7 +14,19 @@ const documents = [
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_v1_1769660070971.docx",
     version: "v1",
-    date: "January 2026"
+    date: "January 2026",
+    isDownload: true
+  },
+  {
+    id: "policy-brief",
+    title: "Presidential Policy Brief",
+    description: "Executive-level policy document: From Fragmentation to Integration—A New Vision for Military Transition. Formal governance brief with implementation pathway and policy considerations.",
+    type: "Policy Brief",
+    icon: Scroll,
+    href: "/cmgf/presidential-report",
+    version: "v1",
+    date: "January 2026",
+    isDownload: false
   }
 ];
 
@@ -78,22 +90,31 @@ export default function Downloads() {
                     <doc.icon className="h-6 w-6 text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
+                    <div className="flex items-start justify-between gap-4 flex-wrap">
+                      <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
                         <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-4 flex-wrap text-xs text-muted-foreground">
                           <span className="font-mono bg-muted px-2 py-0.5 rounded">{doc.type}</span>
                           <span>Version {doc.version}</span>
                           <span>{doc.date}</span>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
-                        <a href={doc.href} download>
-                          <Download className="h-4 w-4 mr-2" />
-                          Download
-                        </a>
-                      </Button>
+                      {doc.isDownload ? (
+                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                          <a href={doc.href} download>
+                            <Download className="h-4 w-4 mr-2" />
+                            Download
+                          </a>
+                        </Button>
+                      ) : (
+                        <Link href={doc.href}>
+                          <Button variant="default" size="sm" className="flex-shrink-0" data-testid={`button-view-${doc.id}`}>
+                            <Scroll className="h-4 w-4 mr-2" />
+                            View Document
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
