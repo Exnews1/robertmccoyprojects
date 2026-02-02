@@ -27,17 +27,6 @@ const documents = [
     version: "v1",
     date: "January 2026",
     isDownload: false
-  },
-  {
-    id: "transition-architecture",
-    title: "Transition Intelligence Architecture",
-    description: "Technical architecture document detailing the intelligence layer design for military transition systems. Covers data flows, integration patterns, and governance constraints.",
-    type: "PDF",
-    icon: BookOpen,
-    href: "/attached_assets/D1_Transition_Intelligence_Architecture_1770017614818.pdf",
-    version: "v1",
-    date: "February 2026",
-    isDownload: true
   }
 ];
 
