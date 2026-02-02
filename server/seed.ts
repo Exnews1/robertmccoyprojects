@@ -128,7 +128,7 @@ const seedPublications = [
     title: "Compliance Framework for Generative AI (CMGF)",
     type: "Paper",
     author: "Lead Researcher",
-    url: "/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx",
+    url: "/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx",
     abstract: "This paper introduces the CMGF framework, designed to ensure safety and transparency in high-impact AI systems.",
     publishedDate: "2024"
   },
@@ -296,7 +296,7 @@ const seedPublications = [
     title: "A Governed, Human-in-the-Loop AI Framework for Military Career Mobility: Design, Constraints, and Ethical Tradeoffs",
     type: "Paper",
     author: "Robert E. McCoy MBA, M.S. AI & Data Analytics, Indiana Wesleyan University",
-    url: "/attached_assets/Career_Mobility_2026__CCME_1769103378838.docx",
+    url: "/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx",
     abstract: "Response to 2026 CCME Learner Track 1. Introduces Career Mobility Governance Framework (CMGF) addressing $13.5B education benefits vs $140M transition advising funding paradox affecting ~150K annual service member transitions. CMGF is compliant by design, non-predictive by default - bounded AI limited to explainable translation, rule-based signals, and de-identified aggregation. Explicitly prohibits predictive outcome modeling, individual risk scoring, and automated approvals. Six key contributions: structured synthesis of CPL/mobility research, labor market signaling evidence, governance gap diagnosis, AI-enabled advising framework, and responsible AI design principles demonstrating intentional non-use of high-risk AI functions. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.",
     publishedDate: "2026-01-01"
   },

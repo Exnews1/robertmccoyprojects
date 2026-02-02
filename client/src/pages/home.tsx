@@ -42,7 +42,7 @@ export default function Home() {
           
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="/attached_assets/Career_Mobility_2026__CCME_v1_1769660070971.docx"
+              href="/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx"
               download
               className="inline-flex items-center gap-2 px-5 py-3 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold rounded-lg transition-colors"
               data-testid="hero-download-paper"

@@ -14,7 +14,7 @@ const canonicalDocuments = [
     title: "CMGF Research Paper",
     description: "Complete research paper with system architecture and implementation guidance",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_v1_1769660070971.docx"
+    href: "/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx"
   }
 ];
 
