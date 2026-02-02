@@ -27,6 +27,17 @@ const documents = [
     version: "v1",
     date: "January 2026",
     isDownload: false
+  },
+  {
+    id: "ccme-presentation",
+    title: "CCME CMGF Presentation",
+    description: "Conference presentation slides for the Career Mobility Governance Framework. Prepared for the Council of College and Military Educators.",
+    type: "PDF",
+    icon: BookOpen,
+    href: "/attached_assets/CCME-CMGF_1770017672179.pdf",
+    version: "v1",
+    date: "February 2026",
+    isDownload: true
   }
 ];
 
