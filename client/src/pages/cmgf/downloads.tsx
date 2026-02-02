@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, Scroll, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 
@@ -14,8 +14,7 @@ const documents = [
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_v1_1769660070971.docx",
     version: "v1",
-    date: "January 2026",
-    isDownload: true
+    date: "January 2026"
   },
   {
     id: "ccme-presentation",
@@ -25,8 +24,7 @@ const documents = [
     icon: BookOpen,
     href: "/attached_assets/CCME-CMGF_1770017672179.pdf",
     version: "v1",
-    date: "February 2026",
-    isDownload: true
+    date: "February 2026"
   }
 ];
 
@@ -100,21 +98,12 @@ export default function Downloads() {
                           <span>{doc.date}</span>
                         </div>
                       </div>
-                      {doc.isDownload ? (
-                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                      <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
                           <a href={doc.href} download>
                             <Download className="h-4 w-4 mr-2" />
                             Download
                           </a>
                         </Button>
-                      ) : (
-                        <Link href={doc.href}>
-                          <Button variant="default" size="sm" className="flex-shrink-0" data-testid={`button-view-${doc.id}`}>
-                            <Scroll className="h-4 w-4 mr-2" />
-                            View Document
-                          </Button>
-                        </Link>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -145,18 +134,12 @@ export default function Downloads() {
             <Link href="/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Link href="/cmgf/walkthrough">
-              <Button variant="outline" size="sm">Framework Walkthrough</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-a">
-              <Button variant="outline" size="sm">Part A</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-b">
-              <Button variant="outline" size="sm">Part B</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-c">
-              <Button variant="outline" size="sm">Part C</Button>
-            </Link>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                Framework Walkthrough
+              </a>
+            </Button>
             <Link href="/cmgf/library">
               <Button variant="outline" size="sm">Research Library</Button>
             </Link>

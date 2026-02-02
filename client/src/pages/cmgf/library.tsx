@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, BookOpen, FileText, ExternalLink, Search, Filter, Loader2 } from "lucide-react";
+import { ChevronRight, BookOpen, FileText, ExternalLink, Search, Filter, Loader2, Archive } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import type { Publication } from "@shared/schema";
@@ -197,22 +197,26 @@ export default function Library() {
             <Link href="/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Link href="/cmgf/walkthrough">
-              <Button variant="outline" size="sm">Walkthrough</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-a">
-              <Button variant="outline" size="sm">Part A</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-b">
-              <Button variant="outline" size="sm">Part B</Button>
-            </Link>
-            <Link href="/cmgf/walkthrough/part-c">
-              <Button variant="outline" size="sm">Part C</Button>
-            </Link>
+            <Button variant="outline" size="sm" asChild>
+              <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                Walkthrough
+              </a>
+            </Button>
             <Link href="/cmgf/downloads">
               <Button variant="outline" size="sm">Downloads</Button>
             </Link>
           </div>
+        </div>
+
+        <div className="mt-8 pt-6 border-t border-border/50">
+          <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground/60 mb-3">Historical Archive</h3>
+          <Link href="/cmgf/walkthrough">
+            <Button variant="ghost" size="sm" className="text-muted-foreground" data-testid="button-old-walkthrough">
+              <Archive className="h-3.5 w-3.5 mr-1.5" />
+              Old_Walkthrough
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

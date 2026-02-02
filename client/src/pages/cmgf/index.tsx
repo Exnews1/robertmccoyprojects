@@ -46,7 +46,8 @@ const sections = [
     title: "Framework Walkthrough",
     description: "Three-part system architecture: Service Member Interface, Advisory Layer, AI Mediation.",
     icon: BookOpen,
-    route: "/cmgf/walkthrough"
+    route: "https://cmgfdemo.robertmccoyprojects.com",
+    external: true
   },
   {
     id: "library",
@@ -225,8 +226,9 @@ export default function CMGFRoot() {
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {sections.map((section) => (
-              <Link key={section.id} href={section.route}>
+            {sections.map((section) => {
+              const isExternal = (section as any).external;
+              const cardContent = (
                 <Card 
                   className={`h-full hover-elevate cursor-pointer group ${
                     (section as any).featured 
@@ -241,6 +243,9 @@ export default function CMGFRoot() {
                       {(section as any).featured && (
                         <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-0.5 rounded">NEW</span>
                       )}
+                      {isExternal && (
+                        <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                      )}
                     </div>
                     <CardTitle className="text-lg">{section.title}</CardTitle>
                   </CardHeader>
@@ -249,13 +254,27 @@ export default function CMGFRoot() {
                       {section.description}
                     </CardDescription>
                     <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                      <span>{(section as any).featured ? "Launch Demo" : "Enter"}</span>
+                      <span>{isExternal ? "Launch Demo" : (section as any).featured ? "Launch Demo" : "Enter"}</span>
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
                   </CardContent>
                 </Card>
-              </Link>
-            ))}
+              );
+              
+              if (isExternal) {
+                return (
+                  <a key={section.id} href={section.route} target="_blank" rel="noopener noreferrer">
+                    {cardContent}
+                  </a>
+                );
+              }
+              
+              return (
+                <Link key={section.id} href={section.route}>
+                  {cardContent}
+                </Link>
+              );
+            })}
           </div>
         </section>
 
