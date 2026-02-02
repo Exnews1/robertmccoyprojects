@@ -34,8 +34,14 @@ export async function seedLibrary() {
       return;
     }
 
-    // Try to load full dataset from JSON file
-    const jsonPath = path.resolve(process.cwd(), 'client/public/data/cmgf-sources.json');
+    // Try to load full dataset from JSON file (check multiple locations)
+    let jsonPath = path.resolve(__dirname, 'data/cmgf-sources.json');
+    if (!fs.existsSync(jsonPath)) {
+      jsonPath = path.resolve(process.cwd(), 'server/data/cmgf-sources.json');
+    }
+    if (!fs.existsSync(jsonPath)) {
+      jsonPath = path.resolve(process.cwd(), 'client/public/data/cmgf-sources.json');
+    }
     
     if (!fs.existsSync(jsonPath)) {
       console.log("CMGF sources JSON file not found, skipping full library seed.");
