@@ -18,17 +18,6 @@ const documents = [
     isDownload: true
   },
   {
-    id: "policy-brief",
-    title: "Presidential Policy Brief",
-    description: "Executive-level policy document: From Fragmentation to Integration—A New Vision for Military Transition. Formal governance brief with implementation pathway and policy considerations.",
-    type: "Policy Brief",
-    icon: Scroll,
-    href: "/cmgf/presidential-report",
-    version: "v1",
-    date: "January 2026",
-    isDownload: false
-  },
-  {
     id: "ccme-presentation",
     title: "CCME CMGF Presentation",
     description: "Conference presentation slides for the Career Mobility Governance Framework. Prepared for the Council of College and Military Educators.",
