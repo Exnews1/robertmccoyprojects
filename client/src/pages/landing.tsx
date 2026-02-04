@@ -49,12 +49,12 @@ const researchAreas = [
 
 const knowledgeSystems = [
   {
-    id: "vally",
-    title: "Vally",
+    id: "valley",
+    title: "Valley",
     description: "AI-powered knowledge system for organizational intelligence.",
     icon: Brain,
     status: "live",
-    url: "https://vally.robertmccoyprojects.com"
+    url: "https://valley.robertmccoyproject.com"
   },
   {
     id: "construction",
