@@ -78,7 +78,7 @@ const knowledgeSystems = [
   },
   {
     id: "regionalfbo",
-    title: "Regional FBO",
+    title: "Multi-Location FBO Knowledge System",
     description: "Fixed-base operator regional aviation services and management.",
     icon: Plane,
     status: "live",
