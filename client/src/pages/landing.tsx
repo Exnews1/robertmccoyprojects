@@ -149,25 +149,25 @@ export default function Landing() {
               <Link key={area.route} href={area.route}>
                 {area.featured ? (
                   <Card 
-                    className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10"
+                    className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 min-h-[136px]"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
-                    <CardContent className="p-6 py-8">
-                      <div className="flex items-start gap-4">
-                        <div className="p-4 rounded-lg flex-shrink-0 bg-fuchsia-500/10">
-                          <area.icon className="w-8 h-8 text-fuchsia-500" />
+                    <CardContent className="p-5 h-full flex items-center">
+                      <div className="flex items-center gap-4 w-full">
+                        <div className="p-3 rounded-lg flex-shrink-0 bg-fuchsia-500/10">
+                          <area.icon className="w-7 h-7 text-fuchsia-500" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-3">
-                            <h3 className="text-lg font-bold text-foreground">{area.title}</h3>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-base font-bold text-foreground">{area.title}</h3>
                             <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[10px] px-2">
                               Featured
                             </Badge>
                           </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed mb-4">{area.description}</p>
-                          <p className="text-xs text-fuchsia-400/80">CCME 2026 Learner Track</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
+                          <p className="text-xs text-fuchsia-400/80 mt-2">CCME 2026 Learner Track</p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-fuchsia-400 flex-shrink-0 mt-2" />
+                        <ArrowRight className="w-5 h-5 text-fuchsia-400 flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
