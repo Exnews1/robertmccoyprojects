@@ -53,6 +53,14 @@ const researchAreas = [
 
 const knowledgeSystems = [
   {
+    id: "prostaff",
+    title: "ProStaff",
+    description: "Professional staffing and workforce management solutions.",
+    icon: Users,
+    status: "live",
+    url: "https://prostaff.robertmccoyprojects.com"
+  },
+  {
     id: "valley",
     title: "Valley",
     description: "AI-powered knowledge system for organizational intelligence.",
