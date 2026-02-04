@@ -86,7 +86,7 @@ const knowledgeSystems = [
   },
   {
     id: "forrestfbosmall",
-    title: "Forrest FBO Small",
+    title: "Single-Location FBO Knowledge System",
     description: "Small fixed-base operator aviation services.",
     icon: Plane,
     status: "live",
