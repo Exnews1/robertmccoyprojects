@@ -142,7 +142,7 @@ export default function Landing() {
         
         {/* Research Column */}
         <section className="space-y-6">
-          <div className="flex items-center gap-3 pb-4 border-b border-border">
+          <div className="flex items-center gap-3 pb-4 border-b border-border min-h-[88px]">
             <div className="p-2 bg-primary/10 rounded-lg">
               <BookOpen className="w-6 h-6 text-primary" />
             </div>
@@ -205,7 +205,7 @@ export default function Landing() {
 
         {/* Organizational Knowledge Systems Column */}
         <section className="space-y-6">
-          <div className="flex items-center gap-3 pb-4 border-b border-border">
+          <div className="flex items-center gap-3 pb-4 border-b border-border min-h-[88px]">
             <div className="p-2 bg-fuchsia-500/10 rounded-lg">
               <Building2 className="w-6 h-6 text-fuchsia-500" />
             </div>
