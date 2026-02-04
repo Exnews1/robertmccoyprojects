@@ -54,7 +54,7 @@ const knowledgeSystems = [
     description: "AI-powered knowledge system for organizational intelligence.",
     icon: Brain,
     status: "live",
-    url: "https://valley.robertmccoyproject.com"
+    url: "https://valley.robertmccoyprojects.com"
   },
   {
     id: "construction",
