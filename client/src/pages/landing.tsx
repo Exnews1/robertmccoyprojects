@@ -65,6 +65,14 @@ const knowledgeSystems = [
     url: "https://construction.mccoyprojects.com"
   },
   {
+    id: "regionalfbo",
+    title: "Regional FBO",
+    description: "Fixed-base operator regional aviation services and management.",
+    icon: Layers,
+    status: "live",
+    url: "https://regionalfbo.robertmccoyprojects.com"
+  },
+  {
     id: "knowledge-graphs",
     title: "Knowledge Graphs",
     description: "Semantic relationship mapping and organizational knowledge networks.",
