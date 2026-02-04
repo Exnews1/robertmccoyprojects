@@ -152,10 +152,10 @@ export default function Landing() {
                     className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
-                    <CardContent className="p-5">
+                    <CardContent className="p-6">
                       <div className="flex items-start gap-4">
                         <div className="p-3 rounded-lg flex-shrink-0 bg-fuchsia-500/10">
-                          <area.icon className="w-6 h-6 text-fuchsia-500" />
+                          <area.icon className="w-7 h-7 text-fuchsia-500" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-2">
@@ -164,7 +164,8 @@ export default function Landing() {
                               Featured
                             </Badge>
                           </div>
-                          <p className="text-sm text-muted-foreground">{area.description}</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
+                          <p className="text-xs text-fuchsia-400/80 mt-3">CCME 2026 Learner Track</p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-fuchsia-400 flex-shrink-0 mt-1" />
                       </div>
