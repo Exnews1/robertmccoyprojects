@@ -62,7 +62,7 @@ const knowledgeSystems = [
   },
   {
     id: "valley",
-    title: "Valley",
+    title: "Non-Profit Services Knowledge System",
     description: "AI-powered knowledge system for organizational intelligence.",
     icon: Radio,
     status: "live",
