@@ -157,7 +157,7 @@ export default function Landing() {
               <Link key={area.route} href={area.route}>
                 {area.featured ? (
                   <Card 
-                    className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 min-h-[330px]"
+                    className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 min-h-[200px]"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
                     <CardContent className="p-5 h-full flex items-center">
