@@ -54,7 +54,7 @@ const researchAreas = [
 const knowledgeSystems = [
   {
     id: "prostaff",
-    title: "ProStaff",
+    title: "Staffing Agency Knowledge System",
     description: "Professional staffing and workforce management solutions.",
     icon: Users,
     status: "live",
