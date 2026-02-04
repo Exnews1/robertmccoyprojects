@@ -16,7 +16,11 @@ import {
   Workflow,
   GraduationCap,
   Award,
-  ExternalLink
+  ExternalLink,
+  Plane,
+  Thermometer,
+  HardHat,
+  Radio
 } from "lucide-react";
 
 const researchAreas = [
@@ -52,7 +56,7 @@ const knowledgeSystems = [
     id: "valley",
     title: "Valley",
     description: "AI-powered knowledge system for organizational intelligence.",
-    icon: Brain,
+    icon: Radio,
     status: "live",
     url: "https://valley.robertmccoyprojects.com"
   },
@@ -60,7 +64,7 @@ const knowledgeSystems = [
     id: "construction",
     title: "Construction",
     description: "Construction project management and knowledge systems.",
-    icon: Building2,
+    icon: HardHat,
     status: "live",
     url: "https://construction.robertmccoyprojects.com"
   },
@@ -68,7 +72,7 @@ const knowledgeSystems = [
     id: "regionalfbo",
     title: "Regional FBO",
     description: "Fixed-base operator regional aviation services and management.",
-    icon: Layers,
+    icon: Plane,
     status: "live",
     url: "https://regionalfbo.robertmccoyprojects.com"
   },
@@ -76,7 +80,7 @@ const knowledgeSystems = [
     id: "forrestfbosmall",
     title: "Forrest FBO Small",
     description: "Small fixed-base operator aviation services.",
-    icon: Layers,
+    icon: Plane,
     status: "live",
     url: "https://forrestfbosmall.robertmccoyprojects.com"
   },
@@ -84,11 +88,11 @@ const knowledgeSystems = [
     id: "hvac",
     title: "HVAC",
     description: "Heating, ventilation, and air conditioning systems management.",
-    icon: Workflow,
+    icon: Thermometer,
     status: "live",
     url: "https://hvac.robertmccoyprojects.com"
   },
-  ];
+];
 
 export default function Landing() {
   return (
@@ -192,7 +196,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {knowledgeSystems.map((system) => {
               const isLive = system.status === "live";
               const cardContent = (
@@ -205,8 +209,8 @@ export default function Landing() {
                   }`}
                   data-testid={`card-oks-${system.id}`}
                 >
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-4">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
                       <div className={`p-2 rounded-lg flex-shrink-0 ${
                         isLive ? 'bg-fuchsia-500/10' : 'bg-muted/50'
                       }`}>
@@ -215,21 +219,21 @@ export default function Landing() {
                         }`} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-sm font-bold text-foreground">{system.title}</h3>
-                          {isLive ? (
-                            <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[9px]">
-                              Live
-                            </Badge>
-                          ) : (
-                            <Badge variant="outline" className="text-[9px] border-border text-muted-foreground">
-                              Coming Soon
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-xs text-muted-foreground">{system.description}</p>
+                        <h3 className="text-sm font-semibold text-foreground truncate">{system.title}</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-1">{system.description}</p>
                       </div>
-                      {isLive && <ExternalLink className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        {isLive ? (
+                          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 no-default-hover-elevate text-[10px] px-2">
+                            Live
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-[10px] border-border text-muted-foreground px-2">
+                            Soon
+                          </Badge>
+                        )}
+                        {isLive && <ExternalLink className="w-4 h-4 text-muted-foreground" />}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
