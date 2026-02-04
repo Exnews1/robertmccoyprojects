@@ -88,35 +88,7 @@ const knowledgeSystems = [
     status: "live",
     url: "https://hvac.robertmccoyprojects.com"
   },
-  {
-    id: "knowledge-graphs",
-    title: "Knowledge Graphs",
-    description: "Semantic relationship mapping and organizational knowledge networks.",
-    icon: Network,
-    status: "coming-soon"
-  },
-  {
-    id: "decision-support",
-    title: "Decision Support Systems",
-    description: "Data-driven decision frameworks and analytics platforms.",
-    icon: Brain,
-    status: "coming-soon"
-  },
-  {
-    id: "data-integration",
-    title: "Data Integration",
-    description: "Enterprise data unification and interoperability solutions.",
-    icon: Database,
-    status: "coming-soon"
-  },
-  {
-    id: "ai-governance",
-    title: "AI Governance",
-    description: "Responsible AI implementation and compliance frameworks.",
-    icon: Shield,
-    status: "coming-soon"
-  }
-];
+  ];
 
 export default function Landing() {
   return (
