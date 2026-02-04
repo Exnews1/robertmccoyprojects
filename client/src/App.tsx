@@ -112,11 +112,11 @@ export default function App() {
                 </a>
                 <span className="text-muted-foreground/50">|</span>
                 <a 
-                  href="mailto:robert.mccoy@indwes.edu" 
+                  href="mailto:data@robertmccoyprojects.com" 
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   data-testid="link-header-email"
                 >
-                  robert.mccoy@indwes.edu
+                  data@robertmccoyprojects.com
                 </a>
               </div>
               <div className="flex items-center gap-1">

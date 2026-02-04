@@ -285,11 +285,11 @@ export default function Landing() {
           </div>
           <div className="flex items-center gap-4">
             <a 
-              href="mailto:robert.mccoy@indwes.edu" 
+              href="mailto:data@robertmccoyprojects.com" 
               className="text-sm text-primary hover:underline"
               data-testid="link-contact-email"
             >
-              robert.mccoy@indwes.edu
+              data@robertmccoyprojects.com
             </a>
           </div>
         </div>

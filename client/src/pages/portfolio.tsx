@@ -14,8 +14,8 @@ export default function Portfolio() {
             Research and operational systems focused on human-centered governance, ethical AI design, and institutional accountability.
           </p>
           <div className="mt-4 flex items-center justify-center gap-4 flex-wrap text-sm text-muted-foreground">
-            <a href="mailto:robert.mccoy@indwes.edu" className="hover:text-primary transition-colors" data-testid="link-email">
-              robert.mccoy@indwes.edu
+            <a href="mailto:data@robertmccoyprojects.com" className="hover:text-primary transition-colors" data-testid="link-email">
+              data@robertmccoyprojects.com
             </a>
             <span className="text-muted-foreground/30">|</span>
             <Link href="/profile" className="hover:text-primary transition-colors flex items-center gap-1" data-testid="link-profile">

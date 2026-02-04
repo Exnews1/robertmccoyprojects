@@ -35,8 +35,8 @@ export default function Home() {
             MBA, M.S. AI & Data Analytics | Indiana Wesleyan University
           </p>
           <p className="text-sm mb-6">
-            <a href="mailto:robert.mccoy@indwes.edu" className="text-primary hover:underline" data-testid="link-author-email">
-              robert.mccoy@indwes.edu
+            <a href="mailto:data@robertmccoyprojects.com" className="text-primary hover:underline" data-testid="link-author-email">
+              data@robertmccoyprojects.com
             </a>
           </p>
           
