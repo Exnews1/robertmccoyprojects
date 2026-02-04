@@ -15,7 +15,8 @@ import {
   Brain,
   Workflow,
   GraduationCap,
-  Award
+  Award,
+  ExternalLink
 } from "lucide-react";
 
 const researchAreas = [
@@ -48,11 +49,12 @@ const researchAreas = [
 
 const knowledgeSystems = [
   {
-    id: "document-intelligence",
-    title: "Document Intelligence",
-    description: "AI-powered document analysis, extraction, and knowledge discovery.",
-    icon: FileText,
-    status: "coming-soon"
+    id: "vally",
+    title: "Vally",
+    description: "AI-powered knowledge system for organizational intelligence.",
+    icon: Brain,
+    status: "live",
+    url: "https://vally.robertmccoyprojects.com"
   },
   {
     id: "process-automation",
@@ -194,30 +196,57 @@ export default function Landing() {
           </div>
 
           <div className="space-y-4">
-            {knowledgeSystems.map((system) => (
-              <Card 
-                key={system.id}
-                className="border-border opacity-75"
-                data-testid={`card-oks-${system.id}`}
-              >
-                <CardContent className="p-5">
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-muted/50 flex-shrink-0">
-                      <system.icon className="w-5 h-5 text-muted-foreground" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-sm font-bold text-foreground">{system.title}</h3>
-                        <Badge variant="outline" className="text-[9px] border-border text-muted-foreground">
-                          Coming Soon
-                        </Badge>
+            {knowledgeSystems.map((system) => {
+              const isLive = system.status === "live";
+              const cardContent = (
+                <Card 
+                  key={system.id}
+                  className={`transition-all duration-300 ${
+                    isLive 
+                      ? 'hover-elevate cursor-pointer border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 opacity-100' 
+                      : 'border-border opacity-75'
+                  }`}
+                  data-testid={`card-oks-${system.id}`}
+                >
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-4">
+                      <div className={`p-2 rounded-lg flex-shrink-0 ${
+                        isLive ? 'bg-fuchsia-500/10' : 'bg-muted/50'
+                      }`}>
+                        <system.icon className={`w-5 h-5 ${
+                          isLive ? 'text-fuchsia-500' : 'text-muted-foreground'
+                        }`} />
                       </div>
-                      <p className="text-xs text-muted-foreground">{system.description}</p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-sm font-bold text-foreground">{system.title}</h3>
+                          {isLive ? (
+                            <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[9px]">
+                              Live
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-[9px] border-border text-muted-foreground">
+                              Coming Soon
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground">{system.description}</p>
+                      </div>
+                      {isLive && <ExternalLink className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+
+              if (isLive && system.url) {
+                return (
+                  <a key={system.id} href={system.url} target="_blank" rel="noopener noreferrer">
+                    {cardContent}
+                  </a>
+                );
+              }
+              return cardContent;
+            })}
           </div>
         </section>
       </div>
