@@ -210,7 +210,7 @@ export default function Landing() {
               <Building2 className="w-6 h-6 text-fuchsia-500" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-foreground">Organizational Knowledge Systems</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-foreground">Organizational Knowledge Systems Case Studies</h2>
               <p className="text-sm text-muted-foreground">Enterprise AI and data solutions</p>
             </div>
           </div>
