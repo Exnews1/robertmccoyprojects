@@ -133,7 +133,7 @@ export default function Landing() {
         </div>
 
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Research, frameworks, and knowledge systems at the intersection of AI, education, and workforce development.
+          Research, frameworks, and organizational knowledge systems at the intersection of AI, education, and workforce development.
         </p>
       </section>
 
