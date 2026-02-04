@@ -57,11 +57,12 @@ const knowledgeSystems = [
     url: "https://vally.robertmccoyprojects.com"
   },
   {
-    id: "process-automation",
-    title: "Process Automation",
-    description: "Workflow optimization and intelligent process automation solutions.",
-    icon: Workflow,
-    status: "coming-soon"
+    id: "construction",
+    title: "Construction",
+    description: "Construction project management and knowledge systems.",
+    icon: Building2,
+    status: "live",
+    url: "https://construction.mccoyprojects.com"
   },
   {
     id: "knowledge-graphs",
