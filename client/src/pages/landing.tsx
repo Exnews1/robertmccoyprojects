@@ -73,6 +73,14 @@ const knowledgeSystems = [
     url: "https://regionalfbo.robertmccoyprojects.com"
   },
   {
+    id: "forrestfbosmall",
+    title: "Forrest FBO Small",
+    description: "Small fixed-base operator aviation services.",
+    icon: Layers,
+    status: "live",
+    url: "https://forrestfbosmall.robertmccoyprojects.com"
+  },
+  {
     id: "knowledge-graphs",
     title: "Knowledge Graphs",
     description: "Semantic relationship mapping and organizational knowledge networks.",
