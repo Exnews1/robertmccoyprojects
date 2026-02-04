@@ -70,7 +70,7 @@ const knowledgeSystems = [
   },
   {
     id: "construction",
-    title: "Construction",
+    title: "Construction Company Knowledge System",
     description: "Construction project management and knowledge systems.",
     icon: HardHat,
     status: "live",
