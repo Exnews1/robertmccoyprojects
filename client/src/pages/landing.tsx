@@ -94,7 +94,7 @@ const knowledgeSystems = [
   },
   {
     id: "hvac",
-    title: "HVAC",
+    title: "HVAC Services Knowledge System",
     description: "Heating, ventilation, and air conditioning systems management.",
     icon: Thermometer,
     status: "live",
