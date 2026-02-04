@@ -4,7 +4,8 @@ import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
-import Portfolio from "@/pages/portfolio";
+import Landing from "@/pages/landing";
+import Home from "@/pages/home";
 import CMGFRoot from "@/pages/cmgf/index";
 import Downloads from "@/pages/cmgf/downloads";
 import Walkthrough from "@/pages/cmgf/walkthrough/index";
@@ -26,6 +27,7 @@ import HumanCapitalFramework from "@/pages/human-capital/index";
 import AITypes from "@/pages/ai-types/index";
 import WorkforceAI from "@/pages/workforce-ai/index";
 import OngoingResearch from "@/pages/ongoing-research";
+import References from "@/pages/references";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef } from "react";
@@ -67,7 +69,8 @@ function Footer() {
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Portfolio} />
+      <Route path="/" component={Landing} />
+      <Route path="/research" component={Home} />
       <Route path="/cmgf" component={CMGFRoot} />
       <Route path="/cmgf/downloads" component={Downloads} />
       <Route path="/cmgf/walkthrough" component={Walkthrough} />
@@ -88,6 +91,7 @@ function Router() {
       <Route path="/ai-types" component={AITypes} />
       <Route path="/workforce-ai" component={WorkforceAI} />
       <Route path="/ongoing-research" component={OngoingResearch} />
+      <Route path="/references" component={References} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
