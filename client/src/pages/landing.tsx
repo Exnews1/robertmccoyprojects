@@ -280,7 +280,6 @@ export default function Landing() {
             </div>
             <div>
               <h3 className="text-lg font-bold text-foreground">Robert E. McCoy</h3>
-              <p className="text-sm text-muted-foreground">Military Partnership Executive, Indiana Wesleyan University</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
