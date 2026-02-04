@@ -144,7 +144,7 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {researchAreas.map((area) => (
               <Link key={area.route} href={area.route}>
                 <Card 
@@ -155,8 +155,8 @@ export default function Landing() {
                   }`}
                   data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                 >
-                  <CardContent className="p-5">
-                    <div className="flex items-start gap-4">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
                       <div className={`p-2 rounded-lg flex-shrink-0 ${
                         area.featured ? 'bg-fuchsia-500/10' : 'bg-muted/50'
                       }`}>
@@ -165,17 +165,17 @@ export default function Landing() {
                         }`} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-sm font-bold text-foreground">{area.title}</h3>
-                          {area.featured && (
-                            <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[9px]">
-                              Featured
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-xs text-muted-foreground">{area.description}</p>
+                        <h3 className="text-sm font-semibold text-foreground truncate">{area.title}</h3>
+                        <p className="text-xs text-muted-foreground line-clamp-1">{area.description}</p>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <div className="flex items-center gap-3 flex-shrink-0">
+                        {area.featured && (
+                          <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[10px] px-2">
+                            Featured
+                          </Badge>
+                        )}
+                        <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
