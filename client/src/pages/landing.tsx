@@ -81,6 +81,14 @@ const knowledgeSystems = [
     url: "https://forrestfbosmall.robertmccoyprojects.com"
   },
   {
+    id: "hvac",
+    title: "HVAC",
+    description: "Heating, ventilation, and air conditioning systems management.",
+    icon: Workflow,
+    status: "live",
+    url: "https://hvac.robertmccoyprojects.com"
+  },
+  {
     id: "knowledge-graphs",
     title: "Knowledge Graphs",
     description: "Semantic relationship mapping and organizational knowledge networks.",
