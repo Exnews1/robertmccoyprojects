@@ -49,18 +49,18 @@ export function AppSidebar() {
       <SidebarContent>
         {/* PRIMARY DOCUMENTS - Front and Center */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-amber-600 dark:text-amber-400/80 font-mono text-[10px] uppercase tracking-[0.2em] px-6 mb-2">
+          <SidebarGroupLabel className="text-slate-600 dark:text-slate-400/80 font-mono text-[10px] uppercase tracking-[0.2em] px-6 mb-2">
             PRIMARY DOCUMENTS
           </SidebarGroupLabel>
           <SidebarGroupContent className="px-3 space-y-2">
             <Button
               variant="outline"
-              className="w-full justify-start gap-2 h-auto py-3 px-3 border-amber-500/30 bg-amber-500/5"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-slate-500/30 bg-slate-500/5"
               asChild
               data-testid="sidebar-download-paper"
             >
               <a href="/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx" download>
-                <Download className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                <Download className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF Paper</div>
                   <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>

@@ -13,10 +13,10 @@ export default function Home() {
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       
       {/* AUTHOR & TITLE - Front and Center */}
-      <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-card via-card to-amber-950/20 dark:to-amber-950/20 border border-amber-500/30 p-8 md:p-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-primary/5 pointer-events-none" />
+      <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-card via-card to-slate-950/20 dark:to-slate-950/20 border border-slate-500/30 p-8 md:p-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-500/5 via-transparent to-primary/5 pointer-events-none" />
         <div className="relative z-10 text-center">
-          <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-300 border-amber-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px] mb-4">
+          <Badge className="bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px] mb-4">
             <Award className="w-3 h-3 mr-1" /> 2026 CCME Learner Track
           </Badge>
           
@@ -28,7 +28,7 @@ export default function Home() {
           </h2>
           
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Award className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+            <Award className="w-5 h-5 text-slate-600 dark:text-slate-400" />
             <span className="text-lg font-semibold text-foreground">Robert E. McCoy</span>
           </div>
           <p className="text-sm text-muted-foreground mb-2">
@@ -44,7 +44,7 @@ export default function Home() {
             <a
               href="/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx"
               download
-              className="inline-flex items-center gap-2 px-5 py-3 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-slate-600 hover:bg-slate-500 text-white font-semibold rounded-lg transition-colors"
               data-testid="hero-download-paper"
             >
               <FileText className="w-4 h-4" />
@@ -67,7 +67,7 @@ export default function Home() {
       <section className="relative overflow-hidden rounded-xl bg-card border border-border p-8" data-testid="section-author-bio">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
-            <Badge className="bg-amber-500/10 text-amber-600 dark:text-amber-300 border-amber-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+            <Badge className="bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
               <Users className="w-3 h-3 mr-1" /> About the Author
             </Badge>
           </div>
@@ -109,22 +109,22 @@ export default function Home() {
               </div>
               
               <div className="p-4 rounded-lg bg-muted/50 border border-border">
-                <h4 className="text-xs font-bold text-amber-600 dark:text-amber-600 dark:text-amber-400/80 uppercase tracking-wider mb-3">Military Service</h4>
+                <h4 className="text-xs font-bold text-slate-600 dark:text-slate-600 dark:text-slate-400/80 uppercase tracking-wider mb-3">Military Service</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>21+ Years Combined Service</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>U.S. Army Chief Warrant Officer, Aviator</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>U.S. Navy Sonar Technician</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Shield className="w-4 h-4 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <Shield className="w-4 h-4 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Presidential Support Staff</span>
                   </li>
                 </ul>
@@ -180,26 +180,26 @@ export default function Home() {
             </div>
             
             <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-muted/50 border border-amber-500/30">
-                <h3 className="text-sm font-bold text-amber-600 dark:text-amber-600 dark:text-amber-400/80 uppercase tracking-wider mb-2">The Proposed Solution</h3>
+              <div className="p-4 rounded-lg bg-muted/50 border border-slate-500/30">
+                <h3 className="text-sm font-bold text-slate-600 dark:text-slate-600 dark:text-slate-400/80 uppercase tracking-wider mb-2">The Proposed Solution</h3>
                 <p className="text-sm text-muted-foreground mb-3">
                   The <span className="text-foreground font-semibold">Career Mobility Governance Framework (CMGF)</span> - a bounded AI architecture that:
                 </p>
                 <ul className="space-y-2 text-xs text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Converts individual planning friction into auditable institutional evidence</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Supports human advisors without displacing judgment</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Enables policy reform through de-identified aggregation</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Maintains full compliance with EO 14110, NIST AI RMF 1.0, GAO oversight</span>
                   </li>
                 </ul>
@@ -213,7 +213,7 @@ export default function Home() {
                     <div className="text-[10px] text-muted-foreground uppercase">Annual Transitions</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-amber-600 dark:text-amber-600 dark:text-amber-400/80">96:1</div>
+                    <div className="text-2xl font-bold text-amber-600 dark:text-amber-400/80">96:1</div>
                     <div className="text-[10px] text-muted-foreground uppercase">Funding Imbalance</div>
                   </div>
                   <div className="text-center">
@@ -277,7 +277,7 @@ export default function Home() {
             <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
               <FileText className="w-3 h-3 mr-1" /> 2026 CCME Learner Track 1
             </Badge>
-            <Badge className="bg-amber-500/20 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 border-amber-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+            <Badge className="bg-slate-500/20 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
               <Cpu className="w-3 h-3 mr-1" /> Compliant by Design
             </Badge>
           </div>
@@ -440,23 +440,23 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-muted/50 border border-amber-500/30">
+              <div className="p-4 rounded-lg bg-muted/50 border border-slate-500/30">
                 <div className="flex items-center gap-2 mb-3">
-                  <Eye className="w-4 h-4 text-amber-600 dark:text-amber-600 dark:text-amber-400/80" />
-                  <h4 className="text-sm font-bold text-amber-600 dark:text-amber-600 dark:text-amber-400/80 uppercase tracking-wider">ESO Policy Intelligence View</h4>
+                  <Eye className="w-4 h-4 text-slate-600 dark:text-slate-600 dark:text-slate-400/80" />
+                  <h4 className="text-sm font-bold text-slate-600 dark:text-slate-600 dark:text-slate-400/80 uppercase tracking-wider">ESO Policy Intelligence View</h4>
                 </div>
                 <p className="text-xs text-muted-foreground mb-3">Education Services Officer dashboard for institutional oversight</p>
                 <ul className="space-y-2 text-xs text-muted-foreground">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Aggregated, de-identified service-member signals</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Informs education funding and credential policy</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3 h-3 text-amber-600 dark:text-amber-600 dark:text-amber-400/80 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
                     <span>Observes systemic patterns, not individual plans</span>
                   </li>
                 </ul>
@@ -528,7 +528,7 @@ export default function Home() {
       <Card className="high-tech-card">
         <CardContent className="p-6">
           <div className="flex items-center justify-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-amber-400/80 shadow-[0_0_8px_rgba(192,132,252,0.4)]" />
+            <div className="w-2 h-2 rounded-full bg-slate-400/80 shadow-[0_0_8px_rgba(192,132,252,0.4)]" />
             <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground">
               CMGF Operations Center // Bounded AI Active // Human Oversight Required
             </span>

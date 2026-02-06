@@ -47,7 +47,7 @@ export default function References() {
       case "Paper":
         return "bg-primary/20 text-primary border-primary/40";
       case "Technical Report":
-        return "bg-amber-500/20 text-amber-400/80 border-amber-500/40";
+        return "bg-slate-500/20 text-slate-400/80 border-slate-500/40";
       default:
         return "bg-neutral-800 text-neutral-300 border-neutral-600";
     }
@@ -142,7 +142,7 @@ export default function References() {
             </div>
             <div className="w-[1px] h-10 bg-neutral-700" />
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-amber-400/80 tracking-tighter">{reports.length}</span>
+              <span className="text-2xl font-bold text-slate-400/80 tracking-tighter">{reports.length}</span>
               <span className="text-[10px] font-mono text-muted-foreground uppercase">Technical Reports</span>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function References() {
       {/* PRIMARY DOCUMENTS - Paper and Presentation */}
       <section className="space-y-4">
         <div className="flex items-center gap-3">
-          <Star className="w-5 h-5 text-amber-400/80" />
+          <Star className="w-5 h-5 text-slate-400/80" />
           <h2 className="text-xl font-bold tracking-tight">Primary Documents</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,7 +163,7 @@ export default function References() {
                   <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <FileText className="w-3 h-3 mr-1" /> CMGF Paper
                   </Badge>
-                  <Badge className="bg-amber-500/20 text-amber-400/80 border-amber-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-slate-500/20 text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Star className="w-3 h-3 mr-1" /> Featured
                   </Badge>
                 </div>
@@ -191,11 +191,11 @@ export default function References() {
             </CardContent>
           </Card>
 
-          <Card className="high-tech-card border-amber-500/30" data-testid="card-primary-presentation">
+          <Card className="high-tech-card border-slate-500/30" data-testid="card-primary-presentation">
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
-                  <Badge className="bg-amber-500/20 text-amber-400/80 border-amber-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <Badge className="bg-slate-500/20 text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Presentation className="w-3 h-3 mr-1" /> CCME 2026
                   </Badge>
                   <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
@@ -213,7 +213,7 @@ export default function References() {
                 <p className="text-xs text-muted-foreground">CCME 2026 Learner Track 1 Presentation</p>
                 <Button
                   variant="default"
-                  className="w-full mt-2 bg-amber-600 hover:bg-amber-700"
+                  className="w-full mt-2 bg-slate-600 hover:bg-slate-700"
                   asChild
                   data-testid="button-download-primary-presentation"
                 >
@@ -245,7 +245,7 @@ export default function References() {
       {reports.length > 0 && (
         <section className="space-y-4">
           <div className="flex items-center gap-3">
-            <FileCode className="w-5 h-5 text-amber-400/80" />
+            <FileCode className="w-5 h-5 text-slate-400/80" />
             <h2 className="text-xl font-bold tracking-tight">Technical Reports</h2>
             <Badge variant="outline" className="text-xs">{reports.length}</Badge>
             <span className="text-xs text-muted-foreground">(Alphabetical)</span>
