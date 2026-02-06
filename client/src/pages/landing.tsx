@@ -127,7 +127,7 @@ export default function Landing() {
           </div>
           <span className="text-muted-foreground hidden md:inline">|</span>
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-fuchsia-500" />
+            <Shield className="w-4 h-4 text-amber-500" />
             <span className="text-sm text-muted-foreground">21+ Years Military Service</span>
           </div>
         </div>
@@ -157,25 +157,25 @@ export default function Landing() {
               <Link key={area.route} href={area.route}>
                 {area.featured ? (
                   <Card 
-                    className="hover-elevate cursor-pointer transition-all duration-300 border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 min-h-[140px]"
+                    className="hover-elevate cursor-pointer transition-all duration-300 border-amber-500/30 bg-gradient-to-br from-card to-amber-950/10 min-h-[140px]"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
                     <CardContent className="p-5 h-full flex items-center">
                       <div className="flex items-center gap-4 w-full">
-                        <div className="p-3 rounded-lg flex-shrink-0 bg-fuchsia-500/10">
-                          <area.icon className="w-7 h-7 text-fuchsia-500" />
+                        <div className="p-3 rounded-lg flex-shrink-0 bg-amber-500/10">
+                          <area.icon className="w-7 h-7 text-amber-500" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-base font-bold text-foreground">{area.title}</h3>
-                            <Badge className="bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40 no-default-hover-elevate text-[10px] px-2">
+                            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/40 no-default-hover-elevate text-[10px] px-2">
                               Featured
                             </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
-                          <p className="text-xs text-fuchsia-400/80 mt-2">CCME 2026 Learner Track</p>
+                          <p className="text-xs text-amber-400/80 mt-2">CCME 2026 Learner Track</p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-fuchsia-400 flex-shrink-0" />
+                        <ArrowRight className="w-5 h-5 text-amber-400 flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
@@ -206,8 +206,8 @@ export default function Landing() {
         {/* Organizational Knowledge Systems Column */}
         <section className="space-y-6">
           <div className="flex items-start gap-3 pb-4 border-b border-border h-[100px]">
-            <div className="p-2 bg-fuchsia-500/10 rounded-lg flex-shrink-0 mt-1">
-              <Building2 className="w-6 h-6 text-fuchsia-500" />
+            <div className="p-2 bg-amber-500/10 rounded-lg flex-shrink-0 mt-1">
+              <Building2 className="w-6 h-6 text-amber-500" />
             </div>
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-foreground">Organizational Knowledge Systems Case Studies</h2>
@@ -223,7 +223,7 @@ export default function Landing() {
                   key={system.id}
                   className={`transition-all duration-300 ${
                     isLive 
-                      ? 'hover-elevate cursor-pointer border-fuchsia-500/30 bg-gradient-to-br from-card to-fuchsia-950/10 opacity-100' 
+                      ? 'hover-elevate cursor-pointer border-amber-500/30 bg-gradient-to-br from-card to-amber-950/10 opacity-100' 
                       : 'border-border opacity-75'
                   }`}
                   data-testid={`card-oks-${system.id}`}
@@ -231,10 +231,10 @@ export default function Landing() {
                   <CardContent className="p-4">
                     <div className="flex items-center gap-4">
                       <div className={`p-2 rounded-lg flex-shrink-0 ${
-                        isLive ? 'bg-fuchsia-500/10' : 'bg-muted/50'
+                        isLive ? 'bg-amber-500/10' : 'bg-muted/50'
                       }`}>
                         <system.icon className={`w-5 h-5 ${
-                          isLive ? 'text-fuchsia-500' : 'text-muted-foreground'
+                          isLive ? 'text-amber-500' : 'text-muted-foreground'
                         }`} />
                       </div>
                       <div className="flex-1 min-w-0">
