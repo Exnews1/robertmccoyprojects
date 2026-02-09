@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, CheckCircle2, AlertCircle, Cpu, Activity, Users, GraduationCap, FileText, BookOpen, Award, AlertTriangle, Eye, ArrowRight, Target, MessageSquare, Layers, DollarSign, Scale, FileWarning, Presentation } from "lucide-react";
+import { Shield, CheckCircle2, AlertCircle, Cpu, Activity, Users, GraduationCap, FileText, BookOpen, Award, AlertTriangle, Eye, ArrowRight, Target, MessageSquare, Layers, DollarSign, Scale, FileWarning, Presentation, ExternalLink } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const fundingData = [
   { name: 'Education Benefits', value: 13500, label: '$13.5B', color: 'hsl(220, 70%, 55%)' },
-  { name: 'Transition Advising', value: 140, label: '$140M', color: 'hsl(300, 50%, 55%)' },
+  { name: 'Transition Advising', value: 140, label: '$140M', color: 'hsl(215, 25%, 55%)' },
 ];
 
 export default function Home() {
@@ -58,6 +58,26 @@ export default function Home() {
             >
               <Presentation className="w-4 h-4" />
               Download Presentation (PDF)
+            </a>
+            <a
+              href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border"
+              data-testid="hero-link-nist"
+            >
+              <ExternalLink className="w-4 h-4" />
+              NIST AI RMF 1.0
+            </a>
+            <a
+              href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border"
+              data-testid="hero-link-eo14110"
+            >
+              <ExternalLink className="w-4 h-4" />
+              EO 14110
             </a>
           </div>
         </div>

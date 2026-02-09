@@ -1,4 +1,4 @@
-import { Home, FileText, BarChart2, Shield, BookOpen, Download, Presentation } from "lucide-react";
+import { Home, FileText, BarChart2, Shield, BookOpen, Download, Presentation, ExternalLink } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -78,6 +78,34 @@ export function AppSidebar() {
                 <div className="text-left">
                   <div className="text-xs font-semibold">CCME 2026 Slides</div>
                   <div className="text-[10px] text-muted-foreground">Presentation - PDF</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-border"
+              asChild
+              data-testid="sidebar-link-nist"
+            >
+              <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">NIST AI RMF 1.0</div>
+                  <div className="text-[10px] text-muted-foreground">Framework - PDF</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-border"
+              asChild
+              data-testid="sidebar-link-eo14110"
+            >
+              <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">EO 14110</div>
+                  <div className="text-[10px] text-muted-foreground">Executive Order - PDF</div>
                 </div>
               </a>
             </Button>

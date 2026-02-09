@@ -226,6 +226,44 @@ export default function References() {
             </CardContent>
           </Card>
         </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+          <Card className="high-tech-card border-border/50" data-testid="card-ref-nist">
+            <CardContent className="p-6">
+              <div className="space-y-3">
+                <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <ExternalLink className="w-3 h-3 mr-1" /> Reference Standard
+                </Badge>
+                <h3 className="text-lg font-bold text-foreground leading-tight">NIST AI Risk Management Framework 1.0</h3>
+                <p className="text-sm text-muted-foreground">National Institute of Standards and Technology AI RMF — the governance standard referenced throughout CMGF.</p>
+                <Button variant="outline" className="w-full mt-2" asChild data-testid="button-link-nist-ref">
+                  <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View NIST AI RMF 1.0 (PDF)
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="high-tech-card border-border/50" data-testid="card-ref-eo14110">
+            <CardContent className="p-6">
+              <div className="space-y-3">
+                <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                  <ExternalLink className="w-3 h-3 mr-1" /> Executive Order
+                </Badge>
+                <h3 className="text-lg font-bold text-foreground leading-tight">Executive Order 14110</h3>
+                <p className="text-sm text-muted-foreground">Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.</p>
+                <Button variant="outline" className="w-full mt-2" asChild data-testid="button-link-eo14110-ref">
+                  <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    View EO 14110
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {papers.length > 0 && (

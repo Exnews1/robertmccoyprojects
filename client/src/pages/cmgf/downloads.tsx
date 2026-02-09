@@ -25,6 +25,28 @@ const documents = [
     href: "/attached_assets/CCME-CMGF_1770017672179.pdf",
     version: "v1",
     date: "February 2026"
+  },
+  {
+    id: "nist-ai-rmf",
+    title: "NIST AI Risk Management Framework 1.0",
+    description: "National Institute of Standards and Technology AI RMF — the governance standard referenced throughout CMGF.",
+    type: "PDF",
+    icon: ExternalLink,
+    href: "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+    version: "1.0",
+    date: "January 2023",
+    external: true
+  },
+  {
+    id: "eo-14110",
+    title: "Executive Order 14110",
+    description: "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.",
+    type: "PDF",
+    icon: ExternalLink,
+    href: "https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence",
+    version: "Final",
+    date: "October 2023",
+    external: true
   }
 ];
 
@@ -99,9 +121,9 @@ export default function Downloads() {
                         </div>
                       </div>
                       <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
-                          <a href={doc.href} download>
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
+                          <a href={doc.href} {...((doc as any).external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}>
+                            {(doc as any).external ? <ExternalLink className="h-4 w-4 mr-2" /> : <Download className="h-4 w-4 mr-2" />}
+                            {(doc as any).external ? "View" : "Download"}
                           </a>
                         </Button>
                     </div>

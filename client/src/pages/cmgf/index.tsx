@@ -219,6 +219,44 @@ export default function CMGFRoot() {
                 </CardContent>
               </Card>
             ))}
+            <Card className="border-border/50" data-testid="card-canon-doc-nist">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                    <ExternalLink className="h-6 w-6 text-muted-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground mb-1">NIST AI RMF 1.0</h3>
+                    <p className="text-sm text-muted-foreground mb-3">AI Risk Management Framework — the governance standard referenced throughout CMGF.</p>
+                    <Button variant="outline" size="sm" asChild data-testid="button-canon-link-nist">
+                      <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        View PDF
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-border/50" data-testid="card-canon-doc-eo14110">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                    <ExternalLink className="h-6 w-6 text-muted-foreground" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground mb-1">Executive Order 14110</h3>
+                    <p className="text-sm text-muted-foreground mb-3">Safe, Secure, and Trustworthy AI — the compliance baseline for CMGF.</p>
+                    <Button variant="outline" size="sm" asChild data-testid="button-canon-link-eo14110">
+                      <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        View EO 14110
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
