@@ -182,7 +182,7 @@ export default function References() {
                   asChild
                   data-testid="button-download-primary-paper"
                 >
-                  <a href="/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx" download target="_blank" rel="noopener noreferrer">
+                  <a href="/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
                     Download Paper (DOCX)
                   </a>

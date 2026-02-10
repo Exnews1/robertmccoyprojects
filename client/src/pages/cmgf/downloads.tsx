@@ -12,9 +12,9 @@ const documents = [
     description: "Complete research paper detailing the Career Mobility Governance Framework. Includes system architecture, ethical constraints, and implementation guidance.",
     type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_v2_1770042788028.docx",
-    version: "v2",
-    date: "January 2026"
+    href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx",
+    version: "v4",
+    date: "February 2026"
   },
   {
     id: "ccme-presentation",
