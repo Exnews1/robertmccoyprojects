@@ -1,0 +1,109 @@
+A few quick reactions (and a couple of fixes I’d make before you let this become your “default” prompt).
+
+This is now demo-ready in the way you wanted
+You can stand in front of anyone and narrate:
+
+Input (goal + current state) → Source registry (what the system is allowed to use) → Binding rules (deterministic, visible) → Output (stack + advisory) → Audit log (what happened)
+
+That’s exactly the CMGF line.
+
+Two small data-quality fixes to avoid getting “caught” in Q&A
+A) NICE references
+Right now your SOC Analyst uses the same NICE reference as Cyber Threat Analyst (PR-CDA-001). That might be okay for a prototype, but an informed audience could poke it. If you don’t want to research the perfect NICE work role codes yet, label them explicitly as “mock snapshot” and add a note like:
+
+“Reference codes are illustrative placeholders for the prototype.”
+
+That preserves credibility.
+
+B) O*NET codes
+“15-1212.00” (Information Security Analysts) is plausible for cyber roles, but “15-1299.09” is a catch-all style code and might raise eyebrows. Same fix: call it an illustrative mapping in the source_registry.json citation_note.
+
+Prototype honesty beats shaky specificity.
+
+One governance guardrail I strongly recommend adding
+Right now it says “suggested credential stack (ordered sequence).” That’s fine, but you should force the UI to show:
+
+“Suggested sequencing (informational) — not a recommendation or requirement.”
+
+It sounds minor. It’s not. It keeps you aligned with “not guiding,” even while being useful.
+
+If you want it even cleaner, use:
+
+“Common sequencing observed” or “Typical sequencing pathway.”
+
+Add an “Evidence Coverage” meter
+This would be a killer CMGF touch and it’s measurable.
+
+Example:
+
+Role definition: present (O*NET / NICE)
+
+Credential requirements: present
+
+Experience norms: present
+
+Education norms: present
+
+Show 4 checkmarks and a tiny note: “This output is based on 4/4 evidence categories.”
+
+Now you have a measurable artifact feature that reinforces the binding-layer concept without pretending to be predictive.
+
+The audit log spec is excellent — one tweak
+You specified:
+“output_generated (summary)”
+
+Make it structured, not a free text summary, so it stays machine-auditable:
+
+output_generated: {
+"next_step": "...",
+"stack": [...],
+"experience_note_included": true,
+"evidence_sources": [...],
+"disclaimer_shown": true
+}
+
+That makes it easy to demonstrate governance later.
+
+What I’d do next (no extra thinking required)
+Here’s the “first run” checklist once it generates the app:
+
+Run the app.
+
+Try 6 test cases:
+
+No certs, 0 exp, no degree
+
+Security+, 0 exp
+
+Security+, 2 exp
+
+Security+ + CySA+, 1 exp (should push experience)
+
+Degree Bachelor + no certs (should note degree supports but still stack certs)
+
+Cloud Security Analyst with AWS Cloud Practitioner already (should skip foundation AWS cert)
+
+Verify for each case:
+
+A rule fired and is shown
+
+Evidence panel lists sources + snapshot date
+
+Disclaimer is visible
+
+Audit log wrote a JSON line
+
+If any of those fail, we tighten the scaffolding.
+
+If you paste me the generated repo tree + the rules_engine.py
+I can do a quick “architect review” and tell you:
+
+what’s solid
+
+what will break
+
+what to simplify
+
+what to make more explicit for your demo narrative
+
+(You don’t need to paste everything — just app/main.py, rules_engine.py, and the two JSON files.)
