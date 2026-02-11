@@ -46,7 +46,7 @@ const sections = [
     title: "Credential Sequencing Engine",
     description: "Binding layer demonstration: transparent, rule-based credential sequencing with data provenance and audit logging.",
     icon: Zap,
-    route: "https://credentia-web.replit.app",
+    route: "https://certdemo.robertmccoyprojects.com",
     external: true,
     featured: true
   },
