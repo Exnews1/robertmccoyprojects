@@ -42,6 +42,15 @@ const sections = [
     route: "/cmgf/downloads"
   },
   {
+    id: "cse",
+    title: "Credential Sequencing Engine",
+    description: "Binding layer demonstration: transparent, rule-based credential sequencing with data provenance and audit logging.",
+    icon: Zap,
+    route: "https://credentia-web.replit.app",
+    external: true,
+    featured: true
+  },
+  {
     id: "walkthrough",
     title: "Framework Walkthrough",
     description: "Three-part system architecture: Service Member Interface, Advisory Layer, AI Mediation.",
