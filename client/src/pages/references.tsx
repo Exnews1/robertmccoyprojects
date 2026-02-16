@@ -1,15 +1,56 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Publication } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FileText, Download, ExternalLink, BookOpen, FileCode, Award, Star, Presentation, Shield, Database } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { FileText, Download, ExternalLink, BookOpen, FileCode, Award, Star, Presentation, Shield, Database, Quote, Copy, Check } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+const seriesCitations = {
+  "cmgf-01": {
+    number: "CMGF-01",
+    title: "Executive White Paper",
+    apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+    chicago: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+    mla: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+  },
+  "cmgf-02": {
+    number: "CMGF-02",
+    title: "Policy & Governance Architecture",
+    apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+    chicago: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+    mla: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+  },
+  "cmgf-03": {
+    number: "CMGF-03",
+    title: "Data Flow & Signal Provenance",
+    apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+    chicago: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+    mla: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+  }
+} as const;
+
+type CitationFormat = "apa" | "chicago" | "mla";
 
 export default function References() {
+  const { toast } = useToast();
+  const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
   const { data: publications, isLoading } = useQuery<Publication[]>({
     queryKey: ["/api/publications"],
   });
+
+  const handleCopyCitation = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedFormat(key);
+    toast({
+      title: "Citation copied",
+      description: `${key.split("-").pop()?.toUpperCase()} format copied to clipboard`,
+    });
+    setTimeout(() => setCopiedFormat(null), 2000);
+  };
 
   if (isLoading) {
     return (
@@ -156,40 +197,82 @@ export default function References() {
           <h2 className="text-xl font-bold tracking-tight">Primary Documents</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          {[
-            { id: "cmgf-01", number: "CMGF-01", title: "Executive White Paper", desc: "Governance-first architecture for military transition advising.", icon: FileText, href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx" },
-            { id: "cmgf-02", number: "CMGF-02", title: "Policy & Governance Architecture", desc: "Authority structures, non-use guardrails, and federal AI alignment.", icon: Shield, href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx" },
-            { id: "cmgf-03", number: "CMGF-03", title: "Data Flow & Signal Provenance", desc: "Constraint binding, authority tagging, and audit logging.", icon: Database, href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx" }
-          ].map((doc) => (
-            <Card key={doc.id} className="high-tech-card border-primary/40" data-testid={`card-primary-${doc.id}`}>
+          {(["cmgf-01", "cmgf-02", "cmgf-03"] as const).map((docId) => {
+            const cite = seriesCitations[docId];
+            const icons = { "cmgf-01": FileText, "cmgf-02": Shield, "cmgf-03": Database } as const;
+            const descs = { "cmgf-01": "Governance-first architecture for military transition advising.", "cmgf-02": "Authority structures, non-use guardrails, and federal AI alignment.", "cmgf-03": "Constraint binding, authority tagging, and audit logging." } as const;
+            const hrefs = { "cmgf-01": "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx", "cmgf-02": "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx", "cmgf-03": "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx" } as const;
+            const DocIcon = icons[docId];
+            return (
+            <Card key={docId} className="high-tech-card border-primary/40" data-testid={`card-primary-${docId}`}>
               <CardContent className="p-6">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 flex-wrap">
                     <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-                      <doc.icon className="w-3 h-3 mr-1" /> {doc.number}
+                      <DocIcon className="w-3 h-3 mr-1" /> {cite.number}
                     </Badge>
                   </div>
-                  <h3 className="text-base font-bold text-foreground leading-tight">{doc.title}</h3>
-                  <p className="text-sm text-muted-foreground">{doc.desc}</p>
+                  <h3 className="text-base font-bold text-foreground leading-tight">{cite.title}</h3>
+                  <p className="text-sm text-muted-foreground">{descs[docId]}</p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Award className="w-3 h-3" />
                     <span>Robert E. McCoy (2026)</span>
                   </div>
-                  <Button
-                    variant="default"
-                    className="w-full mt-1"
-                    asChild
-                    data-testid={`button-download-${doc.id}`}
-                  >
-                    <a href={doc.href} download>
-                      <Download className="w-4 h-4 mr-2" />
-                      Download (DOCX)
-                    </a>
-                  </Button>
+                  <div className="flex items-center gap-2 flex-wrap mt-1">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm" data-testid={`button-cite-primary-${docId}`}>
+                          <Quote className="w-4 h-4 mr-2" />
+                          Cite
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-lg">
+                        <DialogHeader>
+                          <DialogTitle>Cite {cite.number}: {cite.title}</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          {(["apa", "chicago", "mla"] as CitationFormat[]).map((format) => (
+                            <div key={format} className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm font-medium uppercase">{format}</span>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleCopyCitation(cite[format], `${docId}-${format}`)}
+                                  data-testid={`button-copy-cite-primary-${docId}-${format}`}
+                                >
+                                  {copiedFormat === `${docId}-${format}` ? (
+                                    <Check className="w-4 h-4 text-green-500" />
+                                  ) : (
+                                    <Copy className="w-4 h-4" />
+                                  )}
+                                </Button>
+                              </div>
+                              <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md font-mono text-xs leading-relaxed">
+                                {cite[format]}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      asChild
+                      data-testid={`button-download-${docId}`}
+                    >
+                      <a href={hrefs[docId]} download>
+                        <Download className="w-4 h-4 mr-2" />
+                        Download
+                      </a>
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 

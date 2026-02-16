@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database, Quote, Copy, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useTrackClick } from "@/App";
+import { useToast } from "@/hooks/use-toast";
 
 const seriesPapers = [
   {
@@ -16,7 +19,12 @@ const seriesPapers = [
     icon: FileText,
     href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx",
     version: "v1",
-    date: "February 2026"
+    date: "February 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+      chicago: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+      mla: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+    }
   },
   {
     id: "cmgf-02",
@@ -27,7 +35,12 @@ const seriesPapers = [
     icon: Shield,
     href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx",
     version: "v1",
-    date: "February 2026"
+    date: "February 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+      chicago: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+      mla: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+    }
   },
   {
     id: "cmgf-03",
@@ -38,7 +51,12 @@ const seriesPapers = [
     icon: Database,
     href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx",
     version: "v1",
-    date: "February 2026"
+    date: "February 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+      chicago: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+      mla: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+    }
   }
 ];
 
@@ -87,9 +105,23 @@ const supplementalDocuments = [
   }
 ];
 
+type CitationFormat = "apa" | "chicago" | "mla";
+
 export default function Downloads() {
+  const { toast } = useToast();
+  const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
   const trackPaperDownload = useTrackClick("paper_downloads");
   const trackDemoLaunch = useTrackClick("demo_launches");
+
+  const handleCopyCitation = (text: string, format: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedFormat(format);
+    toast({
+      title: "Citation copied",
+      description: `${format.split("-").pop()?.toUpperCase()} format copied to clipboard`,
+    });
+    setTimeout(() => setCopiedFormat(null), 2000);
+  };
   return (
     <div className="min-h-screen bg-background">
       <CMGFNav />
@@ -137,12 +169,51 @@ export default function Downloads() {
                             <span>{doc.date}</span>
                           </div>
                         </div>
-                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
-                          <a href={doc.href} download onClick={trackPaperDownload}>
-                            <Download className="h-4 w-4 mr-2" />
-                            Download
-                          </a>
-                        </Button>
+                        <div className="flex items-center gap-2 flex-wrap ml-auto">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" size="sm" data-testid={`button-cite-download-${doc.id}`}>
+                                <Quote className="h-4 w-4 mr-2" />
+                                Cite
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-lg">
+                              <DialogHeader>
+                                <DialogTitle>Cite {doc.number}: {doc.title}</DialogTitle>
+                              </DialogHeader>
+                              <div className="space-y-4">
+                                {(["apa", "chicago", "mla"] as CitationFormat[]).map((format) => (
+                                  <div key={format} className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-sm font-medium uppercase">{format}</span>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => handleCopyCitation(doc.citations[format], `${doc.id}-${format}`)}
+                                        data-testid={`button-copy-cite-download-${doc.id}-${format}`}
+                                      >
+                                        {copiedFormat === `${doc.id}-${format}` ? (
+                                          <Check className="h-4 w-4 text-green-500" />
+                                        ) : (
+                                          <Copy className="h-4 w-4" />
+                                        )}
+                                      </Button>
+                                    </div>
+                                    <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md font-mono text-xs leading-relaxed">
+                                      {doc.citations[format]}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                          <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                            <a href={doc.href} download onClick={trackPaperDownload}>
+                              <Download className="h-4 w-4 mr-2" />
+                              Download
+                            </a>
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
