@@ -4,18 +4,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 import { useTrackEvent, useTrackClick } from "@/App";
 
-const canonicalDocuments = [
+const seriesPapers = [
   {
-    id: "paper",
-    title: "CMGF Paper Consolidated",
-    description: "Original consolidated research paper — now superseded by the CMGF Series 2026 three-part architecture.",
+    id: "cmgf-01",
+    number: "CMGF-01",
+    title: "Executive White Paper",
+    description: "Governance-first architecture for military transition advising.",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx"
+    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx"
+  },
+  {
+    id: "cmgf-02",
+    number: "CMGF-02",
+    title: "Policy & Governance Architecture",
+    description: "Authority structures, non-use guardrails, and federal AI alignment.",
+    icon: Shield,
+    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx"
+  },
+  {
+    id: "cmgf-03",
+    number: "CMGF-03",
+    title: "Data Flow & Signal Provenance",
+    description: "Constraint binding, authority tagging, and audit logging.",
+    icon: Database,
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx"
   }
 ];
 
@@ -237,16 +254,19 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Reference Documents</h2>
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Primary Documents</h2>
           <div className="grid gap-4 md:grid-cols-3">
-            {canonicalDocuments.map((doc) => (
-              <Card key={doc.id} className="border-border/50" data-testid={`card-canon-doc-${doc.id}`}>
+            {seriesPapers.map((doc) => (
+              <Card key={doc.id} className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent" data-testid={`card-canon-doc-${doc.id}`}>
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                      <doc.icon className="h-6 w-6 text-muted-foreground" />
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <Badge variant="default" className="font-mono text-xs">{doc.number}</Badge>
+                      </div>
                       <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
                       <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
                       <Button variant="outline" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
@@ -260,6 +280,8 @@ export default function CMGFRoot() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 mt-4">
             <Card className="border-border/50" data-testid="card-canon-doc-nist">
               <CardContent className="p-5">
                 <div className="flex items-start gap-4">

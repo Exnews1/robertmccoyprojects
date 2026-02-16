@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FileText, Download, ExternalLink, BookOpen, FileCode, Award, Star, Presentation } from "lucide-react";
+import { FileText, Download, ExternalLink, BookOpen, FileCode, Award, Star, Presentation, Shield, Database } from "lucide-react";
 
 export default function References() {
   const { data: publications, isLoading } = useQuery<Publication[]>({
@@ -149,47 +149,49 @@ export default function References() {
         </div>
       </section>
 
-      {/* PRIMARY DOCUMENTS - Paper and Presentation */}
+      {/* PRIMARY DOCUMENTS - CMGF Series 2026 and Presentation */}
       <section className="space-y-4">
         <div className="flex items-center gap-3">
           <Star className="w-5 h-5 text-slate-400/80" />
           <h2 className="text-xl font-bold tracking-tight">Primary Documents</h2>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          {[
+            { id: "cmgf-01", number: "CMGF-01", title: "Executive White Paper", desc: "Governance-first architecture for military transition advising.", icon: FileText, href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx" },
+            { id: "cmgf-02", number: "CMGF-02", title: "Policy & Governance Architecture", desc: "Authority structures, non-use guardrails, and federal AI alignment.", icon: Shield, href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx" },
+            { id: "cmgf-03", number: "CMGF-03", title: "Data Flow & Signal Provenance", desc: "Constraint binding, authority tagging, and audit logging.", icon: Database, href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx" }
+          ].map((doc) => (
+            <Card key={doc.id} className="high-tech-card border-primary/40" data-testid={`card-primary-${doc.id}`}>
+              <CardContent className="p-6">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
+                      <doc.icon className="w-3 h-3 mr-1" /> {doc.number}
+                    </Badge>
+                  </div>
+                  <h3 className="text-base font-bold text-foreground leading-tight">{doc.title}</h3>
+                  <p className="text-sm text-muted-foreground">{doc.desc}</p>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Award className="w-3 h-3" />
+                    <span>Robert E. McCoy (2026)</span>
+                  </div>
+                  <Button
+                    variant="default"
+                    className="w-full mt-1"
+                    asChild
+                    data-testid={`button-download-${doc.id}`}
+                  >
+                    <a href={doc.href} download>
+                      <Download className="w-4 h-4 mr-2" />
+                      Download (DOCX)
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="high-tech-card border-primary/40" data-testid="card-primary-paper">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-                    <FileText className="w-3 h-3 mr-1" /> CMGF Paper Consolidated
-                  </Badge>
-                  <Badge className="bg-slate-500/20 text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-                    <Star className="w-3 h-3 mr-1" /> Featured
-                  </Badge>
-                </div>
-                <h3 className="text-lg font-bold text-foreground leading-tight">
-                  A Governed, Human-in-the-Loop AI Framework for Military Career Mobility
-                </h3>
-                <p className="text-sm text-muted-foreground">Design, Constraints, and Ethical Tradeoffs</p>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Award className="w-3 h-3" />
-                  <span>Robert E. McCoy, MBA, M.S. AI & Data Analytics</span>
-                </div>
-                <p className="text-xs text-muted-foreground">Indiana Wesleyan University</p>
-                <Button
-                  variant="default"
-                  className="w-full mt-2"
-                  asChild
-                  data-testid="button-download-primary-paper"
-                >
-                  <a href="/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx" download target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Paper (DOCX)
-                  </a>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
 
           <Card className="high-tech-card border-slate-500/30" data-testid="card-primary-presentation">
             <CardContent className="p-6">

@@ -1,4 +1,4 @@
-import { Home, FileText, BarChart2, Shield, BookOpen, Download, Presentation, ExternalLink } from "lucide-react";
+import { Home, FileText, BarChart2, Shield, BookOpen, Download, ExternalLink, Database } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -55,15 +55,15 @@ export function AppSidebar() {
           <SidebarGroupContent className="px-3 space-y-2">
             <Button
               variant="outline"
-              className="w-full justify-start gap-2 h-auto py-3 px-3 border-slate-500/30 bg-slate-500/5"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
               asChild
-              data-testid="sidebar-download-paper"
+              data-testid="sidebar-download-cmgf-01"
             >
-              <a href="/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx" download>
-                <Download className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <a href="/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx" download>
+                <FileText className="w-4 h-4 text-primary" />
                 <div className="text-left">
-                  <div className="text-xs font-semibold">CMGF Paper Consolidated</div>
-                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - Artifact</div>
+                  <div className="text-xs font-semibold">CMGF-01 Executive White Paper</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
                 </div>
               </a>
             </Button>
@@ -71,13 +71,27 @@ export function AppSidebar() {
               variant="outline"
               className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
               asChild
-              data-testid="sidebar-download-presentation"
+              data-testid="sidebar-download-cmgf-02"
             >
-              <a href="/attached_assets/CCME_2026_Main.pdf" download>
-                <Presentation className="w-4 h-4 text-primary" />
+              <a href="/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx" download>
+                <Shield className="w-4 h-4 text-primary" />
                 <div className="text-left">
-                  <div className="text-xs font-semibold">CCME 2026 Slides</div>
-                  <div className="text-[10px] text-muted-foreground">Presentation - PDF</div>
+                  <div className="text-xs font-semibold">CMGF-02 Policy & Governance</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
+              asChild
+              data-testid="sidebar-download-cmgf-03"
+            >
+              <a href="/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx" download>
+                <Database className="w-4 h-4 text-primary" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">CMGF-03 Data Flow & Provenance</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
                 </div>
               </a>
             </Button>

@@ -1,16 +1,52 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
+import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useTrackClick } from "@/App";
 
-const documents = [
+const seriesPapers = [
+  {
+    id: "cmgf-01",
+    number: "CMGF-01",
+    title: "Executive White Paper",
+    description: "A governance-first architecture for military transition advising. Strategic overview of the fragmentation challenge and constrained AI as a binding layer.",
+    type: "DOCX",
+    icon: FileText,
+    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx",
+    version: "v1",
+    date: "February 2026"
+  },
+  {
+    id: "cmgf-02",
+    number: "CMGF-02",
+    title: "Policy & Governance Architecture Brief",
+    description: "Authority structures, non-use guardrails, adoption controls, and alignment with federal AI risk management guidance.",
+    type: "DOCX",
+    icon: Shield,
+    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx",
+    version: "v1",
+    date: "February 2026"
+  },
+  {
+    id: "cmgf-03",
+    number: "CMGF-03",
+    title: "Data Flow & Signal Provenance Brief",
+    description: "Deterministic constraint binding, authority tagging, signal provenance controls, audit logging, and non-predictive system boundaries.",
+    type: "DOCX",
+    icon: Database,
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx",
+    version: "v1",
+    date: "February 2026"
+  }
+];
+
+const supplementalDocuments = [
   {
     id: "paper",
     title: "CMGF Paper Consolidated",
-    description: "Original consolidated research paper — now superseded by the CMGF Series 2026 three-part architecture. Retained as a reference artifact.",
+    description: "Original consolidated research paper — superseded by the CMGF Series 2026 three-part architecture. Retained as a reference artifact.",
     type: "DOCX",
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx",
@@ -77,6 +113,45 @@ export default function Downloads() {
           </p>
         </header>
 
+        <section className="mb-10">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">CMGF Series 2026</h2>
+          <div className="space-y-4">
+            {seriesPapers.map((doc) => (
+              <Card key={doc.id} className="border-primary/40 bg-gradient-to-br from-primary/5 to-transparent" data-testid={`card-download-${doc.id}`}>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4 flex-wrap">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                            <Badge variant="default" className="font-mono text-xs">{doc.number}</Badge>
+                            <span className="font-semibold text-foreground">{doc.title}</span>
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
+                          <div className="flex items-center gap-4 flex-wrap text-xs text-muted-foreground">
+                            <span className="font-mono bg-muted px-2 py-0.5 rounded">{doc.type}</span>
+                            <span>Version {doc.version}</span>
+                            <span>{doc.date}</span>
+                          </div>
+                        </div>
+                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                          <a href={doc.href} download onClick={trackPaperDownload}>
+                            <Download className="h-4 w-4 mr-2" />
+                            Download
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         <Card className="mb-8 border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo-downloads">
           <CardContent className="p-6">
             <div className="flex flex-col md:flex-row md:items-center gap-6">
@@ -104,38 +179,41 @@ export default function Downloads() {
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
-          {documents.map((doc) => (
-            <Card key={doc.id} className="border-border/50" data-testid={`card-download-${doc.id}`}>
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <doc.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-4 flex-wrap">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
-                        <div className="flex items-center gap-4 flex-wrap text-xs text-muted-foreground">
-                          <span className="font-mono bg-muted px-2 py-0.5 rounded">{doc.type}</span>
-                          <span>Version {doc.version}</span>
-                          <span>{doc.date}</span>
+        <section>
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Supplemental Documents</h2>
+          <div className="space-y-4">
+            {supplementalDocuments.map((doc) => (
+              <Card key={doc.id} className="border-border/50" data-testid={`card-download-${doc.id}`}>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-muted-foreground" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4 flex-wrap">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
+                          <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
+                          <div className="flex items-center gap-4 flex-wrap text-xs text-muted-foreground">
+                            <span className="font-mono bg-muted px-2 py-0.5 rounded">{doc.type}</span>
+                            <span>Version {doc.version}</span>
+                            <span>{doc.date}</span>
+                          </div>
                         </div>
-                      </div>
-                      <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
+                        <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
                           <a href={doc.href} {...((doc as any).external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })} onClick={!(doc as any).external ? trackPaperDownload : undefined}>
                             {(doc as any).external ? <ExternalLink className="h-4 w-4 mr-2" /> : <Download className="h-4 w-4 mr-2" />}
                             {(doc as any).external ? "View" : "Download"}
                           </a>
                         </Button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
         <Card className="mt-8 border-primary/20 bg-primary/5">
           <CardContent className="p-6">
