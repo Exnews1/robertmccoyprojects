@@ -11,8 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 const canonicalDocuments = [
   {
     id: "paper",
-    title: "CMGF Research Paper",
-    description: "Complete research paper with system architecture and implementation guidance",
+    title: "CMGF Paper Consolidated",
+    description: "Original consolidated research paper — now superseded by the CMGF Series 2026 three-part architecture.",
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx"
   }
@@ -25,14 +25,6 @@ const sections = [
     description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
     icon: Search,
     route: "/cmgf/explorer",
-    featured: true
-  },
-  {
-    id: "series",
-    title: "CMGF Series 2026",
-    description: "Three-part architectural framework: Executive White Paper, Policy & Governance Architecture, Data Flow & Signal Provenance.",
-    icon: Library,
-    route: "/cmgf/series",
     featured: true
   },
   {
@@ -213,22 +205,50 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
-          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Download Research Documents</h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-series">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Library className="h-8 w-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h3 className="text-xl font-bold text-foreground">CMGF Series 2026</h3>
+                    <Badge variant="default" className="text-xs">PRIMARY</Badge>
+                    <Badge variant="outline" className="text-xs">3-Part Architecture</Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    The authoritative three-part architectural framework: Executive White Paper, Policy & Governance Architecture Brief, and Data Flow & Signal Provenance Brief. Supersedes the consolidated research paper.
+                  </p>
+                  <Button size="default" asChild data-testid="button-enter-series">
+                    <Link href="/cmgf/series">
+                      <ArrowRight className="h-4 w-4 mr-2" />
+                      Enter Series
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="mb-10">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Reference Documents</h2>
+          <div className="grid gap-4 md:grid-cols-3">
             {canonicalDocuments.map((doc) => (
-              <Card key={doc.id} className="border-primary/20 bg-primary/5" data-testid={`card-canon-doc-${doc.id}`}>
+              <Card key={doc.id} className="border-border/50" data-testid={`card-canon-doc-${doc.id}`}>
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/15 flex items-center justify-center flex-shrink-0">
-                      <doc.icon className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                      <doc.icon className="h-6 w-6 text-muted-foreground" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
                       <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
-                      <Button variant="default" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
+                      <Button variant="outline" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
                         <a href={doc.href} download>
                           <Download className="h-4 w-4 mr-2" />
-                          Download PDF
+                          Download
                         </a>
                       </Button>
                     </div>

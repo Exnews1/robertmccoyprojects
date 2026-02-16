@@ -8,8 +8,8 @@ import { CMGFNav } from "@/components/cmgf-nav";
 const documents = [
   {
     id: "paper",
-    title: "CMGF Research Paper",
-    description: "Complete research paper detailing the Career Mobility Governance Framework. Includes system architecture, ethical constraints, and implementation guidance.",
+    title: "CMGF Paper Consolidated",
+    description: "Original consolidated research paper — now superseded by the CMGF Series 2026 three-part architecture. Retained as a reference artifact.",
     type: "DOCX",
     icon: FileText,
     href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx",

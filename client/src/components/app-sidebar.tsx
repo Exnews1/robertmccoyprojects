@@ -62,8 +62,8 @@ export function AppSidebar() {
               <a href="/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx" download>
                 <Download className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                 <div className="text-left">
-                  <div className="text-xs font-semibold">CMGF Paper</div>
-                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
+                  <div className="text-xs font-semibold">CMGF Paper Consolidated</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - Artifact</div>
                 </div>
               </a>
             </Button>

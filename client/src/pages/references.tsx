@@ -161,7 +161,7 @@ export default function References() {
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-                    <FileText className="w-3 h-3 mr-1" /> CMGF Paper
+                    <FileText className="w-3 h-3 mr-1" /> CMGF Paper Consolidated
                   </Badge>
                   <Badge className="bg-slate-500/20 text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                     <Star className="w-3 h-3 mr-1" /> Featured
