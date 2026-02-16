@@ -132,7 +132,7 @@ export default function CMGFSeries() {
                       <span className="text-xs text-muted-foreground/60">
                         Prepared for: {doc.audience}
                       </span>
-                      <div className="flex items-center gap-2 flex-wrap">
+                      <div className="flex items-center gap-2 flex-wrap ml-auto">
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button variant="outline" size="sm" data-testid={`button-cite-${doc.id}`}>
