@@ -16,7 +16,7 @@ const seriesPapers = [
     title: "Executive White Paper",
     description: "Governance-first architecture for military transition advising.",
     icon: FileText,
-    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx",
+    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771217538094.docx",
     citations: {
       apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
       chicago: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
@@ -29,7 +29,7 @@ const seriesPapers = [
     title: "Policy & Governance Architecture",
     description: "Authority structures, non-use guardrails, and federal AI alignment.",
     icon: Shield,
-    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx",
+    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771217538094.docx",
     citations: {
       apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
       chicago: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
@@ -42,7 +42,7 @@ const seriesPapers = [
     title: "Data Flow & Signal Provenance",
     description: "Constraint binding, authority tagging, and audit logging.",
     icon: Database,
-    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx",
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771217538095.docx",
     citations: {
       apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
       chicago: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,

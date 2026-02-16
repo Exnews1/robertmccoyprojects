@@ -17,7 +17,7 @@ const seriesPapers = [
     description: "A governance-first architecture for military transition advising. Strategic overview of the fragmentation challenge and constrained AI as a binding layer.",
     type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771199739009.docx",
+    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771217538094.docx",
     version: "v1",
     date: "February 2026",
     citations: {
@@ -33,7 +33,7 @@ const seriesPapers = [
     description: "Authority structures, non-use guardrails, adoption controls, and alignment with federal AI risk management guidance.",
     type: "DOCX",
     icon: Shield,
-    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771199739009.docx",
+    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771217538094.docx",
     version: "v1",
     date: "February 2026",
     citations: {
@@ -49,7 +49,7 @@ const seriesPapers = [
     description: "Deterministic constraint binding, authority tagging, signal provenance controls, audit logging, and non-predictive system boundaries.",
     type: "DOCX",
     icon: Database,
-    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771199739009.docx",
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771217538095.docx",
     version: "v1",
     date: "February 2026",
     citations: {
