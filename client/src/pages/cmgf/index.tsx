@@ -264,7 +264,7 @@ export default function CMGFRoot() {
                     <Badge variant="outline" className="text-xs">3-Part Architecture</Badge>
                   </div>
                   <p className="text-muted-foreground mb-4">
-                    The authoritative three-part architectural framework: Executive White Paper, Policy & Governance Architecture Brief, and Data Flow & Signal Provenance Brief. Supersedes the consolidated research paper.
+                    The authoritative three-part architectural framework: Executive White Paper, Policy & Governance Architecture Brief, and Data Flow & Signal Provenance Brief. Derived from the CMGF-00 Master Framework scholarly foundation.
                   </p>
                   <Button size="default" asChild data-testid="button-enter-series">
                     <Link href="/cmgf/series">

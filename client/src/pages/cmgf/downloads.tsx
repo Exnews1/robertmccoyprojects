@@ -62,12 +62,12 @@ const seriesPapers = [
 
 const supplementalDocuments = [
   {
-    id: "paper",
-    title: "CMGF Paper Consolidated",
-    description: "Original consolidated research paper — superseded by the CMGF Series 2026 three-part architecture. Retained as a reference artifact.",
+    id: "cmgf-00",
+    title: "CMGF-00 Master Framework — Scholarly Foundation",
+    description: "The original consolidated research paper providing the scholarly foundation for the CMGF Series 2026 three-part architecture.",
     type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/Career_Mobility_2026__CCME_v4_1770726274664.docx",
+    href: "/attached_assets/CMGF-00_Master_Framework_-_Scholarly_Foundation_1771217538095.docx",
     version: "v4",
     date: "February 2026"
   },

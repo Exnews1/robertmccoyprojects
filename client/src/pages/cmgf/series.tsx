@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, ChevronRight, FileText, Shield, Database, ArrowRight, Quote, Copy, Check } from "lucide-react";
+import { Download, ChevronRight, FileText, Shield, Database, ArrowRight, Quote, Copy, Check, BookOpen } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
 
@@ -184,6 +184,89 @@ export default function CMGFSeries() {
             </Card>
           ))}
         </div>
+
+        <section className="mb-12">
+          <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Scholarly Foundation</h2>
+          <Card className="border-border/50" data-testid="card-series-cmgf-00">
+            <CardContent className="p-6">
+              <div className="flex items-start gap-5">
+                <div className="w-14 h-14 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="h-7 w-7 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 flex-wrap mb-2">
+                    <Badge variant="outline" className="font-mono text-xs">CMGF-00</Badge>
+                    <span className="text-xs text-muted-foreground">DOCX</span>
+                  </div>
+                  <h2 className="text-xl font-bold text-foreground mb-1" data-testid="title-cmgf-00">
+                    Master Framework — Scholarly Foundation
+                  </h2>
+                  <p className="text-sm text-muted-foreground/80 italic mb-3">The Original Consolidated Research Paper</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    The full scholarly foundation for the CMGF Series 2026. This consolidated research paper provides the literature review, methodology, empirical analysis, and policy synthesis from which the three-part architectural framework was derived. Includes 797 peer-reviewed sources, case examples, and technical appendices.
+                  </p>
+                  <div className="flex items-center justify-between gap-4 flex-wrap">
+                    <span className="text-xs text-muted-foreground/60">
+                      Prepared for: CCME 2026 Learner Track 1
+                    </span>
+                    <div className="flex items-center gap-2 flex-wrap ml-auto">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" size="sm" data-testid="button-cite-cmgf-00">
+                            <Quote className="h-4 w-4 mr-2" />
+                            Cite
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-lg">
+                          <DialogHeader>
+                            <DialogTitle>Cite CMGF-00: Master Framework</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            {(["apa", "chicago", "mla"] as CitationFormat[]).map((format) => {
+                              const citations = {
+                                apa: `McCoy, R. E. (2026). Career mobility governance framework: An AI-governance framework for military transition advising (CMGF-00). A response to the 2026 CCME Learner Track 1. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
+                                chicago: `McCoy, Robert E. "Career Mobility Governance Framework: An AI-Governance Framework for Military Transition Advising." CMGF-00, A Response to the 2026 CCME Learner Track 1. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
+                                mla: `McCoy, Robert E. "Career Mobility Governance Framework: An AI-Governance Framework for Military Transition Advising." CMGF-00, A Response to the 2026 CCME Learner Track 1, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+                              };
+                              return (
+                                <div key={format} className="space-y-2">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-sm font-medium uppercase">{format}</span>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => handleCopyCitation(citations[format], `cmgf-00-${format}`)}
+                                      data-testid={`button-copy-cite-cmgf-00-${format}`}
+                                    >
+                                      {copiedFormat === `cmgf-00-${format}` ? (
+                                        <Check className="h-4 w-4 text-green-500" />
+                                      ) : (
+                                        <Copy className="h-4 w-4" />
+                                      )}
+                                    </Button>
+                                  </div>
+                                  <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md font-mono text-xs leading-relaxed">
+                                    {citations[format]}
+                                  </p>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                      <Button variant="outline" size="sm" asChild data-testid="button-download-cmgf-00">
+                        <a href="/attached_assets/CMGF-00_Master_Framework_-_Scholarly_Foundation_1771217538095.docx" download>
+                          <Download className="h-4 w-4 mr-2" />
+                          Download
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
 
         <Card className="border-border/30 bg-muted/30" data-testid="card-series-disclaimer">
           <CardContent className="p-6">
