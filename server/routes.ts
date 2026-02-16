@@ -435,5 +435,30 @@ Rules:
     res.json({ count });
   });
 
+  const validStatKeys = ["root_visits", "demo_launches", "paper_downloads", "cmgf_visits"];
+
+  app.get("/api/stats", async (_req: any, res: any) => {
+    const stats = await storage.getAllStats();
+    res.json(stats);
+  });
+
+  app.get("/api/stats/:key", async (req: any, res: any) => {
+    const { key } = req.params;
+    if (!validStatKeys.includes(key)) {
+      return res.status(400).json({ error: "Invalid stat key" });
+    }
+    const count = await storage.getStatCount(key);
+    res.json({ key, count });
+  });
+
+  app.post("/api/stats/:key", async (req: any, res: any) => {
+    const { key } = req.params;
+    if (!validStatKeys.includes(key)) {
+      return res.status(400).json({ error: "Invalid stat key" });
+    }
+    const count = await storage.incrementStatCount(key);
+    res.json({ key, count });
+  });
+
   return app;
 }

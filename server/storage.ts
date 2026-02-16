@@ -48,6 +48,9 @@ export interface IStorage {
 
   getVisitorCount(): Promise<number>;
   incrementVisitorCount(): Promise<number>;
+  getStatCount(key: string): Promise<number>;
+  incrementStatCount(key: string): Promise<number>;
+  getAllStats(): Promise<Record<string, number>>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -161,15 +164,33 @@ export class DatabaseStorage implements IStorage {
   }
 
   async incrementVisitorCount(): Promise<number> {
-    const [existing] = await db.select().from(siteStats).where(eq(siteStats.key, 'visitors'));
+    return this.incrementStatCount('visitors');
+  }
+
+  async getStatCount(key: string): Promise<number> {
+    const [stat] = await db.select().from(siteStats).where(eq(siteStats.key, key));
+    return stat?.value || 0;
+  }
+
+  async incrementStatCount(key: string): Promise<number> {
+    const [existing] = await db.select().from(siteStats).where(eq(siteStats.key, key));
     if (existing) {
       const newValue = existing.value + 1;
-      await db.update(siteStats).set({ value: newValue, updatedAt: new Date() }).where(eq(siteStats.key, 'visitors'));
+      await db.update(siteStats).set({ value: newValue, updatedAt: new Date() }).where(eq(siteStats.key, key));
       return newValue;
     } else {
-      await db.insert(siteStats).values({ key: 'visitors', value: 1 });
+      await db.insert(siteStats).values({ key, value: 1 });
       return 1;
     }
+  }
+
+  async getAllStats(): Promise<Record<string, number>> {
+    const rows = await db.select().from(siteStats);
+    const result: Record<string, number> = {};
+    for (const row of rows) {
+      result[row.key] = row.value;
+    }
+    return result;
   }
 
   async seed() {

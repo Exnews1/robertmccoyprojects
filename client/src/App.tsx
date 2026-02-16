@@ -31,14 +31,34 @@ import OngoingResearch from "@/pages/ongoing-research";
 import References from "@/pages/references";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
-import { useEffect, useRef } from "react";
-import { Users } from "lucide-react";
+import { useEffect, useRef, useCallback } from "react";
+import { Users, Eye, Rocket, FileDown, BookOpen } from "lucide-react";
+
+export function useTrackEvent(key: string) {
+  const hasTracked = useRef(false);
+  useEffect(() => {
+    if (!hasTracked.current) {
+      hasTracked.current = true;
+      apiRequest("POST", `/api/stats/${key}`).catch(() => {});
+    }
+  }, [key]);
+}
+
+export function useTrackClick(key: string) {
+  return useCallback(() => {
+    apiRequest("POST", `/api/stats/${key}`).catch(() => {});
+  }, [key]);
+}
 
 function Footer() {
   const hasTracked = useRef(false);
   
   const { data: visitorData } = useQuery<{ count: number }>({
     queryKey: ["/api/visitors"],
+  });
+
+  const { data: statsData } = useQuery<Record<string, number>>({
+    queryKey: ["/api/stats"],
   });
 
   useEffect(() => {
@@ -58,9 +78,27 @@ function Footer() {
         >
           data@robertmccoyprojects.com
         </a>
-        <div className="flex items-center gap-1.5" data-testid="visitor-counter">
-          <Users className="w-3 h-3" />
-          <span>{visitorData?.count?.toLocaleString() || "—"} visitors</span>
+        <div className="flex items-center gap-4 flex-wrap" data-testid="footer-counters">
+          <div className="flex items-center gap-1.5" data-testid="counter-root-visits">
+            <Eye className="w-3 h-3" />
+            <span>{statsData?.root_visits?.toLocaleString() || "0"}</span>
+          </div>
+          <div className="flex items-center gap-1.5" data-testid="counter-cmgf-visits">
+            <BookOpen className="w-3 h-3" />
+            <span>{statsData?.cmgf_visits?.toLocaleString() || "0"}</span>
+          </div>
+          <div className="flex items-center gap-1.5" data-testid="counter-demo-launches">
+            <Rocket className="w-3 h-3" />
+            <span>{statsData?.demo_launches?.toLocaleString() || "0"}</span>
+          </div>
+          <div className="flex items-center gap-1.5" data-testid="counter-paper-downloads">
+            <FileDown className="w-3 h-3" />
+            <span>{statsData?.paper_downloads?.toLocaleString() || "0"}</span>
+          </div>
+          <div className="flex items-center gap-1.5" data-testid="counter-visitors">
+            <Users className="w-3 h-3" />
+            <span>{visitorData?.count?.toLocaleString() || "0"}</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { useTrackClick } from "@/App";
 
 const documents = [
   {
@@ -51,6 +52,8 @@ const documents = [
 ];
 
 export default function Downloads() {
+  const trackPaperDownload = useTrackClick("paper_downloads");
+  const trackDemoLaunch = useTrackClick("demo_launches");
   return (
     <div className="min-h-screen bg-background">
       <CMGFNav />
@@ -91,7 +94,7 @@ export default function Downloads() {
                   Multi-module platform with Service Member Hub, AI Services, and Advisor Toolkit—featuring governance compliance and human-in-the-loop AI.
                 </p>
                 <Button size="default" asChild data-testid="button-launch-demo-downloads">
-                  <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Launch Demo
                   </a>
@@ -121,7 +124,7 @@ export default function Downloads() {
                         </div>
                       </div>
                       <Button variant="outline" size="sm" className="flex-shrink-0" asChild data-testid={`button-download-${doc.id}`}>
-                          <a href={doc.href} {...((doc as any).external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })}>
+                          <a href={doc.href} {...((doc as any).external ? { target: "_blank", rel: "noopener noreferrer" } : { download: true })} onClick={!(doc as any).external ? trackPaperDownload : undefined}>
                             {(doc as any).external ? <ExternalLink className="h-4 w-4 mr-2" /> : <Download className="h-4 w-4 mr-2" />}
                             {(doc as any).external ? "View" : "Download"}
                           </a>

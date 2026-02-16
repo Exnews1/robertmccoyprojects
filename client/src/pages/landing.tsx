@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { useTrackEvent } from "@/App";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -103,6 +104,7 @@ const knowledgeSystems = [
 ];
 
 export default function Landing() {
+  useTrackEvent("root_visits");
   return (
     <div className="p-8 space-y-12 max-w-7xl mx-auto">
       

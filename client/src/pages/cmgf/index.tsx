@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useToast } from "@/hooks/use-toast";
+import { useTrackEvent, useTrackClick } from "@/App";
 
 const canonicalDocuments = [
   {
@@ -76,6 +77,9 @@ const citationFormats = {
 export default function CMGFRoot() {
   const { toast } = useToast();
   const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+  useTrackEvent("cmgf_visits");
+  const trackDemoLaunch = useTrackClick("demo_launches");
+  const trackPaperDownload = useTrackClick("paper_downloads");
 
   const handleCopyCitation = (format: keyof typeof citationFormats) => {
     navigator.clipboard.writeText(citationFormats[format]);
@@ -193,7 +197,7 @@ export default function CMGFRoot() {
                     Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
                   </p>
                   <Button size="default" asChild data-testid="button-launch-cmgf-demo">
-                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
+                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Launch Demo
                     </a>
@@ -246,7 +250,7 @@ export default function CMGFRoot() {
                       <h3 className="font-semibold text-foreground mb-1">{doc.title}</h3>
                       <p className="text-sm text-muted-foreground mb-3">{doc.description}</p>
                       <Button variant="outline" size="sm" asChild data-testid={`button-canon-download-${doc.id}`}>
-                        <a href={doc.href} download>
+                        <a href={doc.href} download onClick={trackPaperDownload}>
                           <Download className="h-4 w-4 mr-2" />
                           Download
                         </a>
