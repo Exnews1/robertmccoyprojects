@@ -7,6 +7,7 @@ const navItems = [
   { href: "/cmgf/five-pillars", label: "Five Pillars", icon: Layers, external: false },
   { href: "/explorer", label: "Reference Explorer", icon: Search, external: false },
   { href: "https://cmgfdemo.robertmccoyprojects.com", label: "Walkthrough", icon: ExternalLink, external: true },
+  { href: "/cmgf/series", label: "Series 2026", icon: Layers, external: false },
   { href: "/cmgf/downloads", label: "Downloads", icon: Download, external: false },
   { href: "/cmgf/library", label: "Library", icon: Library, external: false },
 ];

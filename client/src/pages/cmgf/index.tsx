@@ -28,6 +28,14 @@ const sections = [
     featured: true
   },
   {
+    id: "series",
+    title: "CMGF Series 2026",
+    description: "Three-part architectural framework: Executive White Paper, Policy & Governance Architecture, Data Flow & Signal Provenance.",
+    icon: Library,
+    route: "/cmgf/series",
+    featured: true
+  },
+  {
     id: "engagement",
     title: "Interactive Engagement",
     description: "Explore the CMGF research paper through document-grounded inquiry and submit considered expert commentary.",
@@ -301,7 +309,7 @@ export default function CMGFRoot() {
                       {section.description}
                     </CardDescription>
                     <div className="flex items-center text-sm text-primary group-hover:translate-x-1 transition-transform">
-                      <span>{isExternal ? "Launch Demo" : (section as any).featured ? "Launch Demo" : "Enter"}</span>
+                      <span>{isExternal ? "Launch Demo" : "Enter"}</span>
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
                   </CardContent>

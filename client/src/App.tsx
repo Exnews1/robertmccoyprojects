@@ -8,6 +8,7 @@ import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import CMGFRoot from "@/pages/cmgf/index";
 import Downloads from "@/pages/cmgf/downloads";
+import CMGFSeries from "@/pages/cmgf/series";
 import Walkthrough from "@/pages/cmgf/walkthrough/index";
 import PartA from "@/pages/cmgf/walkthrough/part-a";
 import PartB from "@/pages/cmgf/walkthrough/part-b";
@@ -72,6 +73,7 @@ function Router() {
       <Route path="/" component={Landing} />
       <Route path="/research" component={Home} />
       <Route path="/cmgf" component={CMGFRoot} />
+      <Route path="/cmgf/series" component={CMGFSeries} />
       <Route path="/cmgf/downloads" component={Downloads} />
       <Route path="/cmgf/walkthrough" component={Walkthrough} />
       <Route path="/cmgf/walkthrough/part-a" component={PartA} />

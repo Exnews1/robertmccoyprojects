@@ -51,6 +51,14 @@ The Five Pillars page at `/cmgf/five-pillars` organizes 797 peer-reviewed source
 - **Features**: Accessible accordion UI, search filtering, external DOI links
 - **Data Source**: library_entries table with topics array containing pillar assignments
 
+### CMGF Series 2026
+The CMGF Series page at `/cmgf/series` presents the three-part architectural framework:
+- **CMGF-01**: Executive White Paper — strategic overview of fragmentation and governance-first architecture
+- **CMGF-02**: Policy & Governance Architecture Brief — authority structures, non-use guardrails, federal AI alignment
+- **CMGF-03**: Data Flow & Signal Provenance Brief — deterministic constraint binding, authority tagging, audit logging
+- **Downloads**: All three DOCX files available for download
+- **Navigation**: Linked from CMGF nav bar, CMGF index sections grid
+
 ### Reference Explorer (RAG Feature)
 The Reference Explorer at `/explorer` provides grounded Q&A over the research library:
 - **Semantic Search**: Uses OpenAI embeddings (text-embedding-3-small) for similarity matching
