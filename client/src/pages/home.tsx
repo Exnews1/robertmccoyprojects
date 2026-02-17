@@ -51,7 +51,7 @@ export default function Home() {
               CMGF-00 Scholarly Foundation (DOCX)
             </a>
             <a
-              href="/attached_assets/CCME_2026_1767730819889.pdf"
+              href="/attached_assets/CCME_DEMO_LEAD_1771336462965.pdf"
               download
               className="inline-flex items-center gap-2 px-5 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors"
               data-testid="hero-download-presentation"

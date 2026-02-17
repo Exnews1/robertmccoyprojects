@@ -77,7 +77,7 @@ const supplementalDocuments = [
     description: "Conference presentation slides for the Career Mobility Governance Framework. Prepared for the Council of College and Military Educators.",
     type: "PDF",
     icon: BookOpen,
-    href: "/attached_assets/CCME-CMGF_1770017672179.pdf",
+    href: "/attached_assets/CCME_DEMO_LEAD_1771336462965.pdf",
     version: "v1",
     date: "February 2026"
   },
