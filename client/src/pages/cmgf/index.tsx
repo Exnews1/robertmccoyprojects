@@ -345,7 +345,26 @@ export default function CMGFRoot() {
               </Card>
             ))}
           </div>
-          <div className="grid gap-4 md:grid-cols-2 mt-4">
+          <div className="grid gap-4 md:grid-cols-3 mt-4">
+            <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent" data-testid="card-canon-doc-presentation">
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Presentation className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-foreground mb-1">CCME 2026 Presentation</h3>
+                    <p className="text-sm text-muted-foreground mb-3">CMGF conference presentation — CCME 2026 Learner Track 1.</p>
+                    <Button variant="outline" size="sm" asChild data-testid="button-canon-download-presentation">
+                      <a href="/attached_assets/CCME_DEMO_LEAD_1771336462965.pdf" download onClick={trackPaperDownload}>
+                        <Download className="h-4 w-4 mr-2" />
+                        Download PDF
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
             <Card className="border-border/50" data-testid="card-canon-doc-nist">
               <CardContent className="p-5">
                 <div className="flex items-start gap-4">
