@@ -130,7 +130,7 @@ function Router() {
       <Route path="/human-capital" component={HumanCapitalFramework} />
       <Route path="/ai-types" component={AITypes} />
       <Route path="/workforce-ai" component={WorkforceAI} />
-      <Route path="/ongoing-research" component={OngoingResearch} />
+      <Route path="/research-portfolio" component={OngoingResearch} />
       <Route path="/references" component={References} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />

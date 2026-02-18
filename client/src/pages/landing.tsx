@@ -47,7 +47,7 @@ const researchAreas = [
   {
     title: "Research & Innovation Portfolio",
     description: "Additional research projects including AI Education, Incarceration Research, and Human Capital frameworks.",
-    route: "/ongoing-research",
+    route: "/research-portfolio",
     icon: Layers
   }
 ];
