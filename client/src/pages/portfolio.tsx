@@ -121,7 +121,7 @@ export default function Portfolio() {
 
         <section className="mb-16" data-testid="section-ongoing-research">
           <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
-            <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Ongoing Research</h2>
+            <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Research & Innovation Portfolio</h2>
             <Link href="/ongoing-research" data-testid="link-view-all-research">
               <Button variant="outline" size="sm">
                 View All Projects

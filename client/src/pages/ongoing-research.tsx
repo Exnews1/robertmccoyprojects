@@ -85,7 +85,7 @@ export default function OngoingResearch() {
         </Link>
 
         <header className="mb-12">
-          <h1 className="text-3xl font-bold text-foreground mb-4">Ongoing Research</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-4">Research & Innovation Portfolio</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             Additional research projects exploring AI governance, education futures, workforce readiness, and institutional systems analysis.
           </p>
