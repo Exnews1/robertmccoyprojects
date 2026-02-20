@@ -233,6 +233,30 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
+          <Link href="/cmgf/dashboard">
+            <Card className="border-border/50 hover-elevate cursor-pointer" data-testid="card-executive-dashboard">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <BarChart3 className="h-8 w-8 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <h3 className="text-xl font-bold text-foreground">Executive Dashboard</h3>
+                      <Badge variant="outline" className="text-xs">System Overview</Badge>
+                    </div>
+                    <p className="text-muted-foreground">
+                      Compliance metrics, research foundation statistics, activity tracking, and three-layer architecture summary across the CMGF system.
+                    </p>
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0 hidden md:block" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </section>
+
+        <section className="mb-10">
           <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo">
             <CardContent className="p-6">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
