@@ -29,6 +29,7 @@ import AITypes from "@/pages/ai-types/index";
 import WorkforceAI from "@/pages/workforce-ai/index";
 import OngoingResearch from "@/pages/ongoing-research";
 import References from "@/pages/references";
+import Bio from "@/pages/bio";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef, useCallback } from "react";
@@ -132,6 +133,7 @@ function Router() {
       <Route path="/workforce-ai" component={WorkforceAI} />
       <Route path="/research-portfolio" component={OngoingResearch} />
       <Route path="/references" component={References} />
+      <Route path="/bio" component={Bio} />
       <Route path="/profile" component={Profile} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
