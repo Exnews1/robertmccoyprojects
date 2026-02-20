@@ -22,6 +22,8 @@ import {
   AreaChart, Area
 } from "recharts";
 import type { ComplianceItem, Framework, LibraryEntry } from "@shared/schema";
+import { ScenarioDemoTab } from "@/components/scenario-demo-tab";
+import { SystemComparisonTab } from "@/components/system-comparison-tab";
 
 const CHART_COLORS = [
   "hsl(210, 70%, 50%)", "hsl(260, 50%, 55%)", "hsl(200, 70%, 50%)",
@@ -260,6 +262,14 @@ export default function Dashboard() {
             <TabsTrigger value="analytics" data-testid="tab-analytics">
               <TrendingUp className="w-4 h-4 mr-2" />
               Analytics
+            </TabsTrigger>
+            <TabsTrigger value="scenario" data-testid="tab-scenario">
+              <Cpu className="w-4 h-4 mr-2" />
+              Scenario Demo
+            </TabsTrigger>
+            <TabsTrigger value="comparison" data-testid="tab-comparison">
+              <Layers className="w-4 h-4 mr-2" />
+              Before vs After
             </TabsTrigger>
           </TabsList>
 
@@ -824,6 +834,14 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="scenario" className="space-y-6">
+            <ScenarioDemoTab />
+          </TabsContent>
+
+          <TabsContent value="comparison" className="space-y-6">
+            <SystemComparisonTab />
           </TabsContent>
         </Tabs>
       </div>
