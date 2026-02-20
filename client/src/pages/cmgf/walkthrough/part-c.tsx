@@ -8,6 +8,7 @@ import {
   TrendingDown, Scale, AlertTriangle, MessageSquare, Shield, ExternalLink
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { PersonaBanner } from "@/components/persona-selector";
 
 const partCPages = [
   {
@@ -163,6 +164,8 @@ export default function PartC() {
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
           <span className="text-foreground">Part C</span>
         </nav>
+
+        <PersonaBanner />
 
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-4">

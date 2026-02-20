@@ -1,0 +1,144 @@
+ou are acting as a senior full-stack engineer working on an existing production prototype.
+
+We are implementing Phase 1 enhancements for the CMGF system.
+
+CRITICAL RULES:
+
+• Do NOT modify or remove any existing working functionality.
+• Treat the current system as stable.
+• Add new components and pages only.
+• All enhancements must be modular and reversible.
+• Prioritize clarity and presentation quality over complexity.
+
+PHASE 1 OBJECTIVES:
+
+Executive Dashboard
+
+Persona Selector for Walkthrough
+
+AI Explain Buttons using existing RAG endpoint
+
+TASK 1 — EXECUTIVE DASHBOARD
+
+Create a new route:
+
+/cmgf/dashboard
+
+This page should aggregate existing system data into a clean executive view.
+
+Sections to include:
+
+System Overview
+• Total publications count
+• Total library sources
+• Compliance items count
+• Framework count
+
+Compliance Coverage
+• Percentage of items marked "Fully Compliant"
+• Bar or pie visualization using Recharts
+
+Research Foundation
+• Distribution of sources by pillar/topic
+• Total sources available (from library_entries table)
+
+System Activity
+• Site visits
+• Downloads
+• Engagement submissions
+
+Architecture Summary
+• Static diagram or structured description of the three CMGF layers
+
+Quick Actions
+• Buttons linking to walkthrough, explorer, and five pillars pages
+
+Use existing database queries where possible.
+
+TASK 2 — PERSONA SELECTOR
+
+Create a persona system that does NOT change walkthrough logic yet.
+
+Steps:
+
+Create PersonaContext (React context provider)
+
+Store selected persona in state (localStorage persistence)
+
+Create PersonaSelector component with 4 preset personas:
+
+• Junior Enlisted Transition
+• Mid-Career NCO
+• Senior NCO Retirement
+• Officer Career Shift
+
+Each persona includes:
+name
+description
+service profile summary
+
+Display selected persona banner at top of walkthrough pages.
+
+Banner example:
+“Viewing Scenario: Senior NCO Retirement — 20 years service, leadership transition.”
+
+Add selector to:
+
+/cmgf/walkthrough index page
+
+TASK 3 — AI EXPLAIN BUTTONS
+
+Leverage the existing RAG endpoint:
+
+/api/answer
+
+Create reusable ExplainButton component.
+
+Behavior:
+
+• Button label: “Explain This”
+• On click → modal opens
+• Sends predefined prompt to API
+• Displays AI response with loading state
+
+Allow props:
+
+topic
+contextText
+
+Add explain buttons to:
+
+• Governance constraint sections
+• Compliance items
+• Architecture descriptions
+
+TASK 4 — UI QUALITY
+
+Maintain current design system:
+
+shadcn/ui
+Radix
+Tailwind dark theme
+
+Ensure responsive layout and clean typography.
+
+TASK 5 — VALIDATION
+
+After implementation:
+
+• Confirm all existing routes still function
+• Confirm walkthrough pages unchanged
+• Confirm database queries working
+• Confirm AI endpoint integration working
+
+END STATE
+
+The system should now demonstrate:
+
+• Executive level visibility
+• Adaptive persona context
+• AI assisted explanation capability
+
+Do NOT implement simulation engine yet.
+
+Begin implementation.

@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { User, ChevronRight, UserCircle, Target, Award, Calendar, Compass, BarChart3, Lightbulb, MousePointer, Headphones, ExternalLink } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { PersonaBanner } from "@/components/persona-selector";
+import { ExplainButton } from "@/components/explain-button";
 
 const pages = [
   {
@@ -100,6 +102,8 @@ export default function PartA() {
           <span className="text-foreground">Part A</span>
         </nav>
 
+        <PersonaBanner />
+
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xs font-mono px-2 py-1 rounded bg-blue-500/10 text-blue-500">Part A</span>
@@ -123,7 +127,10 @@ export default function PartA() {
 
         <Card className="mb-8 border-blue-500/20 bg-blue-500/5">
           <CardContent className="p-4">
-            <h3 className="font-medium text-foreground mb-2">Interface Rules</h3>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <h3 className="font-medium text-foreground">Interface Rules</h3>
+              <ExplainButton topic="Service Member Interface Rules" contextText="What governance rules apply to the service member interface layer in CMGF?" />
+            </div>
             <ul className="text-sm text-muted-foreground space-y-1">
               <li>All exploration is non-binding</li>
               <li>No automated approvals or decisions</li>

@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { User, Users, Cpu, ChevronRight, ArrowRight, Shield, CheckCircle, XCircle } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { PersonaSelector, PersonaBanner } from "@/components/persona-selector";
+import { ExplainButton } from "@/components/explain-button";
 
 const parts = [
   {
@@ -81,6 +83,12 @@ export default function Walkthrough() {
           </p>
         </header>
 
+        <PersonaBanner />
+
+        <section className="mb-12">
+          <PersonaSelector />
+        </section>
+
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Three-Part Architecture</h2>
           <div className="grid gap-4 md:grid-cols-3">
@@ -123,10 +131,13 @@ export default function Walkthrough() {
             <CardContent className="p-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
-                  <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-green-500" />
-                    Compliance Alignment
-                  </h3>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-green-500" />
+                      Compliance Alignment
+                    </h3>
+                    <ExplainButton topic="CMGF Compliance Alignment" contextText="How does CMGF align with federal AI governance requirements including EO 14110 and NIST AI RMF?" />
+                  </div>
                   <div className="space-y-2">
                     {compliancePoints.map((point, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm">
@@ -137,10 +148,13 @@ export default function Walkthrough() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                    <XCircle className="h-5 w-5 text-red-500" />
-                    Explicit Prohibitions
-                  </h3>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-foreground flex items-center gap-2">
+                      <XCircle className="h-5 w-5 text-red-500" />
+                      Explicit Prohibitions
+                    </h3>
+                    <ExplainButton topic="CMGF Non-Use Guardrails" contextText="Why does CMGF prohibit predictive modeling, individual risk scoring, and automated approvals?" />
+                  </div>
                   <div className="space-y-2">
                     {prohibitions.map((item, i) => (
                       <div key={i} className="flex items-center gap-2 text-sm">

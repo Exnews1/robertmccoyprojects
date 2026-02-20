@@ -1,9 +1,10 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, BookOpen, Download, Library, Search, Layers, ExternalLink } from "lucide-react";
+import { Home, BookOpen, Download, Library, Search, Layers, ExternalLink, BarChart3 } from "lucide-react";
 
 const navItems = [
   { href: "/cmgf", label: "CMGF", icon: Home, external: false },
+  { href: "/cmgf/dashboard", label: "Dashboard", icon: BarChart3, external: false },
   { href: "/cmgf/five-pillars", label: "Five Pillars", icon: Layers, external: false },
   { href: "/explorer", label: "Reference Explorer", icon: Search, external: false },
   { href: "https://cmgfdemo.robertmccoyprojects.com", label: "Walkthrough", icon: ExternalLink, external: true },

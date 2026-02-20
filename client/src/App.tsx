@@ -30,6 +30,8 @@ import WorkforceAI from "@/pages/workforce-ai/index";
 import OngoingResearch from "@/pages/ongoing-research";
 import References from "@/pages/references";
 import Bio from "@/pages/bio";
+import Dashboard from "@/pages/cmgf/dashboard";
+import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { useEffect, useRef, useCallback } from "react";
@@ -121,6 +123,7 @@ function Router() {
       <Route path="/cmgf/library" component={Library} />
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/cmgf/five-pillars" component={FivePillars} />
+      <Route path="/cmgf/dashboard" component={Dashboard} />
       <Route path="/cmgf/presidential-report" component={PresidentialReport} />
       <Route path="/cmgf/explorer" component={Explorer} />
       <Route path="/explorer" component={Explorer} />
@@ -145,34 +148,36 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div className="min-h-screen bg-background">
-          <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
-            <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <a href="/" className="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors" data-testid="link-home">
-                  Robert McCoy
-                </a>
-                <span className="text-muted-foreground/50">|</span>
-                <a 
-                  href="mailto:data@robertmccoyprojects.com" 
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  data-testid="link-header-email"
-                >
-                  data@robertmccoyprojects.com
-                </a>
+        <PersonaProvider>
+          <div className="min-h-screen bg-background">
+            <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+              <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <a href="/" className="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors" data-testid="link-home">
+                    Robert McCoy
+                  </a>
+                  <span className="text-muted-foreground/50">|</span>
+                  <a 
+                    href="mailto:data@robertmccoyprojects.com" 
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    data-testid="link-header-email"
+                  >
+                    data@robertmccoyprojects.com
+                  </a>
+                </div>
+                <div className="flex items-center gap-1">
+                  <AccessibilityControls />
+                  <ThemeToggle />
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <AccessibilityControls />
-                <ThemeToggle />
-              </div>
-            </div>
-          </header>
-          <main>
-            <Router />
-          </main>
-          <Footer />
-        </div>
-        <Toaster />
+            </header>
+            <main>
+              <Router />
+            </main>
+            <Footer />
+          </div>
+          <Toaster />
+        </PersonaProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

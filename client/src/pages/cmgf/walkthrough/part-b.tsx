@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Cpu, ChevronRight, FileInput, AlertTriangle, Layers, Eye, Radio, Database, ArrowRightLeft, LogOut, XCircle, ExternalLink, FileCode } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { PersonaBanner } from "@/components/persona-selector";
 
 const pages = [
   {
@@ -94,6 +95,8 @@ export default function PartB() {
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
           <span className="text-foreground">Part B</span>
         </nav>
+
+        <PersonaBanner />
 
         <header className="mb-10">
           <div className="flex items-center gap-3 mb-4">
