@@ -5,6 +5,7 @@ import { createServer } from "http";
 import path from "path";
 import { seedDatabase } from "./seed";
 import { seedLibrary } from "./library-seed";
+import { seedComplianceData } from "./seed-compliance";
 
 const app = express();
 
@@ -101,6 +102,12 @@ app.use((req, res, next) => {
     await seedLibrary();
   } catch (err) {
     console.error("Library seeding failed, continuing without seed:", err);
+  }
+
+  try {
+    await seedComplianceData();
+  } catch (err) {
+    console.error("Compliance seeding failed, continuing without seed:", err);
   }
   
   await registerRoutes(httpServer, app);

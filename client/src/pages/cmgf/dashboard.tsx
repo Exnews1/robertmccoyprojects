@@ -67,6 +67,21 @@ export default function Dashboard() {
   const compliantCount = complianceItems?.filter(i => i.status === "Fully Compliant").length ?? 0;
   const compliancePercent = totalCompliance > 0 ? Math.round((compliantCount / totalCompliance) * 100) : 0;
 
+  const complianceByStatus = useMemo(() => {
+    if (!complianceItems) return [];
+    const counts: Record<string, number> = {};
+    complianceItems.forEach(i => { counts[i.status] = (counts[i.status] || 0) + 1; });
+    const statusColors: Record<string, string> = {
+      "Fully Compliant": "hsl(150, 60%, 45%)",
+      "In Progress": "hsl(45, 80%, 50%)",
+      "Partially Compliant": "hsl(30, 70%, 50%)",
+      "Trust Building": "hsl(210, 70%, 50%)",
+    };
+    return Object.entries(counts).map(([status, count]) => ({
+      name: status, value: count, fill: statusColors[status] || "hsl(var(--muted))"
+    }));
+  }, [complianceItems]);
+
   const pillarCounts = useMemo(() => {
     if (!library) return [];
     const counts: Record<string, number> = {};
@@ -354,7 +369,7 @@ export default function Dashboard() {
 
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Compliance</CardTitle>
+                  <CardTitle className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Compliance Status</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-center">
@@ -362,16 +377,15 @@ export default function Dashboard() {
                       <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                           <Pie
-                            data={[
-                              { name: "Compliant", value: compliantCount },
-                              { name: "Other", value: totalCompliance - compliantCount },
-                            ]}
+                            data={complianceByStatus}
                             cx="50%" cy="50%" innerRadius={35} outerRadius={50}
                             dataKey="value" strokeWidth={2} stroke="hsl(var(--background))"
                           >
-                            <Cell fill="hsl(150, 60%, 45%)" />
-                            <Cell fill="hsl(var(--muted))" />
+                            {complianceByStatus.map((s, idx) => (
+                              <Cell key={idx} fill={s.fill} />
+                            ))}
                           </Pie>
+                          <Tooltip contentStyle={tooltipStyle} />
                         </PieChart>
                       </ResponsiveContainer>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -379,11 +393,19 @@ export default function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-muted-foreground text-center mt-2">
-                    {compliantCount} of {totalCompliance} items fully compliant
-                  </p>
+                  <div className="space-y-1 mt-3">
+                    {complianceByStatus.map(s => (
+                      <div key={s.name} className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: s.fill }} />
+                          <span className="text-muted-foreground">{s.name}</span>
+                        </div>
+                        <span className="font-medium text-foreground">{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
                   <Button variant="outline" size="sm" className="w-full mt-3" onClick={() => setActiveTab("compliance")} data-testid="button-view-compliance">
-                    View Details
+                    {frameworks?.length ?? 0} Frameworks &middot; View All
                   </Button>
                 </CardContent>
               </Card>
@@ -432,8 +454,12 @@ export default function Dashboard() {
                               <div className="flex items-center gap-2 mb-1 flex-wrap">
                                 {item.status === "Fully Compliant" ? (
                                   <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                ) : (
+                                ) : item.status === "In Progress" ? (
                                   <Activity className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+                                ) : item.status === "Partially Compliant" ? (
+                                  <Shield className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                                ) : (
+                                  <TrendingUp className="w-4 h-4 text-blue-500 flex-shrink-0" />
                                 )}
                                 <Badge variant={item.status === "Fully Compliant" ? "default" : "outline"} className="text-xs">
                                   {item.status}
