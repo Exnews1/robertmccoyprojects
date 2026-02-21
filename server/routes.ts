@@ -483,6 +483,15 @@ Respond ONLY with valid JSON matching this exact structure:
   "resourcesRequired": [
     { "resource": "string - resource name with cost if known", "status": "string - eligibility status" }
   ],
+  "readinessMeasures": [
+    { "dimension": "Timeline Feasibility", "status": "green|yellow|red", "label": "string - short label like Strong, Moderate, Extended", "detail": "string - brief explanation" },
+    { "dimension": "Family Impact", "status": "green|yellow|red", "label": "string", "detail": "string" },
+    { "dimension": "Transition Stress", "status": "green|yellow|red", "label": "string", "detail": "string" },
+    { "dimension": "Domain Alignment", "status": "green|yellow|red", "label": "string", "detail": "string" }
+  ],
+  "specialConsiderations": [
+    "string - unique observation specific to this MOS/goal combination that wouldn't apply to other transitions"
+  ],
   "timelineRange": "string - overall timeline range",
   "cmgfLayers": [
     { "layer": "Part A: Service Member Interface", "action": "string - what this layer does for this scenario" },
@@ -492,7 +501,11 @@ Respond ONLY with valid JSON matching this exact structure:
   "explanation": "string - 2-3 sentence plain-language explanation of WHY these pathways were identified, referencing the source research"
 }
 
-Provide 2-3 pathway options, 2-3 constraint risks, 2-3 policy friction points, 3-4 resources, and all 3 CMGF layers. Base your analysis on the provided research sources. Do not invent statistics or cite sources not provided.`
+READINESS MEASURES: Always include exactly 4 measures (Timeline Feasibility, Family Impact, Transition Stress, Domain Alignment). Status must be green, yellow, or red based on the MOS-to-credential domain mapping. These are standardized dimensional assessments, NOT individual predictions.
+
+SPECIAL CONSIDERATIONS: Provide 2-3 unique observations specific to this exact MOS/goal combination — things that wouldn't apply to other transitions. These should be actionable, specific, and grounded in the research sources.
+
+Provide 2-3 pathway options, 2-3 constraint risks, 2-3 policy friction points, 3-4 resources, all 4 readiness measures, 2-3 special considerations, and all 3 CMGF layers. Base your analysis on the provided research sources. Do not invent statistics or cite sources not provided.`
           },
           {
             role: "user",
@@ -508,7 +521,7 @@ ${sourceContext}
 Respond with JSON only.`
           }
         ],
-        max_tokens: 1500,
+        max_tokens: 2000,
         temperature: 0.4,
         response_format: { type: "json_object" }
       });

@@ -19,11 +19,22 @@ interface PersonaConfig {
   careerGoal: string;
 }
 
+type MeasureStatus = "green" | "yellow" | "red";
+
+interface ReadinessMeasure {
+  dimension: string;
+  status: MeasureStatus;
+  label: string;
+  detail: string;
+}
+
 interface PathwayResult {
   pathwayOptions: Array<{ name: string; match: string; timeframe: string }>;
   constraintRisks: Array<{ label: string; severity: "high" | "medium" | "low"; detail: string }>;
   policyFriction: Array<{ point: string; framework: string }>;
   resourcesRequired: Array<{ resource: string; status: string }>;
+  readinessMeasures: ReadinessMeasure[];
+  specialConsiderations: string[];
   timelineRange: string;
   cmgfLayers: Array<{ layer: string; action: string }>;
   explanation?: string;
@@ -74,13 +85,24 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "Practice lab environment", status: "Available via ArmyIgnitED" },
         { resource: "Career counselor coordination", status: "Required" },
       ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "yellow", label: "Moderate", detail: "12-18 month primary track requires steady commitment within service window" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Self-paced study paths available; no mandatory relocation for credentialing" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Cross-domain transition from logistics to cyber requires new technical foundations" },
+        { dimension: "Domain Alignment", status: "yellow", label: "Partial", detail: "Transferable systems-thinking skills but significant cybersecurity-specific gaps" },
+      ],
+      specialConsiderations: [
+        "Logistics personnel with COMSEC or classified systems exposure may qualify for accelerated DoD 8570 credentialing — verify with unit security manager.",
+        "The 88M/92A to cybersecurity pipeline is increasingly supported by Army Cyber Command recruiting programs; check ARCYBER direct-commission eligibility.",
+        "Consider stacking CompTIA Security+ before ETS to leverage Credentialing Assistance, then pursue CISSP post-service with GI Bill.",
+      ],
       timelineRange: "6-18 months depending on pathway",
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Captures MOS skills, credential inventory, career goal declaration" },
         { layer: "Part B: AI Mediation", action: "Translates 88M/92A competencies to cybersecurity domain; identifies transferable skills (risk assessment, systems monitoring, logistics chain security)" },
         { layer: "Part C: Advisory Review", action: "Human advisor validates pathway feasibility, confirms funding eligibility, reviews timeline against ETS" },
       ],
-      explanation: "This analysis maps logistics MOS competencies (inventory management, supply chain security, systems monitoring) to cybersecurity credential domains. The DoD 8570 IAT Level II pathway shows highest match because military logistics personnel already operate within secured information systems, providing foundational cybersecurity context.",
+      explanation: "This analysis maps logistics MOS competencies (inventory management, supply chain security, systems monitoring) to cybersecurity credential domains. The DoD 8570 IAT Level II pathway shows highest alignment because military logistics personnel already operate within secured information systems, providing foundational cybersecurity context.",
     },
     project_management: {
       pathwayOptions: [
@@ -101,13 +123,23 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "PMP exam fee ($405)", status: "CA-eligible" },
         { resource: "Project management coursework (35 hrs)", status: "TA-eligible" },
       ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "PMP achievable in 3-6 months; fast-track pathway available" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Study-based pathway with flexible scheduling; no relocation required" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Logistics experience maps directly to project management; minimal retraining" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "91% domain overlap — one of the strongest MOS-to-credential alignments" },
+      ],
+      specialConsiderations: [
+        "Logistics E-6+ personnel typically exceed the PMP experience threshold without additional documentation — focus on obtaining supervisor endorsement letters early.",
+        "PMI offers a military discount on membership and exam fees; confirm current rates through ArmyIgnitED before applying.",
+      ],
       timelineRange: "3-12 months depending on pathway",
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Documents logistics planning, convoy management, and resource allocation experience" },
         { layer: "Part B: AI Mediation", action: "Maps logistics competencies directly to PMI knowledge areas; high transferability score" },
         { layer: "Part C: Advisory Review", action: "Advisor confirms experience hours, validates application documentation" },
       ],
-      explanation: "Logistics MOS maps directly to PMI knowledge areas with 91% pathway match. Military logistics experience in resource planning, risk management, and multi-stakeholder coordination satisfies PMP experience requirements with minimal additional credentialing needed.",
+      explanation: "Logistics MOS maps directly to PMI knowledge areas with 91% domain alignment. Military logistics experience in resource planning, risk management, and multi-stakeholder coordination satisfies PMP experience requirements with minimal additional credentialing needed.",
     },
     supply_chain: {
       pathwayOptions: [
@@ -125,13 +157,23 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "APICS CSCP exam ($495)", status: "CA-eligible" },
         { resource: "Study materials", status: "TA-eligible" },
       ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "CSCP achievable in 3-6 months; Six Sigma even faster at 2-4 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Remote study options; credential portable across geographies" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Near-direct domain match — minimal new learning required" },
+        { dimension: "Domain Alignment", status: "green", label: "Very High", detail: "94% alignment — military logistics is functionally identical to civilian supply chain" },
+      ],
+      specialConsiderations: [
+        "This is one of the highest-alignment MOS-to-career transitions available. Consider pursuing CSCP before separation to maximize CA benefits.",
+        "Defense logistics experience is highly valued in federal contracting supply chain roles — explore cleared positions that leverage both clearance and domain expertise.",
+      ],
       timelineRange: "2-12 months depending on pathway",
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Captures warehouse management, distribution, and inventory control experience" },
         { layer: "Part B: AI Mediation", action: "Near-direct translation of military logistics to civilian supply chain terminology" },
         { layer: "Part C: Advisory Review", action: "Advisor validates credential mapping and employer requirement alignment" },
       ],
-      explanation: "Military logistics MOS provides near-direct translation to civilian supply chain management. The APICS CSCP pathway shows 94% match because military warehouse management, distribution operations, and inventory control map directly to APICS competency domains.",
+      explanation: "Military logistics MOS provides near-direct translation to civilian supply chain management. The APICS CSCP pathway shows 94% alignment because military warehouse management, distribution operations, and inventory control map directly to APICS competency domains.",
     },
   },
   intel: {
@@ -154,13 +196,24 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "ISC2 training course", status: "TA-eligible" },
         { resource: "CPE maintenance plan", status: "Self-funded post-service" },
       ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "CISSP achievable in 6-12 months; strong experience base accelerates prep" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Study-based credentialing; high-paying cleared roles reduce financial transition stress" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Must navigate classification barriers in experience documentation; requires careful preparation" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "88% alignment — intelligence analytical skills translate directly to cybersecurity threat analysis" },
+      ],
+      specialConsiderations: [
+        "TS/SCI clearance holders have a narrow monetization window; begin employer outreach 6+ months before ETS to secure cleared cybersecurity positions.",
+        "ISC2 endorsement for CISSP requires another certified professional's signature — begin networking with ISC2 members during transition preparation.",
+        "Consider documenting unclassified equivalents of classified experience proactively; career counselors can help frame narratives for civilian credentialing bodies.",
+      ],
       timelineRange: "6-15 months depending on pathway",
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Captures SIGINT/HUMINT/GEOINT skill sets and clearance level" },
         { layer: "Part B: AI Mediation", action: "Translates intelligence analysis competencies to cybersecurity threat analysis; identifies cross-domain skills" },
         { layer: "Part C: Advisory Review", action: "Advisor manages classification-sensitive documentation; validates unclassified experience narratives" },
       ],
-      explanation: "Intelligence MOS provides strong analytical foundation for cybersecurity. CISSP track shows 88% match due to overlap in threat analysis, risk assessment, and classified system operations. Key constraint is documentation of classified experience for civilian credential validation.",
+      explanation: "Intelligence MOS provides strong analytical foundation for cybersecurity. CISSP track shows 88% alignment due to overlap in threat analysis, risk assessment, and classified system operations. Key constraint is documentation of classified experience for civilian credential validation.",
     },
     data_analytics: {
       pathwayOptions: [
@@ -178,6 +231,16 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "Coursera/Google certificate ($300)", status: "TA-eligible" },
         { resource: "Python bootcamp", status: "CA-eligible" },
         { resource: "Portfolio development tools", status: "Self-funded" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Google certificate achievable in 3-6 months with structured pacing" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Fully remote coursework; flexible scheduling compatible with family obligations" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Programming skill gap requires intentional study; analytical mindset transfers well" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "85% alignment — intelligence analysis methodology closely mirrors data analytics workflows" },
+      ],
+      specialConsiderations: [
+        "Intelligence analysts with Python or R exposure from SIGINT tools have a significant head start — assess existing programming competency before choosing pathway.",
+        "Consider building a public portfolio of analysis work using declassified or open-source datasets to demonstrate capabilities to civilian employers.",
       ],
       timelineRange: "3-18 months depending on pathway",
       cmgfLayers: [
@@ -204,6 +267,16 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       resourcesRequired: [
         { resource: "CompTIA cert bundle ($900)", status: "Partially CA-eligible" },
         { resource: "Cisco learning subscription", status: "TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "CCNA achievable in 6-12 months; CompTIA stack in 9-15 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Study-based; high civilian demand reduces post-separation uncertainty" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Same domain — network operations to network security is a natural lateral move" },
+        { dimension: "Domain Alignment", status: "green", label: "Very High", detail: "90% alignment — highest natural transfer rate of any MOS to cybersecurity" },
+      ],
+      specialConsiderations: [
+        "Signal/Comms personnel often already hold Network+ or equivalent — verify existing certifications to avoid redundant credentialing and save CA funds.",
+        "Consider the CySA+ pathway for a threat-analysis focus, or CCNA Security for infrastructure defense, depending on career interest within cybersecurity.",
       ],
       timelineRange: "6-15 months depending on pathway",
       cmgfLayers: [
@@ -233,13 +306,24 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "ACHE membership ($300)", status: "Self-funded" },
         { resource: "Practicum/fellowship placement", status: "Program-arranged" },
       ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "yellow", label: "Extended", detail: "MHA programs typically 18-24 months; certificate track faster at 6-12 months" },
+        { dimension: "Family Impact", status: "yellow", label: "Moderate", detail: "Graduate programs may require practicum placements; could affect location flexibility" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Clinical-to-administrative shift requires developing management competencies" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "86% alignment — healthcare system knowledge from clinical work provides strong foundation" },
+      ],
+      specialConsiderations: [
+        "Combat medics with leadership experience (team lead, NCOIC) should emphasize supervisory roles in their application narratives — this bridges the clinical-to-admin gap.",
+        "VA Medical Centers actively recruit veteran healthcare administrators; consider VA employment pipeline programs that provide administrative fellowships.",
+        "ACHE offers veteran scholarship programs — apply early as these are competitive and require FACHE exam commitment.",
+      ],
       timelineRange: "6-24 months depending on pathway",
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Captures patient care, triage, and medical logistics experience" },
         { layer: "Part B: AI Mediation", action: "Translates combat medic competencies to healthcare management domain; identifies leadership transferability" },
         { layer: "Part C: Advisory Review", action: "Advisor validates clinical-to-administrative pathway and benefit coordination" },
       ],
-      explanation: "Medical MOS clinical experience provides foundational understanding of healthcare systems. The Healthcare Management Certificate pathway (80% match) offers the fastest bridge from clinical to administrative roles.",
+      explanation: "Medical MOS clinical experience provides foundational understanding of healthcare systems. The Healthcare Management Certificate pathway (80% alignment) offers the fastest bridge from clinical to administrative roles.",
     },
   },
   combat_arms: {
@@ -261,6 +345,17 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "PMP prep course (35 contact hours)", status: "TA-eligible" },
         { resource: "PMP exam fee ($405)", status: "CA-eligible" },
         { resource: "Leadership portfolio documentation", status: "Self-developed" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "yellow", label: "Moderate", detail: "6-12 months feasible but requires dedicated study alongside reframing documentation" },
+        { dimension: "Family Impact", status: "yellow", label: "Moderate", detail: "Career identity shift can affect family planning; support resources recommended" },
+        { dimension: "Transition Stress", status: "red", label: "High", detail: "Significant cultural and language translation required; combat identity shift is challenging" },
+        { dimension: "Domain Alignment", status: "yellow", label: "Partial", detail: "83% alignment — strong leadership overlap but requires civilian business framing" },
+      ],
+      specialConsiderations: [
+        "Combat arms veterans consistently undervalue their leadership experience in civilian contexts — structured resume workshops focusing on quantified impact (personnel managed, budget managed, mission scope) are critical.",
+        "SkillBridge programs with defense contractors (Lockheed Martin, Raytheon, SAIC) specifically recruit combat arms leaders for program management roles.",
+        "The transition stress for combat arms to civilian office environments is well-documented; consider veteran peer mentoring programs alongside credential pursuit.",
       ],
       timelineRange: "6-18 months depending on pathway",
       cmgfLayers: [
@@ -287,6 +382,16 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       resourcesRequired: [
         { resource: "PMI membership + exam ($544)", status: "CA-eligible" },
         { resource: "Agile coursework", status: "TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Agile/Scrum achievable in 2-4 months; CAPM-PMP ladder in 6-12 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Flexible study-based pathway; PM roles widely available geographically" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Administrative experience translates naturally to project coordination; minimal identity shift" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "87% alignment — personnel management and process workflows map directly to PM competencies" },
+      ],
+      specialConsiderations: [
+        "Admin MOS personnel often overlook their proficiency with Army systems (IPPS-A, eMILPO) as transferable ERP/database experience — highlight this in resumes.",
+        "Consider pursuing Agile/Scrum Master first as a fast win, then stack PMP for comprehensive project management credentialing.",
       ],
       timelineRange: "2-12 months depending on pathway",
       cmgfLayers: [
@@ -519,6 +624,8 @@ export function ScenarioDemoTab() {
         setTimeout(() => setRevealStage(3), 800),
         setTimeout(() => setRevealStage(4), 1100),
         setTimeout(() => setRevealStage(5), 1400),
+        setTimeout(() => setRevealStage(6), 1700),
+        setTimeout(() => setRevealStage(7), 2000),
       ];
       return () => timers.forEach(clearTimeout);
     }
@@ -747,7 +854,68 @@ export function ScenarioDemoTab() {
                   </div>
                 </div>
 
-                <div className={`transition-all duration-500 ${revealStage >= 5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                {result.readinessMeasures && result.readinessMeasures.length > 0 && (
+                  <div className={`transition-all duration-500 ${revealStage >= 5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <TrendingUp className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-foreground">Readiness Assessment</span>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {result.readinessMeasures.map((m, i) => (
+                        <div
+                          key={i}
+                          className={`p-3 rounded-lg border text-center ${
+                            m.status === "green" ? "border-green-500/30 bg-green-500/5" :
+                            m.status === "yellow" ? "border-yellow-500/30 bg-yellow-500/5" :
+                            "border-red-500/30 bg-red-500/5"
+                          }`}
+                          data-testid={`readiness-measure-${i}`}
+                        >
+                          <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${
+                            m.status === "green" ? "bg-green-500" :
+                            m.status === "yellow" ? "bg-yellow-500" :
+                            "bg-red-500"
+                          }`} />
+                          <p className="text-xs font-medium text-foreground mb-0.5">{m.dimension}</p>
+                          <p className={`text-[11px] font-semibold ${
+                            m.status === "green" ? "text-green-400" :
+                            m.status === "yellow" ? "text-yellow-400" :
+                            "text-red-400"
+                          }`}>{m.label}</p>
+                          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{m.detail}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-muted-foreground mt-2 pl-1">
+                      These are standardized dimensional assessments based on MOS-to-credential domain mapping, not individual predictions.
+                    </p>
+                  </div>
+                )}
+
+                {result.specialConsiderations && result.specialConsiderations.length > 0 && (
+                  <div className={`transition-all duration-500 ${revealStage >= 6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Sparkles className="w-4 h-4 text-purple-400" />
+                      <span className="text-sm font-medium text-foreground">Special Considerations</span>
+                      <Badge variant="outline" className="text-[10px] text-purple-400 border-purple-500/30 ml-auto">System-Generated</Badge>
+                    </div>
+                    <div className="space-y-2">
+                      {result.specialConsiderations.map((note, i) => (
+                        <div key={i} className="flex items-start gap-3 p-3 rounded-md border border-purple-500/20 bg-purple-500/5" data-testid={`special-consideration-${i}`}>
+                          <div className="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-[10px] font-bold text-purple-400">{i + 1}</span>
+                          </div>
+                          <p className="text-sm text-foreground leading-relaxed">{note}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-muted-foreground mt-2 pl-1">
+                      These observations are unique to this MOS/goal combination and generated from scenario-specific analysis.
+                    </p>
+                  </div>
+                )}
+
+                <div className={`transition-all duration-500 ${revealStage >= 7 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
                   {result.explanation && (
                     <div className="mb-4">
                       <Button
