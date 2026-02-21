@@ -838,11 +838,11 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     let educationReview = "";
     if (domainStatus === "green") {
-      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background provides strong foundational alignment with ${goalLabel} — the system shows ${domainMeasure?.label?.toLowerCase() || "good"} domain overlap.`;
+      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background provides strong foundational alignment with ${goalLabel} — the system shows ${domainMeasure?.label?.toLowerCase() || "good"} domain overlap.`;
     } else if (domainStatus === "yellow") {
-      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background gives you moderate alignment with ${goalLabel} — there are transferable skills, but some gaps the analysis has identified.`;
+      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background gives you moderate alignment with ${goalLabel} — there are transferable skills, but some gaps the analysis has identified.`;
     } else {
-      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background doesn't directly overlap with ${goalLabel} — the engine has identified foundational skill areas you'll need to build. This is a full capability-building transition, not a credential translation.`;
+      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background doesn't directly overlap with ${goalLabel} — the engine has identified foundational skill areas you'll need to build. This is a full capability-building transition, not a credential translation.`;
     }
 
     let fundingReview = "";
@@ -851,7 +851,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       if (caEligible.length > 0) parts.push(`**${caEligible.length}** credential${caEligible.length > 1 ? "s" : ""} eligible for Credentialing Assistance (CA)`);
       if (taEligible.length > 0) parts.push(`**${taEligible.length}** resource${taEligible.length > 1 ? "s" : ""} eligible for Tuition Assistance (TA)`);
       if (selfFunded.length > 0) parts.push(`**${selfFunded.length}** item${selfFunded.length > 1 ? "s" : ""} that would be self-funded`);
-      fundingReview = `\n\nI've also looked at your available TA/CA funding options. For your recommended pathway, I'm seeing ${parts.join(", ")}.`;
+      fundingReview = `\n\nBased on current benefit eligibility signals, your recommended pathway shows ${parts.join(", ")}.`;
       if (hasFundingConstraint) {
         fundingReview += ` However, your funding situation is flagged as constrained — we should discuss alternative funding strategies.`;
       } else if (taFriction.length > 0) {
@@ -878,7 +878,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     const opening: ChatMessage = {
       role: "assistant",
-      content: `${educationReview}${fundingReview}${stressFactors}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}What would you like to explore first?`,
+      content: `${educationReview}${fundingReview}${stressFactors}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}These results are based on current policy constraints and typical pathway timelines. A human advisor will review this with you before any decisions are finalized.\n\nWhat would you like to explore first?`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
