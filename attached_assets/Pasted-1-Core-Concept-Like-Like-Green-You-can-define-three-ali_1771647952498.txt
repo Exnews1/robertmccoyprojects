@@ -1,0 +1,326 @@
+1. Core Concept: Like → Like = Green
+
+You can define three alignment tiers.
+
+GREEN — Direct capability continuity
+YELLOW — Partial overlap / moderate reskilling
+RED — Major domain shift / foundational rebuild
+
+This is not judgment. It is physics of skill transfer.
+
+2. MOS → Career Alignment Matrix (Primary Table)
+
+Example baseline matrix (you can tune weights later).
+
+ALIGNMENT_MATRIX = {
+
+  "Logistics": {
+      "Supply Chain Management": "green",
+      "Project Management": "green",
+      "Healthcare Administration": "yellow",
+      "Data Analytics": "yellow",
+      "Cybersecurity": "yellow",
+      "Education / Training": "yellow"
+  },
+
+  "Signal / Comms": {
+      "Cybersecurity": "green",
+      "Data Analytics": "green",
+      "Project Management": "yellow",
+      "Supply Chain Management": "yellow",
+      "Education / Training": "yellow",
+      "Healthcare Administration": "red"
+  },
+
+  "Intelligence": {
+      "Cybersecurity": "green",
+      "Data Analytics": "green",
+      "Project Management": "yellow",
+      "Education / Training": "yellow",
+      "Supply Chain Management": "yellow",
+      "Healthcare Administration": "red"
+  },
+
+  "Medical": {
+      "Healthcare Administration": "green",
+      "Education / Training": "yellow",
+      "Project Management": "yellow",
+      "Data Analytics": "yellow",
+      "Supply Chain Management": "red",
+      "Cybersecurity": "red"
+  },
+
+  "Admin / HR": {
+      "Project Management": "green",
+      "Education / Training": "green",
+      "Healthcare Administration": "yellow",
+      "Data Analytics": "yellow",
+      "Supply Chain Management": "yellow",
+      "Cybersecurity": "red"
+  },
+
+  "Combat Arms": {
+      "Project Management": "yellow",
+      "Education / Training": "yellow",
+      "Supply Chain Management": "yellow",
+      "Healthcare Administration": "red",
+      "Data Analytics": "red",
+      "Cybersecurity": "red"
+  }
+
+}
+
+This table alone drives a large portion of your dashboard.
+
+3. Tier Classification of Career Goals (Barrier Engine)
+
+You already hinted at this with Tier 2 occupation barrier.
+
+CAREER_TIERS = {
+
+  "Cybersecurity": 2,
+  "Data Analytics": 2,
+  "Healthcare Administration": 2,
+  "Project Management": 1,
+  "Supply Chain Management": 1,
+  "Education / Training": 1
+
+}
+
+Tier meaning:
+
+Tier 1 = Direct transition possible
+Tier 2 = Requires prerequisite domain building
+Tier 3 = Licensure heavy / long timeline (future expansion)
+
+4. Barrier Detection Rules
+
+Now you layer learner state.
+
+Example logic:
+
+IF career_tier == 2 AND learner.has_foundational_domain == False
+    ADD warning: "Tier 2 occupation barrier"
+
+Foundational domains depend on career.
+
+Cybersecurity foundations:
+
+Networking
+
+Operating Systems
+
+Security fundamentals
+
+Data Analytics foundations:
+
+Statistics
+
+Programming
+
+Data tools
+
+Healthcare Admin:
+
+Degree requirement
+
+Healthcare systems exposure
+
+5. Time Estimate Engine
+
+You can compute rough ranges based on alignment + tier.
+
+Example logic:
+
+IF alignment == "green":
+    time = 3–6 months
+
+IF alignment == "yellow":
+    time = 6–12 months
+
+IF alignment == "red":
+    time = 12–24 months
+
+Then modify:
+
+IF learner.has_degree:
+    reduce time
+
+IF learner.has_certifications:
+    reduce time
+
+IF career_tier == 2:
+    add 3–6 months
+
+This produces realistic estimates.
+
+6. Risk Signal Logic (Feeds Dashboard Colors)
+
+Risk categories:
+
+Certification difficulty
+
+Experience gap
+
+Financial strain
+
+Family impact
+
+Timeline feasibility
+
+Domain alignment
+
+Example:
+
+risk_score = 0
+
+IF alignment == "red": +3
+IF tier == 2: +2
+IF no prior exposure: +2
+IF time_required > remaining_service_window: +2
+
+IF risk_score >= 6 → High
+IF risk_score 3–5 → Medium
+IF risk_score <= 2 → Low
+
+Your dashboard tiles then turn red/yellow/green.
+
+7. Policy Friction Detection (Very CMGF-Specific)
+
+Rules tied to DoD benefits.
+
+Examples:
+
+IF cert_stack_cost > TA_cap:
+    FLAG "TA funding cap may not cover full credential stack"
+
+IF certification NOT IN COOL_list:
+    FLAG "Credentialing assistance limitation"
+
+IF time_required > months_remaining_service:
+    FLAG "Timeline may exceed service window"
+
+This is where CMGF shines compared to normal advising tools.
+
+8. Resource Generation Logic
+
+Based on pathway.
+
+Cybersecurity example:
+
+Resources:
+- CompTIA A+
+- Network+
+- Security+
+- Lab platforms
+- Voucher funding sources
+
+Supply Chain example:
+
+Resources:
+- APICS CPIM
+- PMP prep
+- Logistics degree transfer
+
+These are deterministic mappings.
+
+9. Special Considerations Generator
+
+These are explanation cards you already show.
+
+Logic:
+
+IF alignment == yellow AND tier == 2:
+    show foundational gap explanation
+
+IF learner MOS unrelated:
+    show transition difficulty note
+
+IF certification required:
+    show recommended sequence note
+
+This produces your purple cards.
+
+10. “All Green” Scenario Logic
+
+You asked specifically:
+
+Like wants like → all green
+
+Example:
+
+Signal / Comms → Cybersecurity
+
+Conditions for all green:
+
+Alignment = green
+
+Foundational domain present
+
+Certifications eligible
+
+Timeline feasible
+
+No major policy friction
+
+Then:
+
+Dashboard:
+
+Timeline feasibility = green
+
+Domain alignment = green
+
+Transition stress = green
+
+Family impact = green/neutral
+
+That becomes a powerful demonstration case.
+
+11. Dashboard Feeding Architecture
+
+You already have Part A / B / C.
+
+The logic chain is:
+
+INPUTS
+(MOS + credentials + goals + constraints)
+
+↓
+
+ALIGNMENT ENGINE
+(MOS × career matrix)
+
+↓
+
+BARRIER ENGINE
+(tier + prerequisites)
+
+↓
+
+TIME & RISK ENGINE
+
+↓
+
+POLICY ENGINE
+
+↓
+
+RESOURCE ENGINE
+
+↓
+
+DASHBOARD OUTPUT
+(colors + warnings + pathway options)
+
+That is academically defensible and explainable.
+
+12. Important Academic Strength
+
+Your system is not predicting success.
+
+It is computing:
+
+Constraint interaction feasibility.
+
+That distinction protects you under NIST AI RMF.
