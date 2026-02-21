@@ -109,34 +109,40 @@ export default function Landing() {
     <div className="p-8 space-y-12 max-w-7xl mx-auto">
       
       {/* Header Section */}
-      <section className="text-center space-y-6">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <Award className="w-8 h-8 text-primary" />
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-            Robert McCoy Projects
-          </h1>
-        </div>
-        
-        <div className="flex items-center justify-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-primary" />
-            <span className="text-sm text-muted-foreground">M.S. AI & Data Analytics</span>
+      <section className="relative text-center space-y-6 py-6 rounded-xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-slate-500/8 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent pointer-events-none" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="p-2.5 bg-primary/10 rounded-xl shadow-lg shadow-primary/10">
+              <Award className="w-8 h-8 text-primary" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+              Robert McCoy Projects
+            </h1>
           </div>
-          <span className="text-muted-foreground hidden md:inline">|</span>
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-primary" />
-            <span className="text-sm text-muted-foreground">MBA</span>
+          
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-primary" />
+              <span className="text-sm text-muted-foreground">M.S. AI & Data Analytics</span>
+            </div>
+            <span className="text-muted-foreground hidden md:inline">|</span>
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-4 h-4 text-primary" />
+              <span className="text-sm text-muted-foreground">MBA</span>
+            </div>
+            <span className="text-muted-foreground hidden md:inline">|</span>
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-slate-500" />
+              <span className="text-sm text-muted-foreground">21+ Years Military Service</span>
+            </div>
           </div>
-          <span className="text-muted-foreground hidden md:inline">|</span>
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-slate-500" />
-            <span className="text-sm text-muted-foreground">21+ Years Military Service</span>
-          </div>
-        </div>
 
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Research, frameworks, and organizational knowledge systems at the intersection of AI, education, and workforce development.
-        </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Research, frameworks, and organizational knowledge systems at the intersection of AI, education, and workforce development.
+          </p>
+        </div>
       </section>
 
       {/* Two Column Layout */}
@@ -145,7 +151,7 @@ export default function Landing() {
         {/* Research Column */}
         <section className="space-y-6">
           <div className="flex items-start gap-3 pb-4 border-b border-border h-[100px]">
-            <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0 mt-1">
+            <div className="p-2.5 bg-primary/10 rounded-xl shadow-md shadow-primary/10 flex-shrink-0 mt-1">
               <BookOpen className="w-6 h-6 text-primary" />
             </div>
             <div>
@@ -154,41 +160,44 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {researchAreas.map((area) => (
               <Link key={area.route} href={area.route}>
                 {area.featured ? (
                   <Card 
-                    className="hover-elevate cursor-pointer transition-all duration-300 border-slate-500/30 bg-gradient-to-br from-card to-slate-950/10 min-h-[140px]"
+                    className="card-3d-featured cursor-pointer border-slate-500/30 bg-gradient-to-br from-card via-card to-primary/5 min-h-[140px]"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
-                    <CardContent className="p-5 h-full flex items-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-slate-500/5 rounded-xl pointer-events-none" />
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent pointer-events-none" />
+                    <CardContent className="relative z-10 p-5 h-full flex items-center">
                       <div className="flex items-center gap-4 w-full">
-                        <div className="p-3 rounded-lg flex-shrink-0 bg-slate-500/10">
-                          <area.icon className="w-7 h-7 text-slate-500" />
+                        <div className="p-3 rounded-xl flex-shrink-0 bg-gradient-to-br from-slate-500/15 to-primary/10 shadow-inner">
+                          <area.icon className="w-7 h-7 text-slate-400" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-base font-bold text-foreground">{area.title}</h3>
-                            <Badge className="bg-slate-500/20 text-slate-400 border-slate-500/40 no-default-hover-elevate text-[10px] px-2">
+                            <Badge className="bg-primary/15 text-primary border-primary/30 no-default-hover-elevate text-[10px] px-2">
                               Featured
                             </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
-                          <p className="text-xs text-slate-400/80 mt-2">CCME 2026 Learner Track</p>
+                          <p className="text-xs text-primary/60 mt-2 font-medium">CCME 2026 Learner Track</p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                        <ArrowRight className="w-5 h-5 text-primary/50 flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
                 ) : (
                   <Card 
-                    className="hover-elevate cursor-pointer transition-all duration-300 border-border"
+                    className="card-3d cursor-pointer border-border/60 bg-gradient-to-br from-card to-muted/20"
                     data-testid={`card-research-${area.route.replace(/\//g, '-')}`}
                   >
-                    <CardContent className="p-4">
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent pointer-events-none" />
+                    <CardContent className="relative z-10 p-4">
                       <div className="flex items-center gap-4">
-                        <div className="p-2 rounded-lg flex-shrink-0 bg-muted/50">
+                        <div className="p-2.5 rounded-lg flex-shrink-0 bg-gradient-to-br from-primary/10 to-primary/5 shadow-sm">
                           <area.icon className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -208,7 +217,7 @@ export default function Landing() {
         {/* Organizational Knowledge Systems Column */}
         <section className="space-y-6">
           <div className="flex items-start gap-3 pb-4 border-b border-border h-[100px]">
-            <div className="p-2 bg-slate-500/10 rounded-lg flex-shrink-0 mt-1">
+            <div className="p-2.5 bg-slate-500/10 rounded-xl shadow-md shadow-slate-500/10 flex-shrink-0 mt-1">
               <Building2 className="w-6 h-6 text-slate-500" />
             </div>
             <div>
@@ -217,26 +226,29 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-4">
             {knowledgeSystems.map((system) => {
               const isLive = system.status === "live";
               const cardContent = (
                 <Card 
                   key={system.id}
-                  className={`transition-all duration-300 ${
+                  className={`${
                     isLive 
-                      ? 'hover-elevate cursor-pointer border-slate-500/30 bg-gradient-to-br from-card to-slate-950/10 opacity-100' 
+                      ? 'card-3d cursor-pointer border-slate-500/20 bg-gradient-to-br from-card to-emerald-500/3' 
                       : 'border-border opacity-75'
                   }`}
                   data-testid={`card-oks-${system.id}`}
                 >
-                  <CardContent className="p-4">
+                  {isLive && (
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/15 to-transparent pointer-events-none" />
+                  )}
+                  <CardContent className="relative z-10 p-4">
                     <div className="flex items-center gap-4">
-                      <div className={`p-2 rounded-lg flex-shrink-0 ${
-                        isLive ? 'bg-slate-500/10' : 'bg-muted/50'
+                      <div className={`p-2.5 rounded-lg flex-shrink-0 ${
+                        isLive ? 'bg-gradient-to-br from-slate-500/12 to-emerald-500/8 shadow-sm' : 'bg-muted/50'
                       }`}>
                         <system.icon className={`w-5 h-5 ${
-                          isLive ? 'text-slate-500' : 'text-muted-foreground'
+                          isLive ? 'text-slate-400' : 'text-muted-foreground'
                         }`} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -245,7 +257,7 @@ export default function Landing() {
                       </div>
                       <div className="flex items-center gap-3 flex-shrink-0">
                         {isLive ? (
-                          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 no-default-hover-elevate text-[10px] px-2">
+                          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/40 no-default-hover-elevate text-[10px] px-2 shadow-sm shadow-emerald-500/10">
                             Live
                           </Badge>
                         ) : (
@@ -274,10 +286,10 @@ export default function Landing() {
       </div>
 
       {/* Author Section */}
-      <section className="pt-8 border-t border-border">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="pt-8 border-t border-border/50">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-5 rounded-xl bg-gradient-to-r from-muted/30 via-muted/20 to-muted/30" style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.03)' }}>
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-muted/50 rounded-full">
+            <div className="p-3 bg-primary/8 rounded-full shadow-sm">
               <Users className="w-6 h-6 text-primary" />
             </div>
             <div>
