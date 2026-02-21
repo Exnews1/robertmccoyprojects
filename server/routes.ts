@@ -428,32 +428,60 @@ Rules:
       const expandedGoal = goalKeywords[careerGoal] || goalExpanded;
       const searchQuery = `military ${mosLabel || mos} transition to ${expandedGoal} career pathway credentials certification veteran workforce`;
 
-      let queryEmbedding: number[];
-      try {
-        queryEmbedding = await generateEmbedding(searchQuery);
-      } catch (error) {
-        console.error("Embedding generation failed:", error);
-        return res.status(500).json({ message: "AI service temporarily unavailable" });
+      const entriesWithEmbeddings = entries.filter(entry => entry.embedding);
+      let scoredEntries: { entry: typeof entries[0]; score: number }[] = [];
+
+      if (entriesWithEmbeddings.length > 0) {
+        let queryEmbedding: number[];
+        try {
+          queryEmbedding = await generateEmbedding(searchQuery);
+        } catch (error) {
+          console.error("Embedding generation failed, falling back to keyword search:", error);
+          queryEmbedding = [];
+        }
+
+        if (queryEmbedding.length > 0) {
+          scoredEntries = entriesWithEmbeddings
+            .map(entry => {
+              const entryEmbedding = JSON.parse(entry.embedding!) as number[];
+              let score = cosineSimilarity(queryEmbedding, entryEmbedding);
+              const titleLower = (entry.title || "").toLowerCase();
+              const summaryLower = (entry.summary || "").toLowerCase();
+              const topicsLower = (entry.topics || []).join(" ").toLowerCase();
+              const goalLower = goalExpanded;
+              const mosLower = (mosLabel || mos).toLowerCase();
+              if (titleLower.includes(goalLower) || summaryLower.includes(goalLower)) score += 0.1;
+              if (titleLower.includes(mosLower) || summaryLower.includes(mosLower)) score += 0.1;
+              const goalWords = expandedGoal.split(" ");
+              const matchedWords = goalWords.filter((w: string) => w.length > 3 && (titleLower.includes(w) || summaryLower.includes(w) || topicsLower.includes(w)));
+              score += matchedWords.length * 0.03;
+              return { entry, score };
+            })
+            .sort((a, b) => b.score - a.score);
+        }
       }
 
-      const scoredEntries = entries
-        .filter(entry => entry.embedding)
-        .map(entry => {
-          const entryEmbedding = JSON.parse(entry.embedding!) as number[];
-          let score = cosineSimilarity(queryEmbedding, entryEmbedding);
-          const titleLower = (entry.title || "").toLowerCase();
-          const summaryLower = (entry.summary || "").toLowerCase();
-          const topicsLower = (entry.topics || []).join(" ").toLowerCase();
-          const goalLower = goalExpanded;
-          const mosLower = (mosLabel || mos).toLowerCase();
-          if (titleLower.includes(goalLower) || summaryLower.includes(goalLower)) score += 0.1;
-          if (titleLower.includes(mosLower) || summaryLower.includes(mosLower)) score += 0.1;
-          const goalWords = expandedGoal.split(" ");
-          const matchedWords = goalWords.filter((w: string) => w.length > 3 && (titleLower.includes(w) || summaryLower.includes(w) || topicsLower.includes(w)));
-          score += matchedWords.length * 0.03;
-          return { entry, score };
-        })
-        .sort((a, b) => b.score - a.score);
+      if (scoredEntries.length === 0) {
+        const goalWords = expandedGoal.split(" ").filter((w: string) => w.length > 3);
+        const mosLower = (mosLabel || mos).toLowerCase();
+        scoredEntries = entries
+          .map(entry => {
+            let score = 0;
+            const titleLower = (entry.title || "").toLowerCase();
+            const summaryLower = (entry.summary || "").toLowerCase();
+            const topicsLower = (entry.topics || []).join(" ").toLowerCase();
+            const combined = `${titleLower} ${summaryLower} ${topicsLower}`;
+            for (const w of goalWords) {
+              if (combined.includes(w)) score += 0.1;
+            }
+            if (combined.includes(mosLower)) score += 0.15;
+            if (combined.includes("military") || combined.includes("veteran") || combined.includes("transition")) score += 0.05;
+            if (combined.includes("career") || combined.includes("workforce")) score += 0.03;
+            return { entry, score };
+          })
+          .filter(s => s.score > 0)
+          .sort((a, b) => b.score - a.score);
+      }
 
       let relevantSources = scoredEntries.filter(s => s.score >= 0.20);
       if (relevantSources.length === 0) {

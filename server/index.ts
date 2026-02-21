@@ -4,7 +4,7 @@ import { serveStatic } from "./static";
 import { createServer } from "http";
 import path from "path";
 import { seedDatabase } from "./seed";
-import { seedLibrary } from "./library-seed";
+import { seedLibrary, generateMissingEmbeddings } from "./library-seed";
 import { seedComplianceData } from "./seed-compliance";
 
 const app = express();
@@ -103,6 +103,10 @@ app.use((req, res, next) => {
   } catch (err) {
     console.error("Library seeding failed, continuing without seed:", err);
   }
+
+  generateMissingEmbeddings().catch(err => {
+    console.error("Background embedding generation failed:", err);
+  });
 
   try {
     await seedComplianceData();

@@ -91,3 +91,36 @@ export async function seedLibrary() {
     console.error("Library seeding failed:", error);
   }
 }
+
+export async function generateMissingEmbeddings() {
+  try {
+    const entries = await storage.getLibraryEntries();
+    const missing = entries.filter(e => !e.embedding);
+    if (missing.length === 0) {
+      console.log("All library entries have embeddings.");
+      return;
+    }
+    console.log(`Generating embeddings for ${missing.length} entries in background...`);
+    let completed = 0;
+    const batchSize = 10;
+    for (let i = 0; i < missing.length; i += batchSize) {
+      const batch = missing.slice(i, i + batchSize);
+      await Promise.all(batch.map(async (entry) => {
+        try {
+          const text = `${entry.title || ""} ${entry.summary || ""} ${(entry.topics || []).join(" ")}`;
+          const embedding = await generateEmbedding(text);
+          await storage.updateLibraryEntryEmbedding(entry.id, JSON.stringify(embedding));
+          completed++;
+        } catch (err) {
+          console.error(`Embedding failed for entry ${entry.id}:`, err);
+        }
+      }));
+      if (completed % 50 === 0 || i + batchSize >= missing.length) {
+        console.log(`Embeddings progress: ${completed}/${missing.length}`);
+      }
+    }
+    console.log(`Embedding generation complete: ${completed}/${missing.length} entries.`);
+  } catch (error) {
+    console.error("Background embedding generation failed:", error);
+  }
+}
