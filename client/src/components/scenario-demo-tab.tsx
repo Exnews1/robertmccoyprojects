@@ -86,15 +86,15 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { resource: "Career counselor coordination", status: "Required" },
       ],
       readinessMeasures: [
-        { dimension: "Timeline Feasibility", status: "yellow", label: "Moderate", detail: "12-18 month primary track requires steady commitment within service window" },
+        { dimension: "Timeline Feasibility", status: "red", label: "Significant", detail: "Non-cyber MOS requires foundational technical training before cybersecurity credentialing can begin — realistic timeline is 18-36 months for competitive readiness" },
         { dimension: "Family Impact", status: "green", label: "Low", detail: "Self-paced study paths available; no mandatory relocation for credentialing" },
         { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Cross-domain transition from logistics to cyber requires new technical foundations" },
-        { dimension: "Domain Alignment", status: "yellow", label: "Partial", detail: "Transferable systems-thinking skills but significant cybersecurity-specific gaps" },
+        { dimension: "Domain Alignment", status: "red", label: "Low", detail: "Logistics MOS has minimal direct cybersecurity overlap; foundational networking, OS, and security concepts must be built from scratch" },
       ],
       specialConsiderations: [
+        "As a non-cyber MOS, 88M/92A personnel lack the foundational IT experience that cyber-adjacent roles (25B, 35T) already possess — plan for 6-12 months of pre-certification technical study before attempting Security+ or CISSP.",
         "Logistics personnel with COMSEC or classified systems exposure may qualify for accelerated DoD 8570 credentialing — verify with unit security manager.",
-        "The 88M/92A to cybersecurity pipeline is increasingly supported by Army Cyber Command recruiting programs; check ARCYBER direct-commission eligibility.",
-        "Consider stacking CompTIA Security+ before ETS to leverage Credentialing Assistance, then pursue CISSP post-service with GI Bill.",
+        "Consider stacking CompTIA A+ and Network+ before Security+ to build the technical foundation that cyber-native MOS holders already have. This adds time but dramatically improves certification pass rates.",
       ],
       timelineRange: "6-18 months depending on pathway",
       cmgfLayers: [
