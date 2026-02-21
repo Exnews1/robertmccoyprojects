@@ -1,0 +1,152 @@
+{
+  "version": "demo-2026",
+  "description": "Authoritative data source map for CMGF binding layer. In production, these systems provide signals to the CMGF engine. In demo mode, representative data is used.",
+
+  "domains": {
+    "personnel": {
+      "label": "Military Personnel & Training",
+      "icon": "shield",
+      "color": "blue",
+      "description": "Service member capability baseline — MOS skills, rank, training history, certifications earned in service",
+      "authoritative_systems": [
+        "IPPS-A (Integrated Personnel & Pay System)",
+        "ATRRS (Army Training Requirements & Resources System)",
+        "JST (Joint Services Transcript)",
+        "DMDC (Defense Manpower Data Center)"
+      ],
+      "signals_provided": [
+        "MOS/Rating/AFSC classification",
+        "Service history and rank",
+        "Military schools completed",
+        "In-service certifications",
+        "Training transcripts"
+      ],
+      "cmgf_use": "Capability alignment, experience substitution, career readiness signals"
+    },
+
+    "education": {
+      "label": "Education Records",
+      "icon": "graduation-cap",
+      "color": "purple",
+      "description": "Academic readiness — civilian and military education, credentials, transfer credits",
+      "authoritative_systems": [
+        "National Student Clearinghouse",
+        "Institutional SIS (Student Information Systems)",
+        "Credential Registries",
+        "ACE (American Council on Education) Military Guide"
+      ],
+      "signals_provided": [
+        "College transcripts and degrees",
+        "Transfer credit evaluations",
+        "Credential inventories",
+        "Prior learning assessments",
+        "Military-to-civilian credit articulation"
+      ],
+      "cmgf_use": "Education gap analysis, degree completion feasibility, time-to-completion estimates"
+    },
+
+    "funding": {
+      "label": "Funding & Benefits",
+      "icon": "dollar-sign",
+      "color": "green",
+      "description": "Financial feasibility — TA/CA balances, GI Bill status, benefit eligibility windows",
+      "authoritative_systems": [
+        "ArmyIgnitED",
+        "Army COOL (Credentialing Opportunities Online)",
+        "VA Benefits Database",
+        "Service Education Portals"
+      ],
+      "signals_provided": [
+        "Tuition Assistance balance and usage",
+        "Credentialing Assistance slots remaining",
+        "GI Bill eligibility and entitlement",
+        "SkillBridge eligibility window",
+        "Benefit expiration timelines"
+      ],
+      "cmgf_use": "Financial feasibility, policy friction detection, timeline constraints"
+    },
+
+    "workforce": {
+      "label": "Workforce & Labor Market",
+      "icon": "trending-up",
+      "color": "cyan",
+      "description": "Employment outcomes — occupation demand, wages, certification requirements, job growth",
+      "authoritative_systems": [
+        "O*NET (Occupational Information Network)",
+        "BLS (Bureau of Labor Statistics)",
+        "State Workforce Agencies",
+        "Industry Credential Frameworks"
+      ],
+      "signals_provided": [
+        "Occupation demand projections",
+        "Median wage data by region",
+        "Required certifications by occupation",
+        "Job growth rates",
+        "Employer hiring signals"
+      ],
+      "cmgf_use": "Career outcome modeling, ROI signals, pathway prioritization"
+    },
+
+    "providers": {
+      "label": "Institutional Providers",
+      "icon": "building",
+      "color": "amber",
+      "description": "Pathway availability — degree programs, credential vendors, delivery modes, transfer agreements",
+      "authoritative_systems": [
+        "University Course Catalogs",
+        "Credential Provider Registries (CompTIA, ISC2, PMI)",
+        "Learning Platform APIs",
+        "Military-Friendly Institution Networks"
+      ],
+      "signals_provided": [
+        "Available degree programs",
+        "Course sequences and prerequisites",
+        "Delivery modes (online, hybrid, in-person)",
+        "Transfer agreements",
+        "Credit articulation policies"
+      ],
+      "cmgf_use": "Pathway generation, timeline estimation, transfer feasibility"
+    },
+
+    "personal": {
+      "label": "Personal Constraints",
+      "icon": "user",
+      "color": "red",
+      "description": "Individual context — family obligations, geographic limits, timeline preferences, financial stress",
+      "authoritative_systems": [
+        "Service Member Self-Report",
+        "Family Readiness Assessments",
+        "Transition Assistance Intake Forms"
+      ],
+      "signals_provided": [
+        "Family obligations and dependents",
+        "Geographic constraints",
+        "Timeline preferences",
+        "Financial stress indicators",
+        "Relocation willingness",
+        "Career interest priorities"
+      ],
+      "cmgf_use": "Risk modeling, feasibility adjustments, advisor personalization"
+    }
+  },
+
+  "integration_maturity": {
+    "level_1": {
+      "label": "Manual Entry",
+      "description": "User enters data directly (current demo mode)",
+      "status": "active"
+    },
+    "level_2": {
+      "label": "API Integration",
+      "description": "Systems provide data feeds via secure APIs",
+      "status": "future"
+    },
+    "level_3": {
+      "label": "Federated Environment",
+      "description": "Real-time institutional binding with authoritative systems",
+      "status": "future"
+    }
+  },
+
+  "governance_statement": "CMGF does not replace authoritative systems. It binds signals from them into transparent decision-support outputs."
+}

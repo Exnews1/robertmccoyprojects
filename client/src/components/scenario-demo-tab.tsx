@@ -10,7 +10,8 @@ import {
   ArrowRight, ArrowDown, Zap, BookOpen, DollarSign, FileWarning,
   Lock, Layers, Target, TrendingUp, XCircle, Lightbulb,
   Loader2, ChevronDown, ChevronUp, Sparkles, Info,
-  MessageSquare, Send, Brain, FileText
+  MessageSquare, Send, Brain, FileText, Database,
+  GraduationCap, Building2, BarChart3
 } from "lucide-react";
 
 interface PersonaConfig {
@@ -767,6 +768,58 @@ function EngineOutputPanel({ result, constraints, constraintAlerts, isPrebuilt }
               </div>
             );
           })}
+        </div>
+      ),
+    },
+    {
+      key: "datasources",
+      icon: Database,
+      iconColor: "text-teal-500",
+      title: "Data Signals Used in This Analysis",
+      count: 6,
+      content: (
+        <div className="space-y-2">
+          <p className="text-[10px] text-muted-foreground italic mb-2">
+            CMGF does not replace authoritative systems. It binds signals from them into transparent decision-support outputs.
+          </p>
+          {[
+            { icon: Shield, color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20", label: "Military Personnel & Training", systems: "IPPS-A · ATRRS · JST · DMDC", use: "Capability alignment, experience substitution" },
+            { icon: GraduationCap, color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20", label: "Education Records", systems: "National Student Clearinghouse · Credential Registries · ACE Military Guide", use: "Education gap analysis, degree feasibility" },
+            { icon: DollarSign, color: "text-green-500", bg: "bg-green-500/10 border-green-500/20", label: "Funding & Benefits", systems: "ArmyIgnitED · Army COOL · VA Benefits", use: "Financial feasibility, policy friction" },
+            { icon: TrendingUp, color: "text-cyan-500", bg: "bg-cyan-500/10 border-cyan-500/20", label: "Workforce & Labor Market", systems: "O*NET · BLS · State Workforce Agencies", use: "Career outcome modeling, ROI signals" },
+            { icon: Building2, color: "text-amber-500", bg: "bg-amber-500/10 border-amber-500/20", label: "Institutional Providers", systems: "Universities · CompTIA · ISC2 · PMI", use: "Pathway generation, timeline estimation" },
+            { icon: User, color: "text-red-500", bg: "bg-red-500/10 border-red-500/20", label: "Personal Constraints", systems: "Service Member Self-Report", use: "Risk modeling, feasibility adjustments" },
+          ].map((source, i) => (
+            <div key={i} className={`p-2 rounded-md border ${source.bg}`} data-testid={`data-source-${i}`}>
+              <div className="flex items-center gap-2 mb-1">
+                <source.icon className={`w-3 h-3 ${source.color} flex-shrink-0`} />
+                <span className="text-[11px] font-medium text-foreground">{source.label}</span>
+              </div>
+              <p className="text-[9px] font-mono text-muted-foreground ml-5">{source.systems}</p>
+              <p className="text-[10px] text-muted-foreground ml-5 mt-0.5">{source.use}</p>
+            </div>
+          ))}
+          <div className="mt-2 p-2 rounded-md border border-teal-500/20 bg-teal-500/5">
+            <div className="flex items-center gap-1.5 mb-1">
+              <BarChart3 className="w-3 h-3 text-teal-500" />
+              <span className="text-[10px] font-mono uppercase tracking-wider text-teal-500">Integration Maturity</span>
+            </div>
+            <div className="flex items-center gap-3 ml-5">
+              <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                <span className="text-[9px] text-foreground font-medium">Level 1: Manual Entry</span>
+                <span className="text-[9px] text-muted-foreground">(active)</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                <span className="text-[9px] text-muted-foreground">Level 2: API Integration</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                <span className="text-[9px] text-muted-foreground">Level 3: Federated</span>
+              </div>
+            </div>
+          </div>
         </div>
       ),
     },
