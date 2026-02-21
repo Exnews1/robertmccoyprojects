@@ -776,15 +776,64 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
   useEffect(() => {
     const activeConstraintCount = Object.values(constraints).filter(Boolean).length;
+
+    const taEligible = result.resourcesRequired.filter(r => r.status.toLowerCase().includes("ta-eligible"));
+    const caEligible = result.resourcesRequired.filter(r => r.status.toLowerCase().includes("ca-eligible"));
+    const selfFunded = result.resourcesRequired.filter(r => r.status.toLowerCase().includes("self-funded") || r.status.toLowerCase().includes("self-pay"));
+
+    const domainMeasure = result.readinessMeasures.find(m => m.dimension === "Domain Alignment");
+    const domainStatus = domainMeasure?.status || "yellow";
+
+    const hasFundingConstraint = constraints.noFunding;
+    const hasTimelineConstraint = constraints.shortTimeline;
+
+    const taFriction = result.policyFriction.filter(p =>
+      p.point.toLowerCase().includes("ta") || p.point.toLowerCase().includes("ca") || p.point.toLowerCase().includes("tuition") || p.point.toLowerCase().includes("funding")
+    );
+
+    let educationReview = "";
+    if (domainStatus === "green") {
+      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background provides strong foundational alignment with ${goalLabel} — the system shows ${domainMeasure?.label?.toLowerCase() || "good"} domain overlap.`;
+    } else if (domainStatus === "yellow") {
+      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background gives you moderate alignment with ${goalLabel} — there are transferable skills, but some gaps the analysis has identified.`;
+    } else {
+      educationReview = `I've reviewed your documented education and military training records. Your ${mosLabel} background doesn't directly overlap with ${goalLabel} — the engine has identified foundational skill areas you'll need to build. This is a full capability-building transition, not a credential translation.`;
+    }
+
+    let fundingReview = "";
+    if (caEligible.length > 0 || taEligible.length > 0 || selfFunded.length > 0) {
+      const parts = [];
+      if (caEligible.length > 0) parts.push(`**${caEligible.length}** credential${caEligible.length > 1 ? "s" : ""} eligible for Credentialing Assistance (CA)`);
+      if (taEligible.length > 0) parts.push(`**${taEligible.length}** resource${taEligible.length > 1 ? "s" : ""} eligible for Tuition Assistance (TA)`);
+      if (selfFunded.length > 0) parts.push(`**${selfFunded.length}** item${selfFunded.length > 1 ? "s" : ""} that would be self-funded`);
+      fundingReview = `\n\nI've also looked at your available TA/CA funding options. For your recommended pathway, I'm seeing ${parts.join(", ")}.`;
+      if (hasFundingConstraint) {
+        fundingReview += ` However, your funding situation is flagged as constrained — we should discuss alternative funding strategies.`;
+      } else if (taFriction.length > 0) {
+        fundingReview += ` There ${taFriction.length === 1 ? "is" : "are"} ${taFriction.length} funding-related policy friction point${taFriction.length > 1 ? "s" : ""} worth discussing.`;
+      }
+    }
+
+    let stressFactors = "";
+    const familyMeasure = result.readinessMeasures.find(m => m.dimension === "Family Impact");
+    const stressMeasure = result.readinessMeasures.find(m => m.dimension === "Transition Stress");
+    if (familyMeasure?.status === "red" || stressMeasure?.status === "red" || (familyMeasure?.status === "yellow" && selfFunded.length > 0)) {
+      stressFactors = ` The financial and time commitments involved could affect family stability — that's something I want to be upfront about.`;
+    } else if (hasTimelineConstraint && selfFunded.length > 0) {
+      stressFactors = ` With your compressed timeline and some out-of-pocket costs, I want to make sure we plan this carefully.`;
+    }
+
+    const readinessNote = result.readinessMeasures.some(m => m.status === "red")
+      ? "I do see some areas flagged as high concern — I'd like to walk you through those. "
+      : result.readinessMeasures.some(m => m.status === "yellow")
+      ? "Most indicators look positive with a few moderate considerations. "
+      : "Your readiness indicators are looking strong across the board. ";
+
+    const constraintNote = activeConstraintCount > 0 ? `I also see ${activeConstraintCount} active constraint${activeConstraintCount > 1 ? "s" : ""} that we should discuss. ` : "";
+
     const opening: ChatMessage = {
       role: "assistant",
-      content: `I've reviewed your CMGF analysis. You're a ${persona.rank} with ${persona.yearsOfService} years of service in ${mosLabel}, looking to transition into ${goalLabel}.\n\nBased on the engine output, your top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${
-        result.readinessMeasures.some(m => m.status === "red")
-          ? "I do see some areas flagged as high concern — I'd like to walk you through those. "
-          : result.readinessMeasures.some(m => m.status === "yellow")
-          ? "Most indicators look positive with a few moderate considerations. "
-          : "Your readiness indicators are looking strong across the board. "
-      }${activeConstraintCount > 0 ? `I also see ${activeConstraintCount} active constraint${activeConstraintCount > 1 ? "s" : ""} that we should discuss. ` : ""}What would you like to explore first?`,
+      content: `${educationReview}${fundingReview}${stressFactors}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}What would you like to explore first?`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
@@ -887,8 +936,8 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
   const suggestedQuestions = [
     "What's my biggest risk?",
     "How should I start?",
+    "Break down my TA/CA funding options",
     "What certifications first?",
-    "Will my GI Bill cover this?",
   ];
 
   return (

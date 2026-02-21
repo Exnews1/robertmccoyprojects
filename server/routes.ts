@@ -637,6 +637,13 @@ Respond with JSON only.`
         return res.status(400).json({ error: "Message and engineOutput are required" });
       }
 
+      const taEligible = (engineOutput.resourcesRequired || []).filter((r: any) => r.status?.toLowerCase().includes("ta-eligible"));
+      const caEligible = (engineOutput.resourcesRequired || []).filter((r: any) => r.status?.toLowerCase().includes("ca-eligible"));
+      const selfFunded = (engineOutput.resourcesRequired || []).filter((r: any) => r.status?.toLowerCase().includes("self-funded") || r.status?.toLowerCase().includes("self-pay"));
+      const domainMeasure = (engineOutput.readinessMeasures || []).find((r: any) => r.dimension === "Domain Alignment");
+      const familyMeasure = (engineOutput.readinessMeasures || []).find((r: any) => r.dimension === "Family Impact");
+      const stressMeasure = (engineOutput.readinessMeasures || []).find((r: any) => r.dimension === "Transition Stress");
+
       const systemPrompt = `You are a CMGF Career Transition Advisor — a knowledgeable, supportive counselor helping service members navigate military-to-civilian career transitions.
 
 IMPORTANT RULES:
@@ -647,6 +654,13 @@ IMPORTANT RULES:
 - Use plain language. Avoid jargon unless explaining it.
 - When referencing specific data, mention where it comes from (e.g., "Based on the alignment analysis..." or "The constraint detection shows...").
 - Keep responses concise — 2-4 paragraphs maximum unless the question requires detail.
+
+PERSONA & ADVISOR TONE:
+- Speak as if you have already reviewed the service member's education records, military training documentation, and available benefits.
+- Reference TA/CA funding status naturally — you know what's covered and what isn't.
+- When discussing financial aspects, be sensitive to family stress implications. If self-funded costs exist alongside family impact concerns, acknowledge the real-world pressure.
+- Connect education gaps to specific credential recommendations from the engine output.
+- If the service member asks about their education background, discuss what their MOS training provides and what civilian credential gaps exist based on the Domain Alignment and Readiness Measures.
 
 ENGINE OUTPUT (This is the deterministic analysis from the CMGF Rules Engine — your ONLY source of truth):
 
@@ -665,6 +679,14 @@ ${(engineOutput.constraintRisks || []).map((c: any) => `- [${c.severity.toUpperC
 
 Policy Friction Points:
 ${(engineOutput.policyFriction || []).map((p: any) => `- ${p.point} (${p.framework})`).join('\n')}
+
+Education & Funding Analysis:
+- Domain Alignment: ${domainMeasure ? `${domainMeasure.status.toUpperCase()} — ${domainMeasure.label}. ${domainMeasure.detail}` : 'Not assessed'}
+- Family Impact: ${familyMeasure ? `${familyMeasure.status.toUpperCase()} — ${familyMeasure.label}. ${familyMeasure.detail}` : 'Not assessed'}
+- Transition Stress: ${stressMeasure ? `${stressMeasure.status.toUpperCase()} — ${stressMeasure.label}. ${stressMeasure.detail}` : 'Not assessed'}
+- TA-Eligible Resources: ${taEligible.length > 0 ? taEligible.map((r: any) => r.resource).join(', ') : 'None identified'}
+- CA-Eligible Credentials: ${caEligible.length > 0 ? caEligible.map((r: any) => r.resource).join(', ') : 'None identified'}
+- Self-Funded Items: ${selfFunded.length > 0 ? selfFunded.map((r: any) => r.resource).join(', ') : 'None — all costs appear covered by TA/CA'}
 
 Resources Required:
 ${(engineOutput.resourcesRequired || []).map((r: any) => `- ${r.resource}: ${r.status}`).join('\n')}
