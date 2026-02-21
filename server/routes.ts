@@ -501,11 +501,21 @@ Respond ONLY with valid JSON matching this exact structure:
   "explanation": "string - 2-3 sentence plain-language explanation of WHY these pathways were identified, referencing the source research"
 }
 
-READINESS MEASURES: Always include exactly 4 measures (Timeline Feasibility, Family Impact, Transition Stress, Domain Alignment). Status must be green, yellow, or red based on the MOS-to-credential domain mapping. These are standardized dimensional assessments, NOT individual predictions. IMPORTANT: If a non-cyber/non-technical MOS is targeting cybersecurity, Timeline Feasibility and Domain Alignment should be RED — these individuals lack foundational IT experience and need significant pre-certification technical training before they can compete with cyber-native MOS holders.
+CYBERSECURITY STRUCTURAL REALITY — Critical domain knowledge:
+- Cybersecurity is a TIER 2/3 OCCUPATION, not entry-level. It depends on foundational capability domains: IT support, networking, systems administration, programming, or military technical experience.
+- For non-technical MOS (logistics, admin, medical, combat arms) targeting cybersecurity: Timeline Feasibility and Domain Alignment MUST be RED. These learners need 6-12 months of foundational training (CompTIA A+, Network+) BEFORE attempting Security+ or CISSP. Realistic total timeline: 12-18 months minimum.
+- For cyber-adjacent MOS (intel, comms/signal, cyber ops): These MOS provide foundational domains directly. Timeline can be GREEN (0-6 month transition). Domain Alignment should reflect the strong prerequisite satisfaction.
+- Credential weighting: In cybersecurity, certification relevance > degree relevance for early career. Primary entry credential: CompTIA Security+. Secondary: Network+, CySA+, Cisco CyberOps.
+- Entry role taxonomy: SOC Analyst (most common entry — weights networking high, Security+ medium-high, degree low-medium), GRC Analyst (weights policy knowledge high, technical depth lower), Vulnerability Analyst, Security Technician, Junior Penetration Tester. Each has different prerequisite weights.
+- Experience substitution: Employers accept home labs, CTF competitions, military experience, IT help desk, cloud labs as experience equivalents. Include these as pathways.
+- Failure risk signals: Certification failure rates increase with no prior technical exposure, math/logic gaps, no hands-on practice, low study time. Surface these as constraint risks for non-technical MOS.
+- Wage signals: Entry $55k-$80k, Mid $85k-$120k, Senior $130k+. TS/SCI clearance holders command $15k-$30k premiums.
 
-SPECIAL CONSIDERATIONS: Provide 2-3 unique observations specific to this exact MOS/goal combination — things that wouldn't apply to other transitions. These should be actionable, specific, and grounded in the research sources. For non-technical MOS to cybersecurity transitions, explicitly note the foundational training gap and recommend prerequisite certifications (e.g., CompTIA A+, Network+) before attempting Security+ or CISSP.
+READINESS MEASURES: Always include exactly 4 measures (Timeline Feasibility, Family Impact, Transition Stress, Domain Alignment). Status must be green, yellow, or red based on the MOS-to-credential domain mapping. These are standardized dimensional assessments, NOT individual predictions.
 
-Provide 2-3 pathway options, 2-3 constraint risks, 2-3 policy friction points, 3-4 resources, all 4 readiness measures, 2-3 special considerations, and all 3 CMGF layers. Base your analysis on the provided research sources. Do not invent statistics or cite sources not provided.`
+SPECIAL CONSIDERATIONS: Provide 2-3 unique observations specific to this exact MOS/goal combination — things that wouldn't apply to other transitions. These should be actionable, specific, and grounded in the research sources.
+
+Provide 2-3 pathway options, 2-3 constraint risks, 2-3 policy friction points, 3-5 resources, all 4 readiness measures, 2-3 special considerations, and all 3 CMGF layers. Base your analysis on the provided research sources. Do not invent statistics or cite sources not provided.`
           },
           {
             role: "user",
