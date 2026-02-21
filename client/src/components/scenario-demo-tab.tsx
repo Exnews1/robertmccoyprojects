@@ -184,6 +184,50 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       ],
       explanation: "Military logistics MOS provides near-direct translation to civilian supply chain management. The APICS CSCP pathway shows 94% alignment because military warehouse management, distribution operations, and inventory control map directly to APICS competency domains.",
     },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Career-Technical Instructor", match: "82%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → Secondary Education", match: "68%", timeframe: "12-18 months" },
+        { name: "BS Education (GI Bill) → K-12 Teaching License", match: "60%", timeframe: "24-36 months" },
+      ],
+      constraintRisks: [
+        { label: "State certification variability", severity: "high", detail: "Teaching certification requirements vary by state — some accept military experience toward career-technical teaching credentials; others require formal coursework regardless of experience level" },
+        { label: "Salary adjustment", severity: "high", detail: "Average teacher salary ($47k-$65k) is significantly lower than defense contractor or federal roles available to veterans. 54% of TTT teachers report high job satisfaction despite pay gap, but financial planning is critical" },
+        { label: "Bachelor's degree requirement", severity: "medium", detail: "Academic subject teaching requires a bachelor's degree. Career-technical instructor track requires 1 year of college + 6 years military experience in the vocational field — more accessible for enlisted personnel" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) available for certification costs — must apply within 3 years of separation and commit to teaching in high-need school", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "Additional $5,000-$10,000 bonus for accepting full-time position at high-need school (50%+ low-income students)", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "TTT eligibility requires honorable discharge and either retirement-eligible, 4+ years continuous active duty, or 6+ years creditable service", framework: "FY2013 NDAA" },
+        { point: "Post-9/11 GI Bill covers degree costs but BAH rates vary by program delivery mode (in-person vs. online)", framework: "Ch. 33 Post-9/11 GI Bill" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "State teaching certification exams ($100-$300)", status: "TTT stipend-eligible" },
+        { resource: "Alternative certification program ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+        { resource: "Praxis or state-specific content exams", status: "Self-funded or TTT stipend" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "yellow", label: "Moderate", detail: "Career-technical track achievable in 6-12 months through alternative certification. Academic subject teaching requires bachelor's degree + certification (12-36 months). TTT program provides placement assistance and counseling" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching schedule aligns with family needs (summers, holidays). Geographic flexibility — teacher shortages exist nationwide. TTT has placed 21,000+ veterans since program inception" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Military leadership skills transfer strongly to classroom management — 90% of principals rate TTT teachers more effective than peers. Cultural adjustment from military to school environment is real but manageable" },
+        { dimension: "Domain Alignment", status: "yellow", label: "Moderate", detail: "Logistics MOS provides organizational, planning, and leadership skills that map to instruction and classroom management. Career-technical pathway has strongest alignment for hands-on MOS backgrounds" },
+      ],
+      specialConsiderations: [
+        "Troops to Teachers has placed over 21,000 veteran teachers since 1993. Research shows 90% of principals consider TTT teachers more effective in instruction and classroom management than other teachers with similar experience. 54% of TTT teachers report being 'very satisfied' compared to 32% of all teachers.",
+        "Career-technical instructor track is ideal for logistics MOS: requires only 1 year of college + 6 years military experience in vocational field. This pathway bypasses the bachelor's degree requirement and leverages hands-on military training directly.",
+        "80% of TTT teachers are men, helping balance teaching workforce (normally 75% female). 27% of TTT teachers teach math/science and 19% teach special education — all high-shortage areas. Veterans bring diversity and leadership that schools actively seek.",
+        "Retention advantage: Among TTT teachers in high-need schools, 90% continued for a second year and 75% for a third — far exceeding national new-teacher retention rates where nearly 50% quit within 5 years.",
+      ],
+      timelineRange: "6-12 months (career-technical) · 12-36 months (academic subject)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures MOS skills, leadership experience, education level, and TTT eligibility factors — identifies career-technical vs. academic subject pathway fit" },
+        { layer: "Part B: AI Mediation", action: "Maps military occupational competencies to state certification requirements; identifies TTT eligibility status; surfaces career-technical instructor pathway as highest-alignment option for hands-on MOS backgrounds" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates TTT application timeline, coordinates state certification requirements, confirms high-need school placement options and bonus eligibility" },
+      ],
+      explanation: "Troops to Teachers (10 U.S.C. §1154) is a congressionally authorized program providing certification stipends ($5,000), placement assistance, and high-need school bonuses ($5,000-$10,000) for veterans transitioning to education careers. Logistics MOS personnel have strong alignment with the career-technical instructor pathway, which requires 6 years military experience in a vocational field plus 1 year of college — bypassing the bachelor's degree requirement. Military leadership, organizational planning, and hands-on training skills transfer directly to classroom management and instruction.",
+    },
   },
   intel: {
     cybersecurity: {
@@ -264,6 +308,48 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       ],
       explanation: "Intelligence analysis skills transfer strongly to data analytics. Pattern recognition, report generation, and structured analytical methodologies from intelligence work map directly to civilian data science practices.",
     },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Social Studies / History", match: "85%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → STEM Education", match: "76%", timeframe: "9-15 months" },
+        { name: "MEd Curriculum & Instruction (GI Bill)", match: "70%", timeframe: "18-24 months" },
+      ],
+      constraintRisks: [
+        { label: "Classification barrier for experience documentation", severity: "medium", detail: "Intelligence work experience is often classified and cannot be directly cited in teaching credential applications. Must prepare unclassified equivalency narratives describing analytical methodology, briefing, and report-writing skills" },
+        { label: "Salary differential", severity: "high", detail: "Intelligence community contractors earn $80k-$130k; teaching salaries average $47k-$65k. TTT teachers report 54% 'very satisfied' vs. 32% of all teachers, but financial adjustment is significant" },
+        { label: "State certification requirements", severity: "medium", detail: "Teaching certification varies by state. Alternative certification programs (6-15 months) offer the fastest path. TTT provides counseling and referral services to navigate state requirements" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) available for certification costs — must apply within 3 years of separation", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "High-need school bonus ($5,000-$10,000) for schools with 50%+ low-income students", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "Post-9/11 GI Bill covers MEd program costs; Yellow Ribbon for private institutions", framework: "Ch. 33 Post-9/11 GI Bill" },
+        { point: "Clearance monetization window: cleared teaching positions at DoDEA schools pay $10k-$20k above civilian district rates", framework: "DoDEA Employment" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "Praxis Subject Assessment ($90-$170 per test)", status: "TTT stipend-eligible" },
+        { resource: "Alternative certification program ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Intelligence MOS personnel with bachelor's degrees can enter alternative certification in 6-12 months. Analytical briefing and report-writing skills transfer directly to lesson planning and instruction" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching schedule aligns with family obligations. DoDEA overseas schools offer continued military community connection for families" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Intel analysts are trained briefers and communicators — core teaching competencies. 90% of principals rate TTT teachers more effective than peers with similar experience" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "85% alignment — analytical methodology, briefing skills, and subject matter expertise in history/geopolitics/current events map directly to social studies, history, and STEM instruction" },
+      ],
+      specialConsiderations: [
+        "Intelligence MOS personnel are trained briefers, analysts, and communicators — these are the core competencies of effective teaching. Social studies, history, geography, and current events are natural content areas for intelligence backgrounds.",
+        "DoDEA (Department of Defense Education Activity) operates 160 schools in 8 countries and actively recruits veteran teachers. Clearance holders may qualify for higher-paying DoDEA positions that maintain military community connection.",
+        "TTT research shows 80% of participants are men and 25%+ are minorities — both demographics critically underrepresented in teaching. Intel veterans' analytical depth and real-world expertise bring unique value to STEM and social studies classrooms.",
+      ],
+      timelineRange: "6-12 months (alternative cert) · 18-24 months (MEd program)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures analytical methodology, briefing experience, education level, and TTT eligibility — identifies social studies/STEM as highest-alignment content areas" },
+        { layer: "Part B: AI Mediation", action: "Maps intelligence analysis competencies to teaching certification requirements; identifies alternative certification as fastest pathway; surfaces DoDEA employment as clearance-leveraging option" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates TTT application, coordinates state certification requirements, prepares unclassified experience narratives for credential applications" },
+      ],
+      explanation: "Intelligence MOS personnel bring analytical methodology, briefing skills, and deep subject matter expertise that transfer directly to teaching. Social studies, history, and STEM content areas show 85% alignment. The Troops to Teachers program provides $5,000 certification stipend plus $5,000-$10,000 high-need school bonuses. DoDEA schools offer cleared veteran teaching positions at premium pay. TTT has placed 21,000+ veteran teachers with 90% principal satisfaction ratings.",
+    },
   },
   comms: {
     cybersecurity: {
@@ -307,6 +393,47 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       ],
       explanation: "Signal/Comms MOS provides the strongest cybersecurity transition pipeline. Networking, COMSEC, and infrastructure management are the exact foundational domains cybersecurity depends on. Where non-technical MOS holders require 12-18 months of capability building, 25B/25U personnel can target SOC Analyst roles in 0-3 months. Wage mobility is strong ($55k-$80k entry → $130k+ senior).",
     },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Technology / STEM Instructor", match: "88%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → Computer Science Education", match: "80%", timeframe: "9-15 months" },
+        { name: "BS/MEd in STEM Education (GI Bill)", match: "72%", timeframe: "18-24 months" },
+      ],
+      constraintRisks: [
+        { label: "Salary reduction from tech sector", severity: "high", detail: "Signal/Comms veterans with Security+ or CCNA can earn $70k-$110k in civilian tech. Teaching salaries ($47k-$65k) represent significant pay cut. TTT high-need bonuses ($10,000) and job satisfaction (54% 'very satisfied') partially offset" },
+        { label: "State certification requirements", severity: "medium", detail: "Computer science and technology education certification requirements vary widely by state. Some states have provisional IT teacher licenses; TTT counselors help navigate state-specific pathways" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) for certification costs — 3-year application window post-separation", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "High-need school bonus ($5,000-$10,000) — STEM teachers are in critical shortage nationwide", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "27% of TTT teachers teach math/science and 19% special education — all federally designated shortage areas", framework: "DOE Teacher Shortage Areas" },
+        { point: "Post-9/11 GI Bill covers degree programs; TA available for certification coursework while on active duty", framework: "Ch. 33 Post-9/11 GI Bill" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "Praxis Technology Education exam ($120)", status: "TTT stipend-eligible" },
+        { resource: "Alternative certification coursework ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Signal/Comms MOS with existing IT certifications can enter technology education through alternative certification in 6-12 months. Career-technical instructor pathway requires only 1 year college + 6 years military technical experience" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching schedule with summers and holidays. STEM teachers are in demand everywhere — high geographic flexibility" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Network operations, systems administration, and technical training experience translate directly to technology and CS instruction. Military trainers are already experienced instructors" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "88% alignment — Signal/Comms MOS provides the exact technical domains (networking, systems, IT) that STEM and technology education programs need. Many comms personnel already serve as unit-level technical trainers" },
+      ],
+      specialConsiderations: [
+        "Signal/Comms MOS personnel are among the strongest education pathway candidates: they combine technical expertise in high-shortage STEM areas with military training experience. Many 25-series soldiers already serve as instructors in military training environments.",
+        "Computer Science education is the fastest-growing K-12 subject area with severe national teacher shortage. Signal/Comms veterans with networking and systems expertise fill a critical gap that traditional education programs cannot address.",
+        "DoDEA schools and JROTC programs actively recruit veterans with technical backgrounds. JROTC instructor positions offer higher pay than civilian district teaching and maintain DoD employment benefits.",
+      ],
+      timelineRange: "6-12 months (career-technical/alt cert) · 18-24 months (degree program)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures network operations, systems admin, IT certifications, and military training experience — identifies STEM/technology education as highest-alignment content area" },
+        { layer: "Part B: AI Mediation", action: "Maps Signal/Comms competencies to technology education certification requirements; identifies career-technical and CS education pathways; surfaces JROTC and DoDEA as veteran-friendly employment options" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates TTT application, coordinates state CS education certification, confirms existing IT certifications count toward teaching credentials" },
+      ],
+      explanation: "Signal/Comms MOS provides the strongest technology education pathway: networking, systems, and IT expertise directly address the critical national shortage of STEM and computer science teachers. With 27% of TTT teachers in math/science and 88% domain alignment, Comms veterans can leverage military training experience and IT certifications through alternative certification (6-12 months) or career-technical instructor pathways.",
+    },
   },
   medical: {
     healthcare_admin: {
@@ -345,6 +472,47 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { layer: "Part C: Advisory Review", action: "Advisor validates clinical-to-administrative pathway and benefit coordination" },
       ],
       explanation: "Medical MOS clinical experience provides foundational understanding of healthcare systems. The Healthcare Management Certificate pathway (80% alignment) offers the fastest bridge from clinical to administrative roles.",
+    },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Health Science / Biology Instructor", match: "86%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → Science Education", match: "78%", timeframe: "9-15 months" },
+        { name: "BSN/MSN → Nurse Educator (GI Bill)", match: "74%", timeframe: "18-30 months" },
+      ],
+      constraintRisks: [
+        { label: "Salary differential", severity: "medium", detail: "Healthcare sector offers $55k-$90k for clinical roles. Teaching salaries ($47k-$65k) are lower but offer schedule stability, summers, and TTT bonuses ($5,000-$10,000). 54% of TTT teachers report high satisfaction" },
+        { label: "Certification pathway complexity", severity: "medium", detail: "Health science and biology teaching certification requires passing Praxis content exams. Medical MOS training covers foundational biology, anatomy, and pharmacology but may need supplemental coursework for state-specific requirements" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) for certification — medical MOS qualifies for career-technical health science instructor track with 6+ years experience", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "High-need school bonus ($5,000-$10,000) — science and health education are federally designated teacher shortage areas", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "Post-9/11 GI Bill covers BSN/MSN programs for nurse educator pathway", framework: "Ch. 33 Post-9/11 GI Bill" },
+        { point: "Troops to Nurse Teachers concept (Senate-explored) would provide up to $30,000 for medical corpsmen transitioning to nurse education", framework: "Congressional Proposal" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "Praxis Biology or Health content exam ($120-$170)", status: "TTT stipend-eligible" },
+        { resource: "Alternative certification program ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Medical MOS with clinical training can enter health science education through career-technical certification in 6-12 months. Anatomy, physiology, and patient care competencies transfer directly to health science instruction" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching schedule eliminates clinical shift work. Schools actively seek health science instructors — high geographic flexibility and demand" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Combat medics already train others in field medicine, first aid, and casualty care — core instructional experience. 90% of principals rate TTT teachers more effective than peers" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "86% alignment — medical MOS provides anatomy, physiology, pharmacology, and patient care competencies that map directly to health science and biology instruction. Career-technical health instructor pathway leverages clinical experience" },
+      ],
+      specialConsiderations: [
+        "Medical MOS personnel are natural health science educators: combat medics, 68W, and corpsmen already provide field training and instruction in emergency medicine, anatomy, and pharmacology. This instructional experience directly satisfies teaching competency requirements.",
+        "Congress has explored 'Troops to Nurse Teachers' legislation that would provide up to $30,000 for medical corpsmen transitioning to nurse education — addressing a projected nursing faculty shortage. Medical MOS veterans can also pursue BSN/MSN via GI Bill to become nursing program instructors.",
+        "Health science and biology are federally designated teacher shortage areas. Medical MOS veterans fill a critical gap: they bring real-world clinical experience that traditional education graduates lack. CTE (Career and Technical Education) health programs actively recruit veterans.",
+      ],
+      timelineRange: "6-12 months (career-technical) · 18-30 months (nurse educator)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures clinical training, patient care, field medicine, and medical instruction experience — identifies health science and biology as highest-alignment content areas" },
+        { layer: "Part B: AI Mediation", action: "Maps medical competencies to health science and biology certification requirements; identifies career-technical health instructor and nurse educator pathways; surfaces CTE health program demand" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates TTT application, coordinates state health science certification, confirms clinical experience counts toward career-technical teaching credentials" },
+      ],
+      explanation: "Medical MOS provides the strongest health science education pathway: anatomy, physiology, pharmacology, and patient care competencies map directly to health science and biology instruction. Combat medics already serve as field trainers — core instructional experience. TTT provides $5,000 certification stipend plus $5,000-$10,000 high-need school bonuses. Career-technical health instructor pathway leverages 6+ years clinical military experience. Congress has explored expanding TTT with a 'Troops to Nurse Teachers' concept providing up to $30,000 for medical-to-educator transitions.",
     },
   },
   combat_arms: {
@@ -386,6 +554,50 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       ],
       explanation: "Combat arms leadership experience translates to project management through mission planning, resource coordination, and team leadership. The primary constraint is reframing tactical experience into civilian project management terminology.",
     },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Physical Education / JROTC", match: "84%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → History / Social Studies", match: "72%", timeframe: "9-18 months" },
+        { name: "BS Education (GI Bill) → Secondary Teaching License", match: "64%", timeframe: "24-36 months" },
+      ],
+      constraintRisks: [
+        { label: "Academic credential gap", severity: "high", detail: "Combat arms MOS may lack formal academic credentials in content areas. JROTC instructor pathway bypasses this by leveraging military leadership directly. Academic subject teaching requires bachelor's degree + content certification" },
+        { label: "Cultural transition", severity: "medium", detail: "Transitioning from combat-focused military culture to school environment requires intentional adjustment. Research shows TTT teachers succeed because of — not despite — their military bearing. 90% of principals rate TTT teachers more effective than peers" },
+        { label: "Salary adjustment", severity: "high", detail: "Defense contractor roles for combat arms veterans pay $60k-$100k. Teaching salaries ($47k-$65k) are lower. JROTC instructor positions through DoD pay higher than civilian district positions and maintain benefits" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) available for certification — combat arms with 6+ years can qualify for career-technical instructor track", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "High-need school bonus ($5,000-$10,000) for schools with 50%+ low-income students", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "JROTC instructor positions are DoD-funded with military retirement credit — separate application through U.S. Army Cadet Command", framework: "DoD JROTC Program" },
+        { point: "Post-9/11 GI Bill covers BS Education degree programs; alternative certification may be TA-eligible while on active duty", framework: "Ch. 33 Post-9/11 GI Bill" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "Praxis content exam ($120-$170)", status: "TTT stipend-eligible" },
+        { resource: "JROTC instructor application (no cost)", status: "DoD-funded" },
+        { resource: "Alternative certification program ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "JROTC instructor positions require only military retirement/separation — no civilian teaching certification needed. TTT career-technical pathway achievable in 6-12 months. Full degree program requires 24-36 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching and JROTC positions offer stability: regular hours, summers, school holidays. Geographic flexibility with nationwide teacher shortage and 3,400+ JROTC programs across the country" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Combat identity shift is documented but manageable. TTT veteran peer mentoring and school veteran communities provide support. Combat arms veterans consistently cited as strong classroom leaders and role models" },
+        { dimension: "Domain Alignment", status: "yellow", label: "Moderate", detail: "84% alignment for PE/JROTC track — military fitness, leadership, discipline, and mentorship map directly. History/social studies requires more academic preparation but geopolitical knowledge from service is an asset" },
+      ],
+      specialConsiderations: [
+        "JROTC is the strongest pathway for combat arms veterans: 3,400+ programs nationwide employ retired military personnel as instructors. JROTC positions are DoD-funded, pay higher than civilian teaching, maintain military retirement credit, and require no civilian teaching certification.",
+        "Combat arms veterans are specifically valued in TTT research: 80% of TTT teachers are men (vs. 25% of all new teachers), and their discipline, leadership, and mentorship skills address critical needs in underserved schools. Research shows students respond strongly to veteran role models.",
+        "Physical education, health, and history/social studies are natural content areas for combat arms backgrounds. Veterans with deployment experience bring firsthand geopolitical and leadership perspective that enriches social studies instruction.",
+        "TTT retention data shows 90% of TTT teachers in high-need schools return for a second year, 75% for a third — far exceeding the national average where nearly 50% of new teachers quit within 5 years. Military resilience training contributes to this retention advantage.",
+      ],
+      timelineRange: "6-12 months (JROTC/career-technical) · 24-36 months (degree program)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures leadership experience, fitness qualifications, deployment history, and rank — identifies JROTC and PE as highest-alignment pathways for combat arms" },
+        { layer: "Part B: AI Mediation", action: "Maps combat arms leadership and discipline competencies to education pathways; identifies JROTC as zero-certification-required option; surfaces career-technical and alternative certification for subject teaching" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates JROTC eligibility through U.S. Army Cadet Command, coordinates TTT application for alternative pathways, connects with veteran educator peer networks" },
+      ],
+      explanation: "Combat arms veterans have strong education pathway alignment through JROTC (3,400+ programs, no civilian certification required, DoD-funded), physical education, and history/social studies. TTT has placed 21,000+ veteran teachers with 90% principal satisfaction. Combat arms leadership, discipline, and mentorship skills address critical needs in underserved schools — 80% of TTT teachers are men (vs. 25% of all new teachers), providing role model diversity that schools actively seek.",
+    },
   },
   admin: {
     project_management: {
@@ -421,6 +633,47 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { layer: "Part C: Advisory Review", action: "Advisor confirms documentation and identifies bridging opportunities" },
       ],
       explanation: "Administrative MOS competencies in personnel management, process coordination, and organizational workflows translate directly to project management and business analysis roles with minimal additional credentialing.",
+    },
+    education: {
+      pathwayOptions: [
+        { name: "Troops to Teachers → Business / Career Education", match: "83%", timeframe: "6-12 months" },
+        { name: "Alternative Certification → Elementary / Middle School", match: "75%", timeframe: "9-15 months" },
+        { name: "MEd School Administration (GI Bill)", match: "70%", timeframe: "18-24 months" },
+      ],
+      constraintRisks: [
+        { label: "Content area certification", severity: "medium", detail: "Business education and career/technical education certification varies by state. Admin MOS experience in HR systems (IPPS-A, eMILPO) translates to business education content but must map to state certification frameworks" },
+        { label: "Salary alignment", severity: "low", detail: "Administrative MOS pay grades ($35k-$55k enlisted) are closer to teaching salaries ($47k-$65k) than technical MOS. TTT bonuses ($5,000-$10,000) can exceed military-to-civilian pay gap for admin MOS ranks" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers stipend ($5,000) for certification costs — admin MOS with 6+ years qualifies for career-technical instructor track", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "High-need school bonus ($5,000-$10,000) for full-time position at school with 50%+ low-income students", framework: "10 U.S.C. §1154 / TTT Program" },
+        { point: "Post-9/11 GI Bill covers MEd programs; Yellow Ribbon for private institutions", framework: "Ch. 33 Post-9/11 GI Bill" },
+        { point: "TTT counseling and referral services available to all veterans with honorable discharge — no cost to apply", framework: "FY2013 NDAA" },
+      ],
+      resourcesRequired: [
+        { resource: "TTT certification stipend (up to $5,000)", status: "TTT-funded" },
+        { resource: "TTT high-need school bonus ($5,000-$10,000)", status: "TTT-funded" },
+        { resource: "Praxis Business Education or Elementary exam ($120-$170)", status: "TTT stipend-eligible" },
+        { resource: "Alternative certification program ($3,000-$6,000)", status: "GI Bill / TA-eligible" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "Admin MOS with process management and personnel experience can enter business education or elementary teaching through alternative certification in 6-12 months. Career-technical pathway leverages HR and organizational skills directly" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching schedule aligns with family obligations. Admin MOS veterans often value schedule predictability of education careers. Geographic flexibility nationwide" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Administrative skills — organization, process management, communication, documentation — transfer directly to school environments. Admin veterans often transition more smoothly than combat or technical MOS" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "83% alignment — personnel management, process coordination, organizational workflows, and HR system proficiency map directly to business education, career counseling, and school administration pathways" },
+      ],
+      specialConsiderations: [
+        "Admin MOS personnel have a unique dual pathway: they can enter teaching through business/career education (leveraging HR and organizational expertise) OR pursue school administration through MEd programs. Their experience with military personnel systems translates to both instruction and institutional leadership.",
+        "Admin MOS proficiency with Army systems (IPPS-A, eMILPO, DTS) represents transferable ERP/database experience that business education programs value. Highlight systems management in teaching credential applications.",
+        "TTT research shows that organizational and leadership skills from military service — particularly prevalent in admin MOS — are the competencies principals value most. 90% of principals rate TTT teachers more effective than traditionally trained peers with similar experience.",
+      ],
+      timelineRange: "6-12 months (alt cert / career-technical) · 18-24 months (MEd program)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures HR management, organizational workflows, personnel system proficiency, and process coordination experience — identifies business education and school administration as highest-alignment pathways" },
+        { layer: "Part B: AI Mediation", action: "Maps admin/HR competencies to business education certification requirements; identifies career-technical and alternative certification as fastest paths; surfaces school administration as long-term career option via MEd" },
+        { layer: "Part C: Advisory Review", action: "Human advisor validates TTT application, coordinates state business education certification, identifies dual-pathway opportunity (teaching + administration)" },
+      ],
+      explanation: "Administrative MOS provides strong alignment with business education, career counseling, and school administration pathways. Personnel management, organizational workflows, and HR system proficiency (IPPS-A, eMILPO) map directly to business education content areas. TTT provides $5,000 certification stipend plus $5,000-$10,000 high-need school bonuses. Admin MOS veterans often transition smoothly to school environments — their organizational skills and process management experience are exactly what principals value most in TTT teacher evaluations.",
     },
   },
 };
