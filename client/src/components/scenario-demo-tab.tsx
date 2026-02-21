@@ -1388,6 +1388,7 @@ export function ScenarioDemoTab() {
               </CardContent>
             </Card>
           ) : result ? (
+            <>
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
               <div className="lg:col-span-2 order-2 lg:order-1">
                 <Card className="h-full">
@@ -1402,7 +1403,7 @@ export function ScenarioDemoTab() {
                 </Card>
               </div>
 
-              <div className="lg:col-span-3 order-1 lg:order-2 space-y-3">
+              <div className="lg:col-span-3 order-1 lg:order-2">
                 <Card className="h-full">
                   <CardContent className="pt-4 pb-3">
                     <AdvisorChat
@@ -1413,36 +1414,43 @@ export function ScenarioDemoTab() {
                     />
                   </CardContent>
                 </Card>
+              </div>
+            </div>
 
-                <div className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-3" data-testid="scenario-scale-context">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Layers className="w-4 h-4 text-cyan-400" />
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400">Transition Scenario Scale</span>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      This demonstration model evaluates approximately <span className="text-foreground font-semibold">46,000 deterministic transition scenarios</span> based on capability alignment, rank, service duration, and policy constraints.
-                    </p>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
-                      When expanded to the full set of occupational specialties across the U.S. Armed Forces, the potential pathway combinations exceed <span className="text-foreground font-semibold">5 million possible transition states</span>.
-                    </p>
-                    <p className="text-[11px] text-cyan-300/80 leading-relaxed italic">
-                      The purpose of AI mediation in this system is not to make decisions, but to bind complex constraint interactions into transparent, human-reviewable guidance.
-                    </p>
-                    <div className="flex items-center gap-4 mt-2 pt-2 border-t border-cyan-500/10">
-                      <div className="flex items-center gap-1.5">
-                        <Brain className="w-3 h-3 text-cyan-500" />
-                        <span className="text-[10px] text-muted-foreground">Demo model: <span className="text-foreground font-mono font-medium">~46,080</span> scenarios</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Layers className="w-3 h-3 text-cyan-500" />
-                        <span className="text-[10px] text-muted-foreground">Full military scope: <span className="text-foreground font-mono font-medium">5M+</span> pathways</span>
-                      </div>
-                    </div>
-                  </div>
+            <div className="rounded-lg border border-border/60 bg-muted/30 p-4 mt-4" data-testid="scenario-scale-context">
+              <div className="flex items-center gap-2 mb-2.5">
+                <Layers className="w-4 h-4 text-muted-foreground" />
+                <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">Transition Scenario Scale</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-1.5">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    This demonstration model evaluates approximately <span className="text-foreground font-semibold">190,000+ deterministic transition scenarios</span> spanning enlisted MOS codes and officer branch/functional area ratings, across rank tiers, service durations, and policy constraints.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    When expanded to the full set of occupational specialties across all U.S. Armed Forces branches, the potential pathway combinations exceed <span className="text-foreground font-semibold">12 million possible transition states</span>.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <p className="text-[11px] text-muted-foreground/80 leading-relaxed italic">
+                    The purpose of AI mediation in this system is not to make decisions, but to bind complex constraint interactions into transparent, human-reviewable guidance.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-6 mt-3 pt-2.5 border-t border-border/40">
+                <div className="flex items-center gap-1.5">
+                  <Brain className="w-3 h-3 text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground">Demo scope: <span className="text-foreground font-mono font-medium">~190K</span> scenarios (enlisted + officer)</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Layers className="w-3 h-3 text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground">Full military scope: <span className="text-foreground font-mono font-medium">12M+</span> pathways</span>
                 </div>
               </div>
             </div>
+            </>
           ) : null}
         </div>
       </div>
