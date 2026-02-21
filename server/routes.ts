@@ -396,6 +396,146 @@ Rules:
     }
   });
 
+  app.post("/api/generate-pathway", async (req: any, res: any) => {
+    try {
+      const { rank, yearsOfService, mos, mosLabel, careerGoal, goalLabel } = req.body;
+      if (!mos || !careerGoal) {
+        return res.status(400).json({ message: "MOS and career goal are required" });
+      }
+
+      const entries = await storage.getLibraryEntries();
+
+      if (entries.length === 0) {
+        return res.json({
+          message: "No research sources available in the library. Pathway generation requires grounded research data.",
+          pathwayOptions: [], constraintRisks: [], policyFriction: [], resourcesRequired: [],
+          timelineRange: "N/A", cmgfLayers: [], sources: [], generated: false,
+        });
+      }
+
+      const searchQuery = `military ${mosLabel || mos} transition to ${goalLabel || careerGoal} career pathway credentials certification`;
+
+      let queryEmbedding: number[];
+      try {
+        queryEmbedding = await generateEmbedding(searchQuery);
+      } catch (error) {
+        console.error("Embedding generation failed:", error);
+        return res.status(500).json({ message: "AI service temporarily unavailable" });
+      }
+
+      const scoredEntries = entries
+        .filter(entry => entry.embedding)
+        .map(entry => {
+          const entryEmbedding = JSON.parse(entry.embedding!) as number[];
+          let score = cosineSimilarity(queryEmbedding, entryEmbedding);
+          const titleLower = (entry.title || "").toLowerCase();
+          const summaryLower = (entry.summary || "").toLowerCase();
+          const goalLower = (goalLabel || careerGoal).toLowerCase();
+          const mosLower = (mosLabel || mos).toLowerCase();
+          if (titleLower.includes(goalLower) || summaryLower.includes(goalLower)) score += 0.1;
+          if (titleLower.includes(mosLower) || summaryLower.includes(mosLower)) score += 0.1;
+          return { entry, score };
+        })
+        .sort((a, b) => b.score - a.score);
+
+      const relevantSources = scoredEntries.filter(s => s.score >= 0.30);
+      if (relevantSources.length === 0) {
+        return res.json({
+          message: "No sufficiently relevant research sources found for this MOS/goal combination. Try a different pairing or use a pre-mapped scenario.",
+          pathwayOptions: [], constraintRisks: [], policyFriction: [], resourcesRequired: [],
+          timelineRange: "N/A", cmgfLayers: [], sources: [], generated: false,
+        });
+      }
+
+      const topSources = relevantSources.slice(0, 5);
+      const sourceContext = topSources.map(({ entry }, idx) =>
+        `[Source ${idx + 1}: "${entry.title}" (${entry.year})]\n${entry.summary}`
+      ).join("\n\n");
+
+      const OpenAI = (await import("openai")).default;
+      const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          {
+            role: "system",
+            content: `You are the CMGF (Career Mobility Governance Framework) pathway analysis engine. You produce structured career transition analyses for military service members.
+
+IMPORTANT CONSTRAINTS — you are a BOUNDED AI system:
+- You do NOT predict outcomes or score individuals
+- You do NOT make automated decisions or approvals
+- You translate military competencies to civilian credential domains using rule-based mapping
+- You identify binding constraints from policy and timeline data
+- All outputs require human advisory review (Part C)
+
+Respond ONLY with valid JSON matching this exact structure:
+{
+  "pathwayOptions": [
+    { "name": "string - credential or program name with track", "match": "string - domain alignment percentage like 85% (this is MOS-to-credential domain overlap, NOT an individual score or prediction)", "timeframe": "string - e.g. 6-12 months" }
+  ],
+  "constraintRisks": [
+    { "label": "string - risk name", "severity": "high|medium|low", "detail": "string - explanation" }
+  ],
+  "policyFriction": [
+    { "point": "string - the friction point", "framework": "string - policy or regulation name" }
+  ],
+  "resourcesRequired": [
+    { "resource": "string - resource name with cost if known", "status": "string - eligibility status" }
+  ],
+  "timelineRange": "string - overall timeline range",
+  "cmgfLayers": [
+    { "layer": "Part A: Service Member Interface", "action": "string - what this layer does for this scenario" },
+    { "layer": "Part B: AI Mediation Framework", "action": "string - what this layer does" },
+    { "layer": "Part C: Advisory & Human Review", "action": "string - what this layer does" }
+  ],
+  "explanation": "string - 2-3 sentence plain-language explanation of WHY these pathways were identified, referencing the source research"
+}
+
+Provide 2-3 pathway options, 2-3 constraint risks, 2-3 policy friction points, 3-4 resources, and all 3 CMGF layers. Base your analysis on the provided research sources. Do not invent statistics or cite sources not provided.`
+          },
+          {
+            role: "user",
+            content: `Generate a CMGF pathway analysis for:
+- Rank: ${rank || "E-6"}
+- Years of Service: ${yearsOfService || "10"}
+- MOS/Specialty: ${mosLabel || mos}
+- Career Goal: ${goalLabel || careerGoal}
+
+Research Sources:
+${sourceContext}
+
+Respond with JSON only.`
+          }
+        ],
+        max_tokens: 1500,
+        temperature: 0.4,
+        response_format: { type: "json_object" }
+      });
+
+      const rawResponse = completion.choices[0]?.message?.content;
+      if (!rawResponse) {
+        return res.status(500).json({ message: "Failed to generate pathway analysis" });
+      }
+
+      const pathway = JSON.parse(rawResponse);
+
+      res.json({
+        ...pathway,
+        sources: topSources.slice(0, 3).map(({ entry, score }) => ({
+          id: entry.entryId,
+          title: entry.title,
+          year: entry.year,
+          relevance: getRelevanceLabel(score),
+        })),
+        generated: true,
+      });
+    } catch (error) {
+      console.error("Pathway generation error:", error);
+      res.status(500).json({ message: "Failed to generate pathway analysis" });
+    }
+  });
+
   app.post("/api/inquiries", async (req: any, res: any) => {
     try {
       const inquiry = insertInquirySchema.parse(req.body);
