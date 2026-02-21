@@ -9,7 +9,7 @@ import {
   User, Cpu, AlertTriangle, CheckCircle, Clock, Shield,
   ArrowRight, Zap, BookOpen, DollarSign, FileWarning,
   Lock, Layers, Target, TrendingUp, XCircle, Lightbulb,
-  Loader2, ChevronDown, ChevronUp, Sparkles
+  Loader2, ChevronDown, ChevronUp, Sparkles, Info
 } from "lucide-react";
 
 interface PersonaConfig {
@@ -843,6 +843,9 @@ export function ScenarioDemoTab() {
                   <div className="flex items-center gap-2 mb-3">
                     <DollarSign className="w-4 h-4 text-green-500" />
                     <span className="text-sm font-medium text-foreground">Resources Required</span>
+                    <Badge variant="outline" className="text-[10px] ml-auto" data-testid="badge-resource-source">
+                      {isPrebuilt ? "Verified Data" : "AI-Estimated"}
+                    </Badge>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {result.resourcesRequired.map((r, i) => (
@@ -851,6 +854,24 @@ export function ScenarioDemoTab() {
                         <Badge variant="outline" className="text-[10px]">{r.status}</Badge>
                       </div>
                     ))}
+                  </div>
+                  <div className="mt-3 p-2.5 rounded-md bg-muted/30 border border-border/30" data-testid="resource-sourcing-note">
+                    <div className="flex items-start gap-2">
+                      <Info className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        {isPrebuilt ? (
+                          <>
+                            <span className="font-medium text-foreground/70">Source: </span>
+                            Costs and eligibility status are drawn from published fee schedules (e.g., PMI, CompTIA, ISC2) and DoD education benefit catalogs (Tuition Assistance, Credential Assistance, GI Bill) current as of 2025. Figures are approximate and may vary by location, provider, and individual eligibility.
+                          </>
+                        ) : (
+                          <>
+                            <span className="font-medium text-foreground/70">Source: </span>
+                            Resources were estimated by AI based on the 797-source research library and general knowledge of credentialing bodies and DoD education programs. Costs and eligibility should be independently verified through official program websites before making financial decisions.
+                          </>
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
