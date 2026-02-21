@@ -1,0 +1,7 @@
+{
+  "TA_annual_cap_usd": 4000,
+  "CA_max_per_cert_usd": 4500,
+  "notes": [
+    "Placeholder caps for demo logic; replace with validated policy values."
+  ]
+}

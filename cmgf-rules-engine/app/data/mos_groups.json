@@ -1,0 +1,8 @@
+{
+  "Logistics": ["88M", "92A"],
+  "Intelligence": ["35F", "35M"],
+  "Signal/Comms": ["25B", "25U"],
+  "Combat Arms": ["11B", "19D"],
+  "Medical": ["68W", "68C"],
+  "Admin/HR": ["42A", "36B"]
+}

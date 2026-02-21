@@ -1,0 +1,10 @@
+{
+  "cert_costs_usd": {
+    "A+": 358,
+    "Network+": 358,
+    "Security+": 392,
+    "CAPM (optional)": 300,
+    "CPIM (optional)": 700
+  },
+  "lab_monthly_usd_range": [10, 14]
+}

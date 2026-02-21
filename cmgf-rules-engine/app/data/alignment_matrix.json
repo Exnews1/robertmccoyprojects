@@ -1,0 +1,50 @@
+{
+  "Logistics": {
+    "Supply Chain Management": "green",
+    "Project Management": "green",
+    "Healthcare Administration": "yellow",
+    "Data Analytics": "yellow",
+    "Cybersecurity": "yellow",
+    "Education / Training": "yellow"
+  },
+  "Signal/Comms": {
+    "Cybersecurity": "green",
+    "Data Analytics": "green",
+    "Project Management": "yellow",
+    "Supply Chain Management": "yellow",
+    "Education / Training": "yellow",
+    "Healthcare Administration": "red"
+  },
+  "Intelligence": {
+    "Cybersecurity": "green",
+    "Data Analytics": "green",
+    "Project Management": "yellow",
+    "Education / Training": "yellow",
+    "Supply Chain Management": "yellow",
+    "Healthcare Administration": "red"
+  },
+  "Medical": {
+    "Healthcare Administration": "green",
+    "Education / Training": "yellow",
+    "Project Management": "yellow",
+    "Data Analytics": "yellow",
+    "Supply Chain Management": "red",
+    "Cybersecurity": "red"
+  },
+  "Admin/HR": {
+    "Project Management": "green",
+    "Education / Training": "green",
+    "Healthcare Administration": "yellow",
+    "Data Analytics": "yellow",
+    "Supply Chain Management": "yellow",
+    "Cybersecurity": "red"
+  },
+  "Combat Arms": {
+    "Project Management": "yellow",
+    "Education / Training": "yellow",
+    "Supply Chain Management": "yellow",
+    "Healthcare Administration": "red",
+    "Data Analytics": "red",
+    "Cybersecurity": "red"
+  }
+}
