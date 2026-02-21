@@ -700,6 +700,7 @@ interface ConstraintState {
   noSkillBridge: boolean;
   familyRelocation: boolean;
   clearanceLapse: boolean;
+  deployed: boolean;
 }
 
 function getConstraintAlerts(constraints: ConstraintState) {
@@ -1015,6 +1016,15 @@ function EngineOutputPanel({ result, constraints, constraintAlerts, isPrebuilt }
                         <div className="w-1 h-1 rounded-full bg-cyan-500 mt-1.5 flex-shrink-0" />
                         <p className="text-[10px] text-muted-foreground"><span className="text-foreground font-medium">ISR Aggregate Reporting:</span> De-identified credential demand patterns, constraint bottlenecks, and funding friction aggregated across installation population for AR 210-14 reporting</p>
                       </div>
+                      {constraints.deployed && (
+                        <div className="flex items-start gap-1.5 mt-1.5 p-1.5 rounded border border-cyan-500/30 bg-cyan-500/5" data-testid="deployed-eso-flag">
+                          <Shield className="w-3 h-3 text-cyan-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <p className="text-[10px] text-cyan-400 font-medium">Deployed — Information Only for ESO</p>
+                            <p className="text-[9px] text-muted-foreground">Service member is currently deployed. Transition planning is deferred — no active enrollment or credential actions. ESO tracks this case for post-deployment re-engagement and includes deployment count in ISR aggregate reporting.</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -1237,6 +1247,11 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       tttCallout += `\n\nTTT has a **3-year application window** after separation — your advisor can help you start this process before ETS.`;
     }
 
+    let deployedNotice = "";
+    if (constraints.deployed) {
+      deployedNotice = `\n\n**Deployment Status:** You are currently flagged as deployed. This is an **information-only signal** for your Education Service Officer (ESO). No active enrollment, credential actions, or benefit applications should be initiated during deployment. Your ESO will track your case for post-deployment re-engagement and include your deployment status in installation-level ISR aggregate reporting.`;
+    }
+
     const sandbox = `\n\nThis is sandbox mode — try changing your MOS, career goal, or constraints to explore different pathways and see how the workforce landscape shifts. The more scenarios you run, the better you'll understand your options.`;
 
     const awarenessStatement = `\n\nI also reviewed your available benefit eligibility signals and timeline constraints as part of this analysis.`;
@@ -1245,7 +1260,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     const opening: ChatMessage = {
       role: "assistant",
-      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}${pathwaySummary}${tttCallout}${readinessNote}${awarenessStatement}${sandbox}${humanReview}`,
+      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}${pathwaySummary}${tttCallout}${deployedNotice}${readinessNote}${awarenessStatement}${sandbox}${humanReview}`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
@@ -1450,6 +1465,7 @@ export function ScenarioDemoTab() {
     noSkillBridge: false,
     familyRelocation: false,
     clearanceLapse: false,
+    deployed: false,
   });
 
   const [showResult, setShowResult] = useState(false);
@@ -1460,7 +1476,7 @@ export function ScenarioDemoTab() {
   const resultRef = useRef<HTMLDivElement>(null);
 
   const constraintAlerts = useMemo(() => getConstraintAlerts(constraints), [constraints]);
-  const activeConstraintCount = Object.values(constraints).filter(Boolean).length;
+  const activeConstraintCount = Object.entries(constraints).filter(([k, v]) => v && k !== "deployed").length;
 
   const handleMosChange = (mos: string) => {
     setPersona(prev => ({ ...prev, mos, careerGoal: getDefaultGoal(mos) }));
@@ -1630,9 +1646,15 @@ export function ScenarioDemoTab() {
                   { key: "noSkillBridge" as const, label: "No SkillBridge" },
                   { key: "familyRelocation" as const, label: "Family relocation" },
                   { key: "clearanceLapse" as const, label: "Clearance lapsing" },
+                  { key: "deployed" as const, label: "Currently deployed", infoOnly: true },
                 ].map(toggle => (
                   <div key={toggle.key} className="flex items-center justify-between gap-2" data-testid={`constraint-toggle-${toggle.key}`}>
-                    <span className="text-[11px] text-foreground">{toggle.label}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px] text-foreground">{toggle.label}</span>
+                      {"infoOnly" in toggle && toggle.infoOnly && (
+                        <span className="text-[8px] font-mono uppercase tracking-wider text-cyan-500 bg-cyan-500/10 px-1 py-0.5 rounded">ESO</span>
+                      )}
+                    </div>
                     <Switch
                       checked={constraints[toggle.key]}
                       onCheckedChange={v => setConstraints(prev => ({ ...prev, [toggle.key]: v }))}
