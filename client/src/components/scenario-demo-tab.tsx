@@ -1221,6 +1221,22 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
     const topPathway = result.pathwayOptions[0];
     const pathwaySummary = `\n\n**Top Pathway:** ${topPathway?.name} — ${topPathway?.match} alignment, estimated ${topPathway?.timeframe}.`;
 
+    let tttCallout = "";
+    if (persona.careerGoal === "education") {
+      const tttStipend = result.resourcesRequired.find(r => r.resource.toLowerCase().includes("ttt certification stipend"));
+      const tttBonus = result.resourcesRequired.find(r => r.resource.toLowerCase().includes("high-need school bonus"));
+      const jrotcOption = result.pathwayOptions.find(p => p.name.toLowerCase().includes("jrotc"));
+      tttCallout = `\n\n**Troops to Teachers (TTT):** This is a congressionally authorized program under **10 U.S.C. §1154** specifically designed for veterans transitioning into education. Since 1993, TTT has placed over 21,000 veteran teachers nationwide with a 90% principal satisfaction rating.`;
+      tttCallout += `\n\nKey TTT benefits for your transition:`;
+      tttCallout += `\n- **Certification stipend** of up to $5,000 to cover licensing and exam costs`;
+      tttCallout += `\n- **High-need school bonus** of $5,000–$10,000 for teaching in underserved communities`;
+      tttCallout += `\n- Free counseling and state-specific certification guidance`;
+      if (jrotcOption) {
+        tttCallout += `\n- **JROTC instructor** positions (DoD-funded, no civilian teaching certificate required)`;
+      }
+      tttCallout += `\n\nTTT has a **3-year application window** after separation — your advisor can help you start this process before ETS.`;
+    }
+
     const sandbox = `\n\nThis is sandbox mode — try changing your MOS, career goal, or constraints to explore different pathways and see how the workforce landscape shifts. The more scenarios you run, the better you'll understand your options.`;
 
     const awarenessStatement = `\n\nI also reviewed your available benefit eligibility signals and timeline constraints as part of this analysis.`;
@@ -1229,7 +1245,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     const opening: ChatMessage = {
       role: "assistant",
-      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}${pathwaySummary}${readinessNote}${awarenessStatement}${sandbox}${humanReview}`,
+      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}${pathwaySummary}${tttCallout}${readinessNote}${awarenessStatement}${sandbox}${humanReview}`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
