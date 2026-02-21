@@ -39,9 +39,15 @@
         "Some Army aviation credentials may have lower allowable funding caps"
       ]
     },
+    "mos_aligned_exception": {
+      "description": "When a credential directly supports the service member's existing MOS, it may be funded as professional military education outside normal COOL/CA limits",
+      "applies_when": "Domain Alignment is green/high — credential maps to current MOS duties",
+      "effect": "Credential may not consume CA slots or count against COOL limits"
+    },
     "notes": [
       "Army COOL may fund up to 3 credentials per 10-year period, with max ~$2,000 per credential",
-      "Actual funding approvals vary by credential and service policy requirements"
+      "Actual funding approvals vary by credential and service policy requirements",
+      "Exception: MOS-aligned credentials may qualify for in-service military education funding outside CA limits"
     ]
   },
 
