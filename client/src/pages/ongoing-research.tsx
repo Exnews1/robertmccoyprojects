@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, Brain, School, Scale, TrendingUp, Factory, ExternalLink } from "lucide-react";
+import { ArrowRight, ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const researchProjects = [
@@ -8,7 +8,6 @@ const researchProjects = [
     id: "education-ai",
     title: "AI Education Futures Hub",
     description: "Evidence-based guidance for implementing AI across K-12, Higher Ed, Vocational, and Corporate learning. Analysis of 557 peer-reviewed papers with 8 implementation pathways and sector-specific guides.",
-    icon: Brain,
     route: "/education-ai",
     status: "Research Library",
     external: false,
@@ -18,7 +17,6 @@ const researchProjects = [
     id: "workforce-ai",
     title: "AI Workforce Readiness",
     description: "Doctoral-level analysis of AI in the workplace, US workforce readiness, and AI literacy frameworks. Comprehensive research on workforce transformation and skills development.",
-    icon: TrendingUp,
     route: "/workforce-ai",
     status: "Research",
     external: false,
@@ -28,7 +26,6 @@ const researchProjects = [
     id: "universities-ai",
     title: "AI Use Cases in U.S. Universities",
     description: "Data-driven exploration of AI applications, policies, and governance frameworks across American higher education institutions.",
-    icon: School,
     route: "/universities-ai",
     status: "Analysis",
     external: false
@@ -37,7 +34,6 @@ const researchProjects = [
     id: "ai-types",
     title: "AI Types & Classifications",
     description: "Comprehensive educational resource covering AI types by capability, functionality, and learning approach. Includes 20+ AI model explanations and selection guides.",
-    icon: Brain,
     route: "/ai-types",
     status: "Educational",
     external: false
@@ -46,7 +42,6 @@ const researchProjects = [
     id: "incarceration-research",
     title: "U.S. Incarceration Research Hub",
     description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
-    icon: Scale,
     route: "/incarceration-research",
     status: "Research Hub",
     external: false,
@@ -56,7 +51,6 @@ const researchProjects = [
     id: "human-capital",
     title: "Human Capital Institutional Throughput",
     description: "Comparative analysis of military and correctional education systems. Evidence-based framework modeling human capital change as function of investment and friction.",
-    icon: TrendingUp,
     route: "/human-capital",
     status: "Research Framework",
     external: false,
@@ -66,7 +60,6 @@ const researchProjects = [
     id: "turbine",
     title: "AI Turbine Vision",
     description: "Integrated power generation and demand management system. AI monitors turbine output while regulating a connected manufacturing/logistics facility. Real-time diagnostics and automated system regulation demonstrate closed-loop industrial AI governance.",
-    icon: Factory,
     route: "https://turbine.robertmccoyprojects.com",
     status: "Live Demo",
     external: true
@@ -92,8 +85,14 @@ export default function OngoingResearch() {
         </header>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {researchProjects.map((project) => 
-            project.external ? (
+          {researchProjects.map((project, index) => {
+            const numeral = (
+              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-blue-600/20" data-testid={`numeral-${index + 1}`}>
+                <span className="text-white font-bold text-lg font-mono">{index + 1}</span>
+              </div>
+            );
+
+            return project.external ? (
               <a 
                 key={project.id} 
                 href={project.route} 
@@ -104,7 +103,7 @@ export default function OngoingResearch() {
                 <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
                   <CardHeader>
                     <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
-                      <project.icon className="h-8 w-8 text-primary" />
+                      {numeral}
                       <span className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">
                         {project.status}
                       </span>
@@ -130,7 +129,7 @@ export default function OngoingResearch() {
                 <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid={`card-project-${project.id}`}>
                   <CardHeader>
                     <div className="flex items-center justify-between mb-2 gap-2 flex-wrap">
-                      <project.icon className="h-8 w-8 text-primary" />
+                      {numeral}
                       <div className="flex items-center gap-2 flex-wrap">
                         {project.papers && (
                           <span className="text-xs font-mono px-2 py-1 rounded-full bg-muted text-muted-foreground">
@@ -155,8 +154,8 @@ export default function OngoingResearch() {
                   </CardContent>
                 </Card>
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
       </div>
     </div>
