@@ -414,7 +414,19 @@ Rules:
         });
       }
 
-      const searchQuery = `military ${mosLabel || mos} transition to ${goalLabel || careerGoal} career pathway credentials certification`;
+      const goalExpanded = (goalLabel || careerGoal).toLowerCase();
+      const goalKeywords: Record<string, string> = {
+        "education": "education teaching training instructor workforce development adult learning curriculum",
+        "healthcare_admin": "healthcare administration hospital management public health clinical operations",
+        "cybersecurity": "cybersecurity information security network defense threat analysis SOC",
+        "project_management": "project management PMP leadership program coordination stakeholder",
+        "data_analytics": "data analytics data science business intelligence analysis statistics",
+        "supply_chain": "supply chain logistics operations management distribution inventory",
+        "federal_service": "federal government civil service OPM public administration policy",
+        "trade_skills": "trade skills technical vocational apprenticeship construction electrical HVAC",
+      };
+      const expandedGoal = goalKeywords[careerGoal] || goalExpanded;
+      const searchQuery = `military ${mosLabel || mos} transition to ${expandedGoal} career pathway credentials certification veteran workforce`;
 
       let queryEmbedding: number[];
       try {
@@ -431,18 +443,25 @@ Rules:
           let score = cosineSimilarity(queryEmbedding, entryEmbedding);
           const titleLower = (entry.title || "").toLowerCase();
           const summaryLower = (entry.summary || "").toLowerCase();
-          const goalLower = (goalLabel || careerGoal).toLowerCase();
+          const topicsLower = (entry.topics || []).join(" ").toLowerCase();
+          const goalLower = goalExpanded;
           const mosLower = (mosLabel || mos).toLowerCase();
           if (titleLower.includes(goalLower) || summaryLower.includes(goalLower)) score += 0.1;
           if (titleLower.includes(mosLower) || summaryLower.includes(mosLower)) score += 0.1;
+          const goalWords = expandedGoal.split(" ");
+          const matchedWords = goalWords.filter((w: string) => w.length > 3 && (titleLower.includes(w) || summaryLower.includes(w) || topicsLower.includes(w)));
+          score += matchedWords.length * 0.03;
           return { entry, score };
         })
         .sort((a, b) => b.score - a.score);
 
-      const relevantSources = scoredEntries.filter(s => s.score >= 0.30);
+      let relevantSources = scoredEntries.filter(s => s.score >= 0.20);
+      if (relevantSources.length === 0) {
+        relevantSources = scoredEntries.slice(0, 5);
+      }
       if (relevantSources.length === 0) {
         return res.json({
-          message: "No sufficiently relevant research sources found for this MOS/goal combination. Try a different pairing or use a pre-mapped scenario.",
+          message: "No research sources available for pathway generation. Try a different pairing or use a pre-mapped scenario.",
           pathwayOptions: [], constraintRisks: [], policyFriction: [], resourcesRequired: [],
           timelineRange: "N/A", cmgfLayers: [], sources: [], generated: false,
         });

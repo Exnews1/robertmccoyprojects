@@ -1448,7 +1448,7 @@ export function ScenarioDemoTab() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
                   <p className="text-[11px] text-muted-foreground leading-relaxed">
-                    This demonstration model evaluates approximately <span className="text-foreground font-semibold">190,000+ deterministic transition scenarios</span> spanning enlisted MOS codes and officer branch/functional area ratings, across rank tiers, service durations, and policy constraints. Analysis incorporates capability, policy, funding, and constraint signals derived from authoritative system models.
+                    This demonstration model evaluates approximately <span className="text-foreground font-semibold">49,000 deterministic transition scenarios</span> spanning enlisted MOS codes across rank tiers, service durations, and policy constraints. Officer branch and functional area ratings are not included in the current demo scope. Analysis incorporates capability, policy, funding, and constraint signals derived from authoritative system models.
                   </p>
                 </div>
                 <div className="space-y-1.5">
@@ -1465,7 +1465,7 @@ export function ScenarioDemoTab() {
               <div className="flex items-center gap-6 mt-3 pt-2.5 border-t border-border/40">
                 <div className="flex items-center gap-1.5">
                   <Brain className="w-3 h-3 text-muted-foreground" />
-                  <span className="text-[10px] text-muted-foreground">Demo scope: approximately <span className="text-foreground font-mono font-medium">190K+</span> scenarios (enlisted + officer)</span>
+                  <span className="text-[10px] text-muted-foreground">Demo scope: approximately <span className="text-foreground font-mono font-medium">49K</span> scenarios (enlisted MOS)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Layers className="w-3 h-3 text-muted-foreground" />
