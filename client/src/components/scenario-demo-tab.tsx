@@ -7,10 +7,10 @@ import { Switch } from "@/components/ui/switch";
 import { apiRequest } from "@/lib/queryClient";
 import {
   User, Cpu, AlertTriangle, CheckCircle, Clock, Shield,
-  ArrowRight, Zap, BookOpen, DollarSign, FileWarning,
+  ArrowRight, ArrowDown, Zap, BookOpen, DollarSign, FileWarning,
   Lock, Layers, Target, TrendingUp, XCircle, Lightbulb,
   Loader2, ChevronDown, ChevronUp, Sparkles, Info,
-  MessageSquare, Send, Brain
+  MessageSquare, Send, Brain, FileText
 } from "lucide-react";
 
 interface PersonaConfig {
@@ -490,7 +490,7 @@ function ArchitectureVisualization({ activeLayer }: { activeLayer: number }) {
   const layers = [
     { id: 0, label: "Part A", title: "Service Member Interface", color: "from-blue-500/20 to-blue-600/10", border: "border-blue-500/40", glow: "shadow-blue-500/20", icon: User, desc: "Input capture" },
     { id: 1, label: "Part B", title: "AI Mediation Framework", color: "from-purple-500/20 to-purple-600/10", border: "border-purple-500/40", glow: "shadow-purple-500/20", icon: Cpu, desc: "Translation & constraint binding" },
-    { id: 2, label: "Part C", title: "Advisory & Human Review", color: "from-green-500/20 to-green-600/10", border: "border-green-500/40", glow: "shadow-green-500/20", icon: Shield, desc: "Human attestation" },
+    { id: 2, label: "Part C", title: "Advisory & Human Review", color: "from-green-500/20 to-green-600/10", border: "border-green-500/40", glow: "shadow-green-500/20", icon: Shield, desc: "Human attestation + ISR reporting" },
   ];
 
   return (
@@ -525,7 +525,14 @@ function ArchitectureVisualization({ activeLayer }: { activeLayer: number }) {
           </div>
           {i < layers.length - 1 && (
             <div className={`flex-shrink-0 transition-all duration-500 ${activeLayer > i ? "text-primary" : "text-muted-foreground/20"}`}>
-              <ArrowRight className="w-4 h-4" />
+              {i === 1 ? (
+                <div className="flex flex-col items-center gap-0.5">
+                  <ArrowRight className="w-3.5 h-3.5 text-green-500" />
+                  <ArrowRight className="w-3.5 h-3.5 text-cyan-500" />
+                </div>
+              ) : (
+                <ArrowRight className="w-4 h-4" />
+              )}
             </div>
           )}
         </div>
@@ -711,13 +718,51 @@ function EngineOutputPanel({ result, constraints, constraintAlerts, isPrebuilt }
       title: "CMGF Three-Layer Processing",
       count: result.cmgfLayers.length,
       content: (
-        <div className="space-y-1.5">
-          {result.cmgfLayers.map((l, i) => (
-            <div key={i} className="p-2 rounded-md border border-primary/20 bg-primary/5 text-xs">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-primary mb-0.5">{l.layer}</p>
-              <p className="text-[11px] text-foreground">{l.action}</p>
-            </div>
-          ))}
+        <div className="space-y-2">
+          {result.cmgfLayers.map((l, i) => {
+            const isPartB = l.layer.includes("Part B");
+            const isPartC = l.layer.includes("Part C");
+            return (
+              <div key={i}>
+                <div className="p-2 rounded-md border border-primary/20 bg-primary/5 text-xs">
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-primary mb-0.5">{l.layer}</p>
+                  <p className="text-[11px] text-foreground">{l.action}</p>
+                </div>
+                {isPartB && (
+                  <div className="flex items-center gap-1.5 py-1.5 px-2" data-testid="b-to-c-dual-flow">
+                    <div className="flex-1 flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5">
+                        <ArrowDown className="w-3 h-3 text-green-500 flex-shrink-0" />
+                        <span className="text-[9px] font-mono text-green-500">INDIVIDUAL ADVISING DATA → ESO REVIEW</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <ArrowDown className="w-3 h-3 text-cyan-500 flex-shrink-0" />
+                        <span className="text-[9px] font-mono text-cyan-500">AGGREGATE DE-IDENTIFIED → ISR REPORTING</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {isPartC && (
+                  <div className="mt-2 p-2 rounded-md border border-amber-500/30 bg-amber-500/5 text-xs" data-testid="eso-reporting-panel">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <FileText className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-amber-500">ESO Institutional Intelligence</span>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-start gap-1.5">
+                        <div className="w-1 h-1 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
+                        <p className="text-[10px] text-muted-foreground"><span className="text-foreground font-medium">Individual Plan Review:</span> ESO receives full advising context — pathway analysis, constraint risks, and funding status for human approval workflow</p>
+                      </div>
+                      <div className="flex items-start gap-1.5">
+                        <div className="w-1 h-1 rounded-full bg-cyan-500 mt-1.5 flex-shrink-0" />
+                        <p className="text-[10px] text-muted-foreground"><span className="text-foreground font-medium">ISR Aggregate Reporting:</span> De-identified credential demand patterns, constraint bottlenecks, and funding friction aggregated across installation population for AR 210-14 reporting</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       ),
     },
