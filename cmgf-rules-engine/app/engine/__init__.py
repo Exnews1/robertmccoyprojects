@@ -42,7 +42,7 @@ def run_simulation(profile: LearnerProfile) -> SimulationResult:
         required_certs = data["cert_stacks"][profile.career_goal][0].get("requires", [])
 
     policy_flags = compute_policy_flags(profile, required_certs, data["policy_caps"], data["costs"])
-    resources = build_resources(required_certs, data["costs"])
+    resources = build_resources(required_certs, data["costs"], data["policy_caps"])
 
     trace.append(trace_B_complete({
         "alignment": alignment,

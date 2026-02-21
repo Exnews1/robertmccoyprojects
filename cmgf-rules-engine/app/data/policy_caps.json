@@ -1,7 +1,65 @@
 {
-  "TA_annual_cap_usd": 4000,
-  "CA_max_per_cert_usd": 4500,
-  "notes": [
-    "Placeholder caps for demo logic; replace with validated policy values."
+  "version": "demo-2026",
+  "policy_source": "Army COOL Funding Guide (representative demo model)",
+  "source_note": "Policy values are representative for demonstration purposes. Actual eligibility varies by service branch and current DoD guidance.",
+
+  "tuition_assistance": {
+    "annual_cap_usd": 4000,
+    "per_credit_hour_cap_usd": 250,
+    "max_credits_per_year": 16,
+    "requires_service_time_remaining_months": 6,
+    "eligible_use_cases": [
+      "College courses toward degree",
+      "CLEP/DANTES where authorized"
+    ],
+    "notes": [
+      "TA pays up to $4,000 per fiscal year for college coursework",
+      "Service member must have enough remaining time to use TA"
+    ]
+  },
+
+  "credentialing_assistance": {
+    "lifetime_cap_usd": 4000,
+    "annual_max_credentials": 1,
+    "decade_max_credentials": 3,
+    "max_cost_per_cert_usd": 2000,
+    "requires_service_time_remaining_months": 6,
+    "categories_covered": [
+      "Cybersecurity",
+      "IT",
+      "Aviation (select credentials)",
+      "Healthcare credentials",
+      "Logistics credentials",
+      "Education/Training credentials",
+      "Project Management"
+    ],
+    "aviation_specific": {
+      "max_cert_cost_usd": 1000,
+      "notes": [
+        "Some Army aviation credentials may have lower allowable funding caps"
+      ]
+    },
+    "notes": [
+      "Army COOL may fund up to 3 credentials per 10-year period, with max ~$2,000 per credential",
+      "Actual funding approvals vary by credential and service policy requirements"
+    ]
+  },
+
+  "skillbridge": {
+    "max_duration_months": 6,
+    "requires_service_time_remaining_months": 6,
+    "notes": [
+      "SkillBridge eligibility and sponsor availability vary by installation"
+    ]
+  },
+
+  "timeline_flags": {
+    "limited_time_threshold_months": 12,
+    "high_risk_threshold_months": 6
+  },
+
+  "general_notes": [
+    "Policy data is demo-mode representative. Actual eligibility may differ by branch, MOS, and current regulations.",
+    "System uses these policy constraints to generate warnings, flags, and feasibility assessments."
   ]
 }

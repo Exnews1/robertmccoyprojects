@@ -81,8 +81,9 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { label: "Experience gap for hiring", severity: "medium", detail: "Employers expect networking knowledge, lab work, or IT help desk background. Home labs, CTF competitions, or cloud labs can substitute but require time investment" },
       ],
       policyFriction: [
-        { point: "TA funding cap may not cover full credential stack (A+ → Net+ → Security+)", framework: "DoD TA Policy" },
-        { point: "Credentialing Assistance limited to approved list — prerequisite certs may not qualify", framework: "Army CA Program" },
+        { point: "Credential pathway requires 3 certifications, but Army COOL limits funding to 1 credential per year and 3 per 10-year period — sequencing required", framework: "Army COOL Policy" },
+        { point: "Total estimated credential cost ($1,108) approaches Army COOL lifetime cap ($4,000) — multi-year benefit planning recommended", framework: "Army COOL Policy" },
+        { point: "TA annual cap ($4,000) does not cover certification vouchers — CA must be used for exam costs", framework: "DoD TA Policy" },
         { point: "12-18 month realistic timeline may exceed remaining service window", framework: "TAP/SFL-TAP" },
       ],
       resourcesRequired: [
@@ -196,6 +197,8 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { label: "Certification cost stacking", severity: "low", detail: "CISSP ($749) + annual CPE maintenance costs are significant; plan funding across CA, TA, and self-pay" },
       ],
       policyFriction: [
+        { point: "CISSP exam fee ($749) exceeds Army COOL per-certification cap ($2,000) — within limit but consumes significant CA budget", framework: "Army COOL Policy" },
+        { point: "Army COOL limits funding to 1 credential per year — Security+ and CISSP must be sequenced across fiscal years", framework: "Army COOL Policy" },
         { point: "Classified experience may not count toward civilian certification hours", framework: "ISC2 Requirements" },
         { point: "Clearance reciprocity timelines vary by agency", framework: "ODNI Policy" },
         { point: "CISSP requires 5 years experience — military intelligence work qualifies but documentation is complex", framework: "ISC2 Endorsement" },
@@ -274,8 +277,9 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { label: "Market competition in entry roles", severity: "medium", detail: "SOC Analyst positions are competitive; hands-on lab work and CTF experience differentiate candidates beyond certifications alone" },
       ],
       policyFriction: [
-        { point: "Multiple cert exams may exceed annual CA limit — prioritize Security+ first", framework: "Army CA Program" },
-        { point: "CySA+ and CCNA Security may require separate funding cycles", framework: "DoD TA Policy" },
+        { point: "Army COOL limits funding to 1 credential per year — Security+ and CySA+ must be sequenced across fiscal years", framework: "Army COOL Policy" },
+        { point: "Total credential cost ($784) within Army COOL lifetime cap ($4,000) — favorable funding position", framework: "Army COOL Policy" },
+        { point: "CySA+ and CCNA Security may require separate funding cycles if pursued simultaneously", framework: "DoD TA Policy" },
       ],
       resourcesRequired: [
         { resource: "CompTIA Security+ voucher ($392)", status: "CA-eligible" },
