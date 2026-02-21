@@ -895,11 +895,11 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     let educationReview = "";
     if (domainStatus === "green") {
-      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background provides strong foundational alignment with ${goalLabel} — the system shows ${domainMeasure?.label?.toLowerCase() || "good"} domain overlap.`;
+      educationReview = `Your ${mosLabel} background has strong alignment with ${goalLabel}. The skills and training you already have map well to this career field.`;
     } else if (domainStatus === "yellow") {
-      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background gives you moderate alignment with ${goalLabel} — there are transferable skills, but some gaps the analysis has identified.`;
+      educationReview = `Your ${mosLabel} background has moderate alignment with ${goalLabel}. You have transferable skills, but there are some gaps to close.`;
     } else {
-      educationReview = `Based on your documented training, education history, and current benefit eligibility signals, your ${mosLabel} background doesn't directly overlap with ${goalLabel} — the engine has identified foundational skill areas you'll need to build. This is a full capability-building transition, not a credential translation.`;
+      educationReview = `Your ${mosLabel} background doesn't directly map to ${goalLabel}. This would be a full capability-building transition — not just a credential translation — so expect a longer ramp-up.`;
     }
 
     let fundingReview = "";
@@ -907,12 +907,12 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       const parts = [];
       if (caEligible.length > 0) parts.push(`**${caEligible.length}** credential${caEligible.length > 1 ? "s" : ""} eligible for Credentialing Assistance (CA)`);
       if (taEligible.length > 0) parts.push(`**${taEligible.length}** resource${taEligible.length > 1 ? "s" : ""} eligible for Tuition Assistance (TA)`);
-      if (selfFunded.length > 0) parts.push(`**${selfFunded.length}** item${selfFunded.length > 1 ? "s" : ""} that would be self-funded`);
-      fundingReview = `\n\nBased on current benefit eligibility signals, your recommended pathway shows ${parts.join(", ")}.`;
+      if (selfFunded.length > 0) parts.push(`**${selfFunded.length}** item${selfFunded.length > 1 ? "s" : ""} that would be out-of-pocket`);
+      fundingReview = `\n\n**Funding:** Your pathway shows ${parts.join(", ")}.`;
       if (hasFundingConstraint) {
-        fundingReview += ` However, your funding situation is flagged as constrained — we should discuss alternative funding strategies.`;
+        fundingReview += ` Your funding is flagged as constrained — alternative strategies are worth exploring.`;
       } else if (taFriction.length > 0) {
-        fundingReview += ` There ${taFriction.length === 1 ? "is" : "are"} ${taFriction.length} funding-related policy friction point${taFriction.length > 1 ? "s" : ""} worth discussing.`;
+        fundingReview += ` There ${taFriction.length === 1 ? "is" : "are"} ${taFriction.length} funding-related policy point${taFriction.length > 1 ? "s" : ""} to be aware of.`;
       }
     }
 
@@ -920,9 +920,9 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
     const familyMeasure = result.readinessMeasures.find(m => m.dimension === "Family Impact");
     const stressMeasure = result.readinessMeasures.find(m => m.dimension === "Transition Stress");
     if (familyMeasure?.status === "red" || stressMeasure?.status === "red" || (familyMeasure?.status === "yellow" && selfFunded.length > 0)) {
-      stressFactors = ` The financial and time commitments involved could affect family stability — that's something I want to be upfront about.`;
+      stressFactors = ` Be aware that the financial and time commitments here could affect family stability.`;
     } else if (hasTimelineConstraint && selfFunded.length > 0) {
-      stressFactors = ` With your compressed timeline and some out-of-pocket costs, I want to make sure we plan this carefully.`;
+      stressFactors = ` Your compressed timeline combined with out-of-pocket costs means careful planning matters.`;
     }
 
     let timelineWarning = "";
@@ -932,28 +932,49 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       const estimatedMonths = timeframeParts ? parseInt(timeframeParts[1]) : 0;
       const fitsTimeline = estimatedMonths > 0 && estimatedMonths <= 10;
 
-      timelineWarning = `\n\n**Timeline Alert:** Your separation window is under 10 months. This is a hard constraint that changes your options significantly.`;
+      timelineWarning = `\n\n**Timeline Alert:** Your separation window is under 10 months. This changes your options.`;
 
       if (!fitsTimeline && estimatedMonths > 0) {
-        timelineWarning += ` The recommended pathway estimates ${topPathway?.timeframe}, which may exceed your remaining service time. We need to look at accelerated alternatives or plan for completing credentials post-separation using GI Bill benefits.`;
+        timelineWarning += ` This pathway estimates ${topPathway?.timeframe}, which may exceed your remaining service time. Consider accelerated alternatives or plan to complete credentials post-separation using GI Bill.`;
       } else if (fitsTimeline) {
-        timelineWarning += ` The top pathway fits within your window, but there is limited margin for delays. TA enrollment deadlines, exam scheduling, and approval processing times all compress in this window.`;
+        timelineWarning += ` This pathway fits your window, but there's limited margin. TA enrollment deadlines, exam scheduling, and approval processing all compress.`;
       }
 
-      timelineWarning += ` I'd recommend we prioritize single-exam credentials you can complete before ETS, and defer multi-step programs to post-separation.`;
+      timelineWarning += ` Prioritize single-exam credentials before ETS; defer multi-step programs to post-separation.`;
     }
 
-    const readinessNote = result.readinessMeasures.some(m => m.status === "red")
-      ? "I do see some areas flagged as high concern — I'd like to walk you through those. "
-      : result.readinessMeasures.some(m => m.status === "yellow")
-      ? "Most indicators look positive with a few moderate considerations. "
-      : "Your readiness indicators are looking strong across the board. ";
+    let readinessNote = "";
+    const hasRedFlags = result.readinessMeasures.some(m => m.status === "red");
+    const hasYellowFlags = result.readinessMeasures.some(m => m.status === "yellow");
+    if (hasRedFlags) {
+      readinessNote = "\n\n**If you choose to pursue this pathway, you need to consider:** There are areas flagged as high concern in your readiness profile.";
+      if (activeConstraintCount > 0) {
+        readinessNote += ` Plus ${activeConstraintCount} active constraint${activeConstraintCount > 1 ? "s" : ""} affecting feasibility.`;
+      }
+      readinessNote += " Ask me about any of these to understand the details.";
+    } else if (hasYellowFlags) {
+      readinessNote = "\n\n**If you choose to pursue this pathway, you need to consider:** There are a few moderate considerations in your readiness profile.";
+      if (activeConstraintCount > 0) {
+        readinessNote += ` And ${activeConstraintCount} constraint${activeConstraintCount > 1 ? "s" : ""} worth reviewing.`;
+      }
+      readinessNote += " Ask me about specifics.";
+    } else {
+      readinessNote = "\n\nYour readiness indicators look strong across the board.";
+      if (activeConstraintCount > 0) {
+        readinessNote += ` There ${activeConstraintCount === 1 ? "is" : "are"} ${activeConstraintCount} constraint${activeConstraintCount > 1 ? "s" : ""} to be aware of, but your overall profile is solid.`;
+      }
+    }
 
-    const constraintNote = activeConstraintCount > 0 ? `I also see ${activeConstraintCount} active constraint${activeConstraintCount > 1 ? "s" : ""} that we should discuss. ` : "";
+    const topPathway = result.pathwayOptions[0];
+    const pathwaySummary = `\n\n**Top Pathway:** ${topPathway?.name} — ${topPathway?.match} alignment, estimated ${topPathway?.timeframe}.`;
+
+    const sandbox = `\n\nThis is sandbox mode — try changing your MOS, career goal, or constraints to explore different pathways and see how the workforce landscape shifts. The more scenarios you run, the better you'll understand your options.`;
+
+    const humanReview = `\n\nA human advisor will review any plan with you before decisions are finalized.`;
 
     const opening: ChatMessage = {
       role: "assistant",
-      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}These results are based on current policy constraints and typical pathway timelines. A human advisor will review this with you before any decisions are finalized.\n\nWhat would you like to explore first?`,
+      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}${pathwaySummary}${readinessNote}${sandbox}${humanReview}`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
@@ -1054,10 +1075,10 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
   };
 
   const suggestedQuestions = [
-    "What's my biggest risk?",
-    "How should I start?",
-    "Break down my TA/CA funding options",
-    "What certifications first?",
+    "What's my biggest risk with this pathway?",
+    "What credentials should I get first?",
+    "Break down my funding options",
+    "What does the job market look like for this field?",
   ];
 
   return (
