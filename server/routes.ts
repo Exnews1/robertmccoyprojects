@@ -6,6 +6,7 @@ import { ZodError } from "zod";
 import { seedDatabase } from "./seed";
 import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
 import { sendInquiryNotification } from "./gmail";
+import OpenAI from "openai";
 
 export async function registerRoutes(httpServer: Server, app: Express) {
   // Zoho domain verification
@@ -621,6 +622,107 @@ Respond with JSON only.`
     }
     const count = await storage.incrementStatCount(key);
     res.json({ key, count });
+  });
+
+  const advisorOpenai = new OpenAI({
+    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+  });
+
+  app.post("/api/advisor-chat", async (req: any, res: any) => {
+    try {
+      const { message, engineOutput, chatHistory } = req.body;
+
+      if (!message || !engineOutput) {
+        return res.status(400).json({ error: "Message and engineOutput are required" });
+      }
+
+      const systemPrompt = `You are a CMGF Career Transition Advisor — a knowledgeable, supportive counselor helping service members navigate military-to-civilian career transitions.
+
+IMPORTANT RULES:
+- You can ONLY discuss information that appears in the ENGINE OUTPUT below. This is your entire knowledge base for this conversation.
+- Do NOT invent statistics, timelines, certifications, or costs that aren't in the engine output.
+- If asked something outside the engine output, say "That's outside what our analysis covers — I'd recommend discussing that with your career counselor."
+- Be conversational, warm, and encouraging — but always accurate.
+- Use plain language. Avoid jargon unless explaining it.
+- When referencing specific data, mention where it comes from (e.g., "Based on the alignment analysis..." or "The constraint detection shows...").
+- Keep responses concise — 2-4 paragraphs maximum unless the question requires detail.
+
+ENGINE OUTPUT (This is the deterministic analysis from the CMGF Rules Engine — your ONLY source of truth):
+
+Persona: ${engineOutput.persona || 'Not specified'}
+Career Goal: ${engineOutput.careerGoal || 'Not specified'}
+Timeline Range: ${engineOutput.timelineRange || 'Not specified'}
+
+Pathway Options:
+${(engineOutput.pathwayOptions || []).map((p: any) => `- ${p.name} (${p.match} match, ${p.timeframe})`).join('\n')}
+
+Readiness Measures:
+${(engineOutput.readinessMeasures || []).map((r: any) => `- ${r.dimension}: ${r.status.toUpperCase()} — ${r.label}. ${r.detail}`).join('\n')}
+
+Constraint Risks:
+${(engineOutput.constraintRisks || []).map((c: any) => `- [${c.severity.toUpperCase()}] ${c.label}: ${c.detail}`).join('\n')}
+
+Policy Friction Points:
+${(engineOutput.policyFriction || []).map((p: any) => `- ${p.point} (${p.framework})`).join('\n')}
+
+Resources Required:
+${(engineOutput.resourcesRequired || []).map((r: any) => `- ${r.resource}: ${r.status}`).join('\n')}
+
+Special Considerations:
+${(engineOutput.specialConsiderations || []).map((s: any) => `- ${s}`).join('\n')}
+
+CMGF Architecture Layers:
+${(engineOutput.cmgfLayers || []).map((l: any) => `- ${l.layer}: ${l.action}`).join('\n')}
+
+Explanation: ${engineOutput.explanation || 'Not available'}
+
+${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.activeConstraints.map((a: any) => `- ${a.label}: ${a.detail} (${a.framework})`).join('\n')}` : ''}`;
+
+      const messages: any[] = [
+        { role: "system", content: systemPrompt },
+      ];
+
+      if (chatHistory && Array.isArray(chatHistory)) {
+        for (const msg of chatHistory) {
+          messages.push({ role: msg.role, content: msg.content });
+        }
+      }
+
+      messages.push({ role: "user", content: message });
+
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+
+      const stream = await advisorOpenai.chat.completions.create({
+        model: "gpt-5-mini",
+        messages,
+        stream: true,
+        max_completion_tokens: 8192,
+      });
+
+      let fullResponse = "";
+
+      for await (const chunk of stream) {
+        const content = chunk.choices[0]?.delta?.content || "";
+        if (content) {
+          fullResponse += content;
+          res.write(`data: ${JSON.stringify({ content })}\n\n`);
+        }
+      }
+
+      res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+      res.end();
+    } catch (error) {
+      console.error("Error in advisor chat:", error);
+      if (res.headersSent) {
+        res.write(`data: ${JSON.stringify({ error: "Failed to get response" })}\n\n`);
+        res.end();
+      } else {
+        res.status(500).json({ error: "Failed to get advisor response" });
+      }
+    }
   });
 
   return app;

@@ -112,3 +112,5 @@ export const siteStats = pgTable("site_stats", {
 });
 
 export type SiteStats = typeof siteStats.$inferSelect;
+
+export * from "./models/chat";

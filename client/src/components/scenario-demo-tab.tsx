@@ -9,7 +9,8 @@ import {
   User, Cpu, AlertTriangle, CheckCircle, Clock, Shield,
   ArrowRight, Zap, BookOpen, DollarSign, FileWarning,
   Lock, Layers, Target, TrendingUp, XCircle, Lightbulb,
-  Loader2, ChevronDown, ChevronUp, Sparkles, Info
+  Loader2, ChevronDown, ChevronUp, Sparkles, Info,
+  MessageSquare, Send, Brain
 } from "lucide-react";
 
 interface PersonaConfig {
@@ -40,6 +41,11 @@ interface PathwayResult {
   explanation?: string;
   sources?: Array<{ id: string; title: string; year?: number; relevance?: string }>;
   generated?: boolean;
+}
+
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
 }
 
 const RANKS = ["E-4", "E-5", "E-6", "E-7", "O-1", "O-2", "O-3"];
@@ -108,7 +114,7 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
     project_management: {
       pathwayOptions: [
         { name: "PMP Certification Track", match: "91%", timeframe: "3-6 months" },
-        { name: "CAPM \u2192 PMP Ladder", match: "88%", timeframe: "6-12 months" },
+        { name: "CAPM → PMP Ladder", match: "88%", timeframe: "6-12 months" },
         { name: "MS Project Management", match: "76%", timeframe: "18-24 months" },
       ],
       constraintRisks: [
@@ -292,9 +298,9 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       cmgfLayers: [
         { layer: "Part A: Service Member Interface", action: "Captures network configuration, COMSEC, and signal operations experience — identifies strong foundational domain overlap with cybersecurity prerequisites" },
         { layer: "Part B: AI Mediation", action: "Classifies comms→cyber as lateral Tier 1→2 transition with highest prerequisite satisfaction (90%); surfaces entry role taxonomy (SOC Analyst, Network Defense, Security Engineer) with prerequisite weight matching" },
-        { layer: "Part C: Advisory Review", action: "Advisor validates existing certifications, recommends specialization track based on career interest and local market demand, coordinates credential stacking timing with CA cycles" },
+        { layer: "Part C: Advisory Review", action: "Advisor verifies existing certifications, coordinates fast-track credentialing, and connects with cleared-cyber employer pipeline" },
       ],
-      explanation: "Signal/Comms MOS has the highest natural transfer rate to cybersecurity because it provides the exact foundational domains that cybersecurity depends on as a Tier 2 occupation: networking, operating systems, and systems administration. Where non-technical MOS transitions require 12-18 months of capability building, 25B/25U personnel can target SOC Analyst roles in 0-3 months. Wage mobility is strong ($55k-$80k entry → $130k+ senior).",
+      explanation: "Signal/Comms MOS provides the strongest cybersecurity transition pipeline. Networking, COMSEC, and infrastructure management are the exact foundational domains cybersecurity depends on. Where non-technical MOS holders require 12-18 months of capability building, 25B/25U personnel can target SOC Analyst roles in 0-3 months. Wage mobility is strong ($55k-$80k entry → $130k+ senior).",
     },
   },
   medical: {
@@ -379,7 +385,7 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
   admin: {
     project_management: {
       pathwayOptions: [
-        { name: "CAPM \u2192 PMP Track", match: "87%", timeframe: "6-12 months" },
+        { name: "CAPM → PMP Track", match: "87%", timeframe: "6-12 months" },
         { name: "BS Business Administration", match: "81%", timeframe: "18-24 months" },
         { name: "Agile/Scrum Master", match: "75%", timeframe: "2-4 months" },
       ],
@@ -528,6 +534,447 @@ function ArchitectureVisualization({ activeLayer }: { activeLayer: number }) {
   );
 }
 
+function EngineOutputPanel({ result, constraints, constraintAlerts, isPrebuilt }: {
+  result: PathwayResult;
+  constraints: ConstraintState;
+  constraintAlerts: ReturnType<typeof getConstraintAlerts>;
+  isPrebuilt: boolean;
+}) {
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    pathways: true,
+    readiness: true,
+    constraints: false,
+    policy: false,
+    resources: false,
+    considerations: false,
+    layers: false,
+  });
+
+  const toggle = (key: string) => setExpandedSections(prev => ({ ...prev, [key]: !prev[key] }));
+
+  const activeConstraintCount = Object.values(constraints).filter(Boolean).length;
+
+  const sections = [
+    {
+      key: "readiness",
+      icon: TrendingUp,
+      iconColor: "text-primary",
+      title: "Readiness Assessment",
+      count: result.readinessMeasures.length,
+      content: (
+        <div className="grid grid-cols-2 gap-2">
+          {result.readinessMeasures.map((m, i) => (
+            <div
+              key={i}
+              className={`p-2 rounded-md border text-center ${
+                m.status === "green" ? "border-green-500/30 bg-green-500/5" :
+                m.status === "yellow" ? "border-yellow-500/30 bg-yellow-500/5" :
+                "border-red-500/30 bg-red-500/5"
+              }`}
+            >
+              <div className={`w-2.5 h-2.5 rounded-full mx-auto mb-1 ${
+                m.status === "green" ? "bg-green-500" :
+                m.status === "yellow" ? "bg-yellow-500" :
+                "bg-red-500"
+              }`} />
+              <p className="text-[10px] font-medium text-foreground">{m.dimension}</p>
+              <p className={`text-[9px] font-semibold ${
+                m.status === "green" ? "text-green-400" :
+                m.status === "yellow" ? "text-yellow-400" :
+                "text-red-400"
+              }`}>{m.label}</p>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "pathways",
+      icon: Target,
+      iconColor: "text-primary",
+      title: "Pathway Options",
+      badge: result.timelineRange,
+      count: result.pathwayOptions.length,
+      content: (
+        <div className="space-y-1.5">
+          {result.pathwayOptions.map((p, i) => (
+            <div key={i} className="flex items-center justify-between p-2 rounded-md border border-border/50 bg-card text-xs">
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">{i + 1}</div>
+                <div>
+                  <p className="font-medium text-foreground text-[11px]">{p.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{p.timeframe}</p>
+                </div>
+              </div>
+              <Badge variant={parseInt(p.match) >= 85 ? "default" : "outline"} className="text-[9px]">{p.match}</Badge>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "constraints",
+      icon: AlertTriangle,
+      iconColor: "text-orange-500",
+      title: "Constraint Risks",
+      count: result.constraintRisks.length + (activeConstraintCount > 0 ? constraintAlerts.length : 0),
+      content: (
+        <div className="space-y-1.5">
+          {result.constraintRisks.map((r, i) => (
+            <div key={i} className="flex items-start gap-2 p-2 rounded-md border border-border/50 text-xs">
+              <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${
+                r.severity === "high" ? "bg-red-500" : r.severity === "medium" ? "bg-orange-500" : "bg-yellow-500"
+              }`} />
+              <div className="min-w-0">
+                <p className="font-medium text-foreground text-[11px]">{r.label}</p>
+                <p className="text-[10px] text-muted-foreground">{r.detail}</p>
+              </div>
+            </div>
+          ))}
+          {activeConstraintCount > 0 && (
+            <>
+              <div className="border-t border-orange-500/20 pt-1.5 mt-1.5">
+                <p className="text-[10px] font-mono uppercase text-orange-400 mb-1">{constraintAlerts.length} active constraint alerts</p>
+              </div>
+              {constraintAlerts.map((alert, i) => (
+                <div key={`alert-${i}`} className="flex items-start gap-2 p-2 rounded-md border border-orange-500/30 bg-orange-500/5 text-xs">
+                  <alert.icon className={`w-3 h-3 ${alert.color} flex-shrink-0 mt-0.5`} />
+                  <div className="min-w-0">
+                    <p className="font-medium text-foreground text-[11px]">{alert.label}</p>
+                    <p className="text-[10px] text-muted-foreground">{alert.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+      ),
+    },
+    {
+      key: "policy",
+      icon: FileWarning,
+      iconColor: "text-yellow-500",
+      title: "Policy Friction",
+      count: result.policyFriction.length,
+      content: (
+        <div className="space-y-1">
+          {result.policyFriction.map((f, i) => (
+            <div key={i} className="flex items-start gap-2 p-1.5 rounded-md bg-muted/30 text-xs">
+              <ArrowRight className="w-3 h-3 text-muted-foreground mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="text-[11px] text-foreground">{f.point}</p>
+                <p className="text-[10px] text-muted-foreground">{f.framework}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "resources",
+      icon: DollarSign,
+      iconColor: "text-green-500",
+      title: "Resources Required",
+      count: result.resourcesRequired.length,
+      content: (
+        <div className="space-y-1">
+          {result.resourcesRequired.map((r, i) => (
+            <div key={i} className="flex items-center justify-between p-1.5 rounded-md border border-border/50 text-xs">
+              <span className="text-foreground text-[11px]">{r.resource}</span>
+              <Badge variant="outline" className="text-[9px]">{r.status}</Badge>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "considerations",
+      icon: Sparkles,
+      iconColor: "text-purple-400",
+      title: "Special Considerations",
+      count: result.specialConsiderations.length,
+      content: (
+        <div className="space-y-1.5">
+          {result.specialConsiderations.map((note, i) => (
+            <div key={i} className="flex items-start gap-2 p-2 rounded-md border border-purple-500/20 bg-purple-500/5 text-xs">
+              <span className="text-[10px] font-bold text-purple-400 flex-shrink-0">{i + 1}.</span>
+              <p className="text-[11px] text-foreground leading-relaxed">{note}</p>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+    {
+      key: "layers",
+      icon: Layers,
+      iconColor: "text-primary",
+      title: "CMGF Three-Layer Processing",
+      count: result.cmgfLayers.length,
+      content: (
+        <div className="space-y-1.5">
+          {result.cmgfLayers.map((l, i) => (
+            <div key={i} className="p-2 rounded-md border border-primary/20 bg-primary/5 text-xs">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-primary mb-0.5">{l.layer}</p>
+              <p className="text-[11px] text-foreground">{l.action}</p>
+            </div>
+          ))}
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="space-y-1" data-testid="engine-output-panel">
+      <div className="flex items-center gap-2 mb-2">
+        <Brain className="w-4 h-4 text-cyan-400" />
+        <span className="text-xs font-mono uppercase tracking-wider text-cyan-400">Engine Output — AI Input Context</span>
+      </div>
+      <p className="text-[10px] text-muted-foreground mb-3">
+        This is the deterministic analysis the AI advisor uses to answer your questions. Everything the AI says is grounded in this data.
+      </p>
+      {sections.map(section => (
+        <div key={section.key} className="border border-border/40 rounded-md overflow-hidden">
+          <button
+            className="w-full flex items-center gap-2 p-2 text-left hover:bg-muted/30 transition-colors"
+            onClick={() => toggle(section.key)}
+            data-testid={`toggle-section-${section.key}`}
+          >
+            <section.icon className={`w-3.5 h-3.5 ${section.iconColor} flex-shrink-0`} />
+            <span className="text-xs font-medium text-foreground flex-1">{section.title}</span>
+            <Badge variant="outline" className="text-[9px]">{section.count}</Badge>
+            {expandedSections[section.key] ? <ChevronUp className="w-3 h-3 text-muted-foreground" /> : <ChevronDown className="w-3 h-3 text-muted-foreground" />}
+          </button>
+          {expandedSections[section.key] && (
+            <div className="px-2 pb-2">
+              {section.content}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
+  result: PathwayResult;
+  persona: PersonaConfig;
+  constraints: ConstraintState;
+  constraintAlerts: ReturnType<typeof getConstraintAlerts>;
+}) {
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const mosLabel = MOS_OPTIONS.find(m => m.value === persona.mos)?.label || persona.mos;
+  const goalLabel = CAREER_GOALS.find(g => g.value === persona.careerGoal)?.label || persona.careerGoal;
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages]);
+
+  useEffect(() => {
+    const activeConstraintCount = Object.values(constraints).filter(Boolean).length;
+    const opening: ChatMessage = {
+      role: "assistant",
+      content: `I've reviewed your CMGF analysis. You're a ${persona.rank} with ${persona.yearsOfService} years of service in ${mosLabel}, looking to transition into ${goalLabel}.\n\nBased on the engine output, your top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${
+        result.readinessMeasures.some(m => m.status === "red")
+          ? "I do see some areas flagged as high concern — I'd like to walk you through those. "
+          : result.readinessMeasures.some(m => m.status === "yellow")
+          ? "Most indicators look positive with a few moderate considerations. "
+          : "Your readiness indicators are looking strong across the board. "
+      }${activeConstraintCount > 0 ? `I also see ${activeConstraintCount} active constraint${activeConstraintCount > 1 ? "s" : ""} that we should discuss. ` : ""}What would you like to explore first?`,
+    };
+    setChatMessages([opening]);
+  }, [result, persona, constraints]);
+
+  const sendMessageDirect = async (directMessage?: string) => {
+    const userMsg = (directMessage || inputValue).trim();
+    if (!userMsg || isStreaming) return;
+    setInputValue("");
+    setChatMessages(prev => [...prev, { role: "user", content: userMsg }]);
+    setIsStreaming(true);
+
+    const activeConstraintCount = Object.values(constraints).filter(Boolean).length;
+    const engineOutput = {
+      persona: `${persona.rank}, ${persona.yearsOfService} years, ${mosLabel}`,
+      careerGoal: goalLabel,
+      timelineRange: result.timelineRange,
+      pathwayOptions: result.pathwayOptions,
+      readinessMeasures: result.readinessMeasures,
+      constraintRisks: result.constraintRisks,
+      policyFriction: result.policyFriction,
+      resourcesRequired: result.resourcesRequired,
+      specialConsiderations: result.specialConsiderations,
+      cmgfLayers: result.cmgfLayers,
+      explanation: result.explanation,
+      activeConstraints: activeConstraintCount > 0 ? constraintAlerts.map(a => ({
+        label: a.label,
+        detail: a.detail,
+        framework: a.framework,
+      })) : undefined,
+    };
+
+    const existingHistory = chatMessages.map(m => ({ role: m.role, content: m.content }));
+
+    try {
+      const response = await fetch("/api/advisor-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: userMsg,
+          engineOutput,
+          chatHistory: existingHistory,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to get response");
+
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error("No reader");
+
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let assistantContent = "";
+
+      setChatMessages(prev => [...prev, { role: "assistant", content: "" }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(line.slice(6));
+            if (event.content) {
+              assistantContent += event.content;
+              setChatMessages(prev => {
+                const updated = [...prev];
+                updated[updated.length - 1] = { role: "assistant", content: assistantContent };
+                return updated;
+              });
+            }
+            if (event.done) break;
+          } catch {}
+        }
+      }
+    } catch (error) {
+      setChatMessages(prev => [
+        ...prev.slice(0, -1),
+        { role: "assistant", content: "I'm having trouble connecting right now. Please try again in a moment." },
+      ]);
+    }
+
+    setIsStreaming(false);
+    setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
+  const sendMessage = () => sendMessageDirect();
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const suggestedQuestions = [
+    "What's my biggest risk?",
+    "How should I start?",
+    "What certifications first?",
+    "Will my GI Bill cover this?",
+  ];
+
+  return (
+    <div className="flex flex-col h-full" data-testid="advisor-chat">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+          <MessageSquare className="w-4 h-4 text-white" />
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-foreground">CMGF Career Advisor</p>
+          <p className="text-[10px] text-muted-foreground">AI grounded in engine output — answers only from deterministic analysis</p>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto space-y-3 mb-3 min-h-[300px] max-h-[500px] pr-1" data-testid="chat-messages">
+        {chatMessages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div
+              className={`max-w-[85%] rounded-lg px-3 py-2 text-sm leading-relaxed ${
+                msg.role === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted/50 border border-border/50 text-foreground"
+              }`}
+              data-testid={`chat-message-${i}`}
+            >
+              {msg.content.split("\n").map((line, j) => (
+                <p key={j} className={j > 0 ? "mt-2" : ""}>
+                  {line.split(/(\*\*[^*]+\*\*)/).map((part, k) =>
+                    part.startsWith("**") && part.endsWith("**")
+                      ? <strong key={k} className="font-semibold">{part.slice(2, -2)}</strong>
+                      : part
+                  )}
+                </p>
+              ))}
+              {msg.role === "assistant" && isStreaming && i === chatMessages.length - 1 && (
+                <span className="inline-block w-1.5 h-4 bg-primary/50 animate-pulse ml-0.5 align-middle" />
+              )}
+            </div>
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {chatMessages.length <= 1 && (
+        <div className="flex flex-wrap gap-1.5 mb-3" data-testid="suggested-questions">
+          {suggestedQuestions.map((q, i) => (
+            <Button
+              key={i}
+              variant="outline"
+              size="sm"
+              className="text-[11px] h-7 px-2.5"
+              onClick={() => sendMessageDirect(q)}
+              disabled={isStreaming}
+              data-testid={`suggested-question-${i}`}
+            >
+              {q}
+            </Button>
+          ))}
+        </div>
+      )}
+
+      <div className="flex gap-2">
+        <input
+          ref={inputRef}
+          type="text"
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Ask about your transition pathway..."
+          className="flex-1 px-3 py-2 rounded-md border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+          disabled={isStreaming}
+          data-testid="input-chat-message"
+        />
+        <Button
+          size="sm"
+          onClick={sendMessage}
+          disabled={!inputValue.trim() || isStreaming}
+          data-testid="button-send-message"
+        >
+          {isStreaming ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export function ScenarioDemoTab() {
   const [persona, setPersona] = useState<PersonaConfig>({
     rank: "E-6",
@@ -548,8 +995,6 @@ export function ScenarioDemoTab() {
   const [result, setResult] = useState<PathwayResult | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeLayer, setActiveLayer] = useState(-1);
-  const [revealStage, setRevealStage] = useState(0);
-  const [showExplanation, setShowExplanation] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -565,8 +1010,6 @@ export function ScenarioDemoTab() {
     setShowResult(false);
     setResult(null);
     setActiveLayer(-1);
-    setRevealStage(0);
-    setShowExplanation(false);
     setAiError(null);
   };
 
@@ -575,8 +1018,6 @@ export function ScenarioDemoTab() {
     setShowResult(true);
     setAiError(null);
     setActiveLayer(0);
-    setRevealStage(0);
-    setShowExplanation(false);
 
     const prebuilt = getResult(persona.mos, persona.careerGoal);
 
@@ -619,7 +1060,7 @@ export function ScenarioDemoTab() {
         }
         setIsGenerating(false);
       } catch (err) {
-        setAiError("AI pathway generation is temporarily unavailable. Try a pre-mapped combination (e.g., Logistics \u2192 Cybersecurity).");
+        setAiError("AI pathway generation is temporarily unavailable. Try a pre-mapped combination (e.g., Logistics → Cybersecurity).");
         setActiveLayer(-1);
         setIsGenerating(false);
       }
@@ -627,25 +1068,10 @@ export function ScenarioDemoTab() {
   };
 
   useEffect(() => {
-    if (result && !isGenerating) {
-      const timers = [
-        setTimeout(() => setRevealStage(1), 200),
-        setTimeout(() => setRevealStage(2), 500),
-        setTimeout(() => setRevealStage(3), 800),
-        setTimeout(() => setRevealStage(4), 1100),
-        setTimeout(() => setRevealStage(5), 1400),
-        setTimeout(() => setRevealStage(6), 1700),
-        setTimeout(() => setRevealStage(7), 2000),
-      ];
-      return () => timers.forEach(clearTimeout);
-    }
-  }, [result, isGenerating]);
-
-  useEffect(() => {
-    if (result && revealStage === 1 && resultRef.current) {
+    if (result && !isGenerating && resultRef.current) {
       resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  }, [result, revealStage]);
+  }, [result, isGenerating]);
 
   const isPrebuilt = getResult(persona.mos, persona.careerGoal) !== null;
 
@@ -654,42 +1080,42 @@ export function ScenarioDemoTab() {
       <div>
         <h2 className="text-xl font-semibold text-foreground mb-1" data-testid="text-scenario-title">Scenario Pathway Demo</h2>
         <p className="text-sm text-muted-foreground">
-          Configure a service member profile to see how the CMGF processes career transition pathways through its three architectural layers.
+          Configure a service member profile and run the analysis. The AI advisor will discuss your results using only the engine's deterministic output.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <Card className="lg:col-span-1">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-mono uppercase tracking-wider text-muted-foreground flex items-center gap-2">
               <User className="w-4 h-4" />
-              Service Member Profile
+              Profile
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3">
             <div>
-              <label className="text-xs text-muted-foreground mb-1.5 block">Rank</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Rank</label>
               <Select value={persona.rank} onValueChange={v => { setPersona(p => ({ ...p, rank: v })); resetResult(); }}>
                 <SelectTrigger data-testid="select-rank"><SelectValue /></SelectTrigger>
                 <SelectContent>{RANKS.map(r => <SelectItem key={r} value={r}>{r}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1.5 block">Years of Service</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Years of Service</label>
               <Select value={persona.yearsOfService} onValueChange={v => { setPersona(p => ({ ...p, yearsOfService: v })); resetResult(); }}>
                 <SelectTrigger data-testid="select-years"><SelectValue /></SelectTrigger>
                 <SelectContent>{YEARS.map(y => <SelectItem key={y} value={y}>{y} years</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1.5 block">MOS / Specialty</label>
+              <label className="text-xs text-muted-foreground mb-1 block">MOS / Specialty</label>
               <Select value={persona.mos} onValueChange={handleMosChange}>
                 <SelectTrigger data-testid="select-mos"><SelectValue /></SelectTrigger>
                 <SelectContent>{MOS_OPTIONS.map(m => <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
-              <label className="text-xs text-muted-foreground mb-1.5 block">Career Goal</label>
+              <label className="text-xs text-muted-foreground mb-1 block">Career Goal</label>
               <Select value={persona.careerGoal} onValueChange={v => { setPersona(p => ({ ...p, careerGoal: v })); resetResult(); }}>
                 <SelectTrigger data-testid="select-career-goal"><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -704,14 +1130,13 @@ export function ScenarioDemoTab() {
               <div className="p-2 rounded-md bg-purple-500/10 border border-purple-500/20">
                 <div className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                  <span className="text-xs text-purple-300 font-medium">AI-Generated Pathway</span>
+                  <span className="text-xs text-purple-300 font-medium">AI-Generated</span>
                 </div>
-                <p className="text-[10px] text-muted-foreground mt-1">This combination will be analyzed using AI grounded in 797 research sources.</p>
               </div>
             )}
 
             <Button
-              className="w-full mt-2"
+              className="w-full"
               onClick={runAnalysis}
               disabled={isGenerating}
               data-testid="button-run-scenario"
@@ -724,46 +1149,57 @@ export function ScenarioDemoTab() {
               ) : (
                 <>
                   <Cpu className="w-4 h-4 mr-2" />
-                  Run Scenario Analysis
+                  Run Scenario
                 </>
               )}
             </Button>
 
-            {showResult && result && (
-              <div className="p-3 rounded-md bg-primary/5 border border-primary/20">
-                <p className="text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">Active Profile:</span>{" "}
-                  {persona.rank}, {persona.yearsOfService} yrs, {MOS_OPTIONS.find(m => m.value === persona.mos)?.label}
-                  {" \u2192 "}{CAREER_GOALS.find(g => g.value === persona.careerGoal)?.label}
-                </p>
-                {result.generated && (
-                  <Badge variant="outline" className="mt-1.5 text-[10px] text-purple-400 border-purple-500/30">AI-Generated</Badge>
+            <div className="border-t border-border/30 pt-3 mt-2">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 text-orange-500" />
+                Constraints
+                {activeConstraintCount > 0 && (
+                  <Badge variant="destructive" className="text-[9px] ml-1">{activeConstraintCount}</Badge>
                 )}
+              </p>
+              <div className="space-y-2">
+                {[
+                  { key: "shortTimeline" as const, label: "< 12 months remaining" },
+                  { key: "noFunding" as const, label: "No TA available" },
+                  { key: "noSkillBridge" as const, label: "No SkillBridge" },
+                  { key: "familyRelocation" as const, label: "Family relocation" },
+                  { key: "clearanceLapse" as const, label: "Clearance lapsing" },
+                ].map(toggle => (
+                  <div key={toggle.key} className="flex items-center justify-between gap-2" data-testid={`constraint-toggle-${toggle.key}`}>
+                    <span className="text-[11px] text-foreground">{toggle.label}</span>
+                    <Switch
+                      checked={constraints[toggle.key]}
+                      onCheckedChange={v => setConstraints(prev => ({ ...prev, [toggle.key]: v }))}
+                      data-testid={`switch-${toggle.key}`}
+                    />
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-mono uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-              <Layers className="w-4 h-4" />
-              Pathway Outcome
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {showResult && (
-              <ArchitectureVisualization activeLayer={activeLayer} />
-            )}
+        <div className="lg:col-span-3" ref={resultRef}>
+          {showResult && (
+            <ArchitectureVisualization activeLayer={activeLayer} />
+          )}
 
-            {!showResult ? (
-              <div className="flex flex-col items-center justify-center py-16 text-center">
+          {!showResult ? (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-16 text-center">
                 <Cpu className="w-12 h-12 text-muted-foreground/30 mb-4" />
-                <p className="text-muted-foreground">Configure a service member profile and click "Run Scenario Analysis" to see CMGF pathway output.</p>
+                <p className="text-muted-foreground">Configure a service member profile and click "Run Scenario" to see CMGF pathway output.</p>
                 <p className="text-xs text-muted-foreground mt-2">This demonstrates bounded AI: rule-based translation, not predictive modeling.</p>
-              </div>
-            ) : isGenerating ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
+              </CardContent>
+            </Card>
+          ) : isGenerating ? (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
                 <Loader2 className="w-10 h-10 text-primary animate-spin mb-4" />
                 <p className="text-sm text-foreground font-medium">
                   {activeLayer === 0 && "Part A: Capturing service member profile..."}
@@ -773,315 +1209,46 @@ export function ScenarioDemoTab() {
                 <p className="text-xs text-muted-foreground mt-1">
                   {!isPrebuilt ? "Generating pathway from 797 research sources..." : "Processing scenario..."}
                 </p>
-              </div>
-            ) : aiError ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
+              </CardContent>
+            </Card>
+          ) : aiError ? (
+            <Card>
+              <CardContent className="flex flex-col items-center justify-center py-12 text-center">
                 <AlertTriangle className="w-10 h-10 text-orange-500/50 mb-4" />
                 <p className="text-sm text-muted-foreground">{aiError}</p>
+              </CardContent>
+            </Card>
+          ) : result ? (
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+              <div className="lg:col-span-2 order-2 lg:order-1">
+                <Card className="h-full">
+                  <CardContent className="pt-4 pb-3">
+                    <EngineOutputPanel
+                      result={result}
+                      constraints={constraints}
+                      constraintAlerts={constraintAlerts}
+                      isPrebuilt={isPrebuilt}
+                    />
+                  </CardContent>
+                </Card>
               </div>
-            ) : result ? (
-              <div className="space-y-5" ref={resultRef}>
-                <div className={`transition-all duration-500 ${revealStage >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                  <div className="flex items-center gap-2 mb-1">
-                    {result.generated ? (
-                      <Badge className="text-[10px] bg-purple-600/20 text-purple-300 border border-purple-500/30" data-testid="badge-ai-generated">AI-Generated &middot; Research-Grounded</Badge>
-                    ) : (
-                      <Badge className="text-[10px] bg-blue-600/20 text-blue-300 border border-blue-500/30" data-testid="badge-rule-based">Rule-Based &middot; Deterministic</Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2 mb-3 mt-3">
-                    <Target className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-foreground">Estimated Pathway Options</span>
-                    <Badge variant="outline" className="text-xs ml-auto">{result.timelineRange}</Badge>
-                  </div>
-                  <div className="space-y-2">
-                    {result.pathwayOptions.map((p, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-md border border-border/50 bg-card" data-testid={`pathway-option-${i}`}>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary">{i + 1}</div>
-                          <div>
-                            <p className="text-sm font-medium text-foreground">{p.name}</p>
-                            <p className="text-xs text-muted-foreground">{p.timeframe}</p>
-                          </div>
-                        </div>
-                        <Badge variant={parseInt(p.match) >= 85 ? "default" : "outline"} className="text-xs">{p.match} alignment</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
 
-                <div className={`transition-all duration-500 ${revealStage >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <AlertTriangle className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm font-medium text-foreground">Constraint Risks Identified</span>
-                  </div>
-                  <div className="space-y-2">
-                    {result.constraintRisks.map((r, i) => (
-                      <div key={i} className="flex items-start gap-3 p-3 rounded-md border border-border/50" data-testid={`constraint-risk-${i}`}>
-                        <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
-                          r.severity === "high" ? "bg-red-500" : r.severity === "medium" ? "bg-orange-500" : "bg-yellow-500"
-                        }`} />
-                        <div>
-                          <p className="text-sm font-medium text-foreground">{r.label}</p>
-                          <p className="text-xs text-muted-foreground">{r.detail}</p>
-                        </div>
-                        <Badge variant="outline" className="text-[10px] flex-shrink-0 ml-auto">{r.severity}</Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={`transition-all duration-500 ${revealStage >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <FileWarning className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm font-medium text-foreground">Policy Friction Points</span>
-                  </div>
-                  <div className="space-y-2">
-                    {result.policyFriction.map((f, i) => (
-                      <div key={i} className="flex items-start gap-3 p-2 rounded-md bg-muted/30" data-testid={`policy-friction-${i}`}>
-                        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="text-sm text-foreground">{f.point}</p>
-                          <p className="text-xs text-muted-foreground">{f.framework}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={`transition-all duration-500 ${revealStage >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                  <div className="flex items-center gap-2 mb-3">
-                    <DollarSign className="w-4 h-4 text-green-500" />
-                    <span className="text-sm font-medium text-foreground">Resources Required</span>
-                    <Badge variant="outline" className="text-[10px] ml-auto" data-testid="badge-resource-source">
-                      {isPrebuilt ? "Verified Data" : "AI-Estimated"}
-                    </Badge>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {result.resourcesRequired.map((r, i) => (
-                      <div key={i} className="flex items-center justify-between p-2 rounded-md border border-border/50 text-sm" data-testid={`resource-${i}`}>
-                        <span className="text-foreground text-xs">{r.resource}</span>
-                        <Badge variant="outline" className="text-[10px]">{r.status}</Badge>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-3 p-2.5 rounded-md bg-muted/30 border border-border/30" data-testid="resource-sourcing-note">
-                    <div className="flex items-start gap-2">
-                      <Info className="w-3.5 h-3.5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">
-                        {isPrebuilt ? (
-                          <>
-                            <span className="font-medium text-foreground/70">Source: </span>
-                            Costs and eligibility status are drawn from published fee schedules (e.g., PMI, CompTIA, ISC2) and DoD education benefit catalogs (Tuition Assistance, Credential Assistance, GI Bill) current as of 2025. Figures are approximate and may vary by location, provider, and individual eligibility.
-                          </>
-                        ) : (
-                          <>
-                            <span className="font-medium text-foreground/70">Source: </span>
-                            Resources were estimated by AI based on the 797-source research library and general knowledge of credentialing bodies and DoD education programs. Costs and eligibility should be independently verified through official program websites before making financial decisions.
-                          </>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {result.readinessMeasures && result.readinessMeasures.length > 0 && (
-                  <div className={`transition-all duration-500 ${revealStage >= 5 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <TrendingUp className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-foreground">Readiness Assessment</span>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      {result.readinessMeasures.map((m, i) => (
-                        <div
-                          key={i}
-                          className={`p-3 rounded-lg border text-center ${
-                            m.status === "green" ? "border-green-500/30 bg-green-500/5" :
-                            m.status === "yellow" ? "border-yellow-500/30 bg-yellow-500/5" :
-                            "border-red-500/30 bg-red-500/5"
-                          }`}
-                          data-testid={`readiness-measure-${i}`}
-                        >
-                          <div className={`w-3 h-3 rounded-full mx-auto mb-2 ${
-                            m.status === "green" ? "bg-green-500" :
-                            m.status === "yellow" ? "bg-yellow-500" :
-                            "bg-red-500"
-                          }`} />
-                          <p className="text-xs font-medium text-foreground mb-0.5">{m.dimension}</p>
-                          <p className={`text-[11px] font-semibold ${
-                            m.status === "green" ? "text-green-400" :
-                            m.status === "yellow" ? "text-yellow-400" :
-                            "text-red-400"
-                          }`}>{m.label}</p>
-                          <p className="text-[10px] text-muted-foreground mt-1 leading-tight">{m.detail}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[10px] text-muted-foreground mt-2 pl-1">
-                      These are standardized dimensional assessments based on MOS-to-credential domain mapping, not individual predictions.
-                    </p>
-                  </div>
-                )}
-
-                {result.specialConsiderations && result.specialConsiderations.length > 0 && (
-                  <div className={`transition-all duration-500 ${revealStage >= 6 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Sparkles className="w-4 h-4 text-purple-400" />
-                      <span className="text-sm font-medium text-foreground">Special Considerations</span>
-                      <Badge variant="outline" className="text-[10px] text-purple-400 border-purple-500/30 ml-auto">System-Generated</Badge>
-                    </div>
-                    <div className="space-y-2">
-                      {result.specialConsiderations.map((note, i) => (
-                        <div key={i} className="flex items-start gap-3 p-3 rounded-md border border-purple-500/20 bg-purple-500/5" data-testid={`special-consideration-${i}`}>
-                          <div className="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <span className="text-[10px] font-bold text-purple-400">{i + 1}</span>
-                          </div>
-                          <p className="text-sm text-foreground leading-relaxed">{note}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[10px] text-muted-foreground mt-2 pl-1">
-                      These observations are unique to this MOS/goal combination and generated from scenario-specific analysis.
-                    </p>
-                  </div>
-                )}
-
-                <div className={`transition-all duration-500 ${revealStage >= 7 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                  {result.explanation && (
-                    <div className="mb-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full justify-between"
-                        onClick={() => setShowExplanation(!showExplanation)}
-                        data-testid="button-toggle-explanation"
-                      >
-                        <div className="flex items-center gap-2">
-                          <Lightbulb className="w-4 h-4 text-yellow-500" />
-                          <span>Why this recommendation appears</span>
-                        </div>
-                        {showExplanation ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      </Button>
-                      {showExplanation && (
-                        <div className="mt-2 p-4 rounded-md border border-yellow-500/20 bg-yellow-500/5" data-testid="explanation-panel">
-                          <p className="text-sm text-foreground leading-relaxed">{result.explanation}</p>
-                          {result.sources && result.sources.length > 0 && (
-                            <div className="mt-3 pt-3 border-t border-yellow-500/10">
-                              <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Grounding Sources</p>
-                              <div className="space-y-1">
-                                {result.sources.map((s, i) => (
-                                  <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                                    <Badge variant="outline" className="text-[9px] font-mono flex-shrink-0">{s.id}</Badge>
-                                    <span>{s.title} {s.year ? `(${s.year})` : ""}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          <p className="text-[10px] text-muted-foreground mt-3 pt-2 border-t border-yellow-500/10">
-                            {result.generated
-                              ? "AI-generated analysis grounded in CMGF research library. Document-sourced only \u2014 no generative interpretation beyond source content."
-                              : "Rule-based analysis from curated pathway data. Deterministic output, not AI-generated."
-                            }
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-2 mb-3">
-                    <Layers className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-foreground">CMGF Three-Layer Processing</span>
-                  </div>
-                  <div className="space-y-2">
-                    {result.cmgfLayers.map((l, i) => (
-                      <div key={i} className="p-3 rounded-md border border-primary/20 bg-primary/5" data-testid={`cmgf-layer-${i}`}>
-                        <p className="text-xs font-mono uppercase tracking-wider text-primary mb-1">{l.layer}</p>
-                        <p className="text-sm text-foreground">{l.action}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <div className="lg:col-span-3 order-1 lg:order-2">
+                <Card className="h-full">
+                  <CardContent className="pt-4 pb-3">
+                    <AdvisorChat
+                      result={result}
+                      persona={persona}
+                      constraints={constraints}
+                      constraintAlerts={constraintAlerts}
+                    />
+                  </CardContent>
+                </Card>
               </div>
-            ) : null}
-          </CardContent>
-        </Card>
+            </div>
+          ) : null}
+        </div>
       </div>
-
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-sm font-mono uppercase tracking-wider text-muted-foreground flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-orange-500" />
-            Constraint Detection Engine
-            {activeConstraintCount > 0 && (
-              <Badge variant="destructive" className="text-xs ml-2">{activeConstraintCount} active</Badge>
-            )}
-          </CardTitle>
-          <p className="text-xs text-muted-foreground mt-1">
-            Toggle conditions to see how the CMGF identifies binding constraints in real time. This demonstrates deterministic constraint logic — the core of the CMGF thesis.
-          </p>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            {[
-              { key: "shortTimeline" as const, label: "Less than 12 months remaining", description: "Service member is within final year before ETS/separation" },
-              { key: "noFunding" as const, label: "No tuition assistance available", description: "TA/CA benefits exhausted or unit-restricted" },
-              { key: "noSkillBridge" as const, label: "SkillBridge not approved", description: "Command denied SkillBridge participation" },
-              { key: "familyRelocation" as const, label: "Family relocation required", description: "Must relocate for family needs upon separation" },
-              { key: "clearanceLapse" as const, label: "Security clearance lapsing", description: "Clearance will expire within transition window" },
-            ].map(toggle => (
-              <div
-                key={toggle.key}
-                className={`p-4 rounded-md border transition-all ${
-                  constraints[toggle.key]
-                    ? "border-orange-500/50 bg-orange-500/5"
-                    : "border-border/50"
-                }`}
-                data-testid={`constraint-toggle-${toggle.key}`}
-              >
-                <div className="flex items-center justify-between gap-3 mb-1">
-                  <span className="text-sm font-medium text-foreground">{toggle.label}</span>
-                  <Switch
-                    checked={constraints[toggle.key]}
-                    onCheckedChange={v => setConstraints(prev => ({ ...prev, [toggle.key]: v }))}
-                    data-testid={`switch-${toggle.key}`}
-                  />
-                </div>
-                <p className="text-xs text-muted-foreground">{toggle.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {activeConstraintCount > 0 ? (
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 mb-1">
-                <AlertTriangle className="w-4 h-4 text-orange-500" />
-                <span className="text-sm font-semibold text-foreground">System Response: {constraintAlerts.length} constraints detected</span>
-              </div>
-              {constraintAlerts.map((alert, i) => (
-                <div key={i} className="flex items-start gap-3 p-3 rounded-md border border-orange-500/30 bg-orange-500/5" data-testid={`constraint-alert-${i}`}>
-                  <alert.icon className={`w-4 h-4 ${alert.color} flex-shrink-0 mt-0.5`} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground">{alert.label}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{alert.detail}</p>
-                  </div>
-                  <Badge variant="outline" className="text-[10px] flex-shrink-0">{alert.framework}</Badge>
-                </div>
-              ))}
-              <div className="p-3 rounded-md bg-muted/50 mt-4">
-                <p className="text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">Architecture note:</span> These constraints are deterministic rule-based detections, not predictions. The CMGF identifies binding conditions from policy and timeline data — it does not score, rank, or predict individual outcomes. This is constraint binding, not risk modeling.
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <CheckCircle className="w-10 h-10 text-green-500/30 mx-auto mb-3" />
-              <p className="text-sm text-muted-foreground">No active constraints. Toggle conditions above to see constraint detection in action.</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
     </div>
   );
 }
