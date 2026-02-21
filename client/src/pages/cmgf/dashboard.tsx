@@ -24,6 +24,7 @@ import {
 import type { ComplianceItem, Framework, LibraryEntry } from "@shared/schema";
 import { ScenarioDemoTab } from "@/components/scenario-demo-tab";
 import { SystemComparisonTab } from "@/components/system-comparison-tab";
+import EsoIsrDemoTab from "@/components/eso-isr-demo-tab";
 
 const CHART_COLORS = [
   "hsl(210, 70%, 50%)", "hsl(260, 50%, 55%)", "hsl(200, 70%, 50%)",
@@ -266,6 +267,10 @@ export default function Dashboard() {
             <TabsTrigger value="scenario" data-testid="tab-scenario">
               <Cpu className="w-4 h-4 mr-2" />
               Scenario Demo
+            </TabsTrigger>
+            <TabsTrigger value="eso-isr" data-testid="tab-eso-isr">
+              <BarChart3 className="w-4 h-4 mr-2" />
+              ESO / ISR Demo
             </TabsTrigger>
             <TabsTrigger value="comparison" data-testid="tab-comparison">
               <Layers className="w-4 h-4 mr-2" />
@@ -838,6 +843,10 @@ export default function Dashboard() {
 
           <TabsContent value="scenario" className="space-y-6">
             <ScenarioDemoTab />
+          </TabsContent>
+
+          <TabsContent value="eso-isr" className="space-y-6">
+            <EsoIsrDemoTab />
           </TabsContent>
 
           <TabsContent value="comparison" className="space-y-6">
