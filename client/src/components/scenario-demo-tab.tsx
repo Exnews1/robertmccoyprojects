@@ -925,6 +925,24 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       stressFactors = ` With your compressed timeline and some out-of-pocket costs, I want to make sure we plan this carefully.`;
     }
 
+    let timelineWarning = "";
+    if (hasTimelineConstraint) {
+      const topPathway = result.pathwayOptions[0];
+      const timeframeParts = topPathway?.timeframe?.match(/(\d+)/);
+      const estimatedMonths = timeframeParts ? parseInt(timeframeParts[1]) : 0;
+      const fitsTimeline = estimatedMonths > 0 && estimatedMonths <= 10;
+
+      timelineWarning = `\n\n**Timeline Alert:** Your separation window is under 10 months. This is a hard constraint that changes your options significantly.`;
+
+      if (!fitsTimeline && estimatedMonths > 0) {
+        timelineWarning += ` The recommended pathway estimates ${topPathway?.timeframe}, which may exceed your remaining service time. We need to look at accelerated alternatives or plan for completing credentials post-separation using GI Bill benefits.`;
+      } else if (fitsTimeline) {
+        timelineWarning += ` The top pathway fits within your window, but there is limited margin for delays. TA enrollment deadlines, exam scheduling, and approval processing times all compress in this window.`;
+      }
+
+      timelineWarning += ` I'd recommend we prioritize single-exam credentials you can complete before ETS, and defer multi-step programs to post-separation.`;
+    }
+
     const readinessNote = result.readinessMeasures.some(m => m.status === "red")
       ? "I do see some areas flagged as high concern — I'd like to walk you through those. "
       : result.readinessMeasures.some(m => m.status === "yellow")
@@ -935,7 +953,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
 
     const opening: ChatMessage = {
       role: "assistant",
-      content: `${educationReview}${fundingReview}${stressFactors}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}These results are based on current policy constraints and typical pathway timelines. A human advisor will review this with you before any decisions are finalized.\n\nWhat would you like to explore first?`,
+      content: `${educationReview}${fundingReview}${stressFactors}${timelineWarning}\n\nYour top pathway option is **${result.pathwayOptions[0]?.name}** with a ${result.pathwayOptions[0]?.match} alignment match and a projected timeframe of ${result.pathwayOptions[0]?.timeframe}.\n\n${readinessNote}${constraintNote}These results are based on current policy constraints and typical pathway timelines. A human advisor will review this with you before any decisions are finalized.\n\nWhat would you like to explore first?`,
     };
     setChatMessages([opening]);
   }, [result, persona, constraints]);
