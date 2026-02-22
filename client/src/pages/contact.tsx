@@ -61,7 +61,7 @@ export default function Contact() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-2xl mx-auto px-6 py-16">
+        <div className="max-w-2xl mx-auto px-4 md:px-6 py-10 md:py-16">
           <Card className="border-primary/20 bg-primary/5">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
@@ -86,7 +86,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="max-w-2xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm">
           <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio

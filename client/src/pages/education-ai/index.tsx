@@ -195,7 +195,7 @@ export default function EducationAI() {
   return (
     <div className="education-ai-page">
       {/* Back Navigation */}
-      <div className="px-6 pt-6 max-w-6xl mx-auto">
+      <div className="px-4 md:px-6 pt-6 max-w-6xl mx-auto">
         <Link href="/">
           <Button variant="ghost" size="sm" className="gap-2" data-testid="link-back-portfolio">
             <ArrowLeft className="w-4 h-4" />
@@ -205,7 +205,7 @@ export default function EducationAI() {
       </div>
 
       {/* Hero Section */}
-      <section className="py-12 px-6 max-w-6xl mx-auto">
+      <section className="py-12 px-4 md:px-6 max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
@@ -303,7 +303,7 @@ export default function EducationAI() {
       </section>
 
       {/* Paper Overview Section */}
-      <section id="paper-overview" className="py-16 px-6 scroll-mt-20">
+      <section id="paper-overview" className="py-16 px-4 md:px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Paper Overview</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -432,7 +432,7 @@ export default function EducationAI() {
       </section>
 
       {/* Key Insights Section */}
-      <section className="py-16 px-6 bg-card/50">
+      <section className="py-16 px-4 md:px-6 bg-card/50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Key Insights from 557 Research Papers</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -452,7 +452,7 @@ export default function EducationAI() {
       </section>
 
       {/* 8 Pathways Section */}
-      <section id="pathways" className="py-16 px-6 scroll-mt-20">
+      <section id="pathways" className="py-16 px-4 md:px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">8 Pathways to AI Transformation</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -567,7 +567,7 @@ export default function EducationAI() {
       </Dialog>
 
       {/* Sectors Section */}
-      <section id="sectors" className="py-16 px-6 bg-card/50 scroll-mt-20">
+      <section id="sectors" className="py-16 px-4 md:px-6 bg-card/50 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Sector-Specific Implementation Guides</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -607,7 +607,7 @@ export default function EducationAI() {
       </section>
 
       {/* Interactive Tools Section */}
-      <section id="tools" className="py-16 px-6 scroll-mt-20">
+      <section id="tools" className="py-16 px-4 md:px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Interactive Decision Tools</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -629,7 +629,7 @@ export default function EducationAI() {
       </section>
 
       {/* Interactive Charts Section */}
-      <section id="charts" className="py-16 px-6 bg-card/50 scroll-mt-20">
+      <section id="charts" className="py-16 px-4 md:px-6 bg-card/50 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Interactive Data Charts</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -641,7 +641,7 @@ export default function EducationAI() {
       </section>
 
       {/* Static Visualizations Section */}
-      <section id="visualizations" className="py-16 px-6 scroll-mt-20">
+      <section id="visualizations" className="py-16 px-4 md:px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-4">Research Visualizations</h2>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
@@ -797,7 +797,7 @@ export default function EducationAI() {
       </Dialog>
 
       {/* Research Foundation Section */}
-      <section className="py-16 px-6">
+      <section className="py-16 px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Research Foundation</h2>
           <p className="text-muted-foreground mb-8">
@@ -827,7 +827,7 @@ export default function EducationAI() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-primary/5 border-t border-border">
+      <section className="py-16 px-4 md:px-6 bg-primary/5 border-t border-border">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold mb-4">Want to Learn More?</h2>
           <p className="text-muted-foreground mb-6">

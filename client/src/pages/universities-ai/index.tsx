@@ -231,7 +231,7 @@ export default function UniversitiesAI() {
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-b from-primary/10 to-background py-16">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <Link href="/" data-testid="link-back-portfolio">
             <Button variant="ghost" size="sm" className="mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -284,7 +284,7 @@ export default function UniversitiesAI() {
       </div>
 
       <section id="applications" className="py-16" data-testid="section-applications">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             AI Applications in U.S. Universities
           </h2>
@@ -392,7 +392,7 @@ export default function UniversitiesAI() {
       </Dialog>
 
       <section id="examples" className="py-16 bg-card/30" data-testid="section-examples">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             U.S. University Examples
           </h2>
@@ -428,7 +428,7 @@ export default function UniversitiesAI() {
 
       {transferData && (
         <section id="transfer" className="py-16" data-testid="section-transfer">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-4 md:px-6">
             <div className="flex items-center justify-center gap-2 mb-2">
               <ArrowRightLeft className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-bold text-foreground text-center">
@@ -595,7 +595,7 @@ export default function UniversitiesAI() {
 
       {partnershipData && (
         <section id="partnerships" className="py-16 bg-card/30" data-testid="section-partnerships">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-4 md:px-6">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Handshake className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-bold text-foreground text-center">
@@ -738,7 +738,7 @@ export default function UniversitiesAI() {
       </Dialog>
 
       <section id="policies" className="py-16" data-testid="section-policies">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             Policies & Regulations
           </h2>
@@ -795,7 +795,7 @@ export default function UniversitiesAI() {
 
       {systems && (
         <section id="systems" className="py-16 bg-card/30" data-testid="section-systems">
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-4 md:px-6">
             <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
               Prescriptive vs Proscriptive Systems
             </h2>
@@ -857,7 +857,7 @@ export default function UniversitiesAI() {
       )}
 
       <section id="resources" className="py-16" data-testid="section-resources">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             Resources & References
           </h2>
@@ -997,7 +997,7 @@ export default function UniversitiesAI() {
       </Dialog>
 
       <section className="py-12 border-t border-border/50">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 text-center">
           <p className="text-sm text-muted-foreground">
             Research compiled from Stanford HAI, Harvard Ethics Center, U.S. Department of Education, 
             and institutional policy documents from leading American universities.

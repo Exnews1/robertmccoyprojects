@@ -754,11 +754,11 @@ function ArchitectureVisualization({ activeLayer }: { activeLayer: number }) {
   ];
 
   return (
-    <div className="flex items-center gap-2 py-4" data-testid="architecture-visualization">
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 py-4" data-testid="architecture-visualization">
       {layers.map((layer, i) => (
-        <div key={layer.id} className="flex items-center gap-2 flex-1">
+        <div key={layer.id} className="flex flex-col sm:flex-row items-center gap-2 flex-1">
           <div
-            className={`flex-1 p-3 rounded-lg border-2 bg-gradient-to-b transition-all duration-700 ${layer.color} ${
+            className={`w-full sm:flex-1 p-3 rounded-lg border-2 bg-gradient-to-b transition-all duration-700 ${layer.color} ${
               activeLayer >= layer.id
                 ? `${layer.border} shadow-lg ${layer.glow} scale-[1.02]`
                 : "border-border/30 opacity-40 scale-100"
@@ -786,12 +786,17 @@ function ArchitectureVisualization({ activeLayer }: { activeLayer: number }) {
           {i < layers.length - 1 && (
             <div className={`flex-shrink-0 transition-all duration-500 ${activeLayer > i ? "text-primary" : "text-muted-foreground/20"}`}>
               {i === 1 ? (
-                <div className="flex flex-col items-center gap-0.5">
-                  <ArrowRight className="w-3.5 h-3.5 text-green-500" />
-                  <ArrowRight className="w-3.5 h-3.5 text-cyan-500" />
+                <div className="flex flex-col sm:flex-col items-center gap-0.5">
+                  <ArrowDown className="w-3.5 h-3.5 text-green-500 sm:hidden" />
+                  <ArrowDown className="w-3.5 h-3.5 text-cyan-500 sm:hidden" />
+                  <ArrowRight className="w-3.5 h-3.5 text-green-500 hidden sm:block" />
+                  <ArrowRight className="w-3.5 h-3.5 text-cyan-500 hidden sm:block" />
                 </div>
               ) : (
-                <ArrowRight className="w-4 h-4" />
+                <>
+                  <ArrowDown className="w-4 h-4 sm:hidden" />
+                  <ArrowRight className="w-4 h-4 hidden sm:block" />
+                </>
               )}
             </div>
           )}

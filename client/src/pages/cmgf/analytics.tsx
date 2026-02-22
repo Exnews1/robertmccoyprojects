@@ -91,7 +91,7 @@ export default function Analytics() {
     .sort((a, b) => b.count - a.count) : [];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6">
       <div className="flex items-center gap-3 mb-2">
         <a href="/cmgf/dashboard" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-back-dashboard">
           <ArrowLeft className="w-4 h-4" />
@@ -171,9 +171,9 @@ export default function Analytics() {
                 </div>
                 {eventBarData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={240}>
-                    <BarChart data={eventBarData} layout="vertical" margin={{ left: 10, right: 10, top: 0, bottom: 0 }}>
+                    <BarChart data={eventBarData} layout="vertical" margin={{ left: 0, right: 10, top: 0, bottom: 0 }}>
                       <XAxis type="number" tick={{ fontSize: 10 }} />
-                      <YAxis type="category" dataKey="name" tick={{ fontSize: 9 }} width={120} />
+                      <YAxis type="category" dataKey="name" tick={{ fontSize: 8 }} width={90} />
                       <Tooltip contentStyle={{ fontSize: 11, background: "hsl(var(--card))", border: "1px solid hsl(var(--border))" }} />
                       <Bar dataKey="count" radius={[0, 4, 4, 0]} />
                     </BarChart>

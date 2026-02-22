@@ -10,10 +10,10 @@ const fundingData = [
 
 export default function Home() {
   return (
-    <div className="p-8 space-y-8 max-w-7xl mx-auto">
+    <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto">
       
       {/* AUTHOR & TITLE - Front and Center */}
-      <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-card via-card to-slate-950/20 dark:to-slate-950/20 border border-slate-500/30 p-8 md:p-10">
+      <section className="relative overflow-hidden rounded-xl bg-gradient-to-br from-card via-card to-slate-950/20 dark:to-slate-950/20 border border-slate-500/30 p-5 md:p-10">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-500/5 via-transparent to-primary/5 pointer-events-none" />
         <div className="relative z-10 text-center">
           <Badge className="bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px] mb-4">
@@ -40,43 +40,43 @@ export default function Home() {
             </a>
           </p>
           
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-3">
             <a
               href="/attached_assets/CMGF-00_Master_Framework_-_Scholarly_Foundation_1771217538095.docx"
               download
-              className="inline-flex items-center gap-2 px-5 py-3 bg-slate-600 hover:bg-slate-500 text-white font-semibold rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-600 hover:bg-slate-500 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
               data-testid="hero-download-paper"
             >
-              <FileText className="w-4 h-4" />
-              CMGF-00 Scholarly Foundation (DOCX)
+              <FileText className="w-4 h-4 flex-shrink-0" />
+              <span className="truncate">CMGF-00 Scholarly Foundation</span>
             </a>
             <a
               href="/attached_assets/CCME_DEMO_LEAD_1771336462965.pdf"
               download
-              className="inline-flex items-center gap-2 px-5 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors text-sm sm:text-base"
               data-testid="hero-download-presentation"
             >
-              <Presentation className="w-4 h-4" />
+              <Presentation className="w-4 h-4 flex-shrink-0" />
               Download Presentation (PDF)
             </a>
             <a
               href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border text-sm sm:text-base"
               data-testid="hero-link-nist"
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 flex-shrink-0" />
               NIST AI RMF 1.0
             </a>
             <a
               href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-muted hover:bg-muted/80 text-foreground font-semibold rounded-lg transition-colors border border-border text-sm sm:text-base"
               data-testid="hero-link-eo14110"
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 flex-shrink-0" />
               EO 14110
             </a>
           </div>
@@ -84,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* AUTHOR BIO */}
-      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-8" data-testid="section-author-bio">
+      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-4 md:p-8" data-testid="section-author-bio">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
             <Badge className="bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
@@ -162,7 +162,7 @@ export default function Home() {
       </section>
       
       {/* EXECUTIVE SUMMARY - Problem Bounded */}
-      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-8 md:p-12">
+      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-4 md:p-12">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
@@ -290,7 +290,7 @@ export default function Home() {
       </Card>
 
       {/* CMGF PAPER - Featured */}
-      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-8 md:p-12">
+      <section className="relative overflow-hidden rounded-xl bg-card border border-border p-4 md:p-12">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-3 mb-4">

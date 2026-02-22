@@ -63,7 +63,7 @@ export default function Dashboard() {
 
         <main className="flex-1 overflow-y-auto custom-scrollbar">
           {/* Hero Section */}
-          <section className="bg-gradient-to-br from-neutral-900 to-neutral-800 px-8 py-12 relative overflow-hidden">
+          <section className="bg-gradient-to-br from-neutral-900 to-neutral-800 px-4 md:px-8 py-8 md:py-12 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
             
             <div className="max-w-7xl mx-auto relative z-10">
@@ -102,7 +102,7 @@ export default function Dashboard() {
           </section>
 
           {/* Metadata Section */}
-          <section className="bg-white px-8 py-8 border-b border-neutral-200 shadow-sm z-10 relative">
+          <section className="bg-white px-4 md:px-8 py-6 md:py-8 border-b border-neutral-200 shadow-sm z-10 relative">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="bg-white p-5 rounded-xl border border-neutral-100 shadow-sm hover:shadow-md transition-shadow">
@@ -138,7 +138,7 @@ export default function Dashboard() {
           </section>
 
           {/* Table Section */}
-          <section className="px-8 py-12 bg-neutral-50 min-h-[600px]">
+          <section className="px-4 md:px-8 py-8 md:py-12 bg-neutral-50 min-h-[600px]">
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
                 <div>

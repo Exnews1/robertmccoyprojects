@@ -285,7 +285,7 @@ export default function Engagement() {
   return (
     <div className="min-h-screen bg-background">
       <CMGFNav />
-      <div className="max-w-4xl mx-auto px-6 py-6">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm">
           <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio

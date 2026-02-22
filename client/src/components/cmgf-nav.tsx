@@ -17,9 +17,9 @@ export function CMGFNav() {
   const [location] = useLocation();
 
   return (
-    <nav className="sticky top-14 z-40 bg-background/95 backdrop-blur-sm border-b border-border py-2 mb-6">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-center gap-1 overflow-x-auto">
+    <nav className="sticky top-14 z-40 bg-background/95 backdrop-blur-sm border-b border-border py-2 mb-4 md:mb-6">
+      <div className="max-w-6xl mx-auto px-3 md:px-6">
+        <div className="flex items-center gap-0.5 md:gap-1 overflow-x-auto scrollbar-hide pb-1 -mb-1">
           {navItems.map((item) => {
             const isActive = !item.external && (location === item.href || 
               (item.href !== "/cmgf" && location.startsWith(item.href)));

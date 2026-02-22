@@ -220,7 +220,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-background">
         <CMGFNav />
-        <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
           <div className="space-y-4">
             <div className="h-8 w-64 bg-muted animate-pulse rounded-md" />
             <div className="h-4 w-96 bg-muted animate-pulse rounded-md" />
@@ -236,7 +236,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       <CMGFNav />
-      <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-6 text-sm flex items-center flex-wrap gap-1">
           <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -263,36 +263,38 @@ export default function Dashboard() {
         </header>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList data-testid="dashboard-tabs">
-            <TabsTrigger value="overview" data-testid="tab-overview">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="compliance" data-testid="tab-compliance">
-              <Shield className="w-4 h-4 mr-2" />
-              Compliance
-            </TabsTrigger>
-            <TabsTrigger value="research" data-testid="tab-research">
-              <Database className="w-4 h-4 mr-2" />
-              Research Library
-            </TabsTrigger>
-            <TabsTrigger value="analytics" data-testid="tab-analytics">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Analytics
-            </TabsTrigger>
-            <TabsTrigger value="scenario" data-testid="tab-scenario">
-              <Cpu className="w-4 h-4 mr-2" />
-              Scenario Demo
-            </TabsTrigger>
-            <TabsTrigger value="eso-isr" data-testid="tab-eso-isr">
-              <BarChart3 className="w-4 h-4 mr-2" />
-              ESO / ISR Demo
-            </TabsTrigger>
-            <TabsTrigger value="comparison" data-testid="tab-comparison">
-              <Layers className="w-4 h-4 mr-2" />
-              Before vs After
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+            <TabsList data-testid="dashboard-tabs" className="inline-flex w-max md:w-auto">
+              <TabsTrigger value="overview" data-testid="tab-overview" className="text-xs md:text-sm">
+                <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Overview
+              </TabsTrigger>
+              <TabsTrigger value="compliance" data-testid="tab-compliance" className="text-xs md:text-sm">
+                <Shield className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Compliance
+              </TabsTrigger>
+              <TabsTrigger value="research" data-testid="tab-research" className="text-xs md:text-sm">
+                <Database className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Research
+              </TabsTrigger>
+              <TabsTrigger value="analytics" data-testid="tab-analytics" className="text-xs md:text-sm">
+                <TrendingUp className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Analytics
+              </TabsTrigger>
+              <TabsTrigger value="scenario" data-testid="tab-scenario" className="text-xs md:text-sm">
+                <Cpu className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Scenario
+              </TabsTrigger>
+              <TabsTrigger value="eso-isr" data-testid="tab-eso-isr" className="text-xs md:text-sm">
+                <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                ESO / ISR
+              </TabsTrigger>
+              <TabsTrigger value="comparison" data-testid="tab-comparison" className="text-xs md:text-sm">
+                <Layers className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1 md:mr-2" />
+                Compare
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-testid="section-overview-metrics">

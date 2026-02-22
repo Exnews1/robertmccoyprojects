@@ -7,7 +7,7 @@ import { ArrowRight, Shield, GraduationCap, Award, Briefcase, Building2, Linkedi
 export default function Portfolio() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
         <header className="mb-16 text-center">
           <h1 className="text-4xl font-bold text-foreground mb-4">Robert McCoy Projects</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

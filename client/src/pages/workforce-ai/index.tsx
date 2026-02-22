@@ -255,7 +255,7 @@ export default function WorkforceAI() {
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-b from-primary/10 to-background py-16">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <Link href="/" data-testid="link-back-portfolio">
             <Button variant="ghost" size="sm" className="mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -306,7 +306,7 @@ export default function WorkforceAI() {
       </div>
 
       <section id="key-findings" className="py-16" data-testid="section-key-findings">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-bold text-foreground mb-2 text-center">
             Critical Statistics
           </h2>
@@ -342,7 +342,7 @@ export default function WorkforceAI() {
       </section>
 
       <section id="ai-literacy" className="py-16 bg-card/30" data-testid="section-ai-literacy">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Brain className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground text-center">
@@ -379,7 +379,7 @@ export default function WorkforceAI() {
       </section>
 
       <section id="labor-trends" className="py-16" data-testid="section-labor-trends">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <BarChart3 className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground text-center">
@@ -437,7 +437,7 @@ export default function WorkforceAI() {
       </section>
 
       <section id="key-insights" className="py-16 bg-card/30" data-testid="section-key-insights">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Lightbulb className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground text-center">
@@ -542,7 +542,7 @@ export default function WorkforceAI() {
       </section>
 
       <section id="key-papers" className="py-16" data-testid="section-key-papers">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <BookOpen className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground text-center">
@@ -573,7 +573,7 @@ export default function WorkforceAI() {
       </section>
 
       <section id="downloads" className="py-16 bg-card/30" data-testid="section-downloads">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Download className="w-6 h-6 text-primary" />
             <h2 className="text-2xl font-bold text-foreground text-center">
@@ -633,7 +633,7 @@ export default function WorkforceAI() {
       </section>
 
       <section className="py-12 border-t border-border">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 text-center">
           <p className="text-sm text-muted-foreground mb-2">
             Research compiled by Robert McCoy | January 2026
           </p>

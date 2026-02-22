@@ -86,7 +86,7 @@ export default function Bio() {
   return (
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           <Link href="/">
             <Button variant="ghost" size="sm" data-testid="link-back-home">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -97,7 +97,7 @@ export default function Bio() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4 md:px-6">
 
         <section className="py-20 md:py-28 border-b border-border" data-testid="section-bio-hero">
           <div className="max-w-3xl">

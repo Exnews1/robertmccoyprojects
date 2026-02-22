@@ -70,7 +70,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <Link href="/">
             <Button variant="ghost" size="sm" data-testid="link-back-portfolio">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -84,7 +84,7 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
         <section data-testid="section-author-bio" className="mb-16">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-8">About the Author</h2>
           <div className="grid gap-8 lg:grid-cols-3">

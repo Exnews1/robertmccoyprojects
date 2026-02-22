@@ -121,7 +121,7 @@ export default function HardTruths() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1" aria-label="Breadcrumb">
           <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-portfolio">
             Portfolio
