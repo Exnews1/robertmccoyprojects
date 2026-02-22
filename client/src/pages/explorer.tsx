@@ -61,7 +61,7 @@ export default function Explorer() {
         const errData = await response.json().catch(() => ({}));
         setAnswerResponse({
           answer: null,
-          message: errData.message || "Too many requests. Please wait a moment and try again.",
+          message: errData.message || "Thanks for your interest! To control demo costs, this safeguard has been activated. Your access resets in about 60 seconds. For more, contact Robert McCoy via Whova or data@robertmccoyprojects.com.",
           sources: [],
           relatedSources: [],
         });

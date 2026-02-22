@@ -1315,7 +1315,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
       if (!response.ok) {
         if (response.status === 429) {
           const errData = await response.json().catch(() => ({}));
-          throw new Error(errData.error || "Too many requests. Please wait a moment.");
+          throw new Error(errData.error || "Thanks for your interest! To control demo costs, this safeguard has been activated. Your access resets in about 60 seconds. For more, contact Robert McCoy via Whova or data@robertmccoyprojects.com.");
         }
         throw new Error("Failed to get response");
       }
@@ -1551,7 +1551,7 @@ export function ScenarioDemoTab() {
 
         if (res.status === 429) {
           const errData = await res.json().catch(() => ({}));
-          setAiError(errData.message || "The system is busy right now. Please wait a moment and try again.");
+          setAiError(errData.message || "Thanks for your interest! To control demo costs, this safeguard has been activated. Your access resets in about 60 seconds. For more, contact Robert McCoy via Whova or data@robertmccoyprojects.com.");
           setActiveLayer(-1);
           setIsGenerating(false);
           return;

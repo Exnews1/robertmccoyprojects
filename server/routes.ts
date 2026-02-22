@@ -54,11 +54,11 @@ class RateLimiter {
     this.resetDailyIfNeeded();
 
     if (this.dailyCount >= this.dailyLimit) {
-      return { allowed: false, reason: "Daily AI request limit reached. Please try again tomorrow." };
+      return { allowed: false, reason: "Thanks for your interest! To manage demo costs, this safeguard has been activated for the day. For additional access or questions, connect with Robert McCoy via the Whova app or email data@robertmccoyprojects.com." };
     }
 
     if (this.globalActive >= this.maxConcurrent) {
-      return { allowed: false, reason: "The system is handling many requests right now. Please wait a moment and try again.", retryAfter: 5 };
+      return { allowed: false, reason: "Thanks for your interest! The system is handling several requests right now. Please try again in a few seconds.", retryAfter: 5 };
     }
 
     const ip = this.getClientIp(req);
@@ -68,7 +68,7 @@ class RateLimiter {
     if (timestamps.length >= this.perIpLimit) {
       const oldestInWindow = timestamps[0];
       const retryAfter = Math.ceil((this.windowMs - (now - oldestInWindow)) / 1000);
-      return { allowed: false, reason: `You've made several requests recently. Please wait ${retryAfter} seconds before trying again.`, retryAfter };
+      return { allowed: false, reason: `Thanks for your interest! To control demo costs, this safeguard limits requests. Your access resets in about ${retryAfter} seconds. For more access, connect with Robert McCoy via the Whova app or email data@robertmccoyprojects.com.`, retryAfter };
     }
 
     timestamps.push(now);
