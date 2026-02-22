@@ -1,4 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import { serveStatic } from "./static";
 import { createServer } from "http";
@@ -6,8 +8,30 @@ import path from "path";
 import { seedDatabase } from "./seed";
 import { seedLibrary, generateMissingEmbeddings } from "./library-seed";
 import { seedComplianceData } from "./seed-compliance";
+import { pool } from "./db";
 
 const app = express();
+
+const PgStore = connectPgSimple(session);
+
+app.use(
+  session({
+    store: new PgStore({
+      pool,
+      tableName: "session",
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || "fallback-dev-secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+    },
+  }),
+);
 
 // Serve attached_assets for downloads
 app.use('/attached_assets', express.static(path.resolve(process.cwd(), 'attached_assets'), {
