@@ -8,6 +8,87 @@ import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 
+class RateLimiter {
+  private requests: Map<string, number[]> = new Map();
+  private globalActive = 0;
+  private dailyCount = 0;
+  private dailyResetTime = Date.now();
+  private lastCleanup = Date.now();
+
+  constructor(
+    private perIpLimit: number = 10,
+    private windowMs: number = 60_000,
+    private maxConcurrent: number = 15,
+    private dailyLimit: number = 500,
+  ) {
+    setInterval(() => this.cleanup(), 300_000);
+  }
+
+  private getClientIp(req: any): string {
+    return req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.ip || "unknown";
+  }
+
+  private resetDailyIfNeeded() {
+    if (Date.now() - this.dailyResetTime > 86_400_000) {
+      this.dailyCount = 0;
+      this.dailyResetTime = Date.now();
+    }
+  }
+
+  private cleanup() {
+    const now = Date.now();
+    const entries = Array.from(this.requests.entries());
+    for (let i = 0; i < entries.length; i++) {
+      const [ip, timestamps] = entries[i];
+      const valid = timestamps.filter((t: number) => now - t < this.windowMs);
+      if (valid.length === 0) {
+        this.requests.delete(ip);
+      } else {
+        this.requests.set(ip, valid);
+      }
+    }
+    this.lastCleanup = now;
+  }
+
+  check(req: any): { allowed: boolean; reason?: string; retryAfter?: number } {
+    this.resetDailyIfNeeded();
+
+    if (this.dailyCount >= this.dailyLimit) {
+      return { allowed: false, reason: "Daily AI request limit reached. Please try again tomorrow." };
+    }
+
+    if (this.globalActive >= this.maxConcurrent) {
+      return { allowed: false, reason: "The system is handling many requests right now. Please wait a moment and try again.", retryAfter: 5 };
+    }
+
+    const ip = this.getClientIp(req);
+    const now = Date.now();
+    const timestamps = (this.requests.get(ip) || []).filter(t => now - t < this.windowMs);
+
+    if (timestamps.length >= this.perIpLimit) {
+      const oldestInWindow = timestamps[0];
+      const retryAfter = Math.ceil((this.windowMs - (now - oldestInWindow)) / 1000);
+      return { allowed: false, reason: `You've made several requests recently. Please wait ${retryAfter} seconds before trying again.`, retryAfter };
+    }
+
+    timestamps.push(now);
+    this.requests.set(ip, timestamps);
+    this.globalActive++;
+    this.dailyCount++;
+    return { allowed: true };
+  }
+
+  release() {
+    this.globalActive = Math.max(0, this.globalActive - 1);
+  }
+
+  getStats() {
+    return { active: this.globalActive, dailyUsed: this.dailyCount, dailyLimit: this.dailyLimit };
+  }
+}
+
+const aiRateLimiter = new RateLimiter(10, 60_000, 15, 500);
+
 export async function registerRoutes(httpServer: Server, app: Express) {
   // Zoho domain verification
   app.get("/zoho-domain-verification.html", (_req: any, res: any) => {
@@ -100,6 +181,10 @@ export async function registerRoutes(httpServer: Server, app: Express) {
   });
 
   app.post("/api/search", async (req: any, res: any) => {
+    const rateCheck = aiRateLimiter.check(req);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ message: rateCheck.reason, retryAfter: rateCheck.retryAfter });
+    }
     try {
       const { query } = req.body;
       if (!query || typeof query !== "string") {
@@ -112,13 +197,7 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         return res.json({ results: [] });
       }
 
-      let queryEmbedding: number[];
-      try {
-        queryEmbedding = await generateEmbedding(query);
-      } catch (error) {
-        console.error("Embedding generation failed:", error);
-        return res.status(500).json({ message: "Search temporarily unavailable" });
-      }
+      const queryEmbedding = await generateEmbedding(query);
 
       const scoredEntries = entries
         .filter(entry => entry.embedding)
@@ -145,6 +224,8 @@ export async function registerRoutes(httpServer: Server, app: Express) {
     } catch (error) {
       console.error("Search error:", error);
       res.status(500).json({ message: "Search failed" });
+    } finally {
+      aiRateLimiter.release();
     }
   });
 
@@ -256,6 +337,10 @@ export async function registerRoutes(httpServer: Server, app: Express) {
 
   // RAG-style answer endpoint with citations
   app.post("/api/answer", async (req: any, res: any) => {
+    const rateCheck = aiRateLimiter.check(req);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ message: rateCheck.reason, retryAfter: rateCheck.retryAfter });
+    }
     try {
       const { query } = req.body;
       if (!query || typeof query !== "string") {
@@ -273,15 +358,8 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         });
       }
 
-      let queryEmbedding: number[];
-      try {
-        queryEmbedding = await generateEmbedding(query);
-      } catch (error) {
-        console.error("Embedding generation failed:", error);
-        return res.status(500).json({ message: "Search temporarily unavailable" });
-      }
+      const queryEmbedding = await generateEmbedding(query);
 
-      // Score all entries with hybrid approach (semantic + keyword/topic matching)
       const queryLower = query.toLowerCase();
       const scoredEntries = entries
         .filter(entry => entry.embedding)
@@ -289,7 +367,6 @@ export async function registerRoutes(httpServer: Server, app: Express) {
           const entryEmbedding = JSON.parse(entry.embedding!) as number[];
           let score = cosineSimilarity(queryEmbedding, entryEmbedding);
           
-          // Boost score for keyword matches in title or summary (not topics/pillar names)
           const titleLower = (entry.title || "").toLowerCase();
           const summaryLower = (entry.summary || "").toLowerCase();
           
@@ -300,7 +377,6 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         })
         .sort((a, b) => b.score - a.score);
 
-      // Get top relevant sources (score >= 0.35)
       const relevantSources = scoredEntries.filter(s => s.score >= 0.35).slice(0, 3);
       const relatedSources = scoredEntries.slice(0, 5);
 
@@ -324,7 +400,6 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         });
       }
 
-      // Build context from relevant sources for LLM
       const sourceContext = relevantSources.map(({ entry }, idx) => 
         `[Source ${idx + 1}: "${entry.title}"]\n${entry.summary}`
       ).join("\n\n");
@@ -334,7 +409,6 @@ export async function registerRoutes(httpServer: Server, app: Express) {
         title: entry.title
       }));
 
-      // Use OpenAI to generate a grounded answer
       const OpenAI = (await import("openai")).default;
       const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -394,10 +468,16 @@ Rules:
     } catch (error) {
       console.error("Answer generation error:", error);
       res.status(500).json({ message: "Failed to generate answer" });
+    } finally {
+      aiRateLimiter.release();
     }
   });
 
   app.post("/api/generate-pathway", async (req: any, res: any) => {
+    const rateCheck = aiRateLimiter.check(req);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ message: rateCheck.reason, retryAfter: rateCheck.retryAfter });
+    }
     try {
       const { rank, yearsOfService, mos, mosLabel, careerGoal, goalLabel } = req.body;
       if (!mos || !careerGoal) {
@@ -604,6 +684,8 @@ Respond with JSON only.`
     } catch (error) {
       console.error("Pathway generation error:", error);
       res.status(500).json({ message: "Failed to generate pathway analysis" });
+    } finally {
+      aiRateLimiter.release();
     }
   });
 
@@ -728,6 +810,10 @@ Respond with JSON only.`
   });
 
   app.post("/api/advisor-chat", async (req: any, res: any) => {
+    const rateCheck = aiRateLimiter.check(req);
+    if (!rateCheck.allowed) {
+      return res.status(429).json({ error: rateCheck.reason, retryAfter: rateCheck.retryAfter });
+    }
     try {
       const { message, engineOutput, chatHistory } = req.body;
 
@@ -821,7 +907,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
         model: "gpt-5-mini",
         messages,
         stream: true,
-        max_completion_tokens: 8192,
+        max_completion_tokens: 2048,
       });
 
       let fullResponse = "";
@@ -844,7 +930,13 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       } else {
         res.status(500).json({ error: "Failed to get advisor response" });
       }
+    } finally {
+      aiRateLimiter.release();
     }
+  });
+
+  app.get("/api/ai-usage", async (_req: any, res: any) => {
+    res.json(aiRateLimiter.getStats());
   });
 
   return app;

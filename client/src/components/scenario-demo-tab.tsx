@@ -1312,7 +1312,13 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to get response");
+      if (!response.ok) {
+        if (response.status === 429) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || "Too many requests. Please wait a moment.");
+        }
+        throw new Error("Failed to get response");
+      }
 
       const reader = response.body?.getReader();
       if (!reader) throw new Error("No reader");
@@ -1347,11 +1353,17 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
           } catch {}
         }
       }
-    } catch (error) {
-      setChatMessages(prev => [
-        ...prev.slice(0, -1),
-        { role: "assistant", content: "I'm having trouble connecting right now. Please try again in a moment." },
-      ]);
+    } catch (error: any) {
+      const errorMsg = error?.message?.includes("wait") || error?.message?.includes("limit")
+        ? error.message
+        : "I'm having trouble connecting right now. Please try again in a moment.";
+      setChatMessages(prev => {
+        const lastMsg = prev[prev.length - 1];
+        if (lastMsg?.role === "assistant" && lastMsg.content === "") {
+          return [...prev.slice(0, -1), { role: "assistant", content: errorMsg }];
+        }
+        return [...prev, { role: "assistant", content: errorMsg }];
+      });
     }
 
     setIsStreaming(false);
@@ -1524,14 +1536,28 @@ export function ScenarioDemoTab() {
         await new Promise(r => setTimeout(r, 500));
         setActiveLayer(1);
 
-        const res = await apiRequest("POST", "/api/generate-pathway", {
-          rank: persona.rank,
-          yearsOfService: persona.yearsOfService,
-          mos: persona.mos,
-          mosLabel,
-          careerGoal: persona.careerGoal,
-          goalLabel,
+        const res = await fetch("/api/generate-pathway", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            rank: persona.rank,
+            yearsOfService: persona.yearsOfService,
+            mos: persona.mos,
+            mosLabel,
+            careerGoal: persona.careerGoal,
+            goalLabel,
+          }),
         });
+
+        if (res.status === 429) {
+          const errData = await res.json().catch(() => ({}));
+          setAiError(errData.message || "The system is busy right now. Please wait a moment and try again.");
+          setActiveLayer(-1);
+          setIsGenerating(false);
+          return;
+        }
+
+        if (!res.ok) throw new Error("Failed to generate pathway");
         const data = await res.json();
 
         if (data.pathwayOptions && data.pathwayOptions.length > 0) {

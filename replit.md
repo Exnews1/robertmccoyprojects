@@ -74,6 +74,17 @@ The Reference Explorer at `/explorer` provides grounded Q&A over the research li
   - `POST /api/library/generate-embeddings` - Generate embeddings for entries without them
   - `POST /api/library/regenerate-embeddings` - Dev only, regenerates all embeddings
 
+### API Rate Limiting & Cost Protection
+All OpenAI-powered endpoints are protected by an in-memory rate limiter (class `RateLimiter` in `server/routes.ts`):
+- **Per-IP limit**: 10 requests per 60 seconds
+- **Global concurrency**: Max 15 simultaneous AI requests
+- **Daily cap**: 500 total AI requests per server restart cycle
+- **Cleanup**: Old IP entries purged every 5 minutes to prevent memory leaks
+- **Protected endpoints**: `/api/search`, `/api/answer`, `/api/generate-pathway`, `/api/advisor-chat`
+- **Monitoring**: `GET /api/ai-usage` returns `{ active, dailyUsed, dailyLimit }`
+- **Frontend handling**: All AI-consuming components handle 429 responses with user-friendly messages
+- **Token limit**: Advisor chat capped at 2048 completion tokens (reduced from 8192)
+
 ### AI Education Futures Hub
 The AI Education Hub at `/education-ai` provides evidence-based guidance for AI implementation in education:
 - **Research Base**: Built on analysis of 557 peer-reviewed papers (2020-2026)

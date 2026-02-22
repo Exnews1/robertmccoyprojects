@@ -52,7 +52,23 @@ export default function Explorer() {
     setLoading(true);
     setSearched(true);
     try {
-      const response = await apiRequest("POST", "/api/answer", { query });
+      const response = await fetch("/api/answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      if (response.status === 429) {
+        const errData = await response.json().catch(() => ({}));
+        setAnswerResponse({
+          answer: null,
+          message: errData.message || "Too many requests. Please wait a moment and try again.",
+          sources: [],
+          relatedSources: [],
+        });
+        setLoading(false);
+        return;
+      }
+      if (!response.ok) throw new Error("Search failed");
       const data = await response.json();
       setAnswerResponse(data);
     } catch (error) {
