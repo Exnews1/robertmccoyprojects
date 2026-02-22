@@ -7,6 +7,7 @@ import {
   libraryEntries,
   inquiries,
   siteStats,
+  demoEvents,
   type Framework,
   type InsertFramework,
   type ComplianceItem,
@@ -18,9 +19,11 @@ import {
   type LibraryEntry,
   type InsertLibraryEntry,
   type Inquiry,
-  type InsertInquiry
+  type InsertInquiry,
+  type DemoEvent,
+  type InsertDemoEvent
 } from "@shared/schema";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, desc, gte, and, count } from "drizzle-orm";
 import { seedPublications } from "./seed";
 
 export interface IStorage {
@@ -51,6 +54,12 @@ export interface IStorage {
   getStatCount(key: string): Promise<number>;
   incrementStatCount(key: string): Promise<number>;
   getAllStats(): Promise<Record<string, number>>;
+
+  logDemoEvent(event: InsertDemoEvent): Promise<DemoEvent>;
+  getDemoEvents(since?: Date): Promise<DemoEvent[]>;
+  getDemoEventCounts(since?: Date): Promise<Record<string, number>>;
+  getDemoEventTimeline(since?: Date, bucketMinutes?: number): Promise<Array<{ bucket: string; count: number }>>;
+  getUniqueSessions(since?: Date): Promise<number>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -191,6 +200,50 @@ export class DatabaseStorage implements IStorage {
       result[row.key] = row.value;
     }
     return result;
+  }
+
+  async logDemoEvent(event: InsertDemoEvent): Promise<DemoEvent> {
+    const [newEvent] = await db.insert(demoEvents).values(event).returning();
+    return newEvent;
+  }
+
+  async getDemoEvents(since?: Date): Promise<DemoEvent[]> {
+    if (since) {
+      return await db.select().from(demoEvents).where(gte(demoEvents.createdAt, since)).orderBy(desc(demoEvents.createdAt)).limit(500);
+    }
+    return await db.select().from(demoEvents).orderBy(desc(demoEvents.createdAt)).limit(500);
+  }
+
+  async getDemoEventCounts(since?: Date): Promise<Record<string, number>> {
+    const rows = since
+      ? await db.select({ eventType: demoEvents.eventType, cnt: count() }).from(demoEvents).where(gte(demoEvents.createdAt, since)).groupBy(demoEvents.eventType)
+      : await db.select({ eventType: demoEvents.eventType, cnt: count() }).from(demoEvents).groupBy(demoEvents.eventType);
+    const result: Record<string, number> = {};
+    for (const r of rows) {
+      result[r.eventType] = Number(r.cnt);
+    }
+    return result;
+  }
+
+  async getDemoEventTimeline(since?: Date, bucketMinutes: number = 15): Promise<Array<{ bucket: string; count: number }>> {
+    const sinceClause = since ? sql`AND created_at >= ${since}` : sql``;
+    const rows = await db.execute(sql`
+      SELECT
+        to_char(date_trunc('hour', created_at) + (floor(extract(minute from created_at) / ${bucketMinutes}) * ${bucketMinutes} || ' minutes')::interval, 'HH24:MI') as bucket,
+        count(*)::int as count
+      FROM demo_events
+      WHERE 1=1 ${sinceClause}
+      GROUP BY 1
+      ORDER BY 1
+    `);
+    return (rows.rows || []).map((r: any) => ({ bucket: r.bucket, count: Number(r.count) }));
+  }
+
+  async getUniqueSessions(since?: Date): Promise<number> {
+    const rows = since
+      ? await db.execute(sql`SELECT count(DISTINCT session_id) as cnt FROM demo_events WHERE session_id IS NOT NULL AND created_at >= ${since}`)
+      : await db.execute(sql`SELECT count(DISTINCT session_id) as cnt FROM demo_events WHERE session_id IS NOT NULL`);
+    return Number((rows.rows || [])[0]?.cnt || 0);
   }
 
   async seed() {

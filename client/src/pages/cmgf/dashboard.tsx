@@ -1,6 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { trackDemoEvent } from "@/lib/demo-tracking";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -54,6 +55,11 @@ export default function Dashboard() {
   const { data: stats } = useQuery<Record<string, number>>({ queryKey: ["/api/stats"] });
 
   const [activeTab, setActiveTab] = useState("overview");
+
+  useEffect(() => {
+    trackDemoEvent("dashboard_view");
+  }, []);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [pillarFilter, setPillarFilter] = useState<string>("all");
   const [yearFilter, setYearFilter] = useState<string>("all");
@@ -240,10 +246,20 @@ export default function Dashboard() {
         </nav>
 
         <header className="mb-6">
-          <h1 className="text-3xl font-bold text-foreground mb-2" data-testid="text-dashboard-title">Executive Dashboard</h1>
-          <p className="text-muted-foreground">
-            Interactive system overview — filter, search, drill down into compliance items and {totalLibrary.toLocaleString()} research sources.
-          </p>
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <h1 className="text-3xl font-bold text-foreground mb-2" data-testid="text-dashboard-title">Executive Dashboard</h1>
+              <p className="text-muted-foreground">
+                Interactive system overview — filter, search, drill down into compliance items and {totalLibrary.toLocaleString()} research sources.
+              </p>
+            </div>
+            <Link href="/cmgf/analytics">
+              <Button variant="outline" size="sm" className="text-xs" data-testid="link-conference-analytics">
+                <Activity className="w-3 h-3 mr-1.5" />
+                Conference Analytics
+              </Button>
+            </Link>
+          </div>
         </header>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { apiRequest } from "@/lib/queryClient";
+import { trackDemoEvent } from "@/lib/demo-tracking";
 import {
   User, Cpu, AlertTriangle, CheckCircle, Clock, Shield,
   ArrowRight, ArrowDown, Zap, BookOpen, DollarSign, FileWarning,
@@ -1266,6 +1267,7 @@ function AdvisorChat({ result, persona, constraints, constraintAlerts }: {
   }, [result, persona, constraints]);
 
   const sendMessageDirect = async (directMessage?: string) => {
+    trackDemoEvent("sm_advisor_chat");
     const userMsg = (directMessage || inputValue).trim();
     if (!userMsg || isStreaming) return;
     setInputValue("");
@@ -1491,6 +1493,7 @@ export function ScenarioDemoTab() {
   };
 
   const runAnalysis = async () => {
+    trackDemoEvent("sm_scenario_run", { mos: persona.mos, careerGoal: persona.careerGoal, rank: persona.rank });
     setIsGenerating(true);
     setShowResult(true);
     setAiError(null);

@@ -31,6 +31,7 @@ import OngoingResearch from "@/pages/ongoing-research";
 import References from "@/pages/references";
 import Bio from "@/pages/bio";
 import Dashboard from "@/pages/cmgf/dashboard";
+import ConferenceAnalytics from "@/pages/cmgf/analytics";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -124,6 +125,7 @@ function Router() {
       <Route path="/cmgf/engagement" component={Engagement} />
       <Route path="/cmgf/five-pillars" component={FivePillars} />
       <Route path="/cmgf/dashboard" component={Dashboard} />
+      <Route path="/cmgf/analytics" component={ConferenceAnalytics} />
       <Route path="/cmgf/presidential-report" component={PresidentialReport} />
       <Route path="/cmgf/explorer" component={Explorer} />
       <Route path="/explorer" component={Explorer} />

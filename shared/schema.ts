@@ -103,6 +103,19 @@ export type InsertLibraryEntry = z.infer<typeof insertLibraryEntrySchema>;
 export type Inquiry = typeof inquiries.$inferSelect;
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;
 
+export const demoEvents = pgTable("demo_events", {
+  id: serial("id").primaryKey(),
+  eventType: text("event_type").notNull(),
+  sessionId: text("session_id"),
+  metadata: text("metadata"),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertDemoEventSchema = createInsertSchema(demoEvents).omit({ id: true, createdAt: true });
+export type DemoEvent = typeof demoEvents.$inferSelect;
+export type InsertDemoEvent = z.infer<typeof insertDemoEventSchema>;
+
 // Site analytics
 export const siteStats = pgTable("site_stats", {
   id: serial("id").primaryKey(),

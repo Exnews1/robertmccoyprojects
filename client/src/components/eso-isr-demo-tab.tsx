@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { trackDemoEvent } from "@/lib/demo-tracking";
 import {
   BarChart3, Users, AlertTriangle, Shield, Target,
   FileText, Cpu, ArrowDown, Activity,
@@ -807,7 +808,12 @@ export default function EsoIsrDemoTab() {
   const [caseload, setCaseload] = useState<CaseloadEntry[]>([]);
   const [priorities, setPriorities] = useState<RackStackItem[]>([]);
 
+  useEffect(() => {
+    trackDemoEvent(viewMode === "eso_caseload" ? "eso_caseload_view" : "isr_report_view");
+  }, [viewMode]);
+
   const runDemo = useCallback(async () => {
+    trackDemoEvent(viewMode === "eso_caseload" ? "eso_caseload_run" : "isr_report_run", { cohortSize: parseInt(cohortSize) || 250 });
     setIsGenerating(true);
     setExpandedRows(new Set());
     await new Promise(r => setTimeout(r, 400));

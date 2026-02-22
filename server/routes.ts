@@ -671,6 +671,57 @@ Respond with JSON only.`
     res.json({ key, count });
   });
 
+  const validEventTypes = [
+    "sm_scenario_run", "sm_scenario_view", "sm_advisor_chat",
+    "eso_caseload_view", "eso_caseload_run", "isr_report_view", "isr_report_run",
+    "dashboard_view", "explorer_search", "page_view",
+  ];
+
+  app.post("/api/demo-events", async (req: any, res: any) => {
+    try {
+      const { eventType, sessionId, metadata } = req.body;
+      if (!eventType || !validEventTypes.includes(eventType)) {
+        return res.status(400).json({ error: "Invalid event type" });
+      }
+      const event = await storage.logDemoEvent({
+        eventType,
+        sessionId: sessionId || null,
+        metadata: metadata ? JSON.stringify(metadata) : null,
+        userAgent: req.headers["user-agent"] || null,
+      });
+      res.json({ id: event.id });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  app.get("/api/demo-analytics", async (req: any, res: any) => {
+    try {
+      const hours = parseInt(req.query.hours as string) || 24;
+      const since = new Date(Date.now() - hours * 60 * 60 * 1000);
+      const [counts, timeline, uniqueSessions, recentEvents] = await Promise.all([
+        storage.getDemoEventCounts(since),
+        storage.getDemoEventTimeline(since, 15),
+        storage.getUniqueSessions(since),
+        storage.getDemoEvents(since),
+      ]);
+
+      const totalEvents = Object.values(counts).reduce((a, b) => a + b, 0);
+
+      res.json({
+        period_hours: hours,
+        since: since.toISOString(),
+        total_events: totalEvents,
+        unique_sessions: uniqueSessions,
+        event_counts: counts,
+        timeline,
+        recent_events: recentEvents.slice(0, 50),
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   const advisorOpenai = new OpenAI({
     apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
     baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
