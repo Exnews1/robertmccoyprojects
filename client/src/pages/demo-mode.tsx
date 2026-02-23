@@ -198,14 +198,14 @@ function GovernancePanel({ metadata }: { metadata: ScenarioResult["governanceMet
 }
 
 export default function DemoMode() {
-  const [selectedProfile, setSelectedProfile] = useState("early_career_enlisted");
+  const [selectedProfile, setSelectedProfile] = useState("signal_to_cyber");
   const [currentScenario, setCurrentScenario] = useState<ScenarioResult | null>(null);
   const [batchResult, setBatchResult] = useState<BatchResult | null>(null);
   const [view, setView] = useState<"control" | "scenario" | "dashboard" | "batch" | "report">("control");
   const [reportHtml, setReportHtml] = useState<string>("");
   const [batchReportHtml, setBatchReportHtml] = useState<string>("");
 
-  const { data: profileTypes } = useQuery<Array<{ type: string; label: string }>>({
+  const { data: profileTypes } = useQuery<Array<{ type: string; label: string; group: string; alignment: string; summary: string }>>({
     queryKey: ["/api/orchestrator/profile-types"],
   });
 
@@ -340,7 +340,7 @@ function ControlPanel({
   isRunningScenario,
   isRunningBatch,
 }: {
-  profileTypes: Array<{ type: string; label: string }>;
+  profileTypes: Array<{ type: string; label: string; group: string; alignment: string; summary: string }>;
   selectedProfile: string;
   setSelectedProfile: (v: string) => void;
   onRunScenario: () => void;
@@ -374,17 +374,50 @@ function ControlPanel({
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <label className="text-sm text-muted-foreground mb-1.5 block">Service Member Profile Type</label>
+            <label className="text-sm text-muted-foreground mb-1.5 block">Select Case Study</label>
             <Select value={selectedProfile} onValueChange={setSelectedProfile}>
-              <SelectTrigger className="w-full" data-testid="select-profile-type">
-                <SelectValue placeholder="Select profile type" />
+              <SelectTrigger className="w-full h-auto py-2" data-testid="select-profile-type">
+                <SelectValue placeholder="Select a case study" />
               </SelectTrigger>
-              <SelectContent>
-                {profileTypes.map(pt => (
-                  <SelectItem key={pt.type} value={pt.type}>{pt.label}</SelectItem>
+              <SelectContent className="max-h-[400px]">
+                <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">Career Aligned</div>
+                {profileTypes.filter(pt => pt.group === "aligned").map(pt => (
+                  <SelectItem key={pt.type} value={pt.type}>
+                    <div className="flex items-center gap-2">
+                      <span>{pt.label}</span>
+                      <span className="text-[10px] text-emerald-300 font-mono">{pt.alignment}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+                <div className="px-2 py-1.5 mt-1 text-[10px] font-semibold uppercase tracking-wider text-rose-300 border-t border-border/30">Non-Aligned</div>
+                {profileTypes.filter(pt => pt.group === "non_aligned").map(pt => (
+                  <SelectItem key={pt.type} value={pt.type}>
+                    <div className="flex items-center gap-2">
+                      <span>{pt.label}</span>
+                      <span className="text-[10px] text-rose-300 font-mono">{pt.alignment}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+                <div className="px-2 py-1.5 mt-1 text-[10px] font-semibold uppercase tracking-wider text-amber-300 border-t border-border/30">Constrained</div>
+                {profileTypes.filter(pt => pt.group === "constrained").map(pt => (
+                  <SelectItem key={pt.type} value={pt.type}>
+                    <div className="flex items-center gap-2">
+                      <span>{pt.label}</span>
+                      <span className="text-[10px] text-amber-300 font-mono">{pt.alignment}</span>
+                    </div>
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+            {(() => {
+              const selected = profileTypes.find(pt => pt.type === selectedProfile);
+              if (!selected) return null;
+              return (
+                <p className="text-xs text-muted-foreground/80 mt-1.5 px-1" data-testid="text-case-summary">
+                  {selected.summary}
+                </p>
+              );
+            })()}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
