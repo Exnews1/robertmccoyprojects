@@ -136,7 +136,7 @@ function QueueList({
           </Link>
           <Badge variant="outline" className="border-amber-800/40 text-amber-300 text-xs" data-testid="badge-demo-label">
             <AlertTriangle className="w-3 h-3 mr-1" />
-            Demonstration Data
+            Demonstration Data — All records are synthetic, generated for framework demonstration. No real service member data is used.
           </Badge>
         </div>
       </div>
@@ -658,6 +658,16 @@ function EngineResultsPanel({ result }: { result: any }) {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {(result.explanation || outputs.explanation) && (
+            <div className="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-md border-l-4 border-amber-500" data-testid="section-ai-explanation">
+              <h4 className="text-xs font-semibold text-amber-900 dark:text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <Zap className="w-3 h-3" />
+                AI Explanation (Advisory Only)
+              </h4>
+              <p className="text-sm text-amber-950 dark:text-amber-100">{result.explanation || outputs.explanation}</p>
             </div>
           )}
 

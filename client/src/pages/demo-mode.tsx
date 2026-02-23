@@ -314,7 +314,7 @@ export default function DemoMode() {
     },
     onSuccess: (data: ScenarioResult) => {
       setCurrentScenario(data);
-      setView("scenario");
+      setView("dashboard");
     },
   });
 
@@ -1083,11 +1083,10 @@ function ReportView({ html, scenario, isBatchReport }: { html: string; scenario:
           variant="outline"
           size="sm"
           onClick={() => {
-            const w = window.open("", "_blank");
-            if (w) {
-              w.document.write(html);
-              w.document.close();
-            }
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+            setTimeout(() => URL.revokeObjectURL(url), 10000);
           }}
           data-testid="button-open-report"
         >
