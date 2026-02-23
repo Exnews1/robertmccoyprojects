@@ -323,7 +323,11 @@ export default function DemoMode() {
         )}
 
         {view === "report" && (reportHtml || batchReportHtml) && (
-          <ReportView html={reportHtml || batchReportHtml} />
+          <ReportView
+            html={reportHtml || batchReportHtml}
+            scenario={reportHtml ? currentScenario : null}
+            isBatchReport={!!batchReportHtml && !reportHtml}
+          />
         )}
       </div>
     </div>
@@ -660,11 +664,19 @@ function ScenarioView({
 }
 
 function DashboardView({ scenario }: { scenario: ScenarioResult }) {
-  const { outputs, visualData } = scenario;
+  const { outputs, visualData, inputs } = scenario;
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-bold" data-testid="text-dashboard-title">Analysis Dashboard</h2>
+      <div>
+        <h2 className="text-xl font-bold" data-testid="text-dashboard-title">
+          {scenario.profile.name} — Analysis Dashboard
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          {inputs.rank} | {inputs.mosLabel} → {inputs.goalLabel}
+        </p>
+        <p className="text-xs font-mono text-sky-300/70 mt-1">{scenario.scenarioId}</p>
+      </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {visualData.readinessScores.map((r, i) => (
@@ -919,11 +931,23 @@ function BatchView({
   );
 }
 
-function ReportView({ html }: { html: string }) {
+function ReportView({ html, scenario, isBatchReport }: { html: string; scenario: ScenarioResult | null; isBatchReport: boolean }) {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold" data-testid="text-report-title">Generated Report</h2>
+      <div className="flex items-start sm:items-center justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-bold" data-testid="text-report-title">
+            {scenario ? `${scenario.profile.name} — SM Report` : isBatchReport ? "ISR Batch Report" : "Generated Report"}
+          </h2>
+          {scenario && (
+            <>
+              <p className="text-sm text-muted-foreground">
+                {scenario.inputs.rank} | {scenario.inputs.mosLabel} → {scenario.inputs.goalLabel}
+              </p>
+              <p className="text-xs font-mono text-sky-300/70 mt-1">{scenario.scenarioId}</p>
+            </>
+          )}
+        </div>
         <Button
           variant="outline"
           size="sm"
