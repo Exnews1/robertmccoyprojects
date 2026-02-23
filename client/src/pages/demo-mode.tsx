@@ -123,7 +123,7 @@ const BATCH_MESSAGES = [
 ];
 
 function StatusColor({ status }: { status: string }) {
-  const color = status === "green" ? "bg-green-500" : status === "yellow" ? "bg-yellow-500" : "bg-red-500";
+  const color = status === "green" ? "bg-emerald-400/80" : status === "yellow" ? "bg-amber-400/80" : "bg-rose-400/80";
   return <span className={`inline-block w-2.5 h-2.5 rounded-full ${color}`} />;
 }
 
@@ -434,30 +434,30 @@ function ControlPanel({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Card className="border-slate-800">
           <CardContent className="pt-4 pb-3 text-center">
-            <Database className="w-5 h-5 mx-auto text-blue-400 mb-1" />
+            <Database className="w-5 h-5 mx-auto text-sky-300/80 mb-1" />
             <p className="text-xs text-muted-foreground">Rules Engine</p>
-            <p className="text-sm font-semibold text-green-400">Active</p>
+            <p className="text-sm font-semibold text-emerald-300">Active</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-4 pb-3 text-center">
-            <Shield className="w-5 h-5 mx-auto text-amber-400 mb-1" />
+            <Shield className="w-5 h-5 mx-auto text-amber-300/80 mb-1" />
             <p className="text-xs text-muted-foreground">Governance</p>
-            <p className="text-sm font-semibold text-green-400">Enforced</p>
+            <p className="text-sm font-semibold text-emerald-300">Enforced</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-4 pb-3 text-center">
-            <Activity className="w-5 h-5 mx-auto text-cyan-400 mb-1" />
+            <Activity className="w-5 h-5 mx-auto text-cyan-300/80 mb-1" />
             <p className="text-xs text-muted-foreground">Execution</p>
-            <p className="text-sm font-semibold text-green-400">Deterministic</p>
+            <p className="text-sm font-semibold text-emerald-300">Deterministic</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-4 pb-3 text-center">
-            <Users className="w-5 h-5 mx-auto text-purple-400 mb-1" />
+            <Users className="w-5 h-5 mx-auto text-purple-300/80 mb-1" />
             <p className="text-xs text-muted-foreground">Human Review</p>
-            <p className="text-sm font-semibold text-amber-400">Required</p>
+            <p className="text-sm font-semibold text-amber-300">Required</p>
           </CardContent>
         </Card>
       </div>
@@ -496,7 +496,7 @@ function ScenarioView({
           <p className="text-sm text-muted-foreground">
             {inputs.rank} | {inputs.mosLabel} → {inputs.goalLabel}
           </p>
-          <p className="text-xs font-mono text-blue-400 mt-1">{scenario.scenarioId}</p>
+          <p className="text-xs font-mono text-sky-300/70 mt-1">{scenario.scenarioId}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button size="sm" variant="outline" onClick={onShowDashboard} data-testid="button-show-dashboard">
@@ -518,7 +518,7 @@ function ScenarioView({
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">Feasibility</p>
-            <p className={`text-lg font-bold ${visualData.overallFeasibility === "High" ? "text-green-400" : visualData.overallFeasibility === "Moderate" ? "text-yellow-400" : "text-red-400"}`}>
+            <p className={`text-lg font-bold ${visualData.overallFeasibility === "High" ? "text-emerald-300" : visualData.overallFeasibility === "Moderate" ? "text-amber-300" : "text-rose-300"}`}>
               {visualData.overallFeasibility}
             </p>
           </CardContent>
@@ -526,19 +526,19 @@ function ScenarioView({
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">Pathways</p>
-            <p className="text-lg font-bold text-blue-400">{visualData.pathwayCount}</p>
+            <p className="text-lg font-bold text-sky-300">{visualData.pathwayCount}</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">Constraints</p>
-            <p className="text-lg font-bold text-amber-400">{visualData.constraintCount}</p>
+            <p className="text-lg font-bold text-amber-300">{visualData.constraintCount}</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">High Risk</p>
-            <p className={`text-lg font-bold ${visualData.highRiskCount > 0 ? "text-red-400" : "text-green-400"}`}>{visualData.highRiskCount}</p>
+            <p className={`text-lg font-bold ${visualData.highRiskCount > 0 ? "text-rose-300" : "text-emerald-300"}`}>{visualData.highRiskCount}</p>
           </CardContent>
         </Card>
       </div>
@@ -550,13 +550,13 @@ function ScenarioView({
           </CardHeader>
           <CardContent className="space-y-2" data-testid="readiness-assessment">
             {outputs.readinessMeasures.map((r, i) => (
-              <div key={i} className="flex items-center gap-3 p-2 rounded bg-slate-900/50">
+              <div key={i} className="flex items-center gap-3 p-2.5 rounded bg-card/60 border border-border/30">
                 <StatusColor status={r.status} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium">{r.dimension}</p>
-                  <p className="text-xs text-muted-foreground truncate">{r.detail}</p>
+                  <p className="text-sm font-medium text-foreground/90">{r.dimension}</p>
+                  <p className="text-xs text-muted-foreground/80 truncate">{r.detail}</p>
                 </div>
-                <Badge variant="outline" className={`text-[10px] shrink-0 ${r.status === "green" ? "border-green-800 text-green-400" : r.status === "yellow" ? "border-yellow-800 text-yellow-400" : "border-red-800 text-red-400"}`}>
+                <Badge variant="outline" className={`text-[10px] shrink-0 ${r.status === "green" ? "border-emerald-700/60 text-emerald-300" : r.status === "yellow" ? "border-amber-700/60 text-amber-300" : "border-rose-700/60 text-rose-300"}`}>
                   {r.label}
                 </Badge>
               </div>
@@ -570,12 +570,15 @@ function ScenarioView({
           </CardHeader>
           <CardContent className="space-y-2" data-testid="pathway-options">
             {outputs.pathwayOptions.map((p, i) => (
-              <div key={i} className="p-2 rounded bg-slate-900/50 flex items-center justify-between">
+              <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium">{p.name}</p>
-                  <p className="text-xs text-muted-foreground">{p.timeframe}</p>
+                  <p className="text-sm font-medium text-foreground/90">{p.name}</p>
+                  <p className="text-xs text-muted-foreground/80">{p.timeframe}</p>
                 </div>
-                <Badge className="bg-blue-900/50 text-blue-300 text-xs">{p.match}</Badge>
+                <div className="text-right shrink-0 ml-3">
+                  <Badge className="bg-sky-900/40 text-sky-200 text-xs border border-sky-800/40">{p.match}</Badge>
+                  <p className="text-[9px] text-muted-foreground/60 mt-0.5">skill match</p>
+                </div>
               </div>
             ))}
             <p className="text-xs text-muted-foreground mt-2">
@@ -593,16 +596,16 @@ function ScenarioView({
           </CardHeader>
           <CardContent className="space-y-2" data-testid="constraint-analysis">
             {outputs.constraintRisks.map((c, i) => (
-              <div key={i} className="p-2 rounded bg-slate-900/50 flex items-start gap-2">
-                <AlertTriangle className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${c.severity === "high" ? "text-red-400" : c.severity === "medium" ? "text-yellow-400" : "text-green-400"}`} />
+              <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30 flex items-start gap-2">
+                <AlertTriangle className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${c.severity === "high" ? "text-rose-300" : c.severity === "medium" ? "text-amber-300" : "text-emerald-300"}`} />
                 <div>
-                  <p className="text-sm font-medium">
-                    <Badge variant="outline" className={`text-[10px] mr-2 ${c.severity === "high" ? "border-red-800 text-red-400" : c.severity === "medium" ? "border-yellow-800 text-yellow-400" : "border-green-800 text-green-400"}`}>
+                  <p className="text-sm font-medium text-foreground/90">
+                    <Badge variant="outline" className={`text-[10px] mr-2 ${c.severity === "high" ? "border-rose-700/60 text-rose-300" : c.severity === "medium" ? "border-amber-700/60 text-amber-300" : "border-emerald-700/60 text-emerald-300"}`}>
                       {c.severity}
                     </Badge>
                     {c.label}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{c.detail}</p>
+                  <p className="text-xs text-muted-foreground/80 mt-0.5">{c.detail}</p>
                 </div>
               </div>
             ))}
@@ -614,7 +617,7 @@ function ScenarioView({
         <Card className="border-slate-800">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-cyan-400" />
+              <Zap className="w-3.5 h-3.5 text-cyan-300/80" />
               Engine Explanation
             </CardTitle>
           </CardHeader>
@@ -642,7 +645,7 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
             <CardContent className="pt-3 pb-2 text-center">
               <StatusColor status={r.status} />
               <p className="text-xs text-muted-foreground mt-1">{r.dimension}</p>
-              <p className={`text-sm font-bold mt-0.5 ${r.status === "green" ? "text-green-400" : r.status === "yellow" ? "text-yellow-400" : "text-red-400"}`}>
+              <p className={`text-sm font-bold mt-0.5 ${r.status === "green" ? "text-emerald-300" : r.status === "yellow" ? "text-amber-300" : "text-rose-300"}`}>
                 {r.label}
               </p>
             </CardContent>
@@ -650,9 +653,9 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
         ))}
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
-            <Target className="w-4 h-4 mx-auto text-blue-400" />
+            <Target className="w-4 h-4 mx-auto text-sky-300" />
             <p className="text-xs text-muted-foreground mt-1">Data Complete</p>
-            <p className="text-sm font-bold text-blue-400">{visualData.dataCompleteness}%</p>
+            <p className="text-sm font-bold text-sky-300">{visualData.dataCompleteness}%</p>
           </CardContent>
         </Card>
       </div>
@@ -664,9 +667,9 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
           </CardHeader>
           <CardContent className="space-y-2" data-testid="policy-friction">
             {outputs.policyFriction.map((p, i) => (
-              <div key={i} className="p-2 rounded bg-slate-900/50">
-                <p className="text-xs text-muted-foreground">{p.framework}</p>
-                <p className="text-sm mt-0.5">{p.point}</p>
+              <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30">
+                <p className="text-xs text-muted-foreground/80">{p.framework}</p>
+                <p className="text-sm mt-0.5 text-foreground/90">{p.point}</p>
               </div>
             ))}
           </CardContent>
@@ -678,9 +681,9 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
           </CardHeader>
           <CardContent className="space-y-2" data-testid="resources-required">
             {outputs.resourcesRequired.map((r, i) => (
-              <div key={i} className="p-2 rounded bg-slate-900/50 flex items-center justify-between">
-                <p className="text-sm">{r.resource}</p>
-                <Badge variant="outline" className={`text-[10px] ${r.status.includes("Self") ? "border-yellow-800 text-yellow-400" : "border-green-800 text-green-400"}`}>
+              <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30 flex items-center justify-between">
+                <p className="text-sm text-foreground/90">{r.resource}</p>
+                <Badge variant="outline" className={`text-[10px] ${r.status.includes("Self") ? "border-amber-700/60 text-amber-300" : "border-emerald-700/60 text-emerald-300"}`}>
                   {r.status}
                 </Badge>
               </div>
@@ -698,7 +701,7 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
             <ul className="space-y-2" data-testid="special-considerations">
               {outputs.specialConsiderations.map((s, i) => (
                 <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 mt-0.5 shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sky-300 mt-0.5 shrink-0" />
                   {s}
                 </li>
               ))}
@@ -713,9 +716,9 @@ function DashboardView({ scenario }: { scenario: ScenarioResult }) {
         </CardHeader>
         <CardContent className="space-y-2" data-testid="cmgf-layers">
           {(scenario.outputs as any).cmgfLayers?.map((layer: any, i: number) => (
-            <div key={i} className="p-2 rounded bg-slate-900/50">
-              <p className="text-xs text-blue-400 font-semibold">{layer.layer}</p>
-              <p className="text-sm text-muted-foreground mt-0.5">{layer.action}</p>
+            <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30">
+              <p className="text-xs text-sky-300 font-semibold">{layer.layer}</p>
+              <p className="text-sm text-muted-foreground/80 mt-0.5">{layer.action}</p>
             </div>
           ))}
         </CardContent>
@@ -743,7 +746,7 @@ function BatchView({
           <p className="text-sm text-muted-foreground">
             {batch.completedCases} of {batch.totalCases} cases completed
           </p>
-          <p className="text-xs font-mono text-purple-400 mt-1">{batch.batchId}</p>
+          <p className="text-xs font-mono text-purple-300/80 mt-1">{batch.batchId}</p>
         </div>
         <Button
           onClick={onGenerateISR}
@@ -760,28 +763,28 @@ function BatchView({
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">High Feasibility</p>
-            <p className="text-2xl font-bold text-green-400">{summary.feasibilityDistribution.high}</p>
+            <p className="text-2xl font-bold text-emerald-300">{summary.feasibilityDistribution.high}</p>
             <p className="text-xs text-muted-foreground">{Math.round(summary.feasibilityDistribution.high / batch.totalCases * 100)}%</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">Moderate</p>
-            <p className="text-2xl font-bold text-yellow-400">{summary.feasibilityDistribution.moderate}</p>
+            <p className="text-2xl font-bold text-amber-300">{summary.feasibilityDistribution.moderate}</p>
             <p className="text-xs text-muted-foreground">{Math.round(summary.feasibilityDistribution.moderate / batch.totalCases * 100)}%</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">Low Feasibility</p>
-            <p className="text-2xl font-bold text-red-400">{summary.feasibilityDistribution.low}</p>
+            <p className="text-2xl font-bold text-rose-300">{summary.feasibilityDistribution.low}</p>
             <p className="text-xs text-muted-foreground">{Math.round(summary.feasibilityDistribution.low / batch.totalCases * 100)}%</p>
           </CardContent>
         </Card>
         <Card className="border-slate-800">
           <CardContent className="pt-3 pb-2 text-center">
             <p className="text-xs text-muted-foreground">High-Risk Constraints</p>
-            <p className="text-2xl font-bold text-red-400">{summary.totalHighRiskConstraints}</p>
+            <p className="text-2xl font-bold text-rose-300">{summary.totalHighRiskConstraints}</p>
             <p className="text-xs text-muted-foreground">across all cases</p>
           </CardContent>
         </Card>
@@ -794,11 +797,11 @@ function BatchView({
           </CardHeader>
           <CardContent className="space-y-2" data-testid="constraint-frequency">
             {summary.constraintFrequency.slice(0, 5).map((c, i) => (
-              <div key={i} className="flex items-center justify-between p-2 rounded bg-slate-900/50">
-                <span className="text-sm">{c.label}</span>
+              <div key={i} className="flex items-center justify-between p-2.5 rounded bg-card/60 border border-border/30">
+                <span className="text-sm text-foreground/90">{c.label}</span>
                 <div className="flex items-center gap-2">
-                  <div className="w-20 bg-slate-800 rounded-full h-1.5">
-                    <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${c.percentage}%` }} />
+                  <div className="w-20 bg-muted/40 rounded-full h-1.5">
+                    <div className="bg-rose-400/70 h-1.5 rounded-full" style={{ width: `${c.percentage}%` }} />
                   </div>
                   <span className="text-xs text-muted-foreground w-10 text-right">{c.percentage}%</span>
                 </div>
@@ -813,20 +816,20 @@ function BatchView({
           </CardHeader>
           <CardContent className="space-y-2" data-testid="readiness-dimensions">
             {summary.readinessByDimension.map((d, i) => (
-              <div key={i} className="p-2 rounded bg-slate-900/50">
-                <p className="text-sm font-medium mb-1">{d.dimension}</p>
+              <div key={i} className="p-2.5 rounded bg-card/60 border border-border/30">
+                <p className="text-sm font-medium mb-1 text-foreground/90">{d.dimension}</p>
                 <div className="flex gap-1.5">
                   <div className="flex items-center gap-1 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-green-500" />
-                    <span className="text-green-400">{d.green}</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400/80" />
+                    <span className="text-emerald-300">{d.green}</span>
                   </div>
                   <div className="flex items-center gap-1 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500" />
-                    <span className="text-yellow-400">{d.yellow}</span>
+                    <span className="w-2 h-2 rounded-full bg-amber-400/80" />
+                    <span className="text-amber-300">{d.yellow}</span>
                   </div>
                   <div className="flex items-center gap-1 text-xs">
-                    <span className="w-2 h-2 rounded-full bg-red-500" />
-                    <span className="text-red-400">{d.red}</span>
+                    <span className="w-2 h-2 rounded-full bg-rose-400/80" />
+                    <span className="text-rose-300">{d.red}</span>
                   </div>
                 </div>
               </div>
