@@ -12,6 +12,7 @@ import {
   Layers,
   Shield,
   ChevronLeft,
+  ChevronRight,
   AlertTriangle,
   CheckCircle2,
   Clock,
@@ -24,6 +25,7 @@ import {
   Sparkles,
   Activity,
   Database,
+  Home,
 } from "lucide-react";
 
 interface ReadinessScore {
@@ -272,19 +274,53 @@ export default function DemoMode() {
     else setView("control");
   }, [view, batchResult]);
 
+  const smViewAvailable = !!currentScenario;
+  const batchViewAvailable = !!batchResult;
+
+  const navItems: Array<{ key: typeof view; label: string; available: boolean; icon: typeof Home }> = [
+    { key: "control", label: "Demo Home", available: true, icon: Home },
+    { key: "scenario", label: "SM Results", available: smViewAvailable, icon: Target },
+    { key: "dashboard", label: "Dashboard", available: smViewAvailable, icon: BarChart3 },
+    { key: "batch", label: "ESO / ISR", available: batchViewAvailable, icon: Layers },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
-        {view !== "control" && (
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-4 transition-colors"
-            data-testid="button-back"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back
-          </button>
-        )}
+        <nav className="flex items-center gap-1 mb-5 pb-3 border-b border-border/30 overflow-x-auto" data-testid="nav-demo">
+          {navItems.map((item, i) => {
+            const Icon = item.icon;
+            const isActive = view === item.key || (view === "report" && ((item.key === "scenario" && reportHtml) || (item.key === "batch" && batchReportHtml && !reportHtml)));
+            return (
+              <div key={item.key} className="flex items-center shrink-0">
+                {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 mx-1" />}
+                <button
+                  onClick={() => item.available && setView(item.key)}
+                  disabled={!item.available}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary font-medium"
+                      : item.available
+                        ? "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground/30 cursor-not-allowed"
+                  }`}
+                  data-testid={`nav-${item.key}`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {item.label}
+                </button>
+              </div>
+            );
+          })}
+          {currentScenario && (view === "scenario" || view === "dashboard" || (view === "report" && reportHtml)) && (
+            <div className="ml-auto flex items-center gap-2 shrink-0">
+              <span className="text-xs text-muted-foreground/60 hidden sm:inline">{currentScenario.profile.name}</span>
+              <Badge variant="outline" className="text-[10px] border-border/40 text-muted-foreground/60 font-mono">
+                {currentScenario.scenarioId.slice(0, 12)}...
+              </Badge>
+            </div>
+          )}
+        </nav>
 
         {view === "control" && (
           <ControlPanel
