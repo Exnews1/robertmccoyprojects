@@ -7,6 +7,7 @@ import { seedDatabase } from "./seed";
 import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai";
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
+import { db } from "./db";
 
 class RateLimiter {
   private requests: Map<string, number[]> = new Map();
@@ -1084,6 +1085,237 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       res.json(scenario);
     } catch (error: any) {
       res.status(500).json({ error: "Failed to fetch scenario" });
+    }
+  });
+
+  // ==========================================
+  // SERVICE MEMBER + ISR PIPELINE ENDPOINTS
+  // ==========================================
+
+  app.post("/api/sm/request", async (req: any, res: any) => {
+    try {
+      const { name, rank, currentMos, currentMosLabel, goalDomain, goalLabel, constraints, notes } = req.body;
+      if (!name || !rank || !currentMos || !goalDomain || !goalLabel) {
+        return res.status(400).json({ error: "name, rank, currentMos, goalDomain, goalLabel are required" });
+      }
+
+      const { serviceMemberRequests, isrCases, auditLogEntries } = await import("@shared/schema");
+      const caseId = `ISR-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+
+      const [request] = await db.insert(serviceMemberRequests).values({
+        name,
+        rank,
+        currentMos,
+        currentMosLabel: currentMosLabel || currentMos,
+        goalDomain,
+        goalLabel,
+        constraints: constraints || [],
+        notes: notes || null,
+        status: "pending",
+      }).returning();
+
+      const [isrCase] = await db.insert(isrCases).values({
+        caseId,
+        requestId: request.id,
+        priority: (constraints && constraints.length > 2) ? "high" : constraints?.length > 0 ? "normal" : "low",
+        status: "queued",
+      }).returning();
+
+      await db.insert(auditLogEntries).values({
+        caseId,
+        eventType: "request_submitted",
+        actor: name,
+        detail: `Service member ${name} (${rank}) submitted career transition request: ${currentMosLabel || currentMos} → ${goalLabel}`,
+        payload: JSON.stringify({ requestId: request.id, rank, currentMos, goalDomain, constraints }),
+      });
+
+      await db.insert(auditLogEntries).values({
+        caseId,
+        eventType: "case_created",
+        actor: "CMGF System",
+        detail: `ISR case ${caseId} created and queued for advisor review. Priority: ${isrCase.priority}`,
+        payload: JSON.stringify({ caseId, priority: isrCase.priority }),
+      });
+
+      res.json({ request, caseId, message: "Request submitted and ISR case created" });
+    } catch (error: any) {
+      console.error("SM request error:", error);
+      res.status(500).json({ error: "Failed to submit request" });
+    }
+  });
+
+  app.get("/api/sm/requests", async (_req: any, res: any) => {
+    try {
+      const { serviceMemberRequests } = await import("@shared/schema");
+      const { desc } = await import("drizzle-orm");
+      const requests = await db.select().from(serviceMemberRequests).orderBy(desc(serviceMemberRequests.createdAt));
+      res.json(requests);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to fetch requests" });
+    }
+  });
+
+  app.get("/api/isr/queue", async (_req: any, res: any) => {
+    try {
+      const { isrCases, serviceMemberRequests } = await import("@shared/schema");
+      const { desc, eq } = await import("drizzle-orm");
+
+      const cases = await db.select({
+        id: isrCases.id,
+        caseId: isrCases.caseId,
+        requestId: isrCases.requestId,
+        assignedTo: isrCases.assignedTo,
+        priority: isrCases.priority,
+        status: isrCases.status,
+        engineOutput: isrCases.engineOutput,
+        createdAt: isrCases.createdAt,
+        updatedAt: isrCases.updatedAt,
+        smName: serviceMemberRequests.name,
+        smRank: serviceMemberRequests.rank,
+        smMos: serviceMemberRequests.currentMosLabel,
+        smGoal: serviceMemberRequests.goalLabel,
+        smConstraints: serviceMemberRequests.constraints,
+        smNotes: serviceMemberRequests.notes,
+        requestStatus: serviceMemberRequests.status,
+      })
+      .from(isrCases)
+      .innerJoin(serviceMemberRequests, eq(isrCases.requestId, serviceMemberRequests.id))
+      .orderBy(desc(isrCases.createdAt));
+
+      res.json(cases);
+    } catch (error: any) {
+      console.error("ISR queue error:", error);
+      res.status(500).json({ error: "Failed to fetch ISR queue" });
+    }
+  });
+
+  app.post("/api/isr/action", async (req: any, res: any) => {
+    try {
+      const { caseId, actionType, rationale, performedBy } = req.body;
+      if (!caseId || !actionType || !rationale) {
+        return res.status(400).json({ error: "caseId, actionType, and rationale are required" });
+      }
+
+      const validActions = ["approve", "modify", "escalate", "note"];
+      if (!validActions.includes(actionType)) {
+        return res.status(400).json({ error: `actionType must be one of: ${validActions.join(", ")}` });
+      }
+
+      const { isrCases, isrActions, auditLogEntries, serviceMemberRequests } = await import("@shared/schema");
+      const { eq } = await import("drizzle-orm");
+
+      const [existingCase] = await db.select().from(isrCases).where(eq(isrCases.caseId, caseId));
+      if (!existingCase) {
+        return res.status(404).json({ error: "Case not found" });
+      }
+
+      const [action] = await db.insert(isrActions).values({
+        caseId,
+        actionType,
+        rationale,
+        performedBy: performedBy || "ESO Advisor",
+      }).returning();
+
+      const statusMap: Record<string, string> = {
+        approve: "resolved",
+        modify: "in_progress",
+        escalate: "escalated",
+        note: existingCase.status,
+      };
+      const newStatus = statusMap[actionType] || existingCase.status;
+
+      await db.update(isrCases).set({
+        status: newStatus,
+        updatedAt: new Date(),
+      }).where(eq(isrCases.caseId, caseId));
+
+      const requestStatusMap: Record<string, string> = {
+        approve: "approved",
+        modify: "modified",
+        escalate: "escalated",
+        note: "in_review",
+      };
+      await db.update(serviceMemberRequests).set({
+        status: requestStatusMap[actionType] || "in_review",
+      }).where(eq(serviceMemberRequests.id, existingCase.requestId));
+
+      await db.insert(auditLogEntries).values({
+        caseId,
+        eventType: `advisor_${actionType}`,
+        actor: performedBy || "ESO Advisor",
+        detail: `Advisor action: ${actionType.toUpperCase()}. Rationale: ${rationale}`,
+        payload: JSON.stringify({ actionId: action.id, actionType, rationale }),
+      });
+
+      res.json({ action, newStatus, message: `Case ${actionType}d successfully` });
+    } catch (error: any) {
+      console.error("ISR action error:", error);
+      res.status(500).json({ error: "Failed to process action" });
+    }
+  });
+
+  app.get("/api/audit/:caseId", async (req: any, res: any) => {
+    try {
+      const { auditLogEntries } = await import("@shared/schema");
+      const { eq, asc } = await import("drizzle-orm");
+
+      const entries = await db.select().from(auditLogEntries)
+        .where(eq(auditLogEntries.caseId, req.params.caseId))
+        .orderBy(asc(auditLogEntries.createdAt));
+
+      res.json(entries);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to fetch audit trail" });
+    }
+  });
+
+  app.post("/api/isr/run-engine", async (req: any, res: any) => {
+    try {
+      const { caseId } = req.body;
+      if (!caseId) return res.status(400).json({ error: "caseId is required" });
+
+      const { isrCases, serviceMemberRequests, auditLogEntries } = await import("@shared/schema");
+      const { eq } = await import("drizzle-orm");
+
+      const [isrCase] = await db.select().from(isrCases).where(eq(isrCases.caseId, caseId));
+      if (!isrCase) return res.status(404).json({ error: "Case not found" });
+
+      const [request] = await db.select().from(serviceMemberRequests).where(eq(serviceMemberRequests.id, isrCase.requestId));
+      if (!request) return res.status(404).json({ error: "Request not found" });
+
+      const { generateProfile } = await import("./orchestrator/profiles");
+      const { runScenario } = await import("./orchestrator/engine");
+
+      const profile = generateProfile("signal_to_cyber", {
+        name: request.name,
+        rank: request.rank,
+        mos: request.currentMos,
+        mosLabel: request.currentMosLabel,
+        careerGoal: request.goalDomain,
+        goalLabel: request.goalLabel,
+        constraints: request.constraints || [],
+      });
+
+      const result = await runScenario(profile);
+
+      await db.update(isrCases).set({
+        status: "in_progress",
+        engineOutput: JSON.stringify(result),
+        updatedAt: new Date(),
+      }).where(eq(isrCases.caseId, caseId));
+
+      await db.insert(auditLogEntries).values({
+        caseId,
+        eventType: "engine_analysis",
+        actor: "CMGF Rules Engine",
+        detail: `Deterministic analysis completed. Feasibility: ${result.visualData.overallFeasibility}. Pathways: ${result.visualData.pathwayCount}. Constraints: ${result.visualData.constraintCount}.`,
+        payload: JSON.stringify({ scenarioId: result.scenarioId, feasibility: result.visualData.overallFeasibility }),
+      });
+
+      res.json({ result, message: "Engine analysis completed" });
+    } catch (error: any) {
+      console.error("ISR engine error:", error);
+      res.status(500).json({ error: "Failed to run engine analysis" });
     }
   });
 

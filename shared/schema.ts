@@ -177,10 +177,62 @@ export const generatedReports = pgTable("generated_reports", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const serviceMemberRequests = pgTable("service_member_requests", {
+  id: serial("id").primaryKey(),
+  profileId: integer("profile_id"),
+  requestType: text("request_type").notNull().default("career_transition"),
+  goalDomain: text("goal_domain").notNull(),
+  goalLabel: text("goal_label").notNull(),
+  currentMos: text("current_mos").notNull(),
+  currentMosLabel: text("current_mos_label").notNull(),
+  rank: text("rank").notNull(),
+  name: text("name").notNull(),
+  constraints: text("constraints").array(),
+  notes: text("notes"),
+  status: text("status").notNull().default("pending"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const isrCases = pgTable("isr_cases", {
+  id: serial("id").primaryKey(),
+  caseId: text("case_id").notNull().unique(),
+  requestId: integer("request_id").notNull(),
+  assignedTo: text("assigned_to"),
+  priority: text("priority").notNull().default("normal"),
+  status: text("status").notNull().default("queued"),
+  engineOutput: text("engine_output"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const isrActions = pgTable("isr_actions", {
+  id: serial("id").primaryKey(),
+  caseId: text("case_id").notNull(),
+  actionType: text("action_type").notNull(),
+  rationale: text("rationale").notNull(),
+  performedBy: text("performed_by").notNull().default("ESO Advisor"),
+  metadata: text("metadata"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const auditLogEntries = pgTable("audit_log_entries", {
+  id: serial("id").primaryKey(),
+  caseId: text("case_id").notNull(),
+  eventType: text("event_type").notNull(),
+  actor: text("actor").notNull(),
+  detail: text("detail").notNull(),
+  payload: text("payload"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertSyntheticProfileSchema = createInsertSchema(syntheticProfiles).omit({ id: true, createdAt: true });
 export const insertScenarioRunSchema = createInsertSchema(scenarioRuns).omit({ id: true, createdAt: true, completedAt: true });
 export const insertScenarioOutputSchema = createInsertSchema(scenarioOutputs).omit({ id: true, createdAt: true });
 export const insertGeneratedReportSchema = createInsertSchema(generatedReports).omit({ id: true, createdAt: true });
+export const insertServiceMemberRequestSchema = createInsertSchema(serviceMemberRequests).omit({ id: true, createdAt: true });
+export const insertIsrCaseSchema = createInsertSchema(isrCases).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertIsrActionSchema = createInsertSchema(isrActions).omit({ id: true, createdAt: true });
+export const insertAuditLogEntrySchema = createInsertSchema(auditLogEntries).omit({ id: true, createdAt: true });
 
 export type SyntheticProfile = typeof syntheticProfiles.$inferSelect;
 export type InsertSyntheticProfile = z.infer<typeof insertSyntheticProfileSchema>;
@@ -190,5 +242,13 @@ export type ScenarioOutput = typeof scenarioOutputs.$inferSelect;
 export type InsertScenarioOutput = z.infer<typeof insertScenarioOutputSchema>;
 export type GeneratedReport = typeof generatedReports.$inferSelect;
 export type InsertGeneratedReport = z.infer<typeof insertGeneratedReportSchema>;
+export type ServiceMemberRequest = typeof serviceMemberRequests.$inferSelect;
+export type InsertServiceMemberRequest = z.infer<typeof insertServiceMemberRequestSchema>;
+export type IsrCase = typeof isrCases.$inferSelect;
+export type InsertIsrCase = z.infer<typeof insertIsrCaseSchema>;
+export type IsrAction = typeof isrActions.$inferSelect;
+export type InsertIsrAction = z.infer<typeof insertIsrActionSchema>;
+export type AuditLogEntry = typeof auditLogEntries.$inferSelect;
+export type InsertAuditLogEntry = z.infer<typeof insertAuditLogEntrySchema>;
 
 export * from "./models/chat";

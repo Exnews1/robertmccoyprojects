@@ -33,6 +33,9 @@ import Bio from "@/pages/bio";
 import Dashboard from "@/pages/cmgf/dashboard";
 import ConferenceAnalytics from "@/pages/cmgf/analytics";
 import DemoMode from "@/pages/demo-mode";
+import IsrQueue from "@/pages/isr-queue";
+import AuditTrail from "@/pages/audit-trail";
+import SMHub from "@/pages/sm-hub";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -142,6 +145,9 @@ function Router() {
       <Route path="/bio" component={Bio} />
       <Route path="/profile" component={Profile} />
       <Route path="/demo" component={DemoMode} />
+      <Route path="/sm-hub" component={SMHub} />
+      <Route path="/isr" component={IsrQueue} />
+      <Route path="/audit" component={AuditTrail} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
