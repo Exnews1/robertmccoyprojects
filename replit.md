@@ -74,6 +74,29 @@ The Reference Explorer at `/explorer` provides grounded Q&A over the research li
   - `POST /api/library/generate-embeddings` - Generate embeddings for entries without them
   - `POST /api/library/regenerate-embeddings` - Dev only, regenerates all embeddings
 
+### Scenario Orchestration Engine (Demo Mode)
+The Demo Mode page at `/demo` provides one-click scenario generation, analysis, and reporting:
+- **Orchestration Modules** (in `server/orchestrator/`):
+  - `profiles.ts` - 5 synthetic profile templates with realistic variability
+  - `engine.ts` - Core orchestration: generates profiles, runs CMGF rules engine, stores results
+  - `reports.ts` - 3 report templates (Pathway Report, ESO Summary, Leadership Brief) + ISR batch report
+  - `batch.ts` - Multi-case simulation (10-50 cases) with aggregate statistics
+- **Profile Types**: Early Career Enlisted, Mid-Career with Credits, Officer Transition, Deployed SM, High Constraint/Funding Limited
+- **Constraint Modifiers**: Short timeline, no TA funding, deployed, no degree — dynamically adjust outputs
+- **Report Generation**: HTML reports with governance footer ("AI explains. Rules decide.")
+- **ISR Foundation**: Batch simulation aggregates de-identified data for institutional-level intelligence
+- **Database Tables**: `synthetic_profiles`, `scenario_runs`, `scenario_outputs`, `generated_reports`
+- **Governance Panel**: Shows engine version, data sources, execution type, human review requirement
+- **Endpoints**:
+  - `GET /api/orchestrator/profile-types` - Available profile templates
+  - `POST /api/orchestrator/run-scenario` - Single scenario orchestration
+  - `POST /api/orchestrator/run-batch` - Multi-case batch simulation
+  - `POST /api/reports/generate` - Generate report from scenario
+  - `POST /api/reports/generate-batch` - Generate ISR batch report
+  - `GET /api/reports/:id` - Retrieve generated HTML report
+  - `GET /api/orchestrator/scenarios` - List past scenario runs
+  - `GET /api/orchestrator/scenarios/:id` - Get specific scenario with output
+
 ### API Rate Limiting & Cost Protection
 All OpenAI-powered endpoints are protected by an in-memory rate limiter (class `RateLimiter` in `server/routes.ts`):
 - **Per-IP limit**: 10 requests per 60 seconds

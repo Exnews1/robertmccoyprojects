@@ -126,4 +126,69 @@ export const siteStats = pgTable("site_stats", {
 
 export type SiteStats = typeof siteStats.$inferSelect;
 
+// Orchestration system tables
+export const syntheticProfiles = pgTable("synthetic_profiles", {
+  id: serial("id").primaryKey(),
+  profileType: text("profile_type").notNull(),
+  name: text("name").notNull(),
+  rank: text("rank").notNull(),
+  mos: text("mos").notNull(),
+  mosLabel: text("mos_label").notNull(),
+  yearsOfService: integer("years_of_service").notNull(),
+  careerGoal: text("career_goal").notNull(),
+  goalLabel: text("goal_label").notNull(),
+  constraints: text("constraints").array(),
+  credits: integer("credits").default(0),
+  hasDegree: boolean("has_degree").default(false),
+  itExperience: boolean("it_experience").default(false),
+  clearanceLevel: text("clearance_level"),
+  deploymentStatus: text("deployment_status").default("garrison"),
+  fundingAvailable: text("funding_available").default("full"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const scenarioRuns = pgTable("scenario_runs", {
+  id: serial("id").primaryKey(),
+  scenarioId: text("scenario_id").notNull().unique(),
+  profileId: integer("profile_id"),
+  status: text("status").notNull().default("pending"),
+  inputs: text("inputs"),
+  createdAt: timestamp("created_at").defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+export const scenarioOutputs = pgTable("scenario_outputs", {
+  id: serial("id").primaryKey(),
+  scenarioRunId: integer("scenario_run_id").notNull(),
+  engineOutput: text("engine_output"),
+  explanation: text("explanation"),
+  visualData: text("visual_data"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const generatedReports = pgTable("generated_reports", {
+  id: serial("id").primaryKey(),
+  scenarioRunId: integer("scenario_run_id"),
+  batchId: text("batch_id"),
+  reportType: text("report_type").notNull(),
+  title: text("title").notNull(),
+  content: text("content"),
+  htmlContent: text("html_content"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertSyntheticProfileSchema = createInsertSchema(syntheticProfiles).omit({ id: true, createdAt: true });
+export const insertScenarioRunSchema = createInsertSchema(scenarioRuns).omit({ id: true, createdAt: true, completedAt: true });
+export const insertScenarioOutputSchema = createInsertSchema(scenarioOutputs).omit({ id: true, createdAt: true });
+export const insertGeneratedReportSchema = createInsertSchema(generatedReports).omit({ id: true, createdAt: true });
+
+export type SyntheticProfile = typeof syntheticProfiles.$inferSelect;
+export type InsertSyntheticProfile = z.infer<typeof insertSyntheticProfileSchema>;
+export type ScenarioRun = typeof scenarioRuns.$inferSelect;
+export type InsertScenarioRun = z.infer<typeof insertScenarioRunSchema>;
+export type ScenarioOutput = typeof scenarioOutputs.$inferSelect;
+export type InsertScenarioOutput = z.infer<typeof insertScenarioOutputSchema>;
+export type GeneratedReport = typeof generatedReports.$inferSelect;
+export type InsertGeneratedReport = z.infer<typeof insertGeneratedReportSchema>;
+
 export * from "./models/chat";

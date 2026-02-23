@@ -939,5 +939,153 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     res.json(aiRateLimiter.getStats());
   });
 
+  // ==========================================
+  // ORCHESTRATION ENGINE ENDPOINTS
+  // ==========================================
+
+  app.get("/api/orchestrator/profile-types", async (_req: any, res: any) => {
+    const { getAvailableProfileTypes } = await import("./orchestrator/profiles");
+    res.json(getAvailableProfileTypes());
+  });
+
+  app.post("/api/orchestrator/run-scenario", async (req: any, res: any) => {
+    try {
+      const { profileType, overrides, generateReport: genReport } = req.body;
+      if (!profileType) {
+        return res.status(400).json({ error: "profileType is required" });
+      }
+
+      const { generateProfile } = await import("./orchestrator/profiles");
+      const { runScenario } = await import("./orchestrator/engine");
+
+      const profile = generateProfile(profileType, overrides || {});
+      const result = await runScenario(profile);
+
+      let reportUrl: string | undefined;
+      if (genReport) {
+        const { generatePathwayReport } = await import("./orchestrator/reports");
+        const report = await generatePathwayReport(result);
+        reportUrl = `/api/reports/${report.id}`;
+      }
+
+      res.json({ ...result, reportUrl });
+    } catch (error: any) {
+      console.error("Orchestrator error:", error);
+      res.status(500).json({ error: error.message || "Scenario execution failed" });
+    }
+  });
+
+  app.post("/api/orchestrator/run-batch", async (req: any, res: any) => {
+    try {
+      const { count, profileTypes, fixedMos, fixedGoal } = req.body;
+      const { runBatch } = await import("./orchestrator/batch");
+
+      const result = await runBatch({
+        count: count || 10,
+        profileTypes,
+        fixedMos,
+        fixedGoal,
+      });
+
+      res.json(result);
+    } catch (error: any) {
+      console.error("Batch simulation error:", error);
+      res.status(500).json({ error: error.message || "Batch simulation failed" });
+    }
+  });
+
+  app.post("/api/reports/generate", async (req: any, res: any) => {
+    try {
+      const { scenarioId, reportType } = req.body;
+      if (!scenarioId || !reportType) {
+        return res.status(400).json({ error: "scenarioId and reportType are required" });
+      }
+
+      const { getScenarioById } = await import("./orchestrator/engine");
+      const scenario = await getScenarioById(scenarioId);
+      if (!scenario) {
+        return res.status(404).json({ error: "Scenario not found" });
+      }
+
+      const { generatePathwayReport, generateESOSummary, generateLeadershipBrief } = await import("./orchestrator/reports");
+
+      let report;
+      switch (reportType) {
+        case "pathway":
+          report = await generatePathwayReport(scenario);
+          break;
+        case "eso_summary":
+          report = await generateESOSummary(scenario);
+          break;
+        case "leadership_brief":
+          report = await generateLeadershipBrief(scenario);
+          break;
+        default:
+          return res.status(400).json({ error: `Unknown report type: ${reportType}` });
+      }
+
+      res.json({ id: report.id, url: `/api/reports/${report.id}` });
+    } catch (error: any) {
+      console.error("Report generation error:", error);
+      res.status(500).json({ error: error.message || "Report generation failed" });
+    }
+  });
+
+  app.post("/api/reports/generate-batch", async (req: any, res: any) => {
+    try {
+      const { batchId, totalCases, results } = req.body;
+      if (!batchId || !results) {
+        return res.status(400).json({ error: "batchId and results are required" });
+      }
+
+      const { generateBatchISRReport } = await import("./orchestrator/reports");
+      const report = await generateBatchISRReport({ batchId, totalCases, results });
+
+      res.json({ id: report.id, url: `/api/reports/${report.id}` });
+    } catch (error: any) {
+      console.error("Batch report error:", error);
+      res.status(500).json({ error: error.message || "Batch report generation failed" });
+    }
+  });
+
+  app.get("/api/reports/:id", async (req: any, res: any) => {
+    try {
+      const { eq } = await import("drizzle-orm");
+      const { generatedReports } = await import("@shared/schema");
+      const { db } = await import("./db");
+      const [report] = await db.select().from(generatedReports).where(eq(generatedReports.id, parseInt(req.params.id)));
+      if (!report) {
+        return res.status(404).json({ error: "Report not found" });
+      }
+      res.setHeader("Content-Type", "text/html");
+      res.send(report.htmlContent);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to fetch report" });
+    }
+  });
+
+  app.get("/api/orchestrator/scenarios", async (_req: any, res: any) => {
+    try {
+      const { listScenarios } = await import("./orchestrator/engine");
+      const scenarios = await listScenarios();
+      res.json(scenarios);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to list scenarios" });
+    }
+  });
+
+  app.get("/api/orchestrator/scenarios/:id", async (req: any, res: any) => {
+    try {
+      const { getScenarioById } = await import("./orchestrator/engine");
+      const scenario = await getScenarioById(req.params.id);
+      if (!scenario) {
+        return res.status(404).json({ error: "Scenario not found" });
+      }
+      res.json(scenario);
+    } catch (error: any) {
+      res.status(500).json({ error: "Failed to fetch scenario" });
+    }
+  });
+
   return app;
 }

@@ -32,6 +32,7 @@ import References from "@/pages/references";
 import Bio from "@/pages/bio";
 import Dashboard from "@/pages/cmgf/dashboard";
 import ConferenceAnalytics from "@/pages/cmgf/analytics";
+import DemoMode from "@/pages/demo-mode";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -140,6 +141,7 @@ function Router() {
       <Route path="/references" component={References} />
       <Route path="/bio" component={Bio} />
       <Route path="/profile" component={Profile} />
+      <Route path="/demo" component={DemoMode} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
