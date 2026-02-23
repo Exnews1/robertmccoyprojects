@@ -400,8 +400,8 @@ function ControlPanel({
                 <Play className="w-4 h-4 mr-2" />
               )}
               <div className="text-left">
-                <div className="font-semibold">Generate Scenario</div>
-                <div className="text-xs opacity-80">Single case analysis</div>
+                <div className="font-semibold">SM Demo</div>
+                <div className="text-xs opacity-80">Individual service member analysis</div>
               </div>
             </Button>
 
@@ -418,8 +418,8 @@ function ControlPanel({
                 <Layers className="w-4 h-4 mr-2" />
               )}
               <div className="text-left">
-                <div className="font-semibold">10-Case Simulation</div>
-                <div className="text-xs opacity-80">ISR batch analysis</div>
+                <div className="font-semibold">ESO / ISR Demo</div>
+                <div className="text-xs opacity-80">Aggregated institutional analysis</div>
               </div>
             </Button>
           </div>
@@ -502,14 +502,8 @@ function ScenarioView({
           <Button size="sm" variant="outline" onClick={onShowDashboard} data-testid="button-show-dashboard">
             <BarChart3 className="w-3.5 h-3.5 mr-1.5" />Dashboard
           </Button>
-          <Button size="sm" variant="outline" onClick={() => onExportReport("pathway")} disabled={isExporting} data-testid="button-export-pathway">
-            <FileText className="w-3.5 h-3.5 mr-1.5" />{isExporting ? "..." : "Pathway Report"}
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => onExportReport("eso_summary")} disabled={isExporting} data-testid="button-export-eso">
-            <FileText className="w-3.5 h-3.5 mr-1.5" />ESO Summary
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => onExportReport("leadership_brief")} disabled={isExporting} data-testid="button-export-brief">
-            <FileText className="w-3.5 h-3.5 mr-1.5" />Leadership Brief
+          <Button size="sm" variant="outline" onClick={() => onExportReport("pathway")} disabled={isExporting} data-testid="button-export-sm-report">
+            <FileText className="w-3.5 h-3.5 mr-1.5" />{isExporting ? "..." : "SM Report"}
           </Button>
         </div>
       </div>
