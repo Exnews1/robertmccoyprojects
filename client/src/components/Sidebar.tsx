@@ -52,58 +52,58 @@ export function Sidebar() {
               <Table className="w-4 h-4 mr-3 opacity-70" />
               Compliance Table
             </Link>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <FileText className="w-4 h-4 mr-3 text-neutral-500" />
-              Framework Details
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <MoveRight className="w-4 h-4 mr-3 text-neutral-500" />
-              Strategic Advantages
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <PenTool className="w-4 h-4 mr-3 text-neutral-500" />
-              Design Principles
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <BookOpen className="w-4 h-4 mr-3 text-neutral-500" />
+            <Link href="/cmgf" className={navItemClass("/cmgf")}>
+              <FileText className="w-4 h-4 mr-3 opacity-70" />
+              CMGF Hub
+            </Link>
+            <Link href="/cmgf/walkthrough" className={navItemClass("/cmgf/walkthrough")}>
+              <MoveRight className="w-4 h-4 mr-3 opacity-70" />
+              System Architecture
+            </Link>
+            <Link href="/cmgf/series" className={navItemClass("/cmgf/series")}>
+              <PenTool className="w-4 h-4 mr-3 opacity-70" />
+              CMGF Series 2026
+            </Link>
+            <Link href="/references" className={navItemClass("/references")}>
+              <BookOpen className="w-4 h-4 mr-3 opacity-70" />
               References
-            </button>
+            </Link>
           </nav>
         </div>
 
         <div className="mb-6">
-          <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Frameworks</div>
+          <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Research</div>
           <nav className="space-y-1">
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <Landmark className="w-4 h-4 mr-3 text-neutral-500" />
-              EO 14110 (2023)
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <ShieldAlert className="w-4 h-4 mr-3 text-neutral-500" />
-              NIST AI RMF 1.0
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <FileCheck className="w-4 h-4 mr-3 text-neutral-500" />
-              GAO Reports
-            </button>
+            <Link href="/cmgf/five-pillars" className={navItemClass("/cmgf/five-pillars")}>
+              <Landmark className="w-4 h-4 mr-3 opacity-70" />
+              Five Pillars Database
+            </Link>
+            <Link href="/explorer" className={navItemClass("/explorer")}>
+              <ShieldAlert className="w-4 h-4 mr-3 opacity-70" />
+              Reference Explorer
+            </Link>
+            <Link href="/cmgf/library" className={navItemClass("/cmgf/library")}>
+              <FileCheck className="w-4 h-4 mr-3 opacity-70" />
+              Library
+            </Link>
           </nav>
         </div>
 
         <div className="mb-6">
-          <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Resources</div>
+          <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Tools</div>
           <nav className="space-y-1">
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <Download className="w-4 h-4 mr-3 text-neutral-500" />
+            <Link href="/cmgf/downloads" className={navItemClass("/cmgf/downloads")}>
+              <Download className="w-4 h-4 mr-3 opacity-70" />
               Downloads
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <SpellCheck className="w-4 h-4 mr-3 text-neutral-500" />
-              Glossary
-            </button>
-            <button className="w-full flex items-center px-3 py-2 text-sm text-neutral-700 rounded-md hover:bg-neutral-100 transition-colors">
-              <HelpCircle className="w-4 h-4 mr-3 text-neutral-500" />
-              Help Center
-            </button>
+            </Link>
+            <Link href="/demo" className={navItemClass("/demo")}>
+              <SpellCheck className="w-4 h-4 mr-3 opacity-70" />
+              Demo Mode
+            </Link>
+            <Link href="/contact" className={navItemClass("/contact")}>
+              <HelpCircle className="w-4 h-4 mr-3 opacity-70" />
+              Contact
+            </Link>
           </nav>
         </div>
       </div>

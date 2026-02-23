@@ -161,12 +161,99 @@ function AnimatedProgress({ messages, isActive }: { messages: string[]; isActive
   );
 }
 
-function GovernancePanel({ metadata }: { metadata: ScenarioResult["governanceMetadata"] }) {
+const LIVE_RULE_STEPS = [
+  { signal: "MOS Code", source: "IPPS-A", rule: "Map MOS → O*NET SOC codes", status: "reading" as const },
+  { signal: "Career Goal", source: "O*NET / BLS", rule: "Validate SOC alignment & demand", status: "reading" as const },
+  { signal: "Years of Service", source: "IPPS-A", rule: "Calculate remaining TA/CA eligibility window", status: "reading" as const },
+  { signal: "Credential Inventory", source: "Army COOL", rule: "Check existing certs against goal requirements", status: "evaluating" as const },
+  { signal: "Funding Status", source: "DoD TA Policy", rule: "Evaluate TA cap ($4,000/yr) and CA availability", status: "evaluating" as const },
+  { signal: "Deployment Status", source: "Unit Records", rule: "Flag access barriers for deployed SMs", status: "evaluating" as const },
+  { signal: "Domain Alignment", source: "CMGF Engine", rule: "Compute MOS→Goal skill transfer percentage", status: "evaluating" as const },
+  { signal: "Constraint Density", source: "CMGF Engine", rule: "Score compounding friction factors", status: "deciding" as const },
+  { signal: "Pathway Feasibility", source: "CMGF Engine", rule: "Determine timeline viability against ETS", status: "deciding" as const },
+  { signal: "Human Review Gate", source: "Governance Layer", rule: "Flag for ESO/Advisor validation before action", status: "deciding" as const },
+];
+
+function LiveGovernancePanel({ isProcessing }: { isProcessing: boolean }) {
+  const [activeStep, setActiveStep] = useState(-1);
+
+  useEffect(() => {
+    if (!isProcessing) {
+      setActiveStep(-1);
+      return;
+    }
+    setActiveStep(0);
+    const interval = setInterval(() => {
+      setActiveStep(prev => {
+        if (prev >= LIVE_RULE_STEPS.length - 1) return prev;
+        return prev + 1;
+      });
+    }, 800);
+    return () => clearInterval(interval);
+  }, [isProcessing]);
+
+  if (!isProcessing) return null;
+
   return (
-    <Card className="border-blue-900/50 bg-blue-950/30">
+    <Card className="border-sky-900/40 bg-sky-950/20" data-testid="live-governance-panel">
       <CardHeader className="pb-2">
         <CardTitle className="text-sm flex items-center gap-2">
-          <Shield className="w-4 h-4 text-blue-400" />
+          <Shield className="w-4 h-4 text-sky-300 animate-pulse" />
+          Live Governance Transparency
+          <Badge className="text-[9px] bg-sky-900/40 text-sky-200 border border-sky-800/40 ml-auto">LIVE</Badge>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-1" data-testid="live-rule-steps">
+        <div className="grid grid-cols-[auto_1fr_1fr_auto] gap-x-3 gap-y-0.5 text-[11px] font-mono">
+          <div className="text-muted-foreground/50 font-sans text-[10px] uppercase tracking-wider pb-1">Status</div>
+          <div className="text-muted-foreground/50 font-sans text-[10px] uppercase tracking-wider pb-1">Signal → Source</div>
+          <div className="text-muted-foreground/50 font-sans text-[10px] uppercase tracking-wider pb-1">Rule Evaluated</div>
+          <div className="text-muted-foreground/50 font-sans text-[10px] uppercase tracking-wider pb-1">Phase</div>
+          {LIVE_RULE_STEPS.map((step, i) => {
+            const isActive = i === activeStep;
+            const isDone = i < activeStep;
+            const isPending = i > activeStep;
+            return (
+              <div key={i} className={`contents ${isPending ? "opacity-20" : isDone ? "opacity-60" : ""}`}>
+                <div className="flex items-center py-0.5">
+                  {isDone && <CheckCircle2 className="w-3 h-3 text-emerald-400" />}
+                  {isActive && <Loader2 className="w-3 h-3 text-sky-300 animate-spin" />}
+                  {isPending && <div className="w-3 h-3 rounded-full border border-muted-foreground/20" />}
+                </div>
+                <div className={`py-0.5 ${isActive ? "text-sky-200" : "text-muted-foreground/80"}`}>
+                  {step.signal} <span className="text-muted-foreground/40">←</span> {step.source}
+                </div>
+                <div className={`py-0.5 ${isActive ? "text-foreground/90" : "text-muted-foreground/60"}`}>
+                  {step.rule}
+                </div>
+                <div className="py-0.5">
+                  <Badge variant="outline" className={`text-[9px] ${
+                    step.status === "reading" ? "border-sky-800/40 text-sky-300/70" :
+                    step.status === "evaluating" ? "border-amber-800/40 text-amber-300/70" :
+                    "border-emerald-800/40 text-emerald-300/70"
+                  }`}>
+                    {step.status === "reading" ? "READ" : step.status === "evaluating" ? "EVAL" : "DECIDE"}
+                  </Badge>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex items-center gap-2 text-xs mt-3 p-2 bg-amber-950/20 rounded border border-amber-800/20">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-300/80 shrink-0" />
+          <span className="text-amber-200/80">All outputs require human advisor review before action</span>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+function GovernancePanel({ metadata }: { metadata: ScenarioResult["governanceMetadata"] }) {
+  return (
+    <Card className="border-sky-900/30 bg-sky-950/15">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm flex items-center gap-2">
+          <Shield className="w-4 h-4 text-sky-300/80" />
           Governance Transparency
         </CardTitle>
       </CardHeader>
@@ -174,26 +261,32 @@ function GovernancePanel({ metadata }: { metadata: ScenarioResult["governanceMet
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div>
             <span className="text-muted-foreground">Engine Version</span>
-            <p className="font-mono text-blue-300">{metadata.engineVersion}</p>
+            <p className="font-mono text-sky-300/80">{metadata.engineVersion}</p>
           </div>
           <div>
             <span className="text-muted-foreground">Execution Type</span>
-            <p className="font-mono text-green-300">{metadata.executionType}</p>
+            <p className="font-mono text-emerald-300/80">{metadata.executionType}</p>
           </div>
         </div>
         <div className="text-xs">
-          <span className="text-muted-foreground">Data Sources</span>
+          <span className="text-muted-foreground">Data Sources Consulted</span>
           <div className="flex flex-wrap gap-1 mt-1">
             {metadata.dataSources.map((ds, i) => (
-              <Badge key={i} variant="outline" className="text-[10px] border-slate-700">{ds}</Badge>
+              <Badge key={i} variant="outline" className="text-[10px] border-border/40">{ds}</Badge>
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs mt-2 p-2 bg-amber-950/30 rounded border border-amber-800/30">
-          <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span className="text-amber-200">Human advisor review required before action</span>
+        <div className="text-xs mt-1">
+          <span className="text-muted-foreground">Rules Evaluated</span>
+          <p className="font-mono text-muted-foreground/70 mt-0.5">
+            {LIVE_RULE_STEPS.length} signals checked → {LIVE_RULE_STEPS.filter(s => s.status === "evaluating").length} rules evaluated → {LIVE_RULE_STEPS.filter(s => s.status === "deciding").length} decisions rendered
+          </p>
         </div>
-        <p className="text-[10px] text-muted-foreground/60 italic mt-1">AI explains. Rules decide.</p>
+        <div className="flex items-center gap-2 text-xs mt-2 p-2 bg-amber-950/20 rounded border border-amber-800/20">
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-300/80 shrink-0" />
+          <span className="text-amber-200/80">Human advisor review required before action</span>
+        </div>
+        <p className="text-[10px] text-muted-foreground/50 italic mt-1">AI explains. Rules decide.</p>
       </CardContent>
     </Card>
   );
@@ -503,6 +596,8 @@ function ControlPanel({
           />
         </CardContent>
       </Card>
+
+      <LiveGovernancePanel isProcessing={isProcessing} />
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Card className="border-slate-800">
