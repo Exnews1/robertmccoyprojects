@@ -40,6 +40,8 @@ const GOAL_OPTIONS = [
   { value: "supply_chain", label: "Supply Chain Management" },
   { value: "project_management", label: "Project Management" },
   { value: "healthcare_admin", label: "Healthcare Administration" },
+  { value: "nursing", label: "Nursing (RN/BSN)" },
+  { value: "teaching", label: "Teaching / Education" },
 ];
 
 const RANK_OPTIONS = [

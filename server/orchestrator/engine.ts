@@ -284,6 +284,86 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
       ],
       explanation: "Medical MOS clinical experience provides foundational understanding of healthcare systems with 86% alignment.",
     },
+    nursing: {
+      pathwayOptions: [
+        { name: "LPN Bridge → RN (ADN Program)", match: "88%", timeframe: "12-18 months" },
+        { name: "BSN Program (GI Bill)", match: "92%", timeframe: "24-36 months" },
+        { name: "Accelerated BSN (2nd degree)", match: "85%", timeframe: "12-16 months" },
+      ],
+      constraintRisks: [
+        { label: "Licensure requirements", severity: "medium", detail: "NCLEX-RN exam required regardless of military medical experience" },
+        { label: "Clinical hour requirements", severity: "medium", detail: "Nursing programs require 500-800 clinical hours — military experience may partially satisfy" },
+        { label: "Program admission competitiveness", severity: "medium", detail: "ADN/BSN programs have limited seats; military medics have strong applications" },
+      ],
+      policyFriction: [
+        { point: "BSN programs fully eligible for Post-9/11 GI Bill", framework: "Ch. 33 Post-9/11 GI Bill" },
+        { point: "Some states accept military medical training for LPN licensure", framework: "State Nursing Boards" },
+        { point: "CCNE-accredited programs required for VA education benefits", framework: "VA Education Benefits" },
+      ],
+      resourcesRequired: [
+        { resource: "Nursing program tuition ($8,000-$40,000)", status: "GI Bill eligible" },
+        { resource: "NCLEX-RN exam fee ($200)", status: "Self-funded" },
+        { resource: "Clinical supplies and uniforms ($500-$800)", status: "Self-funded" },
+        { resource: "Background check and drug screening ($100-$200)", status: "Self-funded" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "yellow", label: "Moderate", detail: "ADN 12-18 months; BSN 24-36 months. Military medic experience accelerates clinical learning" },
+        { dimension: "Family Impact", status: "yellow", label: "Moderate", detail: "Clinical rotations require schedule flexibility; may include nights/weekends" },
+        { dimension: "Transition Stress", status: "green", label: "Low", detail: "Combat medic skills translate directly to nursing clinical competencies" },
+        { dimension: "Domain Alignment", status: "green", label: "Very High", detail: "88% alignment — trauma care, patient assessment, medication administration directly transferable" },
+      ],
+      specialConsiderations: [
+        "68W combat medics perform many tasks equivalent to LPN/RN scope of practice — strongest clinical feeder MOS.",
+        "Several states (CA, TX, FL) have military-to-nursing bridge programs specifically for 68-series MOS.",
+        "VA hospitals actively recruit veteran nurses — preference in hiring for veteran status.",
+      ],
+      timelineRange: "12-36 months depending on pathway",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures trauma care, triage, medication administration, patient monitoring experience" },
+        { layer: "Part B: AI Mediation", action: "Maps 68W/68C competencies to nursing curriculum requirements; identifies transferable clinical hours" },
+        { layer: "Part C: Advisory Review", action: "Advisor coordinates with state nursing board for military credit evaluation and program selection" },
+      ],
+      explanation: "Medical MOS provides the strongest clinical foundation for nursing with 88% alignment. Combat medic experience directly translates to nursing competencies.",
+    },
+    teaching: {
+      pathwayOptions: [
+        { name: "Alternative Teaching Certificate (Health Science)", match: "76%", timeframe: "6-12 months" },
+        { name: "M.Ed. Health Education", match: "72%", timeframe: "18-24 months" },
+        { name: "CTE Health Occupations Instructor", match: "82%", timeframe: "3-6 months" },
+      ],
+      constraintRisks: [
+        { label: "State licensure variability", severity: "medium", detail: "Teaching certification requirements vary by state — some accept military experience for alternative certification" },
+        { label: "Content area limitations", severity: "low", detail: "Medical MOS qualifies for health science and CTE health occupations — strongest content match" },
+      ],
+      policyFriction: [
+        { point: "Alternative certification programs eligible for GI Bill in most states", framework: "Ch. 33 Post-9/11 GI Bill" },
+        { point: "Troops to Teachers program provides $5,000 stipend for high-need subjects", framework: "Troops to Teachers" },
+        { point: "CTE instructor certification may waive student teaching requirement", framework: "State CTE Boards" },
+      ],
+      resourcesRequired: [
+        { resource: "Alternative certification program ($3,000-$8,000)", status: "GI Bill eligible" },
+        { resource: "Praxis exam fee ($130-$170)", status: "Self-funded" },
+        { resource: "State teaching license application ($75-$150)", status: "Self-funded" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "CTE pathway achievable in 3-6 months; alternative cert 6-12 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching careers offer schedule predictability and geographic flexibility" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Classroom management is new domain but medical training/mentoring experience transfers" },
+        { dimension: "Domain Alignment", status: "green", label: "High", detail: "82% alignment for CTE Health Occupations — direct subject matter expertise" },
+      ],
+      specialConsiderations: [
+        "Medical MOS personnel are highly valued as CTE Health Occupations instructors at high schools and community colleges.",
+        "Troops to Teachers program provides financial support and mentoring for transitioning military to teaching.",
+        "Health science teaching is a high-need area in most states — expedited certification available.",
+      ],
+      timelineRange: "3-24 months depending on pathway",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures clinical training experience, mentoring history, and medical instruction background" },
+        { layer: "Part B: AI Mediation", action: "Maps medical competencies to CTE health science content standards; identifies Troops to Teachers eligibility" },
+        { layer: "Part C: Advisory Review", action: "Advisor coordinates with state education board for alternative certification pathway" },
+      ],
+      explanation: "Medical MOS provides strong content expertise for health science teaching with 82% CTE alignment. Troops to Teachers program offers additional support.",
+    },
   },
   combat_arms: {
     cybersecurity: {
@@ -325,7 +405,7 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { layer: "Part B: AI Mediation", action: "Classifies combat→cyber as full domain change; surfaces maximum constraint density and funding barriers" },
         { layer: "Part C: Advisory Review", action: "Human advisor required to validate realistic expectations and explore alternative career goals" },
       ],
-      explanation: "Combat Arms to Cybersecurity represents the highest-constraint transition — zero technical foundation, no TA funding, and short timeline create compounding barriers. This scenario demonstrates CMGF's value in transparently surfacing structural obstacles.",
+      explanation: "Combat Arms to Cybersecurity represents the highest-constraint transition — zero technical foundation, no TA funding, and short timeline create compounding barriers.",
     },
     project_management: {
       pathwayOptions: [
@@ -356,6 +436,48 @@ const PATHWAY_DATA: Record<string, Record<string, PathwayResult>> = {
         { layer: "Part C: Advisory Review", action: "Advisor translates military operations terminology to PM documentation" },
       ],
       explanation: "Combat Arms leadership provides transferable project management skills but requires methodology training.",
+    },
+    teaching: {
+      pathwayOptions: [
+        { name: "Alternative Teaching Certificate (Secondary)", match: "72%", timeframe: "6-12 months" },
+        { name: "Troops to Teachers → STEM/History", match: "78%", timeframe: "6-18 months" },
+        { name: "M.A.T. Secondary Education (GI Bill)", match: "68%", timeframe: "18-24 months" },
+      ],
+      constraintRisks: [
+        { label: "Content area selection", severity: "medium", detail: "Must identify teachable content area — history, JROTC, physical education, and leadership are strongest matches" },
+        { label: "Classroom management adjustment", severity: "medium", detail: "Military command authority does not transfer to classroom — pedagogical training required" },
+        { label: "Salary expectations", severity: "medium", detail: "Teaching salaries ($40k-$60k) may represent significant pay reduction from military compensation" },
+      ],
+      policyFriction: [
+        { point: "Troops to Teachers provides $5,000 stipend for high-need subjects (STEM, SPED)", framework: "Troops to Teachers" },
+        { point: "JROTC instructor positions may bypass state certification entirely", framework: "JROTC Instructor Program" },
+        { point: "Alternative certification accepted in 48 states for career changers", framework: "State Education Boards" },
+      ],
+      resourcesRequired: [
+        { resource: "Alternative certification program ($3,000-$8,000)", status: "GI Bill eligible" },
+        { resource: "Praxis Core + Subject exam fees ($200-$300)", status: "Self-funded" },
+        { resource: "State teaching license ($75-$150)", status: "Self-funded" },
+        { resource: "Background check ($50-$100)", status: "Self-funded" },
+      ],
+      readinessMeasures: [
+        { dimension: "Timeline Feasibility", status: "green", label: "Strong", detail: "JROTC immediate; alternative cert 6-12 months; M.A.T. 18-24 months" },
+        { dimension: "Family Impact", status: "green", label: "Low", detail: "Teaching offers schedule stability, summers off, and geographic flexibility" },
+        { dimension: "Transition Stress", status: "yellow", label: "Moderate", detail: "Leadership skills transfer but classroom pedagogy is a new skillset" },
+        { dimension: "Domain Alignment", status: "yellow", label: "Moderate", detail: "72% alignment — leadership and discipline transfer strongly; pedagogy is new" },
+      ],
+      specialConsiderations: [
+        "JROTC instructor positions are the fastest path — no state teaching certification required, military experience is the credential.",
+        "Combat arms NCOs are highly recruited for JROTC programs at high schools nationwide.",
+        "Troops to Teachers program provides mentoring, financial support, and job placement assistance.",
+        "Physical education and health are additional high-alignment content areas for combat arms MOS.",
+      ],
+      timelineRange: "0 months (JROTC) to 24 months (M.A.T.)",
+      cmgfLayers: [
+        { layer: "Part A: Service Member Interface", action: "Captures leadership training, mentoring experience, physical fitness instruction, and operations planning" },
+        { layer: "Part B: AI Mediation", action: "Maps combat leadership to teaching competencies; identifies JROTC eligibility and Troops to Teachers qualification" },
+        { layer: "Part C: Advisory Review", action: "Advisor evaluates content area options and coordinates with Troops to Teachers regional office" },
+      ],
+      explanation: "Combat Arms MOS provides strong leadership and mentoring skills for teaching. JROTC is the fastest path with zero additional certification required.",
     },
   },
   admin: {
