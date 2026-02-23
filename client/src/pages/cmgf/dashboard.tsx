@@ -15,7 +15,7 @@ import {
   BarChart3, Users, Download, Eye, Search, Layers,
   Activity, CheckCircle, XCircle, User, Cpu,
   Filter, ExternalLink, ArrowUpDown, ChevronDown, ChevronUp,
-  TrendingUp, Calendar, Tag, X
+  TrendingUp, Calendar, Tag, X, Rocket
 } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
@@ -253,12 +253,20 @@ export default function Dashboard() {
                 Interactive system overview — filter, search, drill down into compliance items and {totalLibrary.toLocaleString()} research sources.
               </p>
             </div>
-            <Link href="/cmgf/analytics">
-              <Button variant="outline" size="sm" className="text-xs" data-testid="link-conference-analytics">
-                <Activity className="w-3 h-3 mr-1.5" />
-                Conference Analytics
-              </Button>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/demo">
+                <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-dashboard">
+                  <Rocket className="w-3 h-3" />
+                  Demo Mode
+                </Button>
+              </Link>
+              <Link href="/cmgf/analytics">
+                <Button variant="outline" size="sm" className="text-xs" data-testid="link-conference-analytics">
+                  <Activity className="w-3 h-3 mr-1.5" />
+                  Conference Analytics
+                </Button>
+              </Link>
+            </div>
           </div>
         </header>
 

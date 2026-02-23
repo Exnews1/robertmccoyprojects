@@ -24,6 +24,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { Link } from "wouter";
+import { Rocket } from "lucide-react";
 import type { ServiceMemberRequest } from "@shared/schema";
 
 const MOS_OPTIONS = [
@@ -164,12 +166,22 @@ export default function SMHub() {
       </div>
 
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold tracking-tight" data-testid="text-sm-hub-title">
-          Service Member Hub
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          Submit career transition requests and track their progress through the ISR pipeline.
-        </p>
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight" data-testid="text-sm-hub-title">
+              Service Member Hub
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Submit career transition requests and track their progress through the ISR pipeline.
+            </p>
+          </div>
+          <Link href="/demo">
+            <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-sm">
+              <Rocket className="w-3.5 h-3.5" />
+              Demo Mode
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">

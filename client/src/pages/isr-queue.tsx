@@ -23,6 +23,8 @@ import {
   Activity,
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { Link } from "wouter";
+import { Rocket } from "lucide-react";
 
 interface IsrQueueItem {
   id: number;
@@ -125,10 +127,18 @@ function QueueList({
             Review pending cases, run engine analysis, and take advisor actions.
           </p>
         </div>
-        <Badge variant="outline" className="border-amber-800/40 text-amber-300 text-xs" data-testid="badge-demo-label">
-          <AlertTriangle className="w-3 h-3 mr-1" />
-          Demonstration Data
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Link href="/demo">
+            <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-isr">
+              <Rocket className="w-3.5 h-3.5" />
+              Demo Mode
+            </Button>
+          </Link>
+          <Badge variant="outline" className="border-amber-800/40 text-amber-300 text-xs" data-testid="badge-demo-label">
+            <AlertTriangle className="w-3 h-3 mr-1" />
+            Demonstration Data
+          </Badge>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
