@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, Download, Library, Search, Layers, ExternalLink, BarChart3, UserCircle, ClipboardList, Shield, Rocket } from "lucide-react";
+import { Home, Download, Library, Search, Layers, ExternalLink, BarChart3, UserCircle, ClipboardList, Shield, Rocket, MonitorPlay } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const navItems = [
@@ -15,6 +15,9 @@ const navItems = [
   { href: "/research/sm-hub", label: "SM Hub", icon: UserCircle, external: false, group: "pipeline" },
   { href: "/research/isr", label: "ISR Queue", icon: ClipboardList, external: false, group: "pipeline" },
   { href: "/research/audit", label: "Audit Trail", icon: Shield, external: false, group: "pipeline" },
+  { href: "/research/cmgf/walkthrough/part-a", label: "Part A", icon: MonitorPlay, external: false, group: "walkthrough" },
+  { href: "/research/cmgf/walkthrough/part-b", label: "Part B", icon: MonitorPlay, external: false, group: "walkthrough" },
+  { href: "/research/cmgf/walkthrough/part-c", label: "Part C", icon: MonitorPlay, external: false, group: "walkthrough" },
 ];
 
 export function CMGFNav() {
