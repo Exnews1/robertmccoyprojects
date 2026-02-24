@@ -8,6 +8,17 @@ This is a full-stack compliance framework analysis application designed to track
 
 Preferred communication style: Simple, everyday language.
 
+## Site Structure
+
+The site is organized into two top-level sections:
+- **Consulting** (`/`): Placeholder page for consulting services ("Governed Systems Architecture")
+- **Research** (`/research/*`): All research content, CMGF framework, demo mode, ISR pipeline, etc.
+
+Navigation:
+- **TopNav** (`client/src/components/top-nav.tsx`): Site-wide toggle between Consulting and Research sections
+- **CMGFNav** (`client/src/components/cmgf-nav.tsx`): Sub-navigation within research pages
+- All existing routes are prefixed with `/research` (e.g., `/research/cmgf`, `/research/demo`, `/research/sm-hub`)
+
 ## System Architecture
 
 ### Frontend Architecture
