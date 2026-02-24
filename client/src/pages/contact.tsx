@@ -72,7 +72,7 @@ export default function Contact() {
                 Thank you for your interest in the Career Mobility Governance Framework. 
                 You will receive a response within 2-3 business days.
               </p>
-              <Link href="/">
+              <Link href="/research">
                 <Button variant="outline" data-testid="button-return-home">
                   Return to Portfolio
                 </Button>
@@ -88,7 +88,7 @@ export default function Contact() {
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />

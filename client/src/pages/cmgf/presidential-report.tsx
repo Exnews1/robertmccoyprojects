@@ -9,7 +9,7 @@ export default function PresidentialReport() {
       <CMGFNav />
       
       <div className="max-w-4xl mx-auto px-4 md:px-6 py-6 md:py-8">
-        <Link href="/cmgf/downloads">
+        <Link href="/research/cmgf/downloads">
           <Button variant="ghost" size="sm" className="mb-6 text-muted-foreground" data-testid="button-back-downloads">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Downloads

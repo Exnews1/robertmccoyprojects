@@ -52,19 +52,19 @@ export function Sidebar() {
               <Table className="w-4 h-4 mr-3 opacity-70" />
               Compliance Table
             </Link>
-            <Link href="/cmgf" className={navItemClass("/cmgf")}>
+            <Link href="/research/cmgf" className={navItemClass("/research/cmgf")}>
               <FileText className="w-4 h-4 mr-3 opacity-70" />
               CMGF Hub
             </Link>
-            <Link href="/cmgf/walkthrough" className={navItemClass("/cmgf/walkthrough")}>
+            <Link href="/research/cmgf/walkthrough" className={navItemClass("/research/cmgf/walkthrough")}>
               <MoveRight className="w-4 h-4 mr-3 opacity-70" />
               System Architecture
             </Link>
-            <Link href="/cmgf/series" className={navItemClass("/cmgf/series")}>
+            <Link href="/research/cmgf/series" className={navItemClass("/research/cmgf/series")}>
               <PenTool className="w-4 h-4 mr-3 opacity-70" />
               CMGF Series 2026
             </Link>
-            <Link href="/references" className={navItemClass("/references")}>
+            <Link href="/research/references" className={navItemClass("/research/references")}>
               <BookOpen className="w-4 h-4 mr-3 opacity-70" />
               References
             </Link>
@@ -74,15 +74,15 @@ export function Sidebar() {
         <div className="mb-6">
           <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Research</div>
           <nav className="space-y-1">
-            <Link href="/cmgf/five-pillars" className={navItemClass("/cmgf/five-pillars")}>
+            <Link href="/research/cmgf/five-pillars" className={navItemClass("/research/cmgf/five-pillars")}>
               <Landmark className="w-4 h-4 mr-3 opacity-70" />
               Five Pillars Database
             </Link>
-            <Link href="/explorer" className={navItemClass("/explorer")}>
+            <Link href="/research/explorer" className={navItemClass("/research/explorer")}>
               <ShieldAlert className="w-4 h-4 mr-3 opacity-70" />
               Reference Explorer
             </Link>
-            <Link href="/cmgf/library" className={navItemClass("/cmgf/library")}>
+            <Link href="/research/cmgf/library" className={navItemClass("/research/cmgf/library")}>
               <FileCheck className="w-4 h-4 mr-3 opacity-70" />
               Library
             </Link>
@@ -92,15 +92,15 @@ export function Sidebar() {
         <div className="mb-6">
           <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2 px-2">Tools</div>
           <nav className="space-y-1">
-            <Link href="/cmgf/downloads" className={navItemClass("/cmgf/downloads")}>
+            <Link href="/research/cmgf/downloads" className={navItemClass("/research/cmgf/downloads")}>
               <Download className="w-4 h-4 mr-3 opacity-70" />
               Downloads
             </Link>
-            <Link href="/demo" className={navItemClass("/demo")}>
+            <Link href="/research/demo" className={navItemClass("/research/demo")}>
               <SpellCheck className="w-4 h-4 mr-3 opacity-70" />
               Demo Mode
             </Link>
-            <Link href="/contact" className={navItemClass("/contact")}>
+            <Link href="/research/contact" className={navItemClass("/research/contact")}>
               <HelpCircle className="w-4 h-4 mr-3 opacity-70" />
               Contact
             </Link>

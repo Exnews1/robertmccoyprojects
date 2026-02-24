@@ -87,7 +87,7 @@ export default function Bio() {
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
-          <Link href="/">
+          <Link href="/research">
             <Button variant="ghost" size="sm" data-testid="link-back-home">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Home
@@ -258,19 +258,19 @@ export default function Bio() {
               </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild data-testid="bio-button-cmgf">
-                  <Link href="/cmgf">
+                  <Link href="/research/cmgf">
                     <BookOpen className="w-4 h-4 mr-2" />
                     View CMGF Research
                   </Link>
                 </Button>
                 <Button variant="outline" asChild data-testid="bio-button-profile">
-                  <Link href="/profile">
+                  <Link href="/research/profile">
                     <Users className="w-4 h-4 mr-2" />
                     Full Systems Profile
                   </Link>
                 </Button>
                 <Button variant="outline" asChild data-testid="bio-button-contact">
-                  <Link href="/contact">
+                  <Link href="/research/contact">
                     <Mail className="w-4 h-4 mr-2" />
                     Contact
                   </Link>

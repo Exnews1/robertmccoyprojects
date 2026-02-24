@@ -287,11 +287,11 @@ export default function Engagement() {
       <CMGFNav />
       <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
             CMGF
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />

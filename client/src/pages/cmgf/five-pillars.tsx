@@ -144,11 +144,11 @@ export default function FivePillars() {
       <CMGFNav />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1" aria-label="Breadcrumb">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-portfolio">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-portfolio">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-cmgf">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-cmgf">
             CMGF
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
@@ -438,19 +438,19 @@ export default function FivePillars() {
         <div className="mt-12 pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/cmgf">
+            <Link href="/research/cmgf">
               <Button variant="outline" size="sm" data-testid="button-nav-cmgf-main">CMGF Main</Button>
             </Link>
-            <Link href="/cmgf/walkthrough">
+            <Link href="/research/cmgf/walkthrough">
               <Button variant="outline" size="sm" data-testid="button-nav-walkthrough">Framework Walkthrough</Button>
             </Link>
-            <Link href="/explorer">
+            <Link href="/research/explorer">
               <Button variant="outline" size="sm" data-testid="button-nav-explorer">Reference Explorer</Button>
             </Link>
-            <Link href="/cmgf/downloads">
+            <Link href="/research/cmgf/downloads">
               <Button variant="outline" size="sm" data-testid="button-nav-downloads">Downloads</Button>
             </Link>
-            <Link href="/cmgf/library">
+            <Link href="/research/cmgf/library">
               <Button variant="outline" size="sm" data-testid="button-nav-library">Research Library</Button>
             </Link>
           </div>

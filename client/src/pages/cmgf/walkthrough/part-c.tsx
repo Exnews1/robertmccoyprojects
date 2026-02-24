@@ -150,15 +150,15 @@ export default function PartC() {
       <CMGFNav />
       <div className="max-w-5xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
             CMGF
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf/walkthrough" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf/walkthrough" className="text-muted-foreground hover:text-primary transition-colors">
             Walkthrough
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -313,22 +313,22 @@ export default function PartC() {
         <div className="pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/cmgf">
+            <Link href="/research/cmgf">
               <Button variant="outline" size="sm" data-testid="link-cmgf-main">CMGF Main</Button>
             </Link>
-            <Link href="/cmgf/walkthrough">
+            <Link href="/research/cmgf/walkthrough">
               <Button variant="outline" size="sm" data-testid="link-walkthrough">Walkthrough Overview</Button>
             </Link>
-            <Link href="/cmgf/walkthrough/part-a">
+            <Link href="/research/cmgf/walkthrough/part-a">
               <Button variant="outline" size="sm" data-testid="link-part-a">Part A: Service Member</Button>
             </Link>
-            <Link href="/cmgf/walkthrough/part-b">
+            <Link href="/research/cmgf/walkthrough/part-b">
               <Button variant="outline" size="sm" data-testid="link-part-b">Part B: AI Mediation</Button>
             </Link>
-            <Link href="/cmgf/downloads">
+            <Link href="/research/cmgf/downloads">
               <Button variant="outline" size="sm" data-testid="link-downloads">Downloads</Button>
             </Link>
-            <Link href="/cmgf/library">
+            <Link href="/research/cmgf/library">
               <Button variant="outline" size="sm" data-testid="link-library">Library</Button>
             </Link>
           </div>

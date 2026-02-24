@@ -18,19 +18,19 @@ export default function Portfolio() {
               data@robertmccoyprojects.com
             </a>
             <span className="text-muted-foreground/30">|</span>
-            <Link href="/profile" className="hover:text-primary transition-colors flex items-center gap-1" data-testid="link-profile">
+            <Link href="/research/profile" className="hover:text-primary transition-colors flex items-center gap-1" data-testid="link-profile">
               <User className="w-3.5 h-3.5" />
               Author's Profile
             </Link>
             <span className="text-muted-foreground/30">|</span>
-            <Link href="/contact" className="hover:text-primary transition-colors" data-testid="link-contact">
+            <Link href="/research/contact" className="hover:text-primary transition-colors" data-testid="link-contact">
               Submit Inquiry
             </Link>
           </div>
         </header>
 
         <section className="mb-16" data-testid="section-cmgf-hero">
-          <Link href="/cmgf" data-testid="link-cmgf-main">
+          <Link href="/research/cmgf" data-testid="link-cmgf-main">
             <Card className="hover-elevate cursor-pointer group border-primary/30 bg-gradient-to-br from-primary/5 to-transparent overflow-visible" data-testid="card-cmgf-hero">
               <CardHeader className="pb-4">
                 <div className="flex items-center justify-between mb-4 gap-2 flex-wrap">
@@ -54,7 +54,7 @@ export default function Portfolio() {
           </Link>
 
           <div className="grid gap-4 md:grid-cols-3 mt-6">
-            <Link href="/cmgf/five-pillars" data-testid="link-five-pillars">
+            <Link href="/research/cmgf/five-pillars" data-testid="link-five-pillars">
               <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-five-pillars">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-3 mb-3">
@@ -75,7 +75,7 @@ export default function Portfolio() {
               </Card>
             </Link>
 
-            <Link href="/cmgf/library" data-testid="link-research-library">
+            <Link href="/research/cmgf/library" data-testid="link-research-library">
               <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-research-library">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-3 mb-3">
@@ -96,7 +96,7 @@ export default function Portfolio() {
               </Card>
             </Link>
 
-            <Link href="/explorer" data-testid="link-reference-explorer">
+            <Link href="/research/explorer" data-testid="link-reference-explorer">
               <Card className="h-full hover-elevate cursor-pointer group border-border/50" data-testid="card-reference-explorer">
                 <CardContent className="p-5">
                   <div className="flex items-center gap-3 mb-3">
@@ -122,7 +122,7 @@ export default function Portfolio() {
         <section className="mb-16" data-testid="section-ongoing-research">
           <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
             <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground">Research & Innovation Portfolio</h2>
-            <Link href="/research-portfolio" data-testid="link-view-all-research">
+            <Link href="/research/research-portfolio" data-testid="link-view-all-research">
               <Button variant="outline" size="sm">
                 View All Projects
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -135,41 +135,41 @@ export default function Portfolio() {
           <Card className="border-border/50">
             <CardContent className="p-6">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <Link href="/education-ai" data-testid="link-quick-education-ai">
+                <Link href="/research/education-ai" data-testid="link-quick-education-ai">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">AI Education Futures</span>
                     <span className="text-xs text-muted-foreground/60">557 papers</span>
                   </div>
                 </Link>
-                <Link href="/workforce-ai" data-testid="link-quick-workforce-ai">
+                <Link href="/research/workforce-ai" data-testid="link-quick-workforce-ai">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">AI Workforce Readiness</span>
                     <span className="text-xs text-muted-foreground/60">423 papers</span>
                   </div>
                 </Link>
-                <Link href="/universities-ai" data-testid="link-quick-universities-ai">
+                <Link href="/research/universities-ai" data-testid="link-quick-universities-ai">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">AI in Universities</span>
                   </div>
                 </Link>
-                <Link href="/incarceration-research" data-testid="link-quick-incarceration">
+                <Link href="/research/incarceration-research" data-testid="link-quick-incarceration">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">Incarceration Research</span>
                     <span className="text-xs text-muted-foreground/60">728 papers</span>
                   </div>
                 </Link>
-                <Link href="/human-capital" data-testid="link-quick-human-capital">
+                <Link href="/research/human-capital" data-testid="link-quick-human-capital">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">Human Capital Framework</span>
                     <span className="text-xs text-muted-foreground/60">453 papers</span>
                   </div>
                 </Link>
-                <Link href="/ai-types" data-testid="link-quick-ai-types">
+                <Link href="/research/ai-types" data-testid="link-quick-ai-types">
                   <div className="flex items-center gap-2 text-muted-foreground hover-elevate rounded px-2 py-1 -mx-2">
                     <FileText className="h-4 w-4 text-primary" />
                     <span className="text-sm">AI Types & Classifications</span>

@@ -44,11 +44,11 @@ export default function Library() {
       <CMGFNav />
       <div className="max-w-5xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
             CMGF
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -78,7 +78,7 @@ export default function Library() {
                   <li>4. Translating military experience into civilian workforce value</li>
                   <li>5. Veteran and servicemember learner voice: barriers and breakthroughs</li>
                 </ul>
-                <Link href="/cmgf/five-pillars">
+                <Link href="/research/cmgf/five-pillars">
                   <Button size="sm" data-testid="button-five-pillars-link">
                     Explore Five Pillars Database
                     <ChevronRight className="h-4 w-4 ml-1" />
@@ -194,7 +194,7 @@ export default function Library() {
         <div className="mt-12 pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/cmgf">
+            <Link href="/research/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
             <Button variant="outline" size="sm" asChild>
@@ -203,7 +203,7 @@ export default function Library() {
                 Walkthrough
               </a>
             </Button>
-            <Link href="/cmgf/downloads">
+            <Link href="/research/cmgf/downloads">
               <Button variant="outline" size="sm">Downloads</Button>
             </Link>
           </div>
@@ -211,7 +211,7 @@ export default function Library() {
 
         <div className="mt-8 pt-6 border-t border-border/50">
           <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground/60 mb-3">Historical Archive</h3>
-          <Link href="/cmgf/walkthrough">
+          <Link href="/research/cmgf/walkthrough">
             <Button variant="ghost" size="sm" className="text-muted-foreground" data-testid="button-old-walkthrough">
               <Archive className="h-3.5 w-3.5 mr-1.5" />
               Old_Walkthrough

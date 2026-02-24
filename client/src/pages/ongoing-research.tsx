@@ -70,7 +70,7 @@ export default function OngoingResearch() {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
-        <Link href="/">
+        <Link href="/research">
           <Button variant="ghost" size="sm" className="mb-8" data-testid="button-back-home">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home

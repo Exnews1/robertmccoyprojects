@@ -123,11 +123,11 @@ export default function HardTruths() {
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1" aria-label="Breadcrumb">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-portfolio">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-portfolio">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-          <Link href="/incarceration-research" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-hub">
+          <Link href="/research/incarceration-research" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-breadcrumb-hub">
             Incarceration Research Hub
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
@@ -527,10 +527,10 @@ export default function HardTruths() {
         <div className="mt-12 pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/incarceration-research">
+            <Link href="/research/incarceration-research">
               <Button variant="outline" size="sm" data-testid="button-nav-hub">Incarceration Research Hub</Button>
             </Link>
-            <Link href="/">
+            <Link href="/research">
               <Button variant="outline" size="sm" data-testid="button-nav-portfolio">Portfolio</Button>
             </Link>
           </div>

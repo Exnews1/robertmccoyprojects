@@ -177,7 +177,7 @@ export default function IncarcerationResearch() {
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
@@ -197,7 +197,7 @@ export default function IncarcerationResearch() {
         </header>
 
         <section className="mb-8">
-          <Link href="/incarceration-research/hard-truths" data-testid="link-hard-truths">
+          <Link href="/research/incarceration-research/hard-truths" data-testid="link-hard-truths">
             <Card className="hover-elevate cursor-pointer border-primary/30 bg-primary/5">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">

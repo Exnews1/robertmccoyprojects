@@ -15,7 +15,7 @@ const parts = [
     authority: "Origin of all action",
     description: "Individuals explore futures safely, without commitment. Exploratory only—no approvals, predictions, or binding outputs.",
     icon: User,
-    route: "/cmgf/walkthrough/part-a",
+    route: "/research/cmgf/walkthrough/part-a",
     color: "text-blue-500"
   },
   {
@@ -26,7 +26,7 @@ const parts = [
     authority: "Translation & Analysis",
     description: "AI performs translation, constraint detection, and pattern analysis. Advisory signals only—no autonomous action permitted.",
     icon: Cpu,
-    route: "/cmgf/walkthrough/part-b",
+    route: "/research/cmgf/walkthrough/part-b",
     color: "text-purple-500"
   },
   {
@@ -37,7 +37,7 @@ const parts = [
     authority: "Human-only",
     description: "AI outputs are reviewed, contextualized, and decided upon by humans. All decisions require justification and trigger audit trails.",
     icon: Users,
-    route: "/cmgf/walkthrough/part-c",
+    route: "/research/cmgf/walkthrough/part-c",
     color: "text-green-500"
   }
 ];
@@ -64,11 +64,11 @@ export default function Walkthrough() {
       <CMGFNav />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
             CMGF
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -177,22 +177,22 @@ export default function Walkthrough() {
         <div className="pt-6 border-t border-border">
           <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/cmgf">
+            <Link href="/research/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Link href="/cmgf/walkthrough/part-a">
+            <Link href="/research/cmgf/walkthrough/part-a">
               <Button variant="outline" size="sm">Part A: Service Member</Button>
             </Link>
-            <Link href="/cmgf/walkthrough/part-b">
+            <Link href="/research/cmgf/walkthrough/part-b">
               <Button variant="outline" size="sm">Part B: AI Mediation</Button>
             </Link>
-            <Link href="/cmgf/walkthrough/part-c">
+            <Link href="/research/cmgf/walkthrough/part-c">
               <Button variant="outline" size="sm">Part C: Advisory Layer</Button>
             </Link>
-            <Link href="/cmgf/downloads">
+            <Link href="/research/cmgf/downloads">
               <Button variant="outline" size="sm">Downloads</Button>
             </Link>
-            <Link href="/cmgf/library">
+            <Link href="/research/cmgf/library">
               <Button variant="outline" size="sm">Research Library</Button>
             </Link>
           </div>

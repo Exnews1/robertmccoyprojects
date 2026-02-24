@@ -196,7 +196,7 @@ export default function EducationAI() {
     <div className="education-ai-page">
       {/* Back Navigation */}
       <div className="px-4 md:px-6 pt-6 max-w-6xl mx-auto">
-        <Link href="/">
+        <Link href="/research">
           <Button variant="ghost" size="sm" className="gap-2" data-testid="link-back-portfolio">
             <ArrowLeft className="w-4 h-4" />
             Back to Portfolio
@@ -835,10 +835,10 @@ export default function EducationAI() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild>
-              <a href="/cmgf" data-testid="link-explore-cmgf">Explore CMGF Framework</a>
+              <a href="/research/cmgf" data-testid="link-explore-cmgf">Explore CMGF Framework</a>
             </Button>
             <Button variant="outline" asChild>
-              <a href="/contact" data-testid="link-contact">Get in Touch</a>
+              <a href="/research/contact" data-testid="link-contact">Get in Touch</a>
             </Button>
           </div>
         </div>

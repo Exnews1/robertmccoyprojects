@@ -175,7 +175,7 @@ export default function SMHub() {
               Submit career transition requests and track their progress through the ISR pipeline.
             </p>
           </div>
-          <Link href="/demo">
+          <Link href="/research/demo">
             <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-sm">
               <Rocket className="w-3.5 h-3.5" />
               Demo Mode

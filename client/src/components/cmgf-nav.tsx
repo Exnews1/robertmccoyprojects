@@ -4,17 +4,17 @@ import { Home, Download, Library, Search, Layers, ExternalLink, BarChart3, UserC
 import { Badge } from "@/components/ui/badge";
 
 const navItems = [
-  { href: "/cmgf", label: "CMGF", icon: Home, external: false, group: "research" },
-  { href: "/cmgf/dashboard", label: "Dashboard", icon: BarChart3, external: false, group: "research" },
-  { href: "/cmgf/five-pillars", label: "Five Pillars", icon: Layers, external: false, group: "research" },
-  { href: "/explorer", label: "Explorer", icon: Search, external: false, group: "research" },
-  { href: "/cmgf/series", label: "Series 2026", icon: Layers, external: false, group: "research" },
-  { href: "/cmgf/downloads", label: "Downloads", icon: Download, external: false, group: "research" },
-  { href: "/cmgf/library", label: "Library", icon: Library, external: false, group: "research" },
-  { href: "/demo", label: "Demo", icon: Rocket, external: false, group: "pipeline" },
-  { href: "/sm-hub", label: "SM Hub", icon: UserCircle, external: false, group: "pipeline" },
-  { href: "/isr", label: "ISR Queue", icon: ClipboardList, external: false, group: "pipeline" },
-  { href: "/audit", label: "Audit Trail", icon: Shield, external: false, group: "pipeline" },
+  { href: "/research/cmgf", label: "CMGF", icon: Home, external: false, group: "research" },
+  { href: "/research/cmgf/dashboard", label: "Dashboard", icon: BarChart3, external: false, group: "research" },
+  { href: "/research/cmgf/five-pillars", label: "Five Pillars", icon: Layers, external: false, group: "research" },
+  { href: "/research/explorer", label: "Explorer", icon: Search, external: false, group: "research" },
+  { href: "/research/cmgf/series", label: "Series 2026", icon: Layers, external: false, group: "research" },
+  { href: "/research/cmgf/downloads", label: "Downloads", icon: Download, external: false, group: "research" },
+  { href: "/research/cmgf/library", label: "Library", icon: Library, external: false, group: "research" },
+  { href: "/research/demo", label: "Demo", icon: Rocket, external: false, group: "pipeline" },
+  { href: "/research/sm-hub", label: "SM Hub", icon: UserCircle, external: false, group: "pipeline" },
+  { href: "/research/isr", label: "ISR Queue", icon: ClipboardList, external: false, group: "pipeline" },
+  { href: "/research/audit", label: "Audit Trail", icon: Shield, external: false, group: "pipeline" },
 ];
 
 export function CMGFNav() {

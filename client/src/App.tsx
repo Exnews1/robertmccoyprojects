@@ -4,6 +4,7 @@ import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import ConsultingHome from "@/pages/consulting-home";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import CMGFRoot from "@/pages/cmgf/index";
@@ -39,6 +40,7 @@ import SMHub from "@/pages/sm-hub";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
+import { TopNav } from "@/components/top-nav";
 import { useEffect, useRef, useCallback } from "react";
 import { Users, Eye, Rocket, FileDown, BookOpen } from "lucide-react";
 
@@ -116,39 +118,40 @@ function Footer() {
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Landing} />
-      <Route path="/research" component={Home} />
-      <Route path="/cmgf" component={CMGFRoot} />
-      <Route path="/cmgf/series" component={CMGFSeries} />
-      <Route path="/cmgf/downloads" component={Downloads} />
-      <Route path="/cmgf/walkthrough" component={Walkthrough} />
-      <Route path="/cmgf/walkthrough/part-a" component={PartA} />
-      <Route path="/cmgf/walkthrough/part-b" component={PartB} />
-      <Route path="/cmgf/walkthrough/part-c" component={PartC} />
-      <Route path="/cmgf/library" component={Library} />
-      <Route path="/cmgf/engagement" component={Engagement} />
-      <Route path="/cmgf/five-pillars" component={FivePillars} />
-      <Route path="/cmgf/dashboard" component={Dashboard} />
-      <Route path="/cmgf/analytics" component={ConferenceAnalytics} />
-      <Route path="/cmgf/presidential-report" component={PresidentialReport} />
-      <Route path="/cmgf/explorer" component={Explorer} />
-      <Route path="/explorer" component={Explorer} />
-      <Route path="/education-ai" component={EducationAI} />
-      <Route path="/universities-ai" component={UniversitiesAI} />
-      <Route path="/incarceration-research" component={IncarcerationResearch} />
-      <Route path="/incarceration-research/hard-truths" component={IncarcerationHardTruths} />
-      <Route path="/human-capital" component={HumanCapitalFramework} />
-      <Route path="/ai-types" component={AITypes} />
-      <Route path="/workforce-ai" component={WorkforceAI} />
-      <Route path="/research-portfolio" component={OngoingResearch} />
-      <Route path="/references" component={References} />
-      <Route path="/bio" component={Bio} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/demo" component={DemoMode} />
-      <Route path="/sm-hub" component={SMHub} />
-      <Route path="/isr" component={IsrQueue} />
-      <Route path="/audit" component={AuditTrail} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/" component={ConsultingHome} />
+      <Route path="/research" component={Landing} />
+      <Route path="/research/portfolio" component={Home} />
+      <Route path="/research/cmgf" component={CMGFRoot} />
+      <Route path="/research/cmgf/series" component={CMGFSeries} />
+      <Route path="/research/cmgf/downloads" component={Downloads} />
+      <Route path="/research/cmgf/walkthrough" component={Walkthrough} />
+      <Route path="/research/cmgf/walkthrough/part-a" component={PartA} />
+      <Route path="/research/cmgf/walkthrough/part-b" component={PartB} />
+      <Route path="/research/cmgf/walkthrough/part-c" component={PartC} />
+      <Route path="/research/cmgf/library" component={Library} />
+      <Route path="/research/cmgf/engagement" component={Engagement} />
+      <Route path="/research/cmgf/five-pillars" component={FivePillars} />
+      <Route path="/research/cmgf/dashboard" component={Dashboard} />
+      <Route path="/research/cmgf/analytics" component={ConferenceAnalytics} />
+      <Route path="/research/cmgf/presidential-report" component={PresidentialReport} />
+      <Route path="/research/cmgf/explorer" component={Explorer} />
+      <Route path="/research/explorer" component={Explorer} />
+      <Route path="/research/education-ai" component={EducationAI} />
+      <Route path="/research/universities-ai" component={UniversitiesAI} />
+      <Route path="/research/incarceration-research" component={IncarcerationResearch} />
+      <Route path="/research/incarceration-research/hard-truths" component={IncarcerationHardTruths} />
+      <Route path="/research/human-capital" component={HumanCapitalFramework} />
+      <Route path="/research/ai-types" component={AITypes} />
+      <Route path="/research/workforce-ai" component={WorkforceAI} />
+      <Route path="/research/research-portfolio" component={OngoingResearch} />
+      <Route path="/research/references" component={References} />
+      <Route path="/research/bio" component={Bio} />
+      <Route path="/research/profile" component={Profile} />
+      <Route path="/research/demo" component={DemoMode} />
+      <Route path="/research/sm-hub" component={SMHub} />
+      <Route path="/research/isr" component={IsrQueue} />
+      <Route path="/research/audit" component={AuditTrail} />
+      <Route path="/research/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -180,6 +183,7 @@ export default function App() {
                   <ThemeToggle />
                 </div>
               </div>
+              <TopNav />
             </header>
             <main>
               <Router />

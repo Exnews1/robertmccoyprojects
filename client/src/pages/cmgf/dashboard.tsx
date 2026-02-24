@@ -238,9 +238,9 @@ export default function Dashboard() {
       <CMGFNav />
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-6 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</Link>
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">CMGF</Link>
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">CMGF</Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
           <span className="text-foreground">Executive Dashboard</span>
         </nav>
@@ -254,13 +254,13 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Link href="/demo">
+              <Link href="/research/demo">
                 <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-dashboard">
                   <Rocket className="w-3 h-3" />
                   Demo Mode
                 </Button>
               </Link>
-              <Link href="/cmgf/analytics">
+              <Link href="/research/cmgf/analytics">
                 <Button variant="outline" size="sm" className="text-xs" data-testid="link-conference-analytics">
                   <Activity className="w-3 h-3 mr-1.5" />
                   Conference Analytics

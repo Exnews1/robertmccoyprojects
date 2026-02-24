@@ -80,11 +80,11 @@ export default function CMGFSeries() {
       <CMGFNav />
       <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
             CMGF
           </Link>
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -277,7 +277,7 @@ export default function CMGFSeries() {
               <p className="text-xs text-muted-foreground/60">
                 Author: Robert E. McCoy | February 2026
               </p>
-              <Link href="/cmgf">
+              <Link href="/research/cmgf">
                 <Button variant="ghost" size="sm" data-testid="button-back-cmgf">
                   <ArrowRight className="h-4 w-4 mr-2" />
                   CMGF Research Hub

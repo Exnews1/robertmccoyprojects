@@ -28,26 +28,26 @@ const researchAreas = [
   {
     title: "Career Mobility Governance Framework",
     description: "Bounded AI for military-to-civilian transition support. CCME 2026 Learner Track research.",
-    route: "/cmgf",
+    route: "/research/cmgf",
     icon: Shield,
     featured: true
   },
   {
     title: "Five Pillars Reference Database",
     description: "797 peer-reviewed sources organized by CMGF pillars for military learner career mobility.",
-    route: "/cmgf/five-pillars",
+    route: "/research/cmgf/five-pillars",
     icon: BookOpen
   },
   {
     title: "Publications & References",
     description: "Research papers, technical reports, and policy analyses.",
-    route: "/references",
+    route: "/research/references",
     icon: FileText
   },
   {
     title: "Research & Innovation Portfolio",
     description: "Additional research projects including AI Education, Incarceration Research, and Human Capital frameworks.",
-    route: "/research-portfolio",
+    route: "/research/research-portfolio",
     icon: Layers
   }
 ];

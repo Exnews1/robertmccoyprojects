@@ -128,7 +128,7 @@ function QueueList({
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/demo">
+          <Link href="/research/demo">
             <Button variant="outline" size="sm" className="text-xs gap-1.5" data-testid="link-demo-mode-isr">
               <Rocket className="w-3.5 h-3.5" />
               Demo Mode

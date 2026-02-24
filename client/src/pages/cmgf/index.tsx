@@ -58,7 +58,7 @@ const sections = [
     title: "Reference Explorer",
     description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
     icon: Search,
-    route: "/cmgf/explorer",
+    route: "/research/cmgf/explorer",
     featured: true
   },
   {
@@ -66,14 +66,14 @@ const sections = [
     title: "Interactive Engagement",
     description: "Explore the CMGF research paper through document-grounded inquiry and submit considered expert commentary.",
     icon: MessageSquare,
-    route: "/cmgf/engagement"
+    route: "/research/cmgf/engagement"
   },
   {
     id: "downloads",
     title: "Canonical Downloads",
     description: "Research paper, conference presentation, and supplemental framework documentation.",
     icon: Download,
-    route: "/cmgf/downloads"
+    route: "/research/cmgf/downloads"
   },
   {
     id: "cse",
@@ -97,14 +97,14 @@ const sections = [
     title: "Research Library",
     description: "Supporting materials, policy references, and academic resources.",
     icon: Library,
-    route: "/cmgf/library"
+    route: "/research/cmgf/library"
   },
   {
     id: "dashboard",
     title: "Executive Dashboard",
     description: "System overview with compliance metrics, research foundation stats, and architecture summary.",
     icon: BarChart3,
-    route: "/cmgf/dashboard"
+    route: "/research/cmgf/dashboard"
   }
 ];
 
@@ -150,7 +150,7 @@ export default function CMGFRoot() {
       <CMGFNav />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-8 text-sm">
-          <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
@@ -233,7 +233,7 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
-          <Link href="/cmgf/dashboard">
+          <Link href="/research/cmgf/dashboard">
             <Card className="border-border/50 hover-elevate cursor-pointer" data-testid="card-executive-dashboard">
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row md:items-center gap-6">
@@ -302,7 +302,7 @@ export default function CMGFRoot() {
                     The authoritative three-part architectural framework: Executive White Paper, Policy & Governance Architecture Brief, and Data Flow & Signal Provenance Brief. Derived from the CMGF-00 Master Framework scholarly foundation.
                   </p>
                   <Button size="default" asChild data-testid="button-enter-series">
-                    <Link href="/cmgf/series">
+                    <Link href="/research/cmgf/series">
                       <ArrowRight className="h-4 w-4 mr-2" />
                       Enter Series
                     </Link>

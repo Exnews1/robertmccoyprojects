@@ -93,7 +93,7 @@ export default function Analytics() {
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-8 space-y-4 md:space-y-6">
       <div className="flex items-center gap-3 mb-2">
-        <a href="/cmgf/dashboard" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-back-dashboard">
+        <a href="/research/cmgf/dashboard" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="link-back-dashboard">
           <ArrowLeft className="w-4 h-4" />
         </a>
         <div>

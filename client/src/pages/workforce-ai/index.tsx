@@ -256,7 +256,7 @@ export default function WorkforceAI() {
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-b from-primary/10 to-background py-16">
         <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <Link href="/" data-testid="link-back-portfolio">
+          <Link href="/research" data-testid="link-back-portfolio">
             <Button variant="ghost" size="sm" className="mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Portfolio

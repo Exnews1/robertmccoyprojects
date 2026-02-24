@@ -249,7 +249,7 @@ export default function HumanCapitalFramework() {
         <nav className="mb-8 text-sm" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li>
-              <Link href="/" className="text-muted-foreground hover:text-foreground flex items-center gap-1" data-testid="link-breadcrumb-home">
+              <Link href="/research" className="text-muted-foreground hover:text-foreground flex items-center gap-1" data-testid="link-breadcrumb-home">
                 <Home className="h-4 w-4" />
                 Portfolio
               </Link>
@@ -448,7 +448,7 @@ export default function HumanCapitalFramework() {
                     <h4 className="font-medium text-sm mb-1">Related Research</h4>
                     <p className="text-xs text-muted-foreground mb-3">U.S. Incarceration Research Hub</p>
                     <Link 
-                      href="/incarceration-research"
+                      href="/research/incarceration-research"
                       className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
                       data-testid="link-incarceration-hub"
                     >

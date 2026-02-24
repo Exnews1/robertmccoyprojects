@@ -71,7 +71,7 @@ export default function Profile() {
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
-          <Link href="/">
+          <Link href="/research">
             <Button variant="ghost" size="sm" data-testid="link-back-portfolio">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Portfolio
