@@ -43,7 +43,7 @@ export default function ConsultingServices() {
             Practical Solutions for Complex AI Challenges
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I offer four core services designed to provide immediate value and long-term stability to public sector and military-affiliated organizations.
+            I offer four core services designed to provide immediate value and long-term stability to public sector and aerospace organizations.
           </p>
         </div>
       </section>

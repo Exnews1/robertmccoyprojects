@@ -88,7 +88,7 @@ export default function ConsultingContact() {
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground" data-testid="heading-contact">
-              Let's Discuss Your AI Governance Needs
+              Let's Discuss Your Systems Governance Needs
             </h1>
             <p className="text-muted-foreground">
               I primarily work with leaders in government, workforce development, and military-affiliated organizations. If you are facing a challenge related to AI governance, risk, or literacy, I invite you to reach out.

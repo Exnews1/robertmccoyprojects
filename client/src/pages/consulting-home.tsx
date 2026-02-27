@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, GraduationCap, Briefcase, Medal, ArrowRight, BookOpen } from "lucide-react";
+import { Shield, ArrowRight, Rocket, Settings, Brain, GraduationCap } from "lucide-react";
 
 export default function ConsultingHome() {
   return (
@@ -9,10 +9,10 @@ export default function ConsultingHome() {
       <section className="py-16 md:py-24 px-6" data-testid="section-hero">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground" data-testid="heading-consulting">
-            Credible AI Governance for the Public Sector
+            AI Governance for High-Stakes Environments
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="subheading-consulting">
-            Helping government, military, and workforce organizations adopt AI safely, ethically, and in compliance with emerging regulations.
+            Helping public sector and aerospace organizations build accountable, human-in-the-loop systems for a new era of technology.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link href="/services">
@@ -33,21 +33,21 @@ export default function ConsultingHome() {
       <section className="py-8 px-6 border-y border-border/40 bg-card/30" data-testid="section-credentials">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2" data-testid="credential-military">
-              <Medal className="w-4 h-4 text-primary/70" />
-              <span>21+ Years Military Service (CWO)</span>
+            <div className="flex items-center gap-2" data-testid="credential-aerospace">
+              <Rocket className="w-4 h-4 text-primary/70" />
+              <span>Aerospace & Space Systems Engineering</span>
+            </div>
+            <div className="flex items-center gap-2" data-testid="credential-program-mgmt">
+              <Settings className="w-4 h-4 text-primary/70" />
+              <span>Program Management in High-Consequence Environments</span>
+            </div>
+            <div className="flex items-center gap-2" data-testid="credential-governance">
+              <Brain className="w-4 h-4 text-primary/70" />
+              <span>AI Governance Framework Development</span>
             </div>
             <div className="flex items-center gap-2" data-testid="credential-ms">
               <GraduationCap className="w-4 h-4 text-primary/70" />
               <span>M.S. AI & Data Analytics</span>
-            </div>
-            <div className="flex items-center gap-2" data-testid="credential-mba">
-              <Briefcase className="w-4 h-4 text-primary/70" />
-              <span>MBA</span>
-            </div>
-            <div className="flex items-center gap-2" data-testid="credential-professor">
-              <BookOpen className="w-4 h-4 text-primary/70" />
-              <span>Adjunct Professor, Indiana Wesleyan University</span>
             </div>
           </div>
         </div>
@@ -56,10 +56,10 @@ export default function ConsultingHome() {
       <section className="py-16 px-6" data-testid="section-problem">
         <div className="max-w-3xl mx-auto space-y-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
-            AI is Here. Is Your Governance Ready?
+            The Hardest Problems Are Never Technical. They Are Governance Problems.
           </h2>
           <p className="text-muted-foreground text-center leading-relaxed">
-            Artificial Intelligence is no longer a future concept; it's embedded in the tools your teams use every day. Without clear governance, you are exposed to significant operational, legal, and reputational risks. The challenge is not how to stop AI, but how to lead it. My work is focused on building the human-in-the-loop frameworks that allow leaders to harness the power of AI with confidence and accountability.
+            For three decades, I have worked as the outsourced systems engineer and program manager that major organizations call when the problem is too complex, too specialized, or too high-stakes to solve internally. What I learned is that breakthrough technology is not the hard part. The hard part is integrating that technology into a human system safely, reliably, and accountably. That is a governance problem. Today, Artificial Intelligence presents the same challenge, but at a global scale.
           </p>
         </div>
       </section>
@@ -70,10 +70,10 @@ export default function ConsultingHome() {
             <Shield className="w-10 h-10 text-primary/70" />
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            A Proven Methodology: The CMGF
+            A Career in Systems, A Framework for Governance
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            As the intellectual capital behind the Credentialed Military-Civilian Governance Framework (CMGF), I provide a structured, repeatable methodology for building responsible AI policy. The CMGF is not an academic theory; it is an operational toolkit designed for the realities of public sector and military-affiliated organizations.
+            My work is not about the hype of AI. It is about the reality of its implementation. The Credentialed Military-Civilian Governance Framework (CMGF) is the direct result of a career spent building and managing high-stakes systems. It is an operational toolkit designed to give leaders the clarity and control they need to adopt AI with confidence.
           </p>
           <Link href="/research/cmgf">
             <Button variant="outline" className="gap-2 mt-4" data-testid="button-learn-framework">

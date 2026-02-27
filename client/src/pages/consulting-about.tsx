@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Medal, GraduationCap, Briefcase, BookOpen, Shield } from "lucide-react";
+import { ArrowRight, Medal, GraduationCap, Briefcase, BookOpen, Shield, Rocket, Settings, Users } from "lucide-react";
 
 export default function ConsultingAbout() {
   return (
@@ -10,33 +10,29 @@ export default function ConsultingAbout() {
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground" data-testid="heading-about">
-              From the Battlefield to the Boardroom: A Career in High-Stakes Governance
+              A Career in High-Stakes Systems
             </h1>
           </div>
 
           <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground leading-relaxed" data-testid="text-about-body">
             <p>
-              For more than two decades, I served in the U.S. military, from active-duty Navy sonar to leading flight operations as an Army Chief Warrant Officer (CWO). In that world, clear frameworks and trusted procedures are not academic exercises — they are how you ensure mission success and bring your people home safely.
+              I have spent my career solving hard problems in environments where failure is not an option. As an outsourced systems engineer and program manager, my job has been to provide the specialized expertise that major aerospace and defense organizations need to manage their most critical projects.
             </p>
 
             <p>
-              When I transitioned to the private sector, I spent over a decade as a Director of Engineering Operations, managing one of the world's largest gas turbine testing programs. I saw firsthand how complex technologies are integrated into high-stakes environments. The challenge was always the same: how do you harness the power of a new technology without introducing unacceptable risk?
+              My work has included program management for interplanetary space systems, systems engineering for advanced military aircraft, and full-lifecycle engineering for one of the world's most widely deployed gas turbine engines. I have run multiple engineering offices providing outsourced services to major aerospace OEMs, established a Greenfield engineering operation internationally, and have spent decades writing, negotiating, and delivering against complex Statements of Work. I understand outsourcing from both sides of the table.
             </p>
 
             <p>
-              Today, we face that same challenge with Artificial Intelligence. AI is not just another software upgrade; it is a fundamental shift in how we make decisions. And for the public sector, the military, and the organizations that serve them, the stakes could not be higher.
+              This experience has taught me a fundamental truth: the success of any complex system hinges on its governance. The technology is only as good as the human framework that directs it.
             </p>
 
             <p>
-              That is why I founded this practice. My work is not about the hype of AI. It is about the reality of its implementation. It is about building the human-in-the-loop systems that ensure these powerful tools are used safely, ethically, and accountably.
-            </p>
-
-            <p>
-              My experience is not in writing code. It is in writing policy. It is not in building models. It is in building trust. As an Adjunct Professor at Indiana Wesleyan University, I teach the practical skills of AI literacy. As a consultant, I help leaders build the governance structures they need to navigate this new landscape with confidence.
+              Today, I apply that same systems-thinking approach to the challenge of Artificial Intelligence. As an Adjunct Professor at Indiana Wesleyan University, a board member for the Mid-South ACME, and an active participant in the CCME, my focus is on building the practical, auditable governance frameworks that organizations need to thrive in the age of AI. My career as a systems engineer has been the proving ground, and my military service as a CWO provided the foundational discipline for this work.
             </p>
 
             <p className="text-foreground font-medium">
-              If you are a leader in a public-facing organization trying to answer the hard questions about AI, we should talk. I have been in your shoes.
+              If you are a leader facing a complex systems challenge, we speak the same language.
             </p>
           </div>
         </div>
@@ -44,14 +40,32 @@ export default function ConsultingAbout() {
 
       <section className="py-12 px-6 border-t border-border/40 bg-card/30" data-testid="section-credentials-detail">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-xl font-bold text-foreground">Credentials</h2>
+          <h2 className="text-xl font-bold text-foreground">Experience & Credentials</h2>
           <div className="grid sm:grid-cols-2 gap-4">
+            <Card className="border-border/50 bg-card/50">
+              <CardContent className="pt-6 flex items-start gap-4">
+                <Rocket className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-foreground">Aerospace & Space Systems</p>
+                  <p className="text-sm text-muted-foreground">Program management for interplanetary systems, military aircraft, and gas turbine engines</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-border/50 bg-card/50">
+              <CardContent className="pt-6 flex items-start gap-4">
+                <Settings className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-foreground">Engineering Operations</p>
+                  <p className="text-sm text-muted-foreground">Multiple engineering offices, outsourced services to major OEMs, international Greenfield operations</p>
+                </div>
+              </CardContent>
+            </Card>
             <Card className="border-border/50 bg-card/50">
               <CardContent className="pt-6 flex items-start gap-4">
                 <Medal className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">Military Service</p>
-                  <p className="text-sm text-muted-foreground">21+ years — U.S. Navy (Active), U.S. Army (CWO), flight operations leadership</p>
+                  <p className="font-medium text-foreground">Military Service (CWO)</p>
+                  <p className="text-sm text-muted-foreground">U.S. Navy and U.S. Army — foundational discipline in high-stakes operational environments</p>
                 </div>
               </CardContent>
             </Card>
@@ -66,19 +80,19 @@ export default function ConsultingAbout() {
             </Card>
             <Card className="border-border/50 bg-card/50">
               <CardContent className="pt-6 flex items-start gap-4">
-                <Briefcase className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
+                <BookOpen className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">MBA</p>
-                  <p className="text-sm text-muted-foreground">Business administration with focus on operations management and organizational leadership</p>
+                  <p className="font-medium text-foreground">Adjunct Professor</p>
+                  <p className="text-sm text-muted-foreground">Indiana Wesleyan University — AI literacy and applied data analytics</p>
                 </div>
               </CardContent>
             </Card>
             <Card className="border-border/50 bg-card/50">
               <CardContent className="pt-6 flex items-start gap-4">
-                <BookOpen className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
+                <Users className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">Adjunct Professor</p>
-                  <p className="text-sm text-muted-foreground">Indiana Wesleyan University — AI literacy and applied data analytics</p>
+                  <p className="font-medium text-foreground">Professional Affiliations</p>
+                  <p className="text-sm text-muted-foreground">Board Member, Mid-South ACME; Active Participant, CCME</p>
                 </div>
               </CardContent>
             </Card>
@@ -91,7 +105,7 @@ export default function ConsultingAbout() {
           <div className="flex justify-center">
             <Shield className="w-8 h-8 text-primary/70" />
           </div>
-          <h2 className="text-xl font-bold text-foreground">The CMGF: My Life's Work</h2>
+          <h2 className="text-xl font-bold text-foreground">The CMGF: Systems Thinking Applied to AI Governance</h2>
           <p className="text-muted-foreground leading-relaxed">
             The Credentialed Military-Civilian Governance Framework (CMGF) is the product of decades of operational experience distilled into a structured, repeatable methodology for responsible AI governance. It is backed by 797 peer-reviewed sources and has been presented at national conferences.
           </p>
