@@ -45,6 +45,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
 import { TopNav } from "@/components/top-nav";
 import { useEffect, useRef, useCallback } from "react";
+import { useLocation } from "wouter";
 import { Users, Eye, Rocket, FileDown, BookOpen } from "lucide-react";
 
 export function useTrackEvent(key: string) {
@@ -118,6 +119,41 @@ function Footer() {
   );
 }
 
+function SiteHeader() {
+  const [location] = useLocation();
+  const isResearch = location.startsWith("/research");
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+        {isResearch ? (
+          <div className="flex items-center gap-4">
+            <a href="/" className="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors" data-testid="link-home">
+              Robert McCoy
+            </a>
+            <span className="text-muted-foreground/50">|</span>
+            <span className="text-sm text-muted-foreground">Research Portfolio</span>
+          </div>
+        ) : (
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" data-testid="link-home">
+            <span className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: '#1a2e4a', fontFamily: 'Georgia, "Times New Roman", serif' }}>RM</span>
+            <span className="w-px h-8 bg-border/60 hidden sm:block" />
+            <div className="hidden sm:flex flex-col">
+              <span className="text-sm font-semibold tracking-wide" style={{ color: '#1a2e4a' }}>Robert McCoy</span>
+              <span className="text-[10px] text-muted-foreground tracking-wide">AI Governance and Systems Consulting</span>
+            </div>
+          </a>
+        )}
+        <div className="flex items-center gap-1">
+          <AccessibilityControls />
+          <ThemeToggle />
+        </div>
+      </div>
+      <TopNav />
+    </header>
+  );
+}
+
 function Router() {
   return (
     <Switch>
@@ -169,23 +205,7 @@ export default function App() {
       <TooltipProvider>
         <PersonaProvider>
           <div className="min-h-screen bg-background">
-            <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
-              <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-                <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" data-testid="link-home">
-                  <span className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: '#1a2e4a', fontFamily: 'Georgia, "Times New Roman", serif' }}>RM</span>
-                  <span className="w-px h-8 bg-border/60 hidden sm:block" />
-                  <div className="hidden sm:flex flex-col">
-                    <span className="text-sm font-semibold tracking-wide" style={{ color: '#1a2e4a' }}>Robert McCoy</span>
-                    <span className="text-[10px] text-muted-foreground tracking-wide">AI Governance and Systems Consulting</span>
-                  </div>
-                </a>
-                <div className="flex items-center gap-1">
-                  <AccessibilityControls />
-                  <ThemeToggle />
-                </div>
-              </div>
-              <TopNav />
-            </header>
+            <SiteHeader />
             <main>
               <Router />
             </main>
