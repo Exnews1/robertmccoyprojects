@@ -11,13 +11,20 @@ Preferred communication style: Simple, everyday language.
 ## Site Structure
 
 The site is organized into two top-level sections:
-- **Consulting** (`/`): Placeholder page for consulting services ("Governed Systems Architecture")
+- **Consulting** (`/`, `/about`, `/services`, `/contact`): Full consulting section with hero landing, about narrative, four core services, and contact form. Contact email: robert.mccoy@thegovernanceframework.com
 - **Research** (`/research/*`): All research content, CMGF framework, demo mode, ISR pipeline, etc.
 
 Navigation:
-- **TopNav** (`client/src/components/top-nav.tsx`): Site-wide toggle between Consulting and Research sections
-- **CMGFNav** (`client/src/components/cmgf-nav.tsx`): Sub-navigation within research pages
-- All existing routes are prefixed with `/research` (e.g., `/research/cmgf`, `/research/demo`, `/research/sm-hub`)
+- **TopNav** (`client/src/components/top-nav.tsx`): Site-wide navigation with Home, About, Services, Research, Contact links
+- **CMGFNav** (`client/src/components/cmgf-nav.tsx`): Sub-navigation within research pages (Research, Pipeline, and Walkthrough groups)
+- Consulting routes: `/`, `/about`, `/services`, `/contact`
+- Research routes are prefixed with `/research` (e.g., `/research/cmgf`, `/research/demo`, `/research/sm-hub`)
+
+### Consulting Pages
+- `client/src/pages/consulting-home.tsx` — Hero, credentials bar, problem statement, CMGF methodology, services preview
+- `client/src/pages/consulting-about.tsx` — Full "Why Me" narrative, credentials detail, framework overview
+- `client/src/pages/consulting-services.tsx` — Four core services (Risk Assessment, Policy Drafting, AI Literacy Training, Third-Party Audit)
+- `client/src/pages/consulting-contact.tsx` — Contact form (routes to robert.mccoy@thegovernanceframework.com)
 
 ## System Architecture
 

@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import ConsultingHome from "@/pages/consulting-home";
+import ConsultingAbout from "@/pages/consulting-about";
+import ConsultingServices from "@/pages/consulting-services";
+import ConsultingContact from "@/pages/consulting-contact";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import CMGFRoot from "@/pages/cmgf/index";
@@ -82,11 +85,11 @@ function Footer() {
     <footer className="border-t border-border/50 bg-card/30 py-6 mt-16">
       <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
         <a 
-          href="mailto:data@robertmccoyprojects.com" 
+          href="mailto:robert.mccoy@thegovernanceframework.com" 
           className="hover:text-muted-foreground transition-colors"
           data-testid="link-footer-email"
         >
-          data@robertmccoyprojects.com
+          robert.mccoy@thegovernanceframework.com
         </a>
         <div className="flex items-center gap-4 flex-wrap" data-testid="footer-counters">
           <div className="flex items-center gap-1.5" data-testid="counter-root-visits">
@@ -119,6 +122,9 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={ConsultingHome} />
+      <Route path="/about" component={ConsultingAbout} />
+      <Route path="/services" component={ConsultingServices} />
+      <Route path="/contact" component={ConsultingContact} />
       <Route path="/research" component={Landing} />
       <Route path="/research/portfolio" component={Home} />
       <Route path="/research/cmgf" component={CMGFRoot} />
@@ -171,11 +177,11 @@ export default function App() {
                   </a>
                   <span className="text-muted-foreground/50">|</span>
                   <a 
-                    href="mailto:data@robertmccoyprojects.com" 
+                    href="mailto:robert.mccoy@thegovernanceframework.com" 
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     data-testid="link-header-email"
                   >
-                    data@robertmccoyprojects.com
+                    robert.mccoy@thegovernanceframework.com
                   </a>
                 </div>
                 <div className="flex items-center gap-1">
