@@ -58,15 +58,17 @@ export default function ConsultingHome() {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
             The Hardest Problems Are Never Technical. They Are Governance Problems.
           </h2>
-          <p className="text-muted-foreground text-center leading-relaxed">
-            For four decades, I have worked as the outsourced systems engineer and program manager that major organizations call when the problem is too complex, too specialized, or too high-stakes to solve internally. What I learned is that breakthrough technology is not the hard part. The hard part is integrating that technology into a human system safely, reliably, and accountably.
-          </p>
-          <p className="text-muted-foreground text-center leading-relaxed">
-            I apply that same experience directly to AI governance. With an M.S. in Artificial Intelligence and Data Analytics, an MBA, and more than 40 years of systems engineering and program management experience, I help organizations cut through the hype and build AI frameworks that actually work.
-          </p>
-          <p className="text-muted-foreground text-center leading-relaxed font-medium">
-            I am known for frank talk. The stakes are too high for anything else.
-          </p>
+          <div className="border-l-4 border-primary/40 bg-card/50 rounded-r-lg p-6 md:p-8 space-y-4" data-testid="block-statement">
+            <p className="text-muted-foreground leading-relaxed">
+              For four decades, I have worked as the outsourced systems engineer and program manager that major organizations call when the problem is too complex, too specialized, or too high-stakes to solve internally. What I learned is that breakthrough technology is not the hard part. The hard part is integrating that technology into a human system safely, reliably, and accountably.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              I apply that same experience directly to AI governance. With an M.S. in Artificial Intelligence and Data Analytics, an MBA, and more than 40 years of systems engineering and program management experience, I help organizations cut through the hype and build AI frameworks that actually work.
+            </p>
+            <p className="text-foreground font-medium leading-relaxed">
+              I am known for frank talk. The stakes are too high for anything else.
+            </p>
+          </div>
         </div>
       </section>
 
