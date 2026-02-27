@@ -91,7 +91,7 @@ export default function ConsultingContact() {
               Let's Discuss Your Systems Governance Needs
             </h1>
             <p className="text-muted-foreground">
-              I primarily work with leaders in government, workforce development, and military-affiliated organizations. If you are facing a challenge related to AI governance, risk, or literacy, I invite you to reach out.
+              If your organization is adopting AI and you are not certain your governance, risk, or literacy frameworks are keeping pace, that gap is worth a conversation.
             </p>
           </div>
 
