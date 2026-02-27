@@ -72,26 +72,6 @@ export default function ConsultingHome() {
         </div>
       </section>
 
-      <section className="py-16 px-6 bg-card/30 border-t border-border/40" data-testid="section-cmgf">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <div className="flex justify-center">
-            <Shield className="w-10 h-10 text-primary/70" />
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            A Career in Systems, A Framework for Governance
-          </h2>
-          <p className="text-muted-foreground leading-relaxed">
-            My work is not about the hype of AI. It is about the reality of its implementation. The Credentialed Military-Civilian Governance Framework (CMGF) is the direct result of a career spent building and managing high-stakes systems. It is an operational toolkit designed to give leaders the clarity and control they need to adopt AI with confidence.
-          </p>
-          <Link href="/research/cmgf">
-            <Button variant="outline" className="gap-2 mt-4" data-testid="button-learn-framework">
-              Learn About the Framework
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
       <section className="py-16 px-6" data-testid="section-services-preview">
         <div className="max-w-4xl mx-auto space-y-8">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
