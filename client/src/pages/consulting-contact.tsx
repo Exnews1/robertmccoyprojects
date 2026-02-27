@@ -95,40 +95,25 @@ export default function ConsultingContact() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Card className="border-border/50">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Consulting Email</p>
-                    <a
-                      href="mailto:robert.mccoy@thegovernanceframework.com"
-                      className="text-foreground hover:text-primary transition-colors text-sm"
-                      data-testid="link-consulting-email"
-                    >
-                      robert.mccoy@thegovernanceframework.com
-                    </a>
-                  </div>
+          <Card className="border-border/50">
+            <CardContent className="p-5">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="h-5 w-5 text-primary" />
                 </div>
-              </CardContent>
-            </Card>
-            <Card className="border-border/50">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Building2 className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Institutional Affiliation</p>
-                    <p className="text-foreground text-sm">Indiana Wesleyan University</p>
-                  </div>
+                <div className="min-w-0">
+                  <p className="text-sm text-muted-foreground">Consulting Email</p>
+                  <a
+                    href="mailto:robert.mccoy@thegovernanceframework.com"
+                    className="text-foreground hover:text-primary transition-colors text-sm break-all"
+                    data-testid="link-consulting-email"
+                  >
+                    robert.mccoy@thegovernanceframework.com
+                  </a>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <Card className="border-border/50">
             <CardHeader>
