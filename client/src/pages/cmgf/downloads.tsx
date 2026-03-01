@@ -94,7 +94,7 @@ const supplementalDocuments = [
   },
   {
     id: "eo-14110",
-    title: "Executive Order 14110",
+    title: "Executive Order 14179",
     description: "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.",
     type: "PDF",
     icon: ExternalLink,
@@ -234,7 +234,7 @@ export default function Downloads() {
                   <h3 className="text-lg font-bold text-foreground">CMGF Platform Demo</h3>
                   <Badge variant="default" className="text-xs">LIVE</Badge>
                   <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
-                  <Badge variant="outline" className="text-xs">EO 14110</Badge>
+                  <Badge variant="outline" className="text-xs">EO 14179</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">
                   Multi-module platform with Service Member Hub, AI Services, and Advisor Toolkit—featuring governance compliance and human-in-the-loop AI.

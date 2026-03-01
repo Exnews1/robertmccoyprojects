@@ -76,7 +76,7 @@ export default function Dashboard() {
                   <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">Table 2: Compliant by Design</h1>
                   <h2 className="text-xl font-medium text-neutral-400 mb-6">Strategic Advantages of Non-Predictive AI in CMGF</h2>
                   <p className="text-lg text-neutral-300 mb-8 max-w-3xl leading-relaxed">
-                    This comprehensive analysis demonstrates how key federal frameworks (EO 14110, NIST AI RMF, and GAO reports) position CMGF's deliberate restraint on predictive and automated AI as a core strength—"compliant by design, non-predictive by default"—in high-impact military advising.
+                    This comprehensive analysis demonstrates how key federal frameworks (EO 14179, NIST AI RMF, and GAO reports) position CMGF's deliberate restraint on predictive and automated AI as a core strength—"compliant by design, non-predictive by default"—in high-impact military advising.
                   </p>
                   <div className="flex flex-wrap items-center gap-4">
                     <button className="px-6 py-3 bg-white text-neutral-900 rounded-lg hover:bg-neutral-100 font-medium transition-all shadow-lg shadow-black/20 flex items-center">

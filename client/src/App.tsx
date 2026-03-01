@@ -83,11 +83,11 @@ function Footer() {
   }, []);
 
   return (
-    <footer className="border-t border-border/50 bg-card/30 py-6 mt-16">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground/60">
+    <footer className="py-6 mt-16" style={{ backgroundColor: '#0F172A', borderTop: '4px solid #B45309' }}>
+      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
         <a 
           href="mailto:robert.mccoy@thegovernanceframework.com" 
-          className="hover:text-muted-foreground transition-colors"
+          className="hover:text-white transition-colors"
           data-testid="link-footer-email"
         >
           robert.mccoy@thegovernanceframework.com
@@ -124,23 +124,23 @@ function SiteHeader() {
   const isResearch = location.startsWith("/research");
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50" style={{ backgroundColor: '#0F172A', borderBottom: '4px solid #B45309' }}>
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         {isResearch ? (
           <div className="flex items-center gap-4">
-            <a href="/" className="text-sm font-bold tracking-wide text-foreground hover:text-primary transition-colors" data-testid="link-home">
+            <a href="/" className="text-sm font-bold tracking-wide text-white hover:text-amber-400 transition-colors" data-testid="link-home">
               Robert McCoy
             </a>
-            <span className="text-muted-foreground/50">|</span>
-            <span className="text-sm text-muted-foreground">Research Portfolio</span>
+            <span className="text-slate-500">|</span>
+            <span className="text-sm text-slate-400">Research Portfolio</span>
           </div>
         ) : (
           <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" data-testid="link-home">
-            <span className="text-2xl md:text-3xl font-bold tracking-tight" style={{ color: '#1a2e4a', fontFamily: 'Georgia, "Times New Roman", serif' }}>RM</span>
-            <span className="w-px h-8 bg-border/60 hidden sm:block" />
+            <span className="text-2xl md:text-3xl font-bold tracking-tight text-white font-serif">RM</span>
+            <span className="w-px h-8 bg-slate-600 hidden sm:block" />
             <div className="hidden sm:flex flex-col">
-              <span className="text-sm font-semibold tracking-wide" style={{ color: '#1a2e4a' }}>Robert McCoy</span>
-              <span className="text-[10px] text-muted-foreground tracking-wide">AI Governance and Systems Consulting</span>
+              <span className="text-sm font-semibold tracking-wide text-white">Robert McCoy</span>
+              <span className="text-[10px] text-slate-400 tracking-wide">AI Governance and Systems Consulting</span>
             </div>
           </a>
         )}

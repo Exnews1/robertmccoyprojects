@@ -118,7 +118,7 @@ export function AppSidebar() {
               <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 text-muted-foreground" />
                 <div className="text-left">
-                  <div className="text-xs font-semibold">EO 14110</div>
+                  <div className="text-xs font-semibold">EO 14179</div>
                   <div className="text-[10px] text-muted-foreground">Executive Order - PDF</div>
                 </div>
               </a>

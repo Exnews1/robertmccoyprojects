@@ -39,7 +39,7 @@ export default function ConsultingServices() {
     <div className="min-h-[70vh]">
       <section className="py-16 px-6" data-testid="section-services-hero">
         <div className="max-w-4xl mx-auto space-y-4 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground" data-testid="heading-services">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-serif" data-testid="heading-services">
             Practical Solutions for Complex AI Challenges
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -51,7 +51,7 @@ export default function ConsultingServices() {
       <section className="pb-16 px-6" data-testid="section-services-list">
         <div className="max-w-4xl mx-auto space-y-8">
           {services.map((service, i) => (
-            <Card key={i} className="border-border/50 bg-card/50 overflow-hidden" data-testid={`card-service-${i}`}>
+            <Card key={i} className="border-border bg-card overflow-hidden" data-testid={`card-service-${i}`}>
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -69,8 +69,8 @@ export default function ConsultingServices() {
                   <p className="text-sm font-medium text-foreground/80 mb-1">The Solution</p>
                   <p className="text-sm text-muted-foreground">{service.solution}</p>
                 </div>
-                <div className="bg-primary/5 border border-primary/10 rounded-lg p-4">
-                  <p className="text-sm font-medium text-primary/90 mb-1">Outcome</p>
+                <div className="border p-4" style={{ backgroundColor: 'rgba(180, 83, 9, 0.05)', borderColor: 'rgba(180, 83, 9, 0.2)' }}>
+                  <p className="text-sm font-medium mb-1" style={{ color: '#B45309' }}>Outcome</p>
                   <p className="text-sm text-foreground/80">{service.outcome}</p>
                 </div>
               </CardContent>
@@ -81,7 +81,7 @@ export default function ConsultingServices() {
 
       <section className="py-12 px-6 border-t border-border/40 bg-card/30" data-testid="section-services-cta">
         <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h2 className="text-2xl font-bold text-foreground">Ready to Get Started?</h2>
+          <h2 className="text-2xl font-bold text-foreground font-serif">Ready to Get Started?</h2>
           <p className="text-muted-foreground">
             Every engagement begins with a 30-minute introductory call to understand your organization's specific challenges and determine the right path forward.
           </p>

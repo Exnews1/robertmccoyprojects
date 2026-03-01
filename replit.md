@@ -33,7 +33,9 @@ Navigation:
 - **Routing**: Wouter
 - **State Management**: TanStack React Query
 - **UI Components**: shadcn/ui (built on Radix UI)
-- **Styling**: Tailwind CSS with custom dark theme
+- **Styling**: Tailwind CSS with formal dark navy/antique gold theme
+- **Typography**: Merriweather (serif headings) + Inter (body) + JetBrains Mono (code)
+- **Design System**: Formal/statutory aesthetic — sharp corners (0.125rem radius), flat cards, dark navy header/footer (#0F172A) with antique gold (#B45309) accents
 - **Charts**: Recharts
 - **Forms**: React Hook Form with Zod validation
 
@@ -54,6 +56,12 @@ Navigation:
 - **Scenario Orchestration Engine (Demo Mode)**: Facilitates one-click scenario generation, analysis, and reporting for military learner profiles. It uses synthetic profiles, applies CMGF rules, and generates various HTML reports, including batch simulations for institutional intelligence.
 - **SM Request → ISR Pipeline**: Implements an end-to-end career transition pipeline demonstrating the CMGF's dual data flow. It covers service member request submission, ISR advisor queue management, engine analysis, advisor actions, and an immutable audit trail.
 - **API Rate Limiting**: All OpenAI-powered endpoints are protected by an in-memory rate limiter to manage costs and prevent abuse, including per-IP limits, global concurrency limits, and daily request caps.
+
+### Compliance Frameworks Referenced
+- **EO 14179** (Executive Order 14179, 2025): Replaced EO 14110 as of March 2026 content update
+- **OMB M-25-21** (2025): Replaced OMB M-24-10 as of March 2026 content update
+- **NIST AI RMF 1.0**: Risk Management Framework
+- **GAO-24**: Oversight requirements
 
 ### Shared Code
 - The `shared/` directory contains `schema.ts` (Drizzle table definitions, inferred types) and `routes.ts` (API route definitions with Zod schemas) for type-safe contracts between frontend and backend.

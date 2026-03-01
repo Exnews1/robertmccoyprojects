@@ -77,7 +77,7 @@ export default function Home() {
               data-testid="hero-link-eo14110"
             >
               <ExternalLink className="w-4 h-4 flex-shrink-0" />
-              EO 14110
+              EO 14179
             </a>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-3 h-3 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 mt-0.5 flex-shrink-0" />
-                    <span>Maintains full compliance with EO 14110, NIST AI RMF 1.0, GAO oversight</span>
+                    <span>Maintains full compliance with EO 14179, NIST AI RMF 1.0, GAO oversight</span>
                   </li>
                 </ul>
               </div>
@@ -334,7 +334,7 @@ export default function Home() {
                 <Badge variant="outline" className="border-amber-500/30 text-amber-600 dark:text-amber-300/80 text-xs">No Optimization Objectives</Badge>
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14110, NIST AI RMF 1.0, and GAO-24 oversight requirements.
+                CMGF is limited to explainable translation, rule-based feasibility signals, and de-identified aggregation. Built against EO 14179, NIST AI RMF 1.0, and GAO-24 oversight requirements.
               </p>
             </div>
           </div>
@@ -539,7 +539,7 @@ export default function Home() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xs text-muted-foreground">Full alignment with EO 14110, NIST AI RMF 1.0, and GAO oversight requirements by design.</p>
+            <p className="text-xs text-muted-foreground">Full alignment with EO 14179, NIST AI RMF 1.0, and GAO oversight requirements by design.</p>
           </CardContent>
         </Card>
       </div>

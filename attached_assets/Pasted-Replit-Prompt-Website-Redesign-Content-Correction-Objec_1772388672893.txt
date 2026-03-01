@@ -1,0 +1,123 @@
+Replit Prompt: Website Redesign & Content Correction
+
+Objective: Overhaul the robertmccoyprojects.com website. This involves two main tasks: a complete visual redesign to align with a new, more authoritative aesthetic, and a critical content update to correct outdated policy references across the site.
+
+
+
+
+Part 1: Visual Redesign & Aesthetic Overhaul
+
+Your Role: Act as a world-class web designer tasked with transforming a standard business website into a distinguished, authoritative platform for a senior-level government and aerospace consultant. The goal is to move away from the generic, light-themed "tech startup" look and adopt the gravitas of a formal, statutory document.
+
+Core Inspiration: The aesthetic of the recently created CCME 2026 slide presentation. The design should feel structured, official, and serious.
+
+Key Design Directives:
+
+1.
+Color Palette: Immediately replace the current light/blue theme with the following high-contrast, formal palette:
+
+•
+Primary Dark (for headers, footers, and accent panels): Dark Navy (#0F172A)
+
+•
+Primary Accent (for borders, links, and highlights): Antique Gold/Brown (#B45309)
+
+•
+Background: Off-White/Light Slate (#F8FAFC)
+
+•
+Body Text: Dark Slate (#334155)
+
+•
+Secondary Text/Borders: Medium Slate (#64748B)
+
+
+
+2.
+Typography: Implement a two-font system to create hierarchy and a sense of officialdom. Both fonts are available on Google Fonts.
+
+•
+Headings (h1, h2, h3): Use Merriweather (serif). This conveys a traditional, bookish authority.
+
+•
+Body Text (paragraphs, lists, links): Use Inter (sans-serif). This ensures maximum readability and a clean, modern feel for content.
+
+
+
+3.
+Layout & Structure:
+
+•
+Headers & Footers: Rebuild the main site header and footer to use the Dark Navy (#0F172A) background. Ensure text is white or a light accent color for contrast. Add a 4px Antique Gold (#B45309) top or bottom border to the header/footer to create a strong visual anchor, mimicking the slide design.
+
+•
+Buttons: Redesign all buttons. Primary call-to-action buttons should use the Dark Navy background with white text. Secondary buttons can be ghost buttons with an Antique Gold border and text.
+
+•
+Content Sections: Move away from generic, borderless cards. Define content sections with clear, sharp borders. Use left-borders (2-4px, Antique Gold) on key content blocks or blockquotes to draw attention and create structure.
+
+•
+Shadows & Rounded Corners: Drastically reduce or eliminate box-shadows and border-radius. The aesthetic is sharp, crisp, and flat, like a printed document. A subtle shadow on a key callout is acceptable, but the default should be no shadow.
+
+
+
+
+
+
+Part 2: Content Correction (Search & Replace)
+
+Your Role: Act as a meticulous editor. Your task is to find and replace all instances of outdated federal policy documents across the entire website. This is a critical accuracy and credibility update.
+
+Instructions: Perform the following search-and-replace operations on all pages, components, and text content of the website.
+
+1.
+Executive Order 14110:
+
+•
+Find All: Executive Order 14110
+
+•
+Replace With: Executive Order 14179
+
+
+
+2.
+EO 14110 (Abbreviation):
+
+•
+Find All: EO 14110
+
+•
+Replace With: EO 14179
+
+
+
+3.
+OMB Memorandum M-24-10:
+
+•
+Find All: OMB M-24-10
+
+•
+Replace With: OMB M-25-21
+
+
+
+4.
+General Year Updates:
+
+•
+Review any text where the above documents are mentioned. If the year 2023 or 2024 is associated with them, update it to 2025.
+
+•
+Example: "Safe, Secure, and Trustworthy AI (2023)" should be reviewed and updated in context to reflect the new 2025 order.
+
+•
+Example: On the /research/cmgf page, the card for "Executive Order 14110" must be completely updated to reflect "Executive Order 14179" and its associated text.
+
+
+
+
+
+Final Review: After applying all changes, manually review the "Research" and "Services" pages to ensure all policy references are now current and consistent with the corrections listed above. new design and content updates.
+

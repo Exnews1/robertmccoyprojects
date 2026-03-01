@@ -9,7 +9,7 @@ export default function ConsultingAbout() {
       <section className="py-16 px-6" data-testid="section-about-hero">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground" data-testid="heading-about">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-serif" data-testid="heading-about">
               A Career in High-Stakes Systems
             </h1>
           </div>
@@ -40,9 +40,9 @@ export default function ConsultingAbout() {
 
       <section className="py-12 px-6 border-t border-border/40 bg-card/30" data-testid="section-credentials-detail">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-xl font-bold text-foreground">Experience & Credentials</h2>
+          <h2 className="text-xl font-bold text-foreground font-serif">Experience & Credentials</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <Rocket className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -51,7 +51,7 @@ export default function ConsultingAbout() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <Settings className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -60,7 +60,7 @@ export default function ConsultingAbout() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <Medal className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -69,7 +69,7 @@ export default function ConsultingAbout() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <GraduationCap className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -78,7 +78,7 @@ export default function ConsultingAbout() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <BookOpen className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -87,7 +87,7 @@ export default function ConsultingAbout() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50 bg-card/50">
+            <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">
                 <Users className="w-5 h-5 text-primary/70 mt-0.5 flex-shrink-0" />
                 <div>
@@ -105,7 +105,7 @@ export default function ConsultingAbout() {
           <div className="flex justify-center">
             <Shield className="w-8 h-8 text-primary/70" />
           </div>
-          <h2 className="text-xl font-bold text-foreground">The CMGF: Systems Thinking Applied to AI Governance</h2>
+          <h2 className="text-xl font-bold text-foreground font-serif">The CMGF: Systems Thinking Applied to AI Governance</h2>
           <p className="text-muted-foreground leading-relaxed">
             The Credentialed Military-Civilian Governance Framework (CMGF) is the product of decades of operational experience distilled into a structured, repeatable methodology for responsible AI governance. It is backed by 797 peer-reviewed sources and has been presented at national conferences.
           </p>

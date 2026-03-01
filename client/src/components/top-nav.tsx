@@ -8,17 +8,15 @@ export function TopNav() {
   const isConsulting = !isResearch;
 
   return (
-    <div className="border-b border-border/30 bg-card/40" data-testid="top-nav">
+    <div style={{ backgroundColor: '#0F172A', borderTop: '1px solid rgba(255,255,255,0.1)' }} data-testid="top-nav">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
           <Link href="/">
             <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                 isConsulting && location === "/"
-                  ? "bg-primary/10 text-primary"
-                  : isConsulting
-                  ? "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
               }`}
               data-testid="topnav-consulting"
             >
@@ -28,12 +26,10 @@ export function TopNav() {
           </Link>
           <Link href="/about">
             <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                 location === "/about"
-                  ? "bg-primary/10 text-primary"
-                  : isConsulting
-                  ? "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
               }`}
               data-testid="topnav-about"
             >
@@ -43,12 +39,10 @@ export function TopNav() {
           </Link>
           <Link href="/services">
             <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                 location === "/services"
-                  ? "bg-primary/10 text-primary"
-                  : isConsulting
-                  ? "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
               }`}
               data-testid="topnav-services"
             >
@@ -58,10 +52,10 @@ export function TopNav() {
           </Link>
           <Link href="/research">
             <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                 isResearch
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
               }`}
               data-testid="topnav-research"
             >
@@ -71,12 +65,10 @@ export function TopNav() {
           </Link>
           <Link href="/contact">
             <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
                 location === "/contact"
-                  ? "bg-primary/10 text-primary"
-                  : isConsulting
-                  ? "text-foreground/70 hover:text-foreground hover:bg-muted/50"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
               }`}
               data-testid="topnav-contact"
             >

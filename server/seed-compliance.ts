@@ -2,10 +2,10 @@ import { db } from "./db";
 import { frameworks, complianceItems, siteStats } from "@shared/schema";
 
 const FRAMEWORKS_DATA = [
-  { name: "EO 14110", year: "2023", description: "Safe, Secure, and Trustworthy AI", icon: "fa-landmark" },
+  { name: "EO 14179", year: "2025", description: "Safe, Secure, and Trustworthy AI", icon: "fa-landmark" },
   { name: "NIST AI RMF 1.0", year: "2023", description: "Trustworthiness Framework", icon: "fa-shield-alt" },
   { name: "DoD Responsible AI Principles", year: "2020", description: "Ethical AI guidelines for defense applications", icon: "fa-flag" },
-  { name: "OMB M-24-10", year: "2024", description: "Advancing AI Governance and Risk Management", icon: "fa-balance-scale" },
+  { name: "OMB M-25-21", year: "2025", description: "Advancing AI Governance and Risk Management", icon: "fa-balance-scale" },
   { name: "FERPA", year: "1974", description: "Family Educational Rights and Privacy Act", icon: "fa-user-shield" },
   { name: "Section 508", year: "1998", description: "Accessibility Standards for Federal Technology", icon: "fa-universal-access" },
   { name: "FedRAMP", year: "2022", description: "Federal Risk and Authorization Management", icon: "fa-cloud-lock" },
@@ -21,7 +21,7 @@ const COMPLIANCE_ITEMS_DATA: Array<{
   tags: string[];
 }> = [
   {
-    frameworkName: "EO 14110",
+    frameworkName: "EO 14179",
     requirement: "Mandates risk assessments for high-impact AI affecting rights/safety; Prohibits opaque or rights-impacting automated decisions without safeguards.",
     designChoice: "Explicit prohibition of: Predictive outcome modeling, Individual risk scoring, Automated approvals, Optimization objectives",
     strategicAdvantage: "Eliminates exposure to prohibited high-risk practices; Ensures full compliance while preserving service-member agency and transition equity.",
@@ -69,7 +69,7 @@ const COMPLIANCE_ITEMS_DATA: Array<{
     tags: ["Governance", "Kill Switch"],
   },
   {
-    frameworkName: "OMB M-24-10",
+    frameworkName: "OMB M-25-21",
     requirement: "Agencies must implement AI governance bodies with clear roles, responsibilities, and accountability structures for AI oversight.",
     designChoice: "CMGF defines three distinct authority layers (Service Member Interface, AI Mediation, Advisory Review) with explicit role boundaries and non-delegation constraints.",
     strategicAdvantage: "Governance architecture maps directly to OMB oversight requirements without requiring additional organizational structures.",
@@ -77,7 +77,7 @@ const COMPLIANCE_ITEMS_DATA: Array<{
     tags: ["Governance", "Authority Structures"],
   },
   {
-    frameworkName: "OMB M-24-10",
+    frameworkName: "OMB M-25-21",
     requirement: "Agencies must conduct and document AI impact assessments before deploying AI that affects rights or safety.",
     designChoice: "Architectural prohibitions (no predictive modeling, no individual scoring) are pre-assessed design constraints. Impact is bounded by design rather than assessed post-deployment.",
     strategicAdvantage: "Proactive architectural constraints eliminate categories of risk that would otherwise require extensive ongoing impact assessment.",
@@ -85,7 +85,7 @@ const COMPLIANCE_ITEMS_DATA: Array<{
     tags: ["Impact Assessment", "Risk Management"],
   },
   {
-    frameworkName: "OMB M-24-10",
+    frameworkName: "OMB M-25-21",
     requirement: "AI systems affecting individual rights must allow for human appeal and override of AI-generated decisions.",
     designChoice: "Part C Advisory Layer requires human review of all AI-mediated outputs. No automated approvals permitted. Service members retain full agency over career decisions.",
     strategicAdvantage: "Complete human override capability is architecturally guaranteed, not policy-dependent.",
@@ -93,9 +93,9 @@ const COMPLIANCE_ITEMS_DATA: Array<{
     tags: ["Human Override", "Appeals"],
   },
   {
-    frameworkName: "OMB M-24-10",
+    frameworkName: "OMB M-25-21",
     requirement: "Agencies must manage AI risks through continuous monitoring and evaluation aligned with NIST AI RMF.",
-    designChoice: "Continuous compliance monitoring dashboard tracks framework alignment across EO 14110, NIST AI RMF, and DoD RAI principles in real-time.",
+    designChoice: "Continuous compliance monitoring dashboard tracks framework alignment across EO 14179, NIST AI RMF, and DoD RAI principles in real-time.",
     strategicAdvantage: "Dashboard provides live visibility into compliance posture, enabling proactive risk identification.",
     status: "In Progress",
     tags: ["Monitoring", "NIST Alignment"],

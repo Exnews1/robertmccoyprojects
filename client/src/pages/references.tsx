@@ -337,12 +337,12 @@ export default function References() {
                 <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
                   <ExternalLink className="w-3 h-3 mr-1" /> Executive Order
                 </Badge>
-                <h3 className="text-lg font-bold text-foreground leading-tight">Executive Order 14110</h3>
+                <h3 className="text-lg font-bold text-foreground leading-tight">Executive Order 14179</h3>
                 <p className="text-sm text-muted-foreground">Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.</p>
                 <Button variant="outline" className="w-full mt-2" asChild data-testid="button-link-eo14110-ref">
                   <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    View EO 14110
+                    View EO 14179
                   </a>
                 </Button>
               </div>

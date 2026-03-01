@@ -8,7 +8,7 @@ export default function ConsultingHome() {
     <div className="min-h-[70vh]">
       <section className="py-16 md:py-24 px-6" data-testid="section-hero">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground" data-testid="heading-consulting">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground font-serif" data-testid="heading-consulting">
             AI Governance for High-Stakes Environments
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="subheading-consulting">
@@ -55,10 +55,10 @@ export default function ConsultingHome() {
 
       <section className="py-16 px-6" data-testid="section-problem">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center font-serif">
             The Hardest Problems Are Never Technical. They Are Governance Problems.
           </h2>
-          <div className="border-l-4 border-primary/40 bg-card/50 rounded-r-lg p-6 md:p-8 space-y-4" data-testid="block-statement">
+          <div className="border-l-4 bg-card/50 p-6 md:p-8 space-y-4" style={{ borderColor: '#B45309' }} data-testid="block-statement">
             <p className="text-muted-foreground leading-relaxed">
               For four decades, I have worked as the outsourced systems engineer and program manager that major organizations call when the problem is too complex, too specialized, or too high-stakes to solve internally. What I learned is that breakthrough technology is not the hard part. The hard part is integrating that technology into a human system safely, reliably, and accountably.
             </p>
@@ -74,7 +74,7 @@ export default function ConsultingHome() {
 
       <section className="py-16 px-6" data-testid="section-services-preview">
         <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center font-serif">
             How I Help
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -96,7 +96,7 @@ export default function ConsultingHome() {
                 desc: "Assess the AI governance posture of your key software vendors and inherited risks."
               }
             ].map((service, i) => (
-              <Card key={i} className="border-border/50 bg-card/50">
+              <Card key={i} className="border-border bg-card">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-foreground mb-2" data-testid={`text-service-title-${i}`}>{service.title}</h3>
                   <p className="text-sm text-muted-foreground">{service.desc}</p>

@@ -87,7 +87,7 @@ export default function ConsultingContact() {
       <section className="py-16 px-6" data-testid="section-contact">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground" data-testid="heading-contact">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-serif" data-testid="heading-contact">
               Let's Discuss Your Artificial Systems Integration Governance Needs
             </h1>
             <p className="text-muted-foreground">

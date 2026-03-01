@@ -251,8 +251,8 @@ export class DatabaseStorage implements IStorage {
     if (frameworksCount.length === 0) {
       const [eo] = await db.insert(frameworks).values([
         {
-          name: "EO 14110",
-          year: "2023",
+          name: "EO 14179",
+          year: "2025",
           description: "Safe, Secure, and Trustworthy AI",
           icon: "Shield",
         },

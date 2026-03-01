@@ -268,7 +268,7 @@ export default function CMGFRoot() {
                     <h3 className="text-xl font-bold text-foreground">CMGF Platform Demo</h3>
                     <Badge variant="default" className="text-xs">LIVE</Badge>
                     <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
-                    <Badge variant="outline" className="text-xs">EO 14110</Badge>
+                    <Badge variant="outline" className="text-xs">EO 14179</Badge>
                   </div>
                   <p className="text-muted-foreground mb-4">
                     Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
@@ -426,12 +426,12 @@ export default function CMGFRoot() {
                     <ExternalLink className="h-6 w-6 text-muted-foreground" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground mb-1">Executive Order 14110</h3>
+                    <h3 className="font-semibold text-foreground mb-1">Executive Order 14179</h3>
                     <p className="text-sm text-muted-foreground mb-3">Safe, Secure, and Trustworthy AI — the compliance baseline for CMGF.</p>
                     <Button variant="outline" size="sm" asChild data-testid="button-canon-link-eo14110">
                       <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4 mr-2" />
-                        View EO 14110
+                        View EO 14179
                       </a>
                     </Button>
                   </div>

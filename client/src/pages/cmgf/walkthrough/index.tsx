@@ -46,7 +46,7 @@ const compliancePoints = [
   { label: "DoD Responsible AI Principles", compliant: true },
   { label: "Federal AI Governance Requirements", compliant: true },
   { label: "Human-in-the-Loop Mandates", compliant: true },
-  { label: "EO 14110 Safety Requirements", compliant: true },
+  { label: "EO 14179 Safety Requirements", compliant: true },
   { label: "NIST AI RMF 1.0 Framework", compliant: true }
 ];
 
@@ -136,7 +136,7 @@ export default function Walkthrough() {
                       <Shield className="h-5 w-5 text-green-500" />
                       Compliance Alignment
                     </h3>
-                    <ExplainButton topic="CMGF Compliance Alignment" contextText="How does CMGF align with federal AI governance requirements including EO 14110 and NIST AI RMF?" />
+                    <ExplainButton topic="CMGF Compliance Alignment" contextText="How does CMGF align with federal AI governance requirements including EO 14179 and NIST AI RMF?" />
                   </div>
                   <div className="space-y-2">
                     {compliancePoints.map((point, i) => (

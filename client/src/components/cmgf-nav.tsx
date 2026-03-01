@@ -24,7 +24,7 @@ export function CMGFNav() {
   const [location] = useLocation();
 
   return (
-    <nav className="sticky top-14 z-40 bg-background/95 backdrop-blur-sm border-b border-border py-2 mb-4 md:mb-6" data-testid="cmgf-nav">
+    <nav className="sticky top-14 z-40 border-b border-slate-700 py-2 mb-4 md:mb-6" style={{ backgroundColor: '#1E293B' }} data-testid="cmgf-nav">
       <div className="max-w-6xl mx-auto px-3 md:px-6">
         <div className="flex items-center gap-0.5 md:gap-1 overflow-x-auto scrollbar-hide pb-1 -mb-1">
           {navItems.map((item, i) => {
@@ -36,7 +36,7 @@ export function CMGFNav() {
             return (
               <div key={item.href} className="flex items-center">
                 {showDivider && (
-                  <div className="w-px h-5 bg-border/60 mx-1 flex-shrink-0" />
+                  <div className="w-px h-5 bg-slate-600 mx-1 flex-shrink-0" />
                 )}
                 {item.external ? (
                   <a 
@@ -47,7 +47,7 @@ export function CMGFNav() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="flex-shrink-0 gap-1.5"
+                      className="flex-shrink-0 gap-1.5 text-slate-400 hover:text-white hover:bg-slate-700"
                       data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       <item.icon className="h-3.5 w-3.5" />
@@ -57,9 +57,13 @@ export function CMGFNav() {
                 ) : (
                   <Link href={item.href}>
                     <Button
-                      variant={isActive ? "default" : "ghost"}
+                      variant="ghost"
                       size="sm"
-                      className="flex-shrink-0 gap-1.5"
+                      className={`flex-shrink-0 gap-1.5 ${
+                        isActive 
+                          ? "text-amber-400 bg-slate-700/50" 
+                          : "text-slate-400 hover:text-white hover:bg-slate-700"
+                      }`}
                       data-testid={`nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       <item.icon className="h-3.5 w-3.5" />
