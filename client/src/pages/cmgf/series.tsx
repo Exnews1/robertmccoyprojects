@@ -17,7 +17,7 @@ const seriesDocuments = [
     description: "A strategic overview of the fragmentation challenge across the five Track 1 pillars of military learner transitions. This document introduces the governance-first architecture and explains why constrained artificial intelligence may serve as a binding layer without displacing human authority.",
     audience: "Policy Leaders, Institutional Administrators, CCME Community",
     icon: FileText,
-    href: "/attached_assets/CMGF-01_Executive_White_Paper_1771217538094.docx",
+    href: "/attached_assets/CMGF-01_White_Paper_1772413079574.docx",
     type: "DOCX",
     citations: {
       apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
@@ -33,7 +33,7 @@ const seriesDocuments = [
     description: "A formal governance reference architecture. This document details authority structures, non-use guardrails, adoption controls, and alignment with federal artificial intelligence risk management guidance.",
     audience: "Compliance Officers, Federal Program Administrators, Governance Stakeholders",
     icon: Shield,
-    href: "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771217538094.docx",
+    href: "/attached_assets/CMGF-02_Policy_Governance_1772413079574.docx",
     type: "DOCX",
     citations: {
       apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
@@ -49,7 +49,7 @@ const seriesDocuments = [
     description: "A technical assurance document. This brief describes deterministic constraint binding, authority tagging, signal provenance controls, audit logging, and enforcement of non-predictive system boundaries.",
     audience: "System Architects, Data Governance Leads, CIO-Level Review",
     icon: Database,
-    href: "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771217538095.docx",
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_1772413079574.docx",
     type: "DOCX",
     citations: {
       apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
@@ -255,7 +255,7 @@ export default function CMGFSeries() {
                         </DialogContent>
                       </Dialog>
                       <Button variant="outline" size="sm" asChild data-testid="button-download-cmgf-00">
-                        <a href="/attached_assets/CMGF-00_Master_Framework_-_Scholarly_Foundation_1771217538095.docx" download>
+                        <a href="/attached_assets/CMGF-00_Framework_Research_1772413079575.docx" download>
                           <Download className="h-4 w-4 mr-2" />
                           Download
                         </a>

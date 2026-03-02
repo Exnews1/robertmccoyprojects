@@ -201,7 +201,7 @@ export default function References() {
             const cite = seriesCitations[docId];
             const icons = { "cmgf-01": FileText, "cmgf-02": Shield, "cmgf-03": Database } as const;
             const descs = { "cmgf-01": "Governance-first architecture for military transition advising.", "cmgf-02": "Authority structures, non-use guardrails, and federal AI alignment.", "cmgf-03": "Constraint binding, authority tagging, and audit logging." } as const;
-            const hrefs = { "cmgf-01": "/attached_assets/CMGF-01_Executive_White_Paper_1771217538094.docx", "cmgf-02": "/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771217538094.docx", "cmgf-03": "/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771217538095.docx" } as const;
+            const hrefs = { "cmgf-01": "/attached_assets/CMGF-01_White_Paper_1772413079574.docx", "cmgf-02": "/attached_assets/CMGF-02_Policy_Governance_1772413079574.docx", "cmgf-03": "/attached_assets/CMGF-03_Data_Flow_Signal_1772413079574.docx" } as const;
             const DocIcon = icons[docId];
             return (
             <Card key={docId} className="high-tech-card border-primary/40" data-testid={`card-primary-${docId}`}>
@@ -302,9 +302,9 @@ export default function References() {
                   asChild
                   data-testid="button-download-primary-presentation"
                 >
-                  <a href="/attached_assets/CCME_DEMO_LEAD_1771336462965.pdf" download target="_blank" rel="noopener noreferrer">
+                  <a href="/attached_assets/CCME_DEMO_LEAD_1772413079574.pptx" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
-                    Download Presentation (PDF)
+                    Download Presentation (PPTX)
                   </a>
                 </Button>
               </div>

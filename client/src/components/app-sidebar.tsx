@@ -59,7 +59,7 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-01"
             >
-              <a href="/attached_assets/CMGF-01_Executive_White_Paper_1771217538094.docx" download>
+              <a href="/attached_assets/CMGF-01_White_Paper_1772413079574.docx" download>
                 <FileText className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-01 Executive White Paper</div>
@@ -73,7 +73,7 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-02"
             >
-              <a href="/attached_assets/CMGF-02_Policy_Governance_Architecture_Brief_1771217538094.docx" download>
+              <a href="/attached_assets/CMGF-02_Policy_Governance_1772413079574.docx" download>
                 <Shield className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-02 Policy & Governance</div>
@@ -87,7 +87,7 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-03"
             >
-              <a href="/attached_assets/CMGF-03_Data_Flow_Signal_Provenance_Brief_1771217538095.docx" download>
+              <a href="/attached_assets/CMGF-03_Data_Flow_Signal_1772413079574.docx" download>
                 <Database className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-03 Data Flow & Provenance</div>
