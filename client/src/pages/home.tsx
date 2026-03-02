@@ -51,7 +51,7 @@ export default function Home() {
               <span className="truncate">CMGF-00 Scholarly Foundation</span>
             </a>
             <a
-              href="/attached_assets/CCME_DEMO_LEAD_1772413079574.pptx"
+              href="/attached_assets/Career_Mobility_Governance_Framework__CMGF_1772415843198.pptx"
               download
               className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors text-sm sm:text-base"
               data-testid="hero-download-presentation"

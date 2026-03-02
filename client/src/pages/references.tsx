@@ -302,7 +302,7 @@ export default function References() {
                   asChild
                   data-testid="button-download-primary-presentation"
                 >
-                  <a href="/attached_assets/CCME_DEMO_LEAD_1772413079574.pptx" download target="_blank" rel="noopener noreferrer">
+                  <a href="/attached_assets/Career_Mobility_Governance_Framework__CMGF_1772415843198.pptx" download target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
                     Download Presentation (PPTX)
                   </a>

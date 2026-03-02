@@ -391,7 +391,7 @@ export default function CMGFRoot() {
                     <h3 className="font-semibold text-foreground mb-1">CCME 2026 Presentation</h3>
                     <p className="text-sm text-muted-foreground mb-3">CMGF conference presentation — CCME 2026 Learner Track 1.</p>
                     <Button variant="outline" size="sm" asChild data-testid="button-canon-download-presentation">
-                      <a href="/attached_assets/CCME_DEMO_LEAD_1772413079574.pptx" download onClick={trackPaperDownload}>
+                      <a href="/attached_assets/Career_Mobility_Governance_Framework__CMGF_1772415843198.pptx" download onClick={trackPaperDownload}>
                         <Download className="h-4 w-4 mr-2" />
                         Download PPTX
                       </a>
