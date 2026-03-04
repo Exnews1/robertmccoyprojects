@@ -27,6 +27,7 @@ import {
   Database,
   Home,
 } from "lucide-react";
+import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 
 interface ReadinessScore {
   dimension: string;
@@ -414,6 +415,8 @@ export default function DemoMode() {
             </div>
           )}
         </nav>
+
+        <CMGFAdvisoryNotice />
 
         {view === "control" && (
           <ControlPanel

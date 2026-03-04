@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, Search, ExternalLink, FileText, AlertCircle, BookOpen, MessageSquare, Sparkles } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
+import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 import { CMGFNav } from "@/components/cmgf-nav";
 
 interface SearchResult {
@@ -106,7 +107,9 @@ export default function Explorer() {
           <span className="text-foreground">Reference Explorer</span>
         </nav>
 
-        <header className="mb-10 text-center">
+        <CMGFAdvisoryNotice />
+
+        <header className="mb-10 mt-6 text-center">
           <div className="text-xs text-muted-foreground mb-3">Last updated: January 2026</div>
           <div className="flex items-center justify-center gap-3 mb-4">
             <BookOpen className="h-10 w-10 text-primary" />

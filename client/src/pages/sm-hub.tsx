@@ -24,6 +24,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 import { Link } from "wouter";
 import { Rocket } from "lucide-react";
 import type { ServiceMemberRequest } from "@shared/schema";
@@ -160,6 +161,7 @@ export default function SMHub() {
     <>
     <CMGFNav />
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      <CMGFAdvisoryNotice />
       <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400 bg-amber-500/10 px-3 py-1.5 rounded-md w-fit" data-testid="badge-demo-data">
         <AlertTriangle className="w-3.5 h-3.5" />
         <span>Demonstration Data</span>

@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { User, Users, Cpu, ChevronRight, ArrowRight, Shield, CheckCircle, XCircle } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 import { PersonaSelector, PersonaBanner } from "@/components/persona-selector";
 import { ExplainButton } from "@/components/explain-button";
 
@@ -75,7 +76,9 @@ export default function Walkthrough() {
           <span className="text-foreground">Walkthrough</span>
         </nav>
 
-        <header className="mb-12">
+        <CMGFAdvisoryNotice />
+
+        <header className="mb-12 mt-6">
           <div className="text-xs text-muted-foreground mb-2">Last updated: January 2026</div>
           <h1 className="text-3xl font-bold text-foreground mb-3">Framework Walkthrough</h1>
           <p className="text-muted-foreground max-w-3xl">

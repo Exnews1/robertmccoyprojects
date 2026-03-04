@@ -23,6 +23,7 @@ import {
   Activity,
 } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
+import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 import { Link } from "wouter";
 import { Rocket } from "lucide-react";
 
@@ -727,7 +728,8 @@ export default function IsrQueue() {
   return (
     <>
       <CMGFNav />
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        <CMGFAdvisoryNotice />
         {refreshedCase ? (
           <CaseDetail
             caseItem={refreshedCase}
