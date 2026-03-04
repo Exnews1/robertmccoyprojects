@@ -1,15 +1,9 @@
 import { useState, useCallback } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
-import { CMGFAdvisoryNotice } from "@/components/cmgf-advisory-notice";
 import { Link } from "wouter";
 import {
   ChevronRight,
-  Play,
   Shield,
   CheckCircle2,
   XCircle,
@@ -279,55 +273,47 @@ function getRuleKey(mil: string, civ: string): string {
 }
 
 function VerdictBadge({ verdict, label }: { verdict: Verdict; label: string }) {
-  const styles: Record<Verdict, string> = {
-    feasible: "bg-green-500/15 border-green-500 text-green-500",
-    conditional: "bg-amber-500/15 border-amber-500 text-amber-500",
-    infeasible: "bg-red-500/15 border-red-500 text-red-500",
+  const colors: Record<Verdict, { bg: string; border: string; text: string }> = {
+    feasible: { bg: "rgba(92,184,92,0.15)", border: "#5cb85c", text: "#5cb85c" },
+    conditional: { bg: "rgba(240,165,0,0.15)", border: "#f0a500", text: "#f0a500" },
+    infeasible: { bg: "rgba(224,92,92,0.15)", border: "#e05c5c", text: "#e05c5c" },
   };
+  const c = colors[verdict];
   return (
-    <span className={`inline-flex items-center px-3 py-1.5 font-mono text-[11px] font-semibold tracking-wider uppercase border ${styles[verdict]}`} data-testid="badge-verdict">
+    <span
+      className="inline-flex items-center px-4 py-2 font-mono text-[11px] font-semibold tracking-[2px] uppercase whitespace-nowrap"
+      style={{ background: c.bg, border: `1px solid ${c.border}`, color: c.text, borderRadius: 2 }}
+      data-testid="badge-verdict"
+    >
       {label}
     </span>
   );
 }
 
-function ConstraintItem({ constraint }: { constraint: Constraint }) {
-  const icons: Record<string, typeof CheckCircle2> = {
-    met: CheckCircle2,
-    unmet: XCircle,
-    partial: AlertTriangle,
-  };
-  const colors: Record<string, string> = {
-    met: "border-l-green-500 text-green-500",
-    unmet: "border-l-red-500 text-red-500",
-    partial: "border-l-amber-500 text-amber-500",
-  };
-  const Icon = icons[constraint.status];
-  return (
-    <div className={`flex items-start gap-3 p-3 border-l-2 ${colors[constraint.status]} bg-background/50`} data-testid={`constraint-${constraint.status}`}>
-      <Icon className="h-4 w-4 mt-0.5 flex-shrink-0" />
-      <span className="text-xs text-foreground leading-relaxed">{constraint.text}</span>
-    </div>
-  );
-}
-
-function PathwayStep({ emoji, label, active, showArrow }: { emoji: string; label: string; active: boolean; showArrow: boolean }) {
+function PathwayStepStyled({ emoji, label, active, showArrow, gold, textColor, textDim, borderColor }: {
+  emoji: string; label: string; active: boolean; showArrow: boolean;
+  gold: string; textColor: string; textDim: string; borderColor: string;
+}) {
   return (
     <>
       {showArrow && (
-        <div className="text-amber-600 text-lg opacity-50 flex-shrink-0" aria-hidden="true" data-testid="step-arrow">
+        <div className="text-lg flex-shrink-0" style={{ color: gold, opacity: 0.5 }} aria-hidden="true" data-testid="step-arrow">
           <ArrowRight className="h-5 w-5" />
         </div>
       )}
       <div className="flex-1 min-w-[100px] text-center" data-testid="pathway-step">
-        <div className={`w-11 h-11 rounded-full mx-auto mb-2 flex items-center justify-center text-lg border transition-all ${
-          active
-            ? "bg-amber-600/20 border-amber-600 shadow-[0_0_12px_rgba(180,83,9,0.2)]"
-            : "bg-muted/30 border-border/50 opacity-50"
-        }`}>
+        <div
+          className="w-11 h-11 rounded-full mx-auto mb-2 flex items-center justify-center text-lg transition-all"
+          style={{
+            background: active ? 'rgba(201,168,76,0.2)' : 'rgba(201,168,76,0.1)',
+            border: `1px solid ${active ? gold : borderColor}`,
+            boxShadow: active ? '0 0 12px rgba(201,168,76,0.2)' : 'none',
+            opacity: active ? 1 : 0.5,
+          }}
+        >
           {emoji}
         </div>
-        <div className={`text-[10px] font-mono leading-snug ${active ? "text-foreground" : "text-muted-foreground"}`}>
+        <div className="text-[10px] font-mono leading-snug" style={{ color: active ? textColor : textDim }}>
           {label}
         </div>
       </div>
@@ -382,237 +368,262 @@ export default function CareerAdvisor() {
   };
 
 
+  const gold = "#c9a84c";
+  const goldLight = "#e8c97a";
+  const navy = "#0a1628";
+  const navyMid = "#112240";
+  const textColor = "#d4dbe8";
+  const textDim = "#7a8fa8";
+  const borderColor = "rgba(201,168,76,0.2)";
+  const cardBg = "rgba(17,34,64,0.8)";
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ backgroundColor: navy, color: textColor }}>
       <CMGFNav />
       <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-6 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
+          <Link href="/research" className="transition-colors" style={{ color: textDim }}>
             Portfolio
           </Link>
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
+          <ChevronRight className="h-4 w-4" style={{ color: textDim }} />
+          <Link href="/research/cmgf" className="transition-colors" style={{ color: textDim }}>
             CMGF
           </Link>
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
-          <span className="text-foreground">Career Path Advisor</span>
+          <ChevronRight className="h-4 w-4" style={{ color: textDim }} />
+          <span style={{ color: textColor }}>Career Path Advisor</span>
         </nav>
 
         <header className="text-center mb-10">
-          <div className="text-[10px] font-mono tracking-[3px] text-amber-600 uppercase mb-3" data-testid="text-prototype-label">
+          <div className="text-[10px] font-mono tracking-[3px] uppercase mb-3" style={{ color: gold }} data-testid="text-prototype-label">
             Prototype Demonstration
           </div>
-          <h1 className="text-3xl md:text-4xl font-serif font-light tracking-tight text-foreground mb-3" data-testid="heading-career-advisor">
+          <h1 className="text-3xl md:text-4xl font-serif font-light tracking-tight mb-3" style={{ color: textColor }} data-testid="heading-career-advisor">
             Career Path Feasibility Advisor
           </h1>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: textDim }}>
             A deterministic constraint-binding advisory tool that evaluates military-to-civilian transition pathways against policy, credentialing, and education authority rules.
           </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-[340px_1fr] gap-6 items-start">
           <div className="space-y-6">
-            <Card className="border-border/50">
-              <CardContent className="pt-6 space-y-5">
-                <div className="text-[9px] font-mono tracking-[2.5px] text-amber-600 uppercase pb-3 border-b border-border/50">
-                  Input Panel · Service Member Profile
+            <div className="p-7" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
+              <div className="text-[9px] font-mono tracking-[2.5px] uppercase pb-3 mb-5" style={{ color: gold, borderBottom: `1px solid ${borderColor}` }}>
+                Input Panel · Service Member Profile
+              </div>
+
+              <div className="mb-5 p-3.5" style={{ background: 'rgba(201,168,76,0.07)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 3 }}>
+                <div className="text-[9px] font-mono tracking-[2px] uppercase mb-2" style={{ color: gold }}>CMGF Advisory Notice</div>
+                <div className="text-xs leading-relaxed" style={{ color: '#a0b0c8' }}>
+                  Results are <strong style={{ color: textColor }}>informational planning signals</strong>, not recommendations, predictions, or decisions. This system compares your declared goals with publicly available policy rules and credential requirements.
+                  <br /><br />
+                  <strong style={{ color: textColor }}>Final decisions remain entirely with you and your human advisors.</strong>
                 </div>
+              </div>
 
-                <CMGFAdvisoryNotice />
-
-                <div className="space-y-1.5" data-testid="field-mil-occ">
-                  <Label className="text-[11px] tracking-wider uppercase text-muted-foreground">Military Occupation</Label>
+              <div className="space-y-5">
+                <div className="space-y-2" data-testid="field-mil-occ">
+                  <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Military Occupation</label>
                   <Select value={milOcc} onValueChange={(v) => { setMilOcc(v); clearError("milOcc"); }}>
-                    <SelectTrigger className={errors.milOcc ? "border-red-500" : ""} data-testid="select-mil-occ">
+                    <SelectTrigger className={errors.milOcc ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.milOcc ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-mil-occ">
                       <SelectValue placeholder="— Select MOS/Rate —" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
                       {MIL_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
-                  {errors.milOcc && <p className="text-[10px] font-mono text-red-500" data-testid="error-mil-occ">Required — select a military occupation</p>}
+                  {errors.milOcc && <p className="text-[10px] font-mono text-red-400" data-testid="error-mil-occ">Required — select a military occupation</p>}
                 </div>
 
-                <div className="space-y-1.5" data-testid="field-civ-career">
-                  <Label className="text-[11px] tracking-wider uppercase text-muted-foreground">Desired Civilian Career</Label>
+                <div className="space-y-2" data-testid="field-civ-career">
+                  <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Desired Civilian Career</label>
                   <Select value={civCareer} onValueChange={(v) => { setCivCareer(v); clearError("civCareer"); }}>
-                    <SelectTrigger className={errors.civCareer ? "border-red-500" : ""} data-testid="select-civ-career">
+                    <SelectTrigger className={errors.civCareer ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.civCareer ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-civ-career">
                       <SelectValue placeholder="— Select Target Career —" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
                       {CIV_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
-                  {errors.civCareer && <p className="text-[10px] font-mono text-red-500" data-testid="error-civ-career">Required — select a target civilian career</p>}
+                  {errors.civCareer && <p className="text-[10px] font-mono text-red-400" data-testid="error-civ-career">Required — select a target civilian career</p>}
                 </div>
 
-                <div className="space-y-1.5" data-testid="field-education">
-                  <Label className="text-[11px] tracking-wider uppercase text-muted-foreground">Current Education Level</Label>
+                <div className="space-y-2" data-testid="field-education">
+                  <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Current Education Level</label>
                   <Select value={education} onValueChange={(v) => { setEducation(v); clearError("education"); }}>
-                    <SelectTrigger className={errors.education ? "border-red-500" : ""} data-testid="select-education">
+                    <SelectTrigger className={errors.education ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.education ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-education">
                       <SelectValue placeholder="— Select Level —" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
                       {EDU_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
-                  {errors.education && <p className="text-[10px] font-mono text-red-500" data-testid="error-education">Required — select your education level</p>}
+                  {errors.education && <p className="text-[10px] font-mono text-red-400" data-testid="error-education">Required — select your education level</p>}
                 </div>
 
-                <div className="space-y-1.5" data-testid="field-time-left">
-                  <Label className="text-[11px] tracking-wider uppercase text-muted-foreground">Time Remaining in Service</Label>
+                <div className="space-y-2" data-testid="field-time-left">
+                  <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Time Remaining in Service</label>
                   <Select value={timeLeft} onValueChange={(v) => { setTimeLeft(v); clearError("timeLeft"); }}>
-                    <SelectTrigger className={errors.timeLeft ? "border-red-500" : ""} data-testid="select-time-left">
+                    <SelectTrigger className={errors.timeLeft ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.timeLeft ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-time-left">
                       <SelectValue placeholder="— Select Timeframe —" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
                       {TIME_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
-                  {errors.timeLeft && <p className="text-[10px] font-mono text-red-500" data-testid="error-time-left">Required — select time remaining in service</p>}
+                  {errors.timeLeft && <p className="text-[10px] font-mono text-red-400" data-testid="error-time-left">Required — select time remaining in service</p>}
                 </div>
 
-                <div className="space-y-1.5" data-testid="field-funding">
-                  <Label className="text-[11px] tracking-wider uppercase text-muted-foreground">Education Funding Availability</Label>
+                <div className="space-y-2" data-testid="field-funding">
+                  <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Education Funding Availability</label>
                   <Select value={funding} onValueChange={(v) => { setFunding(v); clearError("funding"); }}>
-                    <SelectTrigger className={errors.funding ? "border-red-500" : ""} data-testid="select-funding">
+                    <SelectTrigger className={errors.funding ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.funding ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-funding">
                       <SelectValue placeholder="— Select Funding —" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
                       {FUNDING_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
-                  {errors.funding && <p className="text-[10px] font-mono text-red-500" data-testid="error-funding">Required — select funding availability</p>}
+                  {errors.funding && <p className="text-[10px] font-mono text-red-400" data-testid="error-funding">Required — select funding availability</p>}
                 </div>
 
-                <Button
-                  className="w-full font-mono text-xs tracking-widest uppercase"
+                <button
+                  className="w-full py-3.5 font-mono text-xs font-semibold tracking-[2px] uppercase border-none cursor-pointer transition-all"
+                  style={{ background: gold, color: navy, borderRadius: 2 }}
                   onClick={runEvaluation}
                   data-testid="button-evaluate"
+                  onMouseEnter={(e) => { e.currentTarget.style.background = goldLight; e.currentTarget.style.boxShadow = '0 4px 20px rgba(201,168,76,0.3)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = gold; e.currentTarget.style.boxShadow = 'none'; }}
                 >
-                  <Play className="h-3.5 w-3.5 mr-2" />
                   Evaluate Pathway
-                </Button>
-              </CardContent>
-            </Card>
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="space-y-5">
-            <Card className="border-border/50 min-h-[140px]">
-              <CardContent className="pt-6">
-                {!result ? (
-                  <div className="flex items-center justify-center min-h-[100px]">
-                    <p className="text-xs font-mono text-muted-foreground tracking-wide" data-testid="text-placeholder">
-                      ← Complete profile and evaluate pathway
-                    </p>
+            <div className="p-7 min-h-[140px]" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
+              {!result ? (
+                <div className="flex items-center justify-center min-h-[100px]">
+                  <p className="text-[11px] font-mono tracking-wide" style={{ color: textDim }} data-testid="text-placeholder">
+                    ← Complete profile and evaluate pathway
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4" data-testid="result-panel">
+                  <div className="text-[9px] font-mono tracking-[2.5px] uppercase pb-3" style={{ color: gold, borderBottom: `1px solid ${borderColor}` }}>
+                    Constraint Evaluation Result
                   </div>
-                ) : (
-                  <div className="space-y-4" data-testid="result-panel">
-                    <div className="text-[9px] font-mono tracking-[2.5px] text-amber-600 uppercase pb-3 border-b border-border/50">
-                      Constraint Evaluation Result
-                    </div>
-                    <div className="flex items-center gap-4 pb-4 border-b border-border/30 flex-wrap">
-                      <VerdictBadge verdict={result.verdict} label={result.label} />
-                      <h2 className="font-serif text-lg font-light text-foreground" data-testid="text-verdict-title">
-                        {milLabels[milOcc]} → {civLabels[civCareer]}
-                      </h2>
-                    </div>
-                    <p className="text-sm leading-relaxed text-foreground" data-testid="text-explanation">
-                      {result.explanation}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {result.tiers.map((t, i) => (
-                        <Badge key={i} variant="outline" className="text-[9px] font-mono tracking-wider border-amber-600/30 text-amber-600/80" data-testid={`tier-badge-${i}`}>
-                          {t}
-                        </Badge>
-                      ))}
-                    </div>
+                  <div className="flex items-center gap-4 pb-4 flex-wrap" style={{ borderBottom: `1px solid ${borderColor}` }}>
+                    <VerdictBadge verdict={result.verdict} label={result.label} />
+                    <h2 className="font-serif text-xl font-light" style={{ color: textColor }} data-testid="text-verdict-title">
+                      {milLabels[milOcc]} &rarr; {civLabels[civCareer]}
+                    </h2>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                  <p className="text-[13px] leading-relaxed" style={{ color: textColor }} data-testid="text-explanation">
+                    {result.explanation}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {result.tiers.map((t, i) => (
+                      <span key={i} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: gold, borderRadius: 2 }} data-testid={`tier-badge-${i}`}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {result && (
               <>
-                <Card className="border-border/50" data-testid="card-constraints">
-                  <CardContent className="pt-6 space-y-3">
-                    <div className="text-[9px] font-mono tracking-[2.5px] text-amber-600 uppercase pb-3 border-b border-border/50">
-                      Constraint Evaluation · Policy Rules Applied
-                    </div>
-                    <div className="space-y-2">
-                      {result.constraints.map((c, i) => (
-                        <ConstraintItem key={i} constraint={c} />
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }} data-testid="card-constraints">
+                  <div className="text-[9px] font-mono tracking-[2.5px] uppercase pb-3 mb-3.5" style={{ color: gold, borderBottom: `1px solid ${borderColor}` }}>
+                    Constraint Evaluation · Policy Rules Applied
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    {result.constraints.map((c, i) => {
+                      const statusColors: Record<string, string> = { met: "#5cb85c", unmet: "#e05c5c", partial: "#f0a500" };
+                      const statusIcons: Record<string, typeof CheckCircle2> = { met: CheckCircle2, unmet: XCircle, partial: AlertTriangle };
+                      const Icon = statusIcons[c.status];
+                      return (
+                        <div key={i} className="flex items-start gap-2.5 text-xs leading-relaxed p-2.5" style={{ background: 'rgba(10,22,40,0.5)', borderLeft: `2px solid ${statusColors[c.status]}`, borderRadius: '0 2px 2px 0' }} data-testid={`constraint-${c.status}`}>
+                          <Icon className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" style={{ color: statusColors[c.status] }} />
+                          <span style={{ color: textColor }}>{c.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-                <Card className="border-border/50" data-testid="card-pathway">
-                  <CardContent className="pt-6">
-                    <div className="text-[9px] font-mono tracking-[2.5px] text-amber-600 uppercase pb-3 border-b border-border/50 mb-4">
-                      Transition Pathway · Steps
-                    </div>
-                    <div className="flex items-center flex-wrap gap-2">
-                      {result.steps.map((step, i) => {
-                        const parts = step.split(" ");
-                        const emoji = parts[0];
-                        const label = parts.slice(1).join(" ");
-                        const active = result.verdict !== "infeasible" || i === 0;
-                        return (
-                          <PathwayStep
-                            key={i}
-                            emoji={emoji}
-                            label={label}
-                            active={active}
-                            showArrow={i > 0}
-                          />
-                        );
-                      })}
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }} data-testid="card-pathway">
+                  <div className="text-[9px] font-mono tracking-[2.5px] uppercase pb-3 mb-4" style={{ color: gold, borderBottom: `1px solid ${borderColor}` }}>
+                    Transition Pathway · Steps
+                  </div>
+                  <div className="flex items-center flex-wrap gap-2">
+                    {result.steps.map((step, i) => {
+                      const parts = step.split(" ");
+                      const emoji = parts[0];
+                      const label = parts.slice(1).join(" ");
+                      const active = result.verdict !== "infeasible" || i === 0;
+                      return (
+                        <PathwayStepStyled
+                          key={i}
+                          emoji={emoji}
+                          label={label}
+                          active={active}
+                          showArrow={i > 0}
+                          gold={gold}
+                          textColor={textColor}
+                          textDim={textDim}
+                          borderColor={borderColor}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
               </>
             )}
 
-            <div className="flex items-start gap-3 p-4 border border-amber-600/15 bg-card/80" data-testid="governance-notice">
-              <Shield className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-              <div className="text-xs text-muted-foreground leading-relaxed italic">
-                <strong className="text-amber-600 not-italic">CMGF Advisory Notice</strong>
+            <div className="flex items-start gap-3.5 p-4" style={{ background: 'rgba(17,34,64,0.9)', border: '1px solid rgba(201,168,76,0.15)', borderRadius: 4 }} data-testid="governance-notice">
+              <Shield className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: gold }} />
+              <div className="text-xs leading-relaxed italic" style={{ color: textDim }}>
+                <strong className="not-italic" style={{ color: gold }}>CMGF Advisory Notice</strong>
                 <br /><br />
                 The Career Mobility Governance Framework provides informational planning signals based on the data and inputs supplied by the user. The system compares user declared goals with publicly available policy rules, credential requirements, and labor market reference data.
                 <br /><br />
                 The results presented are not recommendations, predictions, or decisions. They are informational indicators designed to help users understand how their current education, experience, and credential status relate to potential career pathways.
                 <br /><br />
-                <strong className="text-foreground not-italic">CMGF does not determine what a user can or cannot pursue. The system has no authority to approve, deny, or restrict career choices. Final decisions remain entirely with the user and their human advisors.</strong>
+                <strong className="not-italic" style={{ color: textColor }}>CMGF does not determine what a user can or cannot pursue. The system has no authority to approve, deny, or restrict career choices. Final decisions remain entirely with the user and their human advisors.</strong>
                 <br /><br />
                 Users are encouraged to review results with qualified advisors such as Education Service Officers, institutional counselors, or credentialing authorities before making career or education decisions.
                 <br /><br />
                 <div className="flex flex-wrap gap-1.5 not-italic">
-                  <Badge variant="outline" className="text-[9px] font-mono border-amber-600/30 text-amber-600/80">NIST AI RMF</Badge>
-                  <Badge variant="outline" className="text-[9px] font-mono border-amber-600/30 text-amber-600/80">EO 14179</Badge>
-                  <Badge variant="outline" className="text-[9px] font-mono border-amber-600/30 text-amber-600/80">NON-PREDICTIVE</Badge>
-                  <Badge variant="outline" className="text-[9px] font-mono border-amber-600/30 text-amber-600/80">INFORMATIONAL ONLY</Badge>
+                  {["NIST AI RMF", "EO 14179", "NON-PREDICTIVE", "INFORMATIONAL ONLY"].map(tag => (
+                    <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: gold, borderRadius: 2 }}>
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 mt-8 border-t border-border">
-          <h3 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Navigation</h3>
+        <div className="pt-8 mt-8" style={{ borderTop: `1px solid ${borderColor}` }}>
+          <h3 className="text-sm font-mono uppercase tracking-wider mb-4" style={{ color: textDim }}>Navigation</h3>
           <div className="flex flex-wrap gap-3">
-            <Link href="/research/cmgf">
-              <Button variant="outline" size="sm">CMGF Main</Button>
-            </Link>
-            <Link href="/research/sm-hub">
-              <Button variant="outline" size="sm">SM Request Hub</Button>
-            </Link>
-            <Link href="/research/demo">
-              <Button variant="outline" size="sm">Demo Mode</Button>
-            </Link>
-            <Link href="/research/isr">
-              <Button variant="outline" size="sm">ISR Queue</Button>
-            </Link>
+            {[
+              { href: "/research/cmgf", label: "CMGF Main" },
+              { href: "/research/sm-hub", label: "SM Request Hub" },
+              { href: "/research/demo", label: "Demo Mode" },
+              { href: "/research/isr", label: "ISR Queue" },
+            ].map(nav => (
+              <Link key={nav.href} href={nav.href}>
+                <button className="px-3 py-1.5 text-xs font-mono tracking-wide transition-colors cursor-pointer" style={{ background: 'transparent', border: `1px solid ${borderColor}`, color: textDim, borderRadius: 2 }}>
+                  {nav.label}
+                </button>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
