@@ -40,6 +40,7 @@ import DemoMode from "@/pages/demo-mode";
 import IsrQueue from "@/pages/isr-queue";
 import AuditTrail from "@/pages/audit-trail";
 import SMHub from "@/pages/sm-hub";
+import CareerAdvisor from "@/pages/career-advisor";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -191,6 +192,7 @@ function Router() {
       <Route path="/research/profile" component={Profile} />
       <Route path="/research/demo" component={DemoMode} />
       <Route path="/research/sm-hub" component={SMHub} />
+      <Route path="/research/career-advisor" component={CareerAdvisor} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />
       <Route path="/research/contact" component={Contact} />

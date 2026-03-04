@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Home, Download, Library, Search, Layers, ExternalLink, BarChart3, UserCircle, ClipboardList, Shield, Rocket, MonitorPlay } from "lucide-react";
+import { Home, Download, Library, Search, Layers, ExternalLink, BarChart3, UserCircle, ClipboardList, Shield, Rocket, MonitorPlay, Compass } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
   { href: "/research/cmgf/series", label: "Series 2026", icon: Layers, external: false, group: "research" },
   { href: "/research/cmgf/downloads", label: "Downloads", icon: Download, external: false, group: "research" },
   { href: "/research/cmgf/library", label: "Library", icon: Library, external: false, group: "research" },
+  { href: "/research/career-advisor", label: "Career Advisor", icon: Compass, external: false, group: "pipeline" },
   { href: "/research/demo", label: "Demo", icon: Rocket, external: false, group: "pipeline" },
   { href: "/research/sm-hub", label: "SM Hub", icon: UserCircle, external: false, group: "pipeline" },
   { href: "/research/isr", label: "ISR Queue", icon: ClipboardList, external: false, group: "pipeline" },
