@@ -314,7 +314,7 @@ export default function DemoMode() {
     },
     onSuccess: (data: ScenarioResult) => {
       setCurrentScenario(data);
-      setView("dashboard");
+      setView("scenario");
     },
   });
 

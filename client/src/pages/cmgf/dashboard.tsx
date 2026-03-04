@@ -48,13 +48,26 @@ const tooltipStyle = {
   color: "hsl(var(--foreground))",
 };
 
+interface LibrarySummary {
+  totalCount: number;
+  pillarCounts: Array<{ name: string; count: number }>;
+  yearDistribution: Array<{ year: number; count: number }>;
+  typeDistribution: Array<{ type: string; count: number }>;
+}
+
 export default function Dashboard() {
   const { data: frameworks, isLoading: fwLoading } = useQuery<Framework[]>({ queryKey: ["/api/frameworks"] });
   const { data: complianceItems, isLoading: ciLoading } = useQuery<ComplianceItem[]>({ queryKey: ["/api/compliance-items"] });
-  const { data: library, isLoading: libLoading } = useQuery<LibraryEntry[]>({ queryKey: ["/api/library"] });
+  const { data: librarySummary, isLoading: summaryLoading } = useQuery<LibrarySummary>({ queryKey: ["/api/library/summary"] });
   const { data: stats } = useQuery<Record<string, number>>({ queryKey: ["/api/stats"] });
 
   const [activeTab, setActiveTab] = useState("overview");
+
+  const needsFullLibrary = activeTab === "research";
+  const { data: library, isLoading: libLoading } = useQuery<LibraryEntry[]>({
+    queryKey: ["/api/library"],
+    enabled: needsFullLibrary,
+  });
 
   useEffect(() => {
     trackDemoEvent("dashboard_view");
@@ -69,9 +82,9 @@ export default function Dashboard() {
   const [selectedSource, setSelectedSource] = useState<LibraryEntry | null>(null);
   const [selectedCompliance, setSelectedCompliance] = useState<ComplianceItem | null>(null);
 
-  const isLoading = fwLoading || ciLoading || libLoading;
+  const isLoading = fwLoading || ciLoading || summaryLoading;
 
-  const totalLibrary = library?.length ?? 0;
+  const totalLibrary = librarySummary?.totalCount ?? 0;
   const totalCompliance = complianceItems?.length ?? 0;
   const compliantCount = complianceItems?.filter(i => i.status === "Fully Compliant").length ?? 0;
   const compliancePercent = totalCompliance > 0 ? Math.round((compliantCount / totalCompliance) * 100) : 0;
@@ -92,33 +105,39 @@ export default function Dashboard() {
   }, [complianceItems]);
 
   const pillarCounts = useMemo(() => {
-    if (!library) return [];
-    const counts: Record<string, number> = {};
-    library.forEach(entry => {
-      entry.topics?.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
-    });
-    return Object.entries(counts)
-      .map(([name, count]) => ({ name, short: PILLAR_SHORT[name] || name, count }))
-      .sort((a, b) => b.count - a.count);
-  }, [library]);
+    if (library) {
+      const counts: Record<string, number> = {};
+      library.forEach(entry => {
+        entry.topics?.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
+      });
+      return Object.entries(counts)
+        .map(([name, count]) => ({ name, short: PILLAR_SHORT[name] || name, count }))
+        .sort((a, b) => b.count - a.count);
+    }
+    return (librarySummary?.pillarCounts || []).map(p => ({ ...p, short: PILLAR_SHORT[p.name] || p.name }));
+  }, [library, librarySummary]);
 
   const yearDistribution = useMemo(() => {
-    if (!library) return [];
-    const counts: Record<number, number> = {};
-    library.forEach(e => { if (e.year) counts[e.year] = (counts[e.year] || 0) + 1; });
-    return Object.entries(counts)
-      .map(([y, c]) => ({ year: parseInt(y), count: c }))
-      .sort((a, b) => a.year - b.year);
-  }, [library]);
+    if (library) {
+      const counts: Record<number, number> = {};
+      library.forEach(e => { if (e.year) counts[e.year] = (counts[e.year] || 0) + 1; });
+      return Object.entries(counts)
+        .map(([y, c]) => ({ year: parseInt(y), count: c }))
+        .sort((a, b) => a.year - b.year);
+    }
+    return librarySummary?.yearDistribution || [];
+  }, [library, librarySummary]);
 
   const typeDistribution = useMemo(() => {
-    if (!library) return [];
-    const counts: Record<string, number> = {};
-    library.forEach(e => { counts[e.documentType] = (counts[e.documentType] || 0) + 1; });
-    return Object.entries(counts)
-      .map(([type, count]) => ({ type, count }))
-      .sort((a, b) => b.count - a.count);
-  }, [library]);
+    if (library) {
+      const counts: Record<string, number> = {};
+      library.forEach(e => { counts[e.documentType] = (counts[e.documentType] || 0) + 1; });
+      return Object.entries(counts)
+        .map(([type, count]) => ({ type, count }))
+        .sort((a, b) => b.count - a.count);
+    }
+    return librarySummary?.typeDistribution || [];
+  }, [library, librarySummary]);
 
   const allPillars = useMemo(() => pillarCounts.map(p => p.name), [pillarCounts]);
   const allYears = useMemo(() => yearDistribution.map(y => String(y.year)), [yearDistribution]);
@@ -555,6 +574,14 @@ export default function Dashboard() {
           </TabsContent>
 
           <TabsContent value="research" className="space-y-6">
+            {libLoading && (
+              <div className="flex items-center justify-center py-12">
+                <div className="space-y-3 text-center">
+                  <div className="h-6 w-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+                  <p className="text-sm text-muted-foreground">Loading research library...</p>
+                </div>
+              </div>
+            )}
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <h2 className="text-xl font-semibold text-foreground">Research Library</h2>

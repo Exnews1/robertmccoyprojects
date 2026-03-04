@@ -53,9 +53,10 @@ Navigation:
 ### Key Features
 - **CMGF Research Hubs**: Five Pillars, CMGF Series 2026, AI Education Futures Hub, U.S. Incarceration Research Hub, Hard Truths of Incarceration, Human Capital Institutional Throughput Framework. These hubs organize and present data from hundreds of peer-reviewed sources using various UI patterns like accordions, search filters, and interactive visualizations.
 - **Reference Explorer (RAG)**: Provides grounded Q&A over the research library using OpenAI embeddings for semantic search and GPT-4o for answer generation with inline citations. Answers are strictly document-grounded.
-- **Scenario Orchestration Engine (Demo Mode)**: Facilitates one-click scenario generation, analysis, and reporting for military learner profiles. It uses synthetic profiles, applies CMGF rules, and generates various HTML reports, including batch simulations for institutional intelligence.
+- **Scenario Orchestration Engine (Demo Mode)**: Facilitates one-click scenario generation, analysis, and reporting for military learner profiles. It uses synthetic profiles, applies CMGF rules, and generates various HTML reports, including batch simulations for institutional intelligence. Deterministic output is returned immediately; HTML reports generate asynchronously after the response. Client shows SM Results view first for instant feedback.
 - **SM Request → ISR Pipeline**: Implements an end-to-end career transition pipeline demonstrating the CMGF's dual data flow. It covers service member request submission, ISR advisor queue management, engine analysis, advisor actions, and an immutable audit trail.
 - **API Rate Limiting**: All OpenAI-powered endpoints are protected by an in-memory rate limiter to manage costs and prevent abuse, including per-IP limits, global concurrency limits, and daily request caps.
+- **Dashboard Lazy Loading**: The Executive Dashboard uses `/api/library/summary` (SQL aggregation, ~1KB) for initial metrics/charts. The full 27MB library only loads when the user clicks the Research tab (`useQuery` with `enabled` flag). This reduces initial load from ~27MB/4.6s to ~1KB/0.1s.
 
 ### Compliance Frameworks Referenced
 - **EO 14179** (Executive Order 14179, 2025): Replaced EO 14110 as of March 2026 content update

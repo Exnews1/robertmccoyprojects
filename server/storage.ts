@@ -40,6 +40,7 @@ export interface IStorage {
   createExpertCommentary(commentary: InsertExpertCommentary): Promise<ExpertCommentary>;
 
   getLibraryEntries(): Promise<LibraryEntry[]>;
+  getLibrarySummary(): Promise<{ totalCount: number; pillarCounts: Array<{ name: string; count: number }>; yearDistribution: Array<{ year: number; count: number }>; typeDistribution: Array<{ type: string; count: number }> }>;
   createLibraryEntry(entry: InsertLibraryEntry): Promise<LibraryEntry>;
   updateLibraryEntryEmbedding(id: number, embedding: string): Promise<void>;
   clearLibraryEntries(): Promise<void>;
@@ -127,6 +128,35 @@ export class DatabaseStorage implements IStorage {
 
   async getLibraryEntries(): Promise<LibraryEntry[]> {
     return await db.select().from(libraryEntries);
+  }
+
+  async getLibrarySummary() {
+    const [countResult] = await db.select({ total: count() }).from(libraryEntries);
+    const totalCount = countResult?.total ?? 0;
+
+    const pillarRows = await db.execute(sql`
+      SELECT topic AS name, COUNT(*)::int AS count
+      FROM library_entries, unnest(topics) AS topic
+      GROUP BY topic ORDER BY count DESC
+    `);
+
+    const yearRows = await db.execute(sql`
+      SELECT year, COUNT(*)::int AS count
+      FROM library_entries WHERE year IS NOT NULL
+      GROUP BY year ORDER BY year ASC
+    `);
+
+    const typeRows = await db.execute(sql`
+      SELECT document_type AS type, COUNT(*)::int AS count
+      FROM library_entries GROUP BY document_type ORDER BY count DESC
+    `);
+
+    return {
+      totalCount,
+      pillarCounts: (pillarRows.rows as Array<{ name: string; count: number }>),
+      yearDistribution: (yearRows.rows as Array<{ year: number; count: number }>),
+      typeDistribution: (typeRows.rows as Array<{ type: string; count: number }>),
+    };
   }
 
   async createLibraryEntry(entry: InsertLibraryEntry): Promise<LibraryEntry> {

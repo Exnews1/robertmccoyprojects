@@ -235,6 +235,11 @@ export async function registerRoutes(httpServer: Server, app: Express) {
     res.json(entries);
   });
 
+  app.get("/api/library/summary", async (_req: any, res: any) => {
+    const summary = await storage.getLibrarySummary();
+    res.json(summary);
+  });
+
   // Import sources from CMGF JSON database
   app.post("/api/library/import", async (req: any, res: any) => {
     try {
@@ -962,14 +967,16 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       const profile = generateProfile(profileType, overrides || {});
       const result = await runScenario(profile);
 
-      let reportUrl: string | undefined;
-      if (genReport) {
-        const { generatePathwayReport } = await import("./orchestrator/reports");
-        const report = await generatePathwayReport(result);
-        reportUrl = `/api/reports/${report.id}`;
-      }
+      res.json(result);
 
-      res.json({ ...result, reportUrl });
+      if (genReport) {
+        try {
+          const { generatePathwayReport } = await import("./orchestrator/reports");
+          await generatePathwayReport(result);
+        } catch (reportErr) {
+          console.error("Background report generation failed:", reportErr);
+        }
+      }
     } catch (error: any) {
       console.error("Orchestrator error:", error);
       res.status(500).json({ error: error.message || "Scenario execution failed" });
