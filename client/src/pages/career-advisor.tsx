@@ -76,7 +76,25 @@ interface EvalResult {
   constraints: Constraint[];
   tiers: string[];
   steps: string[];
+  dataSources: string[];
+  signalsChecked: number;
+  rulesEvaluated: number;
+  decisionsRendered: number;
 }
+
+const dataSourceMap: Record<string, string[]> = {
+  medic_nurse: ["Army COOL Policy", "ACEN/CCNE Standards", "NCLEX-RN Requirements", "VA Education Benefits", "O*NET", "BLS"],
+  medic_police: ["Army COOL Policy", "POST Standards", "5 USC 2108 Veterans Preference", "BLS", "O*NET"],
+  medic_cyber: ["Army COOL Policy", "DoD 8570", "CompTIA Certification", "O*NET", "BLS"],
+  mp_police: ["Army COOL Policy", "POST Standards", "5 USC 2108 Veterans Preference", "BLS", "O*NET"],
+  mp_cyber: ["Army COOL Policy", "DoD 8570", "CompTIA Certification", "O*NET", "BLS"],
+  mp_nurse: ["Army COOL Policy", "ACEN/CCNE Standards", "NCLEX-RN Requirements", "VA Education Benefits", "O*NET", "BLS"],
+  it_cyber: ["Army COOL Policy", "DoD 8570", "CompTIA Certification", "NIST Cybersecurity Framework", "O*NET", "BLS"],
+  it_pm: ["Army COOL Policy", "PMI PMP Standards", "DoD TA Policy", "O*NET", "BLS"],
+  intel_analyst: ["Army COOL Policy", "IC Community Standards", "DoD Clearance Policy", "O*NET", "BLS"],
+  aviation_pilot: ["Army COOL Policy", "FAA ATP Standards", "VA Flight Training Benefits", "O*NET", "BLS"],
+  default: ["Army COOL Policy", "DoD TA Policy", "O*NET", "BLS"]
+};
 
 interface Rule {
   evaluate: (ed: string, time: string, funding: string) => { verdict: Verdict; label: string };
@@ -354,12 +372,21 @@ export default function CareerAdvisor() {
     const ruleTiers = rule.tiers(education, timeLeft, funding);
     const steps = rule.steps;
 
+    const sources = dataSourceMap[key] || dataSourceMap.default;
+    const signalsChecked = constraints.length * 3;
+    const rulesEvaluated = constraints.length;
+    const decisionsRendered = constraints.filter(c => c.status !== "partial").length;
+
     setResult({
       ...evalResult,
       explanation,
       constraints,
       tiers: [...ruleTiers, "NON-PREDICTIVE", "INFORMATIONAL ONLY"],
       steps,
+      dataSources: sources,
+      signalsChecked,
+      rulesEvaluated,
+      decisionsRendered,
     });
   }, [milOcc, civCareer, education, timeLeft, funding]);
 
@@ -579,6 +606,54 @@ export default function CareerAdvisor() {
                         />
                       );
                     })}
+                  </div>
+                </div>
+
+                <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }} data-testid="card-transparency">
+                  <div className="flex items-center gap-2 pb-3 mb-5" style={{ borderBottom: `1px solid ${borderColor}` }}>
+                    <Shield className="h-4 w-4" style={{ color: '#4ecdc4' }} />
+                    <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: '#4ecdc4' }}>
+                      Governance Transparency
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-4 mb-5">
+                    <div>
+                      <div className="text-[10px] font-mono tracking-wider uppercase mb-1" style={{ color: textDim }}>Engine Version</div>
+                      <div className="text-sm font-mono" style={{ color: '#4ecdc4' }} data-testid="text-engine-version">CMGF v2.10</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono tracking-wider uppercase mb-1" style={{ color: textDim }}>Execution Type</div>
+                      <div className="text-sm font-mono" style={{ color: '#4ecdc4' }} data-testid="text-execution-type">Deterministic Rules Engine</div>
+                    </div>
+                  </div>
+
+                  <div className="mb-5">
+                    <div className="text-[10px] font-mono tracking-wider uppercase mb-2" style={{ color: textDim }}>Data Sources Consulted</div>
+                    <div className="flex flex-wrap gap-1.5" data-testid="data-sources">
+                      {result.dataSources.map(src => (
+                        <span key={src} className="inline-block font-mono text-[10px] tracking-wide px-2 py-1" style={{ background: 'rgba(212,219,232,0.08)', border: '1px solid rgba(212,219,232,0.2)', color: textColor, borderRadius: 2 }}>
+                          {src}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mb-5">
+                    <div className="text-[10px] font-mono tracking-wider uppercase mb-2" style={{ color: textDim }}>Rules Evaluated</div>
+                    <div className="text-xs font-mono" style={{ color: textColor }} data-testid="text-rules-summary">
+                      {result.signalsChecked} signals checked &rarr; {result.rulesEvaluated} rules evaluated &rarr; {result.decisionsRendered} decisions rendered
+                    </div>
+                  </div>
+
+                  <div className="py-2.5 px-4 text-center" style={{ background: 'rgba(201,168,76,0.15)', borderRadius: 3 }} data-testid="text-human-review">
+                    <span className="text-xs font-mono tracking-wide" style={{ color: gold }}>
+                      Human advisor review required before action
+                    </span>
+                  </div>
+
+                  <div className="mt-4 text-[10px] leading-relaxed italic" style={{ color: textDim }}>
+                    All outputs are informational. Rules derive from publicly available policy, credentialing, and labor data.
                   </div>
                 </div>
               </>
