@@ -89,8 +89,8 @@ const sections = [
     title: "Framework Walkthrough",
     description: "Three-part system architecture: Service Member Interface, Advisory Layer, AI Mediation.",
     icon: BookOpen,
-    route: "/research/cmgf/walkthrough",
-    external: false
+    route: "https://cmgfdemo.robertmccoyprojects.com",
+    external: true
   },
   {
     id: "library",
@@ -274,10 +274,10 @@ export default function CMGFRoot() {
                     Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
                   </p>
                   <Button size="default" asChild data-testid="button-launch-cmgf-demo">
-                    <Link href="/research/demo" onClick={trackDemoLaunch}>
-                      <Rocket className="h-4 w-4 mr-2" />
+                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
+                      <ExternalLink className="h-4 w-4 mr-2" />
                       Launch Demo
-                    </Link>
+                    </a>
                   </Button>
                 </div>
               </div>
