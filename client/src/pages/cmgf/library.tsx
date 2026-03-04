@@ -197,12 +197,9 @@ export default function Library() {
             <Link href="/research/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Button variant="outline" size="sm" asChild>
-              <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                Walkthrough
-              </a>
-            </Button>
+            <Link href="/research/cmgf/walkthrough">
+              <Button variant="outline" size="sm">Walkthrough</Button>
+            </Link>
             <Link href="/research/cmgf/downloads">
               <Button variant="outline" size="sm">Downloads</Button>
             </Link>

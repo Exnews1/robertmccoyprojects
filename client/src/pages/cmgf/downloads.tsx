@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database, Quote, Copy, Check } from "lucide-react";
+import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database, Quote, Copy, Check, Rocket } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useTrackClick } from "@/App";
@@ -240,10 +240,10 @@ export default function Downloads() {
                   Multi-module platform with Service Member Hub, AI Services, and Advisor Toolkit—featuring governance compliance and human-in-the-loop AI.
                 </p>
                 <Button size="default" asChild data-testid="button-launch-demo-downloads">
-                  <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
-                    <ExternalLink className="h-4 w-4 mr-2" />
+                  <Link href="/research/demo" onClick={trackDemoLaunch}>
+                    <Rocket className="h-4 w-4 mr-2" />
                     Launch Demo
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -308,12 +308,9 @@ export default function Downloads() {
             <Link href="/research/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Button variant="outline" size="sm" asChild>
-              <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                Framework Walkthrough
-              </a>
-            </Button>
+            <Link href="/research/cmgf/walkthrough">
+              <Button variant="outline" size="sm">Framework Walkthrough</Button>
+            </Link>
             <Link href="/research/cmgf/library">
               <Button variant="outline" size="sm">Research Library</Button>
             </Link>

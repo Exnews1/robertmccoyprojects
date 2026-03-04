@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database, BarChart3 } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database, BarChart3, Rocket } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { ExplainButton } from "@/components/explain-button";
 import { useToast } from "@/hooks/use-toast";
@@ -89,8 +89,8 @@ const sections = [
     title: "Framework Walkthrough",
     description: "Three-part system architecture: Service Member Interface, Advisory Layer, AI Mediation.",
     icon: BookOpen,
-    route: "https://cmgfdemo.robertmccoyprojects.com",
-    external: true
+    route: "/research/cmgf/walkthrough",
+    external: false
   },
   {
     id: "library",
@@ -274,10 +274,10 @@ export default function CMGFRoot() {
                     Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
                   </p>
                   <Button size="default" asChild data-testid="button-launch-cmgf-demo">
-                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
-                      <ExternalLink className="h-4 w-4 mr-2" />
+                    <Link href="/research/demo" onClick={trackDemoLaunch}>
+                      <Rocket className="h-4 w-4 mr-2" />
                       Launch Demo
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>
