@@ -20,149 +20,117 @@ canvas { width: 100%; display: block; background: #0d1117; height: calc(100vh - 
 .progress-wrap { flex: 1; }
 .progress-bar { height: 8px; border-radius: 4px; background: rgba(148,163,184,0.15); overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #fbbf24, #f97316); transition: width 0.1s; }
-.progress-info { display: flex; justify-content: space-between; margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #94a3b8; }
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
-.card { padding: 16px; background: rgba(17,34,64,0.5); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; }
-.card-act { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #fbbf24; margin-bottom: 4px; }
-.card-title { font-family: 'Merriweather', serif; font-size: 14px; margin-bottom: 4px; }
-.card-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
-.card-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
-.note { margin-top: 32px; padding: 16px; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #94a3b8; }
-#wrapper:fullscreen canvas { height: 100vh; }
-@media (max-width: 768px) { .cards { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .cards { grid-template-columns: 1fr; } }
+.progress-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; }
+.acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+.act-card { padding: 16px; background: rgba(17,34,64,0.5); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; }
+.act-card .act-num { font-size: 9px; font-family: 'JetBrains Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: #fbbf24; margin-bottom: 4px; }
+.act-card .act-title { font-size: 14px; font-family: 'Merriweather', Georgia, serif; margin-bottom: 4px; }
+.act-card .act-time { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; margin-bottom: 8px; }
+.act-card p { font-size: 12px; color: #94a3b8; line-height: 1.6; }
+.conf-tip { margin-top: 32px; padding: 16px; text-align: center; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; }
+.canvas-wrap { position: relative; }
+.canvas-wrap .controls { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(13,17,23,0.95)); }
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="tag">Cinematic Visualization</div>
   <h1>From One to the Pentagon</h1>
   <p class="subtitle">The CMGF Signal at Scale — How individual advisory sessions become privacy-safe institutional intelligence</p>
 </div>
-
-<div id="wrapper" style="width:100%;position:relative;">
-  <canvas id="canvas"></canvas>
+<div class="canvas-wrap">
+  <canvas id="c"></canvas>
   <div class="controls">
-    <button class="btn" id="playBtn" onclick="togglePlay()">&#9654;</button>
+    <button class="btn" id="playPause" onclick="togglePlay()">&#9654;</button>
     <button class="btn-sm" onclick="resetAnim()">&#8634;</button>
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-info"><span id="timeLabel">0s / 75s</span><span id="actLabel">Ready</span></div>
+      <div class="progress-labels"><span id="timeLabel">0s / 75s</span><span id="actLabel">Ready</span></div>
     </div>
-    <button class="btn-sm" onclick="toggleFullscreen()">&#x26F6;</button>
+    <button class="btn-sm" onclick="toggleFS()">&#x26F6;</button>
   </div>
 </div>
-
 <div class="container">
-  <div class="cards">
-    <div class="card"><div class="card-act">Act I</div><div class="card-title">The Individual</div><div class="card-time">0:00 – 0:15</div><p class="card-desc">A deployed SM at 0200 sends a signal. The CMGF AI engages in intense back-and-forth advisory exchange across multiple lanes. The signal to the ESO thickens and glows hot as the session produces an activity report.</p></div>
-    <div class="card"><div class="card-act">Act II</div><div class="card-title">The Installation</div><div class="card-time">0:15 – 0:30</div><p class="card-desc">Hundreds of SMs appear at a single installation, each in their own advisory session. The AI engine grows under load. The pipeline to the ESO burns hot with continuous signal traffic and coordination.</p></div>
-    <div class="card"><div class="card-act">Act III</div><div class="card-title">The Network</div><div class="card-time">0:30 – 0:55</div><p class="card-desc">Eight military bases come online — Ft Liberty, Ft Cavazos, JBLM, and more. Each has its own AI engine and ESO. ISR feeds from each base converge at the normalization hub, then flow to the Pentagon.</p></div>
-    <div class="card"><div class="card-act">Act IV</div><div class="card-title">The Pentagon</div><div class="card-time">0:55 – 1:15</div><p class="card-desc">Hundreds of ESOs from 180+ installations feed aggregated signals to the Pentagon. 2,000,000+ service members, zero PII in the policy layer. The ISR sees only aggregated institutional intelligence.</p></div>
+  <div class="acts">
+    <div class="act-card"><div class="act-num">Act I</div><div class="act-title">The Individual</div><div class="act-time">0:00 – 0:15</div><p>A deployed SM at 0200 sends a signal. The CMGF AI engages in intense back-and-forth advisory exchange across multiple lanes. The signal to the ESO thickens and glows hot as the session produces an activity report.</p></div>
+    <div class="act-card"><div class="act-num">Act II</div><div class="act-title">The Installation</div><div class="act-time">0:15 – 0:30</div><p>Hundreds of SMs appear at a single installation, each in their own advisory session. The AI engine grows under load. The pipeline to the ESO burns hot with continuous signal traffic and coordination.</p></div>
+    <div class="act-card"><div class="act-num">Act III</div><div class="act-title">The Network</div><div class="act-time">0:30 – 0:55</div><p>Eight military bases come online — Ft Liberty, Ft Cavazos, JBLM, and more. Each has its own AI engine and ESO. ISR feeds from each base converge at the normalization hub, then flow to the Pentagon.</p></div>
+    <div class="act-card"><div class="act-num">Act IV</div><div class="act-title">The Pentagon</div><div class="act-time">0:55 – 1:15</div><p>Hundreds of ESOs from 180+ installations feed aggregated signals to the Pentagon. 2,000,000+ service members, zero PII in the policy layer. The ISR sees only aggregated institutional intelligence.</p></div>
   </div>
-  <div class="note">For conference use: Enter fullscreen mode and press play. The animation runs 75 seconds with no interaction needed.</div>
+  <div class="conf-tip">For conference use: Enter fullscreen mode and press play. The animation runs 75 seconds with no interaction needed.</div>
 </div>
-
 <script>
-const C = { bg:"#0d1117", node:"#fbbf24", engine:"#f97316", isr:"#94a3b8", command:"#d97706", approved:"#22c55e", text:"#ffffff", textDim:"#94a3b8", border:"rgba(201,168,76,0.3)", pure:"#ffffff" };
-const DUR = 75, AT = [0,15,30,55,75];
-const NARRATIONS = [
+const C={bg:"#0d1117",node:"#fbbf24",engine:"#f97316",isr:"#94a3b8",command:"#d97706",approved:"#22c55e",text:"#ffffff",textDim:"#94a3b8",border:"rgba(201,168,76,0.3)",pure:"#ffffff"};
+const DUR=75,AT=[0,15,30,55,75];
+const NARRATIONS=[
   "A service member submits a career transition request. The CMGF constraint engine evaluates it against policy rules in real time.",
   "The system returns a governed response. Tuition Assistance is approved. A COOL certification pathway is confirmed. An ISR record is generated for the institution.",
   "Across thousands of installations, the same governed process repeats. Individual signals aggregate upward through command structure without exposing any individual.",
   "The totality of the system reaches the Department of Defense as a unified policy signal. One governed architecture. National scale."
 ];
-let playing=false, startT=0, pausedAt=0, animId=0;
-const canvas=document.getElementById("canvas"), ctx=canvas.getContext("2d");
+
+const cv=document.getElementById("c");
+const ctx=cv.getContext("2d");
+let playing=false, animId=0, startT=0, lastElapsed=0;
 
 function lerp(a,b,t){return a+(b-a)*Math.max(0,Math.min(1,t));}
 function easeInOut(t){return t<0.5?2*t*t:-1+(4-2*t)*t;}
 function easeOut(t){return 1-Math.pow(1-t,3);}
 function hash(i,s){return((s+i*127+i*i*13)%997)/997;}
 function hash2(i,s){return((s+i*251+i*i*7)%991)/991;}
+function getAct(t){if(t<AT[1])return 1;if(t<AT[2])return 2;if(t<AT[3])return 3;return 4;}
 
 function lerpColor(c1,c2,t){
   const r1=parseInt(c1.slice(1,3),16),g1=parseInt(c1.slice(3,5),16),b1=parseInt(c1.slice(5,7),16);
   const r2=parseInt(c2.slice(1,3),16),g2=parseInt(c2.slice(3,5),16),b2=parseInt(c2.slice(5,7),16);
   const r=Math.round(lerp(r1,r2,t)),g=Math.round(lerp(g1,g2,t)),b=Math.round(lerp(b1,b2,t));
-  return "#"+r.toString(16).padStart(2,"0")+g.toString(16).padStart(2,"0")+b.toString(16).padStart(2,"0");
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
 }
 
-function hex2(v){return Math.round(v).toString(16).padStart(2,"0");}
-
-function drawGlow(x,y,r,color,glow){
-  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*3);g.addColorStop(0,color+hex2(glow*60));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*3,0,Math.PI*2);ctx.fill();}
+function drawGlow(ctx,x,y,r,color,glow){
+  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*3);g.addColorStop(0,color+Math.round(glow*60).toString(16).padStart(2,'0'));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*3,0,Math.PI*2);ctx.fill();}
   ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
 }
 
-function drawHex(x,y,r,color,fo,glow){
-  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*2.5);g.addColorStop(0,color+hex2(glow*50));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();}
+function drawHex(ctx,x,y,r,color,fillOp,glow){
+  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*2.5);g.addColorStop(0,color+Math.round(glow*50).toString(16).padStart(2,'0'));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();}
   ctx.beginPath();for(let i=0;i<6;i++){const a=Math.PI/3*i-Math.PI/6;const px=x+r*Math.cos(a),py=y+r*Math.sin(a);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}ctx.closePath();
-  ctx.fillStyle=color+hex2(fo*255);ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle=color+Math.round(fillOp*255).toString(16).padStart(2,'0');ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();
 }
 
-function drawPent(x,y,r,bc,glow){
-  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*3);g.addColorStop(0,bc+hex2(glow*40));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*3,0,Math.PI*2);ctx.fill();}
-  ctx.beginPath();for(let i=0;i<5;i++){const a=Math.PI*2/5*i-Math.PI/2;ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();ctx.fillStyle=C.bg;ctx.fill();ctx.strokeStyle=bc;ctx.lineWidth=3;ctx.stroke();
+function drawPent(ctx,x,y,r,bc,glow){
+  if(glow>0){const g=ctx.createRadialGradient(x,y,r*0.5,x,y,r*3);g.addColorStop(0,bc+Math.round(glow*40).toString(16).padStart(2,'0'));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*3,0,Math.PI*2);ctx.fill();}
+  ctx.beginPath();for(let i=0;i<5;i++){const a=Math.PI*2/5*i-Math.PI/2;const px=x+r*Math.cos(a),py=y+r*Math.sin(a);i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);}ctx.closePath();ctx.fillStyle=C.bg;ctx.fill();ctx.strokeStyle=bc;ctx.lineWidth=3;ctx.stroke();
 }
 
-function drawLabel(text,x,y,color,size,op){
-  if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.fillStyle=color;ctx.font=size+"px 'JetBrains Mono',monospace";ctx.textAlign="center";ctx.textBaseline="top";ctx.fillText(text,x,y);ctx.restore();
+function drawLabel(ctx,text,x,y,color,size,op){if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.fillStyle=color;ctx.font=`${size}px 'JetBrains Mono','Courier New',monospace`;ctx.textAlign="center";ctx.textBaseline="top";ctx.fillText(text,x,y);ctx.restore();}
+
+function drawLine(ctx,x1,y1,x2,y2,color,op,w){if(op<=0)return;ctx.save();ctx.globalAlpha=op*0.4;ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();}
+
+function drawDot(ctx,x1,y1,x2,y2,p,color,sz){if(p<0||p>1)return;const x=lerp(x1,x2,p),y=lerp(y1,y2,p);const g=ctx.createRadialGradient(x,y,0,x,y,sz*4);g.addColorStop(0,color);g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,sz*4,0,Math.PI*2);ctx.fill();ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,sz,0,Math.PI*2);ctx.fill();}
+
+function drawBadge(ctx,text,x,y,color,op){if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.font="bold 14px 'JetBrains Mono',monospace";const w=ctx.measureText(text).width+20,h=26;ctx.fillStyle=color+"30";ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,3);ctx.fill();ctx.stroke();ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,x,y);ctx.restore();}
+
+function drawDoc(ctx,x,y,size,color,fp,op){if(op<=0)return;ctx.save();ctx.globalAlpha=op;const w=size*0.7,h=size,fold=size*0.2;ctx.beginPath();ctx.moveTo(x-w/2,y-h/2);ctx.lineTo(x+w/2-fold,y-h/2);ctx.lineTo(x+w/2,y-h/2+fold);ctx.lineTo(x+w/2,y+h/2);ctx.lineTo(x-w/2,y+h/2);ctx.closePath();ctx.fillStyle=C.bg;ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.stroke();const lines=Math.floor(fp*4);for(let i=0;i<lines;i++){const ly=y-h/2+fold+6+i*6;const lw=w*0.6-(i%2===0?0:w*0.15);ctx.fillStyle=color+"80";ctx.fillRect(x-w/2+5,ly,lw,2);}ctx.restore();}
+
+function drawPerson(ctx,x,y,size,color){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y-size*0.35,size*0.25,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(x,y+size*0.1,size*0.35,size*0.3,0,Math.PI,0,true);ctx.fill();}
+
+function drawBounce(ctx,x1,y1,x2,y2,el,speed,c1,c2,op){
+  if(op<=0)return;const cy=(el*speed)%2;const fwd=cy<1;const p=fwd?easeInOut(cy):easeInOut(cy-1);
+  const fx=fwd?x1:x2,fy=fwd?y1:y2,tx=fwd?x2:x1,ty=fwd?y2:y1;const color=fwd?c1:c2;
+  ctx.save();ctx.globalAlpha=op;drawLine(ctx,x1,y1,x2,y2,c1,0.4,1.5);ctx.restore();drawDot(ctx,fx,fy,tx,ty,p,color,5);
 }
 
-function drawLine(x1,y1,x2,y2,color,op,w){
-  if(op<=0)return;ctx.save();ctx.globalAlpha=op*0.4;ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
+function drawTrunk(ctx,x1,y1,x2,y2,w,color,op,gr){
+  if(op<=0)return;ctx.save();const g=ctx.createLinearGradient(x1,y1,x2,y2);g.addColorStop(0,color+Math.round(op*200).toString(16).padStart(2,'0'));g.addColorStop(1,color+Math.round(op*120).toString(16).padStart(2,'0'));
+  if(gr>0){const mx=(x1+x2)/2,my=(y1+y2)/2;const gl=ctx.createRadialGradient(mx,my,0,mx,my,gr);gl.addColorStop(0,color+Math.round(op*30).toString(16).padStart(2,'0'));gl.addColorStop(1,"transparent");ctx.fillStyle=gl;ctx.beginPath();ctx.arc(mx,my,gr,0,Math.PI*2);ctx.fill();}
+  ctx.strokeStyle=g;ctx.lineWidth=w;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
 }
 
-function drawDot(x1,y1,x2,y2,p,color,sz){
-  if(p<0||p>1)return;const x=lerp(x1,x2,p),y=lerp(y1,y2,p);
-  const g=ctx.createRadialGradient(x,y,0,x,y,sz*4);g.addColorStop(0,color);g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,sz*4,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,sz,0,Math.PI*2);ctx.fill();
-}
+function drawProcLabel(ctx,text,x,y,color,bg,op){if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.font="bold 13px 'JetBrains Mono',monospace";const w=ctx.measureText(text).width+24,h=28;ctx.fillStyle=bg;ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,3);ctx.fill();ctx.stroke();ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,x,y);ctx.restore();}
 
-function drawPerson(x,y,sz,color){
-  ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y-sz*0.35,sz*0.25,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.ellipse(x,y+sz*0.1,sz*0.35,sz*0.3,0,Math.PI,0,true);ctx.fill();
-}
-
-function drawBounce(x1,y1,x2,y2,el,spd,c1,c2,op){
-  if(op<=0)return;const cyc=(el*spd)%2,fwd=cyc<1,p=fwd?easeInOut(cyc):easeInOut(cyc-1);
-  ctx.save();ctx.globalAlpha=op;drawLine(x1,y1,x2,y2,c1,0.4,1.5);ctx.restore();
-  drawDot(fwd?x1:x2,fwd?y1:y2,fwd?x2:x1,fwd?y2:y1,p,fwd?c1:c2,5);
-}
-
-function drawBeam(x1,y1,x2,y2,w,color,op,gr){
-  if(op<=0)return;ctx.save();
-  if(gr>0){const mx=(x1+x2)/2,my=(y1+y2)/2,g=ctx.createRadialGradient(mx,my,0,mx,my,gr);g.addColorStop(0,color+hex2(op*30));g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,gr,0,Math.PI*2);ctx.fill();}
-  const gd=ctx.createLinearGradient(x1,y1,x2,y2);gd.addColorStop(0,color+hex2(op*200));gd.addColorStop(1,color+hex2(op*120));
-  ctx.strokeStyle=gd;ctx.lineWidth=w;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
-}
-
-function drawProcLabel(text,x,y,color,bg,op){
-  if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.font="bold 13px 'JetBrains Mono',monospace";const w=ctx.measureText(text).width+24,h=28;
-  ctx.fillStyle=bg;ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,3);ctx.fill();ctx.stroke();
-  ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,x,y);ctx.restore();
-}
-
-function drawBadge(text,x,y,color,op){
-  if(op<=0)return;ctx.save();ctx.globalAlpha=op;ctx.font="bold 14px 'JetBrains Mono',monospace";const w=ctx.measureText(text).width+20,h=26;
-  ctx.fillStyle=color+"30";ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(x-w/2,y-h/2,w,h,3);ctx.fill();ctx.stroke();
-  ctx.fillStyle=color;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(text,x,y);ctx.restore();
-}
-
-function drawDoc(x,y,sz,color,fp,op){
-  if(op<=0)return;ctx.save();ctx.globalAlpha=op;const w=sz*0.7,h=sz,fold=sz*0.2;
-  ctx.beginPath();ctx.moveTo(x-w/2,y-h/2);ctx.lineTo(x+w/2-fold,y-h/2);ctx.lineTo(x+w/2,y-h/2+fold);ctx.lineTo(x+w/2,y+h/2);ctx.lineTo(x-w/2,y+h/2);ctx.closePath();
-  ctx.fillStyle=C.bg;ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.stroke();
-  for(let i=0;i<Math.floor(fp*4);i++){ctx.fillStyle=color+"80";ctx.fillRect(x-w/2+5,y-h/2+fold+6+i*6,w*0.6-(i%2?w*0.15:0),2);}
-  ctx.restore();
-}
-
-function drawNarration(text,x,y,maxW,op,charCount){
-  if(op<=0||charCount<=0)return;
-  const dt=text.substring(0,charCount);
-  ctx.save();ctx.globalAlpha=op;ctx.font="16px 'Inter',sans-serif";
+function drawNarration(ctx,text,x,y,maxW,op,charCount){
+  if(op<=0||charCount<=0)return;const dt=text.substring(0,charCount);ctx.save();ctx.globalAlpha=op;ctx.font="16px 'Inter',sans-serif";
   const words=dt.split(' ');const lines=[];let line='';
   for(const w of words){const test=line?line+' '+w:w;if(ctx.measureText(test).width>maxW-40){if(line)lines.push(line);line=w;}else{line=test;}}
   if(line)lines.push(line);
@@ -174,152 +142,104 @@ function drawNarration(text,x,y,maxW,op,charCount){
   ctx.restore();
 }
 
-function getAct(t){if(t<AT[1])return 1;if(t<AT[2])return 2;if(t<AT[3])return 3;return 4;}
-
-function render(time){
-  const dpr=window.devicePixelRatio||1,rect=canvas.getBoundingClientRect();
-  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.scale(dpr,dpr);
+function render(el){
+  const dpr=window.devicePixelRatio||1;const rect=cv.getBoundingClientRect();
+  cv.width=rect.width*dpr;cv.height=rect.height*dpr;ctx.scale(dpr,dpr);
   const W=rect.width,H=rect.height;
   ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);
-  const el=time,act=getAct(el);
-  const smX=W*0.1,smY=H*0.5,engX=W*0.38,engY=H*0.5,esoX=W*0.65,esoY=H*0.5,pentX=W*0.5,pentY=H*0.18;
+  const act=getAct(el);
+  const smX=W*0.1,smY=H*0.5,engineX=W*0.38,engineY=H*0.5,esoX=W*0.65,esoY=H*0.5,pentX=W*0.5,pentY=H*0.18;
 
-  if(el<3){
-    const tp=el<0.5?el/0.5:(el<2.5?1:1-(el-2.5)/0.5);
-    ctx.save();ctx.globalAlpha=Math.max(0,tp);ctx.fillStyle=C.text;ctx.font="bold 28px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";
-    ctx.fillText("From One to the Pentagon",W/2,H*0.4);ctx.font="16px 'Inter',sans-serif";ctx.fillStyle=C.textDim;ctx.fillText("The CMGF Signal at Scale",W/2,H*0.4+40);ctx.restore();
-  }
+  if(el<3){const tp=el<0.5?el/0.5:(el<2.5?1:1-(el-2.5)/0.5);ctx.save();ctx.globalAlpha=Math.max(0,tp);ctx.fillStyle=C.text;ctx.font="bold 28px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("From One to the Pentagon",W/2,H*0.4);ctx.font="16px 'Inter',sans-serif";ctx.fillStyle=C.textDim;ctx.fillText("The CMGF Signal at Scale",W/2,H*0.4+40);ctx.restore();}
 
   if(act>=1){
-    const aT=Math.min(1,el/AT[1]);
-    const cA=easeOut(Math.min(1,aT*3));
+    const actT=Math.min(1,el/AT[1]);
+    const cA=easeOut(Math.min(1,actT*3));
     if(cA>0){ctx.save();ctx.globalAlpha=cA*0.4;ctx.fillStyle=C.textDim;ctx.font="14px 'JetBrains Mono',monospace";ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText("0200 HRS · UNDISCLOSED LOCATION",W*0.03,H*0.06);ctx.restore();}
-
-    const sA=easeOut(Math.min(1,aT*4));
-    if(sA>0){const p=0.5+0.5*Math.sin(el*2);drawGlow(smX,smY,28,C.node,sA*p*0.8);drawPerson(smX,smY,28,C.text);drawLabel("DEPLOYED SM",smX,smY+40,C.textDim,16,sA);}
-
-    const sAI=Math.max(0,Math.min(1,(aT-0.15)/0.1));
-    if(sAI>0){drawLine(smX,smY,engX,engY,C.node,sAI,2);if(sAI<1)drawDot(smX,smY,engX,engY,easeInOut(sAI),C.node,6);}
-
-    const hA=Math.max(0,Math.min(1,(aT-0.2)/0.08));
-    if(hA>0){drawHex(engX,engY,55,C.engine,hA*0.3,hA*(0.3+0.3*Math.sin(el*3)));drawLabel("CMGF AI",engX,engY+65,C.textDim,16,hA);drawLabel("ENGINE",engX,engY+82,C.textDim,14,hA);}
-
-    const bS=0.28,bE=0.68,bP=Math.max(0,Math.min(1,(aT-bS)/(bE-bS)));
-    if(bP>0){
-      const bEl=(aT-bS)*AT[1];
-      for(let l=-1;l<=1;l++){const yO=l*14,sp=1.6+l*0.3,d=Math.abs(l)*0.15,lP=Math.max(0,bP-d);if(lP>0)drawBounce(smX+28,smY+yO,engX-55,engY+yO,bEl,sp,C.node,C.engine,lP*0.7);}
-      const eL=Math.max(0,Math.min(1,(bP-0.2)/0.15));
-      if(eL>0){const mx=(smX+engX)/2;drawLabel("BACK & FORTH",mx,smY-55,C.textDim,14,eL*0.6);drawLabel("ADVISORY EXCHANGE",mx,smY-38,C.textDim,14,eL*0.6);}
-    }
-
-    const eRP=Math.max(0,Math.min(1,(aT-0.7)/0.15));
-    if(eRP>0){const hg=eRP*(0.6+0.4*Math.sin(el*4));drawBeam(engX+55,engY,esoX,esoY,3+eRP*8,C.engine,hg,40*eRP);if(eRP<1)drawDot(engX+55,engY,esoX,esoY,easeOut(eRP),C.engine,7);}
-
-    const eA=Math.max(0,Math.min(1,(aT-0.82)/0.08));
-    if(eA>0){drawGlow(esoX,esoY,30,C.node,eA*(0.5+0.5*Math.sin(el*3)));drawLabel("ESO",esoX,esoY-44,C.node,18,eA);drawDoc(esoX,esoY,36,C.node,eA,eA);drawLabel("ACTIVITY REPORT",esoX,esoY+36,C.textDim,14,eA);}
-
-    const eAB=Math.max(0,Math.min(1,(aT-0.88)/0.1));
-    if(eAB>0){drawBounce(engX+55,engY-10,esoX-30,esoY-10,el,2.0,C.engine,C.node,eAB*0.5);drawLabel("ESO ↔ AI COORDINATION",(engX+esoX)/2,esoY+55,C.textDim,12,eAB*0.5);}
-
-    const bdP=Math.max(0,Math.min(1,(aT-0.93)/0.05));
-    if(bdP>0)drawBadge("SM SESSION COMPLETE",(smX+engX)/2,smY+75,C.approved,bdP);
+    const smA=easeOut(Math.min(1,actT*4));
+    if(smA>0){const p=0.5+0.5*Math.sin(el*2);drawGlow(ctx,smX,smY,28,C.node,smA*p*0.8);drawPerson(ctx,smX,smY,28,C.text);drawLabel(ctx,"DEPLOYED SM",smX,smY+40,C.textDim,16,smA);}
+    const sAI=Math.max(0,Math.min(1,(actT-0.15)/0.1));
+    if(sAI>0){drawLine(ctx,smX,smY,engineX,engineY,C.node,sAI,2);if(sAI<1)drawDot(ctx,smX,smY,engineX,engineY,easeInOut(sAI),C.node,6);}
+    const hA=Math.max(0,Math.min(1,(actT-0.2)/0.08));
+    if(hA>0){const fg=0.3+0.3*Math.sin(el*3);drawHex(ctx,engineX,engineY,55,C.engine,hA*0.3,hA*fg);drawLabel(ctx,"CMGF AI",engineX,engineY+65,C.textDim,16,hA);drawLabel(ctx,"ENGINE",engineX,engineY+82,C.textDim,14,hA);}
+    const bS=0.28,bE=0.68,bP=Math.max(0,Math.min(1,(actT-bS)/(bE-bS)));
+    if(bP>0){const bEl=(actT-bS)*AT[1];for(let lane=-1;lane<=1;lane++){const yO=lane*14;const sp=1.6+lane*0.3;const dl=Math.abs(lane)*0.15;const lP=Math.max(0,bP-dl);if(lP>0)drawBounce(ctx,smX+28,smY+yO,engineX-55,engineY+yO,bEl,sp,C.node,C.engine,lP*0.7);}
+    const eL=Math.max(0,Math.min(1,(bP-0.2)/0.15));if(eL>0){const mx=(smX+engineX)/2;drawLabel(ctx,"BACK & FORTH",mx,smY-55,C.textDim,14,eL*0.6);drawLabel(ctx,"ADVISORY EXCHANGE",mx,smY-38,C.textDim,14,eL*0.6);}}
+    const eRP=Math.max(0,Math.min(1,(actT-0.7)/0.15));
+    if(eRP>0){const hg=eRP*(0.6+0.4*Math.sin(el*4));const bw=3+eRP*8;drawTrunk(ctx,engineX+55,engineY,esoX,esoY,bw,C.engine,hg,40*eRP);if(eRP<1)drawDot(ctx,engineX+55,engineY,esoX,esoY,easeOut(eRP),C.engine,7);}
+    const eA=Math.max(0,Math.min(1,(actT-0.82)/0.08));
+    if(eA>0){const eg=eA*(0.5+0.5*Math.sin(el*3));drawGlow(ctx,esoX,esoY,30,C.node,eg);drawLabel(ctx,"ESO",esoX,esoY-44,C.node,18,eA);drawDoc(ctx,esoX,esoY,36,C.node,eA,eA);drawLabel(ctx,"ACTIVITY REPORT",esoX,esoY+36,C.textDim,14,eA);}
+    const eAB=Math.max(0,Math.min(1,(actT-0.88)/0.1));
+    if(eAB>0){drawBounce(ctx,engineX+55,engineY-10,esoX-30,esoY-10,el,2.0,C.engine,C.node,eAB*0.5);drawLabel(ctx,"ESO ↔ AI COORDINATION",(engineX+esoX)/2,esoY+55,C.textDim,12,eAB*0.5);}
+    const bdP=Math.max(0,Math.min(1,(actT-0.93)/0.05));
+    if(bdP>0)drawBadge(ctx,"SM SESSION COMPLETE",(smX+engineX)/2,smY+75,C.approved,bdP);
   }
 
   if(act>=2){
-    const a2S=AT[1],a2D=AT[2]-AT[1],a2T=Math.min(1,(el-a2S)/a2D),mSM=150,smC=Math.floor(lerp(3,mSM,easeOut(Math.min(1,a2T*1.8))));
+    const a2S=AT[1],a2D=AT[2]-AT[1],a2T=Math.min(1,(el-a2S)/a2D);
+    const maxSM=150,smC=Math.floor(lerp(3,maxSM,easeOut(Math.min(1,a2T*1.8))));
     for(let i=0;i<smC;i++){
-      const nx=W*0.02+hash(i,42)*W*0.22,ny=H*0.05+hash2(i,42)*H*0.9,nO=Math.min(1,(a2T*1.8)-i/mSM*0.3);
-      if(nO<=0)continue;ctx.save();ctx.globalAlpha=nO*0.8;
-      const sz=i<20?6:(i<60?4:3);drawGlow(nx,ny,sz,C.node,(0.3+0.7*Math.sin(el*1.2+i*0.4))*0.2);
-      if(i<40){if(a2T>0.1+i*0.005){const bE2=el-a2S-(0.1+i*0.005)*a2D;if(bE2>0){const tY=engY+(hash(i,99)-0.5)*H*0.4;ctx.globalAlpha=nO*0.3;ctx.strokeStyle=C.node;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(engX-55,tY);ctx.stroke();const sp=((bE2*(0.8+hash(i,77)*0.6))%2),fw=sp<1,p=fw?easeInOut(sp):easeInOut(sp-1);drawGlow(fw?lerp(nx,engX-55,p):lerp(engX-55,nx,p),fw?lerp(ny,tY,p):lerp(tY,ny,p),3,fw?C.node:C.engine,0.5);}}}
-      else{ctx.globalAlpha=nO*0.15;ctx.strokeStyle=C.node;ctx.lineWidth=0.3;ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(engX-55,engY+(hash(i,55)-0.5)*H*0.3);ctx.stroke();}
+      const nx=W*0.02+hash(i,42)*W*0.22,ny=H*0.05+hash2(i,42)*H*0.9;
+      const nO=Math.min(1,(a2T*1.8)-i/maxSM*0.3);if(nO<=0)continue;
+      ctx.save();ctx.globalAlpha=nO*0.8;const sz=i<20?6:(i<60?4:3);const p=0.3+0.7*Math.sin(el*1.2+i*0.4);
+      drawGlow(ctx,nx,ny,sz,C.node,p*0.2);
+      if(i<40){const bA=a2T>0.1+(i*0.005);if(bA){const bE2=el-a2S-(0.1+i*0.005)*a2D;if(bE2>0){const tY=engineY+(hash(i,99)-0.5)*H*0.4;ctx.globalAlpha=nO*0.3;ctx.strokeStyle=C.node;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(engineX-55,tY);ctx.stroke();const sp=((bE2*(0.8+hash(i,77)*0.6))%2);const fw=sp<1;const pp=fw?easeInOut(sp):easeInOut(sp-1);const dc=fw?C.node:C.engine;const dx=fw?lerp(nx,engineX-55,pp):lerp(engineX-55,nx,pp);const dy=fw?lerp(ny,tY,pp):lerp(tY,ny,pp);drawGlow(ctx,dx,dy,3,dc,0.5);}}}
+      else{ctx.globalAlpha=nO*0.15;ctx.strokeStyle=C.node;ctx.lineWidth=0.3;ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(engineX-55,engineY+(hash(i,55)-0.5)*H*0.3);ctx.stroke();}
       ctx.restore();
     }
-    const hG=0.5+0.4*Math.sin(el*3),hS=55+Math.min(12,a2T*14);
-    drawHex(engX,engY,hS,C.engine,0.4,hG);drawLabel("CMGF AI",engX,engY+hS+12,C.textDim,16,1);drawLabel("ENGINE",engX,engY+hS+30,C.textDim,14,1);
-
-    const eRP2=Math.max(0,Math.min(1,(a2T-0.25)/0.35));
-    if(eRP2>0){
-      drawBeam(engX+hS,engY,esoX-30,esoY,4+eRP2*10,C.engine,eRP2*(0.6+0.4*Math.sin(el*4)),60*eRP2);
-      for(let i=0;i<Math.floor(eRP2*4);i++)drawDot(engX+hS,engY+(i-2)*8,esoX-30,esoY+(i-2)*5,((el*1.5+i*0.6)%1),C.engine,4);
-      drawGlow(esoX,esoY,30,C.node,eRP2*(0.6+0.4*Math.sin(el*4)));drawLabel("ESO",esoX,esoY-42,C.node,18,eRP2);
-      for(let i=0;i<Math.min(6,Math.floor(eRP2*8));i++)drawDoc(esoX+i*4,esoY-i*3,24,C.node,1,eRP2*0.7);
-      drawLabel("ACTIVITY REPORTS",esoX,esoY+32,C.textDim,14,eRP2);
-      if(eRP2>0.3)for(let l=0;l<3;l++)drawBounce(engX+hS,engY+(l-1)*14,esoX-30,esoY+(l-1)*14,el,1.8+l*0.4,C.engine,C.node,(eRP2-0.3)*0.4);
-    }
+    const hG=0.5+0.4*Math.sin(el*3);const hS=55+Math.min(12,a2T*14);drawHex(ctx,engineX,engineY,hS,C.engine,0.4,hG);drawLabel(ctx,"CMGF AI",engineX,engineY+hS+12,C.textDim,16,1);drawLabel(ctx,"ENGINE",engineX,engineY+hS+30,C.textDim,14,1);
+    const erP=Math.max(0,Math.min(1,(a2T-0.25)/0.35));
+    if(erP>0){const ehG=erP*(0.6+0.4*Math.sin(el*4));const bw=4+erP*10;drawTrunk(ctx,engineX+hS,engineY,esoX-30,esoY,bw,C.engine,ehG,60*erP);for(let i=0;i<Math.floor(erP*4);i++){const sp=((el*1.5+i*0.6)%1);drawDot(ctx,engineX+hS,engineY+(i-2)*8,esoX-30,esoY+(i-2)*5,sp,C.engine,4);}drawGlow(ctx,esoX,esoY,30,C.node,ehG);drawLabel(ctx,"ESO",esoX,esoY-42,C.node,18,erP);const dS=Math.min(6,Math.floor(erP*8));for(let i=0;i<dS;i++)drawDoc(ctx,esoX+i*4,esoY-i*3,24,C.node,1,erP*0.7);drawLabel(ctx,"ACTIVITY REPORTS",esoX,esoY+32,C.textDim,14,erP);const eAB2=Math.max(0,erP-0.3);if(eAB2>0){for(let lane=0;lane<3;lane++){const yO=(lane-1)*14;drawBounce(ctx,engineX+hS,engineY+yO,esoX-30,esoY+yO,el,1.8+lane*0.4,C.engine,C.node,eAB2*0.4);}}}
     const cP2=Math.max(0,Math.min(1,(a2T-0.3)/0.1));
-    if(cP2>0){ctx.save();ctx.globalAlpha=cP2*0.7;ctx.fillStyle=C.node;ctx.font="bold 16px 'JetBrains Mono',monospace";ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(Math.floor(smC*13).toLocaleString()+" ACTIVE SESSIONS",W*0.03,H*0.04);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("SINGLE INSTALLATION",W*0.03,H*0.08);ctx.restore();}
+    if(cP2>0){const dC=Math.floor(smC*13);ctx.save();ctx.globalAlpha=cP2*0.7;ctx.fillStyle=C.node;ctx.font="bold 16px 'JetBrains Mono',monospace";ctx.textAlign="left";ctx.textBaseline="top";ctx.fillText(`${dC.toLocaleString()} ACTIVE SESSIONS`,W*0.03,H*0.04);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("SINGLE INSTALLATION",W*0.03,H*0.08);ctx.restore();}
   }
 
   if(act>=3){
     const a3S=AT[2],a3D=AT[3]-AT[2],a3T=Math.min(1,(el-a3S)/a3D);
-    const bC=Math.min(8,Math.floor(a3T*12));
-    const bN=["FT LIBERTY","FT CAVAZOS","FT MOORE","JBLM","FT DRUM","FT RILEY","FT STEWART","FT BLISS"];
-    const bases=[];
-    for(let b=0;b<bC;b++){const r=b%4,c=Math.floor(b/4),bx=W*0.02+c*W*0.16,by=H*0.12+r*H*0.2;bases.push({x:bx,y:by,aiX:bx+W*0.06,esoX:bx+W*0.12,label:bN[b]});}
-
+    const bC=Math.min(8,Math.floor(a3T*12));const bases=[];const bN=["FT LIBERTY","FT CAVAZOS","FT MOORE","JBLM","FT DRUM","FT RILEY","FT STEWART","FT BLISS"];
+    for(let b=0;b<bC;b++){const row=b%4,col=Math.floor(b/4);const bx=W*0.02+col*W*0.16,by=H*0.12+row*H*0.2;bases.push({x:bx,y:by,aiX:bx+W*0.06,esoX:bx+W*0.12,label:bN[b]});}
     for(let b=0;b<bases.length;b++){
-      const bs=bases[b],bP=Math.max(0,Math.min(1,(a3T*2)-b*0.12));if(bP<=0)continue;
+      const base=bases[b];const bP=Math.max(0,Math.min(1,(a3T*2)-b*0.12));if(bP<=0)continue;
       ctx.save();ctx.globalAlpha=bP;
-      for(let i=0;i<(b<3?20:10);i++){const sx=bs.x+hash(i+b*100,33)*W*0.04,sy=bs.y-H*0.04+hash2(i+b*100,33)*H*0.08;drawGlow(sx,sy,2,C.node,0.15+0.2*Math.sin(el*1.5+i+b));if(i<5){ctx.globalAlpha=bP*0.1;ctx.strokeStyle=C.node;ctx.lineWidth=0.3;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(bs.aiX,bs.y);ctx.stroke();ctx.globalAlpha=bP;}}
-      drawHex(bs.aiX,bs.y,14,C.engine,0.35,0.3+0.4*Math.sin(el*2.5+b));
-      drawGlow(bs.esoX,bs.y,7,C.node,0.3+0.3*Math.sin(el*2+b*0.7));
-      const hP=bP*(0.5+0.5*Math.sin(el*3+b));drawBeam(bs.aiX+14,bs.y,bs.esoX-7,bs.y,2+hP*2.5,C.engine,hP*0.5,12);
-      drawDot(bs.aiX+14,bs.y,bs.esoX-7,bs.y,((el*1.5+b*0.8)%1),C.engine,2);
-      drawLabel(bs.label,(bs.aiX+bs.esoX)/2,bs.y+18,C.textDim,9,bP*0.7);drawLabel("AI+ESO",(bs.aiX+bs.esoX)/2,bs.y+28,C.engine,7,bP*0.5);
+      const spb=b<3?20:10;for(let i=0;i<spb;i++){const sx=base.x+hash(i+b*100,33)*W*0.04,sy=base.y-H*0.04+hash2(i+b*100,33)*H*0.08;drawGlow(ctx,sx,sy,2,C.node,0.15+0.2*Math.sin(el*1.5+i+b));if(i<5){ctx.globalAlpha=bP*0.1;ctx.strokeStyle=C.node;ctx.lineWidth=0.3;ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(base.aiX,base.y);ctx.stroke();ctx.globalAlpha=bP;}}
+      const aG=0.3+0.4*Math.sin(el*2.5+b);drawHex(ctx,base.aiX,base.y,14,C.engine,0.35,aG);drawGlow(ctx,base.esoX,base.y,7,C.node,0.3+0.3*Math.sin(el*2+b*0.7));
+      const hP=bP*(0.5+0.5*Math.sin(el*3+b));drawTrunk(ctx,base.aiX+14,base.y,base.esoX-7,base.y,2+hP*2.5,C.engine,hP*0.5,12);
+      const sp1=((el*1.5+b*0.8)%1);drawDot(ctx,base.aiX+14,base.y,base.esoX-7,base.y,sp1,C.engine,2);
+      drawLabel(ctx,base.label,(base.aiX+base.esoX)/2,base.y+18,C.textDim,9,bP*0.7);drawLabel(ctx,"AI+ESO",(base.aiX+base.esoX)/2,base.y+28,C.engine,7,bP*0.5);
       ctx.restore();
     }
-
     const iP=Math.max(0,Math.min(1,(a3T-0.3)/0.2));
-    if(iP>0)for(let b=0;b<bases.length;b++){const bs=bases[b],sp=Math.max(0,Math.min(1,(iP-b*0.05)*3));if(sp<=0)continue;const ix=bs.esoX+W*0.04,iy=bs.y;ctx.save();ctx.globalAlpha=sp*0.6;drawGlow(ix,iy,6,C.engine,0.3+0.3*Math.sin(el*2+b));drawLabel("ISR",ix,iy-14,C.engine,8,sp*0.8);ctx.restore();drawBeam(bs.esoX+7,bs.y,ix-6,iy,2+sp*2.5,C.engine,sp*(0.4+0.3*Math.sin(el*3+b)),10);}
-
-    const colX=W*0.52,colY=H*0.5,colP=Math.max(0,Math.min(1,(a3T-0.45)/0.15));
-    if(colP>0){
-      drawGlow(colX,colY,24,C.engine,colP*(0.4+0.5*Math.sin(el*2.5)));
-      drawProcLabel("NORMALIZATION",colX,colY-34,C.engine,C.bg+"e0",colP);drawProcLabel("AGGREGATION",colX,colY+24,C.command,C.bg+"e0",colP);
-      for(let b=0;b<bases.length;b++){const bs=bases[b],sp=Math.max(0,Math.min(1,(colP-b*0.04)*3));if(sp<=0)continue;const ix=bs.esoX+W*0.04,iy=bs.y;
-        ctx.save();ctx.globalAlpha=sp*0.25;ctx.strokeStyle=C.engine;ctx.lineWidth=1.5+sp*2;ctx.beginPath();ctx.moveTo(ix,iy);ctx.quadraticCurveTo(colX-30,iy,colX,colY);ctx.stroke();ctx.restore();
-        const dp=((el*0.7+b*0.3)%1),cx2=ix+(colX-ix)*dp,cy2=iy+(colY-iy)*dp*dp;ctx.save();ctx.globalAlpha=sp*0.5*(1-dp*0.4);drawGlow(cx2,cy2,3,C.engine,0.4);ctx.restore();
-      }
-    }
-
-    const agX=W*0.68,agY=H*0.5,agP=Math.max(0,Math.min(1,(a3T-0.6)/0.1));
-    if(agP>0){const bc=lerpColor(C.engine,C.command,agP*0.6);drawBeam(colX+24,colY,agX-20,agY,4+agP*6,bc,agP*0.7,35);for(let i=0;i<2;i++)drawDot(colX+24,colY,agX-20,agY,((el*1.2+i*0.5)%1),bc,4);drawGlow(agX,agY,20,C.command,agP*(0.5+0.4*Math.sin(el*2.5)));drawProcLabel("PII STRIPPED",agX,agY-30,C.node,C.bg+"e0",agP);}
-
+    if(iP>0){for(let b=0;b<bases.length;b++){const base=bases[b];const sp=Math.max(0,Math.min(1,(iP-b*0.05)*3));if(sp<=0)continue;const ioX=base.esoX+W*0.04,ioY=base.y;ctx.save();ctx.globalAlpha=sp*0.6;drawGlow(ctx,ioX,ioY,6,C.engine,0.3+0.3*Math.sin(el*2+b));drawLabel(ctx,"ISR",ioX,ioY-14,C.engine,8,sp*0.8);ctx.restore();const bf=sp*(0.4+0.3*Math.sin(el*3+b));drawTrunk(ctx,base.esoX+7,base.y,ioX-6,ioY,2+sp*2.5,C.engine,bf,10);}}
+    const colX=W*0.52,colY=H*0.5;const colP=Math.max(0,Math.min(1,(a3T-0.45)/0.15));
+    if(colP>0){const cG=colP*(0.4+0.5*Math.sin(el*2.5));drawGlow(ctx,colX,colY,24,C.engine,cG);drawProcLabel(ctx,"NORMALIZATION",colX,colY-34,C.engine,C.bg+"e0",colP);drawProcLabel(ctx,"AGGREGATION",colX,colY+24,C.command,C.bg+"e0",colP);
+    for(let b=0;b<bases.length;b++){const base=bases[b];const sp=Math.max(0,Math.min(1,(colP-b*0.04)*3));if(sp<=0)continue;const ioX=base.esoX+W*0.04,ioY=base.y;ctx.save();ctx.globalAlpha=sp*0.25;ctx.strokeStyle=C.engine;ctx.lineWidth=1.5+sp*2;ctx.beginPath();ctx.moveTo(ioX,ioY);ctx.quadraticCurveTo(colX-30,ioY,colX,colY);ctx.stroke();ctx.restore();const dp=((el*0.7+b*0.3)%1);const t=dp;const cx2=ioX+(colX-ioX)*t,cy2=ioY+(colY-ioY)*t*t;ctx.save();ctx.globalAlpha=sp*0.5*(1-t*0.4);drawGlow(ctx,cx2,cy2,3,C.engine,0.4);ctx.restore();}}
+    const agX=W*0.68,agY=H*0.5;const agP=Math.max(0,Math.min(1,(a3T-0.6)/0.1));
+    if(agP>0){const bc=lerpColor(C.engine,C.command,agP*0.6);const bw=4+agP*6;drawTrunk(ctx,colX+24,colY,agX-20,agY,bw,bc,agP*0.7,35);for(let i=0;i<2;i++){const sp=((el*1.2+i*0.5)%1);drawDot(ctx,colX+24,colY,agX-20,agY,sp,bc,4);}const ag2=agP*(0.5+0.4*Math.sin(el*2.5));drawGlow(ctx,agX,agY,20,C.command,ag2);drawProcLabel(ctx,"PII STRIPPED",agX,agY-30,C.node,C.bg+"e0",agP);}
     const wP=Math.max(0,Math.min(1,(a3T-0.75)/0.15));
-    if(wP>0){
-      const bc=lerpColor(C.command,C.node,wP);drawBeam(agX+20,agY,pentX-50,pentY,6+wP*12,bc,wP*0.9,60*wP);
-      for(let i=0;i<3;i++)drawDot(agX+20,agY,pentX-50,pentY,((el*0.8+i*0.3)%1),bc,5);
-      if(wP>0.3){const pp=(wP-0.3)/0.7,mx=(agX+pentX)/2,my=(agY+pentY)/2;drawLabel("PRIVACY-SAFE",mx,my-24,C.node,14,pp*0.8);drawLabel("TO PENTAGON",mx,my-8,C.node,14,pp*0.6);}
-      if(wP>0.6){const pg=(wP-0.6)*2.5;drawPent(pentX,pentY,50,C.engine,pg);drawLabel("DOD",pentX,pentY+58,C.text,14,pg);drawLabel("POLICY LAYER",pentX,pentY+74,C.textDim,12,pg);}
-    }
-
+    if(wP>0){const bc=lerpColor(C.command,C.node,wP);const wB=6+wP*12;drawTrunk(ctx,agX+20,agY,pentX-50,pentY,wB,bc,wP*0.9,60*wP);for(let i=0;i<3;i++){const sp=((el*0.8+i*0.3)%1);drawDot(ctx,agX+20,agY,pentX-50,pentY,sp,bc,5);}
+    if(wP>0.3){const pp=(wP-0.3)/0.7;const mx=(agX+pentX)/2,my=(agY+pentY)/2;drawLabel(ctx,"PRIVACY-SAFE",mx,my-24,C.node,14,pp*0.8);drawLabel(ctx,"TO PENTAGON",mx,my-8,C.node,14,pp*0.6);}
+    if(wP>0.6){const pg=(wP-0.6)*2.5;drawPent(ctx,pentX,pentY,50,C.engine,pg);drawLabel(ctx,"DOD",pentX,pentY+58,C.text,14,pg);drawLabel(ctx,"POLICY LAYER",pentX,pentY+74,C.textDim,12,pg);}}
     const cP3=Math.max(0,Math.min(1,(a3T-0.2)/0.1));
-    if(cP3>0){ctx.save();ctx.globalAlpha=cP3*0.6;ctx.fillStyle=C.node;ctx.font="bold 14px 'JetBrains Mono',monospace";ctx.textAlign="right";ctx.textBaseline="top";ctx.fillText(bC+" INSTALLATIONS · "+(bC*2500).toLocaleString()+" SMs",W*0.97,H*0.93);ctx.restore();}
+    if(cP3>0){const tSM=bC*2500;ctx.save();ctx.globalAlpha=cP3*0.6;ctx.fillStyle=C.node;ctx.font="bold 14px 'JetBrains Mono',monospace";ctx.textAlign="right";ctx.textBaseline="top";ctx.fillText(`${bC} INSTALLATIONS · ${tSM.toLocaleString()} SMs`,W*0.97,H*0.93);ctx.restore();}
   }
 
   if(act>=4){
     const a4S=AT[3],a4D=AT[4]-AT[3],a4T=Math.min(1,(el-a4S)/a4D);
     const eC=Math.min(40,Math.floor(a4T*60));
-    for(let i=0;i<eC;i++){const ex=W*0.03+hash(i,777)*W*0.55,ey=H*0.15+hash2(i,777)*H*0.75,ep=Math.min(1,a4T*3-i*0.04);if(ep<=0)continue;ctx.save();ctx.globalAlpha=ep*0.5;drawGlow(ex,ey,6,C.node,0.3+0.3*Math.sin(el*1.5+i));ctx.globalAlpha=ep*0.15;ctx.strokeStyle=C.node;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ex,ey);ctx.quadraticCurveTo(ex+(pentX-ex)*0.4,ey-30,pentX,pentY);ctx.stroke();const sp=((el*0.6+i*0.3)%1);ctx.globalAlpha=ep*0.4*(1-sp);drawGlow(lerp(ex,pentX,sp),lerp(ey,pentY-20+sp*20,sp),3,C.node,0.5);ctx.restore();}
-
+    for(let i=0;i<eC;i++){const ex=W*0.03+hash(i,777)*W*0.55,ey=H*0.15+hash2(i,777)*H*0.75;const ep=Math.min(1,a4T*3-i*0.04);if(ep<=0)continue;
+    ctx.save();ctx.globalAlpha=ep*0.5;drawGlow(ctx,ex,ey,6,C.node,0.3+0.3*Math.sin(el*1.5+i));ctx.globalAlpha=ep*0.15;ctx.strokeStyle=C.node;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ex,ey);ctx.quadraticCurveTo(ex+(pentX-ex)*0.4,ey-30,pentX,pentY);ctx.stroke();const sp=((el*0.6+i*0.3)%1);const dx=lerp(ex,pentX,sp),dy=lerp(ey,pentY-20+sp*20,sp);ctx.globalAlpha=ep*0.4*(1-sp);drawGlow(ctx,dx,dy,3,C.node,0.5);ctx.restore();}
     const tC=Math.max(0,Math.min(1,a4T*2.5));
-    if(tC>0)for(let i=0;i<6;i++){const a=-Math.PI*0.3+(Math.PI*0.8/6)*i,d=W*0.35,sx=pentX+Math.cos(a+Math.PI)*d,sy=pentY+Math.sin(a+Math.PI)*d*0.6,tp=Math.max(0,Math.min(1,tC-i*0.1));if(tp<=0)continue;drawBeam(sx,sy,pentX-55,pentY,4+tp*8,C.engine,tp*0.5,50*tp);for(let dd=0;dd<2;dd++)drawDot(sx,sy,pentX-55,pentY,((el*0.8+i*0.5+dd*0.4)%1),C.engine,4);}
-
+    if(tC>0){for(let i=0;i<6;i++){const an=-Math.PI*0.3+(Math.PI*0.8/6)*i;const dist=W*0.35;const sx=pentX+Math.cos(an+Math.PI)*dist,sy=pentY+Math.sin(an+Math.PI)*dist*0.6;const tp=Math.max(0,Math.min(1,tC-i*0.1));if(tp<=0)continue;const bw=4+tp*8;drawTrunk(ctx,sx,sy,pentX-55,pentY,bw,C.engine,tp*0.5,50*tp);for(let d=0;d<2;d++){const dp=((el*0.8+i*0.5+d*0.4)%1);drawDot(ctx,sx,sy,pentX-55,pentY,dp,C.engine,4);}}}
     const pA=Math.max(0,Math.min(1,(a4T-0.25)/0.12));
-    if(pA>0){const pg=pA*(0.5+0.5*Math.sin(el*1.5)),ps=70+pA*10;drawPent(pentX,pentY,ps,C.engine,pg);drawLabel("DEPARTMENT OF DEFENSE",pentX,pentY+ps+10,C.text,16,pA);drawLabel("POLICY LAYER",pentX,pentY+ps+28,C.textDim,14,pA);}
-
-    const plP=Math.max(0,Math.min(1,(a4T-0.4)/0.1));
-    if(plP>0){drawDoc(pentX,pentY,34,C.engine,plP,plP);drawLabel("POLICY SIGNAL",pentX,pentY+28,C.engine,14,plP*0.8);}
-
+    if(pA>0){const pg=pA*(0.5+0.5*Math.sin(el*1.5));const ps=70+pA*10;drawPent(ctx,pentX,pentY,ps,C.engine,pg);drawLabel(ctx,"DEPARTMENT OF DEFENSE",pentX,pentY+ps+10,C.text,16,pA);drawLabel(ctx,"POLICY LAYER",pentX,pentY+ps+28,C.textDim,14,pA);}
+    const polP=Math.max(0,Math.min(1,(a4T-0.4)/0.1));
+    if(polP>0){drawDoc(ctx,pentX,pentY,34,C.engine,polP,polP);drawLabel(ctx,"POLICY SIGNAL",pentX,pentY+28,C.engine,14,polP*0.8);}
     const stP=Math.max(0,Math.min(1,(a4T-0.45)/0.1));
     if(stP>0){ctx.save();ctx.globalAlpha=stP*0.6;ctx.fillStyle=C.node;ctx.font="bold 16px 'JetBrains Mono',monospace";ctx.textAlign="right";ctx.textBaseline="bottom";ctx.fillText("2,000,000+ SERVICE MEMBERS",W*0.97,H*0.9);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("180+ INSTALLATIONS · ZERO PII IN POLICY LAYER",W*0.97,H*0.95);ctx.restore();}
-
     const txP=Math.max(0,Math.min(1,(a4T-0.65)/0.12));
-    if(txP>0){ctx.save();ctx.globalAlpha=txP;const pw=W*0.65,ph=90,px=W/2-pw/2,py=H*0.62;ctx.fillStyle=C.bg+"e0";ctx.beginPath();ctx.roundRect(px,py,pw,ph,4);ctx.fill();ctx.strokeStyle=C.border;ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=C.text;ctx.font="italic 18px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("One governed signal. Millions of pathways. One national picture.",W/2,py+ph*0.38);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.",W/2,py+ph*0.7);ctx.restore();}
-
-    const fP=Math.max(0,Math.min(1,(a4T-0.93)/0.07));
-    if(fP>0){ctx.save();ctx.globalAlpha=fP;ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);ctx.restore();}
+    if(txP>0){ctx.save();ctx.globalAlpha=txP;const pw=W*0.65,ph2=90,px=W/2-pw/2,py=H*0.62;ctx.fillStyle=C.bg+"e0";ctx.beginPath();ctx.roundRect(px,py,pw,ph2,4);ctx.fill();ctx.strokeStyle=C.border;ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=C.text;ctx.font="italic 18px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("One governed signal. Millions of pathways. One national picture.",W/2,py+ph2*0.38);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.",W/2,py+ph2*0.7);ctx.restore();}
+    const fdP=Math.max(0,Math.min(1,(a4T-0.93)/0.07));
+    if(fdP>0){ctx.save();ctx.globalAlpha=fdP;ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);ctx.restore();}
   }
 
   const actLbl=["","ACT I — THE INDIVIDUAL","ACT II — THE INSTALLATION","ACT III — THE NETWORK","ACT IV — THE PENTAGON"][act];
@@ -338,11 +258,21 @@ function render(time){
   document.getElementById("actLabel").textContent=["Ready","Act I — The Individual","Act II — The Installation","Act III — The Network","Act IV — The Pentagon"][act];
 }
 
-let lastElapsed=0;
-function togglePlay(){if(playing){pausedAt=lastElapsed;playing=false;cancelAnimationFrame(animId);document.getElementById("playBtn").innerHTML="&#9654;";}else{if(pausedAt>=DUR)pausedAt=0;startT=0;playing=true;document.getElementById("playBtn").innerHTML="&#9646;&#9646;";animId=requestAnimationFrame(tick);}}
-function resetAnim(){playing=false;pausedAt=0;startT=0;cancelAnimationFrame(animId);document.getElementById("playBtn").innerHTML="&#9654;";render(0);}
-function tick(ts){if(!startT)startT=ts;const el=pausedAt+(ts-startT)/1000;lastElapsed=el;if(el>=DUR){playing=false;document.getElementById("playBtn").innerHTML="&#9654;";render(DUR);return;}render(el);animId=requestAnimationFrame(tick);}
-function toggleFullscreen(){const w=document.getElementById("wrapper");if(!document.fullscreenElement)w.requestFullscreen();else document.exitFullscreen();}
+function animate(ts){
+  if(!startT)startT=ts;
+  const el=lastElapsed+(ts-startT)/1000;
+  if(el>=DUR){playing=false;render(DUR);document.getElementById("playPause").innerHTML="&#9654;";return;}
+  render(el);animId=requestAnimationFrame(animate);
+}
+
+function togglePlay(){
+  if(playing){lastElapsed=lastElapsed+(performance.now()-startT)/1000;startT=0;playing=false;cancelAnimationFrame(animId);document.getElementById("playPause").innerHTML="&#9654;";}
+  else{if(lastElapsed>=DUR)lastElapsed=0;startT=0;playing=true;animId=requestAnimationFrame(animate);document.getElementById("playPause").innerHTML="&#10074;&#10074;";}
+}
+
+function resetAnim(){playing=false;cancelAnimationFrame(animId);lastElapsed=0;startT=0;render(0);document.getElementById("playPause").innerHTML="&#9654;";}
+
+function toggleFS(){const w=document.querySelector('.canvas-wrap');if(!document.fullscreenElement){w.requestFullscreen().catch(()=>{});}else{document.exitFullscreen().catch(()=>{});}}
 
 render(0);
 </script>
