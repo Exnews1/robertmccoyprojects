@@ -587,80 +587,84 @@ export default function SignalFlowAnimation() {
         ctx.restore();
       }
 
-      const trunkX3 = W * 0.52;
-      const trunkStartP = Math.max(0, Math.min(1, (act3T - 0.35) / 0.15));
-      if (trunkStartP > 0) {
-        const trunkTopY = H * 0.08;
-        const trunkBotY = H * 0.92;
+      const normNodeX = W * 0.58;
+      const normNodeY = H * 0.5;
+      const aggNodeX = W * 0.72;
+      const aggNodeY = H * 0.5;
+      const isrNodeX = W * 0.86;
+      const isrNodeY = H * 0.5;
 
+      const feedP = Math.max(0, Math.min(1, (act3T - 0.35) / 0.2));
+      if (feedP > 0) {
         for (let b = 0; b < bases.length; b++) {
           const base = bases[b];
-          const sp = Math.max(0, Math.min(1, (trunkStartP - b * 0.08) * 3));
+          const sp = Math.max(0, Math.min(1, (feedP - b * 0.06) * 3));
           if (sp <= 0) continue;
 
           const hotColor = lerpColor(COLORS.engine, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 2 + b));
+
           ctx.save();
-          ctx.globalAlpha = sp * 0.4;
+          ctx.globalAlpha = sp * 0.3;
           ctx.strokeStyle = hotColor;
-          ctx.lineWidth = 1.5 + sp * 2;
+          ctx.lineWidth = 1 + sp * 1.5;
           ctx.beginPath();
           ctx.moveTo(base.aiX + 12, base.y);
-          ctx.quadraticCurveTo(trunkX3 - 20, base.y, trunkX3, base.y);
+          ctx.quadraticCurveTo(normNodeX - 30, base.y, normNodeX, normNodeY);
           ctx.stroke();
           ctx.restore();
 
-          const dotP = ((elapsed * 1.2 + b * 0.4) % 1);
-          drawSignalDot(ctx, base.aiX + 12, base.y, trunkX3, base.y, dotP, hotColor, 3);
+          const dotP = ((elapsed * 0.9 + b * 0.35) % 1);
+          const cx = base.aiX + 12 + (normNodeX - base.aiX - 12) * dotP;
+          const cy = base.y + (normNodeY - base.y) * dotP * dotP;
+          ctx.save();
+          ctx.globalAlpha = sp * 0.6 * (1 - dotP * 0.5);
+          drawGlowCircle(ctx, cx, cy, 2, hotColor, 0.4);
+          ctx.restore();
         }
 
-        const trunkGlow = trunkStartP * (0.5 + 0.5 * Math.sin(elapsed * 2));
-        drawTrunkBeam(ctx, trunkX3, trunkBotY, trunkX3, trunkTopY, 4 + trunkStartP * 6, COLORS.engine, trunkGlow, 40);
-
-        for (let i = 0; i < 5; i++) {
-          const dotY = trunkBotY - ((elapsed * 80 + i * 60) % (trunkBotY - trunkTopY));
-          if (dotY > trunkTopY && dotY < trunkBotY) {
-            drawGlowCircle(ctx, trunkX3, dotY, 3, COLORS.engine, 0.5);
-          }
-        }
-
-        drawLabel(ctx, "TRUNK PIPELINE", trunkX3 + 15, H * 0.5, COLORS.engine, 7, trunkStartP * 0.6);
+        const normGlow = feedP * (0.5 + 0.4 * Math.sin(elapsed * 3));
+        drawGlowCircle(ctx, normNodeX, normNodeY, 18, COLORS.engine, normGlow);
+        drawProcessLabel(ctx, "NORMALIZATION", normNodeX, normNodeY - 28, COLORS.engine, COLORS.bg + "e0", feedP);
       }
 
-      const normP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
-      const normX2 = W * 0.58;
-      const normY2 = H * 0.06;
-      if (normP > 0) {
-        drawTrunkBeam(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, 3 + normP * 3, COLORS.engine, normP * 0.6, 25);
-        const sp = ((elapsed * 1.0) % 1);
-        drawSignalDot(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, sp, COLORS.engine, 3);
-        drawProcessLabel(ctx, "NORMALIZATION", normX2, normY2, COLORS.engine, COLORS.bg + "e0", normP);
-      }
-
-      const aggP = Math.max(0, Math.min(1, (act3T - 0.65) / 0.1));
-      const aggX2 = W * 0.68;
-      const aggY2 = H * 0.06;
+      const aggP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
       if (aggP > 0) {
-        drawTrunkBeam(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, 4 + aggP * 3, lerpColor(COLORS.engine, COLORS.command, aggP * 0.5), aggP * 0.7, 30);
-        const sp = ((elapsed * 0.9 + 0.3) % 1);
-        drawSignalDot(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, sp, COLORS.command, 3);
-        drawProcessLabel(ctx, "AGGREGATION", aggX2, aggY2, COLORS.command, COLORS.bg + "e0", aggP);
+        const beamColor = lerpColor(COLORS.engine, COLORS.command, aggP * 0.6);
+        const beamWidth = 3 + aggP * 5;
+        drawTrunkBeam(ctx, normNodeX + 18, normNodeY, aggNodeX - 18, aggNodeY, beamWidth, beamColor, aggP * 0.7, 30);
+
+        for (let i = 0; i < 2; i++) {
+          const sp = ((elapsed * 1.2 + i * 0.5) % 1);
+          drawSignalDot(ctx, normNodeX + 18, normNodeY, aggNodeX - 18, aggNodeY, sp, beamColor, 3);
+        }
+
+        const aggGlow = aggP * (0.5 + 0.4 * Math.sin(elapsed * 2.5));
+        drawGlowCircle(ctx, aggNodeX, aggNodeY, 18, COLORS.command, aggGlow);
+        drawProcessLabel(ctx, "AGGREGATION", aggNodeX, aggNodeY - 28, COLORS.command, COLORS.bg + "e0", aggP);
       }
 
-      const whiteP = Math.max(0, Math.min(1, (act3T - 0.75) / 0.15));
+      const whiteP = Math.max(0, Math.min(1, (act3T - 0.7) / 0.15));
       if (whiteP > 0) {
         const beamColor = lerpColor(COLORS.command, COLORS.pure, whiteP);
         const wBeam = 5 + whiteP * 10;
-        const isrX2 = W * 0.82;
-        drawTrunkBeam(ctx, aggX2 + 40, aggY2, isrX2, aggY2, wBeam, beamColor, whiteP * 0.9, 60 * whiteP);
+        drawTrunkBeam(ctx, aggNodeX + 18, aggNodeY, isrNodeX - 14, isrNodeY, wBeam, beamColor, whiteP * 0.9, 50 * whiteP);
 
-        if (whiteP > 0.4) {
-          const pp = (whiteP - 0.4) / 0.6;
-          drawLabel(ctx, "PII STRIPPED · PRIVACY-SAFE", (aggX2 + isrX2) / 2, aggY2 + 18, COLORS.pure, 8, pp * 0.8);
+        for (let i = 0; i < 3; i++) {
+          const sp = ((elapsed * 0.8 + i * 0.3) % 1);
+          drawSignalDot(ctx, aggNodeX + 18, aggNodeY, isrNodeX - 14, isrNodeY, sp, beamColor, 4);
         }
 
-        if (whiteP > 0.7) {
-          drawGlowCircle(ctx, isrX2, aggY2, 12, COLORS.pure, (whiteP - 0.7) * 3);
-          drawLabel(ctx, "ISR FEED", isrX2, aggY2 + 16, COLORS.pure, 8, (whiteP - 0.7) * 3);
+        if (whiteP > 0.3) {
+          const pp = (whiteP - 0.3) / 0.7;
+          drawLabel(ctx, "PII STRIPPED", (aggNodeX + isrNodeX) / 2, aggNodeY - 40, COLORS.pure, 8, pp * 0.8);
+          drawLabel(ctx, "PRIVACY-SAFE", (aggNodeX + isrNodeX) / 2, aggNodeY - 29, COLORS.pure, 8, pp * 0.6);
+        }
+
+        if (whiteP > 0.6) {
+          const isrGlow = (whiteP - 0.6) * 2.5;
+          drawGlowCircle(ctx, isrNodeX, isrNodeY, 14, COLORS.pure, isrGlow);
+          drawLabel(ctx, "ISR FEED", isrNodeX, isrNodeY + 22, COLORS.pure, 9, isrGlow);
+          drawDocIcon(ctx, isrNodeX, isrNodeY, 22, COLORS.pure, isrGlow, isrGlow);
         }
       }
 
