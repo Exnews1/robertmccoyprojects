@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { Link } from "wouter";
-import { Play, Pause, RotateCcw, Maximize, Minimize, ChevronRight } from "lucide-react";
+import { Play, Pause, RotateCcw, Maximize, Minimize } from "lucide-react";
+import { DemoNav } from "@/components/demo-nav";
 
 const COLORS = {
   bg: "#0d1117",
@@ -994,19 +994,8 @@ export default function SignalFlowAnimation() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
+      <DemoNav />
       <div className="max-w-[1400px] mx-auto px-4 py-4">
-        <nav className="mb-4 text-sm flex items-center flex-wrap gap-1">
-          <Link href="/research" className="transition-colors" style={{ color: COLORS.textDim }}>
-            Portfolio
-          </Link>
-          <ChevronRight className="h-4 w-4" style={{ color: COLORS.textDim }} />
-          <Link href="/research/cmgf" className="transition-colors" style={{ color: COLORS.textDim }}>
-            CMGF
-          </Link>
-          <ChevronRight className="h-4 w-4" style={{ color: COLORS.textDim }} />
-          <span style={{ color: COLORS.text }}>Signal Flow Animation</span>
-        </nav>
-
         <div className="text-center mb-4">
           <div className="text-[10px] font-mono tracking-[3px] uppercase mb-2" style={{ color: COLORS.node }}>
             Cinematic Visualization
@@ -1099,23 +1088,6 @@ export default function SignalFlowAnimation() {
           </p>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/research/cmgf">
-            <button className="px-3 py-1.5 text-xs font-mono tracking-wide cursor-pointer transition-colors" style={{ background: 'transparent', border: '1px solid rgba(201,168,76,0.2)', color: COLORS.textDim, borderRadius: 2 }}>
-              CMGF Main
-            </button>
-          </Link>
-          <Link href="/research/career-advisor">
-            <button className="px-3 py-1.5 text-xs font-mono tracking-wide cursor-pointer transition-colors" style={{ background: 'transparent', border: '1px solid rgba(201,168,76,0.2)', color: COLORS.textDim, borderRadius: 2 }}>
-              Career Advisor
-            </button>
-          </Link>
-          <Link href="/research/demo">
-            <button className="px-3 py-1.5 text-xs font-mono tracking-wide cursor-pointer transition-colors" style={{ background: 'transparent', border: '1px solid rgba(201,168,76,0.2)', color: COLORS.textDim, borderRadius: 2 }}>
-              Demo Mode
-            </button>
-          </Link>
-        </div>
       </div>
     </div>
   );

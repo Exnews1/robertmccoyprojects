@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "wouter";
+import { DemoNav } from "@/components/demo-nav";
+import { Link } from "wouter";
 import {
   ChevronRight,
   Shield,
@@ -10,10 +10,6 @@ import {
   AlertTriangle,
   ArrowRight,
   Activity,
-  Compass,
-  UserCircle,
-  Rocket,
-  PlayCircle,
   Check,
 } from "lucide-react";
 
@@ -345,59 +341,6 @@ function PathwayStepStyled({ emoji, label, active, showArrow, gold, textColor, t
   );
 }
 
-const demoNavItems = [
-  { href: "/research/career-advisor", label: "Career Advisor", icon: Compass },
-  { href: "/research/sm-hub", label: "SM Hub", icon: UserCircle },
-  { href: "/research/demo", label: "Scenario Engine", icon: Rocket },
-  { href: "/research/signal-flow", label: "Signal Flow", icon: PlayCircle },
-];
-
-function DemoNav() {
-  const [location] = useLocation();
-  return (
-    <nav
-      className="sticky top-14 z-40 border-b py-2 mb-4 md:mb-6"
-      style={{ backgroundColor: "#1E293B", borderColor: "#334155" }}
-      data-testid="demo-nav"
-    >
-      <div className="max-w-6xl mx-auto px-3 md:px-6">
-        <div className="flex items-center gap-1 md:gap-2">
-          <Link href="/research/cmgf">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10"
-              data-testid="demo-nav-cmgf"
-            >
-              ← CMGF
-            </Button>
-          </Link>
-          <div className="w-px h-5 bg-slate-600 flex-shrink-0" />
-          {demoNavItems.map(item => {
-            const isActive = location === item.href;
-            return (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={`gap-1.5 text-xs font-medium ${
-                    isActive
-                      ? "text-amber-400"
-                      : "text-slate-300 hover:text-white hover:bg-white/10"
-                  }`}
-                  data-testid={`demo-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  <item.icon className="h-3.5 w-3.5" />
-                  {item.label}
-                </Button>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 function PulsingDot({ color }: { color: string }) {
   return (
