@@ -149,13 +149,40 @@ export default function CMGFRoot() {
     <div className="min-h-screen bg-background">
       <CMGFNav />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 md:py-6">
-        <nav className="mb-8 text-sm">
+        <nav className="mb-4 text-sm">
           <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
             Portfolio
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
           <span className="text-foreground">CMGF</span>
         </nav>
+
+        <div className="flex items-center gap-0 mb-8 border-b border-border" data-testid="cmgf-section-tabs">
+          <Link href="/research/cmgf">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-amber-500 text-foreground"
+              data-testid="tab-cmgf"
+            >
+              CMGF Framework
+            </button>
+          </Link>
+          <Link href="/research/ai">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="tab-ai"
+            >
+              AI Architecture
+            </button>
+          </Link>
+          <Link href="/research/eso">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="tab-eso"
+            >
+              ESO Pipeline
+            </button>
+          </Link>
+        </div>
 
         <header className="mb-8">
           <div className="flex items-center gap-3 flex-wrap mb-3">

@@ -72,7 +72,41 @@ export default function ESOPipeline() {
     <div style={{ backgroundColor: "#0a1628" }} className="min-h-screen">
       <CMGFNav />
       <div className="max-w-5xl mx-auto px-4 md:px-6 pb-16">
-        <header className="pt-8 pb-10 border-b" style={{ borderColor: "#1e2d45" }}>
+        <div className="flex items-center gap-0 mt-6 mb-6 border-b" style={{ borderColor: "#1e2d45" }} data-testid="cmgf-section-tabs">
+          <Link href="/research/cmgf">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: "#7a8fa8" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#d4dbe8"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#7a8fa8"; }}
+              data-testid="tab-cmgf"
+            >
+              CMGF Framework
+            </button>
+          </Link>
+          <Link href="/research/ai">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: "#7a8fa8" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#d4dbe8"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#7a8fa8"; }}
+              data-testid="tab-ai"
+            >
+              AI Architecture
+            </button>
+          </Link>
+          <Link href="/research/eso">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2"
+              style={{ color: "#d4dbe8", borderColor: "#c9a84c" }}
+              data-testid="tab-eso"
+            >
+              ESO Pipeline
+            </button>
+          </Link>
+        </div>
+
+        <header className="pb-10 border-b" style={{ borderColor: "#1e2d45" }}>
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded flex items-center justify-center"
