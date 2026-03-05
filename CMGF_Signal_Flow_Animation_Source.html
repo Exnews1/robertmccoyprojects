@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMGF Signal Flow Animation — Source Code for Video Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Merriweather:ital,wght@0,300;0,400;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #fff; font-family: 'Inter', sans-serif; }
+.container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+h1 { font-family: 'Merriweather', Georgia, serif; font-weight: 300; font-size: 28px; text-align: center; margin-bottom: 8px; }
+.subtitle { text-align: center; color: #94a3b8; font-size: 12px; margin-bottom: 24px; }
+.tag { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #fbbf24; margin-bottom: 8px; }
+canvas { width: 100%; display: block; background: #0d1117; }
+.controls { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(13,17,23,0.95); }
+.btn { background: rgba(251,191,36,0.15); border: 1px solid #fbbf24; color: #fbbf24; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.btn-sm { background: rgba(148,163,184,0.1); border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 14px; }
+.progress-wrap { flex: 1; }
+.progress-bar { height: 6px; border-radius: 3px; background: rgba(148,163,184,0.15); overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #fbbf24, #f97316); transition: width 0.1s; }
+.progress-info { display: flex; justify-content: space-between; margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #94a3b8; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+.card { padding: 16px; background: rgba(17,34,64,0.5); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; }
+.card-act { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #fbbf24; margin-bottom: 4px; }
+.card-title { font-family: 'Merriweather', serif; font-size: 14px; margin-bottom: 4px; }
+.card-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #94a3b8; margin-bottom: 8px; }
+.card-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+.note { margin-top: 32px; padding: 16px; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); border-radius: 4px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #94a3b8; }
+@media (max-width: 768px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="tag">Cinematic Visualization</div>
+  <h1>From One to the Pentagon</h1>
+  <p class="subtitle">The CMGF Signal at Scale — How individual advisory sessions become privacy-safe institutional intelligence</p>
+</div>
+
+<div id="wrapper" style="max-width:1200px;margin:0 auto;position:relative;">
+  <canvas id="canvas" style="aspect-ratio:16/9;"></canvas>
+  <div class="controls">
+    <button class="btn" id="playBtn" onclick="togglePlay()">▶</button>
+    <button class="btn-sm" onclick="resetAnim()">↺</button>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-info">
+        <span id="timeLabel">0s / 75s</span>
+        <span id="actLabel">Ready</span>
+      </div>
+    </div>
+    <button class="btn-sm" onclick="toggleFullscreen()">⛶</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cards">
+    <div class="card">
+      <div class="card-act">Act I</div>
+      <div class="card-title">The Individual</div>
+      <div class="card-time">0:00 – 0:15</div>
+      <div class="card-desc">A deployed SM at 0200 sends a signal. The CMGF AI engages in intense back-and-forth advisory exchange across multiple lanes. The signal to the ESO thickens and glows hot as the session produces an activity report.</div>
+    </div>
+    <div class="card">
+      <div class="card-act">Act II</div>
+      <div class="card-title">The Installation</div>
+      <div class="card-time">0:15 – 0:30</div>
+      <div class="card-desc">Hundreds of SMs appear at a single installation, each in their own advisory session. The AI engine grows under load. The pipeline to the ESO burns hot with continuous signal traffic and coordination.</div>
+    </div>
+    <div class="card">
+      <div class="card-act">Act III</div>
+      <div class="card-title">The Network</div>
+      <div class="card-time">0:30 – 0:55</div>
+      <div class="card-desc">Eight military bases come online — Ft Liberty, Ft Cavazos, JBLM, and more. Each has its own AI engine and ESO. Signals bundle into a trunk pipeline, pass through normalization and aggregation, then turn white: PII stripped, privacy-safe.</div>
+    </div>
+    <div class="card">
+      <div class="card-act">Act IV</div>
+      <div class="card-title">The Pentagon</div>
+      <div class="card-time">0:55 – 1:15</div>
+      <div class="card-desc">Hundreds of ESOs from 180+ installations feed aggregated signals to the Pentagon. 2,000,000+ service members, zero PII in the policy layer. The ISR sees only aggregated institutional intelligence.</div>
+    </div>
+  </div>
+  <div class="note">
+    For conference use: Enter fullscreen mode and press play. The animation runs 75 seconds with no interaction needed.
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// CMGF SIGNAL FLOW ANIMATION — STANDALONE SOURCE
+// Duration: 75 seconds, 4 acts, 16:9 aspect ratio
+// Author: Robert McCoy / The Governance Framework
+// ═══════════════════════════════════════════════════════════════════════
+
+const COLORS = {
+  bg: "#0d1117",       // Deep dark background
+  node: "#fbbf24",     // Gold — service member nodes
+  engine: "#f97316",   // Orange — CMGF AI engine
+  isr: "#94a3b8",      // Slate — ISR/dim text
+  command: "#d97706",  // Amber — command/aggregation
+  approved: "#22c55e", // Green — completion badges
+  text: "#ffffff",     // White — primary text
+  textDim: "#94a3b8",  // Slate — secondary text
+  border: "rgba(201,168,76,0.3)",
+  pure: "#ffffff",     // White — PII-stripped / privacy-safe beams
+};
+
+const DURATION = 75;
+const ACT_TIMES = [0, 15, 30, 55, 75];
+
+// ─── Utility Functions ───────────────────────────────────────────────
+
+function lerp(a, b, t) { return a + (b - a) * Math.max(0, Math.min(1, t)); }
+function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+function lerpColor(c1, c2, t) {
+  const r1 = parseInt(c1.slice(1, 3), 16), g1 = parseInt(c1.slice(3, 5), 16), b1 = parseInt(c1.slice(5, 7), 16);
+  const r2 = parseInt(c2.slice(1, 3), 16), g2 = parseInt(c2.slice(3, 5), 16), b2 = parseInt(c2.slice(5, 7), 16);
+  const r = Math.round(lerp(r1, r2, t)), g = Math.round(lerp(g1, g2, t)), b = Math.round(lerp(b1, b2, t));
+  return '#' + r.toString(16).padStart(2,'0') + g.toString(16).padStart(2,'0') + b.toString(16).padStart(2,'0');
+}
+
+// ─── Drawing Primitives ──────────────────────────────────────────────
+
+function drawGlowCircle(ctx, x, y, r, color, glow) {
+  if (glow > 0) {
+    const gradient = ctx.createRadialGradient(x, y, r * 0.5, x, y, r * 3);
+    gradient.addColorStop(0, color + Math.round(glow * 60).toString(16).padStart(2, '0'));
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.beginPath(); ctx.arc(x, y, r * 3, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawHexagon(ctx, x, y, r, color, fillOpacity, glow) {
+  if (glow > 0) {
+    const gradient = ctx.createRadialGradient(x, y, r * 0.5, x, y, r * 2.5);
+    gradient.addColorStop(0, color + Math.round(glow * 50).toString(16).padStart(2, '0'));
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.beginPath(); ctx.arc(x, y, r * 2.5, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI / 3) * i - Math.PI / 6;
+    const px = x + r * Math.cos(angle), py = y + r * Math.sin(angle);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.fillStyle = color + Math.round(fillOpacity * 255).toString(16).padStart(2, '0');
+  ctx.fill();
+  ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.stroke();
+}
+
+function drawPentagon(ctx, x, y, r, borderColor, glow) {
+  if (glow > 0) {
+    const gradient = ctx.createRadialGradient(x, y, r * 0.5, x, y, r * 3);
+    gradient.addColorStop(0, borderColor + Math.round(glow * 40).toString(16).padStart(2, '0'));
+    gradient.addColorStop(1, "transparent");
+    ctx.fillStyle = gradient;
+    ctx.beginPath(); ctx.arc(x, y, r * 3, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const angle = (Math.PI * 2 / 5) * i - Math.PI / 2;
+    const px = x + r * Math.cos(angle), py = y + r * Math.sin(angle);
+    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+  }
+  ctx.closePath();
+  ctx.fillStyle = COLORS.bg; ctx.fill();
+  ctx.strokeStyle = borderColor; ctx.lineWidth = 3; ctx.stroke();
+}
+
+function drawLabel(ctx, text, x, y, color, size, opacity) {
+  if (opacity <= 0) return;
+  ctx.save(); ctx.globalAlpha = opacity;
+  ctx.fillStyle = color;
+  ctx.font = size + "px 'JetBrains Mono', 'Courier New', monospace";
+  ctx.textAlign = "center"; ctx.textBaseline = "top";
+  ctx.fillText(text, x, y); ctx.restore();
+}
+
+function drawSignalLine(ctx, x1, y1, x2, y2, color, opacity, width) {
+  if (opacity <= 0) return;
+  ctx.save(); ctx.globalAlpha = opacity * 0.4;
+  ctx.strokeStyle = color; ctx.lineWidth = width;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.restore();
+}
+
+function drawSignalDot(ctx, x1, y1, x2, y2, progress, color, size) {
+  if (progress < 0 || progress > 1) return;
+  const x = lerp(x1, x2, progress), y = lerp(y1, y2, progress);
+  const gradient = ctx.createRadialGradient(x, y, 0, x, y, size * 4);
+  gradient.addColorStop(0, color); gradient.addColorStop(1, "transparent");
+  ctx.fillStyle = gradient;
+  ctx.beginPath(); ctx.arc(x, y, size * 4, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fill();
+}
+
+function drawBadge(ctx, text, x, y, color, opacity) {
+  if (opacity <= 0) return;
+  ctx.save(); ctx.globalAlpha = opacity;
+  ctx.font = "bold 9px 'JetBrains Mono', monospace";
+  const w = ctx.measureText(text).width + 14, h = 18;
+  ctx.fillStyle = color + "30"; ctx.strokeStyle = color; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.roundRect(x - w/2, y - h/2, w, h, 3); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(text, x, y); ctx.restore();
+}
+
+function drawDocIcon(ctx, x, y, size, color, fillProgress, opacity) {
+  if (opacity <= 0) return;
+  ctx.save(); ctx.globalAlpha = opacity;
+  const w = size * 0.7, h = size, fold = size * 0.2;
+  ctx.beginPath();
+  ctx.moveTo(x - w/2, y - h/2); ctx.lineTo(x + w/2 - fold, y - h/2);
+  ctx.lineTo(x + w/2, y - h/2 + fold); ctx.lineTo(x + w/2, y + h/2);
+  ctx.lineTo(x - w/2, y + h/2); ctx.closePath();
+  ctx.fillStyle = COLORS.bg; ctx.fill();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.stroke();
+  const lines = Math.floor(fillProgress * 4);
+  for (let i = 0; i < lines; i++) {
+    const ly = y - h/2 + fold + 6 + i * 6;
+    const lw = w * 0.6 - (i % 2 === 0 ? 0 : w * 0.15);
+    ctx.fillStyle = color + "80"; ctx.fillRect(x - w/2 + 5, ly, lw, 2);
+  }
+  ctx.restore();
+}
+
+function drawPersonIcon(ctx, x, y, size, color) {
+  ctx.fillStyle = color;
+  ctx.beginPath(); ctx.arc(x, y - size * 0.35, size * 0.25, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x, y + size * 0.1, size * 0.35, size * 0.3, 0, Math.PI, 0, true); ctx.fill();
+}
+
+function drawBouncingSignal(ctx, x1, y1, x2, y2, elapsed, speed, color1, color2, opacity) {
+  if (opacity <= 0) return;
+  const cycle = (elapsed * speed) % 2;
+  const forward = cycle < 1;
+  const p = forward ? easeInOut(cycle) : easeInOut(cycle - 1);
+  const fromX = forward ? x1 : x2, fromY = forward ? y1 : y2;
+  const toX = forward ? x2 : x1, toY = forward ? y2 : y1;
+  const color = forward ? color1 : color2;
+  ctx.save(); ctx.globalAlpha = opacity;
+  drawSignalLine(ctx, x1, y1, x2, y2, color1, 0.4, 1);
+  ctx.restore();
+  drawSignalDot(ctx, fromX, fromY, toX, toY, p, color, 3);
+}
+
+function drawTrunkBeam(ctx, x1, y1, x2, y2, width, color, opacity, glowRadius) {
+  if (opacity <= 0) return;
+  ctx.save();
+  const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+  gradient.addColorStop(0, color + Math.round(opacity * 200).toString(16).padStart(2, '0'));
+  gradient.addColorStop(1, color + Math.round(opacity * 120).toString(16).padStart(2, '0'));
+  if (glowRadius > 0) {
+    const mx = (x1+x2)/2, my = (y1+y2)/2;
+    const glow = ctx.createRadialGradient(mx, my, 0, mx, my, glowRadius);
+    glow.addColorStop(0, color + Math.round(opacity * 30).toString(16).padStart(2, '0'));
+    glow.addColorStop(1, "transparent");
+    ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(mx, my, glowRadius, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.strokeStyle = gradient; ctx.lineWidth = width; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.restore();
+}
+
+function drawProcessLabel(ctx, text, x, y, color, bgColor, opacity) {
+  if (opacity <= 0) return;
+  ctx.save(); ctx.globalAlpha = opacity;
+  ctx.font = "bold 9px 'JetBrains Mono', monospace";
+  const w = ctx.measureText(text).width + 20, h = 22;
+  ctx.fillStyle = bgColor; ctx.strokeStyle = color; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.roundRect(x - w/2, y - h/2, w, h, 3); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText(text, x, y); ctx.restore();
+}
+
+// ─── Animation State ─────────────────────────────────────────────────
+
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let playing = false;
+let startTime = 0;
+let pausedAt = 0;
+let currentTime = 0;
+let animFrame = 0;
+
+function getAct(t) {
+  if (t < ACT_TIMES[1]) return 1;
+  if (t < ACT_TIMES[2]) return 2;
+  if (t < ACT_TIMES[3]) return 3;
+  return 4;
+}
+
+// ─── Main Render Function ────────────────────────────────────────────
+
+function render(time) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  const W = rect.width, H = rect.height;
+
+  ctx.fillStyle = COLORS.bg;
+  ctx.fillRect(0, 0, W, H);
+
+  const elapsed = time;
+  const act = getAct(elapsed);
+
+  const smX = W * 0.1, smY = H * 0.5;
+  const engineX = W * 0.38, engineY = H * 0.5;
+  const esoX = W * 0.65, esoY = H * 0.5;
+  const pentX = W * 0.88, pentY = H * 0.22;
+
+  const hash = (i, s) => ((s + i * 127 + i * i * 13) % 997) / 997;
+  const hash2 = (i, s) => ((s + i * 251 + i * i * 7) % 991) / 991;
+
+  // ═══ ACT I: Single SM, multi-lane back-and-forth, hot ESO signal ═══
+  if (act >= 1) {
+    const actT = Math.min(1, elapsed / ACT_TIMES[1]);
+
+    const contextAppear = easeOut(Math.min(1, actT * 3));
+    if (contextAppear > 0) {
+      ctx.save(); ctx.globalAlpha = contextAppear * 0.4;
+      ctx.fillStyle = COLORS.textDim;
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      ctx.textAlign = "left"; ctx.textBaseline = "top";
+      ctx.fillText("0200 HRS · UNDISCLOSED LOCATION", W * 0.03, H * 0.06);
+      ctx.restore();
+    }
+
+    const smAppear = easeOut(Math.min(1, actT * 4));
+    if (smAppear > 0) {
+      const pulse = 0.5 + 0.5 * Math.sin(elapsed * 2);
+      drawGlowCircle(ctx, smX, smY, 14, COLORS.node, smAppear * pulse * 0.8);
+      drawPersonIcon(ctx, smX, smY, 14, COLORS.text);
+      drawLabel(ctx, "DEPLOYED SM", smX, smY + 24, COLORS.textDim, 10, smAppear);
+    }
+
+    const signalToAI = Math.max(0, Math.min(1, (actT - 0.15) / 0.1));
+    if (signalToAI > 0) {
+      drawSignalLine(ctx, smX, smY, engineX, engineY, COLORS.node, signalToAI, 1.5);
+      if (signalToAI < 1) drawSignalDot(ctx, smX, smY, engineX, engineY, easeInOut(signalToAI), COLORS.node, 4);
+    }
+
+    const hexAppear = Math.max(0, Math.min(1, (actT - 0.2) / 0.08));
+    if (hexAppear > 0) {
+      const flashGlow = 0.3 + 0.3 * Math.sin(elapsed * 3);
+      drawHexagon(ctx, engineX, engineY, 34, COLORS.engine, hexAppear * 0.3, hexAppear * flashGlow);
+      drawLabel(ctx, "CMGF AI", engineX, engineY + 42, COLORS.textDim, 10, hexAppear);
+      drawLabel(ctx, "ENGINE", engineX, engineY + 54, COLORS.textDim, 9, hexAppear);
+    }
+
+    const bounceStart = 0.28, bounceEnd = 0.68;
+    const bounceP = Math.max(0, Math.min(1, (actT - bounceStart) / (bounceEnd - bounceStart)));
+    if (bounceP > 0) {
+      const bounceElapsed = (actT - bounceStart) * ACT_TIMES[1];
+      for (let lane = -1; lane <= 1; lane++) {
+        const yOff = lane * 8, speed = 1.6 + lane * 0.3;
+        const delay = Math.abs(lane) * 0.15;
+        const laneP = Math.max(0, bounceP - delay);
+        if (laneP > 0) drawBouncingSignal(ctx, smX + 14, smY + yOff, engineX - 34, engineY + yOff, bounceElapsed, speed, COLORS.node, COLORS.engine, laneP * 0.7);
+      }
+      const exchangeLabel = Math.max(0, Math.min(1, (bounceP - 0.2) / 0.15));
+      if (exchangeLabel > 0) {
+        const midX = (smX + engineX) / 2;
+        drawLabel(ctx, "BACK & FORTH", midX, smY - 35, COLORS.textDim, 8, exchangeLabel * 0.6);
+        drawLabel(ctx, "ADVISORY EXCHANGE", midX, smY - 24, COLORS.textDim, 8, exchangeLabel * 0.6);
+      }
+    }
+
+    const esoReportP = Math.max(0, Math.min(1, (actT - 0.7) / 0.15));
+    if (esoReportP > 0) {
+      const hotGlow = esoReportP * (0.6 + 0.4 * Math.sin(elapsed * 4));
+      const beamWidth = 2 + esoReportP * 5;
+      drawTrunkBeam(ctx, engineX + 34, engineY, esoX, esoY, beamWidth, COLORS.engine, hotGlow, 30 * esoReportP);
+      if (esoReportP < 1) drawSignalDot(ctx, engineX + 34, engineY, esoX, esoY, easeOut(esoReportP), COLORS.engine, 5);
+    }
+
+    const esoAppear = Math.max(0, Math.min(1, (actT - 0.82) / 0.08));
+    if (esoAppear > 0) {
+      const esoGlow = esoAppear * (0.5 + 0.5 * Math.sin(elapsed * 3));
+      drawGlowCircle(ctx, esoX, esoY, 16, COLORS.node, esoGlow);
+      drawLabel(ctx, "ESO", esoX, esoY - 26, COLORS.node, 12, esoAppear);
+      drawDocIcon(ctx, esoX, esoY, 28, COLORS.node, esoAppear, esoAppear);
+      drawLabel(ctx, "ACTIVITY REPORT", esoX, esoY + 22, COLORS.textDim, 8, esoAppear);
+    }
+
+    const esoAiBounce = Math.max(0, Math.min(1, (actT - 0.88) / 0.1));
+    if (esoAiBounce > 0) {
+      drawBouncingSignal(ctx, engineX + 34, engineY - 6, esoX - 16, esoY - 6, elapsed, 2.0, COLORS.engine, COLORS.node, esoAiBounce * 0.5);
+      drawLabel(ctx, "ESO \u2194 AI COORDINATION", (engineX + esoX) / 2, esoY + 36, COLORS.textDim, 7, esoAiBounce * 0.5);
+    }
+
+    const badgeP = Math.max(0, Math.min(1, (actT - 0.93) / 0.05));
+    if (badgeP > 0) drawBadge(ctx, "SM SESSION COMPLETE", (smX + engineX) / 2, smY + 50, COLORS.approved, badgeP);
+  }
+
+  // ═══ ACT II: Hundreds of SMs, heavy ESO traffic ═══
+  if (act >= 2) {
+    const act2Start = ACT_TIMES[1], act2Dur = ACT_TIMES[2] - ACT_TIMES[1];
+    const act2T = Math.min(1, (elapsed - act2Start) / act2Dur);
+
+    const maxSM = 150;
+    const smCount = Math.floor(lerp(3, maxSM, easeOut(Math.min(1, act2T * 1.8))));
+
+    for (let i = 0; i < smCount; i++) {
+      const nx = W * 0.02 + hash(i, 42) * W * 0.22;
+      const ny = H * 0.05 + hash2(i, 42) * H * 0.9;
+      const nodeOpacity = Math.min(1, (act2T * 1.8) - i / maxSM * 0.3);
+      if (nodeOpacity <= 0) continue;
+
+      ctx.save(); ctx.globalAlpha = nodeOpacity * 0.8;
+      const sz = i < 20 ? 4 : (i < 60 ? 3 : 2);
+      const pulse = 0.3 + 0.7 * Math.sin(elapsed * 1.2 + i * 0.4);
+      drawGlowCircle(ctx, nx, ny, sz, COLORS.node, pulse * 0.2);
+
+      if (i < 40) {
+        const bounceActive = act2T > 0.1 + (i * 0.005);
+        if (bounceActive) {
+          const bounceElapsed = elapsed - act2Start - (0.1 + i * 0.005) * act2Dur;
+          if (bounceElapsed > 0) {
+            const targetY = engineY + (hash(i, 99) - 0.5) * H * 0.4;
+            ctx.globalAlpha = nodeOpacity * 0.3;
+            ctx.strokeStyle = COLORS.node; ctx.lineWidth = 0.5;
+            ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(engineX - 34, targetY); ctx.stroke();
+            const sp = ((bounceElapsed * (0.8 + hash(i, 77) * 0.6)) % 2);
+            const forward = sp < 1;
+            const p = forward ? easeInOut(sp) : easeInOut(sp - 1);
+            const dotColor = forward ? COLORS.node : COLORS.engine;
+            const dx = forward ? lerp(nx, engineX - 34, p) : lerp(engineX - 34, nx, p);
+            const dy = forward ? lerp(ny, targetY, p) : lerp(targetY, ny, p);
+            drawGlowCircle(ctx, dx, dy, 2, dotColor, 0.5);
+          }
+        }
+      } else {
+        ctx.globalAlpha = nodeOpacity * 0.15;
+        ctx.strokeStyle = COLORS.node; ctx.lineWidth = 0.3;
+        ctx.beginPath(); ctx.moveTo(nx, ny);
+        ctx.lineTo(engineX - 34, engineY + (hash(i, 55) - 0.5) * H * 0.3); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    const hexGlow = 0.5 + 0.4 * Math.sin(elapsed * 3);
+    const hexSize = 34 + Math.min(8, act2T * 10);
+    drawHexagon(ctx, engineX, engineY, hexSize, COLORS.engine, 0.4, hexGlow);
+    drawLabel(ctx, "CMGF AI", engineX, engineY + hexSize + 8, COLORS.textDim, 10, 1);
+    drawLabel(ctx, "ENGINE", engineX, engineY + hexSize + 20, COLORS.textDim, 9, 1);
+
+    const esoReportsP = Math.max(0, Math.min(1, (act2T - 0.25) / 0.35));
+    if (esoReportsP > 0) {
+      const esoHotGlow = esoReportsP * (0.6 + 0.4 * Math.sin(elapsed * 4));
+      const beamWidth = 3 + esoReportsP * 8;
+      drawTrunkBeam(ctx, engineX + hexSize, engineY, esoX - 16, esoY, beamWidth, COLORS.engine, esoHotGlow, 50 * esoReportsP);
+
+      for (let i = 0; i < Math.floor(esoReportsP * 4); i++) {
+        const sp = ((elapsed * 1.5 + i * 0.6) % 1);
+        drawSignalDot(ctx, engineX + hexSize, engineY + (i - 2) * 6, esoX - 16, esoY + (i - 2) * 4, sp, COLORS.engine, 3);
+      }
+
+      drawGlowCircle(ctx, esoX, esoY, 18, COLORS.node, esoHotGlow);
+      drawLabel(ctx, "ESO", esoX, esoY - 28, COLORS.node, 12, esoReportsP);
+
+      const docStack = Math.min(6, Math.floor(esoReportsP * 8));
+      for (let i = 0; i < docStack; i++) drawDocIcon(ctx, esoX + i * 3, esoY - i * 2.5, 18, COLORS.node, 1, esoReportsP * 0.7);
+      drawLabel(ctx, "ACTIVITY REPORTS", esoX, esoY + 20, COLORS.textDim, 8, esoReportsP);
+
+      const esoAiBounce2 = Math.max(0, esoReportsP - 0.3);
+      if (esoAiBounce2 > 0) {
+        for (let lane = 0; lane < 3; lane++) {
+          const yOff = (lane - 1) * 10;
+          drawBouncingSignal(ctx, engineX + hexSize, engineY + yOff, esoX - 16, esoY + yOff, elapsed, 1.8 + lane * 0.4, COLORS.engine, COLORS.node, esoAiBounce2 * 0.4);
+        }
+      }
+    }
+
+    const counterP = Math.max(0, Math.min(1, (act2T - 0.3) / 0.1));
+    if (counterP > 0) {
+      const displayCount = Math.floor(smCount * 13);
+      ctx.save(); ctx.globalAlpha = counterP * 0.7;
+      ctx.fillStyle = COLORS.node;
+      ctx.font = "bold 11px 'JetBrains Mono', monospace";
+      ctx.textAlign = "left"; ctx.textBaseline = "top";
+      ctx.fillText(displayCount.toLocaleString() + " ACTIVE SESSIONS", W * 0.03, H * 0.04);
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      ctx.fillStyle = COLORS.textDim;
+      ctx.fillText("SINGLE INSTALLATION", W * 0.03, H * 0.07);
+      ctx.restore();
+    }
+  }
+
+  // ═══ ACT III: 8 bases, each with AI+ESO, trunk pipeline, white transition ═══
+  if (act >= 3) {
+    const act3Start = ACT_TIMES[2], act3Dur = ACT_TIMES[3] - ACT_TIMES[2];
+    const act3T = Math.min(1, (elapsed - act3Start) / act3Dur);
+
+    const baseCount = Math.min(8, Math.floor(act3T * 12));
+    const bases = [];
+    const baseNames = ["FT LIBERTY", "FT CAVAZOS", "FT MOORE", "JBLM", "FT DRUM", "FT RILEY", "FT STEWART", "FT BLISS"];
+
+    for (let b = 0; b < baseCount; b++) {
+      const row = b % 4, col = Math.floor(b / 4);
+      const bx = W * 0.04 + col * W * 0.22;
+      const by = H * 0.12 + row * H * 0.22;
+      bases.push({ x: bx, y: by, aiX: bx + W * 0.1, esoX: bx + W * 0.18, label: baseNames[b] });
+    }
+
+    for (let b = 0; b < bases.length; b++) {
+      const base = bases[b];
+      const baseP = Math.max(0, Math.min(1, (act3T * 2) - b * 0.12));
+      if (baseP <= 0) continue;
+
+      ctx.save(); ctx.globalAlpha = baseP;
+
+      const smPerBase = b < 3 ? 30 : 15;
+      for (let i = 0; i < smPerBase; i++) {
+        const sx = base.x + hash(i + b * 100, 33) * W * 0.06;
+        const sy = base.y - H * 0.06 + hash2(i + b * 100, 33) * H * 0.14;
+        drawGlowCircle(ctx, sx, sy, 1.5, COLORS.node, 0.2 + 0.3 * Math.sin(elapsed * 1.5 + i + b));
+        if (i < 8) {
+          ctx.globalAlpha = baseP * 0.15;
+          ctx.strokeStyle = COLORS.node; ctx.lineWidth = 0.3;
+          ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(base.aiX, base.y); ctx.stroke();
+          ctx.globalAlpha = baseP;
+        }
+      }
+
+      const aiGlow = 0.3 + 0.4 * Math.sin(elapsed * 2.5 + b);
+      drawHexagon(ctx, base.aiX, base.y, 12, COLORS.engine, 0.35, aiGlow);
+      drawGlowCircle(ctx, base.esoX, base.y, 7, COLORS.node, 0.4 + 0.3 * Math.sin(elapsed * 2 + b * 0.7));
+
+      const hotP = baseP * (0.5 + 0.5 * Math.sin(elapsed * 3 + b));
+      drawTrunkBeam(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, 2 + hotP * 3, COLORS.engine, hotP * 0.6, 15);
+      const sp1 = ((elapsed * 1.5 + b * 0.8) % 1);
+      drawSignalDot(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, sp1, COLORS.engine, 2);
+      const sp2 = ((elapsed * 1.2 + b * 0.5 + 0.5) % 1);
+      drawSignalDot(ctx, base.esoX - 7, base.y, base.aiX + 12, base.y, sp2, COLORS.node, 2);
+      drawLabel(ctx, base.label, base.aiX, base.y + 18, COLORS.textDim, 7, baseP * 0.7);
+
+      ctx.restore();
+    }
+
+    const trunkX3 = W * 0.52;
+    const trunkStartP = Math.max(0, Math.min(1, (act3T - 0.35) / 0.15));
+    if (trunkStartP > 0) {
+      const trunkTopY = H * 0.08, trunkBotY = H * 0.92;
+
+      for (let b = 0; b < bases.length; b++) {
+        const base = bases[b];
+        const sp = Math.max(0, Math.min(1, (trunkStartP - b * 0.08) * 3));
+        if (sp <= 0) continue;
+        const hotColor = lerpColor(COLORS.engine, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 2 + b));
+        ctx.save(); ctx.globalAlpha = sp * 0.4;
+        ctx.strokeStyle = hotColor; ctx.lineWidth = 1.5 + sp * 2;
+        ctx.beginPath(); ctx.moveTo(base.aiX + 12, base.y);
+        ctx.quadraticCurveTo(trunkX3 - 20, base.y, trunkX3, base.y); ctx.stroke();
+        ctx.restore();
+        const dotP = ((elapsed * 1.2 + b * 0.4) % 1);
+        drawSignalDot(ctx, base.aiX + 12, base.y, trunkX3, base.y, dotP, hotColor, 3);
+      }
+
+      const trunkGlow = trunkStartP * (0.5 + 0.5 * Math.sin(elapsed * 2));
+      drawTrunkBeam(ctx, trunkX3, trunkBotY, trunkX3, trunkTopY, 4 + trunkStartP * 6, COLORS.engine, trunkGlow, 40);
+      for (let i = 0; i < 5; i++) {
+        const dotY = trunkBotY - ((elapsed * 80 + i * 60) % (trunkBotY - trunkTopY));
+        if (dotY > trunkTopY && dotY < trunkBotY) drawGlowCircle(ctx, trunkX3, dotY, 3, COLORS.engine, 0.5);
+      }
+      drawLabel(ctx, "TRUNK PIPELINE", trunkX3 + 15, H * 0.5, COLORS.engine, 7, trunkStartP * 0.6);
+    }
+
+    const normP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
+    const normX2 = W * 0.58, normY2 = H * 0.06;
+    if (normP > 0) {
+      drawTrunkBeam(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, 3 + normP * 3, COLORS.engine, normP * 0.6, 25);
+      const sp = ((elapsed * 1.0) % 1);
+      drawSignalDot(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, sp, COLORS.engine, 3);
+      drawProcessLabel(ctx, "NORMALIZATION", normX2, normY2, COLORS.engine, COLORS.bg + "e0", normP);
+    }
+
+    const aggP = Math.max(0, Math.min(1, (act3T - 0.65) / 0.1));
+    const aggX2 = W * 0.68, aggY2 = H * 0.06;
+    if (aggP > 0) {
+      drawTrunkBeam(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, 4 + aggP * 3, lerpColor(COLORS.engine, COLORS.command, aggP * 0.5), aggP * 0.7, 30);
+      const sp = ((elapsed * 0.9 + 0.3) % 1);
+      drawSignalDot(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, sp, COLORS.command, 3);
+      drawProcessLabel(ctx, "AGGREGATION", aggX2, aggY2, COLORS.command, COLORS.bg + "e0", aggP);
+    }
+
+    const whiteP = Math.max(0, Math.min(1, (act3T - 0.75) / 0.15));
+    if (whiteP > 0) {
+      const beamColor = lerpColor(COLORS.command, COLORS.pure, whiteP);
+      const wBeam = 5 + whiteP * 10;
+      const isrX2 = W * 0.82;
+      drawTrunkBeam(ctx, aggX2 + 40, aggY2, isrX2, aggY2, wBeam, beamColor, whiteP * 0.9, 60 * whiteP);
+      if (whiteP > 0.4) {
+        const pp = (whiteP - 0.4) / 0.6;
+        drawLabel(ctx, "PII STRIPPED \u00b7 PRIVACY-SAFE", (aggX2 + isrX2) / 2, aggY2 + 18, COLORS.pure, 8, pp * 0.8);
+      }
+      if (whiteP > 0.7) {
+        drawGlowCircle(ctx, isrX2, aggY2, 12, COLORS.pure, (whiteP - 0.7) * 3);
+        drawLabel(ctx, "ISR FEED", isrX2, aggY2 + 16, COLORS.pure, 8, (whiteP - 0.7) * 3);
+      }
+    }
+
+    const counterP3 = Math.max(0, Math.min(1, (act3T - 0.2) / 0.1));
+    if (counterP3 > 0) {
+      const totalSM = baseCount * 2500;
+      ctx.save(); ctx.globalAlpha = counterP3 * 0.6;
+      ctx.fillStyle = COLORS.node;
+      ctx.font = "bold 10px 'JetBrains Mono', monospace";
+      ctx.textAlign = "right"; ctx.textBaseline = "top";
+      ctx.fillText(baseCount + " INSTALLATIONS \u00b7 " + totalSM.toLocaleString() + " SMs", W * 0.97, H * 0.93);
+      ctx.restore();
+    }
+  }
+
+  // ═══ ACT IV: Hundreds of ESOs, massive convergence, Pentagon ═══
+  if (act >= 4) {
+    const act4Start = ACT_TIMES[3], act4Dur = ACT_TIMES[4] - ACT_TIMES[3];
+    const act4T = Math.min(1, (elapsed - act4Start) / act4Dur);
+
+    const esoCount = Math.min(40, Math.floor(act4T * 60));
+    for (let i = 0; i < esoCount; i++) {
+      const ex = W * 0.03 + hash(i, 777) * W * 0.55;
+      const ey = H * 0.08 + hash2(i, 777) * H * 0.84;
+      const ep = Math.min(1, act4T * 3 - i * 0.04);
+      if (ep <= 0) continue;
+
+      ctx.save(); ctx.globalAlpha = ep * 0.5;
+      drawGlowCircle(ctx, ex, ey, 4, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 1.5 + i));
+      ctx.globalAlpha = ep * 0.12;
+      ctx.strokeStyle = COLORS.pure; ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.moveTo(ex, ey);
+      ctx.quadraticCurveTo(ex + (pentX - ex) * 0.4, ey - 30, pentX, pentY); ctx.stroke();
+
+      const sp = ((elapsed * 0.6 + i * 0.3) % 1);
+      const dx = lerp(ex, pentX, sp), dy = lerp(ey, pentY - 20 + sp * 20, sp);
+      ctx.globalAlpha = ep * 0.4 * (1 - sp);
+      drawGlowCircle(ctx, dx, dy, 2, COLORS.pure, 0.5);
+      ctx.restore();
+    }
+
+    const trunkConverge = Math.max(0, Math.min(1, act4T * 2.5));
+    if (trunkConverge > 0) {
+      for (let i = 0; i < 6; i++) {
+        const angle = -Math.PI * 0.3 + (Math.PI * 0.8 / 6) * i;
+        const dist = W * 0.35;
+        const sx = pentX + Math.cos(angle + Math.PI) * dist;
+        const sy = pentY + Math.sin(angle + Math.PI) * dist * 0.6;
+        const tp = Math.max(0, Math.min(1, trunkConverge - i * 0.1));
+        if (tp <= 0) continue;
+        drawTrunkBeam(ctx, sx, sy, pentX - 40, pentY, 3 + tp * 6, COLORS.pure, tp * 0.5, 40 * tp);
+        for (let d = 0; d < 2; d++) {
+          const dp = ((elapsed * 0.8 + i * 0.5 + d * 0.4) % 1);
+          drawSignalDot(ctx, sx, sy, pentX - 40, pentY, dp, COLORS.pure, 3);
+        }
+      }
+    }
+
+    const pentAppear = Math.max(0, Math.min(1, (act4T - 0.25) / 0.12));
+    if (pentAppear > 0) {
+      const pentGlow = pentAppear * (0.5 + 0.5 * Math.sin(elapsed * 1.5));
+      drawPentagon(ctx, pentX, pentY, 44, COLORS.engine, pentGlow);
+      drawLabel(ctx, "DEPARTMENT OF DEFENSE", pentX, pentY + 54, COLORS.text, 9, pentAppear);
+      drawLabel(ctx, "POLICY LAYER", pentX, pentY + 66, COLORS.textDim, 9, pentAppear);
+    }
+
+    const policyP = Math.max(0, Math.min(1, (act4T - 0.4) / 0.1));
+    if (policyP > 0) {
+      drawDocIcon(ctx, pentX, pentY, 24, COLORS.engine, policyP, policyP);
+      drawLabel(ctx, "POLICY SIGNAL", pentX, pentY + 20, COLORS.engine, 8, policyP * 0.8);
+    }
+
+    const statsP = Math.max(0, Math.min(1, (act4T - 0.45) / 0.1));
+    if (statsP > 0) {
+      ctx.save(); ctx.globalAlpha = statsP * 0.6;
+      ctx.fillStyle = COLORS.pure;
+      ctx.font = "bold 10px 'JetBrains Mono', monospace";
+      ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+      ctx.fillText("2,000,000+ SERVICE MEMBERS", W * 0.97, H * 0.93);
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      ctx.fillStyle = COLORS.textDim;
+      ctx.fillText("180+ INSTALLATIONS \u00b7 ZERO PII IN POLICY LAYER", W * 0.97, H * 0.97);
+      ctx.restore();
+    }
+
+    const textP = Math.max(0, Math.min(1, (act4T - 0.65) / 0.12));
+    if (textP > 0) {
+      ctx.save(); ctx.globalAlpha = textP;
+      const panelW = W * 0.65, panelH = 70;
+      const panelX = W / 2 - panelW / 2, panelY = H * 0.7;
+      ctx.fillStyle = COLORS.bg + "e0";
+      ctx.fillRect(panelX, panelY, panelW, panelH);
+      ctx.strokeStyle = COLORS.border; ctx.lineWidth = 1;
+      ctx.strokeRect(panelX, panelY, panelW, panelH);
+      ctx.fillStyle = COLORS.text;
+      ctx.font = "italic 13px 'Merriweather', Georgia, serif";
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText("One governed signal. Millions of pathways. One national picture.", W / 2, panelY + panelH * 0.38);
+      ctx.font = "9px 'JetBrains Mono', monospace";
+      ctx.fillStyle = COLORS.textDim;
+      ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.", W / 2, panelY + panelH * 0.7);
+      ctx.restore();
+    }
+
+    const fadeP = Math.max(0, Math.min(1, (act4T - 0.93) / 0.07));
+    if (fadeP > 0) {
+      ctx.save(); ctx.globalAlpha = fadeP;
+      ctx.fillStyle = COLORS.bg; ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+    }
+  }
+
+  // Act label overlay
+  const actLabels = ["", "ACT I \u2014 THE INDIVIDUAL", "ACT II \u2014 THE INSTALLATION", "ACT III \u2014 THE NETWORK", "ACT IV \u2014 THE PENTAGON"];
+  ctx.save(); ctx.globalAlpha = 0.5;
+  ctx.fillStyle = COLORS.textDim;
+  ctx.font = "10px 'JetBrains Mono', monospace";
+  ctx.textAlign = "left"; ctx.textBaseline = "top";
+  ctx.fillText(actLabels[act], 16, 16);
+  ctx.restore();
+}
+
+// ─── Playback Controls ───────────────────────────────────────────────
+
+function animate(timestamp) {
+  if (!startTime) startTime = timestamp;
+  const elapsed = pausedAt + (timestamp - startTime) / 1000;
+  if (elapsed >= DURATION) {
+    playing = false;
+    currentTime = DURATION;
+    render(DURATION);
+    updateUI();
+    return;
+  }
+  currentTime = elapsed;
+  render(elapsed);
+  updateUI();
+  animFrame = requestAnimationFrame(animate);
+}
+
+function togglePlay() {
+  if (playing) {
+    pausedAt = currentTime;
+    startTime = 0;
+    playing = false;
+    cancelAnimationFrame(animFrame);
+  } else {
+    if (currentTime >= DURATION) pausedAt = 0;
+    startTime = 0;
+    playing = true;
+    animFrame = requestAnimationFrame(animate);
+  }
+  updateUI();
+}
+
+function resetAnim() {
+  pausedAt = 0; startTime = 0; playing = false; currentTime = 0;
+  cancelAnimationFrame(animFrame);
+  render(0);
+  updateUI();
+}
+
+function toggleFullscreen() {
+  const el = document.getElementById('wrapper');
+  if (!document.fullscreenElement) el.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen().catch(()=>{});
+}
+
+function updateUI() {
+  document.getElementById('playBtn').textContent = playing ? '⏸' : '▶';
+  document.getElementById('progressFill').style.width = (currentTime / DURATION * 100) + '%';
+  document.getElementById('timeLabel').textContent = Math.floor(currentTime) + 's / ' + DURATION + 's';
+  const actNames = ["Ready", "Act I \u2014 The Individual", "Act II \u2014 The Installation", "Act III \u2014 The Network", "Act IV \u2014 The Pentagon"];
+  document.getElementById('actLabel').textContent = actNames[getAct(currentTime)] || actNames[0];
+}
+
+// Initial render
+render(0);
+updateUI();
+</script>
+</body>
+</html>
