@@ -310,24 +310,19 @@ export default function SignalFlowAnimation() {
     const elapsed = time;
     const act = getAct(elapsed);
 
-    const smX = W * 0.12;
+    const smX = W * 0.1;
     const smY = H * 0.5;
-    const engineX = W * 0.45;
+    const engineX = W * 0.38;
     const engineY = H * 0.5;
-    const esoX = W * 0.78;
+    const esoX = W * 0.65;
     const esoY = H * 0.5;
-
-    const trunkStartX = engineX;
-    const trunkStartY = engineY - 60;
-    const normX = W * 0.45;
-    const normY = H * 0.18;
-    const aggX = W * 0.62;
-    const aggY = H * 0.12;
-    const cmdX = W * 0.75;
-    const cmdY = H * 0.15;
     const pentX = W * 0.88;
-    const pentY = H * 0.2;
+    const pentY = H * 0.22;
 
+    const hash = (i: number, s: number) => ((s + i * 127 + i * i * 13) % 997) / 997;
+    const hash2 = (i: number, s: number) => ((s + i * 251 + i * i * 7) % 991) / 991;
+
+    // ─── ACT I: Single SM, back-and-forth with AI, thick hot signal to ESO ───
     if (act >= 1) {
       const actT = Math.min(1, elapsed / ACT_TIMES[1]);
 
@@ -351,7 +346,7 @@ export default function SignalFlowAnimation() {
         drawLabel(ctx, "DEPLOYED SM", smX, smY + 24, COLORS.textDim, 10, smAppear);
       }
 
-      const signalToAI = Math.max(0, Math.min(1, (actT - 0.2) / 0.15));
+      const signalToAI = Math.max(0, Math.min(1, (actT - 0.15) / 0.1));
       if (signalToAI > 0) {
         drawSignalLine(ctx, smX, smY, engineX, engineY, COLORS.node, signalToAI, 1.5);
         if (signalToAI < 1) {
@@ -359,7 +354,7 @@ export default function SignalFlowAnimation() {
         }
       }
 
-      const hexAppear = Math.max(0, Math.min(1, (actT - 0.3) / 0.1));
+      const hexAppear = Math.max(0, Math.min(1, (actT - 0.2) / 0.08));
       if (hexAppear > 0) {
         const flashGlow = 0.3 + 0.3 * Math.sin(elapsed * 3);
         drawHexagon(ctx, engineX, engineY, 34, COLORS.engine, hexAppear * 0.3, hexAppear * flashGlow);
@@ -367,278 +362,413 @@ export default function SignalFlowAnimation() {
         drawLabel(ctx, "ENGINE", engineX, engineY + 54, COLORS.textDim, 9, hexAppear);
       }
 
-      const bounceStart = 0.4;
-      const bounceEnd = 0.75;
+      const bounceStart = 0.28;
+      const bounceEnd = 0.68;
       const bounceP = Math.max(0, Math.min(1, (actT - bounceStart) / (bounceEnd - bounceStart)));
       if (bounceP > 0) {
         const bounceElapsed = (actT - bounceStart) * ACT_TIMES[1];
-        drawBouncingSignal(ctx, smX + 14, smY, engineX - 34, engineY, bounceElapsed, 1.8, COLORS.node, COLORS.engine, bounceP);
+        for (let lane = -1; lane <= 1; lane++) {
+          const yOff = lane * 8;
+          const speed = 1.6 + lane * 0.3;
+          const delay = Math.abs(lane) * 0.15;
+          const laneP = Math.max(0, bounceP - delay);
+          if (laneP > 0) {
+            drawBouncingSignal(ctx, smX + 14, smY + yOff, engineX - 34, engineY + yOff, bounceElapsed, speed, COLORS.node, COLORS.engine, laneP * 0.7);
+          }
+        }
 
-        const exchangeLabel = Math.max(0, Math.min(1, (bounceP - 0.3) / 0.2));
+        const exchangeLabel = Math.max(0, Math.min(1, (bounceP - 0.2) / 0.15));
         if (exchangeLabel > 0) {
           const midX = (smX + engineX) / 2;
-          const midY = smY - 30;
-          drawLabel(ctx, "BACK & FORTH", midX, midY, COLORS.textDim, 8, exchangeLabel * 0.6);
-          drawLabel(ctx, "ADVISORY EXCHANGE", midX, midY + 11, COLORS.textDim, 8, exchangeLabel * 0.6);
+          drawLabel(ctx, "BACK & FORTH", midX, smY - 35, COLORS.textDim, 8, exchangeLabel * 0.6);
+          drawLabel(ctx, "ADVISORY EXCHANGE", midX, smY - 24, COLORS.textDim, 8, exchangeLabel * 0.6);
         }
       }
 
-      const esoReportP = Math.max(0, Math.min(1, (actT - 0.78) / 0.12));
+      const esoReportP = Math.max(0, Math.min(1, (actT - 0.7) / 0.15));
       if (esoReportP > 0) {
-        drawSignalLine(ctx, engineX + 34, engineY, esoX, esoY, COLORS.node, esoReportP * 0.6, 2);
+        const hotGlow = esoReportP * (0.6 + 0.4 * Math.sin(elapsed * 4));
+        const beamWidth = 2 + esoReportP * 5;
+        drawTrunkBeam(ctx, engineX + 34, engineY, esoX, esoY, beamWidth, COLORS.engine, hotGlow, 30 * esoReportP);
         if (esoReportP < 1) {
-          drawSignalDot(ctx, engineX + 34, engineY, esoX, esoY, easeOut(esoReportP), COLORS.node, 4);
+          drawSignalDot(ctx, engineX + 34, engineY, esoX, esoY, easeOut(esoReportP), COLORS.engine, 5);
         }
       }
 
-      const esoAppear = Math.max(0, Math.min(1, (actT - 0.88) / 0.08));
+      const esoAppear = Math.max(0, Math.min(1, (actT - 0.82) / 0.08));
       if (esoAppear > 0) {
-        drawGlowCircle(ctx, esoX, esoY, 14, COLORS.node, esoAppear * 0.6);
-        drawLabel(ctx, "ESO", esoX, esoY - 24, COLORS.node, 11, esoAppear);
-        drawDocIcon(ctx, esoX, esoY, 26, COLORS.node, esoAppear, esoAppear);
-        drawLabel(ctx, "ACTIVITY REPORT", esoX, esoY + 20, COLORS.textDim, 8, esoAppear);
+        const esoGlow = esoAppear * (0.5 + 0.5 * Math.sin(elapsed * 3));
+        drawGlowCircle(ctx, esoX, esoY, 16, COLORS.node, esoGlow);
+        drawLabel(ctx, "ESO", esoX, esoY - 26, COLORS.node, 12, esoAppear);
+        drawDocIcon(ctx, esoX, esoY, 28, COLORS.node, esoAppear, esoAppear);
+        drawLabel(ctx, "ACTIVITY REPORT", esoX, esoY + 22, COLORS.textDim, 8, esoAppear);
       }
 
-      const badgeP = Math.max(0, Math.min(1, (actT - 0.92) / 0.06));
+      const esoAiBounce = Math.max(0, Math.min(1, (actT - 0.88) / 0.1));
+      if (esoAiBounce > 0) {
+        drawBouncingSignal(ctx, engineX + 34, engineY - 6, esoX - 16, esoY - 6, elapsed, 2.0, COLORS.engine, COLORS.node, esoAiBounce * 0.5);
+        drawLabel(ctx, "ESO ↔ AI COORDINATION", (engineX + esoX) / 2, esoY + 36, COLORS.textDim, 7, esoAiBounce * 0.5);
+      }
+
+      const badgeP = Math.max(0, Math.min(1, (actT - 0.93) / 0.05));
       if (badgeP > 0) {
         drawBadge(ctx, "SM SESSION COMPLETE", (smX + engineX) / 2, smY + 50, COLORS.approved, badgeP);
       }
     }
 
+    // ─── ACT II: Hundreds of SMs, multiple ESOs at each base, heavy traffic ───
     if (act >= 2) {
       const act2Start = ACT_TIMES[1];
       const act2Dur = ACT_TIMES[2] - ACT_TIMES[1];
       const act2T = Math.min(1, (elapsed - act2Start) / act2Dur);
 
-      const seed = 42;
-      const smCount = Math.floor(lerp(1, 24, easeOut(Math.min(1, act2T * 2))));
-
-      const smPositions: { x: number; y: number }[] = [];
-      for (let i = 0; i < smCount; i++) {
-        const hash = ((seed + i * 127) % 997) / 997;
-        const hash2 = ((seed + i * 251) % 991) / 991;
-        const nx = W * 0.03 + hash * W * 0.2;
-        const ny = H * 0.12 + hash2 * H * 0.76;
-        smPositions.push({ x: nx, y: ny });
-      }
+      const maxSM = 150;
+      const smCount = Math.floor(lerp(3, maxSM, easeOut(Math.min(1, act2T * 1.8))));
 
       for (let i = 0; i < smCount; i++) {
-        const { x: nx, y: ny } = smPositions[i];
-        const nodeOpacity = Math.min(1, (act2T * 2) - i / smCount * 0.5);
+        const nx = W * 0.02 + hash(i, 42) * W * 0.22;
+        const ny = H * 0.05 + hash2(i, 42) * H * 0.9;
+        const nodeOpacity = Math.min(1, (act2T * 1.8) - i / maxSM * 0.3);
         if (nodeOpacity <= 0) continue;
 
         ctx.save();
-        ctx.globalAlpha = nodeOpacity;
-        const pulse = 0.4 + 0.6 * Math.sin(elapsed * 1.5 + i * 0.7);
-        drawGlowCircle(ctx, nx, ny, 5, COLORS.node, pulse * 0.3);
-        drawPersonIcon(ctx, nx, ny, 5, COLORS.text);
+        ctx.globalAlpha = nodeOpacity * 0.8;
+        const sz = i < 20 ? 4 : (i < 60 ? 3 : 2);
+        const pulse = 0.3 + 0.7 * Math.sin(elapsed * 1.2 + i * 0.4);
+        drawGlowCircle(ctx, nx, ny, sz, COLORS.node, pulse * 0.2);
 
-        const bounceActive = act2T > 0.15 + i * 0.02;
-        if (bounceActive) {
-          const bounceElapsed = elapsed - act2Start - (0.15 + i * 0.02) * act2Dur;
-          if (bounceElapsed > 0) {
-            drawBouncingSignal(ctx, nx + 5, ny, engineX - 34, engineY + (i - smCount / 2) * 2, bounceElapsed, 1.2 + (i % 3) * 0.3, COLORS.node, COLORS.engine, 0.5);
+        if (i < 40) {
+          const bounceActive = act2T > 0.1 + (i * 0.005);
+          if (bounceActive) {
+            const bounceElapsed = elapsed - act2Start - (0.1 + i * 0.005) * act2Dur;
+            if (bounceElapsed > 0) {
+              const targetY = engineY + (hash(i, 99) - 0.5) * H * 0.4;
+              ctx.globalAlpha = nodeOpacity * 0.3;
+              ctx.strokeStyle = COLORS.node;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(nx, ny);
+              ctx.lineTo(engineX - 34, targetY);
+              ctx.stroke();
+              const sp = ((bounceElapsed * (0.8 + hash(i, 77) * 0.6)) % 2);
+              const forward = sp < 1;
+              const p = forward ? easeInOut(sp) : easeInOut(sp - 1);
+              const dotColor = forward ? COLORS.node : COLORS.engine;
+              const dx = forward ? lerp(nx, engineX - 34, p) : lerp(engineX - 34, nx, p);
+              const dy = forward ? lerp(ny, targetY, p) : lerp(targetY, ny, p);
+              drawGlowCircle(ctx, dx, dy, 2, dotColor, 0.5);
+            }
           }
+        } else {
+          ctx.globalAlpha = nodeOpacity * 0.15;
+          ctx.strokeStyle = COLORS.node;
+          ctx.lineWidth = 0.3;
+          ctx.beginPath();
+          ctx.moveTo(nx, ny);
+          ctx.lineTo(engineX - 34, engineY + (hash(i, 55) - 0.5) * H * 0.3);
+          ctx.stroke();
         }
         ctx.restore();
       }
 
-      const hexGlow = 0.4 + 0.3 * Math.sin(elapsed * 2.5);
-      drawHexagon(ctx, engineX, engineY, 34, COLORS.engine, 0.35, hexGlow);
-      drawLabel(ctx, "CMGF AI", engineX, engineY + 42, COLORS.textDim, 10, 1);
-      drawLabel(ctx, "ENGINE", engineX, engineY + 54, COLORS.textDim, 9, 1);
+      const hexGlow = 0.5 + 0.4 * Math.sin(elapsed * 3);
+      const hexSize = 34 + Math.min(8, act2T * 10);
+      drawHexagon(ctx, engineX, engineY, hexSize, COLORS.engine, 0.4, hexGlow);
+      drawLabel(ctx, "CMGF AI", engineX, engineY + hexSize + 8, COLORS.textDim, 10, 1);
+      drawLabel(ctx, "ENGINE", engineX, engineY + hexSize + 20, COLORS.textDim, 9, 1);
 
-      const esoReportsP = Math.max(0, Math.min(1, (act2T - 0.4) / 0.3));
+      const esoReportsP = Math.max(0, Math.min(1, (act2T - 0.25) / 0.35));
       if (esoReportsP > 0) {
-        const reportCount = Math.floor(esoReportsP * 6);
-        for (let i = 0; i < reportCount; i++) {
-          const sp = Math.max(0, Math.min(1, (esoReportsP - i * 0.12) * 4));
-          if (sp > 0 && sp < 1) {
-            const ty = esoY - 30 + i * 12;
-            drawSignalDot(ctx, engineX + 34, engineY, esoX, ty, easeOut(sp), COLORS.node, 3);
+        const esoHotGlow = esoReportsP * (0.6 + 0.4 * Math.sin(elapsed * 4));
+        const beamWidth = 3 + esoReportsP * 8;
+        drawTrunkBeam(ctx, engineX + hexSize, engineY, esoX - 16, esoY, beamWidth, COLORS.engine, esoHotGlow, 50 * esoReportsP);
+
+        for (let i = 0; i < Math.floor(esoReportsP * 4); i++) {
+          const sp = ((elapsed * 1.5 + i * 0.6) % 1);
+          drawSignalDot(ctx, engineX + hexSize, engineY + (i - 2) * 6, esoX - 16, esoY + (i - 2) * 4, sp, COLORS.engine, 3);
+        }
+
+        drawGlowCircle(ctx, esoX, esoY, 18, COLORS.node, esoHotGlow);
+        drawLabel(ctx, "ESO", esoX, esoY - 28, COLORS.node, 12, esoReportsP);
+
+        const docStack = Math.min(6, Math.floor(esoReportsP * 8));
+        for (let i = 0; i < docStack; i++) {
+          drawDocIcon(ctx, esoX + i * 3, esoY - i * 2.5, 18, COLORS.node, 1, esoReportsP * 0.7);
+        }
+        drawLabel(ctx, "ACTIVITY REPORTS", esoX, esoY + 20, COLORS.textDim, 8, esoReportsP);
+
+        const esoAiBounce2 = Math.max(0, esoReportsP - 0.3);
+        if (esoAiBounce2 > 0) {
+          for (let lane = 0; lane < 3; lane++) {
+            const yOff = (lane - 1) * 10;
+            drawBouncingSignal(ctx, engineX + hexSize, engineY + yOff, esoX - 16, esoY + yOff, elapsed, 1.8 + lane * 0.4, COLORS.engine, COLORS.node, esoAiBounce2 * 0.4);
           }
         }
-        drawGlowCircle(ctx, esoX, esoY, 14, COLORS.node, esoReportsP * 0.7);
-        drawLabel(ctx, "ESO", esoX, esoY - 24, COLORS.node, 11, esoReportsP);
-
-        const docStack = Math.floor(esoReportsP * 4);
-        for (let i = 0; i < docStack; i++) {
-          drawDocIcon(ctx, esoX + i * 4, esoY - i * 3, 22, COLORS.node, 1, esoReportsP * 0.8);
-        }
-        drawLabel(ctx, "ACTIVITY REPORTS", esoX, esoY + 18, COLORS.textDim, 8, esoReportsP);
       }
 
-      const scaleLabel = Math.max(0, Math.min(1, (act2T - 0.6) / 0.15));
-      if (scaleLabel > 0) {
-        drawLabel(ctx, `${smCount} ACTIVE SESSIONS`, W * 0.12, H * 0.06, COLORS.node, 9, scaleLabel * 0.6);
+      const counterP = Math.max(0, Math.min(1, (act2T - 0.3) / 0.1));
+      if (counterP > 0) {
+        const displayCount = Math.floor(smCount * 13);
+        ctx.save();
+        ctx.globalAlpha = counterP * 0.7;
+        ctx.fillStyle = COLORS.node;
+        ctx.font = "bold 11px 'JetBrains Mono', monospace";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "top";
+        ctx.fillText(`${displayCount.toLocaleString()} ACTIVE SESSIONS`, W * 0.03, H * 0.04);
+        ctx.font = "9px 'JetBrains Mono', monospace";
+        ctx.fillStyle = COLORS.textDim;
+        ctx.fillText("SINGLE INSTALLATION", W * 0.03, H * 0.07);
+        ctx.restore();
       }
     }
 
+    // ─── ACT III: Multiple bases, each with AI+ESO, pipeline glows hot, trunk turns white ───
     if (act >= 3) {
       const act3Start = ACT_TIMES[2];
       const act3Dur = ACT_TIMES[3] - ACT_TIMES[2];
       const act3T = Math.min(1, (elapsed - act3Start) / act3Dur);
 
-      const seed = 42;
-      const smFade = Math.max(0, 1 - act3T * 2);
-      if (smFade > 0) {
-        for (let i = 0; i < 24; i++) {
-          const hash = ((seed + i * 127) % 997) / 997;
-          const hash2 = ((seed + i * 251) % 991) / 991;
-          const nx = W * 0.03 + hash * W * 0.2;
-          const ny = H * 0.12 + hash2 * H * 0.76;
-          ctx.save();
-          ctx.globalAlpha = smFade * 0.4;
-          drawGlowCircle(ctx, nx, ny, 4, COLORS.node, 0.2);
-          ctx.restore();
-        }
+      const baseCount = Math.min(8, Math.floor(act3T * 12));
+      const bases: { x: number; y: number; aiX: number; esoX: number; label: string }[] = [];
+      const baseNames = ["FT LIBERTY", "FT CAVAZOS", "FT MOORE", "JBLM", "FT DRUM", "FT RILEY", "FT STEWART", "FT BLISS"];
+      
+      for (let b = 0; b < baseCount; b++) {
+        const row = b % 4;
+        const col = Math.floor(b / 4);
+        const bx = W * 0.04 + col * W * 0.22;
+        const by = H * 0.12 + row * H * 0.22;
+        const aix = bx + W * 0.1;
+        const esox = bx + W * 0.18;
+        bases.push({ x: bx, y: by, aiX: aix, esoX: esox, label: baseNames[b] });
       }
 
-      const collectStreams = Math.max(0, Math.min(1, act3T * 2.5));
-      if (collectStreams > 0) {
-        const streamCount = Math.floor(collectStreams * 10);
-        for (let i = 0; i < streamCount; i++) {
-          const angle = (Math.PI * 0.8) + (Math.PI * 0.4 / 10) * i;
-          const dist = W * 0.25;
-          const sx = engineX + Math.cos(angle) * dist;
-          const sy = engineY + Math.sin(angle) * dist;
+      for (let b = 0; b < bases.length; b++) {
+        const base = bases[b];
+        const baseP = Math.max(0, Math.min(1, (act3T * 2) - b * 0.12));
+        if (baseP <= 0) continue;
+
+        ctx.save();
+        ctx.globalAlpha = baseP;
+
+        const smPerBase = b < 3 ? 30 : 15;
+        for (let i = 0; i < smPerBase; i++) {
+          const sx = base.x + hash(i + b * 100, 33) * W * 0.06;
+          const sy = base.y - H * 0.06 + hash2(i + b * 100, 33) * H * 0.14;
+          drawGlowCircle(ctx, sx, sy, 1.5, COLORS.node, 0.2 + 0.3 * Math.sin(elapsed * 1.5 + i + b));
+
+          if (i < 8) {
+            ctx.globalAlpha = baseP * 0.15;
+            ctx.strokeStyle = COLORS.node;
+            ctx.lineWidth = 0.3;
+            ctx.beginPath();
+            ctx.moveTo(sx, sy);
+            ctx.lineTo(base.aiX, base.y);
+            ctx.stroke();
+            ctx.globalAlpha = baseP;
+          }
+        }
+
+        const aiGlow = 0.3 + 0.4 * Math.sin(elapsed * 2.5 + b);
+        drawHexagon(ctx, base.aiX, base.y, 12, COLORS.engine, 0.35, aiGlow);
+
+        drawGlowCircle(ctx, base.esoX, base.y, 7, COLORS.node, 0.4 + 0.3 * Math.sin(elapsed * 2 + b * 0.7));
+
+        const hotP = baseP * (0.5 + 0.5 * Math.sin(elapsed * 3 + b));
+        drawTrunkBeam(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, 2 + hotP * 3, COLORS.engine, hotP * 0.6, 15);
+
+        const sp1 = ((elapsed * 1.5 + b * 0.8) % 1);
+        drawSignalDot(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, sp1, COLORS.engine, 2);
+        const sp2 = ((elapsed * 1.2 + b * 0.5 + 0.5) % 1);
+        drawSignalDot(ctx, base.esoX - 7, base.y, base.aiX + 12, base.y, sp2, COLORS.node, 2);
+
+        drawLabel(ctx, base.label, base.aiX, base.y + 18, COLORS.textDim, 7, baseP * 0.7);
+
+        ctx.restore();
+      }
+
+      const trunkX3 = W * 0.52;
+      const trunkStartP = Math.max(0, Math.min(1, (act3T - 0.35) / 0.15));
+      if (trunkStartP > 0) {
+        const trunkTopY = H * 0.08;
+        const trunkBotY = H * 0.92;
+
+        for (let b = 0; b < bases.length; b++) {
+          const base = bases[b];
+          const sp = Math.max(0, Math.min(1, (trunkStartP - b * 0.08) * 3));
+          if (sp <= 0) continue;
+
+          const hotColor = lerpColor(COLORS.engine, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 2 + b));
           ctx.save();
-          ctx.globalAlpha = collectStreams * 0.25;
-          ctx.strokeStyle = COLORS.node;
-          ctx.lineWidth = 1;
+          ctx.globalAlpha = sp * 0.4;
+          ctx.strokeStyle = hotColor;
+          ctx.lineWidth = 1.5 + sp * 2;
           ctx.beginPath();
-          ctx.moveTo(sx, sy);
-          ctx.lineTo(engineX, engineY);
+          ctx.moveTo(base.aiX + 12, base.y);
+          ctx.quadraticCurveTo(trunkX3 - 20, base.y, trunkX3, base.y);
           ctx.stroke();
           ctx.restore();
-          const sp = ((elapsed * 0.8 + i * 0.3) % 1);
-          drawSignalDot(ctx, sx, sy, engineX, engineY, sp, COLORS.node, 2);
+
+          const dotP = ((elapsed * 1.2 + b * 0.4) % 1);
+          drawSignalDot(ctx, base.aiX + 12, base.y, trunkX3, base.y, dotP, hotColor, 3);
         }
-      }
 
-      const hexGlow = 0.5 + 0.4 * Math.sin(elapsed * 3);
-      drawHexagon(ctx, engineX, engineY, 36, COLORS.engine, 0.4, hexGlow);
-      drawLabel(ctx, "CMGF AI", engineX, engineY + 44, COLORS.textDim, 10, 1);
-      drawLabel(ctx, "ENGINE", engineX, engineY + 56, COLORS.textDim, 9, 1);
+        const trunkGlow = trunkStartP * (0.5 + 0.5 * Math.sin(elapsed * 2));
+        drawTrunkBeam(ctx, trunkX3, trunkBotY, trunkX3, trunkTopY, 4 + trunkStartP * 6, COLORS.engine, trunkGlow, 40);
 
-      const processP = Math.max(0, Math.min(1, (act3T - 0.15) / 0.15));
-      if (processP > 0) {
-        drawLabel(ctx, "PROCESSING COLLECTED SIGNALS", engineX, engineY - 50, COLORS.engine, 8, processP * 0.7);
-      }
-
-      const trunkP = Math.max(0, Math.min(1, (act3T - 0.3) / 0.15));
-      if (trunkP > 0) {
-        const trunkColor = COLORS.engine;
-        drawTrunkBeam(ctx, engineX, engineY - 36, normX, normY + 15, 4 + trunkP * 3, trunkColor, trunkP * 0.7, 40);
-        if (trunkP < 1) {
-          drawSignalDot(ctx, engineX, engineY - 36, normX, normY + 15, easeOut(trunkP), trunkColor, 5);
+        for (let i = 0; i < 5; i++) {
+          const dotY = trunkBotY - ((elapsed * 80 + i * 60) % (trunkBotY - trunkTopY));
+          if (dotY > trunkTopY && dotY < trunkBotY) {
+            drawGlowCircle(ctx, trunkX3, dotY, 3, COLORS.engine, 0.5);
+          }
         }
+
+        drawLabel(ctx, "TRUNK PIPELINE", trunkX3 + 15, H * 0.5, COLORS.engine, 7, trunkStartP * 0.6);
       }
 
-      const normP = Math.max(0, Math.min(1, (act3T - 0.4) / 0.1));
+      const normP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
+      const normX2 = W * 0.58;
+      const normY2 = H * 0.06;
       if (normP > 0) {
-        drawProcessLabel(ctx, "NORMALIZATION", normX, normY, COLORS.engine, COLORS.bg + "e0", normP);
+        drawTrunkBeam(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, 3 + normP * 3, COLORS.engine, normP * 0.6, 25);
+        const sp = ((elapsed * 1.0) % 1);
+        drawSignalDot(ctx, trunkX3, H * 0.08, normX2 - 40, normY2, sp, COLORS.engine, 3);
+        drawProcessLabel(ctx, "NORMALIZATION", normX2, normY2, COLORS.engine, COLORS.bg + "e0", normP);
       }
 
-      const normToAgg = Math.max(0, Math.min(1, (act3T - 0.5) / 0.1));
-      if (normToAgg > 0) {
-        const midColor = lerpColor(COLORS.engine, COLORS.pure, normToAgg * 0.3);
-        drawTrunkBeam(ctx, normX + 60, normY, aggX - 40, aggY, 5 + normToAgg * 2, midColor, normToAgg * 0.7, 35);
-        if (normToAgg < 1) {
-          drawSignalDot(ctx, normX + 60, normY, aggX - 40, aggY, easeOut(normToAgg), midColor, 5);
-        }
-      }
-
-      const aggP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
+      const aggP = Math.max(0, Math.min(1, (act3T - 0.65) / 0.1));
+      const aggX2 = W * 0.68;
+      const aggY2 = H * 0.06;
       if (aggP > 0) {
-        drawProcessLabel(ctx, "AGGREGATION", aggX, aggY, COLORS.command, COLORS.bg + "e0", aggP);
+        drawTrunkBeam(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, 4 + aggP * 3, lerpColor(COLORS.engine, COLORS.command, aggP * 0.5), aggP * 0.7, 30);
+        const sp = ((elapsed * 0.9 + 0.3) % 1);
+        drawSignalDot(ctx, normX2 + 50, normY2, aggX2 - 40, aggY2, sp, COLORS.command, 3);
+        drawProcessLabel(ctx, "AGGREGATION", aggX2, aggY2, COLORS.command, COLORS.bg + "e0", aggP);
       }
 
-      const whiteTransition = Math.max(0, Math.min(1, (act3T - 0.65) / 0.15));
-      if (whiteTransition > 0) {
-        const beamColor = lerpColor(COLORS.command, COLORS.pure, whiteTransition);
-        const beamWidth = 6 + whiteTransition * 6;
-        drawTrunkBeam(ctx, aggX + 50, aggY, cmdX - 20, cmdY, beamWidth, beamColor, whiteTransition * 0.9, 60 * whiteTransition);
+      const whiteP = Math.max(0, Math.min(1, (act3T - 0.75) / 0.15));
+      if (whiteP > 0) {
+        const beamColor = lerpColor(COLORS.command, COLORS.pure, whiteP);
+        const wBeam = 5 + whiteP * 10;
+        const isrX2 = W * 0.82;
+        drawTrunkBeam(ctx, aggX2 + 40, aggY2, isrX2, aggY2, wBeam, beamColor, whiteP * 0.9, 60 * whiteP);
 
-        if (whiteTransition > 0.3) {
-          const privacyP = Math.min(1, (whiteTransition - 0.3) / 0.3);
-          drawLabel(ctx, "PII STRIPPED", (aggX + cmdX) / 2, aggY + 20, COLORS.pure, 8, privacyP * 0.8);
-          drawLabel(ctx, "PRIVACY-SAFE DATA", (aggX + cmdX) / 2, aggY + 32, COLORS.pure, 8, privacyP * 0.6);
+        if (whiteP > 0.4) {
+          const pp = (whiteP - 0.4) / 0.6;
+          drawLabel(ctx, "PII STRIPPED · PRIVACY-SAFE", (aggX2 + isrX2) / 2, aggY2 + 18, COLORS.pure, 8, pp * 0.8);
+        }
+
+        if (whiteP > 0.7) {
+          drawGlowCircle(ctx, isrX2, aggY2, 12, COLORS.pure, (whiteP - 0.7) * 3);
+          drawLabel(ctx, "ISR FEED", isrX2, aggY2 + 16, COLORS.pure, 8, (whiteP - 0.7) * 3);
         }
       }
 
-      const isrP = Math.max(0, Math.min(1, (act3T - 0.82) / 0.12));
-      if (isrP > 0) {
-        drawGlowCircle(ctx, cmdX, cmdY, 14, COLORS.pure, isrP * 0.7);
-        drawLabel(ctx, "ISR DATA", cmdX, cmdY + 20, COLORS.pure, 9, isrP);
-        drawLabel(ctx, "FEED", cmdX, cmdY + 32, COLORS.pure, 9, isrP);
-        drawDocIcon(ctx, cmdX, cmdY, 22, COLORS.pure, isrP, isrP);
+      const counterP3 = Math.max(0, Math.min(1, (act3T - 0.2) / 0.1));
+      if (counterP3 > 0) {
+        const totalSM = baseCount * 2500;
+        ctx.save();
+        ctx.globalAlpha = counterP3 * 0.6;
+        ctx.fillStyle = COLORS.node;
+        ctx.font = "bold 10px 'JetBrains Mono', monospace";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "top";
+        ctx.fillText(`${baseCount} INSTALLATIONS · ${totalSM.toLocaleString()} SMs`, W * 0.97, H * 0.93);
+        ctx.restore();
       }
     }
 
+    // ─── ACT IV: Hundreds of ESOs feed, massive white trunk, Pentagon ───
     if (act >= 4) {
       const act4Start = ACT_TIMES[3];
       const act4Dur = ACT_TIMES[4] - ACT_TIMES[3];
       const act4T = Math.min(1, (elapsed - act4Start) / act4Dur);
 
-      drawHexagon(ctx, engineX, engineY, 30, COLORS.engine, 0.25, 0.3);
-      drawLabel(ctx, "CMGF AI", engineX, engineY + 38, COLORS.textDim, 9, 0.5);
+      const esoCount = Math.min(40, Math.floor(act4T * 60));
+      for (let i = 0; i < esoCount; i++) {
+        const ex = W * 0.03 + hash(i, 777) * W * 0.55;
+        const ey = H * 0.08 + hash2(i, 777) * H * 0.84;
+        const ep = Math.min(1, act4T * 3 - i * 0.04);
+        if (ep <= 0) continue;
 
-      const whiteBeamToCmd = Math.max(0, Math.min(1, act4T * 3));
-      if (whiteBeamToCmd > 0) {
-        drawTrunkBeam(ctx, engineX, engineY - 30, cmdX, cmdY, 8, COLORS.pure, whiteBeamToCmd * 0.8, 50);
-        drawGlowCircle(ctx, cmdX, cmdY, 12, COLORS.pure, whiteBeamToCmd * 0.6);
-        drawLabel(ctx, "INSTALLATION", cmdX, cmdY + 20, COLORS.command, 8, whiteBeamToCmd);
-        drawLabel(ctx, "COMMAND", cmdX, cmdY + 31, COLORS.command, 8, whiteBeamToCmd);
+        ctx.save();
+        ctx.globalAlpha = ep * 0.5;
+        drawGlowCircle(ctx, ex, ey, 4, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 1.5 + i));
+
+        ctx.globalAlpha = ep * 0.12;
+        ctx.strokeStyle = COLORS.pure;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(ex, ey);
+        ctx.quadraticCurveTo(ex + (pentX - ex) * 0.4, ey - 30, pentX, pentY);
+        ctx.stroke();
+
+        const sp = ((elapsed * 0.6 + i * 0.3) % 1);
+        const dx = lerp(ex, pentX, sp);
+        const dy = lerp(ey, pentY - 20 + sp * 20, sp);
+        ctx.globalAlpha = ep * 0.4 * (1 - sp);
+        drawGlowCircle(ctx, dx, dy, 2, COLORS.pure, 0.5);
+
+        ctx.restore();
       }
 
-      const convergeP = Math.max(0, Math.min(1, (act4T - 0.15) / 0.2));
-      if (convergeP > 0) {
-        for (let i = 0; i < 5; i++) {
-          const sx = W * 0.25 + i * W * 0.08;
-          const sy = H * 0.7 - i * H * 0.05;
-          ctx.save();
-          ctx.globalAlpha = convergeP * 0.3;
-          ctx.strokeStyle = COLORS.pure;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(sx, sy);
-          ctx.quadraticCurveTo(sx + (cmdX - sx) * 0.5, sy - 40, cmdX, cmdY);
-          ctx.stroke();
-          ctx.restore();
+      const trunkConverge = Math.max(0, Math.min(1, act4T * 2.5));
+      if (trunkConverge > 0) {
+        for (let i = 0; i < 6; i++) {
+          const angle = -Math.PI * 0.3 + (Math.PI * 0.8 / 6) * i;
+          const dist = W * 0.35;
+          const sx = pentX + Math.cos(angle + Math.PI) * dist;
+          const sy = pentY + Math.sin(angle + Math.PI) * dist * 0.6;
+          const tp = Math.max(0, Math.min(1, trunkConverge - i * 0.1));
+          if (tp <= 0) continue;
+
+          const bw = 3 + tp * 6;
+          drawTrunkBeam(ctx, sx, sy, pentX - 40, pentY, bw, COLORS.pure, tp * 0.5, 40 * tp);
+
+          for (let d = 0; d < 2; d++) {
+            const dp = ((elapsed * 0.8 + i * 0.5 + d * 0.4) % 1);
+            drawSignalDot(ctx, sx, sy, pentX - 40, pentY, dp, COLORS.pure, 3);
+          }
         }
       }
 
-      const cmdToPent = Math.max(0, Math.min(1, (act4T - 0.3) / 0.2));
-      if (cmdToPent > 0) {
-        drawTrunkBeam(ctx, cmdX + 14, cmdY, pentX - 40, pentY, 10 * cmdToPent, COLORS.pure, cmdToPent * 0.9, 70 * cmdToPent);
-        if (cmdToPent < 1) {
-          drawSignalDot(ctx, cmdX + 14, cmdY, pentX - 40, pentY, easeOut(cmdToPent), COLORS.pure, 6);
-        }
-      }
-
-      const pentAppear = Math.max(0, Math.min(1, (act4T - 0.45) / 0.12));
+      const pentAppear = Math.max(0, Math.min(1, (act4T - 0.25) / 0.12));
       if (pentAppear > 0) {
         const pentGlow = pentAppear * (0.5 + 0.5 * Math.sin(elapsed * 1.5));
-        drawPentagon(ctx, pentX, pentY, 40, COLORS.engine, pentGlow);
-        drawLabel(ctx, "DEPARTMENT OF DEFENSE", pentX, pentY + 50, COLORS.text, 9, pentAppear);
-        drawLabel(ctx, "POLICY LAYER", pentX, pentY + 62, COLORS.textDim, 9, pentAppear);
+        drawPentagon(ctx, pentX, pentY, 44, COLORS.engine, pentGlow);
+        drawLabel(ctx, "DEPARTMENT OF DEFENSE", pentX, pentY + 54, COLORS.text, 9, pentAppear);
+        drawLabel(ctx, "POLICY LAYER", pentX, pentY + 66, COLORS.textDim, 9, pentAppear);
       }
 
-      const policyP = Math.max(0, Math.min(1, (act4T - 0.58) / 0.1));
+      const policyP = Math.max(0, Math.min(1, (act4T - 0.4) / 0.1));
       if (policyP > 0) {
         drawDocIcon(ctx, pentX, pentY, 24, COLORS.engine, policyP, policyP);
         drawLabel(ctx, "POLICY SIGNAL", pentX, pentY + 20, COLORS.engine, 8, policyP * 0.8);
       }
 
-      const textP = Math.max(0, Math.min(1, (act4T - 0.72) / 0.12));
+      const statsP = Math.max(0, Math.min(1, (act4T - 0.45) / 0.1));
+      if (statsP > 0) {
+        ctx.save();
+        ctx.globalAlpha = statsP * 0.6;
+        ctx.fillStyle = COLORS.pure;
+        ctx.font = "bold 10px 'JetBrains Mono', monospace";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "bottom";
+        ctx.fillText("2,000,000+ SERVICE MEMBERS", W * 0.97, H * 0.93);
+        ctx.font = "9px 'JetBrains Mono', monospace";
+        ctx.fillStyle = COLORS.textDim;
+        ctx.fillText("180+ INSTALLATIONS · ZERO PII IN POLICY LAYER", W * 0.97, H * 0.97);
+        ctx.restore();
+      }
+
+      const textP = Math.max(0, Math.min(1, (act4T - 0.65) / 0.12));
       if (textP > 0) {
         ctx.save();
         ctx.globalAlpha = textP;
         const panelW = W * 0.65;
         const panelH = 70;
         const panelX = W / 2 - panelW / 2;
-        const panelY = H * 0.78;
+        const panelY = H * 0.7;
         ctx.fillStyle = COLORS.bg + "e0";
         ctx.fillRect(panelX, panelY, panelW, panelH);
         ctx.strokeStyle = COLORS.border;
@@ -648,7 +778,7 @@ export default function SignalFlowAnimation() {
         ctx.font = "italic 13px 'Merriweather', Georgia, serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText("One governed signal. Thousands of pathways. One national picture.", W / 2, panelY + panelH * 0.38);
+        ctx.fillText("One governed signal. Millions of pathways. One national picture.", W / 2, panelY + panelH * 0.38);
         ctx.font = "9px 'JetBrains Mono', monospace";
         ctx.fillStyle = COLORS.textDim;
         ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.", W / 2, panelY + panelH * 0.7);
@@ -665,7 +795,7 @@ export default function SignalFlowAnimation() {
       }
     }
 
-    const actLabel = ["", "ACT I — THE INDIVIDUAL", "ACT II — THE SCALE", "ACT III — THE AGGREGATION", "ACT IV — THE PENTAGON"][act];
+    const actLabel = ["", "ACT I — THE INDIVIDUAL", "ACT II — THE INSTALLATION", "ACT III — THE NETWORK", "ACT IV — THE PENTAGON"][act];
     ctx.save();
     ctx.globalAlpha = 0.5;
     ctx.fillStyle = COLORS.textDim;
@@ -812,7 +942,7 @@ export default function SignalFlowAnimation() {
               <div className="flex justify-between mt-1 text-[9px] font-mono" style={{ color: COLORS.textDim }}>
                 <span>{Math.floor(currentTime)}s / {DURATION}s</span>
                 <span>
-                  {["Ready", "Act I — The Individual", "Act II — The Scale", "Act III — The Aggregation", "Act IV — The Pentagon"][currentAct]}
+                  {["Ready", "Act I — The Individual", "Act II — The Installation", "Act III — The Network", "Act IV — The Pentagon"][currentAct]}
                 </span>
               </div>
             </div>
@@ -832,10 +962,10 @@ export default function SignalFlowAnimation() {
       <div className="max-w-[1200px] mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { act: "Act I", title: "The Individual", time: "0:00 – 0:15", desc: "A deployed SM at 0200 sends a signal from an undisclosed location. The CMGF AI engages in back-and-forth advisory exchange, then sends an activity report to the ESO." },
-            { act: "Act II", title: "The Scale", time: "0:15 – 0:30", desc: "Dozens of SMs appear simultaneously, each in their own advisory session with the AI. Each session generates an ESO activity report. No individual data reaches the ISR yet." },
-            { act: "Act III", title: "The Aggregation", time: "0:30 – 0:55", desc: "The AI processes all collected signals: normalization, then aggregation. The trunk beam turns white — PII is stripped. Only privacy-safe, aggregated data becomes the ISR feed." },
-            { act: "Act IV", title: "The Pentagon", time: "0:55 – 1:15", desc: "The white ISR signal flows through Installation Command to the Pentagon policy layer. No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals." },
+            { act: "Act I", title: "The Individual", time: "0:00 – 0:15", desc: "A deployed SM at 0200 sends a signal. The CMGF AI engages in intense back-and-forth advisory exchange across multiple lanes. The signal to the ESO thickens and glows hot as the session produces an activity report." },
+            { act: "Act II", title: "The Installation", time: "0:15 – 0:30", desc: "Hundreds of SMs appear at a single installation, each in their own advisory session. The AI engine grows under load. The pipeline to the ESO burns hot with continuous signal traffic and coordination." },
+            { act: "Act III", title: "The Network", time: "0:30 – 0:55", desc: "Eight military bases come online — Ft Liberty, Ft Cavazos, JBLM, and more. Each has its own AI engine and ESO. Signals bundle into a trunk pipeline, pass through normalization and aggregation, then turn white: PII stripped, privacy-safe." },
+            { act: "Act IV", title: "The Pentagon", time: "0:55 – 1:15", desc: "Hundreds of ESOs from 180+ installations feed aggregated signals to the Pentagon. 2,000,000+ service members, zero PII in the policy layer. The ISR sees only aggregated institutional intelligence." },
           ].map((a, i) => (
             <div key={i} className="p-4" style={{ background: 'rgba(17,34,64,0.5)', border: '1px solid rgba(201,168,76,0.15)', borderRadius: 4 }}>
               <div className="text-[9px] font-mono tracking-[2px] uppercase mb-1" style={{ color: COLORS.node }}>{a.act}</div>
