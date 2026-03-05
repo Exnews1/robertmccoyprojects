@@ -4,7 +4,6 @@ import {
   Cpu,
   FileCheck,
   Compass,
-  Rocket,
   PlayCircle,
 } from "lucide-react";
 
@@ -12,7 +11,6 @@ const demoNavItems = [
   { href: "/research/ai", label: "AI Architecture", icon: Cpu },
   { href: "/research/eso", label: "ESO Pipeline", icon: FileCheck },
   { href: "/research/career-advisor", label: "Career Advisor", icon: Compass },
-  { href: "/research/demo", label: "Scenario Engine", icon: Rocket },
   { href: "/research/signal-flow", label: "Signal Flow", icon: PlayCircle },
 ];
 
