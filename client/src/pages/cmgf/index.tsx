@@ -275,7 +275,7 @@ export default function CMGFRoot() {
                   { href: "/research/ai", title: "AI Architecture", desc: "Governing principles and interactive tool index", icon: Cpu, tag: "Gateway" },
                   { href: "/research/eso", title: "ESO Pipeline", desc: "End-to-end career transition pipeline stages", icon: FileCheck, tag: "Pipeline" },
                   { href: "/research/career-advisor", title: "Career Advisor", desc: "Constraint-binding pathway feasibility engine", icon: Compass, tag: "Interactive" },
-                  { href: "/research/signal-flow", title: "Signal Flow", desc: "75-second cinematic signal architecture animation", icon: PlayCircle, tag: "Presentation" },
+                  { href: "/research/signal-flow", title: "Signal Flow", desc: "90-second cinematic signal architecture animation with fireworks finale", icon: PlayCircle, tag: "Presentation" },
                 ].map((tool) => (
                   <Link key={tool.href} href={tool.href}>
                     <Card className="h-full border-border/50 hover:border-primary/40 transition-colors cursor-pointer group" data-testid={`demo-tool-${tool.href.split("/").pop()}`}>

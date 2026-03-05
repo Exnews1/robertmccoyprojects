@@ -15,7 +15,7 @@ const COLORS = {
   pure: "#ffffff",
 };
 
-const DURATION = 75;
+const DURATION = 90;
 const ACT_TIMES = [0, 15, 30, 55, 75];
 
 const NARRATIONS = [
@@ -199,6 +199,72 @@ function drawDocIcon(ctx: CanvasRenderingContext2D, x: number, y: number, size: 
   ctx.restore();
 }
 
+function drawFireworkBurst(ctx: CanvasRenderingContext2D, cx: number, cy: number, elapsed: number, seed: number, maxRadius: number, burstColor: string) {
+  const burstDuration = 1.8;
+  const t = elapsed % burstDuration;
+  const progress = t / burstDuration;
+  if (progress > 1) return;
+
+  const fadeIn = Math.min(1, progress * 5);
+  const fadeOut = Math.max(0, 1 - (progress - 0.5) * 2);
+  const opacity = fadeIn * fadeOut;
+  if (opacity <= 0) return;
+
+  const sparkCount = 24 + (seed % 12);
+  const radius = maxRadius * easeOut(progress);
+
+  for (let i = 0; i < sparkCount; i++) {
+    const angle = (Math.PI * 2 / sparkCount) * i + seed * 0.1;
+    const wobble = 0.85 + 0.3 * Math.sin(seed * 7 + i * 3);
+    const r = radius * wobble;
+    const sx = cx + Math.cos(angle) * r;
+    const sy = cy + Math.sin(angle) * r + progress * 20;
+    const sparkSize = (3 + (seed % 3)) * (1 - progress * 0.6);
+
+    const trailLen = 0.15;
+    if (progress > trailLen) {
+      const trailR = maxRadius * easeOut(progress - trailLen) * wobble;
+      const tx = cx + Math.cos(angle) * trailR;
+      const ty = cy + Math.sin(angle) * trailR + (progress - trailLen) * 20;
+      ctx.save();
+      ctx.globalAlpha = opacity * 0.15;
+      ctx.strokeStyle = burstColor;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(tx, ty);
+      ctx.lineTo(sx, sy);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    ctx.save();
+    ctx.globalAlpha = opacity * (0.5 + 0.5 * Math.sin(i * 2 + elapsed * 8));
+    const grad = ctx.createRadialGradient(sx, sy, 0, sx, sy, sparkSize * 3);
+    grad.addColorStop(0, burstColor);
+    grad.addColorStop(1, "transparent");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(sx, sy, sparkSize * 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = burstColor;
+    ctx.beginPath();
+    ctx.arc(sx, sy, sparkSize, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  ctx.save();
+  ctx.globalAlpha = opacity * 0.15;
+  const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 0.6);
+  coreGrad.addColorStop(0, burstColor + "40");
+  coreGrad.addColorStop(1, "transparent");
+  ctx.fillStyle = coreGrad;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius * 0.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
 function drawPersonIcon(ctx: CanvasRenderingContext2D, x: number, y: number, size: number, color: string) {
   ctx.fillStyle = color;
   ctx.beginPath();
@@ -284,7 +350,7 @@ function drawNarrationPanel(ctx: CanvasRenderingContext2D, text: string, x: numb
   const displayText = text.substring(0, charCount);
   ctx.save();
   ctx.globalAlpha = opacity;
-  ctx.font = "16px 'Inter', sans-serif";
+  ctx.font = "20px 'Inter', sans-serif";
 
   const words = displayText.split(' ');
   const lines: string[] = [];
@@ -300,7 +366,7 @@ function drawNarrationPanel(ctx: CanvasRenderingContext2D, text: string, x: numb
   }
   if (line) lines.push(line);
 
-  const lineHeight = 24;
+  const lineHeight = 30;
   const panelH = lines.length * lineHeight + 30;
   const panelW = maxW;
 
@@ -889,7 +955,96 @@ export default function SignalFlowAnimation() {
       }
     }
 
-    const actLabel = ["", "ACT I — THE INDIVIDUAL", "ACT II — THE INSTALLATION", "ACT III — THE NETWORK", "ACT IV — THE PENTAGON"][act];
+    // ─── CELEBRATION PHASE: Fireworks light show after Act IV (75–88s) ───
+    if (elapsed >= 75) {
+      const celebT = elapsed - 75;
+      const celebDur = 13;
+      const celebFadeIn = Math.min(1, celebT / 0.8);
+      const celebFadeOut = celebT > celebDur - 2 ? Math.max(0, 1 - (celebT - (celebDur - 2)) / 2) : 1;
+      const celebOpacity = celebFadeIn * celebFadeOut;
+
+      if (celebOpacity > 0) {
+        ctx.save();
+        ctx.globalAlpha = celebOpacity;
+
+        const burstColors = ["#fbbf24", "#f97316", "#d97706", "#eab308", "#f59e0b", "#fb923c"];
+        const burstConfigs = [
+          { x: 0.5, y: 0.18, delay: 0, radius: 140 },
+          { x: 0.25, y: 0.35, delay: 0.6, radius: 110 },
+          { x: 0.75, y: 0.3, delay: 1.2, radius: 120 },
+          { x: 0.15, y: 0.55, delay: 1.8, radius: 100 },
+          { x: 0.85, y: 0.5, delay: 2.3, radius: 105 },
+          { x: 0.4, y: 0.65, delay: 2.8, radius: 95 },
+          { x: 0.6, y: 0.7, delay: 3.3, radius: 100 },
+          { x: 0.35, y: 0.2, delay: 3.8, radius: 115 },
+          { x: 0.7, y: 0.15, delay: 4.2, radius: 130 },
+          { x: 0.5, y: 0.5, delay: 4.7, radius: 150 },
+          { x: 0.2, y: 0.75, delay: 5.2, radius: 90 },
+          { x: 0.8, y: 0.7, delay: 5.6, radius: 95 },
+          { x: 0.3, y: 0.45, delay: 6.1, radius: 110 },
+          { x: 0.65, y: 0.4, delay: 6.5, radius: 125 },
+          { x: 0.5, y: 0.35, delay: 7.0, radius: 135 },
+          { x: 0.45, y: 0.6, delay: 7.4, radius: 100 },
+          { x: 0.55, y: 0.25, delay: 7.9, radius: 120 },
+          { x: 0.3, y: 0.65, delay: 8.3, radius: 90 },
+          { x: 0.7, y: 0.55, delay: 8.7, radius: 105 },
+          { x: 0.5, y: 0.45, delay: 9.2, radius: 160 },
+        ];
+
+        for (let b = 0; b < burstConfigs.length; b++) {
+          const cfg = burstConfigs[b];
+          const burstElapsed = celebT - cfg.delay;
+          if (burstElapsed > 0) {
+            const color = burstColors[b % burstColors.length];
+            drawFireworkBurst(ctx, W * cfg.x, H * cfg.y, burstElapsed, b * 37 + 11, cfg.radius, color);
+          }
+        }
+
+        const shimmerCount = 60;
+        for (let s = 0; s < shimmerCount; s++) {
+          const sx = ((s * 127 + 31) % 997) / 997 * W;
+          const sy = ((s * 251 + 71) % 991) / 991 * H;
+          const twinkle = Math.sin(elapsed * 3 + s * 1.7) * 0.5 + 0.5;
+          const drift = Math.sin(elapsed * 0.5 + s * 2.3) * 8;
+          ctx.globalAlpha = celebOpacity * twinkle * 0.4;
+          ctx.fillStyle = burstColors[s % burstColors.length];
+          ctx.beginPath();
+          ctx.arc(sx + drift, sy, 1.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        const quoteP = Math.min(1, celebT / 1.5) * celebFadeOut;
+        if (quoteP > 0) {
+          ctx.globalAlpha = quoteP;
+          const panelW = W * 0.7;
+          const panelH = 120;
+          const panelX = W / 2 - panelW / 2;
+          const panelY = H * 0.4 - panelH / 2;
+          ctx.fillStyle = COLORS.bg + "d0";
+          ctx.beginPath();
+          ctx.roundRect(panelX, panelY, panelW, panelH, 6);
+          ctx.fill();
+          ctx.strokeStyle = "#fbbf2444";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.fillStyle = COLORS.node;
+          ctx.font = "italic 22px 'Merriweather', Georgia, serif";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText("One governed signal. Millions of pathways.", W / 2, panelY + panelH * 0.3);
+          ctx.fillText("One national picture.", W / 2, panelY + panelH * 0.55);
+          ctx.font = "14px 'JetBrains Mono', monospace";
+          ctx.fillStyle = COLORS.textDim;
+          ctx.fillText("CAREER MOBILITY GOVERNANCE FRAMEWORK", W / 2, panelY + panelH * 0.82);
+        }
+
+        ctx.restore();
+      }
+    }
+
+    const actLabel = elapsed >= 75
+      ? "FINALE"
+      : ["", "ACT I — THE INDIVIDUAL", "ACT II — THE INSTALLATION", "ACT III — THE NETWORK", "ACT IV — THE PENTAGON"][act];
     ctx.save();
     ctx.globalAlpha = 0.6;
     ctx.fillStyle = COLORS.textDim;
@@ -915,9 +1070,9 @@ export default function SignalFlowAnimation() {
       if (timeSinceActStart < 0.3) narOpacity = timeSinceActStart / 0.3;
       if (timeToActEnd < 0.5) narOpacity = Math.max(0, timeToActEnd / 0.5);
 
-      const narX = W * 0.7;
-      const narY = H * 0.08;
-      const narMaxW = Math.min(W * 0.5, 500);
+      const narX = W * 0.5;
+      const narY = H * 0.06;
+      const narMaxW = Math.min(W * 0.6, 600);
       drawNarrationPanel(ctx, narText, narX, narY, narMaxW, narOpacity * 0.9, charCount);
     }
 
@@ -925,16 +1080,14 @@ export default function SignalFlowAnimation() {
 
   const animate = useCallback((timestamp: number) => {
     if (!startTimeRef.current) startTimeRef.current = timestamp;
-    const elapsed = pausedAtRef.current + (timestamp - startTimeRef.current) / 1000;
+    let elapsed = pausedAtRef.current + (timestamp - startTimeRef.current) / 1000;
     if (elapsed >= DURATION) {
-      setPlaying(false);
-      setCurrentTime(DURATION);
-      setCurrentAct(4);
-      render(DURATION);
-      return;
+      elapsed = 0;
+      pausedAtRef.current = 0;
+      startTimeRef.current = timestamp;
     }
     setCurrentTime(elapsed);
-    setCurrentAct(getAct(elapsed));
+    setCurrentAct(elapsed >= 75 ? 4 : getAct(elapsed));
     render(elapsed);
     animRef.current = requestAnimationFrame(animate);
   }, [render]);
@@ -1048,7 +1201,7 @@ export default function SignalFlowAnimation() {
               <div className="flex justify-between mt-1 text-xs font-mono" style={{ color: COLORS.textDim }}>
                 <span>{Math.floor(currentTime)}s / {DURATION}s</span>
                 <span>
-                  {["Ready", "Act I — The Individual", "Act II — The Installation", "Act III — The Network", "Act IV — The Pentagon"][currentAct]}
+                  {currentTime >= 75 ? "Finale — Light Show" : ["Ready", "Act I — The Individual", "Act II — The Installation", "Act III — The Network", "Act IV — The Pentagon"][currentAct]}
                 </span>
               </div>
             </div>
@@ -1066,12 +1219,13 @@ export default function SignalFlowAnimation() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {[
             { act: "Act I", title: "The Individual", time: "0:00 – 0:15", desc: "A deployed SM at 0200 sends a signal. The CMGF AI engages in intense back-and-forth advisory exchange across multiple lanes. The signal to the ESO thickens and glows hot as the session produces an activity report." },
             { act: "Act II", title: "The Installation", time: "0:15 – 0:30", desc: "Hundreds of SMs appear at a single installation, each in their own advisory session. The AI engine grows under load. The pipeline to the ESO burns hot with continuous signal traffic and coordination." },
             { act: "Act III", title: "The Network", time: "0:30 – 0:55", desc: "Eight military bases come online — Ft Liberty, Ft Cavazos, JBLM, and more. Each has its own AI engine and ESO. ISR feeds from each base converge at the normalization hub, then flow to the Pentagon." },
             { act: "Act IV", title: "The Pentagon", time: "0:55 – 1:15", desc: "Hundreds of ESOs from 180+ installations feed aggregated signals to the Pentagon. 2,000,000+ service members, zero PII in the policy layer. The ISR sees only aggregated institutional intelligence." },
+            { act: "Finale", title: "Light Show", time: "1:15 – 1:30", desc: "A celebration of the governed signal architecture. Amber and gold fireworks erupt across the canvas as the closing quote fades in. The animation loops continuously for conference presentation." },
           ].map((a, i) => (
             <div key={i} className="p-4" style={{ background: 'rgba(17,34,64,0.5)', border: '1px solid rgba(201,168,76,0.15)', borderRadius: 4 }}>
               <div className="text-[9px] font-mono tracking-[2px] uppercase mb-1" style={{ color: COLORS.node }}>{a.act}</div>
@@ -1084,7 +1238,7 @@ export default function SignalFlowAnimation() {
 
         <div className="mt-8 p-4 text-center" style={{ background: 'rgba(201,168,76,0.07)', border: '1px solid rgba(201,168,76,0.2)', borderRadius: 4 }}>
           <p className="text-xs font-mono" style={{ color: COLORS.textDim }}>
-            For conference use: Enter fullscreen mode and press play. The animation runs {DURATION} seconds with no interaction needed.
+            For conference use: Enter fullscreen mode and press play. The animation runs {DURATION} seconds then loops automatically — no interaction needed.
           </p>
         </div>
 

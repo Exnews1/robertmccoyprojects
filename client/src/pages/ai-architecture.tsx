@@ -25,7 +25,7 @@ const tools = [
     href: "/research/signal-flow",
     title: "Signal Flow Animation",
     description:
-      "75-second cinematic visualization of the CMGF signal architecture — from a single service member advisory session to 2M+ profiles feeding the Pentagon. Four acts, conference-optimized.",
+      "90-second cinematic visualization of the CMGF signal architecture — from a single service member advisory session to 2M+ profiles feeding the Pentagon. Four acts plus fireworks finale, auto-looping, conference-optimized.",
     icon: PlayCircle,
     tag: "Presentation",
   },
