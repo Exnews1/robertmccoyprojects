@@ -41,6 +41,7 @@ import IsrQueue from "@/pages/isr-queue";
 import AuditTrail from "@/pages/audit-trail";
 import SMHub from "@/pages/sm-hub";
 import CareerAdvisor from "@/pages/career-advisor";
+import SignalFlowAnimation from "@/pages/signal-flow-animation";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -193,6 +194,7 @@ function Router() {
       <Route path="/research/demo" component={DemoMode} />
       <Route path="/research/sm-hub" component={SMHub} />
       <Route path="/research/career-advisor" component={CareerAdvisor} />
+      <Route path="/research/signal-flow" component={SignalFlowAnimation} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />
       <Route path="/research/contact" component={Contact} />
