@@ -1,7 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CMGFNav } from "@/components/cmgf-nav";
-import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "wouter";
 import {
   ChevronRight,
   Shield,
@@ -9,6 +9,12 @@ import {
   XCircle,
   AlertTriangle,
   ArrowRight,
+  Activity,
+  Compass,
+  UserCircle,
+  Rocket,
+  PlayCircle,
+  Check,
 } from "lucide-react";
 
 const MIL_OPTIONS = [
@@ -339,6 +345,80 @@ function PathwayStepStyled({ emoji, label, active, showArrow, gold, textColor, t
   );
 }
 
+const demoNavItems = [
+  { href: "/research/career-advisor", label: "Career Advisor", icon: Compass },
+  { href: "/research/sm-hub", label: "SM Hub", icon: UserCircle },
+  { href: "/research/demo", label: "Scenario Engine", icon: Rocket },
+  { href: "/research/signal-flow", label: "Signal Flow", icon: PlayCircle },
+];
+
+function DemoNav() {
+  const [location] = useLocation();
+  return (
+    <nav
+      className="sticky top-14 z-40 border-b py-2 mb-4 md:mb-6"
+      style={{ backgroundColor: "#1E293B", borderColor: "#334155" }}
+      data-testid="demo-nav"
+    >
+      <div className="max-w-6xl mx-auto px-3 md:px-6">
+        <div className="flex items-center gap-1 md:gap-2">
+          <Link href="/research/cmgf">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10"
+              data-testid="demo-nav-cmgf"
+            >
+              ← CMGF
+            </Button>
+          </Link>
+          <div className="w-px h-5 bg-slate-600 flex-shrink-0" />
+          {demoNavItems.map(item => {
+            const isActive = location === item.href;
+            return (
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`gap-1.5 text-xs font-medium ${
+                    isActive
+                      ? "text-amber-400"
+                      : "text-slate-300 hover:text-white hover:bg-white/10"
+                  }`}
+                  data-testid={`demo-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                >
+                  <item.icon className="h-3.5 w-3.5" />
+                  {item.label}
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function PulsingDot({ color }: { color: string }) {
+  return (
+    <span className="relative inline-flex h-2.5 w-2.5">
+      <span
+        className="absolute inline-flex h-full w-full rounded-full opacity-75"
+        style={{ backgroundColor: color, animation: "ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }}
+      />
+      <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ backgroundColor: color }} />
+    </span>
+  );
+}
+
+const FIELD_LABELS: Record<string, string> = {
+  milOcc: "Military Occupation",
+  civCareer: "Civilian Career",
+  education: "Education Level",
+  timeLeft: "Time Remaining",
+  funding: "Funding Source",
+};
+
 export default function CareerAdvisor() {
   const [milOcc, setMilOcc] = useState("");
   const [civCareer, setCivCareer] = useState("");
@@ -347,6 +427,29 @@ export default function CareerAdvisor() {
   const [funding, setFunding] = useState("");
   const [result, setResult] = useState<EvalResult | null>(null);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [recentField, setRecentField] = useState<string | null>(null);
+  const recentTimeout = useRef<ReturnType<typeof setTimeout>>();
+
+  const flashField = useCallback((field: string) => {
+    setRecentField(field);
+    if (recentTimeout.current) clearTimeout(recentTimeout.current);
+    recentTimeout.current = setTimeout(() => setRecentField(null), 2000);
+  }, []);
+
+  useEffect(() => {
+    return () => { if (recentTimeout.current) clearTimeout(recentTimeout.current); };
+  }, []);
+
+  const completedFields = [
+    milOcc ? "milOcc" : null,
+    civCareer ? "civCareer" : null,
+    education ? "education" : null,
+    timeLeft ? "timeLeft" : null,
+    funding ? "funding" : null,
+  ].filter(Boolean) as string[];
+
+  const pendingFields = ["milOcc", "civCareer", "education", "timeLeft", "funding"]
+    .filter(f => !completedFields.includes(f));
 
   const runEvaluation = useCallback(() => {
     const newErrors: Record<string, boolean> = {};
@@ -406,7 +509,7 @@ export default function CareerAdvisor() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: navy, color: textColor }}>
-      <CMGFNav />
+      <DemoNav />
       <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-4 md:py-6">
         <nav className="mb-4 text-sm flex items-center flex-wrap gap-1">
           <Link href="/research" className="transition-colors" style={{ color: textDim }}>
@@ -419,51 +522,6 @@ export default function CareerAdvisor() {
           <ChevronRight className="h-4 w-4" style={{ color: textDim }} />
           <span style={{ color: textColor }}>Career Path Advisor</span>
         </nav>
-
-        <div className="flex items-center gap-0 mb-6 border-b" style={{ borderColor }} data-testid="cmgf-section-tabs">
-          <Link href="/research/cmgf">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
-              style={{ color: textDim }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
-              data-testid="tab-cmgf"
-            >
-              CMGF Framework
-            </button>
-          </Link>
-          <Link href="/research/ai">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
-              style={{ color: textDim }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
-              data-testid="tab-ai"
-            >
-              AI Architecture
-            </button>
-          </Link>
-          <Link href="/research/eso">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
-              style={{ color: textDim }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
-              data-testid="tab-eso"
-            >
-              ESO Pipeline
-            </button>
-          </Link>
-          <Link href="/research/career-advisor">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2"
-              style={{ color: textColor, borderColor: gold }}
-              data-testid="tab-career-advisor"
-            >
-              Career Advisor
-            </button>
-          </Link>
-        </div>
 
         <header className="text-center mb-10">
           <div className="text-[10px] font-mono tracking-[3px] uppercase mb-3" style={{ color: gold }} data-testid="text-prototype-label">
@@ -496,7 +554,7 @@ export default function CareerAdvisor() {
               <div className="space-y-5">
                 <div className="space-y-2" data-testid="field-mil-occ">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Military Occupation</label>
-                  <Select value={milOcc} onValueChange={(v) => { setMilOcc(v); clearError("milOcc"); }}>
+                  <Select value={milOcc} onValueChange={(v) => { setMilOcc(v); clearError("milOcc"); flashField("milOcc"); }}>
                     <SelectTrigger className={errors.milOcc ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.milOcc ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-mil-occ">
                       <SelectValue placeholder="— Select MOS/Rate —" />
                     </SelectTrigger>
@@ -509,7 +567,7 @@ export default function CareerAdvisor() {
 
                 <div className="space-y-2" data-testid="field-civ-career">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Desired Civilian Career</label>
-                  <Select value={civCareer} onValueChange={(v) => { setCivCareer(v); clearError("civCareer"); }}>
+                  <Select value={civCareer} onValueChange={(v) => { setCivCareer(v); clearError("civCareer"); flashField("civCareer"); }}>
                     <SelectTrigger className={errors.civCareer ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.civCareer ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-civ-career">
                       <SelectValue placeholder="— Select Target Career —" />
                     </SelectTrigger>
@@ -522,7 +580,7 @@ export default function CareerAdvisor() {
 
                 <div className="space-y-2" data-testid="field-education">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Current Education Level</label>
-                  <Select value={education} onValueChange={(v) => { setEducation(v); clearError("education"); }}>
+                  <Select value={education} onValueChange={(v) => { setEducation(v); clearError("education"); flashField("education"); }}>
                     <SelectTrigger className={errors.education ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.education ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-education">
                       <SelectValue placeholder="— Select Level —" />
                     </SelectTrigger>
@@ -535,7 +593,7 @@ export default function CareerAdvisor() {
 
                 <div className="space-y-2" data-testid="field-time-left">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Time Remaining in Service</label>
-                  <Select value={timeLeft} onValueChange={(v) => { setTimeLeft(v); clearError("timeLeft"); }}>
+                  <Select value={timeLeft} onValueChange={(v) => { setTimeLeft(v); clearError("timeLeft"); flashField("timeLeft"); }}>
                     <SelectTrigger className={errors.timeLeft ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.timeLeft ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-time-left">
                       <SelectValue placeholder="— Select Timeframe —" />
                     </SelectTrigger>
@@ -548,7 +606,7 @@ export default function CareerAdvisor() {
 
                 <div className="space-y-2" data-testid="field-funding">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Education Funding Availability</label>
-                  <Select value={funding} onValueChange={(v) => { setFunding(v); clearError("funding"); }}>
+                  <Select value={funding} onValueChange={(v) => { setFunding(v); clearError("funding"); flashField("funding"); }}>
                     <SelectTrigger className={errors.funding ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.funding ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-funding">
                       <SelectValue placeholder="— Select Funding —" />
                     </SelectTrigger>
@@ -576,10 +634,51 @@ export default function CareerAdvisor() {
           <div className="space-y-5">
             <div className="p-7 min-h-[140px]" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
               {!result ? (
-                <div className="flex items-center justify-center min-h-[100px]">
-                  <p className="text-[11px] font-mono tracking-wide" style={{ color: textDim }} data-testid="text-placeholder">
-                    ← Complete profile and evaluate pathway
-                  </p>
+                <div className="space-y-5" data-testid="ready-state-panel">
+                  <div className="flex items-center gap-3 pb-3" style={{ borderBottom: `1px solid ${borderColor}` }}>
+                    <PulsingDot color={completedFields.length === 5 ? "#5cb85c" : gold} />
+                    <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: completedFields.length === 5 ? "#5cb85c" : gold }}>
+                      {completedFields.length === 5 ? "Ready to Evaluate" : "CMGF Engine v2.10 · Awaiting Input"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    {["milOcc", "civCareer", "education", "timeLeft", "funding"].map(field => {
+                      const done = completedFields.includes(field);
+                      const isRecent = recentField === field;
+                      return (
+                        <div
+                          key={field}
+                          className="flex items-center gap-2.5 py-1.5 px-2.5 transition-all"
+                          style={{
+                            background: isRecent ? 'rgba(201,168,76,0.12)' : done ? 'rgba(92,184,92,0.06)' : 'transparent',
+                            borderLeft: `2px solid ${isRecent ? gold : done ? '#5cb85c' : 'rgba(122,143,168,0.2)'}`,
+                            borderRadius: '0 2px 2px 0',
+                          }}
+                          data-testid={`status-${field}`}
+                        >
+                          {done ? (
+                            <Check className="h-3 w-3 flex-shrink-0" style={{ color: isRecent ? gold : '#5cb85c' }} />
+                          ) : (
+                            <div className="h-3 w-3 rounded-full flex-shrink-0" style={{ border: '1px solid rgba(122,143,168,0.3)' }} />
+                          )}
+                          <span className="text-[10px] font-mono tracking-wide" style={{ color: done ? (isRecent ? gold : textColor) : textDim }}>
+                            {FIELD_LABELS[field]}
+                            {done && isRecent && (
+                              <span style={{ color: gold }}> — confirmed</span>
+                            )}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-2">
+                    <Activity className="h-3.5 w-3.5" style={{ color: textDim }} />
+                    <span className="text-[10px] font-mono" style={{ color: textDim }}>
+                      {completedFields.length}/5 parameters bound · {completedFields.length === 5 ? "press Evaluate Pathway" : `${pendingFields.length} remaining`}
+                    </span>
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-4" data-testid="result-panel">
