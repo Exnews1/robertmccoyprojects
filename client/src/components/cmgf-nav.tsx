@@ -22,10 +22,13 @@ import {
   PlayCircle,
   MonitorPlay,
   ChevronDown,
+  Cpu,
+  FileCheck,
 } from "lucide-react";
 
 const frameworkItems = [
   { href: "/research/cmgf", label: "CMGF Home", icon: Home },
+  { href: "/research/ai", label: "AI Architecture", icon: Cpu },
   { href: "/research/cmgf/dashboard", label: "Executive Dashboard", icon: BarChart3 },
   { href: "/research/cmgf/five-pillars", label: "Five Pillars", icon: Layers },
   { href: "/research/explorer", label: "Reference Explorer", icon: Search },
@@ -35,6 +38,7 @@ const frameworkItems = [
 ];
 
 const pipelineItems = [
+  { href: "/research/eso", label: "ESO Pipeline Overview", icon: FileCheck },
   { href: "/research/career-advisor", label: "Career Path Advisor", icon: Compass },
   { href: "/research/demo", label: "Scenario Engine", icon: Rocket },
   { href: "/research/sm-hub", label: "SM Request Hub", icon: UserCircle },
