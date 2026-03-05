@@ -182,6 +182,14 @@ export default function CMGFRoot() {
               ESO Pipeline
             </button>
           </Link>
+          <Link href="/research/career-advisor">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
+              data-testid="tab-career-advisor"
+            >
+              Career Advisor
+            </button>
+          </Link>
         </div>
 
         <header className="mb-8">

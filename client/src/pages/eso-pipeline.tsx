@@ -104,6 +104,17 @@ export default function ESOPipeline() {
               ESO Pipeline
             </button>
           </Link>
+          <Link href="/research/career-advisor">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: "#7a8fa8" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#d4dbe8"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#7a8fa8"; }}
+              data-testid="tab-career-advisor"
+            >
+              Career Advisor
+            </button>
+          </Link>
         </div>
 
         <header className="pb-10 border-b" style={{ borderColor: "#1e2d45" }}>

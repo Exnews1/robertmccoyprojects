@@ -408,7 +408,7 @@ export default function CareerAdvisor() {
     <div className="min-h-screen" style={{ backgroundColor: navy, color: textColor }}>
       <CMGFNav />
       <div className="max-w-[1100px] mx-auto px-4 md:px-6 py-4 md:py-6">
-        <nav className="mb-6 text-sm flex items-center flex-wrap gap-1">
+        <nav className="mb-4 text-sm flex items-center flex-wrap gap-1">
           <Link href="/research" className="transition-colors" style={{ color: textDim }}>
             Portfolio
           </Link>
@@ -419,6 +419,51 @@ export default function CareerAdvisor() {
           <ChevronRight className="h-4 w-4" style={{ color: textDim }} />
           <span style={{ color: textColor }}>Career Path Advisor</span>
         </nav>
+
+        <div className="flex items-center gap-0 mb-6 border-b" style={{ borderColor }} data-testid="cmgf-section-tabs">
+          <Link href="/research/cmgf">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: textDim }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
+              data-testid="tab-cmgf"
+            >
+              CMGF Framework
+            </button>
+          </Link>
+          <Link href="/research/ai">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: textDim }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
+              data-testid="tab-ai"
+            >
+              AI Architecture
+            </button>
+          </Link>
+          <Link href="/research/eso">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent transition-colors"
+              style={{ color: textDim }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textColor; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = textDim; }}
+              data-testid="tab-eso"
+            >
+              ESO Pipeline
+            </button>
+          </Link>
+          <Link href="/research/career-advisor">
+            <button
+              className="px-4 py-2.5 text-sm font-medium border-b-2"
+              style={{ color: textColor, borderColor: gold }}
+              data-testid="tab-career-advisor"
+            >
+              Career Advisor
+            </button>
+          </Link>
+        </div>
 
         <header className="text-center mb-10">
           <div className="text-[10px] font-mono tracking-[3px] uppercase mb-3" style={{ color: gold }} data-testid="text-prototype-label">
