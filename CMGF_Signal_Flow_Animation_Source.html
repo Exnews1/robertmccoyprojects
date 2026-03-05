@@ -316,7 +316,7 @@ function render(time){
     if(stP>0){ctx.save();ctx.globalAlpha=stP*0.6;ctx.fillStyle=C.node;ctx.font="bold 16px 'JetBrains Mono',monospace";ctx.textAlign="right";ctx.textBaseline="bottom";ctx.fillText("2,000,000+ SERVICE MEMBERS",W*0.97,H*0.9);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("180+ INSTALLATIONS · ZERO PII IN POLICY LAYER",W*0.97,H*0.95);ctx.restore();}
 
     const txP=Math.max(0,Math.min(1,(a4T-0.65)/0.12));
-    if(txP>0){ctx.save();ctx.globalAlpha=txP;const pw=W*0.65,ph=90,px=W/2-pw/2,py=H*0.7;ctx.fillStyle=C.bg+"e0";ctx.beginPath();ctx.roundRect(px,py,pw,ph,4);ctx.fill();ctx.strokeStyle=C.border;ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=C.text;ctx.font="italic 18px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("One governed signal. Millions of pathways. One national picture.",W/2,py+ph*0.38);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.",W/2,py+ph*0.7);ctx.restore();}
+    if(txP>0){ctx.save();ctx.globalAlpha=txP;const pw=W*0.65,ph=90,px=W/2-pw/2,py=H*0.62;ctx.fillStyle=C.bg+"e0";ctx.beginPath();ctx.roundRect(px,py,pw,ph,4);ctx.fill();ctx.strokeStyle=C.border;ctx.lineWidth=1;ctx.stroke();ctx.fillStyle=C.text;ctx.font="italic 18px 'Merriweather',Georgia,serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("One governed signal. Millions of pathways. One national picture.",W/2,py+ph*0.38);ctx.font="13px 'JetBrains Mono',monospace";ctx.fillStyle=C.textDim;ctx.fillText("No individual data crosses the privacy boundary. The ISR sees only aggregated policy signals.",W/2,py+ph*0.7);ctx.restore();}
 
     const fP=Math.max(0,Math.min(1,(a4T-0.93)/0.07));
     if(fP>0){ctx.save();ctx.globalAlpha=fP;ctx.fillStyle=C.bg;ctx.fillRect(0,0,W,H);ctx.restore();}
@@ -330,7 +330,7 @@ function render(time){
     const aStart=AT[aIdx],aEnd=AT[aIdx+1],nT=NARRATIONS[aIdx],tSince=el-aStart,tTo=aEnd-el;
     const cc=Math.min(nT.length,Math.floor(tSince*45));
     let nOp=1;if(tSince<0.3)nOp=tSince/0.3;if(tTo<0.5)nOp=Math.max(0,tTo/0.5);
-    drawNarration(nT,W/2,H*0.92,Math.min(W*0.8,700),nOp*0.9,cc);
+    drawNarration(nT,W/2,H*0.82,Math.min(W*0.8,700),nOp*0.9,cc);
   }
 
   document.getElementById("progressFill").style.width=(el/DUR*100)+"%";

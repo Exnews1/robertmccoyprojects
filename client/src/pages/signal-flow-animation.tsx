@@ -860,7 +860,7 @@ export default function SignalFlowAnimation() {
         const panelW = W * 0.65;
         const panelH = 90;
         const panelX = W / 2 - panelW / 2;
-        const panelY = H * 0.7;
+        const panelY = H * 0.62;
         ctx.fillStyle = COLORS.bg + "e0";
         ctx.beginPath();
         ctx.roundRect(panelX, panelY, panelW, panelH, 4);
@@ -915,7 +915,7 @@ export default function SignalFlowAnimation() {
       if (timeSinceActStart < 0.3) narOpacity = timeSinceActStart / 0.3;
       if (timeToActEnd < 0.5) narOpacity = Math.max(0, timeToActEnd / 0.5);
 
-      const narY = H * 0.92;
+      const narY = H * 0.82;
       const narMaxW = Math.min(W * 0.8, 700);
       drawNarrationPanel(ctx, narText, W / 2, narY, narMaxW, narOpacity * 0.9, charCount);
     }
