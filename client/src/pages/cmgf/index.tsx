@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database, BarChart3, Rocket } from "lucide-react";
+import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database, BarChart3, Rocket, FileCheck, Compass, PlayCircle } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { ExplainButton } from "@/components/explain-button";
 import { useToast } from "@/hooks/use-toast";
@@ -157,41 +157,6 @@ export default function CMGFRoot() {
           <span className="text-foreground">CMGF</span>
         </nav>
 
-        <div className="flex items-center gap-0 mb-8 border-b border-border" data-testid="cmgf-section-tabs">
-          <Link href="/research/cmgf">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-amber-500 text-foreground"
-              data-testid="tab-cmgf"
-            >
-              CMGF Framework
-            </button>
-          </Link>
-          <Link href="/research/ai">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="tab-ai"
-            >
-              AI Architecture
-            </button>
-          </Link>
-          <Link href="/research/eso">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="tab-eso"
-            >
-              ESO Pipeline
-            </button>
-          </Link>
-          <Link href="/research/career-advisor">
-            <button
-              className="px-4 py-2.5 text-sm font-medium border-b-2 border-transparent text-muted-foreground hover:text-foreground transition-colors"
-              data-testid="tab-career-advisor"
-            >
-              Career Advisor
-            </button>
-          </Link>
-        </div>
-
         <header className="mb-8">
           <div className="flex items-center gap-3 flex-wrap mb-3">
             <Badge variant="outline" className="font-mono text-xs">v1.0</Badge>
@@ -289,6 +254,50 @@ export default function CMGFRoot() {
               </CardContent>
             </Card>
           </Link>
+        </section>
+
+        <section className="mb-10" data-testid="section-demo-tools">
+          <Card className="border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+            <CardHeader className="pb-3">
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Cpu className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-lg font-bold text-foreground">CMGF Demo Tools</CardTitle>
+                  <CardDescription className="text-sm">Interactive demonstrations of the framework's architecture, pipeline, and advisory systems.</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <div className="grid gap-3 md:grid-cols-5">
+                {[
+                  { href: "/research/ai", title: "AI Architecture", desc: "Governing principles and interactive tool index", icon: Cpu, tag: "Gateway" },
+                  { href: "/research/eso", title: "ESO Pipeline", desc: "End-to-end career transition pipeline stages", icon: FileCheck, tag: "Pipeline" },
+                  { href: "/research/career-advisor", title: "Career Advisor", desc: "Constraint-binding pathway feasibility engine", icon: Compass, tag: "Interactive" },
+                  { href: "/research/demo", title: "Scenario Engine", desc: "One-click scenario generation and CMGF rule analysis", icon: Rocket, tag: "Simulation" },
+                  { href: "/research/signal-flow", title: "Signal Flow", desc: "75-second cinematic signal architecture animation", icon: PlayCircle, tag: "Presentation" },
+                ].map((tool) => (
+                  <Link key={tool.href} href={tool.href}>
+                    <Card className="h-full border-border/50 hover:border-primary/40 transition-colors cursor-pointer group" data-testid={`demo-tool-${tool.href.split("/").pop()}`}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <tool.icon className="h-4 w-4 text-primary flex-shrink-0" />
+                          <Badge variant="outline" className="text-[10px] font-mono">{tool.tag}</Badge>
+                        </div>
+                        <h4 className="text-sm font-semibold text-foreground mb-1">{tool.title}</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed mb-3">{tool.desc}</p>
+                        <div className="flex items-center text-xs text-primary group-hover:translate-x-1 transition-transform">
+                          <span>Open</span>
+                          <ArrowRight className="ml-1 h-3 w-3" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </section>
 
         <section className="mb-10">
