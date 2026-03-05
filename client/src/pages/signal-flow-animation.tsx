@@ -523,7 +523,7 @@ export default function SignalFlowAnimation() {
       }
     }
 
-    // ─── ACT III: Multiple bases, each with AI+ESO, pipeline glows hot, trunk turns white ───
+    // ─── ACT III: 8 bases each with AI+ESO+ISR, ISR feeds converge to collection hub → Pentagon ───
     if (act >= 3) {
       const act3Start = ACT_TIMES[2];
       const act3Dur = ACT_TIMES[3] - ACT_TIMES[2];
@@ -532,14 +532,14 @@ export default function SignalFlowAnimation() {
       const baseCount = Math.min(8, Math.floor(act3T * 12));
       const bases: { x: number; y: number; aiX: number; esoX: number; label: string }[] = [];
       const baseNames = ["FT LIBERTY", "FT CAVAZOS", "FT MOORE", "JBLM", "FT DRUM", "FT RILEY", "FT STEWART", "FT BLISS"];
-      
+
       for (let b = 0; b < baseCount; b++) {
         const row = b % 4;
         const col = Math.floor(b / 4);
-        const bx = W * 0.04 + col * W * 0.22;
-        const by = H * 0.12 + row * H * 0.22;
-        const aix = bx + W * 0.1;
-        const esox = bx + W * 0.18;
+        const bx = W * 0.02 + col * W * 0.16;
+        const by = H * 0.1 + row * H * 0.21;
+        const aix = bx + W * 0.06;
+        const esox = bx + W * 0.12;
         bases.push({ x: bx, y: by, aiX: aix, esoX: esox, label: baseNames[b] });
       }
 
@@ -551,14 +551,13 @@ export default function SignalFlowAnimation() {
         ctx.save();
         ctx.globalAlpha = baseP;
 
-        const smPerBase = b < 3 ? 30 : 15;
+        const smPerBase = b < 3 ? 20 : 10;
         for (let i = 0; i < smPerBase; i++) {
-          const sx = base.x + hash(i + b * 100, 33) * W * 0.06;
-          const sy = base.y - H * 0.06 + hash2(i + b * 100, 33) * H * 0.14;
-          drawGlowCircle(ctx, sx, sy, 1.5, COLORS.node, 0.2 + 0.3 * Math.sin(elapsed * 1.5 + i + b));
-
-          if (i < 8) {
-            ctx.globalAlpha = baseP * 0.15;
+          const sx = base.x + hash(i + b * 100, 33) * W * 0.04;
+          const sy = base.y - H * 0.05 + hash2(i + b * 100, 33) * H * 0.1;
+          drawGlowCircle(ctx, sx, sy, 1.2, COLORS.node, 0.15 + 0.2 * Math.sin(elapsed * 1.5 + i + b));
+          if (i < 5) {
+            ctx.globalAlpha = baseP * 0.1;
             ctx.strokeStyle = COLORS.node;
             ctx.lineWidth = 0.3;
             ctx.beginPath();
@@ -570,101 +569,123 @@ export default function SignalFlowAnimation() {
         }
 
         const aiGlow = 0.3 + 0.4 * Math.sin(elapsed * 2.5 + b);
-        drawHexagon(ctx, base.aiX, base.y, 12, COLORS.engine, 0.35, aiGlow);
+        drawHexagon(ctx, base.aiX, base.y, 10, COLORS.engine, 0.35, aiGlow);
 
-        drawGlowCircle(ctx, base.esoX, base.y, 7, COLORS.node, 0.4 + 0.3 * Math.sin(elapsed * 2 + b * 0.7));
+        drawGlowCircle(ctx, base.esoX, base.y, 5, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 2 + b * 0.7));
 
         const hotP = baseP * (0.5 + 0.5 * Math.sin(elapsed * 3 + b));
-        drawTrunkBeam(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, 2 + hotP * 3, COLORS.engine, hotP * 0.6, 15);
+        drawTrunkBeam(ctx, base.aiX + 10, base.y, base.esoX - 5, base.y, 1.5 + hotP * 2, COLORS.engine, hotP * 0.5, 10);
 
         const sp1 = ((elapsed * 1.5 + b * 0.8) % 1);
-        drawSignalDot(ctx, base.aiX + 12, base.y, base.esoX - 7, base.y, sp1, COLORS.engine, 2);
-        const sp2 = ((elapsed * 1.2 + b * 0.5 + 0.5) % 1);
-        drawSignalDot(ctx, base.esoX - 7, base.y, base.aiX + 12, base.y, sp2, COLORS.node, 2);
+        drawSignalDot(ctx, base.aiX + 10, base.y, base.esoX - 5, base.y, sp1, COLORS.engine, 1.5);
 
-        drawLabel(ctx, base.label, base.aiX, base.y + 18, COLORS.textDim, 7, baseP * 0.7);
+        drawLabel(ctx, base.label, (base.aiX + base.esoX) / 2, base.y + 14, COLORS.textDim, 6, baseP * 0.7);
+        drawLabel(ctx, "AI+ESO", (base.aiX + base.esoX) / 2, base.y + 22, COLORS.engine, 5, baseP * 0.5);
 
         ctx.restore();
       }
 
-      const normNodeX = W * 0.58;
-      const normNodeY = H * 0.5;
-      const aggNodeX = W * 0.72;
-      const aggNodeY = H * 0.5;
-      const isrNodeX = W * 0.86;
-      const isrNodeY = H * 0.5;
-
-      const feedP = Math.max(0, Math.min(1, (act3T - 0.35) / 0.2));
-      if (feedP > 0) {
+      const isrFeedP = Math.max(0, Math.min(1, (act3T - 0.3) / 0.2));
+      if (isrFeedP > 0) {
         for (let b = 0; b < bases.length; b++) {
           const base = bases[b];
-          const sp = Math.max(0, Math.min(1, (feedP - b * 0.06) * 3));
+          const sp = Math.max(0, Math.min(1, (isrFeedP - b * 0.05) * 3));
           if (sp <= 0) continue;
 
-          const hotColor = lerpColor(COLORS.engine, COLORS.node, 0.3 + 0.3 * Math.sin(elapsed * 2 + b));
+          const isrOutX = base.esoX + W * 0.03;
+          const isrOutY = base.y;
 
           ctx.save();
-          ctx.globalAlpha = sp * 0.3;
-          ctx.strokeStyle = hotColor;
+          ctx.globalAlpha = sp * 0.6;
+          drawGlowCircle(ctx, isrOutX, isrOutY, 4, COLORS.isr, 0.3 + 0.3 * Math.sin(elapsed * 2 + b));
+          drawLabel(ctx, "ISR", isrOutX, isrOutY - 10, COLORS.isr, 5, sp * 0.8);
+          ctx.restore();
+
+          const beamFromEso = sp * (0.4 + 0.3 * Math.sin(elapsed * 3 + b));
+          drawTrunkBeam(ctx, base.esoX + 5, base.y, isrOutX - 4, isrOutY, 1.5 + sp * 2, COLORS.engine, beamFromEso, 8);
+        }
+      }
+
+      const collectX = W * 0.52;
+      const collectY = H * 0.5;
+      const collectP = Math.max(0, Math.min(1, (act3T - 0.45) / 0.15));
+      if (collectP > 0) {
+        const collectGlow = collectP * (0.4 + 0.5 * Math.sin(elapsed * 2.5));
+        drawGlowCircle(ctx, collectX, collectY, 20, COLORS.engine, collectGlow);
+        drawProcessLabel(ctx, "NORMALIZATION", collectX, collectY - 30, COLORS.engine, COLORS.bg + "e0", collectP);
+        drawProcessLabel(ctx, "AGGREGATION", collectX, collectY + 20, COLORS.command, COLORS.bg + "e0", collectP);
+
+        for (let b = 0; b < bases.length; b++) {
+          const base = bases[b];
+          const sp = Math.max(0, Math.min(1, (collectP - b * 0.04) * 3));
+          if (sp <= 0) continue;
+
+          const isrOutX = base.esoX + W * 0.03;
+          const isrOutY = base.y;
+
+          ctx.save();
+          ctx.globalAlpha = sp * 0.25;
+          ctx.strokeStyle = COLORS.isr;
           ctx.lineWidth = 1 + sp * 1.5;
           ctx.beginPath();
-          ctx.moveTo(base.aiX + 12, base.y);
-          ctx.quadraticCurveTo(normNodeX - 30, base.y, normNodeX, normNodeY);
+          ctx.moveTo(isrOutX, isrOutY);
+          ctx.quadraticCurveTo(collectX - 30, isrOutY, collectX, collectY);
           ctx.stroke();
           ctx.restore();
 
-          const dotP = ((elapsed * 0.9 + b * 0.35) % 1);
-          const cx = base.aiX + 12 + (normNodeX - base.aiX - 12) * dotP;
-          const cy = base.y + (normNodeY - base.y) * dotP * dotP;
+          const dotP = ((elapsed * 0.7 + b * 0.3) % 1);
+          const t = dotP;
+          const cx = isrOutX + (collectX - isrOutX) * t;
+          const cy = isrOutY + (collectY - isrOutY) * t * t;
           ctx.save();
-          ctx.globalAlpha = sp * 0.6 * (1 - dotP * 0.5);
-          drawGlowCircle(ctx, cx, cy, 2, hotColor, 0.4);
+          ctx.globalAlpha = sp * 0.5 * (1 - t * 0.4);
+          drawGlowCircle(ctx, cx, cy, 2, COLORS.isr, 0.4);
           ctx.restore();
         }
-
-        const normGlow = feedP * (0.5 + 0.4 * Math.sin(elapsed * 3));
-        drawGlowCircle(ctx, normNodeX, normNodeY, 18, COLORS.engine, normGlow);
-        drawProcessLabel(ctx, "NORMALIZATION", normNodeX, normNodeY - 28, COLORS.engine, COLORS.bg + "e0", feedP);
       }
 
-      const aggP = Math.max(0, Math.min(1, (act3T - 0.55) / 0.1));
+      const aggNodeX = W * 0.68;
+      const aggNodeY = H * 0.5;
+      const aggP = Math.max(0, Math.min(1, (act3T - 0.6) / 0.1));
       if (aggP > 0) {
         const beamColor = lerpColor(COLORS.engine, COLORS.command, aggP * 0.6);
         const beamWidth = 3 + aggP * 5;
-        drawTrunkBeam(ctx, normNodeX + 18, normNodeY, aggNodeX - 18, aggNodeY, beamWidth, beamColor, aggP * 0.7, 30);
+        drawTrunkBeam(ctx, collectX + 20, collectY, aggNodeX - 18, aggNodeY, beamWidth, beamColor, aggP * 0.7, 30);
 
         for (let i = 0; i < 2; i++) {
           const sp = ((elapsed * 1.2 + i * 0.5) % 1);
-          drawSignalDot(ctx, normNodeX + 18, normNodeY, aggNodeX - 18, aggNodeY, sp, beamColor, 3);
+          drawSignalDot(ctx, collectX + 20, collectY, aggNodeX - 18, aggNodeY, sp, beamColor, 3);
         }
 
         const aggGlow = aggP * (0.5 + 0.4 * Math.sin(elapsed * 2.5));
-        drawGlowCircle(ctx, aggNodeX, aggNodeY, 18, COLORS.command, aggGlow);
-        drawProcessLabel(ctx, "AGGREGATION", aggNodeX, aggNodeY - 28, COLORS.command, COLORS.bg + "e0", aggP);
+        drawGlowCircle(ctx, aggNodeX, aggNodeY, 16, COLORS.command, aggGlow);
+        drawProcessLabel(ctx, "PII STRIPPED", aggNodeX, aggNodeY - 26, COLORS.pure, COLORS.bg + "e0", aggP);
       }
 
-      const whiteP = Math.max(0, Math.min(1, (act3T - 0.7) / 0.15));
+      const whiteP = Math.max(0, Math.min(1, (act3T - 0.75) / 0.15));
       if (whiteP > 0) {
         const beamColor = lerpColor(COLORS.command, COLORS.pure, whiteP);
         const wBeam = 5 + whiteP * 10;
-        drawTrunkBeam(ctx, aggNodeX + 18, aggNodeY, isrNodeX - 14, isrNodeY, wBeam, beamColor, whiteP * 0.9, 50 * whiteP);
+        drawTrunkBeam(ctx, aggNodeX + 16, aggNodeY, pentX - 44, pentY, wBeam, beamColor, whiteP * 0.9, 50 * whiteP);
 
         for (let i = 0; i < 3; i++) {
           const sp = ((elapsed * 0.8 + i * 0.3) % 1);
-          drawSignalDot(ctx, aggNodeX + 18, aggNodeY, isrNodeX - 14, isrNodeY, sp, beamColor, 4);
+          drawSignalDot(ctx, aggNodeX + 16, aggNodeY, pentX - 44, pentY, sp, beamColor, 4);
         }
 
         if (whiteP > 0.3) {
           const pp = (whiteP - 0.3) / 0.7;
-          drawLabel(ctx, "PII STRIPPED", (aggNodeX + isrNodeX) / 2, aggNodeY - 40, COLORS.pure, 8, pp * 0.8);
-          drawLabel(ctx, "PRIVACY-SAFE", (aggNodeX + isrNodeX) / 2, aggNodeY - 29, COLORS.pure, 8, pp * 0.6);
+          const midX = (aggNodeX + pentX) / 2;
+          const midY = (aggNodeY + pentY) / 2;
+          drawLabel(ctx, "PRIVACY-SAFE", midX, midY - 20, COLORS.pure, 8, pp * 0.8);
+          drawLabel(ctx, "TO PENTAGON", midX, midY - 9, COLORS.pure, 8, pp * 0.6);
         }
 
         if (whiteP > 0.6) {
-          const isrGlow = (whiteP - 0.6) * 2.5;
-          drawGlowCircle(ctx, isrNodeX, isrNodeY, 14, COLORS.pure, isrGlow);
-          drawLabel(ctx, "ISR FEED", isrNodeX, isrNodeY + 22, COLORS.pure, 9, isrGlow);
-          drawDocIcon(ctx, isrNodeX, isrNodeY, 22, COLORS.pure, isrGlow, isrGlow);
+          const pentGlow = (whiteP - 0.6) * 2.5;
+          drawPentagon(ctx, pentX, pentY, 30, COLORS.engine, pentGlow);
+          drawLabel(ctx, "DOD", pentX, pentY + 36, COLORS.text, 8, pentGlow);
+          drawLabel(ctx, "POLICY LAYER", pentX, pentY + 46, COLORS.textDim, 7, pentGlow);
         }
       }
 
