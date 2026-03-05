@@ -16,7 +16,7 @@ The site is organized into two top-level sections:
 
 Navigation:
 - **TopNav** (`client/src/components/top-nav.tsx`): Site-wide navigation with Home, About, Services, Research, Contact links
-- **CMGFNav** (`client/src/components/cmgf-nav.tsx`): Sub-navigation within research pages (Research, Pipeline, and Walkthrough groups)
+- **CMGFNav** (`client/src/components/cmgf-nav.tsx`): Sub-navigation within research pages using three dropdown menus (Framework, Pipeline, Walkthrough) plus a standalone prominent Signal Flow button with gold accent. Uses shadcn DropdownMenu with dark navy styling. Signal Flow is always visible and highlighted for easy access.
 - Consulting routes: `/`, `/about`, `/services`, `/contact`
 - Research routes are prefixed with `/research` (e.g., `/research/cmgf`, `/research/demo`, `/research/sm-hub`)
 
