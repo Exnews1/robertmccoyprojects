@@ -306,7 +306,7 @@ function drawNarrationPanel(ctx: CanvasRenderingContext2D, text: string, x: numb
 
   ctx.fillStyle = "#0d1117cc";
   ctx.beginPath();
-  ctx.roundRect(x - panelW / 2, y - panelH / 2, panelW, panelH, 6);
+  ctx.roundRect(x - panelW / 2, y, panelW, panelH, 6);
   ctx.fill();
   ctx.strokeStyle = "#fbbf2466";
   ctx.lineWidth = 1;
@@ -316,7 +316,7 @@ function drawNarrationPanel(ctx: CanvasRenderingContext2D, text: string, x: numb
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   for (let i = 0; i < lines.length; i++) {
-    const ly = y - panelH / 2 + 15 + lineHeight * (i + 0.5);
+    const ly = y + 15 + lineHeight * (i + 0.5);
     ctx.fillText(lines[i], x, ly);
   }
   ctx.restore();
@@ -915,9 +915,10 @@ export default function SignalFlowAnimation() {
       if (timeSinceActStart < 0.3) narOpacity = timeSinceActStart / 0.3;
       if (timeToActEnd < 0.5) narOpacity = Math.max(0, timeToActEnd / 0.5);
 
-      const narY = H * 0.82;
-      const narMaxW = Math.min(W * 0.8, 700);
-      drawNarrationPanel(ctx, narText, W / 2, narY, narMaxW, narOpacity * 0.9, charCount);
+      const narX = W * 0.7;
+      const narY = H * 0.08;
+      const narMaxW = Math.min(W * 0.5, 500);
+      drawNarrationPanel(ctx, narText, narX, narY, narMaxW, narOpacity * 0.9, charCount);
     }
 
   }, []);

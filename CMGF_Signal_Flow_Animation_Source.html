@@ -167,10 +167,10 @@ function drawNarration(text,x,y,maxW,op,charCount){
   for(const w of words){const test=line?line+' '+w:w;if(ctx.measureText(test).width>maxW-40){if(line)lines.push(line);line=w;}else{line=test;}}
   if(line)lines.push(line);
   const lh=24,ph=lines.length*lh+30,pw=maxW;
-  ctx.fillStyle="#0d1117cc";ctx.beginPath();ctx.roundRect(x-pw/2,y-ph/2,pw,ph,6);ctx.fill();
+  ctx.fillStyle="#0d1117cc";ctx.beginPath();ctx.roundRect(x-pw/2,y,pw,ph,6);ctx.fill();
   ctx.strokeStyle="#fbbf2466";ctx.lineWidth=1;ctx.stroke();
   ctx.fillStyle=C.text;ctx.textAlign="center";ctx.textBaseline="middle";
-  for(let i=0;i<lines.length;i++){ctx.fillText(lines[i],x,y-ph/2+15+lh*(i+0.5));}
+  for(let i=0;i<lines.length;i++){ctx.fillText(lines[i],x,y+15+lh*(i+0.5));}
   ctx.restore();
 }
 
@@ -330,7 +330,7 @@ function render(time){
     const aStart=AT[aIdx],aEnd=AT[aIdx+1],nT=NARRATIONS[aIdx],tSince=el-aStart,tTo=aEnd-el;
     const cc=Math.min(nT.length,Math.floor(tSince*45));
     let nOp=1;if(tSince<0.3)nOp=tSince/0.3;if(tTo<0.5)nOp=Math.max(0,tTo/0.5);
-    drawNarration(nT,W/2,H*0.82,Math.min(W*0.8,700),nOp*0.9,cc);
+    drawNarration(nT,W*0.7,H*0.08,Math.min(W*0.5,500),nOp*0.9,cc);
   }
 
   document.getElementById("progressFill").style.width=(el/DUR*100)+"%";
