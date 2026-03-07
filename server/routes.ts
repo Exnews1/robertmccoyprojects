@@ -9,6 +9,15 @@ import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
 
+function sanitizeInput(input: string): string {
+  return input
+    .replace(/[<>]/g, "")
+    .replace(/javascript:/gi, "")
+    .replace(/on\w+=/gi, "")
+    .trim()
+    .slice(0, 2000);
+}
+
 class RateLimiter {
   private requests: Map<string, number[]> = new Map();
   private globalActive = 0;
@@ -698,14 +707,20 @@ Respond with JSON only.`
   app.post("/api/inquiries", async (req: any, res: any) => {
     try {
       const inquiry = insertInquirySchema.parse(req.body);
-      const newInquiry = await storage.createInquiry(inquiry);
+      const sanitized = {
+        ...inquiry,
+        name: sanitizeInput(inquiry.name),
+        message: sanitizeInput(inquiry.message),
+        organization: inquiry.organization ? sanitizeInput(inquiry.organization) : inquiry.organization,
+      };
+      const newInquiry = await storage.createInquiry(sanitized);
       
       sendInquiryNotification({
-        name: inquiry.name,
-        email: inquiry.email,
-        organization: inquiry.organization,
-        inquiryType: inquiry.inquiryType,
-        message: inquiry.message
+        name: sanitized.name,
+        email: sanitized.email,
+        organization: sanitized.organization,
+        inquiryType: sanitized.inquiryType,
+        message: sanitized.message
       }).catch(err => console.error("Email notification failed:", err));
       
       res.status(201).json({ success: true, id: newInquiry.id });
@@ -821,11 +836,13 @@ Respond with JSON only.`
       return res.status(429).json({ error: rateCheck.reason, retryAfter: rateCheck.retryAfter });
     }
     try {
-      const { message, engineOutput, chatHistory } = req.body;
+      const { message: rawMessage, engineOutput, chatHistory } = req.body;
 
-      if (!message || !engineOutput) {
+      if (!rawMessage || !engineOutput) {
         return res.status(400).json({ error: "Message and engineOutput are required" });
       }
+
+      const message = sanitizeInput(String(rawMessage));
 
       const taEligible = (engineOutput.resourcesRequired || []).filter((r: any) => r.status?.toLowerCase().includes("ta-eligible"));
       const caEligible = (engineOutput.resourcesRequired || []).filter((r: any) => r.status?.toLowerCase().includes("ca-eligible"));
@@ -1101,11 +1118,12 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
 
   app.post("/api/sm/request", async (req: any, res: any) => {
     try {
-      const { name, rank, currentMos, currentMosLabel, goalDomain, goalLabel, constraints, notes } = req.body;
-      if (!name || !rank || !currentMos || !goalDomain || !goalLabel) {
+      const { name: rawName, rank, currentMos, currentMosLabel, goalDomain, goalLabel, constraints, notes } = req.body;
+      if (!rawName || !rank || !currentMos || !goalDomain || !goalLabel) {
         return res.status(400).json({ error: "name, rank, currentMos, goalDomain, goalLabel are required" });
       }
 
+      const name = sanitizeInput(String(rawName));
       const { serviceMemberRequests, isrCases, auditLogEntries } = await import("@shared/schema");
       const caseId = `ISR-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
 
@@ -1117,7 +1135,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
         goalDomain,
         goalLabel,
         constraints: constraints || [],
-        notes: notes || null,
+        notes: notes ? sanitizeInput(String(notes)) : null,
         status: "pending",
       }).returning();
 
@@ -1156,6 +1174,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       const { serviceMemberRequests } = await import("@shared/schema");
       const { desc } = await import("drizzle-orm");
       const requests = await db.select().from(serviceMemberRequests).orderBy(desc(serviceMemberRequests.createdAt));
+      res.setHeader("X-Data-Notice", "All data is synthetic. No real PII is stored or served.");
       res.json(requests);
     } catch (error: any) {
       res.status(500).json({ error: "Failed to fetch requests" });
@@ -1189,6 +1208,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       .innerJoin(serviceMemberRequests, eq(isrCases.requestId, serviceMemberRequests.id))
       .orderBy(desc(isrCases.createdAt));
 
+      res.setHeader("X-Data-Notice", "All data is synthetic. No real PII is stored or served.");
       res.json(cases);
     } catch (error: any) {
       console.error("ISR queue error:", error);
@@ -1198,8 +1218,8 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
 
   app.post("/api/isr/action", async (req: any, res: any) => {
     try {
-      const { caseId, actionType, rationale, performedBy } = req.body;
-      if (!caseId || !actionType || !rationale) {
+      const { caseId, actionType, rationale: rawRationale, performedBy } = req.body;
+      if (!caseId || !actionType || !rawRationale) {
         return res.status(400).json({ error: "caseId, actionType, and rationale are required" });
       }
 
@@ -1208,6 +1228,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
         return res.status(400).json({ error: `actionType must be one of: ${validActions.join(", ")}` });
       }
 
+      const rationale = sanitizeInput(String(rawRationale));
       const { isrCases, isrActions, auditLogEntries, serviceMemberRequests } = await import("@shared/schema");
       const { eq } = await import("drizzle-orm");
 
@@ -1220,7 +1241,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
         caseId,
         actionType,
         rationale,
-        performedBy: performedBy || "ESO Advisor",
+        performedBy: performedBy ? sanitizeInput(String(performedBy)) : "ESO Advisor",
       }).returning();
 
       const statusMap: Record<string, string> = {

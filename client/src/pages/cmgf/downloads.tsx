@@ -93,7 +93,7 @@ const supplementalDocuments = [
     external: true
   },
   {
-    id: "eo-14110",
+    id: "eo-14179",
     title: "Executive Order 14179",
     description: "Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.",
     type: "PDF",

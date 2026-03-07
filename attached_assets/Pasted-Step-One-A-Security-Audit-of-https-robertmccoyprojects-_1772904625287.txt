@@ -1,0 +1,42 @@
+Step One – A Security Audit of  https://robertmccoyprojects.com/research/career-advisor by MANUS.
+Security Testing Plan: CMGF Career Advisor
+This document outlines a focused security testing strategy for the Career Path Feasibility Advisor subsection of robertmccoyprojects.com, tailored to meet the requirements of your application security assignment.
+By focusing on this specific, interactive component, you can fulfill the assignment's requirements for comprehensive feature testing, security auditing, and error handling without needing to audit the entire portfolio site.
+1. Feature Testing Checklist (Step 1 of Assignment)
+The Career Advisor is a deterministic constraint-binding tool. It relies on user inputs to generate pathways. Testing must ensure the UI handles all inputs gracefully.
+Feature / Component	Normal Input Test	"Weird" / Edge Case Input Test	Expected Result
+Military Occupation Dropdown	Select a standard MOS (e.g., 68W)	Attempt to type manually instead of selecting (if possible); submit without selecting.	Should update the "parameters bound" counter. Empty submission should trigger a validation error.
+Desired Civilian Career Dropdown	Select a standard career (e.g., Registered Nurse)	Submit without selecting.	Should update counter. Empty submission should trigger a validation error.
+Education Level Dropdown	Select Associate Degree	Submit without selecting.	Should update counter.
+Time Remaining Dropdown	Select 12-24 months	Submit without selecting.	Should update counter.
+Funding Availability Dropdown	Select GI Bill	Submit without selecting.	Should update counter.
+Evaluate Pathway Button	Click with all 5 parameters bound.	Click with 0 parameters bound; click rapidly multiple times (double-click).	Should trigger the pathway generation API. Rapid clicks should be debounced or rate-limited.
+Network Resilience	Fill out form, disconnect internet, click Evaluate.	N/A	Should display a clear, user-friendly "Network Error" message, not a raw system crash.
+Responsive Design	View on desktop monitor.	View on simulated mobile device (using browser dev tools).	Layout should stack vertically; dropdowns must remain usable on touch screens.
+2. Security Audit & Enhancements (Step 2 of Assignment)
+Based on an initial reconnaissance of the application's architecture, here are the primary security vectors to test and document for your assignment.
+A. API Endpoint Security
+The application communicates with several backend endpoints (e.g., /api/generate-pathway, /api/advisor-chat, /api/stats, /api/sm/requests).
+•Rate Limiting: The /api/generate-pathway endpoint correctly returns an HTTP 400 when spammed with rapid requests. This is a positive security feature to document. You should verify if this is true rate limiting (HTTP 429) or just a validation error, and document it accordingly.
+•Data Exposure (Insecure Direct Object Reference / Unauthenticated Access):
+•Finding: Endpoints like /api/stats, /api/visitors, and /api/sm/requests are accessible without authentication via standard GET requests.
+•Risk: The /api/sm/requests endpoint exposes what appears to be Personally Identifiable Information (PII), including names (e.g., "SGT Maria Rodriguez", "James Thompson"), ranks, and career goals.
+•Action Required: This is a critical vulnerability. These endpoints must be secured behind authentication or removed if they are not intended for public consumption. This is an excellent candidate for the "Most important security issue resolved" section of your reflection.
+•Input Validation & Injection:
+•Finding: The /api/advisor-chat endpoint processes JSON payloads. When tested with a basic Cross-Site Scripting (XSS) payload (<script>alert(1)</script>), the backend processed it and returned a response without sanitizing the input in the error message or stream.
+•Action Required: Ensure that all user inputs sent to the API are strictly validated on the server side. If the chat output is rendered in the DOM, it must be properly escaped to prevent XSS execution.
+B. Client-Side Security
+•Security Headers:
+•Finding: The server currently implements strict-transport-security (HSTS), which is excellent. However, it lacks other modern security headers.
+•Action Required: Implement a Content-Security-Policy (CSP) to restrict where scripts can be loaded from, mitigating XSS risks. Add X-Frame-Options: DENY or SAMEORIGIN to prevent clickjacking attacks. Add X-Content-Type-Options: nosniff.
+•Information Disclosure:
+•Finding: The server headers explicitly broadcast x-powered-by: Express.
+•Action Required: Remove the x-powered-by header. Broadcasting the specific backend technology stack provides unnecessary reconnaissance information to potential attackers.
+3. Documentation & Reporting Strategy (Step 3 of Assignment)
+When writing your final report, structure it to highlight the transition from discovery to remediation.
+1.The Critical Bug: Focus on the unauthenticated access to /api/sm/requests. Explain why exposing user names and career transition data is a severe privacy violation, especially for military personnel.
+2.The Fix: Describe how you would implement middleware in your Express backend to require a valid session token or API key before serving data from the /api/sm/requests and /api/isr/queue endpoints.
+3.Error Handling: Document how you tested the "Evaluate Pathway" button with missing inputs. Show the code snippet where you added frontend validation to ensure the API is only called when all required fields are present, preventing unnecessary server load and potential 500 errors.
+4.Responsible AI: Tie the security of the application back to the "CMGF Advisory Notice" on the page. Emphasize that a responsible AI system must not only provide accurate, non-predictive information but must also rigorously protect the data of the service members using it.
+Prepared for Robert McCoy's Application Security Assignment.
+

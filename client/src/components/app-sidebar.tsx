@@ -113,7 +113,7 @@ export function AppSidebar() {
               variant="outline"
               className="w-full justify-start gap-2 h-auto py-3 px-3 border-border"
               asChild
-              data-testid="sidebar-link-eo14110"
+              data-testid="sidebar-link-eo14179"
             >
               <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 text-muted-foreground" />

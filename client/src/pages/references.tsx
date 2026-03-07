@@ -331,7 +331,7 @@ export default function References() {
             </CardContent>
           </Card>
 
-          <Card className="high-tech-card border-border/50" data-testid="card-ref-eo14110">
+          <Card className="high-tech-card border-border/50" data-testid="card-ref-eo14179">
             <CardContent className="p-6">
               <div className="space-y-3">
                 <Badge className="bg-neutral-800 text-neutral-300 border-neutral-600 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
@@ -339,7 +339,7 @@ export default function References() {
                 </Badge>
                 <h3 className="text-lg font-bold text-foreground leading-tight">Executive Order 14179</h3>
                 <p className="text-sm text-muted-foreground">Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence — the compliance baseline for CMGF.</p>
-                <Button variant="outline" className="w-full mt-2" asChild data-testid="button-link-eo14110-ref">
+                <Button variant="outline" className="w-full mt-2" asChild data-testid="button-link-eo14179-ref">
                   <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                     <ExternalLink className="w-4 h-4 mr-2" />
                     View EO 14179

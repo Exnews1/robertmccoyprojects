@@ -462,7 +462,7 @@ export default function CMGFRoot() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-border/50" data-testid="card-canon-doc-eo14110">
+            <Card className="border-border/50" data-testid="card-canon-doc-eo14179">
               <CardContent className="p-5">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
@@ -471,7 +471,7 @@ export default function CMGFRoot() {
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-foreground mb-1">Executive Order 14179</h3>
                     <p className="text-sm text-muted-foreground mb-3">Safe, Secure, and Trustworthy AI — the compliance baseline for CMGF.</p>
-                    <Button variant="outline" size="sm" asChild data-testid="button-canon-link-eo14110">
+                    <Button variant="outline" size="sm" asChild data-testid="button-canon-link-eo14179">
                       <a href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4 mr-2" />
                         View EO 14179

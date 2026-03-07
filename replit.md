@@ -61,6 +61,8 @@ Navigation:
 - **ESO Pipeline Hub** (`/research/eso`): Gateway page for the end-to-end career transition pipeline. Visualizes the four pipeline stages (SM Request → Engine Analysis → ISR Queue → Audit Trail) with step-by-step cards and dual data flow explanation (individual advisory vs institutional intelligence). Dark navy/gold aesthetic. Component at `client/src/pages/eso-pipeline.tsx`.
 - **SM Request → ISR Pipeline**: Implements an end-to-end career transition pipeline demonstrating the CMGF's dual data flow. It covers service member request submission, ISR advisor queue management, engine analysis, advisor actions, and an immutable audit trail.
 - **API Rate Limiting**: All OpenAI-powered endpoints are protected by an in-memory rate limiter to manage costs and prevent abuse, including per-IP limits, global concurrency limits, and daily request caps.
+- **Security Headers**: Express `x-powered-by` disabled; response headers include `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`, and `Permissions-Policy` (camera/mic/geo denied). Applied globally in `server/index.ts`.
+- **Input Sanitization**: All user-input endpoints (inquiries, advisor-chat, SM requests, ISR actions) sanitize free-text fields via `sanitizeInput()` in `server/routes.ts` — strips HTML tags, `javascript:` URIs, inline event handlers, and truncates to 2000 chars.
 - **Dashboard Lazy Loading**: The Executive Dashboard uses `/api/library/summary` (SQL aggregation, ~1KB) for initial metrics/charts. The full 27MB library only loads when the user clicks the Research tab (`useQuery` with `enabled` flag). This reduces initial load from ~27MB/4.6s to ~1KB/0.1s.
 
 ### Compliance Frameworks Referenced
