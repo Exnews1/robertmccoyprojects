@@ -78,7 +78,7 @@ interface GroupedSources {
 }
 
 export default function FivePillars() {
-  const [expandedPillars, setExpandedPillars] = useState<Set<string>>(new Set(["pillar-1"]));
+  const [expandedPillars, setExpandedPillars] = useState<Set<string>>(new Set());
   const [search, setSearch] = useState("");
 
   function togglePillar(pillarId: string) {
