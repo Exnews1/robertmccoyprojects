@@ -45,6 +45,7 @@ import SignalFlowAnimation from "@/pages/signal-flow-animation";
 import AIArchitecture from "@/pages/ai-architecture";
 import ESOPipeline from "@/pages/eso-pipeline";
 import PrimaryDocuments from "@/pages/primary-documents";
+import KnowledgeSystems from "@/pages/knowledge-systems";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -201,6 +202,7 @@ function Router() {
       <Route path="/research/ai" component={AIArchitecture} />
       <Route path="/research/eso" component={ESOPipeline} />
       <Route path="/research/documents" component={PrimaryDocuments} />
+      <Route path="/research/knowledge-systems" component={KnowledgeSystems} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />
       <Route path="/research/contact" component={Contact} />
