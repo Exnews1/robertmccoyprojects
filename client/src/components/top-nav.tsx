@@ -37,19 +37,6 @@ export function TopNav() {
               About
             </button>
           </Link>
-          <Link href="/services">
-            <button
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
-                location === "/services"
-                  ? "text-amber-400"
-                  : "text-slate-400 hover:text-white"
-              }`}
-              data-testid="topnav-services"
-            >
-              <Briefcase className="w-3.5 h-3.5" />
-              Services
-            </button>
-          </Link>
           <Link href="/research">
             <button
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
