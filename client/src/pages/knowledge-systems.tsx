@@ -1,6 +1,7 @@
+import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin } from "lucide-react";
+import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft } from "lucide-react";
 
 const systems = [
   {
@@ -46,6 +47,14 @@ export default function KnowledgeSystems() {
     <div className="min-h-[70vh]">
       <section className="py-16 px-6" data-testid="section-knowledge-systems">
         <div className="max-w-5xl mx-auto space-y-8">
+          <div className="mb-4">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground gap-1.5" data-testid="button-back-home">
+                <ArrowLeft className="h-3.5 w-3.5" />
+                Home
+              </Button>
+            </Link>
+          </div>
           <div className="text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground font-serif" data-testid="heading-knowledge-systems">
               Organizational Knowledge Systems Case Studies
