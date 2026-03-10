@@ -1,0 +1,25 @@
+I want to simplify the homepage to focus on my research portfolio. This project uses React 18 with Wouter and Tailwind CSS.
+Step 1: Modify the Homepage Text
+In the main homepage component (likely client/src/pages/Home.tsx or a similar file that renders the content for the / route), make the following text changes:
+Change the main headline from "AI Governance for High-Stakes Environments" to "A Research & Project Portfolio."
+Change the subheading text to: "Applied research in AI governance, institutional systems architecture, and career mobility frameworks for high-stakes environments."
+Step 2: Modify the Homepage Buttons
+In the same homepage component, find the two main buttons and modify them as follows:
+Button 1: Change the text from "Explore Services" to "CMGF Demonstration". Change the link to point to /research/cmgf.
+Button 2: Change the text from "Schedule a Consultation" to "Other Research". Change the link to point to /research/research-portfolio.
+Step 3: Add a Third Homepage Button
+Add a third button next to the other two. It should have the same visual style.
+Button 3: Set the text to "Knowledge Systems". Set the link to point to /research/knowledge-systems.
+Step 4: Create the "Knowledge Systems" Page
+Create a new page component (e.g., client/src/pages/KnowledgeSystems.tsx) and add a route for it in the main router file (likely client/src/App.tsx) at the path /research/knowledge-systems.
+This new page should have:
+A main heading: "Organizational Knowledge Systems Case Studies"
+A subheading: "A portfolio of demonstration systems built on a repeatable, governed architecture for enterprise knowledge management."
+A grid of 6 cards, similar in style to the /research/research-portfolio page. Each card should link to one of the following systems:
+Construction Company Knowledge System (links to https://construction.robertmccoyprojects.com/ )
+Multi-Location FBO Knowledge System (links to https://regionalfbo.robertmccoyprojects.com/ )
+HVAC Services Knowledge System (links to https://hvac.robertmccoyprojects.com/ )
+Staffing Agency Knowledge System (links to https://prostaff.robertmccoyprojects.com/ )
+Non-Profit Services Knowledge System (links to https://valley.robertmccoyprojects.com/ )
+Single-Location FBO Knowledge System (links to https://forrestfbosmall.robertmccoyprojects.com/ )
+After making the changes, confirm which files were modified.
