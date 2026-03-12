@@ -314,87 +314,6 @@ export default function CMGFRoot() {
         </section>
 
         <section className="mb-10">
-          <Link href="/research/cmgf/dashboard">
-            <Card className="border-border/50 hover-elevate cursor-pointer" data-testid="card-executive-dashboard">
-              <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row md:items-center gap-6">
-                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <BarChart3 className="h-8 w-8 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 flex-wrap mb-2">
-                      <h3 className="text-xl font-bold text-foreground">Executive Dashboard</h3>
-                      <Badge variant="outline" className="text-xs">System Overview</Badge>
-                    </div>
-                    <p className="text-muted-foreground">
-                      Compliance metrics, research foundation statistics, activity tracking, and three-layer architecture summary across the CMGF system.
-                    </p>
-                  </div>
-                  <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0 hidden md:block" />
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        </section>
-
-        <section className="mb-10">
-          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Zap className="h-8 w-8 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="text-xl font-bold text-foreground">CMGF Platform Demo</h3>
-                    <Badge variant="default" className="text-xs">LIVE</Badge>
-                    <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
-                    <Badge variant="outline" className="text-xs">EO 14179</Badge>
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
-                  </p>
-                  <Button size="default" asChild data-testid="button-launch-cmgf-demo">
-                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Launch Demo
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="mb-10">
-          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-series">
-            <CardContent className="p-6">
-              <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Library className="h-8 w-8 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 flex-wrap mb-2">
-                    <h3 className="text-xl font-bold text-foreground">CMGF Series 2026</h3>
-                    <Badge variant="default" className="text-xs">PRIMARY</Badge>
-                    <Badge variant="outline" className="text-xs">6-Brief Architecture</Badge>
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    The authoritative six-brief architectural framework: CMGF-01 through CMGF-06, covering governance architecture, policy alignment, data flow, sandbox design, credential infrastructure, and authority landscape. Derived from the CMGF-00 Master Framework scholarly foundation.
-                  </p>
-                  <Button size="default" asChild data-testid="button-enter-series">
-                    <Link href="/research/cmgf/series">
-                      <ArrowRight className="h-4 w-4 mr-2" />
-                      Enter Series
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        <section className="mb-10">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Primary Documents</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {seriesPapers.map((doc) => (
@@ -522,7 +441,87 @@ export default function CMGFRoot() {
           </div>
         </section>
 
-        
+        <section className="mb-10">
+          <Link href="/research/cmgf/dashboard">
+            <Card className="border-border/50 hover-elevate cursor-pointer" data-testid="card-executive-dashboard">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row md:items-center gap-6">
+                  <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <BarChart3 className="h-8 w-8 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
+                      <h3 className="text-xl font-bold text-foreground">OLD - Executive Dashboard</h3>
+                      <Badge variant="outline" className="text-xs">System Overview</Badge>
+                    </div>
+                    <p className="text-muted-foreground">
+                      Compliance metrics, research foundation statistics, activity tracking, and three-layer architecture summary across the CMGF system.
+                    </p>
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0 hidden md:block" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </section>
+
+        <section className="mb-10">
+          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h3 className="text-xl font-bold text-foreground">OLD - CMGF Platform Demo</h3>
+                    <Badge variant="default" className="text-xs">LIVE</Badge>
+                    <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
+                    <Badge variant="outline" className="text-xs">EO 14179</Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    Multi-module platform for military-to-civilian career transitions. Explore the Service Member Hub, AI Services layer, and Advisor Toolkit—featuring AI-powered skill translation, career pathway matching, and comprehensive transition tracking across 6 military branches.
+                  </p>
+                  <Button size="default" asChild data-testid="button-launch-cmgf-demo">
+                    <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Launch Demo
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section className="mb-10">
+          <Card className="border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-series">
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Library className="h-8 w-8 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 flex-wrap mb-2">
+                    <h3 className="text-xl font-bold text-foreground">OLD - CMGF Series 2026</h3>
+                    <Badge variant="default" className="text-xs">PRIMARY</Badge>
+                    <Badge variant="outline" className="text-xs">6-Brief Architecture</Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    The authoritative six-brief architectural framework: CMGF-01 through CMGF-06, covering governance architecture, policy alignment, data flow, sandbox design, credential infrastructure, and authority landscape. Derived from the CMGF-00 Master Framework scholarly foundation.
+                  </p>
+                  <Button size="default" asChild data-testid="button-enter-series">
+                    <Link href="/research/cmgf/series">
+                      <ArrowRight className="h-4 w-4 mr-2" />
+                      Enter Series
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
