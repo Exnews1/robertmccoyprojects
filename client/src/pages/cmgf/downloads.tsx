@@ -159,7 +159,6 @@ export default function Downloads() {
   const { toast } = useToast();
   const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
   const trackPaperDownload = useTrackClick("paper_downloads");
-  const trackDemoLaunch = useTrackClick("demo_launches");
 
   const handleCopyCitation = (text: string, format: string) => {
     navigator.clipboard.writeText(text);
@@ -271,33 +270,6 @@ export default function Downloads() {
           </div>
         </section>
 
-        <Card className="mb-8 border-primary bg-gradient-to-br from-primary/15 via-primary/10 to-transparent" data-testid="card-cmgf-demo-downloads">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-                <Zap className="h-7 w-7 text-primary" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 flex-wrap mb-2">
-                  <h3 className="text-lg font-bold text-foreground">CMGF Platform Demo</h3>
-                  <Badge variant="default" className="text-xs">LIVE</Badge>
-                  <Badge variant="outline" className="text-xs">NIST AI RMF 1.0</Badge>
-                  <Badge variant="outline" className="text-xs">EO 14179</Badge>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Multi-module platform with Service Member Hub, AI Services, and Advisor Toolkit—featuring governance compliance and human-in-the-loop AI.
-                </p>
-                <Button size="default" asChild data-testid="button-launch-demo-downloads">
-                  <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" onClick={trackDemoLaunch}>
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Launch Demo
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         <section>
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-4">Supplemental Documents</h2>
           <div className="space-y-4">
@@ -356,12 +328,6 @@ export default function Downloads() {
             <Link href="/research/cmgf">
               <Button variant="outline" size="sm">CMGF Main</Button>
             </Link>
-            <Button variant="outline" size="sm" asChild>
-              <a href="https://cmgfdemo.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
-                Framework Walkthrough
-              </a>
-            </Button>
             <Link href="/research/cmgf/library">
               <Button variant="outline" size="sm">Research Library</Button>
             </Link>
