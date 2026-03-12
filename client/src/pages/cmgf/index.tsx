@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Download, BookOpen, Users, Cpu, Library, User, ArrowRight, ChevronRight, FileText, Presentation, MessageSquare, Quote, Printer, Copy, Check, ExternalLink, Zap, Search, Shield, Database, BarChart3, Rocket, FileCheck, Compass, PlayCircle } from "lucide-react";
 import { CMGFNav } from "@/components/cmgf-nav";
-import { ExplainButton } from "@/components/explain-button";
 import { useToast } from "@/hooks/use-toast";
 import { useTrackEvent, useTrackClick } from "@/App";
 
@@ -255,10 +254,7 @@ export default function CMGFRoot() {
         <section className="mb-10 print:break-inside-avoid">
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
             <CardHeader className="pb-2">
-              <div className="flex items-center justify-between gap-2">
-                <CardTitle className="text-sm font-mono uppercase tracking-wider text-primary">Executive Summary</CardTitle>
-                <ExplainButton topic="CMGF Executive Summary" contextText="What is the Career Mobility Governance Framework and what institutional gap does it address?" />
-              </div>
+              <CardTitle className="text-sm font-mono uppercase tracking-wider text-primary">Executive Summary</CardTitle>
             </CardHeader>
             <CardContent className="prose prose-sm dark:prose-invert max-w-none">
               <p className="text-foreground leading-relaxed">
