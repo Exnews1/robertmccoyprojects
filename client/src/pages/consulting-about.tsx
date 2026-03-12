@@ -40,7 +40,15 @@ export default function ConsultingAbout() {
 
       <section className="py-12 px-6 border-t border-border/40 bg-card/30" data-testid="section-credentials-detail">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-xl font-bold text-foreground font-serif">Experience & Credentials</h2>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <Medal className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">Experience & Credentials</h2>
+              <p className="text-sm text-muted-foreground">Career milestones and professional qualifications</p>
+            </div>
+          </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <Card className="border-border bg-card">
               <CardContent className="pt-6 flex items-start gap-4">

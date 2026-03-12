@@ -8,7 +8,7 @@ export function TopNav() {
   const isConsulting = !isResearch;
 
   return (
-    <div style={{ backgroundColor: '#0F172A', borderTop: '1px solid rgba(255,255,255,0.1)' }} data-testid="top-nav">
+    <div style={{ backgroundColor: '#0F172A', borderBottom: '1px solid #334155' }} data-testid="top-nav">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center gap-1 py-1.5 overflow-x-auto scrollbar-hide">
           <Link href="/">

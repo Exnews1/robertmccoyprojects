@@ -124,7 +124,7 @@ export function CMGFNav() {
   return (
     <nav
       className="sticky top-14 z-40 border-b py-2 mb-4 md:mb-6"
-      style={{ backgroundColor: "#1E293B", borderColor: "#334155" }}
+      style={{ backgroundColor: "#0F172A", borderColor: "#1E293B" }}
       data-testid="cmgf-nav"
     >
       <div className="max-w-6xl mx-auto px-3 md:px-6">

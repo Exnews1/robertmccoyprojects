@@ -87,9 +87,13 @@ export default function Home() {
       <section className="relative overflow-hidden rounded-xl bg-card border border-border p-4 md:p-8" data-testid="section-author-bio">
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
-            <Badge className="bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/30 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-              <Users className="w-3 h-3 mr-1" /> About the Author
-            </Badge>
+            <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <Users className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">About the Author</h2>
+              <p className="text-sm text-muted-foreground">Career background and credentials</p>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -166,9 +170,13 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-6">
-            <Badge className="bg-neutral-800 text-neutral-300 border-border no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-              <FileWarning className="w-3 h-3 mr-1" /> Executive Summary
-            </Badge>
+            <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <FileWarning className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">Executive Summary</h2>
+              <p className="text-sm text-muted-foreground">The institutional gap in military-to-civilian transition</p>
+            </div>
           </div>
           
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-primary tracking-tight">
@@ -294,12 +302,13 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-3 mb-4">
-            <Badge className="bg-primary/20 text-primary border-primary/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-              <FileText className="w-3 h-3 mr-1" /> 2026 CCME Learner Track 1
-            </Badge>
-            <Badge className="bg-slate-500/20 text-slate-600 dark:text-slate-600 dark:text-slate-400/80 border-slate-500/40 no-default-hover-elevate font-mono uppercase tracking-widest text-[10px]">
-              <Cpu className="w-3 h-3 mr-1" /> Compliant by Design
-            </Badge>
+            <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <FileText className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">2026 CCME Learner Track 1</h2>
+              <p className="text-sm text-muted-foreground">Compliant by design — EO 14179 · NIST AI RMF 1.0</p>
+            </div>
           </div>
           <h2 className="text-3xl md:text-4xl font-black mb-4 glow-text tracking-tight leading-tight">
             A Governed, Human-in-the-Loop AI Framework for Military Career Mobility
