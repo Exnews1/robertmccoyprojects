@@ -42,7 +42,7 @@ export default function Home() {
           
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-3">
             <a
-              href="/attached_assets/CMGF-00_Framework_Research_1772413079575.docx"
+              href="/attached_assets/CMGF-00_Framework_Research_1773312432772.docx"
               download
               className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 bg-slate-600 hover:bg-slate-500 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
               data-testid="hero-download-paper"

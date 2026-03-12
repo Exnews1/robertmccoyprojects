@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database, Quote, Copy, Check, Rocket } from "lucide-react";
+import { Download, FileText, BookOpen, ChevronRight, ExternalLink, Zap, Shield, Database, Quote, Copy, Check, Rocket, Layers, Link2, Compass } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CMGFNav } from "@/components/cmgf-nav";
 import { useTrackClick } from "@/App";
@@ -17,13 +17,13 @@ const seriesPapers = [
     description: "A governance-first architecture for military transition advising. Strategic overview of the fragmentation challenge and constrained AI as a binding layer.",
     type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/CMGF-01_White_Paper_1772413079574.docx",
-    version: "v2",
+    href: "/attached_assets/CMGF-01_White_Paper_1773312432772.docx",
+    version: "v3",
     date: "March 2026",
     citations: {
-      apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
-      chicago: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
-      mla: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+      apa: `McCoy, R. E. (2026). Executive white paper: A governance-first architecture for military transition advising (CMGF-01). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Executive White Paper: A Governance-First Architecture for Military Transition Advising." CMGF-01, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
     }
   },
   {
@@ -33,13 +33,13 @@ const seriesPapers = [
     description: "Authority structures, non-use guardrails, adoption controls, and alignment with federal AI risk management guidance.",
     type: "DOCX",
     icon: Shield,
-    href: "/attached_assets/CMGF-02_Policy_Governance_1772413079574.docx",
-    version: "v2",
+    href: "/attached_assets/CMGF-02_Policy_Governance_1773312432773.docx",
+    version: "v3",
     date: "March 2026",
     citations: {
-      apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
-      chicago: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
-      mla: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+      apa: `McCoy, R. E. (2026). Policy & governance architecture brief: Architectural governance proof (CMGF-02). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Policy & Governance Architecture Brief: Architectural Governance Proof." CMGF-02, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
     }
   },
   {
@@ -49,13 +49,61 @@ const seriesPapers = [
     description: "Deterministic constraint binding, authority tagging, signal provenance controls, audit logging, and non-predictive system boundaries.",
     type: "DOCX",
     icon: Database,
-    href: "/attached_assets/CMGF-03_Data_Flow_Signal_1772413079574.docx",
-    version: "v2",
+    href: "/attached_assets/CMGF-03_Data_Flow_Signal_1773312432773.docx",
+    version: "v3",
     date: "March 2026",
     citations: {
-      apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/cmgf/series`,
-      chicago: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026. February 2026. https://robertmccoyprojects.com/cmgf/series.`,
-      mla: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026, Feb. 2026, robertmccoyprojects.com/cmgf/series.`
+      apa: `McCoy, R. E. (2026). Data flow & signal provenance brief: Technical assurance documentation (CMGF-03). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Data Flow & Signal Provenance Brief: Technical Assurance Documentation." CMGF-03, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
+    }
+  },
+  {
+    id: "cmgf-04",
+    number: "CMGF-04",
+    title: "Sandbox Architecture & ISR Signal Boundary",
+    description: "Two-mode architecture, signal boundary enforcement, and ISR implications. Establishes that sandbox exploration is architecturally non-reportable and that institutional signal is generated only by SM-initiated transactional actions.",
+    type: "DOCX",
+    icon: Layers,
+    href: "/attached_assets/CMGF-04_Sandbox_Architecture_1773317232992.docx",
+    version: "v1",
+    date: "March 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Sandbox architecture & ISR signal boundary (CMGF-04). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Sandbox Architecture & ISR Signal Boundary." CMGF-04, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Sandbox Architecture & ISR Signal Boundary." CMGF-04, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
+    }
+  },
+  {
+    id: "cmgf-05",
+    number: "CMGF-05",
+    title: "Credential Infrastructure, Session Continuity, and Upstream Integration",
+    description: "Documents three deferred architecture components — Sovereign Credential Ledger, Credit Clearing House Partnership, and Session Continuity Architecture — with integration points and evaluation criteria for each.",
+    type: "DOCX",
+    icon: Link2,
+    href: "/attached_assets/CMGF-05_Credential_Infrastructure_1773317232992.docx",
+    version: "v1",
+    date: "March 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Credential infrastructure, session continuity, and upstream integration (CMGF-05). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Credential Infrastructure, Session Continuity, and Upstream Integration." CMGF-05, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Credential Infrastructure, Session Continuity, and Upstream Integration." CMGF-05, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
+    }
+  },
+  {
+    id: "cmgf-06",
+    number: "CMGF-06",
+    title: "Potential Authority Landscape",
+    description: "Maps institutional authorities that could benefit from CMGF's binding-layer architecture. For each domain, identifies the fragmentation problem, signal types, governance constraints, and institutional learning outputs.",
+    type: "DOCX",
+    icon: Compass,
+    href: "/attached_assets/CMGF-06_Authority_Landscape_1773317232992.docx",
+    version: "v1",
+    date: "March 2026",
+    citations: {
+      apa: `McCoy, R. E. (2026). Potential authority landscape (CMGF-06). Career Mobility Governance Framework Series 2026. Retrieved from https://robertmccoyprojects.com/research/cmgf/series`,
+      chicago: `McCoy, Robert E. "Potential Authority Landscape." CMGF-06, Career Mobility Governance Framework Series 2026. March 2026. https://robertmccoyprojects.com/research/cmgf/series.`,
+      mla: `McCoy, Robert E. "Potential Authority Landscape." CMGF-06, Career Mobility Governance Framework Series 2026, Mar. 2026, robertmccoyprojects.com/research/cmgf/series.`
     }
   }
 ];
@@ -64,11 +112,11 @@ const supplementalDocuments = [
   {
     id: "cmgf-00",
     title: "CMGF-00 Master Framework — Scholarly Foundation",
-    description: "The original consolidated research paper providing the scholarly foundation for the CMGF Series 2026 three-part architecture.",
+    description: "The original consolidated research paper providing the scholarly foundation for the CMGF Series 2026 six-brief architecture.",
     type: "DOCX",
     icon: FileText,
-    href: "/attached_assets/CMGF-00_Framework_Research_1772413079575.docx",
-    version: "v5",
+    href: "/attached_assets/CMGF-00_Framework_Research_1773312432772.docx",
+    version: "v6",
     date: "March 2026"
   },
   {

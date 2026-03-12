@@ -1,4 +1,4 @@
-import { Home, FileText, BarChart2, Shield, BookOpen, Download, ExternalLink, Database } from "lucide-react";
+import { Home, FileText, BarChart2, Shield, BookOpen, Download, ExternalLink, Database, Layers, Link2, Compass } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -59,7 +59,7 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-01"
             >
-              <a href="/attached_assets/CMGF-01_White_Paper_1772413079574.docx" download>
+              <a href="/attached_assets/CMGF-01_White_Paper_1773312432772.docx" download>
                 <FileText className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-01 Executive White Paper</div>
@@ -73,7 +73,7 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-02"
             >
-              <a href="/attached_assets/CMGF-02_Policy_Governance_1772413079574.docx" download>
+              <a href="/attached_assets/CMGF-02_Policy_Governance_1773312432773.docx" download>
                 <Shield className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-02 Policy & Governance</div>
@@ -87,10 +87,52 @@ export function AppSidebar() {
               asChild
               data-testid="sidebar-download-cmgf-03"
             >
-              <a href="/attached_assets/CMGF-03_Data_Flow_Signal_1772413079574.docx" download>
+              <a href="/attached_assets/CMGF-03_Data_Flow_Signal_1773312432773.docx" download>
                 <Database className="w-4 h-4 text-primary" />
                 <div className="text-left">
                   <div className="text-xs font-semibold">CMGF-03 Data Flow & Provenance</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
+              asChild
+              data-testid="sidebar-download-cmgf-04"
+            >
+              <a href="/attached_assets/CMGF-04_Sandbox_Architecture_1773317232992.docx" download>
+                <Layers className="w-4 h-4 text-primary" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">CMGF-04 Sandbox Architecture</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
+              asChild
+              data-testid="sidebar-download-cmgf-05"
+            >
+              <a href="/attached_assets/CMGF-05_Credential_Infrastructure_1773317232992.docx" download>
+                <Link2 className="w-4 h-4 text-primary" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">CMGF-05 Credential Infrastructure</div>
+                  <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
+                </div>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-2 h-auto py-3 px-3 border-primary/30 bg-primary/5"
+              asChild
+              data-testid="sidebar-download-cmgf-06"
+            >
+              <a href="/attached_assets/CMGF-06_Authority_Landscape_1773317232992.docx" download>
+                <Compass className="w-4 h-4 text-primary" />
+                <div className="text-left">
+                  <div className="text-xs font-semibold">CMGF-06 Authority Landscape</div>
                   <div className="text-[10px] text-muted-foreground">McCoy (2026) - DOCX</div>
                 </div>
               </a>
