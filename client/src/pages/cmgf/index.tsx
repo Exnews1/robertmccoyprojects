@@ -246,10 +246,9 @@ export default function CMGFRoot() {
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <div className="grid gap-3 md:grid-cols-4">
+              <div className="grid gap-3 md:grid-cols-3">
                 {[
-                  { href: "/research/ai", title: "AI Architecture", desc: "Governing principles and interactive tool index", icon: Cpu, tag: "Gateway" },
-                  { href: "/research/eso", title: "ESO Pipeline", desc: "End-to-end career transition pipeline stages", icon: FileCheck, tag: "Pipeline" },
+                  { href: "/research/multi-channel-demo", title: "Multi-Channel System Demo", desc: "Sandbox boundary, channel integration, and ISR signal aggregation", icon: Cpu, tag: "System" },
                   { href: "/research/career-advisor", title: "Career Advisor", desc: "Constraint-binding pathway feasibility engine", icon: Compass, tag: "Interactive" },
                   { href: "/research/signal-flow", title: "Signal Flow", desc: "90-second cinematic signal architecture animation with fireworks finale", icon: PlayCircle, tag: "Presentation" },
                 ].map((tool) => (
