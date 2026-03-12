@@ -704,7 +704,7 @@ export default function CareerAdvisor() {
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-4 mb-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-5">
                     <div>
                       <div className="text-[10px] font-mono tracking-wider uppercase mb-1" style={{ color: textDim }}>Engine Version</div>
                       <div className="text-sm font-mono" style={{ color: '#4ecdc4' }} data-testid="text-engine-version">CMGF v2.10</div>

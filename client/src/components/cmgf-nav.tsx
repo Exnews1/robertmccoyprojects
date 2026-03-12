@@ -128,7 +128,7 @@ export function CMGFNav() {
       data-testid="cmgf-nav"
     >
       <div className="max-w-6xl mx-auto px-3 md:px-6">
-        <div className="flex items-center gap-1 md:gap-2">
+        <div className="flex items-center gap-1 md:gap-2 overflow-x-auto scrollbar-hide">
           <NavDropdown label="Framework" items={frameworkItems} currentPath={location} />
 
           <div className="w-px h-5 bg-slate-600 flex-shrink-0" />
@@ -145,7 +145,7 @@ export function CMGFNav() {
             <Button
               variant="ghost"
               size="sm"
-              className={`gap-1.5 text-xs font-semibold border ${
+              className={`gap-1.5 text-xs font-semibold border flex-shrink-0 ${
                 isSignalFlowActive
                   ? "text-amber-400 border-amber-500/60 bg-amber-500/10"
                   : "text-amber-400 border-amber-500/40 hover:border-amber-500/70 hover:bg-amber-500/10"
@@ -157,7 +157,7 @@ export function CMGFNav() {
             </Button>
           </Link>
 
-          <div className="ml-auto flex-shrink-0">
+          <div className="ml-auto flex-shrink-0 hidden sm:block">
             <Badge
               variant="outline"
               className="text-[10px] border-amber-500/40 text-amber-400/80"

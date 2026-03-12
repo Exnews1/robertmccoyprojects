@@ -324,7 +324,8 @@ export default function MultiChannelDemo() {
       )}
 
       {/* ── MAIN LAYOUT ── */}
-      <div className="mcd-layout" style={{ display: "flex", minHeight: "calc(100vh - 200px)" }}>
+      <div style={{ overflowX: "auto" }}>
+      <div className="mcd-layout" style={{ display: "flex", minHeight: "calc(100vh - 200px)", minWidth: 700 }}>
 
         {/* LEFT — channels */}
         <div className="mcd-left" style={{ flex: "0 0 240px", padding: "12px 14px", overflowY: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
@@ -569,6 +570,7 @@ export default function MultiChannelDemo() {
             <div style={{ fontSize: 9, color: "var(--mcd-mid)", lineHeight: 1.4 }}>Exploration activity is architecturally non-reportable. ISR totals reflect Action Mode transactions only. The SM controls the boundary.</div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

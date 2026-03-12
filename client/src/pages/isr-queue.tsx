@@ -355,7 +355,7 @@ function CaseDetail({
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3" data-testid="section-sm-details">
-            <div className="grid grid-cols-2 gap-3 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
                 <span className="text-muted-foreground text-xs">Name</span>
                 <p className="font-medium" data-testid="text-sm-name">{caseItem.smRank} {caseItem.smName}</p>
@@ -707,7 +707,7 @@ export default function IsrQueue() {
     return (
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-4">
         <Skeleton className="h-8 w-64" />
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Skeleton className="h-20" />
           <Skeleton className="h-20" />
           <Skeleton className="h-20" />

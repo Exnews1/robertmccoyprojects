@@ -243,7 +243,7 @@ export default function Dashboard() {
           <div className="space-y-4">
             <div className="h-8 w-64 bg-muted animate-pulse rounded-md" />
             <div className="h-4 w-96 bg-muted animate-pulse rounded-md" />
-            <div className="grid grid-cols-4 gap-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
               {[1,2,3,4].map(i => <div key={i} className="h-24 bg-muted animate-pulse rounded-md" />)}
             </div>
           </div>

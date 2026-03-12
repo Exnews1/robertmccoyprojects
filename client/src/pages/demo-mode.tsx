@@ -259,7 +259,7 @@ function GovernancePanel({ metadata }: { metadata: ScenarioResult["governanceMet
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2" data-testid="governance-panel">
-        <div className="grid grid-cols-2 gap-2 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
           <div>
             <span className="text-muted-foreground">Engine Version</span>
             <p className="font-mono text-sky-300/80">{metadata.engineVersion}</p>
