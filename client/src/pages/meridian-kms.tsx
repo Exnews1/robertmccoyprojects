@@ -678,7 +678,7 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
           <table className="w-full text-xs">
             <thead>
               <tr className="bg-slate-800/80 border-b border-slate-700 text-slate-400">
-                <th className="text-left px-3 py-2.5 font-semibold cursor-pointer hover:text-slate-200 whitespace-nowrap" onClick={() => handleSort("invoiceDate")}>
+                <th className="text-left px-3 py-2.5 font-semibold whitespace-nowrap">
                   {isAR ? "Invoice #" : "Voucher #"}
                 </th>
                 <th className="text-left px-3 py-2.5 font-semibold cursor-pointer hover:text-slate-200 whitespace-nowrap" onClick={() => handleSort("counterparty")}>
@@ -699,7 +699,6 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
                 </th>
                 <th className="text-left px-3 py-2.5 font-semibold whitespace-nowrap">{isAR ? "Deposit Ref" : "Payment Ref"}</th>
                 {!isAR && <th className="text-left px-3 py-2.5 font-semibold">Method</th>}
-                <th className="px-3 py-2.5 w-12"></th>
               </tr>
             </thead>
             <tbody>
@@ -713,7 +712,17 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
                     idx % 2 === 0 ? "bg-slate-900/20 hover:bg-slate-800/40" : "hover:bg-slate-800/40"
                   }`}
                 >
-                  <td className="px-3 py-2 font-mono text-amber-400/80 whitespace-nowrap">{rec.invoiceNumber}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">
+                    <button
+                      onClick={e => { e.stopPropagation(); setViewingRecord(rec); }}
+                      className="flex items-center gap-1.5 group"
+                      title="Open document"
+                      data-testid={`button-open-fin-${rec.id}`}
+                    >
+                      <Eye className="h-3.5 w-3.5 text-amber-600/60 group-hover:text-amber-400 transition-colors shrink-0" />
+                      <span className="font-mono text-amber-400/80 group-hover:text-amber-300 transition-colors underline-offset-2 group-hover:underline">{rec.invoiceNumber}</span>
+                    </button>
+                  </td>
                   <td className="px-3 py-2 text-slate-300 max-w-[180px] truncate">{rec.counterparty}</td>
                   <td className="px-3 py-2 text-slate-400 max-w-[200px] truncate">{rec.description}</td>
                   <td className="px-3 py-2 text-right font-mono font-semibold text-slate-200 whitespace-nowrap">{fmtMoney(rec.amount)}</td>
@@ -722,16 +731,6 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
                   <td className="px-3 py-2 whitespace-nowrap"><StatusBadge status={rec.status} /></td>
                   <td className="px-3 py-2 font-mono text-slate-500 whitespace-nowrap">{rec.paymentReference || "—"}</td>
                   {!isAR && <td className="px-3 py-2"><PayMethodBadge method={rec.paymentMethod} /></td>}
-                  <td className="px-3 py-2">
-                    <button
-                      onClick={e => { e.stopPropagation(); setViewingRecord(rec); }}
-                      className="flex items-center gap-1 text-amber-500/70 hover:text-amber-400 transition-colors"
-                      title="Open document"
-                      data-testid={`button-open-fin-${rec.id}`}
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
