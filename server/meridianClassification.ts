@@ -1,98 +1,25 @@
 /**
  * Meridian Industrial Group – Document Classification Engine
- * Taxonomy: MIG-REF-KM-Taxonomy-2025-001 v2.0
- * Naming convention: [ORG]-[TYPE]-[SUBJECT]-[YYYY]-[SEQ]
- * Types: POL SOP TRN RPT MEM SPE FRM REF | Other → OTH
- * Subjects: HR SAF FIN IT LEG OPS QA PRO KM ENG FAC GEN
+ * Taxonomy: MIG-REF-KM-Taxonomy-2025-001 v2.0 + MIG-SOP-KT-2025-007
+ * Types: MEM FRM REF POL SOP RPT SPE CON TRN | Other → OTH
+ * Subjects: KM SAF HR FIN IT LEG QA PRO ENG FAC OPS GEN
  *
- * Rules-based classifier. In production, text extraction + LLM would replace
- * the keyword heuristics below.
+ * Rules-based classifier. Production deployments call a fine-tuned LLM via API.
  */
 
 export interface ClassificationResult {
-  docType: string;     // full label (e.g. "Policy")
-  typeCode: string;    // three-letter code (e.g. "POL")
-  subject: string;     // full label (e.g. "Information Technology")
-  subjectCode: string; // short code (e.g. "IT")
-  department: string;  // responsible department
+  docType: string;      // full label (e.g. "Policy")
+  typeCode: string;     // three-letter code (e.g. "POL")
+  subject: string;      // full label (e.g. "Information Technology")
+  subjectCode: string;  // short code (e.g. "IT")
+  department: string;   // responsible department
   effectiveDate: string;
   responsibleParty: string;
   confidence: number;
   reasoning: string;
 }
 
-// ── Type detection ────────────────────────────────────────────────────────────
-
-interface TypeDef { code: string; label: string; }
-
-function detectType(name: string): { type: TypeDef; confidence: number; reasoning: string } {
-  const n = name.toLowerCase();
-
-  if (n.includes("policy") || n.includes("pol-") || n.includes("acceptable_use") || n.includes("data_governance")) {
-    return {
-      type: { code: "POL", label: "Policy" },
-      confidence: 0.92,
-      reasoning: "Filename contains policy designator or governance-tier indicator consistent with organizational policy documentation. Issued at VP level or above per taxonomy.",
-    };
-  }
-  if (n.includes("sop") || n.includes("standard_operating") || n.includes("procedure") || n.includes("process")) {
-    return {
-      type: { code: "SOP", label: "SOP" },
-      confidence: 0.91,
-      reasoning: "Filename contains SOP designator or procedure indicator consistent with step-by-step operational instruction format.",
-    };
-  }
-  if (n.includes("training") || n.includes("trn-") || n.includes("awareness") || n.includes("module") || n.includes("onboarding") || n.includes("curriculum")) {
-    return {
-      type: { code: "TRN", label: "Training" },
-      confidence: 0.90,
-      reasoning: "Filename indicates instructional or training content consistent with Learning and Development materials.",
-    };
-  }
-  if (n.includes("report") || n.includes("rpt-") || n.includes("audit") || n.includes("assessment") || n.includes("analysis") || n.includes("summary")) {
-    return {
-      type: { code: "RPT", label: "Report" },
-      confidence: 0.88,
-      reasoning: "Filename contains report or audit designator consistent with analytical output or findings documentation.",
-    };
-  }
-  if (n.includes("memo") || n.includes("mem-") || n.includes("memorandum") || n.includes("notice") || n.includes("bulletin") || n.includes("directive")) {
-    return {
-      type: { code: "MEM", label: "Memo" },
-      confidence: 0.87,
-      reasoning: "Filename indicates internal communication or leadership directive consistent with memorandum format.",
-    };
-  }
-  if (n.includes("spec") || n.includes("spe-") || n.includes("specification") || n.includes("requirement") || n.includes("architecture") || n.includes("standard") || n.includes("integration")) {
-    return {
-      type: { code: "SPE", label: "Specification" },
-      confidence: 0.89,
-      reasoning: "Filename contains specification or technical requirements indicator consistent with engineering or system documentation.",
-    };
-  }
-  if (n.includes("form") || n.includes("frm-") || n.includes("request") || n.includes("checklist") || n.includes("template") || n.includes("exception") || n.includes("application")) {
-    return {
-      type: { code: "FRM", label: "Form" },
-      confidence: 0.91,
-      reasoning: "Filename contains form or request indicator consistent with structured data-collection or workflow-initiation template.",
-    };
-  }
-  if (n.includes("glossary") || n.includes("directory") || n.includes("taxonomy") || n.includes("reference") || n.includes("ref-") || n.includes("list") || n.includes("catalog") || n.includes("index") || n.includes("guide") || n.includes("lookup") || n.includes("vendor") || n.includes("acronym")) {
-    return {
-      type: { code: "REF", label: "Reference" },
-      confidence: 0.90,
-      reasoning: "Filename indicates lookup or reference material consistent with glossary, directory, or taxonomy documentation.",
-    };
-  }
-
-  return {
-    type: { code: "OTH", label: "Other" },
-    confidence: 0.65,
-    reasoning: "Document does not match established Meridian classification patterns with high confidence. Manual reviewer assignment recommended.",
-  };
-}
-
-// ── Subject / Department detection ────────────────────────────────────────────
+// ── Subject registry ──────────────────────────────────────────────────────────
 
 interface SubjectDef {
   code: string;
@@ -101,77 +28,159 @@ interface SubjectDef {
   responsibleParty: string;
 }
 
-const SUBJECTS: SubjectDef[] = [
-  { code: "SAF", label: "Safety",              department: "Health and Safety Division",         responsibleParty: "Safety Director" },
-  { code: "HR",  label: "Human Resources",     department: "Human Resources Division",           responsibleParty: "VP of Human Resources" },
-  { code: "FIN", label: "Finance",             department: "Finance Division",                   responsibleParty: "CFO" },
-  { code: "IT",  label: "Information Technology", department: "Information Technology Division", responsibleParty: "Chief Information Officer" },
-  { code: "LEG", label: "Legal & Compliance",  department: "Legal and Compliance Division",      responsibleParty: "General Counsel" },
-  { code: "OPS", label: "Operations",          department: "Operations Division",                responsibleParty: "VP of Operations" },
-  { code: "QA",  label: "Quality Assurance",   department: "Operations Division",                responsibleParty: "Director of Quality Assurance" },
-  { code: "PRO", label: "Procurement",         department: "Operations Division",                responsibleParty: "Director of Supply Chain" },
-  { code: "KM",  label: "Knowledge Management",department: "Knowledge Management Office",        responsibleParty: "Director of Information Architecture" },
-  { code: "ENG", label: "Engineering",         department: "Research and Development",           responsibleParty: "VP of Engineering" },
-  { code: "FAC", label: "Facilities",          department: "Operations Division",                responsibleParty: "VP of Operations" },
-  { code: "GEN", label: "General",             department: "Knowledge Management Office",        responsibleParty: "Director of Information Architecture" },
+const SUBJECT_DEFS: SubjectDef[] = [
+  { code: "KM",  label: "Knowledge Management",    department: "Knowledge Management Office",        responsibleParty: "Director of Information Architecture" },
+  { code: "SAF", label: "Safety",                  department: "Health and Safety Division",         responsibleParty: "Safety Director" },
+  { code: "HR",  label: "Human Resources",         department: "Human Resources Division",           responsibleParty: "VP of Human Resources" },
+  { code: "FIN", label: "Finance",                 department: "Finance Division",                   responsibleParty: "CFO" },
+  { code: "IT",  label: "Information Technology",  department: "Information Technology Division",    responsibleParty: "Chief Information Officer" },
+  { code: "LEG", label: "Legal & Compliance",      department: "Legal and Compliance Division",      responsibleParty: "General Counsel" },
+  { code: "QA",  label: "Quality Assurance",       department: "Operations Division",                responsibleParty: "Director of Quality Assurance" },
+  { code: "PRO", label: "Procurement",             department: "Operations Division",                responsibleParty: "Director of Supply Chain" },
+  { code: "ENG", label: "Engineering",             department: "Research and Development",           responsibleParty: "VP of Engineering" },
+  { code: "FAC", label: "Facilities",              department: "Operations Division",                responsibleParty: "VP of Operations" },
+  { code: "OPS", label: "Operations",              department: "Operations Division",                responsibleParty: "VP of Operations" },
+  { code: "GEN", label: "General",                 department: "Knowledge Management Office",        responsibleParty: "Director of Information Architecture" },
 ];
 
-function detectSubject(name: string, typeCode: string): { subject: SubjectDef; boost: number } {
-  const n = name.toLowerCase();
+function sub(code: string): SubjectDef { return SUBJECT_DEFS.find(s => s.code === code)!; }
 
-  if (n.includes("safety") || n.includes("osha") || n.includes("ppe") || n.includes("jsa") ||
-      n.includes("hazard") || n.includes("fire") || n.includes("confined") || n.includes("lockout") ||
-      n.includes("loto") || n.includes("incident") || n.includes("emergency") || n.includes("erp") ||
-      n.includes("grinding") || n.includes("forklift_op") || n.includes("chemical"))
-    return { subject: SUBJECTS.find(s => s.code === "SAF")!, boost: 0.04 };
+// ── Helper: exact word-boundary-safe substring match ──────────────────────────
+// Avoids "it" matching inside "quality", "facility", "utilization", etc.
+function has(n: string, ...tokens: string[]): boolean {
+  return tokens.some(t => {
+    if (t.length <= 2) {
+      // Short tokens: require word boundaries (surrounded by _ - or start/end)
+      return new RegExp(`(^|[_\\-])${t}([_\\-]|$)`).test(n);
+    }
+    return n.includes(t);
+  });
+}
 
-  if (n.includes("hr") || n.includes("human_resource") || n.includes("employee") || n.includes("onboard") ||
-      n.includes("performance") || n.includes("disciplin") || n.includes("travel") || n.includes("talent") ||
-      n.includes("handbook") || n.includes("directory") || (n.includes("new_hire") && typeCode === "FRM"))
-    return { subject: SUBJECTS.find(s => s.code === "HR")!, boost: 0.03 };
+// ── Type detection (priority order matters — most specific first) ─────────────
 
-  if (n.includes("finance") || n.includes("budget") || n.includes("expense") || n.includes("capital") ||
-      n.includes("reimburs") || n.includes("accounting") || n.includes("fiscal") || n.includes("invoice") ||
-      n.includes("payable") || n.includes("fin-"))
-    return { subject: SUBJECTS.find(s => s.code === "FIN")!, boost: 0.03 };
+interface TypeDef { code: string; label: string; confidence: number; reasoning: string; }
 
-  if (n.includes("it") || n.includes("password") || n.includes("vpn") || n.includes("remote_access") ||
-      n.includes("backup") || n.includes("cyber") || n.includes("network") || n.includes("data_backup") ||
-      n.includes("api") || n.includes("acceptable_use") || n.includes("cloud") || n.includes("security_awareness") ||
-      n.includes("infosec") || n.includes("authentication"))
-    return { subject: SUBJECTS.find(s => s.code === "IT")!, boost: 0.03 };
+function detectType(n: string): TypeDef {
+  // 1. MEM — explicit "memo" in name takes priority over training/report
+  if (has(n, "memo", "memorandum"))
+    return { code: "MEM", label: "Memo", confidence: 0.93,
+      reasoning: "Filename contains memorandum designator consistent with internal communication or leadership directive." };
 
-  if (n.includes("legal") || n.includes("nda") || n.includes("agreement") || n.includes("contract") ||
-      n.includes("compliance") || n.includes("gdpr") || n.includes("regulatory"))
-    return { subject: SUBJECTS.find(s => s.code === "LEG")!, boost: 0.03 };
+  // 2. FRM — explicit "form" keyword before training/report
+  if (has(n, "form", "frm-", "checklist", "request_form", "exception_form", "application_form"))
+    return { code: "FRM", label: "Form", confidence: 0.92,
+      reasoning: "Filename contains form or structured data-collection template designator." };
 
-  if (n.includes("quality") || n.includes("inspection") || n.includes("weld") || n.includes("dimensional") ||
-      n.includes("ncr") || n.includes("nonconform") || n.includes("complaint") || n.includes("spc"))
-    return { subject: SUBJECTS.find(s => s.code === "QA")!, boost: 0.03 };
+  // 3. SOP — explicit "sop" keyword takes priority (e.g. Knowledge_Taxonomy_SOP before REF)
+  if (has(n, "sop", "standard_operating", "procedure"))
+    return { code: "SOP", label: "SOP", confidence: 0.92,
+      reasoning: "Filename contains SOP designator consistent with step-by-step operational procedure format." };
 
-  if (n.includes("vendor") || n.includes("supplier") || n.includes("procurement") || n.includes("purchase") ||
-      n.includes("supply_chain") || n.includes("pro-"))
-    return { subject: SUBJECTS.find(s => s.code === "PRO")!, boost: 0.03 };
+  // 4. POL — governance policies
+  if (has(n, "policy", "pol-", "acceptable_use", "data_governance", "records_retention"))
+    return { code: "POL", label: "Policy", confidence: 0.92,
+      reasoning: "Filename contains policy designator consistent with governance-tier documentation issued at VP level or above." };
 
-  if (n.includes("knowledge") || n.includes("taxonomy") || n.includes("glossary") || n.includes("km") ||
-      n.includes("dms") || n.includes("document_management") || n.includes("repository") ||
-      n.includes("classification") || n.includes("governance") || n.includes("data_gov") ||
-      n.includes("information_arch") || n.includes("acronym"))
-    return { subject: SUBJECTS.find(s => s.code === "KM")!, boost: 0.03 };
+  // 5. REF — lookup / reference resources (after SOP/POL so "taxonomy" doesn't shadow SOP)
+  if (has(n, "glossary", "directory", "taxonomy", "reference", "ref-", "vendor_list", "acronym", "catalog", "index", "lookup", "approved_vendor"))
+    return { code: "REF", label: "Reference", confidence: 0.91,
+      reasoning: "Filename indicates lookup or reference material consistent with glossary, directory, or taxonomy documentation." };
 
-  if (n.includes("engineer") || n.includes("r&d") || n.includes("specification") || n.includes("technical") ||
-      n.includes("architecture") || n.includes("integration") || n.includes("api"))
-    return { subject: SUBJECTS.find(s => s.code === "ENG")!, boost: 0.02 };
+  // 6. RPT — analytical reports (check before SPE to avoid "spec" in "specification")
+  if (has(n, "report", "rpt-", "audit_report", "uptime_report", "utilization_report", "summary", "assessment_result"))
+    return { code: "RPT", label: "Report", confidence: 0.89,
+      reasoning: "Filename contains report or audit designator consistent with analytical output or findings documentation." };
 
-  if (n.includes("facil") || n.includes("maintenance") || n.includes("compressor") || n.includes("hydraulic") ||
-      n.includes("hvac") || n.includes("building"))
-    return { subject: SUBJECTS.find(s => s.code === "FAC")!, boost: 0.02 };
+  // 7. SPE — technical specifications
+  if (has(n, "specification", "spe-", "requirement", "infrastructure_spec", "network_spec"))
+    return { code: "SPE", label: "Specification", confidence: 0.90,
+      reasoning: "Filename contains specification or technical requirements indicator consistent with engineering or system documentation." };
 
-  if (n.includes("operation") || n.includes("shift") || n.includes("inventory") || n.includes("production") ||
-      n.includes("scheduling") || n.includes("startup") || n.includes("handover"))
-    return { subject: SUBJECTS.find(s => s.code === "OPS")!, boost: 0.02 };
+  // 8. CON — contracts and agreements
+  if (has(n, "contract", "agreement", "service_level", "nda", "con-"))
+    return { code: "CON", label: "Contract", confidence: 0.89,
+      reasoning: "Filename indicates a contractual agreement or service-level document." };
 
-  return { subject: SUBJECTS.find(s => s.code === "GEN")!, boost: 0.00 };
+  // 9. TRN — training and learning materials (broadest catch — last before OTH)
+  if (has(n, "training", "trn-", "awareness", "orientation", "onboarding", "curriculum",
+          "learning", "module", "development", "leadership_dev", "leadership_program",
+          "development_program", "workshop"))
+    return { code: "TRN", label: "Training", confidence: 0.90,
+      reasoning: "Filename indicates instructional or training content consistent with Learning and Development materials." };
+
+  return { code: "OTH", label: "Other", confidence: 0.65,
+    reasoning: "Document does not match established Meridian classification patterns. Manual reviewer assignment recommended." };
+}
+
+// ── Subject detection (priority order matters) ────────────────────────────────
+
+function detectSubject(n: string): { subject: SubjectDef; boost: number } {
+  // KM — check first; KMS/DMS docs misclassify to HR/IT when checked later
+  if (has(n, "knowledge", "taxonomy", "glossary", "dms", "document_management",
+          "repository", "classification", "governance", "data_gov", "information_arch",
+          "acronym", "doc_submit", "document_submission", "doc_intel", "intelligence_pilot",
+          "kms", "knowledge_system"))
+    return { subject: sub("KM"), boost: 0.03 };
+
+  // SAF — use specific safety terms; avoid bare "incident" (which also describes IT sec incidents)
+  if (has(n, "safety", "osha", "ppe", "jsa", "hazard", "fire_prev", "confined_space",
+          "lockout", "loto", "safety_incident", "near_miss", "erp", "grinding",
+          "forklift_op", "chemical_handling", "emergency_response", "safety_orient",
+          "safety_audit", "q4_safety", "q3_safety", "q2_safety", "q1_safety"))
+    return { subject: sub("SAF"), boost: 0.04 };
+
+  // HR — employee-facing content (but NOT if KMS is also in name → caught above)
+  if (has(n, "human_resource", "employee", "onboard", "performance_review", "disciplin",
+          "travel", "talent", "handbook", "new_hire", "onboarding_form",
+          "training_compliance", "annual_training", "leadership_dev",
+          "manager_leadership", "leadership_development", "directory"))
+    return { subject: sub("HR"), boost: 0.03 };
+
+  // FIN
+  if (has(n, "finance", "budget", "expense", "capital_expend", "reimburs",
+          "accounting", "fiscal", "invoice", "payable", "fin-", "budget_realign",
+          "budget_except"))
+    return { subject: sub("FIN"), boost: 0.03 };
+
+  // IT — use specific IT keywords only; avoid bare "it"
+  if (has(n, "cybersecurity", "cyber", "password", "vpn", "remote_access",
+          "data_backup", "network", "api_integr", "incident_response", "cloud",
+          "authentication", "uptime", "infrastructure", "systems_uptime", "it_system",
+          "acceptable_use", "infosec", "firewall", "siem"))
+    return { subject: sub("IT"), boost: 0.03 };
+
+  // LEG
+  if (has(n, "legal", "nda", "agreement", "contract", "compliance", "regulatory",
+          "records_retention", "retention_policy", "retention", "disposition", "legal_hold"))
+    return { subject: sub("LEG"), boost: 0.03 };
+
+  // QA — quality and calibration
+  if (has(n, "quality", "inspection", "weld", "dimensional", "ncr", "nonconform",
+          "complaint", "spc", "calibration", "calibrat", "manufacturing_quality",
+          "first_article", "equipment_calibr"))
+    return { subject: sub("QA"), boost: 0.03 };
+
+  // PRO
+  if (has(n, "vendor", "supplier", "procurement", "purchase", "supply_chain", "pro-",
+          "approved_vendor"))
+    return { subject: sub("PRO"), boost: 0.03 };
+
+  // ENG
+  if (has(n, "engineer", "manufacturing_spec", "technical_req", "architecture",
+          "api_spec", "network_spec", "network_infrastructure"))
+    return { subject: sub("ENG"), boost: 0.02 };
+
+  // OPS — includes facility relocation memos (VP of Operations comms) before bare FAC check
+  if (has(n, "operation", "shift", "inventory", "production", "scheduling", "startup",
+          "handover", "facility_relocation", "facility_reloc", "building_reloc", "relocation"))
+    return { subject: sub("OPS"), boost: 0.02 };
+
+  // FAC — physical facilities maintenance (bare "facil" after relocation already routed to OPS)
+  if (has(n, "facil", "maintenance", "compressor", "hydraulic", "hvac", "building_maint"))
+    return { subject: sub("FAC"), boost: 0.02 };
+
+  return { subject: sub("GEN"), boost: 0.00 };
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
@@ -179,44 +188,44 @@ function detectSubject(name: string, typeCode: string): { subject: SubjectDef; b
 let seqCounter = 1;
 
 export function classifyDocument(fileName: string): ClassificationResult {
-  const { type, confidence: baseConf, reasoning } = detectType(fileName);
-  const { subject, boost } = detectSubject(fileName, type.code);
-  const confidence = Math.min(baseConf + boost, 0.98);
+  const n = fileName.toLowerCase();
+  const typeResult = detectType(n);
+  const { subject, boost } = detectSubject(n);
+  const confidence = Math.min(typeResult.confidence + boost, 0.98);
 
   return {
-    docType: type.label,
-    typeCode: type.code,
+    docType: typeResult.label,
+    typeCode: typeResult.code,
     subject: subject.label,
     subjectCode: subject.code,
     department: subject.department,
     effectiveDate: "",
     responsibleParty: subject.responsibleParty,
     confidence,
-    reasoning,
+    reasoning: typeResult.reasoning,
   };
 }
 
 export function generateStandardName(
-  classification: ClassificationResult,
+  c: ClassificationResult,
   originalName: string,
   seq?: number
 ): string {
   const year = new Date().getFullYear();
   const seqStr = String(seq ?? seqCounter++).padStart(3, "0");
 
-  // Strip extension, timestamps (long numeric strings), and "Meridian_" prefix
   const base = originalName
     .replace(/\.(pdf|docx?|xlsx?|txt|csv)$/i, "")
-    .replace(/[_-]?\d{13,}/g, "")          // strip Unix ms timestamps
-    .replace(/^[Mm]eridian[_-]?/i, "")      // strip "Meridian_" prefix
+    .replace(/[_-]?\d{13,}/g, "")           // strip Unix ms timestamps
+    .replace(/^[Mm]eridian[_-]?/i, "")       // strip "Meridian_" prefix
     .replace(/[^a-zA-Z0-9]/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "")
     .split("-")
-    .filter(p => p.length > 1)              // drop single chars
+    .filter(p => p.length > 1)               // drop single chars
     .slice(0, 5)
     .join("-")
     .toUpperCase();
 
-  return `MIG-${classification.typeCode}-${classification.subjectCode}-${base}-${year}-${seqStr}`;
+  return `MIG-${c.typeCode}-${c.subjectCode}-${base}-${year}-${seqStr}`;
 }

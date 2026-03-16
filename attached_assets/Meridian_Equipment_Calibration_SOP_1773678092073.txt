@@ -1,0 +1,56 @@
+MERIDIAN INDUSTRIAL GROUP
+Standard Operating Procedure: Equipment Calibration and Verification
+Version 1.3
+
+Document ID: MIG-SOP-EC-2024-019
+Classification: Internal
+Effective Date: October 1, 2024
+Owner: Quality Assurance Division
+Approved By: K. Williams, Director of Quality Assurance
+
+------------------------------------------------------------------------
+
+1. PURPOSE
+
+This standard operating procedure establishes the requirements for
+calibrating, verifying, and maintaining measurement and test
+equipment used in manufacturing and quality control operations.
+
+2. SCOPE
+
+This procedure applies to all measurement and test equipment that
+directly affects product quality, safety compliance, or regulatory
+reporting, including dimensional gauges, pressure transducers,
+temperature sensors, flow meters, and torque wrenches.
+
+3. PROCEDURE
+
+Step 1: Calibration Schedule Review
+Review the calibration management database monthly to identify
+equipment due within 30 days. Equipment past due shall be removed
+from service immediately.
+
+Step 2: Pre-Calibration Inspection
+Inspect the equipment for physical damage, cleanliness, and proper
+function. Document deficiencies on the Equipment Condition Report.
+
+Step 3: Calibration Execution
+Calibrate using reference standards traceable to NIST. Record all
+data points, adjustments, and as-found versus as-left readings.
+
+Step 4: Pass/Fail Determination
+Compare results against tolerance specifications. Passing equipment
+receives a calibration sticker. Failing equipment is quarantined.
+
+Step 5: Documentation
+Enter all records into the calibration database within one business
+day. Retain records for a minimum of five years.
+
+4. OUT-OF-TOLERANCE PROCEDURES
+
+When equipment is found out of tolerance, evaluate all measurements
+taken since the last successful calibration. If product quality may
+have been affected, initiate a quality investigation.
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-SOP-EC-2024-019
