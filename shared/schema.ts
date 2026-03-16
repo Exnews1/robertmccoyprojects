@@ -302,6 +302,24 @@ export const meridianAudit = pgTable("meridian_audit", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const meridianFinancials = pgTable("meridian_financials", {
+  id: serial("id").primaryKey(),
+  invoiceNumber: text("invoice_number").notNull(),
+  recordType: text("record_type").notNull(),        // 'AR' | 'AP'
+  counterparty: text("counterparty").notNull(),      // client (AR) or vendor (AP)
+  description: text("description").notNull(),
+  amount: real("amount").notNull(),
+  invoiceDate: text("invoice_date").notNull(),
+  dueDate: text("due_date").notNull(),
+  status: text("status").notNull(),                  // 'open' | 'paid' | 'pending'
+  paidDate: text("paid_date"),
+  paymentReference: text("payment_reference"),       // chain-of-evidence ref
+  paymentMethod: text("payment_method"),             // 'ACH' | 'Check' | 'Wire'
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type MeridianStaging = typeof meridianStaging.$inferSelect;
 export type MeridianRepository = typeof meridianRepository.$inferSelect;
 export type MeridianAudit = typeof meridianAudit.$inferSelect;
+export type MeridianFinancial = typeof meridianFinancials.$inferSelect;

@@ -9,7 +9,7 @@ import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
-import { meridianStaging, meridianRepository, meridianAudit } from "@shared/schema";
+import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials } from "@shared/schema";
 import { classifyDocument, generateStandardName } from "./meridianClassification";
 import { eq, and, desc } from "drizzle-orm";
 
@@ -1627,6 +1627,17 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     }
   });
 
+  // GET /api/meridian/kms/financials?type=AR|AP
+  app.get("/api/meridian/kms/financials", async (req, res) => {
+    const type = req.query.type as string | undefined;
+    let query = db.select().from(meridianFinancials).orderBy(desc(meridianFinancials.invoiceDate)) as any;
+    if (type === "AR" || type === "AP") {
+      query = db.select().from(meridianFinancials).where(eq(meridianFinancials.recordType, type)).orderBy(desc(meridianFinancials.invoiceDate));
+    }
+    const rows = await query;
+    res.json({ success: true, data: rows });
+  });
+
   // GET /api/meridian/kms – shared KMS portal (all approved docs in public session)
   app.get("/api/meridian/kms", async (_req, res) => {
     const rows = await db.select().from(meridianRepository)
@@ -1669,8 +1680,153 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     console.log("[KMS] Meridian KMS seeded with", docs.length, "documents.");
   }
   seedMeridianKMS().catch(console.error);
+  seedMeridianFinancials().catch(console.error);
 
   return app;
+}
+
+// ── Meridian Financial Records Seeder ────────────────────────────────────────
+async function seedMeridianFinancials() {
+  const existing = await db.select({ id: meridianFinancials.id }).from(meridianFinancials).limit(1);
+  if (existing.length > 0) return; // already seeded
+
+  const AR_CLIENTS = [
+    "Northgate Defense Systems LLC", "Caledonian Heavy Industries Corp.", "Riverside Municipal Water Authority",
+    "Paramount Aerospace Solutions", "Clearwater Infrastructure Group", "Titan Energy Holdings Inc.",
+    "Archway Federal Contractors LLC", "Bridgemont Industrial Partners", "Cascadia Manufacturing Inc.",
+    "Capitol Systems Integration", "Lakeshore Engineering Works", "Pinnacle Construction Group",
+    "Ridgeline Operations LLC", "Solaris Power Corporation", "Harborview Industrial Services",
+  ];
+  const AP_VENDORS = [
+    "Apex Industrial Supply Co.", "Cornerstone Fabrication Ltd.", "TechVault Systems Inc.",
+    "CrossPoint Transportation Inc.", "Pacific Rim Manufacturing", "Atlas Crane & Rigging Services",
+    "Consolidated Safety Equipment Co.", "Premier Office Solutions Inc.", "Elevate Engineering Consultants LLC",
+    "Benchmark Calibration Services", "Zenith Power & Utilities", "Onyx Material Handling Systems",
+    "Summit Environmental Services", "Vector Network Solutions", "Continental Machine Parts LLC",
+  ];
+  const AR_DESC = [
+    "Engineering Consulting — Phase I", "Industrial HVAC Integration Services", "Equipment Commissioning",
+    "Safety System Certification", "Preventive Maintenance Contract", "Custom Equipment Fabrication",
+    "Technical Documentation Services", "Environmental Compliance Assessment", "Process Optimization Study",
+    "Facility Assessment & Planning", "Training Program Delivery", "Operations Support Services",
+    "Project Management — Capital Works", "System Integration Services", "Annual Maintenance Retainer",
+  ];
+  const AP_DESC = [
+    "Steel & Alloy Components — Production Run", "Precision Machined Parts Order", "IT Infrastructure Maintenance",
+    "Freight & Logistics Services", "Calibration Equipment Rental", "Crane & Heavy Lift Services",
+    "Quarterly Safety Supplies", "Office & Administrative Supplies", "Engineering Review Services",
+    "Utility Services — Main Facility", "Environmental Waste Disposal", "Facility Maintenance Contract",
+    "Raw Materials — Production Run", "Network Security Services", "Subcontractor Labor — Fabrication",
+  ];
+  const AMOUNTS = [2800, 5500, 8200, 14000, 22500, 38000, 57500, 84000, 112000, 168000, 42000, 31500, 18500, 9800, 76000, 6200, 147000, 225000, 315000, 3500];
+  const PAY_METHODS: ("ACH"|"Check"|"Wire")[] = ["ACH", "Check", "Wire"];
+
+  function isoDate(year: number, month: number, day: number): string {
+    return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  }
+  function addDays(iso: string, days: number): string {
+    const d = new Date(iso); d.setDate(d.getDate() + days);
+    return d.toISOString().split("T")[0];
+  }
+  function amt(i: number, bias: number) { return AMOUNTS[(i * 7 + bias) % AMOUNTS.length]; }
+
+  const records: (typeof meridianFinancials.$inferInsert)[] = [];
+
+  // ── 125 PAID AR records (2022–2025) ──────────────────────────────────────
+  for (let i = 0; i < 125; i++) {
+    const year = 2022 + Math.floor(i / 32);
+    const month = (i * 3 % 12) + 1;
+    const day = (i * 5 % 27) + 1;
+    const invDate = isoDate(year, month, day);
+    const dueDate = addDays(invDate, 30);
+    const paidDate = addDays(dueDate, (i % 7) - 3); // paid 3 days early to 3 days late
+    const method = PAY_METHODS[i % 3];
+    const seq = String(i + 100).padStart(6, "0");
+    records.push({
+      invoiceNumber: `MIG-INV-${year}-${String(i + 1).padStart(4, "0")}`,
+      recordType: "AR",
+      counterparty: AR_CLIENTS[i % AR_CLIENTS.length],
+      description: AR_DESC[i % AR_DESC.length],
+      amount: amt(i, 0),
+      invoiceDate: invDate,
+      dueDate,
+      status: "paid",
+      paidDate,
+      paymentReference: `DEP-${year}-${seq}`,
+      paymentMethod: method,
+    });
+  }
+
+  // ── 75 OPEN AR records (2025–2026) ───────────────────────────────────────
+  for (let i = 0; i < 75; i++) {
+    const year = i < 40 ? 2025 : 2026;
+    const month = (i * 4 % 12) + 1;
+    const day = (i * 3 % 27) + 1;
+    const invDate = isoDate(year, month, day);
+    records.push({
+      invoiceNumber: `MIG-INV-${year}-${String(i + 201).padStart(4, "0")}`,
+      recordType: "AR",
+      counterparty: AR_CLIENTS[i % AR_CLIENTS.length],
+      description: AR_DESC[(i + 5) % AR_DESC.length],
+      amount: amt(i, 5),
+      invoiceDate: invDate,
+      dueDate: addDays(invDate, 30),
+      status: "open",
+    });
+  }
+
+  // ── 125 PAID AP records (2022–2025) ──────────────────────────────────────
+  for (let i = 0; i < 125; i++) {
+    const year = 2022 + Math.floor(i / 32);
+    const month = (i * 5 % 12) + 1;
+    const day = (i * 7 % 27) + 1;
+    const invDate = isoDate(year, month, day);
+    const dueDate = addDays(invDate, 45);
+    const paidDate = addDays(dueDate, (i % 5) - 2);
+    const method = PAY_METHODS[i % 3];
+    const ref = method === "Check"
+      ? `CHK-${year}-${String(i + 500).padStart(4, "0")}`
+      : method === "Wire"
+        ? `WIR-${year}-${String((i + 1) * 13).padStart(6, "0")}`
+        : `ACH-${year}-${String((i + 1) * 17).padStart(6, "0")}`;
+    records.push({
+      invoiceNumber: `MIG-APV-${year}-${String(i + 1).padStart(4, "0")}`,
+      recordType: "AP",
+      counterparty: AP_VENDORS[i % AP_VENDORS.length],
+      description: AP_DESC[i % AP_DESC.length],
+      amount: amt(i, 3),
+      invoiceDate: invDate,
+      dueDate,
+      status: "paid",
+      paidDate,
+      paymentReference: ref,
+      paymentMethod: method,
+    });
+  }
+
+  // ── 75 PENDING AP records (2025–2026) ────────────────────────────────────
+  for (let i = 0; i < 75; i++) {
+    const year = i < 40 ? 2025 : 2026;
+    const month = (i * 6 % 12) + 1;
+    const day = (i * 9 % 27) + 1;
+    const invDate = isoDate(year, month, day);
+    records.push({
+      invoiceNumber: `MIG-APV-${year}-${String(i + 201).padStart(4, "0")}`,
+      recordType: "AP",
+      counterparty: AP_VENDORS[(i + 3) % AP_VENDORS.length],
+      description: AP_DESC[(i + 8) % AP_DESC.length],
+      amount: amt(i, 8),
+      invoiceDate: invDate,
+      dueDate: addDays(invDate, 45),
+      status: "pending",
+    });
+  }
+
+  // Batch insert in chunks of 50
+  for (let i = 0; i < records.length; i += 50) {
+    await db.insert(meridianFinancials).values(records.slice(i, i + 50));
+  }
+  console.log(`[KMS] Meridian financials seeded: ${records.length} records (200 AR + 200 AP).`);
 }
 
 // ── Meridian Document Library (29 canonical documents — latest version of each) ──
