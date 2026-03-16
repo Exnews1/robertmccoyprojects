@@ -431,6 +431,190 @@ function DocDetailPanel({ doc, onClose, onOpen }: { doc: KMSDoc; onClose: () => 
   );
 }
 
+// ── Financial Document Viewer ─────────────────────────────────────────────────
+
+function FinancialDocViewer({ record, onClose }: { record: FinancialRecord; onClose: () => void }) {
+  const isAR = record.recordType === "AR";
+  const isPaid = record.status === "paid";
+
+  const subtotal = record.amount;
+  const tax = Math.round(subtotal * 0.0875 * 100) / 100;
+  const total = subtotal + tax;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/80 backdrop-blur-sm overflow-y-auto py-8 px-4"
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+      data-testid="modal-financial-viewer"
+    >
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-2xl overflow-hidden">
+
+        {/* Controls bar */}
+        <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800 border-b border-slate-700">
+          <div className="flex items-center gap-2">
+            <span className={`text-xs font-bold px-2 py-0.5 rounded ${isAR ? "bg-emerald-900/60 text-emerald-400" : "bg-sky-900/60 text-sky-400"}`}>
+              {isAR ? "ACCOUNTS RECEIVABLE" : "ACCOUNTS PAYABLE"}
+            </span>
+            <span className="text-xs text-slate-400 font-mono">{record.invoiceNumber}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.print()} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-700 hover:bg-slate-600 rounded px-2.5 py-1 transition-colors" data-testid="button-print-financial">
+              <Printer className="h-3.5 w-3.5" /> Print
+            </button>
+            <button onClick={onClose} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-700 hover:bg-slate-600 rounded px-2.5 py-1 transition-colors" data-testid="button-close-financial-viewer">
+              <X className="h-3.5 w-3.5" /> Close
+            </button>
+          </div>
+        </div>
+
+        {/* Document body */}
+        <div className="bg-white text-gray-900 px-10 py-10 font-sans print:px-8">
+
+          {/* Letterhead */}
+          <div className="flex items-start justify-between pb-6 border-b-2 border-gray-800 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-amber-700 rounded flex items-center justify-center text-white text-2xl font-bold font-serif">M</div>
+              <div>
+                <p className="text-lg font-bold text-gray-900 tracking-tight leading-tight">Meridian Industrial Group</p>
+                <p className="text-xs text-gray-500">Meridian, TX 76665</p>
+                <p className="text-xs text-gray-500">EIN: 74-XXXXXXX · accounts@meridianig.com</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-3xl font-bold text-gray-800 tracking-tight uppercase">
+                {isAR ? "Invoice" : "Payment Voucher"}
+              </p>
+              <p className="text-sm font-mono text-amber-700 mt-1 font-bold">{record.invoiceNumber}</p>
+              <div className={`inline-block mt-2 text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full ${
+                isPaid ? "bg-emerald-100 text-emerald-700" :
+                record.status === "open" ? "bg-amber-100 text-amber-700" :
+                "bg-sky-100 text-sky-700"
+              }`}>
+                {record.status === "paid" ? "✓ Paid" : record.status === "open" ? "Outstanding" : "Pending"}
+              </div>
+            </div>
+          </div>
+
+          {/* Bill To / From */}
+          <div className="grid grid-cols-2 gap-8 mb-8">
+            <div>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">{isAR ? "Bill To" : "Received From"}</p>
+              <p className="font-bold text-gray-800">{isAR ? record.counterparty : record.counterparty}</p>
+              <p className="text-sm text-gray-500 mt-0.5">{isAR ? "Accounts Payable Department" : "Accounts Receivable Department"}</p>
+            </div>
+            <div>
+              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">{isAR ? "From" : "Payable To"}</p>
+              <p className="font-bold text-gray-800">{isAR ? "Meridian Industrial Group" : record.counterparty}</p>
+              <p className="text-sm text-gray-500 mt-0.5">{isAR ? "Accounts Receivable · Meridian, TX" : "Per vendor terms and contract"}</p>
+            </div>
+          </div>
+
+          {/* Date details */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {[
+              ["Invoice Date", fmtDate(record.invoiceDate)],
+              ["Due Date", fmtDate(record.dueDate)],
+              [isPaid ? "Paid Date" : "Status", isPaid ? fmtDate(record.paidDate) : record.status.charAt(0).toUpperCase() + record.status.slice(1)],
+            ].map(([label, val]) => (
+              <div key={label} className="bg-gray-50 border border-gray-200 rounded p-3">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{label}</p>
+                <p className="text-sm font-bold text-gray-800 mt-0.5">{val}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Line items */}
+          <table className="w-full text-sm mb-6 border border-gray-200 rounded overflow-hidden">
+            <thead>
+              <tr className="bg-gray-800 text-white">
+                <th className="text-left px-4 py-2.5 font-semibold">Description</th>
+                <th className="text-right px-4 py-2.5 font-semibold w-32">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-100">
+                <td className="px-4 py-3 text-gray-700">{record.description}</td>
+                <td className="px-4 py-3 text-right font-mono text-gray-800">{fmtMoney(subtotal)}</td>
+              </tr>
+              <tr className="border-b border-gray-100 bg-gray-50">
+                <td className="px-4 py-3 text-gray-500 text-xs">Applicable Taxes & Fees (8.75%)</td>
+                <td className="px-4 py-3 text-right font-mono text-gray-500 text-xs">{fmtMoney(tax)}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr className="bg-gray-900 text-white">
+                <td className="px-4 py-3 font-bold text-sm">TOTAL DUE</td>
+                <td className="px-4 py-3 text-right font-bold font-mono text-lg">{fmtMoney(total)}</td>
+              </tr>
+            </tfoot>
+          </table>
+
+          {/* Payment chain / status block */}
+          {isPaid && record.paymentReference && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded p-4 mb-6">
+              <p className="text-xs font-bold text-emerald-700 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <CheckCheck className="h-3.5 w-3.5" /> Chain of Evidence — Payment Confirmed
+              </p>
+              <div className="grid grid-cols-3 gap-4 text-xs">
+                <div>
+                  <p className="text-gray-500 font-semibold uppercase tracking-wide text-[10px]">{isAR ? "Deposit Reference" : "Payment Reference"}</p>
+                  <p className="font-mono font-bold text-gray-800 mt-0.5">{record.paymentReference}</p>
+                </div>
+                {record.paymentMethod && (
+                  <div>
+                    <p className="text-gray-500 font-semibold uppercase tracking-wide text-[10px]">Method</p>
+                    <p className="font-bold text-gray-800 mt-0.5">{record.paymentMethod}</p>
+                  </div>
+                )}
+                {record.paidDate && (
+                  <div>
+                    <p className="text-gray-500 font-semibold uppercase tracking-wide text-[10px]">Cleared</p>
+                    <p className="font-bold text-gray-800 mt-0.5">{fmtDate(record.paidDate)}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {!isPaid && (
+            <div className={`border rounded p-4 mb-6 ${record.status === "open" ? "bg-amber-50 border-amber-200" : "bg-sky-50 border-sky-200"}`}>
+              <p className={`text-xs font-bold uppercase tracking-widest mb-1 ${record.status === "open" ? "text-amber-700" : "text-sky-700"}`}>
+                {isAR ? "Payment Outstanding" : "Pending Payment"}
+              </p>
+              <p className="text-xs text-gray-600">
+                {isAR
+                  ? `Please remit ${fmtMoney(total)} to Meridian Industrial Group by ${fmtDate(record.dueDate)}. Late payments are subject to a 1.5% monthly finance charge.`
+                  : `This voucher is approved for payment. Remittance to ${record.counterparty} by ${fmtDate(record.dueDate)} per contract terms.`
+                }
+              </p>
+            </div>
+          )}
+
+          {/* Remittance */}
+          {isAR && (
+            <div className="border border-dashed border-gray-300 rounded p-4 mb-6">
+              <p className="text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">Remittance Information</p>
+              <div className="grid grid-cols-2 gap-4 text-xs text-gray-600">
+                <div><p className="font-semibold">Bank Name</p><p>First Industrial Bank of Texas</p></div>
+                <div><p className="font-semibold">Routing Number</p><p>XXXXXX4219</p></div>
+                <div><p className="font-semibold">Account Name</p><p>Meridian Industrial Group</p></div>
+                <div><p className="font-semibold">Account Number</p><p>XXXXXXXX7841</p></div>
+              </div>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="pt-4 border-t border-gray-200 flex items-center justify-between text-xs text-gray-400">
+            <span>Meridian Industrial Group · {isAR ? "Accounts Receivable" : "Accounts Payable"}</span>
+            <span className="font-mono">{record.invoiceNumber}</span>
+            <span>Questions: accounts@meridianig.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Financial table ───────────────────────────────────────────────────────────
 
 type SortKey = "invoiceDate" | "dueDate" | "amount" | "counterparty" | "status";
@@ -439,6 +623,7 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
   const [sortKey, setSortKey] = useState<SortKey>("invoiceDate");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [selected, setSelected] = useState<FinancialRecord | null>(null);
+  const [viewingRecord, setViewingRecord] = useState<FinancialRecord | null>(null);
 
   function handleSort(key: SortKey) {
     if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
@@ -467,6 +652,7 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
 
   return (
     <div className="flex flex-col gap-4">
+      {viewingRecord && <FinancialDocViewer record={viewingRecord} onClose={() => setViewingRecord(null)} />}
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-emerald-950/30 border border-emerald-700/40 rounded-lg p-3">
@@ -513,6 +699,7 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
                 </th>
                 <th className="text-left px-3 py-2.5 font-semibold whitespace-nowrap">{isAR ? "Deposit Ref" : "Payment Ref"}</th>
                 {!isAR && <th className="text-left px-3 py-2.5 font-semibold">Method</th>}
+                <th className="px-3 py-2.5 w-12"></th>
               </tr>
             </thead>
             <tbody>
@@ -535,6 +722,16 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
                   <td className="px-3 py-2 whitespace-nowrap"><StatusBadge status={rec.status} /></td>
                   <td className="px-3 py-2 font-mono text-slate-500 whitespace-nowrap">{rec.paymentReference || "—"}</td>
                   {!isAR && <td className="px-3 py-2"><PayMethodBadge method={rec.paymentMethod} /></td>}
+                  <td className="px-3 py-2">
+                    <button
+                      onClick={e => { e.stopPropagation(); setViewingRecord(rec); }}
+                      className="flex items-center gap-1 text-amber-500/70 hover:text-amber-400 transition-colors"
+                      title="Open document"
+                      data-testid={`button-open-fin-${rec.id}`}
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -547,7 +744,10 @@ function FinancialTable({ records, type }: { records: FinancialRecord[]; type: "
         <div className="border border-amber-700/40 bg-amber-900/10 rounded-lg p-4 text-xs space-y-2" data-testid="panel-financial-detail">
           <div className="flex items-center justify-between mb-1">
             <p className="font-bold text-amber-400 font-mono">{selected.invoiceNumber}</p>
-            <button onClick={() => setSelected(null)} className="text-slate-500 hover:text-slate-300"><X className="h-3.5 w-3.5" /></button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setViewingRecord(selected)} className="flex items-center gap-1 text-xs text-amber-500 hover:text-amber-300 bg-amber-900/20 hover:bg-amber-900/40 border border-amber-800/50 rounded px-2 py-0.5 transition-colors font-semibold" data-testid="button-open-from-fin-panel"><Eye className="h-3 w-3" />Open Document</button>
+              <button onClick={() => setSelected(null)} className="text-slate-500 hover:text-slate-300"><X className="h-3.5 w-3.5" /></button>
+            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div><p className="text-slate-500 uppercase tracking-wide text-[10px] font-semibold">{isAR ? "Client" : "Vendor"}</p><p className="text-slate-200 mt-0.5">{selected.counterparty}</p></div>
