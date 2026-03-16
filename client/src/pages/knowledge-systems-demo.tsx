@@ -298,7 +298,7 @@ export default function KnowledgeSystemsDemo() {
     setStaging([]);
     setRepository([]);
     setAudit([]);
-    showFlash("Demo reset — all 32 documents returned to library");
+    showFlash("Demo reset — pipeline and KMS portal cleared, ready for next demo");
   };
 
   function showFlash(msg: string) {

@@ -6,7 +6,7 @@ import {
   BarChart3, Code2, GraduationCap, FileSignature, Layers, Building2,
   CheckCircle2, Clock, Database, ArrowLeft, RefreshCw, ExternalLink,
   User, Calendar, Briefcase, Tag, Percent, FolderOpen, List, LayoutGrid,
-  ChevronDown, Filter
+  ChevronDown, Filter, Trash2, AlertTriangle, Loader2
 } from "lucide-react";
 
 type KMSDoc = {
@@ -240,11 +240,25 @@ export default function MeridianKMS() {
   const [selectedDocType, setSelectedDocType] = useState("All");
   const [selectedDoc, setSelectedDoc] = useState<KMSDoc | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [resetConfirm, setResetConfirm] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   const { data, isLoading, refetch, isFetching } = useQuery<{ success: boolean; data: KMSDoc[] }>({
     queryKey: ["/api/meridian/kms"],
     refetchInterval: 10000,
   });
+
+  const handleReset = async () => {
+    setResetting(true);
+    await fetch("/api/meridian/kms/reset", { method: "DELETE" });
+    setSelectedDoc(null);
+    setSearch("");
+    setSelectedSubject("All");
+    setSelectedDocType("All");
+    setResetConfirm(false);
+    setResetting(false);
+    refetch();
+  };
 
   const docs = data?.data ?? [];
 
@@ -315,7 +329,7 @@ export default function MeridianKMS() {
             )}
           </div>
 
-          {/* View toggle + refresh + pipeline link */}
+          {/* View toggle + refresh + reset + pipeline link */}
           <div className="flex items-center gap-2 ml-auto shrink-0">
             <button
               onClick={() => setViewMode(v => v === "grid" ? "list" : "grid")}
@@ -333,6 +347,41 @@ export default function MeridianKMS() {
             >
               <RefreshCw className="h-4 w-4" />
             </button>
+            <div className="w-px h-5 bg-slate-700" />
+
+            {/* Reset for demo — confirm before wiping */}
+            {resetConfirm ? (
+              <div className="flex items-center gap-1.5 bg-red-950/60 border border-red-700/60 rounded px-2.5 py-1.5 animate-in fade-in duration-150">
+                <AlertTriangle className="h-3.5 w-3.5 text-red-400 shrink-0" />
+                <span className="text-xs text-red-300 font-semibold">Clear all docs?</span>
+                <button
+                  onClick={handleReset}
+                  disabled={resetting}
+                  className="text-xs font-bold text-red-300 hover:text-white bg-red-700/50 hover:bg-red-700 rounded px-2 py-0.5 transition-colors disabled:opacity-50"
+                  data-testid="button-confirm-reset-kms"
+                >
+                  {resetting ? <Loader2 className="h-3 w-3 animate-spin inline" /> : "Confirm"}
+                </button>
+                <button
+                  onClick={() => setResetConfirm(false)}
+                  className="text-xs text-slate-500 hover:text-slate-300"
+                  data-testid="button-cancel-reset-kms"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setResetConfirm(true)}
+                className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-red-400 hover:bg-red-950/30 border border-transparent hover:border-red-800/50 rounded px-2.5 py-1.5 transition-colors"
+                title="Reset KMS for next demo"
+                data-testid="button-reset-kms"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                Reset for Demo
+              </button>
+            )}
+
             <div className="w-px h-5 bg-slate-700" />
             <Link href="/research/knowledge-systems/demo" data-testid="link-ingestion-pipeline">
               <button className="flex items-center gap-1.5 text-xs text-amber-500 hover:text-amber-400 bg-amber-900/20 hover:bg-amber-900/30 border border-amber-800/50 rounded px-2.5 py-1.5 transition-colors font-semibold">

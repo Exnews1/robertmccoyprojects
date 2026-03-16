@@ -1563,7 +1563,15 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     await db.delete(meridianStaging).where(eq(meridianStaging.sessionId, sessionId));
     await db.delete(meridianRepository).where(eq(meridianRepository.sessionId, sessionId));
     await db.delete(meridianAudit).where(eq(meridianAudit.sessionId, sessionId));
-    res.json({ success: true, message: "Session reset. All documents returned to library." });
+    // Also wipe the shared KMS portal so the next demo starts empty
+    await db.delete(meridianRepository).where(eq(meridianRepository.sessionId, "meridian-kms-public"));
+    res.json({ success: true, message: "Session and KMS portal reset. Ready for next demo." });
+  });
+
+  // DELETE /api/meridian/kms/reset – standalone KMS portal reset (for use from the portal itself)
+  app.delete("/api/meridian/kms/reset", async (_req, res) => {
+    await db.delete(meridianRepository).where(eq(meridianRepository.sessionId, "meridian-kms-public"));
+    res.json({ success: true, message: "KMS portal cleared. Ready for next demo." });
   });
 
   // POST /api/meridian/upload – ingest an uploaded file through the classification pipeline
