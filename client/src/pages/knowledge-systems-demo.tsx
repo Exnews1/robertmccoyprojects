@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import {
   ArrowLeft, RefreshCw, CheckCircle, XCircle, Edit3, Save,
   Loader2, FileText, Shield, Cpu, Database, ClipboardList,
-  ChevronRight, TriangleAlert, Info, Building2, Upload, X,
+  ChevronRight, TriangleAlert, Info, Building2, Upload, X, ExternalLink,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -768,6 +768,18 @@ export default function KnowledgeSystemsDemo() {
               <ClipboardList className="h-3.5 w-3.5" />
               Audit Trail ({audit.length})
             </button>
+            <div className="ml-auto flex items-center pr-3">
+              <a
+                href="/research/knowledge-systems/meridian"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold text-amber-500 hover:text-amber-400 bg-amber-900/20 hover:bg-amber-900/30 border border-amber-800/50 rounded px-2.5 py-1 transition-colors"
+                data-testid="link-open-kms"
+              >
+                <ExternalLink className="h-3 w-3" />
+                Open KMS Portal
+              </a>
+            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto px-3 py-3">

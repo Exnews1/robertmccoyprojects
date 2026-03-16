@@ -47,6 +47,7 @@ import ESOPipeline from "@/pages/eso-pipeline";
 import PrimaryDocuments from "@/pages/primary-documents";
 import KnowledgeSystems from "@/pages/knowledge-systems";
 import KnowledgeSystemsDemo from "@/pages/knowledge-systems-demo";
+import MeridianKMS from "@/pages/meridian-kms";
 import MultiChannelDemo from "@/pages/multi-channel-demo";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -206,6 +207,7 @@ function Router() {
       <Route path="/research/documents" component={PrimaryDocuments} />
       <Route path="/research/knowledge-systems" component={KnowledgeSystems} />
       <Route path="/research/knowledge-systems/demo" component={KnowledgeSystemsDemo} />
+      <Route path="/research/knowledge-systems/meridian" component={MeridianKMS} />
       <Route path="/research/multi-channel-demo" component={MultiChannelDemo} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />

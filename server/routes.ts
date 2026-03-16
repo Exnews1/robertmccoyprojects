@@ -1461,6 +1461,26 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       approvedBy: actor,
     });
 
+    // Also publish to the shared Meridian KMS portal
+    const kmsExisting = await db.select({ id: meridianRepository.id })
+      .from(meridianRepository)
+      .where(and(eq(meridianRepository.sessionId, "meridian-kms-public"), eq(meridianRepository.documentKey, doc.documentKey)));
+    if (kmsExisting.length === 0) {
+      await db.insert(meridianRepository).values({
+        sessionId: "meridian-kms-public",
+        documentKey: doc.documentKey,
+        originalName: doc.originalName,
+        standardName: doc.standardName!,
+        docType: doc.docType!,
+        subject: doc.subject!,
+        department: doc.department!,
+        effectiveDate: doc.effectiveDate,
+        responsibleParty: doc.responsibleParty,
+        confidence: doc.confidence,
+        approvedBy: `${actor} (via Demo Pipeline)`,
+      });
+    }
+
     await db.update(meridianStaging).set({ status: "approved", reviewedAt: new Date(), reviewedBy: actor })
       .where(eq(meridianStaging.id, id));
 
@@ -1598,6 +1618,49 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       res.status(500).json({ error: "Upload processing failed" });
     }
   });
+
+  // GET /api/meridian/kms – shared KMS portal (all approved docs in public session)
+  app.get("/api/meridian/kms", async (_req, res) => {
+    const rows = await db.select().from(meridianRepository)
+      .where(eq(meridianRepository.sessionId, "meridian-kms-public"))
+      .orderBy(desc(meridianRepository.approvedAt));
+    res.json({ success: true, data: rows });
+  });
+
+  // Seed the shared KMS on startup (idempotent)
+  async function seedMeridianKMS() {
+    const KMS_SESSION = "meridian-kms-public";
+    const existing = await db.select({ id: meridianRepository.id })
+      .from(meridianRepository)
+      .where(eq(meridianRepository.sessionId, KMS_SESSION));
+    if (existing.length >= 29) return; // already seeded
+
+    const docs = getMeridianDocLibrary();
+    for (const doc of docs) {
+      const dup = await db.select({ id: meridianRepository.id })
+        .from(meridianRepository)
+        .where(and(eq(meridianRepository.sessionId, KMS_SESSION), eq(meridianRepository.documentKey, doc.key)));
+      if (dup.length > 0) continue;
+
+      const classification = classifyDocument(doc.fileName);
+      const standardName = generateStandardName(classification, doc.fileName);
+      await db.insert(meridianRepository).values({
+        sessionId: KMS_SESSION,
+        documentKey: doc.key,
+        originalName: doc.fileName,
+        standardName,
+        docType: classification.docType,
+        subject: classification.subject,
+        department: classification.department,
+        effectiveDate: classification.effectiveDate || null,
+        responsibleParty: classification.responsibleParty,
+        confidence: classification.confidence,
+        approvedBy: "System (Initial Seed)",
+      });
+    }
+    console.log("[KMS] Meridian KMS seeded with", docs.length, "documents.");
+  }
+  seedMeridianKMS().catch(console.error);
 
   return app;
 }

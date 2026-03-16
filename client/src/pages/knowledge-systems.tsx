@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight } from "lucide-react";
+import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight, Database } from "lucide-react";
 
 const systems = [
   {
@@ -90,12 +90,20 @@ export default function KnowledgeSystems() {
                 <span key={tag} className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 border border-slate-600">{tag}</span>
               ))}
             </div>
-            <Link href="/research/knowledge-systems/demo" data-testid="button-launch-meridian">
-              <Button className="mt-5 bg-amber-700 hover:bg-amber-600 text-white gap-1.5" size="sm">
-                <ChevronRight className="h-3.5 w-3.5" />
-                Launch Demo
-              </Button>
-            </Link>
+            <div className="flex items-center gap-3 mt-5">
+              <Link href="/research/knowledge-systems/demo" data-testid="button-launch-meridian">
+                <Button className="bg-amber-700 hover:bg-amber-600 text-white gap-1.5" size="sm">
+                  <ChevronRight className="h-3.5 w-3.5" />
+                  Launch Ingestion Pipeline
+                </Button>
+              </Link>
+              <Link href="/research/knowledge-systems/meridian" data-testid="button-open-kms">
+                <Button variant="outline" className="gap-1.5 border-slate-600 text-slate-300 hover:text-white hover:border-slate-400" size="sm">
+                  <Database className="h-3.5 w-3.5" />
+                  View KMS Portal
+                </Button>
+              </Link>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
