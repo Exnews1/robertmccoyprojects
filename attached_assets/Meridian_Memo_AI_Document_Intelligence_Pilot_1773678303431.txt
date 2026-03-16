@@ -1,0 +1,102 @@
+MERIDIAN INDUSTRIAL GROUP
+INTERNAL MEMORANDUM
+
+------------------------------------------------------------------------
+
+TO:       All Division Heads and Data Stewards
+FROM:     S. Park, Chief Data Officer
+DATE:     March 3, 2025
+SUBJECT:  Launch of AI-Assisted Document Intelligence Pilot Program
+
+Document ID: MIG-MEM-AI-Doc-Intel-Pilot-2025-018
+Classification: Internal
+
+------------------------------------------------------------------------
+
+I am writing to inform you that the Knowledge Management Office, in
+partnership with our Information Technology division, will be launching
+a pilot program to evaluate AI-assisted document classification and
+ingestion beginning April 1, 2025.
+
+BACKGROUND
+
+Over the past eighteen months, our document intake volume has increased
+by approximately 40%, placing significant strain on the manual review
+process. The average time from document submission to repository
+availability is currently 3.2 business days, with classification
+accuracy at 87% on first review. These metrics, while acceptable, do
+not scale to projected growth.
+
+The AI-Assisted Document Intelligence pilot will introduce automated
+classification capabilities to the intake workflow. The system will
+analyze document content and assign a recommended document type,
+subject descriptor, and confidence score. Human reviewers will retain
+full authority to approve, modify, or reject all classifications. No
+document will enter the Knowledge Repository without human approval.
+
+PILOT SCOPE
+
+The pilot will operate under the following parameters:
+
+  - Duration: April 1 through June 30, 2025 (90 days)
+  - Participating Divisions: Operations, Engineering, and Human Resources
+  - Document Types: All types in the current taxonomy
+  - Volume Target: Minimum 500 documents processed through the
+    AI-assisted pipeline
+  - Success Metrics: Classification accuracy above 92%, average
+    processing time reduced to under 1 business day, reviewer
+    satisfaction score above 4.0 out of 5.0
+
+GOVERNANCE REQUIREMENTS
+
+This pilot operates under existing data governance policies. The
+following additional controls apply:
+
+  - All AI classification decisions are logged in the audit trail
+    with the method tagged as "AI-assisted" to distinguish from
+    manual classifications.
+  - The classification service operates as a recommendation engine
+    only. It does not have write access to the Knowledge Repository.
+  - Confidence scores below 70% will be flagged for priority human
+    review rather than presented as standard recommendations.
+  - Weekly accuracy reports will be generated and distributed to
+    participating division heads and the Data Governance Council.
+  - An independent review of the pilot will be conducted at the
+    30-day and 60-day marks.
+
+WHAT THIS MEANS FOR YOUR TEAMS
+
+For Data Stewards in participating divisions: You will notice a new
+"AI Classification" panel in the staging queue interface showing the
+system's recommended classification alongside the confidence score.
+Your review process remains the same. You approve, modify, or reject
+as you normally would. The only difference is that the system now
+provides a starting recommendation rather than presenting a blank
+classification form.
+
+For Division Heads: You will receive weekly summary reports showing
+classification volumes, accuracy rates, and processing times for
+your division. Please share any concerns or observations with the
+Knowledge Management Office promptly so we can adjust the pilot
+parameters as needed.
+
+Training sessions for participating reviewers will be held during
+the week of March 24. Calendar invitations will follow separately.
+
+QUESTIONS AND FEEDBACK
+
+Direct all questions about the pilot to the Knowledge Management
+Office at km-support@meridian-ig.com or contact me directly. Your
+feedback during this pilot is essential to determining whether
+AI-assisted classification becomes a permanent part of our
+document management infrastructure.
+
+Thank you for your continued commitment to maintaining the quality
+and accessibility of Meridian's organizational knowledge.
+
+S. Park
+Chief Data Officer
+Meridian Industrial Group
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-MEM-AI-Doc-Intel-Pilot-2025-018

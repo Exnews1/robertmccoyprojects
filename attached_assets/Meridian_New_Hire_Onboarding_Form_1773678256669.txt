@@ -1,0 +1,94 @@
+MERIDIAN INDUSTRIAL GROUP
+New Hire Onboarding Checklist and Information Form
+
+Document ID: MIG-FRM-HR-NewHire-2025-001
+Classification: Internal
+Version: 3.0
+Owner: Human Resources Division
+Effective Date: January 1, 2025
+
+------------------------------------------------------------------------
+
+INSTRUCTIONS
+
+Please fill in all required fields marked with an asterisk (*).
+This form must be submitted to Human Resources within 3 business
+days of the employee's hire date. The hiring manager is responsible
+for completing Sections 1 through 3. The new employee completes
+Section 4 during orientation.
+
+------------------------------------------------------------------------
+
+SECTION 1: EMPLOYEE INFORMATION
+
+* Employee Full Name: ___________________________________________
+* Position Title: _______________________________________________
+* Department: ___________________________________________________
+* Division: _____________________________________________________
+* Hire Date: ____________________________________________________
+* Employment Type:  [ ] Full-Time  [ ] Part-Time  [ ] Contractor
+* Work Location:  [ ] Facility A  [ ] Facility B  [ ] Facility C
+                  [ ] Facility D  [ ] Remote
+* Reporting Manager: ____________________________________________
+* Manager Email: ________________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 2: SYSTEM ACCESS REQUIREMENTS
+
+The hiring manager shall indicate all systems requiring access:
+
+[ ] Corporate Email and Calendar
+[ ] Enterprise Resource Planning (ERP)
+[ ] Customer Relationship Management (CRM)
+[ ] Manufacturing Execution System (MES)
+[ ] Knowledge Repository
+[ ] Project Management Platform
+[ ] Financial Reporting System
+[ ] Safety Management System
+[ ] Learning Management System
+[ ] VPN Remote Access
+
+Special Access Notes: ___________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 3: EQUIPMENT AND WORKSPACE
+
+[ ] Laptop/Desktop assigned (Asset Tag: _______________)
+[ ] Monitor(s) assigned
+[ ] Phone extension assigned: _______________
+[ ] Badge/key card issued
+[ ] Parking pass issued
+[ ] Personal protective equipment issued (if applicable)
+[ ] Workspace/desk assigned: Building ___ Desk ___
+
+------------------------------------------------------------------------
+
+SECTION 4: NEW EMPLOYEE ACKNOWLEDGMENTS
+
+I acknowledge that I have received and understand the following:
+
+[ ] Employee Handbook
+[ ] Acceptable Use Policy for Information Systems
+[ ] Data Governance Policy
+[ ] Workplace Safety and Health Policy
+[ ] Code of Business Conduct and Ethics
+
+I understand that I must complete all mandatory orientation training
+within 30 days of my hire date as outlined in the training schedule
+provided during orientation.
+
+Employee Signature: _________________________ Date: ____________
+
+------------------------------------------------------------------------
+
+HR USE ONLY
+
+Processed By: _________________________ Date: __________________
+Employee ID Assigned: _________________
+Payroll Setup Complete: [ ] Yes  [ ] No
+Benefits Enrollment Deadline Communicated: [ ] Yes  [ ] No
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-FRM-HR-NewHire-2025-001
