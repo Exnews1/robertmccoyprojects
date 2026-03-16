@@ -183,11 +183,63 @@ function detectSubject(n: string): { subject: SubjectDef; boost: number } {
   return { subject: sub("GEN"), boost: 0.00 };
 }
 
+// ── Content-based classification (for uploaded .txt files) ───────────────────
+
+const TYPE_CODE_MAP: Record<string, { label: string; confidence: number; reasoning: string }> = {
+  MEM: { label: "Memo",          confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian memorandum (MEM type code)." },
+  FRM: { label: "Form",          confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian form or checklist (FRM type code)." },
+  REF: { label: "Reference",     confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian reference document (REF type code)." },
+  POL: { label: "Policy",        confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian governance policy (POL type code)." },
+  SOP: { label: "SOP",           confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian standard operating procedure (SOP type code)." },
+  RPT: { label: "Report",        confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian analytical report (RPT type code)." },
+  SPE: { label: "Specification", confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian technical specification (SPE type code)." },
+  CON: { label: "Contract",      confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian contract or agreement (CON type code)." },
+  TRN: { label: "Training",      confidence: 0.97, reasoning: "Document ID header identifies this as a Meridian training material (TRN type code)." },
+};
+
+function classifyFromContent(content: string, fileName: string): ClassificationResult | null {
+  const excerpt = content.slice(0, 3000);
+
+  // Primary: extract Document ID from structured header (e.g. "Document ID: MIG-MEM-FIN-Budget-Q1-2025-022")
+  const docIdMatch = excerpt.match(/Document\s+(?:ID|Id|id)[:\s]+MIG-([A-Z]{2,4})-([A-Z]{2,4})-/);
+  if (docIdMatch) {
+    const typeCode = docIdMatch[1];
+    const subjCode = docIdMatch[2];
+    const typeDef = TYPE_CODE_MAP[typeCode];
+    const subjDef = SUBJECT_DEFS.find(s => s.code === subjCode);
+    if (typeDef && subjDef) {
+      return {
+        docType: typeDef.label,
+        typeCode,
+        subject: subjDef.label,
+        subjectCode: subjCode,
+        department: subjDef.department,
+        effectiveDate: "",
+        responsibleParty: subjDef.responsibleParty,
+        confidence: 0.97,
+        reasoning: typeDef.reasoning,
+      };
+    }
+  }
+
+  // Fallback: scan content for type-level keywords in first few lines
+  const firstLines = excerpt.slice(0, 500).toLowerCase();
+  if (firstLines.includes("internal memorandum") || firstLines.includes("memorandum"))
+    return null; // fall through to filename + content hybrid below
+  return null;
+}
+
 // ── Public API ────────────────────────────────────────────────────────────────
 
 let seqCounter = 1;
 
-export function classifyDocument(fileName: string): ClassificationResult {
+export function classifyDocument(fileName: string, content?: string): ClassificationResult {
+  // For uploaded .txt files with structured Meridian headers — use content first
+  if (content && content.length > 50) {
+    const fromContent = classifyFromContent(content, fileName);
+    if (fromContent) return fromContent;
+  }
+
   const n = fileName.toLowerCase();
   const typeResult = detectType(n);
   const { subject, boost } = detectSubject(n);

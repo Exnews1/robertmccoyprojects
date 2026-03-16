@@ -1,5 +1,6 @@
 import { Express } from "express";
 import { Server } from "http";
+import multer from "multer";
 import { storage } from "./storage";
 import { insertPublicationSchema, insertExpertCommentarySchema, insertInquirySchema } from "@shared/schema";
 import { ZodError } from "zod";
@@ -1542,7 +1543,60 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     await db.delete(meridianStaging).where(eq(meridianStaging.sessionId, sessionId));
     await db.delete(meridianRepository).where(eq(meridianRepository.sessionId, sessionId));
     await db.delete(meridianAudit).where(eq(meridianAudit.sessionId, sessionId));
-    res.json({ success: true, message: "Session reset. All 32 documents returned to library." });
+    res.json({ success: true, message: "Session reset. All documents returned to library." });
+  });
+
+  // POST /api/meridian/upload – ingest an uploaded file through the classification pipeline
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
+    fileFilter: (_req, file, cb) => {
+      const allowed = ["text/plain", "application/pdf", "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+      cb(null, allowed.includes(file.mimetype) || file.originalname.match(/\.(txt|pdf|docx?)$/i) !== null);
+    },
+  });
+
+  app.post("/api/meridian/upload", upload.single("file"), async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    if (!req.file) return res.status(400).json({ error: "No file provided" });
+
+    const fileName = req.file.originalname;
+    const isTxt = /\.txt$/i.test(fileName);
+    const content = isTxt ? req.file.buffer.toString("utf-8") : undefined;
+
+    const uploadKey = `UPLOAD-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+
+    try {
+      const classification = classifyDocument(fileName, content);
+      const standardName = generateStandardName(classification, fileName);
+
+      const [staged] = await db.insert(meridianStaging).values({
+        sessionId,
+        documentKey: uploadKey,
+        originalName: fileName,
+        standardName,
+        docType: classification.docType,
+        subject: classification.subject,
+        department: classification.department,
+        effectiveDate: classification.effectiveDate || null,
+        responsibleParty: classification.responsibleParty,
+        confidence: classification.confidence,
+        reasoning: classification.reasoning,
+        status: "pending",
+      }).returning();
+
+      await addMeridianAudit(sessionId, "Uploader", "INGEST", `Document "${fileName}" uploaded directly by user`);
+      await addMeridianAudit(sessionId, "AI Engine", "CLASSIFY",
+        `Classified as ${classification.docType} / ${classification.subject} (${Math.round(classification.confidence * 100)}% confidence)${content ? " — content-based" : " — filename-based"}`);
+      await addMeridianAudit(sessionId, "Rules Engine", "STANDARDIZE", `Proposed name: ${standardName}`);
+
+      res.json({ success: true, data: staged });
+    } catch (err: any) {
+      console.error("Meridian upload error:", err);
+      res.status(500).json({ error: "Upload processing failed" });
+    }
   });
 
   return app;

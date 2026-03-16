@@ -83,7 +83,7 @@ export default function KnowledgeSystems() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground mt-4">
-              Live demonstration of governed document processing. Select from a library of 32 unstructured industrial documents, run them through the AI classification engine, review proposals in the staging queue, and approve records into an organized, standardized knowledge repository — with a full immutable audit trail.
+              Live demonstration of governed document processing. Select from a library of 29 real Meridian documents or upload your own, run them through the AI classification engine, review proposals in the staging queue, and approve records into an organized, standardized knowledge repository — with a full immutable audit trail.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
               {["Bulk Document Ingestion", "AI Classification", "Human Review", "Audit Trail", "Reset & Replay"].map(tag => (

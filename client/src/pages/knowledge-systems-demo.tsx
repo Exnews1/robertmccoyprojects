@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "wouter";
 import {
   ArrowLeft, RefreshCw, CheckCircle, XCircle, Edit3, Save,
   Loader2, FileText, Shield, Cpu, Database, ClipboardList,
-  ChevronRight, TriangleAlert, Info, Building2,
+  ChevronRight, TriangleAlert, Info, Building2, Upload, X,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -147,6 +147,11 @@ export default function KnowledgeSystemsDemo() {
   const [editFields, setEditFields] = useState<Partial<StagedDoc>>({});
   const [flash, setFlash] = useState<string | null>(null);
 
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // Init session
   useEffect(() => {
     let sid = localStorage.getItem("meridian_session");
@@ -218,6 +223,34 @@ export default function KnowledgeSystemsDemo() {
       }
     } finally {
       setProcessing(false);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!uploadFile || uploading || !sessionId) return;
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", uploadFile);
+      const r = await fetch("/api/meridian/upload", {
+        method: "POST",
+        headers: { "x-session-id": sessionId },
+        body: formData,
+      });
+      const d = await r.json();
+      if (d.success) {
+        showFlash(`"${uploadFile.name}" uploaded and sent to staging queue`);
+        setUploadFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+        await refreshAll();
+      } else {
+        setUploadError(d.error || "Upload failed");
+      }
+    } catch {
+      setUploadError("Upload failed — please try again");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -478,6 +511,60 @@ export default function KnowledgeSystemsDemo() {
                 </div>
               );
             })}
+          </div>
+
+          {/* ── Upload your own document ── */}
+          <div className="border-t border-slate-700 px-3 py-3 shrink-0 space-y-2">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
+              <Upload className="h-3 w-3" /> Upload Your Own Document
+            </p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".txt,.pdf,.doc,.docx"
+              className="hidden"
+              data-testid="input-upload-file"
+              onChange={e => {
+                const f = e.target.files?.[0] ?? null;
+                setUploadFile(f);
+                setUploadError(null);
+              }}
+            />
+            {uploadFile ? (
+              <div className="flex items-center gap-2 bg-slate-800 border border-slate-600 rounded px-2.5 py-2">
+                <FileText className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+                <span className="text-xs text-slate-200 truncate flex-1 font-mono">{uploadFile.name}</span>
+                <button
+                  onClick={() => { setUploadFile(null); setUploadError(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                  className="text-slate-500 hover:text-slate-300 transition-colors"
+                  data-testid="button-clear-upload"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => fileInputRef.current?.click()}
+                className="w-full flex items-center justify-center gap-2 border border-dashed border-slate-600 hover:border-amber-600 hover:bg-amber-900/10 rounded px-3 py-3 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                data-testid="button-browse-upload"
+              >
+                <Upload className="h-3.5 w-3.5" />
+                Browse or drop a file (.txt, .pdf, .docx)
+              </button>
+            )}
+            {uploadError && (
+              <p className="text-xs text-red-400 flex items-center gap-1"><TriangleAlert className="h-3 w-3" />{uploadError}</p>
+            )}
+            <button
+              onClick={handleUpload}
+              disabled={!uploadFile || uploading}
+              className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-slate-100 px-3 py-1.5 rounded transition-colors border border-slate-600"
+              data-testid="button-submit-upload"
+            >
+              {uploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
+              {uploading ? "Processing…" : "Ingest into Pipeline"}
+            </button>
+            <p className="text-xs text-slate-600">Max 10 MB · .txt files use content-based classification</p>
           </div>
         </div>
 
