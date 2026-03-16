@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, real } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -252,3 +252,56 @@ export type AuditLogEntry = typeof auditLogEntries.$inferSelect;
 export type InsertAuditLogEntry = z.infer<typeof insertAuditLogEntrySchema>;
 
 export * from "./models/chat";
+
+// ── Meridian Industrial Group – Document Intelligence Demo ──────────────────
+
+export const meridianStaging = pgTable("meridian_staging", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  documentKey: text("document_key").notNull(),
+  originalName: text("original_name").notNull(),
+  standardName: text("standard_name"),
+  docType: text("doc_type"),
+  subject: text("subject"),
+  department: text("department"),
+  effectiveDate: text("effective_date"),
+  responsibleParty: text("responsible_party"),
+  confidence: real("confidence"),
+  reasoning: text("reasoning"),
+  status: text("status").default("pending"),
+  uploadedAt: timestamp("uploaded_at").defaultNow(),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewedBy: text("reviewed_by"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const meridianRepository = pgTable("meridian_repository", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  documentKey: text("document_key").notNull(),
+  originalName: text("original_name").notNull(),
+  standardName: text("standard_name").notNull(),
+  docType: text("doc_type").notNull(),
+  subject: text("subject").notNull(),
+  department: text("department").notNull(),
+  effectiveDate: text("effective_date"),
+  responsibleParty: text("responsible_party"),
+  confidence: real("confidence"),
+  approvedAt: timestamp("approved_at").defaultNow(),
+  approvedBy: text("approved_by").default("Operations Manager"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const meridianAudit = pgTable("meridian_audit", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  ts: timestamp("ts").defaultNow(),
+  actor: text("actor").notNull(),
+  action: text("action").notNull(),
+  details: text("details").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export type MeridianStaging = typeof meridianStaging.$inferSelect;
+export type MeridianRepository = typeof meridianRepository.$inferSelect;
+export type MeridianAudit = typeof meridianAudit.$inferSelect;

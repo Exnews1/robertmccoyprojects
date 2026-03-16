@@ -1,0 +1,794 @@
+import { useState, useEffect, useCallback } from "react";
+import { Link } from "wouter";
+import {
+  ArrowLeft, RefreshCw, CheckCircle, XCircle, Edit3, Save,
+  Loader2, FileText, Shield, Cpu, Database, ClipboardList,
+  ChevronRight, TriangleAlert, Info, Building2,
+} from "lucide-react";
+
+// ── Types ────────────────────────────────────────────────────────────────────
+
+interface DocMeta {
+  key: string;
+  fileName: string;
+  category: string;
+}
+
+interface StagedDoc {
+  id: number;
+  documentKey: string;
+  originalName: string;
+  standardName: string | null;
+  docType: string | null;
+  subject: string | null;
+  department: string | null;
+  effectiveDate: string | null;
+  responsibleParty: string | null;
+  confidence: number | null;
+  reasoning: string | null;
+  status: string | null;
+  uploadedAt: string;
+}
+
+interface RepoDoc {
+  id: number;
+  originalName: string;
+  standardName: string;
+  docType: string;
+  subject: string;
+  department: string;
+  confidence: number | null;
+  approvedBy: string | null;
+  approvedAt: string;
+}
+
+interface AuditEntry {
+  id: number;
+  ts: string;
+  actor: string;
+  action: string;
+  details: string;
+}
+
+// ── Static doc library ───────────────────────────────────────────────────────
+
+const LIBRARY: DocMeta[] = [
+  { key: "MIG-001", fileName: "Employee_Handbook_2024.pdf", category: "HR" },
+  { key: "MIG-002", fileName: "Safety_Policy_Lockout_Tagout_LOTO.pdf", category: "Safety" },
+  { key: "MIG-003", fileName: "SOP_Forklift_Operation_Certification.pdf", category: "Operations" },
+  { key: "MIG-004", fileName: "SOP_Chemical_Handling_Storage.pdf", category: "Safety" },
+  { key: "MIG-005", fileName: "Emergency_Response_Procedure_ERP.pdf", category: "Safety" },
+  { key: "MIG-006", fileName: "HR_Onboarding_Checklist_New_Employee.pdf", category: "HR" },
+  { key: "MIG-007", fileName: "IT_Password_Security_Policy.pdf", category: "IT" },
+  { key: "MIG-008", fileName: "Quality_Inspection_Form_Weld_Visual.pdf", category: "Quality" },
+  { key: "MIG-009", fileName: "Maintenance_Schedule_Air_Compressor_Annual.pdf", category: "Operations" },
+  { key: "MIG-010", fileName: "OSHA_Incident_Report_Form.pdf", category: "Safety" },
+  { key: "MIG-011", fileName: "Finance_Expense_Reimbursement_Policy.pdf", category: "Finance" },
+  { key: "MIG-012", fileName: "Legal_NDA_Contractor_Template.pdf", category: "Legal" },
+  { key: "MIG-013", fileName: "Operations_Shift_Handover_SOP.pdf", category: "Operations" },
+  { key: "MIG-014", fileName: "Safety_JSA_Grinding_Operations.pdf", category: "Safety" },
+  { key: "MIG-015", fileName: "HR_Performance_Review_Form_2024.pdf", category: "HR" },
+  { key: "MIG-016", fileName: "IT_Remote_Access_VPN_Policy.pdf", category: "IT" },
+  { key: "MIG-017", fileName: "Quality_SOP_Dimensional_Inspection.pdf", category: "Quality" },
+  { key: "MIG-018", fileName: "Maintenance_SOP_Hydraulic_System_Repair.pdf", category: "Operations" },
+  { key: "MIG-019", fileName: "Operations_Inventory_Management_Procedure.pdf", category: "Operations" },
+  { key: "MIG-020", fileName: "Safety_PPE_Requirements_Policy.pdf", category: "Safety" },
+  { key: "MIG-021", fileName: "HR_Travel_Expense_Policy.pdf", category: "HR" },
+  { key: "MIG-022", fileName: "Finance_Capital_Expenditure_Approval_Procedure.pdf", category: "Finance" },
+  { key: "MIG-023", fileName: "Legal_Contractor_Services_Agreement.pdf", category: "Legal" },
+  { key: "MIG-024", fileName: "Safety_Confined_Space_Entry_Procedure.pdf", category: "Safety" },
+  { key: "MIG-025", fileName: "Operations_Production_Scheduling_SOP.pdf", category: "Operations" },
+  { key: "MIG-026", fileName: "Quality_Nonconformance_Report_NCR_Form.pdf", category: "Quality" },
+  { key: "MIG-027", fileName: "IT_Data_Backup_Recovery_Procedure.pdf", category: "IT" },
+  { key: "MIG-028", fileName: "HR_Disciplinary_Action_Policy.pdf", category: "HR" },
+  { key: "MIG-029", fileName: "Operations_Equipment_Daily_Startup_Checklist.pdf", category: "Operations" },
+  { key: "MIG-030", fileName: "Finance_Budget_Approval_Procedure.pdf", category: "Finance" },
+  { key: "MIG-031", fileName: "Safety_Fire_Prevention_Emergency_Plan.pdf", category: "Safety" },
+  { key: "MIG-032", fileName: "Quality_Customer_Complaint_Resolution_Procedure.pdf", category: "Quality" },
+];
+
+const CATEGORIES = ["All", "Safety", "HR", "Operations", "Finance", "IT", "Legal", "Quality"];
+
+const CAT_COLORS: Record<string, string> = {
+  Safety: "bg-red-900/60 text-red-200 border-red-800",
+  HR: "bg-blue-900/60 text-blue-200 border-blue-800",
+  Operations: "bg-slate-700 text-slate-200 border-slate-600",
+  Finance: "bg-emerald-900/60 text-emerald-200 border-emerald-800",
+  IT: "bg-violet-900/60 text-violet-200 border-violet-800",
+  Legal: "bg-amber-900/60 text-amber-200 border-amber-800",
+  Quality: "bg-cyan-900/60 text-cyan-200 border-cyan-800",
+};
+
+const ACTION_STYLES: Record<string, { bg: string; text: string; label: string }> = {
+  INGEST: { bg: "bg-blue-900/40", text: "text-blue-300", label: "INGEST" },
+  CLASSIFY: { bg: "bg-violet-900/40", text: "text-violet-300", label: "CLASSIFY" },
+  STANDARDIZE: { bg: "bg-cyan-900/40", text: "text-cyan-300", label: "NORMALIZE" },
+  APPROVE: { bg: "bg-emerald-900/40", text: "text-emerald-300", label: "APPROVE" },
+  REJECT: { bg: "bg-red-900/40", text: "text-red-300", label: "REJECT" },
+  MODIFY: { bg: "bg-amber-900/40", text: "text-amber-300", label: "MODIFY" },
+};
+
+const DOC_TYPES = ["Policy", "SOP", "Procedure", "Form", "Handbook", "Memo", "Other"];
+const SUBJECTS = ["HR", "Safety", "Finance", "IT", "Legal", "Quality", "Operations", "Maintenance", "General"];
+const DEPARTMENTS = ["Human Resources", "Health & Safety", "Finance", "Information Technology", "Legal & Compliance", "Quality Assurance", "Operations"];
+
+function genSessionId() {
+  return "mig-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
+}
+
+// ── Confidence bar ───────────────────────────────────────────────────────────
+function ConfBar({ value }: { value: number }) {
+  const pct = Math.round(value * 100);
+  const color = pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500";
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex-1 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+        <div className={`h-full ${color} rounded-full`} style={{ width: `${pct}%` }} />
+      </div>
+      <span className="text-xs font-mono text-slate-400 w-8 text-right">{pct}%</span>
+    </div>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
+export default function KnowledgeSystemsDemo() {
+  const [sessionId, setSessionId] = useState<string>("");
+  const [processedKeys, setProcessedKeys] = useState<Set<string>>(new Set());
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
+  const [categoryFilter, setCategoryFilter] = useState("All");
+
+  const [staging, setStaging] = useState<StagedDoc[]>([]);
+  const [repository, setRepository] = useState<RepoDoc[]>([]);
+  const [audit, setAudit] = useState<AuditEntry[]>([]);
+
+  const [rightTab, setRightTab] = useState<"repo" | "audit">("repo");
+  const [processing, setProcessing] = useState(false);
+  const [actionLoading, setActionLoading] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editFields, setEditFields] = useState<Partial<StagedDoc>>({});
+  const [flash, setFlash] = useState<string | null>(null);
+
+  // Init session
+  useEffect(() => {
+    let sid = localStorage.getItem("meridian_session");
+    if (!sid) {
+      sid = genSessionId();
+      localStorage.setItem("meridian_session", sid);
+    }
+    setSessionId(sid);
+  }, []);
+
+  const headers = useCallback(
+    () => ({ "Content-Type": "application/json", "x-session-id": sessionId }),
+    [sessionId]
+  );
+
+  // Fetch helpers
+  const fetchProcessedKeys = useCallback(async () => {
+    if (!sessionId) return;
+    const r = await fetch("/api/meridian/processed-keys", { headers: headers() });
+    const d = await r.json();
+    if (d.success) setProcessedKeys(new Set(d.data));
+  }, [sessionId, headers]);
+
+  const fetchStaging = useCallback(async () => {
+    if (!sessionId) return;
+    const r = await fetch("/api/meridian/staging", { headers: headers() });
+    const d = await r.json();
+    if (d.success) setStaging(d.data);
+  }, [sessionId, headers]);
+
+  const fetchRepository = useCallback(async () => {
+    if (!sessionId) return;
+    const r = await fetch("/api/meridian/repository", { headers: headers() });
+    const d = await r.json();
+    if (d.success) setRepository(d.data);
+  }, [sessionId, headers]);
+
+  const fetchAudit = useCallback(async () => {
+    if (!sessionId) return;
+    const r = await fetch("/api/meridian/audit", { headers: headers() });
+    const d = await r.json();
+    if (d.success) setAudit(d.data);
+  }, [sessionId, headers]);
+
+  const refreshAll = useCallback(async () => {
+    await Promise.all([fetchProcessedKeys(), fetchStaging(), fetchRepository(), fetchAudit()]);
+  }, [fetchProcessedKeys, fetchStaging, fetchRepository, fetchAudit]);
+
+  useEffect(() => {
+    if (sessionId) refreshAll();
+  }, [sessionId, refreshAll]);
+
+  // ── Actions ──────────────────────────────────────────────────────────────
+
+  const handleProcess = async (keys: string[]) => {
+    if (keys.length === 0 || processing) return;
+    setProcessing(true);
+    try {
+      const r = await fetch("/api/meridian/process", {
+        method: "POST",
+        headers: headers(),
+        body: JSON.stringify({ documentKeys: keys }),
+      });
+      const d = await r.json();
+      if (d.success) {
+        showFlash(`${d.processed} document${d.processed !== 1 ? "s" : ""} sent to staging queue`);
+        setSelectedKeys(new Set());
+        await refreshAll();
+      }
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleApprove = async (id: number) => {
+    setActionLoading(id);
+    await fetch(`/api/meridian/staging/${id}/approve`, {
+      method: "POST", headers: headers(), body: JSON.stringify({ actor: "Operations Manager" }),
+    });
+    showFlash("Document approved — moved to repository");
+    await refreshAll();
+    setActionLoading(null);
+  };
+
+  const handleReject = async (id: number) => {
+    setActionLoading(id);
+    await fetch(`/api/meridian/staging/${id}/reject`, {
+      method: "POST", headers: headers(), body: JSON.stringify({ actor: "Operations Manager" }),
+    });
+    showFlash("Document rejected — returned to pool");
+    await refreshAll();
+    setActionLoading(null);
+  };
+
+  const handleModifySave = async (id: number) => {
+    setActionLoading(id);
+    await fetch(`/api/meridian/staging/${id}/modify`, {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({ ...editFields, actor: "Analyst" }),
+    });
+    showFlash("Classification updated");
+    setEditingId(null);
+    setEditFields({});
+    await refreshAll();
+    setActionLoading(null);
+  };
+
+  const handleReset = async () => {
+    await fetch("/api/meridian/reset", { method: "DELETE", headers: headers() });
+    const newSid = genSessionId();
+    localStorage.setItem("meridian_session", newSid);
+    setSessionId(newSid);
+    setSelectedKeys(new Set());
+    setProcessedKeys(new Set());
+    setStaging([]);
+    setRepository([]);
+    setAudit([]);
+    showFlash("Demo reset — all 32 documents returned to library");
+  };
+
+  function showFlash(msg: string) {
+    setFlash(msg);
+    setTimeout(() => setFlash(null), 3200);
+  }
+
+  // ── Selection helpers ─────────────────────────────────────────────────────
+  const filteredLibrary = categoryFilter === "All"
+    ? LIBRARY
+    : LIBRARY.filter(d => d.category === categoryFilter);
+
+  const availableDocs = filteredLibrary.filter(d => !processedKeys.has(d.key));
+
+  const toggleSelect = (key: string) => {
+    setSelectedKeys(prev => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+  };
+
+  const selectAllVisible = () => {
+    const available = availableDocs.map(d => d.key);
+    setSelectedKeys(prev => {
+      const next = new Set(prev);
+      available.forEach(k => next.add(k));
+      return next;
+    });
+  };
+
+  const clearSelection = () => setSelectedKeys(new Set());
+
+  const selectedAvailable = Array.from(selectedKeys).filter(k => !processedKeys.has(k));
+  const allUnprocessed = LIBRARY.filter(d => !processedKeys.has(d.key)).map(d => d.key);
+
+  // ── Repo grouped ─────────────────────────────────────────────────────────
+  const repoByDept = repository.reduce<Record<string, RepoDoc[]>>((acc, doc) => {
+    (acc[doc.department] = acc[doc.department] || []).push(doc);
+    return acc;
+  }, {});
+
+  // ── Render ───────────────────────────────────────────────────────────────
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+
+      {/* ── Header ── */}
+      <header className="bg-slate-900 border-b border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-20 shrink-0">
+        <div className="flex items-center gap-3">
+          <Link href="/research/knowledge-systems" data-testid="link-back">
+            <button className="text-slate-400 hover:text-slate-200 flex items-center gap-1 text-sm mr-2 transition-colors">
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back</span>
+            </button>
+          </Link>
+          <div className="w-8 h-8 bg-amber-700 rounded flex items-center justify-center shrink-0">
+            <Building2 className="h-4 w-4 text-white" />
+          </div>
+          <div>
+            <div className="font-bold text-sm tracking-widest uppercase text-slate-100 leading-none">
+              Meridian Industrial Group
+            </div>
+            <div className="text-xs text-slate-400 tracking-wider uppercase mt-0.5">
+              Document Intelligence System — Demo
+            </div>
+          </div>
+          <span className="ml-3 px-2 py-0.5 rounded text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-700">
+            DEMO MODE
+          </span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {flash && (
+            <div className="text-xs bg-emerald-900/70 text-emerald-300 border border-emerald-700 px-3 py-1.5 rounded animate-pulse">
+              {flash}
+            </div>
+          )}
+          <div className="text-xs text-slate-500 hidden md:block">
+            Session: <span className="font-mono text-slate-400">{sessionId.slice(0, 14)}…</span>
+          </div>
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-600 px-3 py-1.5 rounded transition-colors"
+            data-testid="button-reset"
+          >
+            <RefreshCw className="h-3 w-3" />
+            Reset Demo
+          </button>
+        </div>
+      </header>
+
+      {/* ── Note bar ── */}
+      <div className="bg-slate-800/60 border-b border-slate-700 px-5 py-2 flex items-center gap-2 shrink-0">
+        <Info className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+        <span className="text-xs text-slate-400">
+          <span className="text-amber-400 font-semibold">Rules-based classification engine.</span>{" "}
+          In production, document extraction and classification would call a fine-tuned language model via API. Select documents from the library, process them, then review AI proposals in the staging queue.
+        </span>
+      </div>
+
+      {/* ── 3-panel body ── */}
+      <div className="flex flex-1 overflow-hidden min-h-0">
+
+        {/* ── LEFT: Document Library ── */}
+        <div className="w-[38%] border-r border-slate-700 flex flex-col bg-slate-900 overflow-hidden">
+          {/* Library header */}
+          <div className="px-4 pt-4 pb-3 border-b border-slate-700 shrink-0">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <FileText className="h-4 w-4 text-amber-400" />
+                <span className="font-semibold text-sm text-slate-100">Document Library</span>
+                <span className="text-xs bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono">
+                  {LIBRARY.length - processedKeys.size} / {LIBRARY.length} available
+                </span>
+              </div>
+            </div>
+
+            {/* Category filter pills */}
+            <div className="flex flex-wrap gap-1 mb-3">
+              {CATEGORIES.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setCategoryFilter(cat)}
+                  data-testid={`filter-${cat}`}
+                  className={`text-xs px-2 py-0.5 rounded border transition-colors ${
+                    categoryFilter === cat
+                      ? "bg-amber-700 text-white border-amber-600"
+                      : "bg-slate-800 text-slate-400 border-slate-600 hover:border-slate-400"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Select controls */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={selectAllVisible}
+                className="text-xs text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 px-2.5 py-1 rounded transition-colors"
+                data-testid="button-select-all-visible"
+              >
+                Select visible
+              </button>
+              {selectedKeys.size > 0 && (
+                <button
+                  onClick={clearSelection}
+                  className="text-xs text-slate-400 hover:text-slate-200 px-2 py-1 rounded transition-colors"
+                >
+                  Clear ({selectedKeys.size})
+                </button>
+              )}
+              <div className="ml-auto flex gap-2">
+                <button
+                  onClick={() => handleProcess(selectedAvailable)}
+                  disabled={selectedAvailable.length === 0 || processing}
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-amber-700 hover:bg-amber-600 disabled:opacity-40 disabled:cursor-not-allowed text-white px-3 py-1.5 rounded transition-colors"
+                  data-testid="button-process-selected"
+                >
+                  {processing ? <Loader2 className="h-3 w-3 animate-spin" /> : <ChevronRight className="h-3 w-3" />}
+                  Process {selectedAvailable.length > 0 ? `(${selectedAvailable.length})` : ""}
+                </button>
+                <button
+                  onClick={() => handleProcess(allUnprocessed)}
+                  disabled={allUnprocessed.length === 0 || processing}
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-slate-700 hover:bg-slate-600 disabled:opacity-40 disabled:cursor-not-allowed text-slate-100 px-3 py-1.5 rounded transition-colors border border-slate-600"
+                  data-testid="button-process-all"
+                >
+                  {processing ? <Loader2 className="h-3 w-3 animate-spin" /> : null}
+                  All {allUnprocessed.length}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Doc list */}
+          <div className="flex-1 overflow-y-auto px-3 py-2 space-y-1">
+            {filteredLibrary.length === 0 && (
+              <p className="text-slate-500 text-sm text-center mt-8">No documents in this category.</p>
+            )}
+            {filteredLibrary.map(doc => {
+              const isProcessed = processedKeys.has(doc.key);
+              const isSelected = selectedKeys.has(doc.key);
+              return (
+                <div
+                  key={doc.key}
+                  onClick={() => !isProcessed && toggleSelect(doc.key)}
+                  data-testid={`doc-${doc.key}`}
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded border text-sm transition-colors ${
+                    isProcessed
+                      ? "opacity-40 cursor-not-allowed border-slate-800 bg-slate-800/20"
+                      : isSelected
+                        ? "border-amber-600 bg-amber-900/20 cursor-pointer"
+                        : "border-slate-700 bg-slate-800/40 hover:border-slate-500 hover:bg-slate-800 cursor-pointer"
+                  }`}
+                >
+                  <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                    isProcessed ? "border-slate-600 bg-slate-700" :
+                    isSelected ? "border-amber-500 bg-amber-700" : "border-slate-500"
+                  }`}>
+                    {isProcessed && <div className="w-2 h-2 bg-slate-500 rounded-sm" />}
+                    {isSelected && !isProcessed && <CheckCircle className="h-3 w-3 text-white" />}
+                  </div>
+                  <span className={`flex-1 font-mono text-xs truncate ${isProcessed ? "text-slate-500" : "text-slate-200"}`}>
+                    {doc.fileName}
+                  </span>
+                  <span className={`text-xs px-1.5 py-0.5 rounded border shrink-0 ${CAT_COLORS[doc.category] || "bg-slate-700 text-slate-300 border-slate-600"}`}>
+                    {doc.category}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── MIDDLE: Staging Queue ── */}
+        <div className="w-[37%] border-r border-slate-700 flex flex-col bg-slate-950 overflow-hidden">
+          <div className="px-4 pt-4 pb-3 border-b border-slate-700 shrink-0 flex items-center gap-2">
+            <Cpu className="h-4 w-4 text-violet-400" />
+            <span className="font-semibold text-sm text-slate-100">Staging Queue</span>
+            <span className="text-xs bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded font-mono">
+              {staging.length} pending
+            </span>
+            <span className="ml-1 text-xs text-slate-500">— AI proposals awaiting review</span>
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-3 py-3 space-y-3">
+            {staging.length === 0 && (
+              <div className="text-center mt-12 space-y-2">
+                <Cpu className="h-10 w-10 text-slate-700 mx-auto" />
+                <p className="text-slate-500 text-sm">No documents pending review.</p>
+                <p className="text-slate-600 text-xs">Select documents from the library and click Process.</p>
+              </div>
+            )}
+            {staging.map(doc => (
+              <div
+                key={doc.id}
+                data-testid={`staged-${doc.id}`}
+                className="border border-slate-700 rounded bg-slate-900 overflow-hidden"
+              >
+                {/* Doc header */}
+                <div className="px-3 py-2 bg-slate-800 border-b border-slate-700 flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="text-xs text-slate-400 font-mono truncate">{doc.originalName}</div>
+                    {doc.standardName && (
+                      <div className="text-xs text-amber-300 font-mono truncate mt-0.5">
+                        → {doc.standardName}
+                      </div>
+                    )}
+                  </div>
+                  <span className="text-xs bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded border border-slate-600 shrink-0 font-mono">
+                    {doc.docType}
+                  </span>
+                </div>
+
+                {/* Classification fields */}
+                <div className="px-3 py-2.5 space-y-2">
+                  {editingId === doc.id ? (
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="text-xs text-slate-500 block mb-1">Type</label>
+                          <select
+                            value={editFields.docType || doc.docType || ""}
+                            onChange={e => setEditFields(p => ({ ...p, docType: e.target.value }))}
+                            className="w-full text-xs bg-slate-700 border border-slate-600 rounded px-2 py-1 text-slate-100"
+                          >
+                            {DOC_TYPES.map(t => <option key={t}>{t}</option>)}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="text-xs text-slate-500 block mb-1">Subject</label>
+                          <select
+                            value={editFields.subject || doc.subject || ""}
+                            onChange={e => setEditFields(p => ({ ...p, subject: e.target.value }))}
+                            className="w-full text-xs bg-slate-700 border border-slate-600 rounded px-2 py-1 text-slate-100"
+                          >
+                            {SUBJECTS.map(s => <option key={s}>{s}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 block mb-1">Department</label>
+                        <select
+                          value={editFields.department || doc.department || ""}
+                          onChange={e => setEditFields(p => ({ ...p, department: e.target.value }))}
+                          className="w-full text-xs bg-slate-700 border border-slate-600 rounded px-2 py-1 text-slate-100"
+                        >
+                          {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 block mb-1">Responsible Party</label>
+                        <input
+                          value={editFields.responsibleParty || doc.responsibleParty || ""}
+                          onChange={e => setEditFields(p => ({ ...p, responsibleParty: e.target.value }))}
+                          className="w-full text-xs bg-slate-700 border border-slate-600 rounded px-2 py-1 text-slate-100"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+                      <div>
+                        <span className="text-slate-500">Subject</span>
+                        <div className="text-slate-200 font-medium mt-0.5">{doc.subject}</div>
+                      </div>
+                      <div>
+                        <span className="text-slate-500">Department</span>
+                        <div className="text-slate-200 font-medium mt-0.5">{doc.department}</div>
+                      </div>
+                      <div className="col-span-2">
+                        <span className="text-slate-500">Responsible Party</span>
+                        <div className="text-slate-200 font-medium mt-0.5">{doc.responsibleParty}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Confidence */}
+                  {doc.confidence != null && (
+                    <div>
+                      <div className="text-xs text-slate-500 mb-1">AI Confidence</div>
+                      <ConfBar value={doc.confidence} />
+                    </div>
+                  )}
+
+                  {/* Reasoning */}
+                  {doc.reasoning && (
+                    <div className="text-xs text-slate-500 italic border-l-2 border-slate-700 pl-2">
+                      {doc.reasoning}
+                    </div>
+                  )}
+                </div>
+
+                {/* Action buttons */}
+                <div className="px-3 py-2 bg-slate-800/50 border-t border-slate-700 flex items-center gap-2">
+                  {editingId === doc.id ? (
+                    <>
+                      <button
+                        onClick={() => handleModifySave(doc.id)}
+                        disabled={actionLoading === doc.id}
+                        className="flex items-center gap-1 text-xs font-semibold bg-amber-700 hover:bg-amber-600 disabled:opacity-50 text-white px-3 py-1.5 rounded transition-colors"
+                        data-testid={`button-save-${doc.id}`}
+                      >
+                        {actionLoading === doc.id ? <Loader2 className="h-3 w-3 animate-spin" /> : <Save className="h-3 w-3" />}
+                        Save
+                      </button>
+                      <button
+                        onClick={() => { setEditingId(null); setEditFields({}); }}
+                        className="text-xs text-slate-400 hover:text-slate-200 px-2 py-1.5 rounded transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => { setEditingId(doc.id); setEditFields({}); }}
+                        className="flex items-center gap-1 text-xs text-amber-400 hover:text-amber-300 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 px-2.5 py-1.5 rounded transition-colors"
+                        data-testid={`button-edit-${doc.id}`}
+                      >
+                        <Edit3 className="h-3 w-3" />
+                        Modify
+                      </button>
+                      <div className="ml-auto flex gap-1.5">
+                        <button
+                          onClick={() => handleReject(doc.id)}
+                          disabled={actionLoading === doc.id}
+                          className="flex items-center gap-1 text-xs font-semibold text-red-400 hover:text-red-300 bg-red-900/30 hover:bg-red-900/50 border border-red-800 px-3 py-1.5 rounded transition-colors disabled:opacity-50"
+                          data-testid={`button-reject-${doc.id}`}
+                        >
+                          {actionLoading === doc.id ? <Loader2 className="h-3 w-3 animate-spin" /> : <XCircle className="h-3 w-3" />}
+                          Reject
+                        </button>
+                        <button
+                          onClick={() => handleApprove(doc.id)}
+                          disabled={actionLoading === doc.id}
+                          className="flex items-center gap-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 border border-emerald-700 px-3 py-1.5 rounded transition-colors disabled:opacity-50"
+                          data-testid={`button-approve-${doc.id}`}
+                        >
+                          {actionLoading === doc.id ? <Loader2 className="h-3 w-3 animate-spin" /> : <CheckCircle className="h-3 w-3" />}
+                          Approve
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── RIGHT: Repository + Audit ── */}
+        <div className="flex-1 flex flex-col bg-slate-900 overflow-hidden">
+          {/* Tab bar */}
+          <div className="flex border-b border-slate-700 shrink-0">
+            <button
+              onClick={() => setRightTab("repo")}
+              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold border-b-2 transition-colors ${
+                rightTab === "repo" ? "border-amber-500 text-amber-400" : "border-transparent text-slate-500 hover:text-slate-300"
+              }`}
+              data-testid="tab-repository"
+            >
+              <Database className="h-3.5 w-3.5" />
+              Repository ({repository.length})
+            </button>
+            <button
+              onClick={() => setRightTab("audit")}
+              className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold border-b-2 transition-colors ${
+                rightTab === "audit" ? "border-amber-500 text-amber-400" : "border-transparent text-slate-500 hover:text-slate-300"
+              }`}
+              data-testid="tab-audit"
+            >
+              <ClipboardList className="h-3.5 w-3.5" />
+              Audit Trail ({audit.length})
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto px-3 py-3">
+
+            {/* Repository tab */}
+            {rightTab === "repo" && (
+              <div>
+                {repository.length === 0 ? (
+                  <div className="text-center mt-12 space-y-2">
+                    <Database className="h-10 w-10 text-slate-700 mx-auto" />
+                    <p className="text-slate-500 text-sm">Repository is empty.</p>
+                    <p className="text-slate-600 text-xs">Approved documents appear here organized by department.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {Object.entries(repoByDept).sort().map(([dept, docs]) => (
+                      <div key={dept}>
+                        <div className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                          <div className="flex-1 h-px bg-slate-700" />
+                          {dept}
+                          <div className="flex-1 h-px bg-slate-700" />
+                        </div>
+                        <div className="space-y-1.5">
+                          {docs.map(doc => (
+                            <div
+                              key={doc.id}
+                              data-testid={`repo-${doc.id}`}
+                              className="border border-slate-700 rounded bg-slate-800/60 px-3 py-2"
+                            >
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-xs bg-emerald-900/50 text-emerald-400 border border-emerald-800 px-1.5 py-0.5 rounded font-mono shrink-0">
+                                  {doc.docType}
+                                </span>
+                                <span className="text-xs text-slate-500 font-mono truncate">{doc.subject}</span>
+                                {doc.confidence != null && (
+                                  <span className="ml-auto text-xs text-slate-500 font-mono shrink-0">
+                                    {Math.round(doc.confidence * 100)}%
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-xs font-mono text-amber-300 truncate">{doc.standardName}</div>
+                              <div className="text-xs text-slate-500 mt-0.5 truncate">orig: {doc.originalName}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Audit tab */}
+            {rightTab === "audit" && (
+              <div>
+                {audit.length === 0 ? (
+                  <div className="text-center mt-12 space-y-2">
+                    <ClipboardList className="h-10 w-10 text-slate-700 mx-auto" />
+                    <p className="text-slate-500 text-sm">No audit events recorded.</p>
+                    <p className="text-slate-600 text-xs">Every system and human action is logged here immutably.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    {audit.map(entry => {
+                      const style = ACTION_STYLES[entry.action] || ACTION_STYLES["INGEST"];
+                      const time = entry.ts ? new Date(entry.ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
+                      return (
+                        <div
+                          key={entry.id}
+                          data-testid={`audit-${entry.id}`}
+                          className={`flex items-start gap-2.5 px-2.5 py-2 rounded border border-slate-700/50 ${style.bg}`}
+                        >
+                          <div className="flex flex-col items-center gap-0.5 shrink-0 mt-0.5">
+                            <span className={`text-xs font-bold font-mono ${style.text} leading-none`}>
+                              {style.label}
+                            </span>
+                            <span className="text-xs text-slate-600 font-mono">{time}</span>
+                          </div>
+                          <div className="min-w-0">
+                            <span className="text-xs font-semibold text-slate-400">{entry.actor}</span>
+                            <p className="text-xs text-slate-300 mt-0.5 break-words">{entry.details}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Stats footer */}
+          <div className="border-t border-slate-700 px-4 py-2.5 flex items-center gap-4 text-xs text-slate-500 shrink-0 bg-slate-900">
+            <div className="flex items-center gap-1">
+              <Shield className="h-3 w-3 text-slate-600" />
+              <span>Processed: <span className="text-slate-300 font-mono">{processedKeys.size}</span></span>
+            </div>
+            <div>Pending: <span className="text-amber-400 font-mono">{staging.length}</span></div>
+            <div>Approved: <span className="text-emerald-400 font-mono">{repository.length}</span></div>
+            <div className="ml-auto flex items-center gap-1 text-slate-600">
+              <TriangleAlert className="h-3 w-3" />
+              Rules-based engine — no API calls in demo
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}

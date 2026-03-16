@@ -8,6 +8,9 @@ import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
+import { meridianStaging, meridianRepository, meridianAudit } from "@shared/schema";
+import { classifyDocument, generateStandardName } from "./meridianClassification";
+import { eq, and, desc } from "drizzle-orm";
 
 function sanitizeInput(input: string): string {
   return input
@@ -1347,5 +1350,238 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     }
   });
 
+  // ── Meridian Industrial Group – Document Intelligence Demo ─────────────────
+
+  function getMeridianSession(req: any): string | null {
+    return (req.headers["x-session-id"] as string) || null;
+  }
+
+  async function addMeridianAudit(sessionId: string, actor: string, action: string, details: string) {
+    await db.insert(meridianAudit).values({ sessionId, actor, action, details });
+  }
+
+  // POST /api/meridian/process – run classification on selected document keys
+  app.post("/api/meridian/process", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+
+    const { documentKeys } = req.body as { documentKeys: string[] };
+    if (!Array.isArray(documentKeys) || documentKeys.length === 0) {
+      return res.status(400).json({ error: "documentKeys array required" });
+    }
+
+    const MERIDIAN_DOCS = getMeridianDocLibrary();
+
+    try {
+      const results = [];
+      for (const key of documentKeys) {
+        const doc = MERIDIAN_DOCS.find((d) => d.key === key);
+        if (!doc) continue;
+
+        const existing = await db.select().from(meridianStaging)
+          .where(and(eq(meridianStaging.sessionId, sessionId), eq(meridianStaging.documentKey, key)));
+        if (existing.length > 0) continue;
+
+        const classification = classifyDocument(doc.fileName);
+        const standardName = generateStandardName(classification, doc.fileName);
+
+        const [staged] = await db.insert(meridianStaging).values({
+          sessionId,
+          documentKey: key,
+          originalName: doc.fileName,
+          standardName,
+          docType: classification.docType,
+          subject: classification.subject,
+          department: classification.department,
+          effectiveDate: classification.effectiveDate || null,
+          responsibleParty: classification.responsibleParty,
+          confidence: classification.confidence,
+          reasoning: classification.reasoning,
+          status: "pending",
+        }).returning();
+
+        await addMeridianAudit(sessionId, "System", "INGEST", `Document "${doc.fileName}" ingested from library`);
+        await addMeridianAudit(sessionId, "AI Engine", "CLASSIFY", `Classified as ${classification.docType} / ${classification.subject} (${Math.round(classification.confidence * 100)}% confidence)`);
+        await addMeridianAudit(sessionId, "Rules Engine", "STANDARDIZE", `Proposed name: ${standardName}`);
+
+        results.push(staged);
+      }
+      res.json({ success: true, processed: results.length, data: results });
+    } catch (err: any) {
+      console.error("Meridian process error:", err);
+      res.status(500).json({ error: "Processing failed" });
+    }
+  });
+
+  // GET /api/meridian/staging
+  app.get("/api/meridian/staging", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(meridianStaging)
+      .where(and(eq(meridianStaging.sessionId, sessionId), eq(meridianStaging.status, "pending")))
+      .orderBy(desc(meridianStaging.uploadedAt));
+    res.json({ success: true, data: rows });
+  });
+
+  // GET /api/meridian/processed-keys – which keys are already in staging for session
+  app.get("/api/meridian/processed-keys", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select({ documentKey: meridianStaging.documentKey }).from(meridianStaging)
+      .where(eq(meridianStaging.sessionId, sessionId));
+    const repRows = await db.select({ documentKey: meridianRepository.documentKey }).from(meridianRepository)
+      .where(eq(meridianRepository.sessionId, sessionId));
+    const keys = Array.from(new Set([...rows.map(r => r.documentKey), ...repRows.map(r => r.documentKey)]));
+    res.json({ success: true, data: keys });
+  });
+
+  // POST /api/meridian/staging/:id/approve
+  app.post("/api/meridian/staging/:id/approve", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const actor = (req.body.actor as string) || "Operations Manager";
+
+    const [doc] = await db.select().from(meridianStaging)
+      .where(and(eq(meridianStaging.id, id), eq(meridianStaging.sessionId, sessionId)));
+    if (!doc) return res.status(404).json({ error: "Document not found" });
+
+    await db.insert(meridianRepository).values({
+      sessionId,
+      documentKey: doc.documentKey,
+      originalName: doc.originalName,
+      standardName: doc.standardName!,
+      docType: doc.docType!,
+      subject: doc.subject!,
+      department: doc.department!,
+      effectiveDate: doc.effectiveDate,
+      responsibleParty: doc.responsibleParty,
+      confidence: doc.confidence,
+      approvedBy: actor,
+    });
+
+    await db.update(meridianStaging).set({ status: "approved", reviewedAt: new Date(), reviewedBy: actor })
+      .where(eq(meridianStaging.id, id));
+
+    await addMeridianAudit(sessionId, actor, "APPROVE", `"${doc.originalName}" approved → moved to repository as "${doc.standardName}"`);
+
+    res.json({ success: true });
+  });
+
+  // POST /api/meridian/staging/:id/reject
+  app.post("/api/meridian/staging/:id/reject", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const actor = (req.body.actor as string) || "Operations Manager";
+
+    const [doc] = await db.select().from(meridianStaging)
+      .where(and(eq(meridianStaging.id, id), eq(meridianStaging.sessionId, sessionId)));
+    if (!doc) return res.status(404).json({ error: "Document not found" });
+
+    await db.update(meridianStaging).set({ status: "rejected", reviewedAt: new Date(), reviewedBy: actor })
+      .where(eq(meridianStaging.id, id));
+
+    await addMeridianAudit(sessionId, actor, "REJECT", `"${doc.originalName}" rejected — returned to unprocessed pool`);
+
+    res.json({ success: true });
+  });
+
+  // PUT /api/meridian/staging/:id/modify
+  app.put("/api/meridian/staging/:id/modify", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const { docType, subject, department, effectiveDate, responsibleParty, actor } = req.body;
+
+    const [doc] = await db.select().from(meridianStaging)
+      .where(and(eq(meridianStaging.id, id), eq(meridianStaging.sessionId, sessionId)));
+    if (!doc) return res.status(404).json({ error: "Document not found" });
+
+    const updated: Partial<typeof doc> = {};
+    if (docType) updated.docType = docType;
+    if (subject) updated.subject = subject;
+    if (department) updated.department = department;
+    if (effectiveDate !== undefined) updated.effectiveDate = effectiveDate;
+    if (responsibleParty) updated.responsibleParty = responsibleParty;
+
+    if (Object.keys(updated).length > 0) {
+      await db.update(meridianStaging).set(updated).where(eq(meridianStaging.id, id));
+      await addMeridianAudit(sessionId, actor || "Analyst", "MODIFY", `"${doc.originalName}" classification modified by human reviewer`);
+    }
+
+    const [result] = await db.select().from(meridianStaging).where(eq(meridianStaging.id, id));
+    res.json({ success: true, data: result });
+  });
+
+  // GET /api/meridian/repository
+  app.get("/api/meridian/repository", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(meridianRepository)
+      .where(eq(meridianRepository.sessionId, sessionId))
+      .orderBy(desc(meridianRepository.approvedAt));
+    res.json({ success: true, data: rows });
+  });
+
+  // GET /api/meridian/audit
+  app.get("/api/meridian/audit", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(meridianAudit)
+      .where(eq(meridianAudit.sessionId, sessionId))
+      .orderBy(desc(meridianAudit.ts))
+      .limit(50);
+    res.json({ success: true, data: rows });
+  });
+
+  // DELETE /api/meridian/reset
+  app.delete("/api/meridian/reset", async (req, res) => {
+    const sessionId = getMeridianSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    await db.delete(meridianStaging).where(eq(meridianStaging.sessionId, sessionId));
+    await db.delete(meridianRepository).where(eq(meridianRepository.sessionId, sessionId));
+    await db.delete(meridianAudit).where(eq(meridianAudit.sessionId, sessionId));
+    res.json({ success: true, message: "Session reset. All 32 documents returned to library." });
+  });
+
   return app;
+}
+
+// ── Meridian Document Library (32 industrial documents) ─────────────────────
+export function getMeridianDocLibrary() {
+  return [
+    { key: "MIG-001", fileName: "Employee_Handbook_2024.pdf", category: "HR" },
+    { key: "MIG-002", fileName: "Safety_Policy_Lockout_Tagout_LOTO.pdf", category: "Safety" },
+    { key: "MIG-003", fileName: "SOP_Forklift_Operation_Certification.pdf", category: "Operations" },
+    { key: "MIG-004", fileName: "SOP_Chemical_Handling_Storage.pdf", category: "Safety" },
+    { key: "MIG-005", fileName: "Emergency_Response_Procedure_ERP.pdf", category: "Safety" },
+    { key: "MIG-006", fileName: "HR_Onboarding_Checklist_New_Employee.pdf", category: "HR" },
+    { key: "MIG-007", fileName: "IT_Password_Security_Policy.pdf", category: "IT" },
+    { key: "MIG-008", fileName: "Quality_Inspection_Form_Weld_Visual.pdf", category: "Quality" },
+    { key: "MIG-009", fileName: "Maintenance_Schedule_Air_Compressor_Annual.pdf", category: "Operations" },
+    { key: "MIG-010", fileName: "OSHA_Incident_Report_Form.pdf", category: "Safety" },
+    { key: "MIG-011", fileName: "Finance_Expense_Reimbursement_Policy.pdf", category: "Finance" },
+    { key: "MIG-012", fileName: "Legal_NDA_Contractor_Template.pdf", category: "Legal" },
+    { key: "MIG-013", fileName: "Operations_Shift_Handover_SOP.pdf", category: "Operations" },
+    { key: "MIG-014", fileName: "Safety_JSA_Grinding_Operations.pdf", category: "Safety" },
+    { key: "MIG-015", fileName: "HR_Performance_Review_Form_2024.pdf", category: "HR" },
+    { key: "MIG-016", fileName: "IT_Remote_Access_VPN_Policy.pdf", category: "IT" },
+    { key: "MIG-017", fileName: "Quality_SOP_Dimensional_Inspection.pdf", category: "Quality" },
+    { key: "MIG-018", fileName: "Maintenance_SOP_Hydraulic_System_Repair.pdf", category: "Operations" },
+    { key: "MIG-019", fileName: "Operations_Inventory_Management_Procedure.pdf", category: "Operations" },
+    { key: "MIG-020", fileName: "Safety_PPE_Requirements_Policy.pdf", category: "Safety" },
+    { key: "MIG-021", fileName: "HR_Travel_Expense_Policy.pdf", category: "HR" },
+    { key: "MIG-022", fileName: "Finance_Capital_Expenditure_Approval_Procedure.pdf", category: "Finance" },
+    { key: "MIG-023", fileName: "Legal_Contractor_Services_Agreement.pdf", category: "Legal" },
+    { key: "MIG-024", fileName: "Safety_Confined_Space_Entry_Procedure.pdf", category: "Safety" },
+    { key: "MIG-025", fileName: "Operations_Production_Scheduling_SOP.pdf", category: "Operations" },
+    { key: "MIG-026", fileName: "Quality_Nonconformance_Report_NCR_Form.pdf", category: "Quality" },
+    { key: "MIG-027", fileName: "IT_Data_Backup_Recovery_Procedure.pdf", category: "IT" },
+    { key: "MIG-028", fileName: "HR_Disciplinary_Action_Policy.pdf", category: "HR" },
+    { key: "MIG-029", fileName: "Operations_Equipment_Daily_Startup_Checklist.pdf", category: "Operations" },
+    { key: "MIG-030", fileName: "Finance_Budget_Approval_Procedure.pdf", category: "Finance" },
+    { key: "MIG-031", fileName: "Safety_Fire_Prevention_Emergency_Plan.pdf", category: "Safety" },
+    { key: "MIG-032", fileName: "Quality_Customer_Complaint_Resolution_Procedure.pdf", category: "Quality" },
+  ];
 }
