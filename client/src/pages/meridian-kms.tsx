@@ -7,7 +7,8 @@ import {
   CheckCircle2, Clock, Database, ArrowLeft, RefreshCw, ExternalLink,
   User, Calendar, Briefcase, Tag, Percent, FolderOpen, List, LayoutGrid,
   Trash2, AlertTriangle, Loader2, DollarSign, TrendingUp, TrendingDown,
-  ChevronUp, ChevronDown as ChevronDownIcon, Filter, Receipt, CreditCard, CheckCheck
+  ChevronUp, ChevronDown as ChevronDownIcon, Filter, Receipt, CreditCard, CheckCheck,
+  Eye, Printer, Building2, MapPin, Lock
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -97,38 +98,284 @@ function PayMethodBadge({ method }: { method: string | null }) {
   return <span className={`text-xs px-1.5 py-0.5 rounded border font-mono ${cls[method] || "bg-slate-800 text-slate-400 border-slate-600"}`}>{method}</span>;
 }
 
-// ── Doc card ──────────────────────────────────────────────────────────────────
+// ── Document content engine ───────────────────────────────────────────────────
 
-function DocCard({ doc, onClick, selected }: { doc: KMSDoc; onClick: () => void; selected: boolean }) {
-  const Icon = getIcon(doc.docType);
+function extractDocTitle(standardName: string): string {
+  const parts = standardName.split("-");
+  // Format: MIG-TYPE-SUBJECT-TITLE-WORDS-YEAR-SEQ
+  // Drop first 3 (MIG, type code, subject code) and last 2 (year, seq)
+  const raw = parts.slice(3, parts.length - 2);
+  return raw.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(" ");
+}
+
+type DocSection = { heading: string; body: string[] };
+
+function generateDocSections(doc: KMSDoc): DocSection[] {
+  const title = extractDocTitle(doc.standardName);
+  const dept = doc.department;
+  const resp = doc.responsibleParty || "Compliance Officer";
+  const subj = doc.subject;
+  const intro = `This ${doc.docType.toLowerCase()} has been prepared by ${dept} in accordance with Meridian Industrial Group's operational standards and governance framework. It applies to all personnel operating within the ${subj} function and affiliated departments.`;
+
+  switch (doc.docType) {
+    case "Policy": return [
+      { heading: "1. PURPOSE", body: [`This policy establishes the standards and requirements for ${title.toLowerCase()} at Meridian Industrial Group. It defines the principles, guidelines, and accountabilities necessary to maintain ${subj.toLowerCase()} compliance across all business units.`, intro] },
+      { heading: "2. SCOPE", body: [`This policy applies to all Meridian Industrial Group employees, contractors, and third-party partners engaged in activities related to ${subj.toLowerCase()}. It covers all facilities, systems, and processes managed by ${dept}.`, `Exceptions to this policy must be formally approved by the ${resp} and documented in accordance with MIG exception management procedures.`] },
+      { heading: "3. POLICY STATEMENT", body: [`Meridian Industrial Group is committed to maintaining the highest standards of ${title.toLowerCase()}. All personnel are required to comply with the provisions of this policy and to support its effective implementation.`, `The organization will provide adequate resources, training, and oversight mechanisms to ensure compliance. Violations of this policy may result in disciplinary action up to and including termination of employment.`] },
+      { heading: "4. RESPONSIBILITIES", body: [`${resp}: Responsible for oversight, implementation, and enforcement of this policy. Ensures annual review and updates as required.`, `${dept} Manager: Ensures policy communication to all team members, monitors compliance, and reports deviations to the ${resp}.`, `All Employees: Comply with policy requirements, complete required training, and report non-compliance through appropriate channels.`] },
+      { heading: "5. DEFINITIONS", body: [`${subj} — refers to all activities, processes, and systems falling under the scope of Meridian Industrial Group's ${subj.toLowerCase()} function.`, `Non-Compliance — any failure to meet the requirements established in this policy or associated procedures.`, `Responsible Party — the designated individual or team accountable for policy implementation and oversight.`] },
+      { heading: "6. COMPLIANCE AND ENFORCEMENT", body: [`Compliance with this policy is mandatory for all in-scope personnel. ${dept} will conduct periodic audits to verify adherence. Audit findings are reported to senior leadership quarterly.`, `Non-compliance identified through audits, self-assessments, or incident reports will be addressed through MIG's corrective action process.`] },
+      { heading: "7. REFERENCES", body: [`• MIG Enterprise Governance Framework v4.0\n• ISO 9001:2015 Quality Management System Requirements\n• MIG-POL-GEN-COMPLIANCE-POLICY\n• Applicable regulatory standards for ${subj.toLowerCase()}`] },
+    ];
+
+    case "SOP": return [
+      { heading: "1. PURPOSE AND SCOPE", body: [`This Standard Operating Procedure (SOP) provides step-by-step instructions for ${title.toLowerCase()} within ${dept}. It ensures consistency, accuracy, and compliance with Meridian Industrial Group's operational standards.`, intro] },
+      { heading: "2. REQUIRED RESOURCES", body: [`Personnel: Qualified staff members assigned to ${dept}, with training completion verified for this procedure.\nSystems: MIG internal systems as designated by ${resp}.\nDocuments: Associated forms, checklists, and reference materials listed in Section 7.`] },
+      { heading: "3. PREREQUISITES", body: [`Prior to initiating this procedure, ensure the following conditions are met:\n• All required personnel have completed mandatory training\n• Necessary system access and authorizations are in place\n• Supporting materials and tools are available\n• Prior review of relevant policies has been completed`] },
+      { heading: "4. PROCEDURE", body: [`Step 1 — Initiation: Verify all prerequisites (Section 3) are satisfied. Document start time and personnel involved in the designated log system.`, `Step 2 — Preparation: Gather all required documentation and materials. Review applicable checklists. Notify stakeholders per ${subj} communication protocols.`, `Step 3 — Execution: Perform the ${title.toLowerCase()} procedure in accordance with approved methods. Document each stage in the MIG tracking system as work progresses.`, `Step 4 — Quality Check: Upon completion, verify all steps have been executed correctly. Compare outputs against established benchmarks. Escalate deviations to ${resp} immediately.`, `Step 5 — Documentation and Close-Out: Complete all required records. File documentation in the ${subj} repository. Notify relevant stakeholders of completion.`] },
+      { heading: "5. QUALITY AND CONTROL MEASURES", body: [`Periodic audits of this procedure will be conducted by ${dept} to verify compliance and effectiveness. Any process deviations or near-misses must be documented and reported to ${resp} within 24 hours.`] },
+      { heading: "6. DOCUMENTATION REQUIREMENTS", body: [`All activities performed under this SOP must be documented using MIG-approved forms. Records must be retained for a minimum of seven (7) years in accordance with MIG records management policy.`] },
+      { heading: "7. REFERENCES", body: [`• MIG Quality Management Policy\n• Relevant ${subj} regulatory requirements\n• ${resp} — primary contact for procedure questions\n• MIG Training Registry for prerequisite verification`] },
+    ];
+
+    case "Report": return [
+      { heading: "EXECUTIVE SUMMARY", body: [`This report presents findings related to ${title.toLowerCase()} for the reporting period. Prepared by ${dept} under the direction of ${resp}, it is intended for senior leadership review.`, `Key findings indicate continued progress in ${subj.toLowerCase()} performance metrics, with specific areas identified for improvement as detailed in the recommendations section.`] },
+      { heading: "BACKGROUND", body: [`${dept} conducts periodic reporting on ${subj.toLowerCase()} activities as required by MIG's governance framework. This report covers the designated period and reflects data collected through established monitoring systems.`] },
+      { heading: "METHODOLOGY", body: [`Data was collected through a combination of system-generated metrics, manual reporting, and stakeholder interviews. All data sources were verified against MIG's primary records. Analysis was performed by ${dept} personnel using established analytical frameworks consistent with MIG's approved reporting standards.`] },
+      { heading: "KEY FINDINGS", body: [`Finding 1: ${subj} operations met or exceeded targets in the majority of assessed categories during the reporting period.`, `Finding 2: A total of 97 data points were reviewed across all relevant ${subj.toLowerCase()} metrics, showing consistent performance compared to the prior period benchmark.`, `Finding 3: Areas requiring attention were identified in three operational categories. These are being addressed through targeted corrective actions coordinated by ${resp}.`] },
+      { heading: "RECOMMENDATIONS", body: [`1. Continue current ${subj.toLowerCase()} monitoring protocols with quarterly review cadence.\n2. Implement enhanced tracking for the three identified performance gaps.\n3. Provide additional training resources for teams below target.\n4. Review and update relevant SOPs to reflect operational improvements identified during this period.`] },
+      { heading: "CONCLUSION", body: [`Overall, ${dept}'s ${subj.toLowerCase()} performance remains at an acceptable level with clear pathways for continued improvement. The recommendations, when implemented, will strengthen MIG's operational posture in the ${subj.toLowerCase()} domain.`] },
+    ];
+
+    case "Training": return [
+      { heading: "TRAINING OBJECTIVES", body: [`Upon completion, participants will be able to:\n• Understand the key principles of ${title.toLowerCase()} as applied to ${dept}\n• Apply established protocols and procedures in daily work\n• Identify and respond appropriately to non-compliance situations\n• Access and utilize relevant resources and support channels`] },
+      { heading: "TARGET AUDIENCE", body: [`Required for all personnel in ${dept} and affiliated roles with responsibilities related to ${subj.toLowerCase()}. Prerequisite: MIG New Employee Orientation.`] },
+      { heading: "MODULE 1 — FOUNDATIONS", body: [`Introduction to ${title} at Meridian Industrial Group. Covers the regulatory and policy landscape governing ${subj.toLowerCase()} activities, MIG's organizational structure, and the role of ${dept} in maintaining standards.`] },
+      { heading: "MODULE 2 — CORE PROCEDURES", body: [`Covers operational procedures relevant to ${title.toLowerCase()}: step-by-step workflows, system navigation, and documentation standards. Case studies illustrating compliant and non-compliant scenarios are included for discussion.`] },
+      { heading: "MODULE 3 — ROLES AND RESPONSIBILITIES", body: [`Clear delineation of responsibilities for all roles involved in ${subj.toLowerCase()} activities. ${resp} is the primary escalation contact. Participants will practice identifying the appropriate response channel for a variety of scenario types.`] },
+      { heading: "ASSESSMENT", body: [`Participants must complete a competency assessment with a minimum score of 80% to receive credit. Administered through the MIG Learning Management System. Remediation is available for participants below the threshold.`] },
+      { heading: "RESOURCES", body: [`• ${resp} — Subject Matter Expert\n• MIG ${subj} Policy Suite — available in the KMS portal\n• Learning Management System — completion records\n• ${dept} team — for operational questions`] },
+    ];
+
+    case "Memo": return [
+      { heading: "MEMORANDUM", body: [`TO: All ${dept} Personnel and Relevant Stakeholders`, `FROM: ${resp}, ${dept}`, `DATE: ${fmtDate(doc.effectiveDate || doc.approvedAt)}`, `SUBJECT: ${title}`, `CLASSIFICATION: Internal Distribution Only`] },
+      { heading: "PURPOSE", body: [`This memorandum provides guidance and updated information regarding ${title.toLowerCase()} affecting ${dept} and associated personnel. The information herein is effective immediately unless otherwise stated.`] },
+      { heading: "BACKGROUND", body: [`${dept} has completed a review of current ${subj.toLowerCase()} operations and identified the following developments requiring communication to all affected parties. This memo supplements existing policy documentation and does not supersede standing governance requirements.`] },
+      { heading: "DETAILS", body: [`The following changes or notifications are communicated through this memorandum:\n\n1. Updated operational guidance for ${title.toLowerCase()} activities, effective as of the date of this memo.\n2. Revised documentation requirements aligned with MIG's current governance framework.\n3. Clarification of role responsibilities as they relate to the items addressed herein.`, `Personnel with questions should contact ${resp} directly or submit inquiries through established ${dept} communication channels.`] },
+      { heading: "ACTION REQUIRED", body: [`Recipients must acknowledge receipt through the MIG document management system by the date specified in the distribution notice. Any required procedural changes should be implemented immediately.`] },
+    ];
+
+    case "Reference": return [
+      { heading: "OVERVIEW", body: [`This reference document provides quick-access guidance for ${title.toLowerCase()} applicable to ${dept} and affiliated functions. Designed as a working reference for day-to-day operational use.`, intro] },
+      { heading: "KEY CONCEPTS AND DEFINITIONS", body: [`${subj} — All activities, systems, and resources designated under ${subj.toLowerCase()} at Meridian Industrial Group.`, `Standard Operating Environment — The approved configuration and procedural baseline for ${dept} operations.`, `Escalation Path — The defined chain of communication for issues requiring senior review, beginning with the direct supervisor and proceeding to ${resp}.`, `Compliance Indicator — Any metric or data point used to assess adherence to ${subj.toLowerCase()} requirements.`] },
+      { heading: "QUICK REFERENCE — KEY CONTACTS", body: [`Primary Contact: ${resp}, ${dept}\nEscalation: ${dept} Director\nCompliance Oversight: MIG Compliance Office\nTechnology Support: IT Help Desk (ext. 5000)`] },
+      { heading: "STANDARD PROCEDURES SUMMARY", body: [`Refer to the following SOPs for detailed procedural guidance:\n• Standard procedures for routine ${subj.toLowerCase()} activities\n• Escalation procedures for non-standard situations\n• Documentation and records management requirements\n• Audit and review procedures (quarterly cadence)`] },
+      { heading: "APPLICABLE STANDARDS", body: [`• MIG Enterprise Governance Framework\n• ISO 9001:2015 Quality Management\n• Applicable ${subj} regulatory requirements\n• MIG Information Security Policy (where systems are involved)`] },
+    ];
+
+    case "Form": return [
+      { heading: "FORM INSTRUCTIONS", body: [`Used to document ${title.toLowerCase()} activities within ${dept}. Complete all required fields (marked *) in full. Incomplete forms will be returned for correction.`, `Submit completed forms to ${resp} via the MIG document management system. Retain a copy in departmental records.`] },
+      { heading: "SECTION A — IDENTIFICATION", body: [`Form Number: ________________  Date: ________________\nPrepared By: ________________  Department: ${dept}\nEvent/Activity Reference: ________________  Period Covered: ________________`] },
+      { heading: "SECTION B — ACTIVITY DETAILS", body: [`1. Description of ${subj.toLowerCase()} activity or event:\n   _______________________________________________\n\n2. Personnel involved:\n   _______________________________________________\n\n3. Systems or resources utilized:\n   _______________________________________________\n\n4. Outcome or result:\n   _______________________________________________`] },
+      { heading: "SECTION C — COMPLIANCE VERIFICATION", body: [`Check all applicable:\n\n☐  Activity performed in accordance with applicable SOPs\n☐  Required personnel completed prerequisite training\n☐  Documentation requirements met\n☐  No deviations from standard procedures\n☐  Deviations documented and reported (attach deviation report if applicable)`] },
+      { heading: "SECTION D — AUTHORIZATION", body: [`Submitter Signature: ________________________  Date: ____________\n\nReviewed By (${resp}): ________________________  Date: ____________\n\nApproved By: ________________________  Date: ____________`] },
+    ];
+
+    case "Specification": return [
+      { heading: "OVERVIEW", body: [`This specification defines the technical and operational requirements for ${title.toLowerCase()} within ${dept}. It establishes minimum acceptable standards and performance criteria that must be met.`, intro] },
+      { heading: "FUNCTIONAL REQUIREMENTS", body: [`FR-001: System or process must operate within defined parameters without manual intervention under normal conditions.\nFR-002: All outputs must meet quality standards as defined by ${dept} and approved by ${resp}.\nFR-003: Logging and audit trail capabilities must be maintained per MIG records management policy.\nFR-004: Integration with existing MIG systems must be achieved without disruption to current operations.`] },
+      { heading: "TECHNICAL REQUIREMENTS", body: [`TR-001: Compliance with MIG technical standards as documented in the IT Architecture Framework.\nTR-002: Security requirements aligned with MIG Information Security Policy.\nTR-003: Availability of 99.5% uptime during business hours.\nTR-004: Data retention per MIG records retention schedule (minimum 7 years for operational data).`] },
+      { heading: "PERFORMANCE CRITERIA", body: [`All implementations must demonstrate:\n• Response/processing time within defined SLA thresholds\n• Error rate below 0.5% under standard operating conditions\n• Successful integration testing across all affected systems\n• Complete documentation prior to production deployment`] },
+      { heading: "ACCEPTANCE CRITERIA", body: [`Implementation is complete when:\n1. All functional and technical requirements are verified through testing\n2. ${resp} has reviewed and approved test results\n3. Training is completed for all affected personnel\n4. Documentation is complete and filed in the KMS`] },
+    ];
+
+    default: return [
+      { heading: "DOCUMENT OVERVIEW", body: [intro] },
+      { heading: "CONTENT", body: [`This ${doc.docType.toLowerCase()} provides official guidance and information for ${title.toLowerCase()} within the scope of ${dept} at Meridian Industrial Group.`, `For questions or additional information, contact ${resp} or the ${dept} management team.`] },
+    ];
+  }
+}
+
+// ── Document Viewer Modal ──────────────────────────────────────────────────────
+
+function DocumentViewerModal({ doc, onClose }: { doc: KMSDoc; onClose: () => void }) {
+  const sections = generateDocSections(doc);
+  const title = extractDocTitle(doc.standardName);
   const colors = SUBJECT_COLORS[doc.subject] || SUBJECT_COLORS["General"];
+
   return (
-    <button onClick={onClick} data-testid={`card-kms-doc-${doc.id}`}
-      className={`w-full text-left border rounded-lg p-4 transition-all hover:border-slate-500 hover:bg-slate-800/80 focus:outline-none focus:ring-1 focus:ring-amber-600 ${selected ? "border-amber-600 bg-slate-800/80 ring-1 ring-amber-600/30" : "border-slate-700 bg-slate-900/60"}`}>
-      <div className="flex items-start gap-3">
-        <div className={`w-9 h-9 rounded flex items-center justify-center shrink-0 ${colors.bg} ${colors.border} border`}>
-          <Icon className={`h-4 w-4 ${colors.text}`} />
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1.5 flex-wrap mb-1">
-            <span className={`text-xs px-1.5 py-0.5 rounded border font-semibold ${colors.bg} ${colors.text} ${colors.border}`}>{doc.docType}</span>
-            <span className="text-xs text-slate-500 font-mono truncate">{doc.documentKey}</span>
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/80 backdrop-blur-sm overflow-y-auto py-8 px-4" onClick={e => { if (e.target === e.currentTarget) onClose(); }} data-testid="modal-document-viewer">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-2xl overflow-hidden">
+
+        {/* Viewer controls bar */}
+        <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800 border-b border-slate-700">
+          <div className="flex items-center gap-2">
+            <div className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold ${colors.bg} ${colors.text}`}>{doc.docType.charAt(0)}</div>
+            <span className="text-xs text-slate-400 font-mono truncate max-w-xs">{doc.standardName}</span>
           </div>
-          <p className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2">{formatStandardName(doc.standardName)}</p>
-          <p className="text-xs text-slate-500 font-mono mt-1 truncate">{doc.originalName}</p>
-          <div className="flex items-center gap-3 mt-2">
-            <span className="text-xs text-slate-500 flex items-center gap-1"><Briefcase className="h-3 w-3" />{doc.department}</span>
-            <span className="text-xs text-slate-600 flex items-center gap-1"><Calendar className="h-3 w-3" />{fmtDate(doc.approvedAt)}</span>
+          <div className="flex items-center gap-2">
+            <button onClick={() => window.print()} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-700 hover:bg-slate-600 rounded px-2.5 py-1 transition-colors" data-testid="button-print-doc">
+              <Printer className="h-3.5 w-3.5" /> Print
+            </button>
+            <button onClick={onClose} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-200 bg-slate-700 hover:bg-slate-600 rounded px-2.5 py-1 transition-colors" data-testid="button-close-viewer">
+              <X className="h-3.5 w-3.5" /> Close
+            </button>
+          </div>
+        </div>
+
+        {/* Document body — white paper */}
+        <div className="bg-white text-gray-900 px-14 py-12 font-sans print:px-8">
+
+          {/* Letterhead */}
+          <div className="flex items-start justify-between pb-6 border-b-2 border-gray-800 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-amber-700 rounded flex items-center justify-center text-white text-2xl font-bold font-serif">M</div>
+              <div>
+                <p className="text-lg font-bold text-gray-900 tracking-tight leading-tight">Meridian Industrial Group</p>
+                <p className="text-xs text-gray-500 leading-tight">Knowledge Management System</p>
+                <p className="text-xs text-gray-500 leading-tight">Meridian, TX 76665 · MIG-OPS-CONTROL</p>
+              </div>
+            </div>
+            <div className="text-right text-xs text-gray-500 space-y-0.5">
+              <div className="flex items-center gap-1.5 justify-end"><Lock className="h-3 w-3" /><span className="font-semibold text-gray-700">INTERNAL USE ONLY</span></div>
+              <p className="font-mono text-gray-600">{doc.standardName}</p>
+              <p>Effective: {fmtDate(doc.effectiveDate || doc.approvedAt)}</p>
+              <p>Rev: {doc.approvedAt?.slice(0, 4) || "2025"}.1</p>
+            </div>
+          </div>
+
+          {/* Doc type badge + title */}
+          <div className="mb-8">
+            <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3 ${
+              doc.docType === "Policy" ? "bg-violet-100 text-violet-700" :
+              doc.docType === "SOP" ? "bg-blue-100 text-blue-700" :
+              doc.docType === "Report" ? "bg-emerald-100 text-emerald-700" :
+              doc.docType === "Training" ? "bg-amber-100 text-amber-700" :
+              doc.docType === "Memo" ? "bg-orange-100 text-orange-700" :
+              doc.docType === "Reference" ? "bg-cyan-100 text-cyan-700" :
+              doc.docType === "Form" ? "bg-gray-100 text-gray-600" :
+              doc.docType === "Specification" ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-600"
+            }`}>{doc.docType}</span>
+            <h1 className="text-2xl font-bold text-gray-900 leading-tight">{title}</h1>
+            <p className="text-sm text-gray-500 mt-1">{doc.subject} · {doc.department}</p>
+          </div>
+
+          {/* Metadata table */}
+          <table className="w-full text-xs mb-10 border border-gray-200 rounded">
+            <tbody>
+              <tr className="border-b border-gray-100">
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600 w-40">Document Number</td>
+                <td className="px-3 py-2 font-mono text-gray-700">{doc.standardName}</td>
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600 w-40">Document Type</td>
+                <td className="px-3 py-2 text-gray-700">{doc.docType}</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Department</td>
+                <td className="px-3 py-2 text-gray-700">{doc.department}</td>
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Subject Area</td>
+                <td className="px-3 py-2 text-gray-700">{doc.subject}</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Responsible Party</td>
+                <td className="px-3 py-2 text-gray-700">{doc.responsibleParty || "Compliance Officer"}</td>
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Effective Date</td>
+                <td className="px-3 py-2 text-gray-700">{fmtDate(doc.effectiveDate || doc.approvedAt)}</td>
+              </tr>
+              <tr>
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Approved By</td>
+                <td className="px-3 py-2 text-gray-700">{doc.approvedBy || "Operations Manager"}</td>
+                <td className="px-3 py-2 bg-gray-50 font-semibold text-gray-600">Classification</td>
+                <td className="px-3 py-2 text-gray-700">Internal Use Only</td>
+              </tr>
+            </tbody>
+          </table>
+
+          {/* Document sections */}
+          <div className="space-y-7">
+            {sections.map((section, i) => (
+              <div key={i}>
+                <h2 className={`text-sm font-bold uppercase tracking-wide mb-3 ${section.heading === "MEMORANDUM" ? "text-gray-900 text-base" : "text-gray-700"} ${i === 0 && doc.docType === "Memo" ? "sr-only" : ""}`}>
+                  {section.heading !== "MEMORANDUM" ? section.heading : ""}
+                </h2>
+                {section.heading === "MEMORANDUM" ? (
+                  <div className="bg-gray-50 border border-gray-200 rounded p-4 space-y-1 mb-2">
+                    {section.body.map((line, j) => <p key={j} className="text-sm text-gray-700 font-semibold">{line}</p>)}
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {section.body.map((para, j) => (
+                      <p key={j} className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{para}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Signature block */}
+          <div className="mt-12 pt-8 border-t border-gray-300">
+            <div className="grid grid-cols-3 gap-8">
+              {[["Prepared By", doc.department], ["Reviewed By", doc.responsibleParty || "Compliance Officer"], ["Approved By", "Operations Director"]].map(([label, role]) => (
+                <div key={label}>
+                  <div className="border-b border-gray-400 pb-1 mb-1.5 h-8" />
+                  <p className="text-xs font-semibold text-gray-600">{label}</p>
+                  <p className="text-xs text-gray-500">{role}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">Date: ___________</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-10 pt-4 border-t border-gray-200 flex items-center justify-between text-xs text-gray-400">
+            <span>Meridian Industrial Group · Knowledge Management System</span>
+            <span className="font-mono">{doc.standardName} · Page 1 of 1</span>
+            <span>CONFIDENTIAL — INTERNAL USE ONLY</span>
           </div>
         </div>
       </div>
-    </button>
+    </div>
+  );
+}
+
+// ── Doc card ──────────────────────────────────────────────────────────────────
+
+function DocCard({ doc, onClick, selected, onOpen }: { doc: KMSDoc; onClick: () => void; selected: boolean; onOpen: () => void }) {
+  const Icon = getIcon(doc.docType);
+  const colors = SUBJECT_COLORS[doc.subject] || SUBJECT_COLORS["General"];
+  return (
+    <div className={`relative border rounded-lg transition-all hover:border-slate-500 hover:bg-slate-800/80 ${selected ? "border-amber-600 bg-slate-800/80 ring-1 ring-amber-600/30" : "border-slate-700 bg-slate-900/60"}`} data-testid={`card-kms-doc-${doc.id}`}>
+      <button onClick={onClick} className="w-full text-left p-4 focus:outline-none">
+        <div className="flex items-start gap-3">
+          <div className={`w-9 h-9 rounded flex items-center justify-center shrink-0 ${colors.bg} ${colors.border} border`}>
+            <Icon className={`h-4 w-4 ${colors.text}`} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5 flex-wrap mb-1">
+              <span className={`text-xs px-1.5 py-0.5 rounded border font-semibold ${colors.bg} ${colors.text} ${colors.border}`}>{doc.docType}</span>
+              <span className="text-xs text-slate-500 font-mono truncate">{doc.documentKey}</span>
+            </div>
+            <p className="text-sm font-semibold text-slate-100 leading-tight line-clamp-2">{formatStandardName(doc.standardName)}</p>
+            <p className="text-xs text-slate-500 font-mono mt-1 truncate">{doc.originalName}</p>
+            <div className="flex items-center gap-3 mt-2">
+              <span className="text-xs text-slate-500 flex items-center gap-1"><Briefcase className="h-3 w-3" />{doc.department}</span>
+              <span className="text-xs text-slate-600 flex items-center gap-1"><Calendar className="h-3 w-3" />{fmtDate(doc.approvedAt)}</span>
+            </div>
+          </div>
+        </div>
+      </button>
+      <div className="px-4 pb-3 flex justify-end">
+        <button onClick={e => { e.stopPropagation(); onOpen(); }} className="flex items-center gap-1.5 text-xs text-amber-500 hover:text-amber-300 bg-amber-900/20 hover:bg-amber-900/40 border border-amber-800/50 rounded px-2.5 py-1 transition-colors font-semibold" data-testid={`button-open-doc-${doc.id}`}>
+          <Eye className="h-3.5 w-3.5" /> Open Document
+        </button>
+      </div>
+    </div>
   );
 }
 
 // ── Doc detail panel ──────────────────────────────────────────────────────────
 
-function DocDetailPanel({ doc, onClose }: { doc: KMSDoc; onClose: () => void }) {
+function DocDetailPanel({ doc, onClose, onOpen }: { doc: KMSDoc; onClose: () => void; onOpen: () => void }) {
   const Icon = getIcon(doc.docType);
   const colors = SUBJECT_COLORS[doc.subject] || SUBJECT_COLORS["General"];
   return (
@@ -139,7 +386,10 @@ function DocDetailPanel({ doc, onClose }: { doc: KMSDoc; onClose: () => void }) 
             <div className={`w-9 h-9 rounded flex items-center justify-center shrink-0 border ${colors.bg} ${colors.border}`}><Icon className={`h-4 w-4 ${colors.text}`} /></div>
             <div><p className="text-xs text-slate-500 font-mono">{doc.documentKey}</p><p className="text-xs font-semibold text-slate-400">{doc.docType}</p></div>
           </div>
-          <button onClick={onClose} className="text-slate-500 hover:text-slate-300" data-testid="button-close-doc-detail"><X className="h-4 w-4" /></button>
+          <div className="flex items-center gap-1.5">
+            <button onClick={onOpen} className="flex items-center gap-1 text-xs text-amber-500 hover:text-amber-300 bg-amber-900/20 hover:bg-amber-900/40 border border-amber-800/50 rounded px-2 py-1 transition-colors font-semibold" data-testid="button-open-from-panel"><Eye className="h-3 w-3" />Open</button>
+            <button onClick={onClose} className="text-slate-500 hover:text-slate-300" data-testid="button-close-doc-detail"><X className="h-4 w-4" /></button>
+          </div>
         </div>
         <h3 className="text-base font-bold text-slate-100 mt-3 leading-tight">{formatStandardName(doc.standardName)}</h3>
         <p className="text-xs text-slate-500 font-mono mt-1 break-all">{doc.originalName}</p>
@@ -331,6 +581,7 @@ export default function MeridianKMS() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [resetConfirm, setResetConfirm] = useState(false);
   const [resetting, setResetting] = useState(false);
+  const [viewingDoc, setViewingDoc] = useState<KMSDoc | null>(null);
 
   const { data: docsData, isLoading: docsLoading, refetch: refetchDocs, isFetching: docsFetching } = useQuery<{ success: boolean; data: KMSDoc[] }>({
     queryKey: ["/api/meridian/kms"],
@@ -410,6 +661,7 @@ export default function MeridianKMS() {
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col" data-testid="page-meridian-kms">
+      {viewingDoc && <DocumentViewerModal doc={viewingDoc} onClose={() => setViewingDoc(null)} />}
 
       {/* ── Header ── */}
       <header className="bg-[#0F172A] border-b border-slate-700/80 shrink-0 z-10">
@@ -585,7 +837,7 @@ export default function MeridianKMS() {
                 <div className="flex flex-col items-center justify-center py-20 text-slate-500 space-y-2" data-testid="empty-state-kms"><Database className="h-8 w-8 opacity-30" /><p className="text-sm font-semibold">No documents found</p></div>
               ) : viewMode === "grid" ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3" data-testid="grid-kms-docs">
-                  {filteredDocs.map(doc => <DocCard key={doc.id} doc={doc} onClick={() => setSelectedDoc(p => p?.id === doc.id ? null : doc)} selected={selectedDoc?.id === doc.id} />)}
+                  {filteredDocs.map(doc => <DocCard key={doc.id} doc={doc} onClick={() => setSelectedDoc(p => p?.id === doc.id ? null : doc)} selected={selectedDoc?.id === doc.id} onOpen={() => setViewingDoc(doc)} />)}
                 </div>
               ) : (
                 <div className="space-y-1.5" data-testid="list-kms-docs">
@@ -593,14 +845,18 @@ export default function MeridianKMS() {
                     const Icon = getIcon(doc.docType);
                     const colors = SUBJECT_COLORS[doc.subject] || SUBJECT_COLORS["General"];
                     return (
-                      <button key={doc.id} onClick={() => setSelectedDoc(p => p?.id === doc.id ? null : doc)} data-testid={`row-kms-doc-${doc.id}`}
-                        className={`w-full text-left flex items-center gap-4 px-4 py-2.5 rounded border transition-all hover:border-slate-500 ${selectedDoc?.id === doc.id ? "border-amber-600 bg-slate-800/80" : "border-slate-800 bg-slate-900/40 hover:bg-slate-800/60"}`}>
-                        <div className={`w-7 h-7 rounded flex items-center justify-center shrink-0 border ${colors.bg} ${colors.border}`}><Icon className={`h-3.5 w-3.5 ${colors.text}`} /></div>
-                        <span className={`text-xs px-1.5 py-0.5 rounded border font-semibold shrink-0 ${colors.bg} ${colors.text} ${colors.border}`}>{doc.docType}</span>
-                        <span className="text-sm font-semibold text-slate-200 flex-1 truncate">{formatStandardName(doc.standardName)}</span>
-                        <span className="text-xs text-slate-500 shrink-0">{doc.department}</span>
-                        <span className="text-xs text-slate-600 shrink-0">{fmtDate(doc.approvedAt)}</span>
-                      </button>
+                      <div key={doc.id} className={`flex items-center gap-4 px-4 py-2.5 rounded border transition-all hover:border-slate-500 ${selectedDoc?.id === doc.id ? "border-amber-600 bg-slate-800/80" : "border-slate-800 bg-slate-900/40 hover:bg-slate-800/60"}`} data-testid={`row-kms-doc-${doc.id}`}>
+                        <button onClick={() => setSelectedDoc(p => p?.id === doc.id ? null : doc)} className="flex items-center gap-4 flex-1 min-w-0 text-left focus:outline-none">
+                          <div className={`w-7 h-7 rounded flex items-center justify-center shrink-0 border ${colors.bg} ${colors.border}`}><Icon className={`h-3.5 w-3.5 ${colors.text}`} /></div>
+                          <span className={`text-xs px-1.5 py-0.5 rounded border font-semibold shrink-0 ${colors.bg} ${colors.text} ${colors.border}`}>{doc.docType}</span>
+                          <span className="text-sm font-semibold text-slate-200 flex-1 truncate">{formatStandardName(doc.standardName)}</span>
+                          <span className="text-xs text-slate-500 shrink-0">{doc.department}</span>
+                          <span className="text-xs text-slate-600 shrink-0">{fmtDate(doc.approvedAt)}</span>
+                        </button>
+                        <button onClick={() => setViewingDoc(doc)} className="flex items-center gap-1 text-xs text-amber-500/70 hover:text-amber-400 shrink-0 transition-colors" data-testid={`button-open-list-doc-${doc.id}`} title="Open Document">
+                          <Eye className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                     );
                   })}
                 </div>
@@ -623,7 +879,7 @@ export default function MeridianKMS() {
           {/* Doc detail panel */}
           {selectedDoc && section === "documents" && (
             <div className="w-80 shrink-0" data-testid="panel-doc-detail">
-              <DocDetailPanel doc={selectedDoc} onClose={() => setSelectedDoc(null)} />
+              <DocDetailPanel doc={selectedDoc} onClose={() => setSelectedDoc(null)} onOpen={() => setViewingDoc(selectedDoc)} />
             </div>
           )}
         </div>
