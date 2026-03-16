@@ -1,0 +1,97 @@
+MERIDIAN INDUSTRIAL GROUP
+Knowledge Repository Document Submission Request
+
+Document ID: MIG-FRM-KM-DocSubmit-2025-003
+Classification: Internal
+Version: 1.0
+Owner: Knowledge Management Office
+Effective Date: March 1, 2025
+
+------------------------------------------------------------------------
+
+INSTRUCTIONS
+
+Use this form when submitting documents for inclusion in the Meridian
+Knowledge Repository through the manual submission process. For
+electronic submissions through the Document Intelligence Engine
+portal, this form is not required as the portal captures equivalent
+information automatically.
+
+Please fill in all applicable fields. The Knowledge Management
+Office will process submissions within 3 business days.
+
+------------------------------------------------------------------------
+
+SECTION 1: SUBMITTER INFORMATION
+
+Submitter Name: _________________________________________________
+Department: _____________________________________________________
+Email: __________________________________________________________
+Phone Extension: ________________________________________________
+Date of Submission: _____________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 2: DOCUMENT INFORMATION
+
+Document Title: _________________________________________________
+Original Filename: ______________________________________________
+Number of Pages: ________________________________________________
+File Format:  [ ] PDF  [ ] DOCX  [ ] TXT  [ ] Other: __________
+
+Suggested Document Type:
+[ ] Policy (POL)
+[ ] Standard Operating Procedure (SOP)
+[ ] Training Material (TRN)
+[ ] Report (RPT)
+[ ] Memorandum (MEM)
+[ ] Specification (SPE)
+[ ] Form (FRM)
+[ ] Reference (REF)
+
+Subject Area: ___________________________________________________
+Department/Division: ____________________________________________
+Effective Date (if applicable): _________________________________
+Author/Prepared By: _____________________________________________
+Approved By (if applicable): ____________________________________
+
+------------------------------------------------------------------------
+
+SECTION 3: CLASSIFICATION NOTES
+
+Provide any additional context that may assist the Knowledge
+Management Office in classifying this document:
+________________________________________________________________
+________________________________________________________________
+________________________________________________________________
+
+Does this document supersede an existing repository document?
+[ ] Yes - Document ID: _________________________________________
+[ ] No
+[ ] Unknown
+
+------------------------------------------------------------------------
+
+SECTION 4: ACCESS RESTRICTIONS
+
+Should this document have restricted access beyond the standard
+role-based controls?
+[ ] No - standard access controls apply
+[ ] Yes - restrict to the following groups:
+    ____________________________________________________________
+    ____________________________________________________________
+
+------------------------------------------------------------------------
+
+KM OFFICE USE ONLY
+
+Received By: _________________________ Date: ___________________
+Assigned Document ID: ___________________________________________
+Classification Result: __________________________________________
+Standard Name: __________________________________________________
+Reviewer: _______________________________________________________
+Status: [ ] Approved  [ ] Modified  [ ] Rejected
+Notes: __________________________________________________________
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-FRM-KM-DocSubmit-2025-003

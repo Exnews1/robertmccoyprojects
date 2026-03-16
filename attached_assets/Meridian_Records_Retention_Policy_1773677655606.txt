@@ -1,0 +1,68 @@
+MERIDIAN INDUSTRIAL GROUP
+Records Retention and Disposition Policy
+Version 1.4
+
+Document ID: MIG-POL-RR-2024-033
+Classification: Internal
+Effective Date: September 1, 2024
+Owner: Legal and Compliance Division
+Approved By: M. Foster, General Counsel
+
+------------------------------------------------------------------------
+
+1. PURPOSE
+
+This policy establishes the retention periods, storage requirements,
+and disposition procedures for all organizational records maintained
+by Meridian Industrial Group. The policy ensures compliance with
+applicable federal, state, and industry-specific regulations.
+
+2. SCOPE
+
+This policy applies to all records created, received, or maintained
+by employees and contractors, regardless of format. Records include
+paper documents, electronic files, email, database entries, audio
+and video recordings, and any other medium.
+
+3. RETENTION SCHEDULE
+
+Financial Records:
+  - General ledger and journal entries: 7 years
+  - Tax returns and supporting documentation: 7 years
+  - Accounts payable and receivable: 5 years
+  - Purchase orders and invoices: 5 years
+
+Human Resources Records:
+  - Employee personnel files: Duration of employment + 7 years
+  - Payroll records: 7 years
+  - Benefits enrollment: Duration of plan + 6 years
+  - Workers compensation claims: 10 years from date of injury
+
+Operational Records:
+  - Contracts and agreements: Duration + 6 years
+  - Insurance policies: Duration + 10 years
+  - Quality assurance records: 10 years
+  - Safety inspection reports: 5 years
+
+Corporate Records:
+  - Board meeting minutes: Permanent
+  - Articles of incorporation: Permanent
+  - Annual reports: Permanent
+  - Audit reports: 7 years
+
+4. LEGAL HOLD PROCEDURES
+
+When litigation is reasonably anticipated, all affected records shall
+be placed under legal hold. Recipients of a legal hold notice shall
+suspend all routine disposition activities for affected records and
+confirm compliance within 48 hours.
+
+5. DISPOSITION
+
+Records that have met their retention period and are not subject to
+legal hold may be disposed of through approved methods. Paper records
+shall be shredded using cross-cut equipment. Electronic records shall
+be permanently deleted using approved data sanitization tools.
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-POL-RR-2024-033

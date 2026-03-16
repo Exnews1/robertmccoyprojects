@@ -1,0 +1,54 @@
+MERIDIAN INDUSTRIAL GROUP
+INTERNAL MEMORANDUM
+
+------------------------------------------------------------------------
+
+TO:       All Division Heads and Data Stewards
+FROM:     S. Park, Chief Data Officer
+DATE:     March 3, 2025
+SUBJECT:  Launch of AI-Assisted Document Intelligence Pilot Program
+
+Document ID: MIG-MEM-AI-Doc-Intel-Pilot-2025-018
+Classification: Internal
+
+------------------------------------------------------------------------
+
+I am writing to inform you that the Knowledge Management Office, in
+partnership with our Information Technology division, will be launching
+a pilot program to evaluate AI-assisted document classification and
+ingestion beginning April 1, 2025.
+
+BACKGROUND
+
+Over the past eighteen months, our document intake volume has increased
+by approximately 40 percent, placing significant strain on the manual
+review process. The average time from document submission to repository
+availability is currently 3.2 business days, with classification
+accuracy at 87 percent on first review.
+
+The AI-Assisted Document Intelligence pilot will introduce automated
+classification capabilities to the intake workflow. Human reviewers
+will retain full authority to approve, modify, or reject all
+classifications. No document will enter the Knowledge Repository
+without human approval.
+
+PILOT SCOPE
+
+  - Duration: April 1 through June 30, 2025 (90 days)
+  - Participating Divisions: Operations, Engineering, Human Resources
+  - Volume Target: Minimum 500 documents processed
+  - Success Metrics: Classification accuracy above 92 percent,
+    processing time under 1 business day
+
+GOVERNANCE REQUIREMENTS
+
+All AI classification decisions are logged in the audit trail with
+the method tagged as AI-assisted. Confidence scores below 70 percent
+are flagged for priority human review. Weekly accuracy reports will
+be distributed to participating division heads.
+
+S. Park
+Chief Data Officer
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-MEM-AI-Doc-Intel-Pilot-2025-018

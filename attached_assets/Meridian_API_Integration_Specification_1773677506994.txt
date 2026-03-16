@@ -1,0 +1,65 @@
+MERIDIAN INDUSTRIAL GROUP
+Technical Specification: Enterprise API Integration Standards
+Version 1.0
+
+Document ID: MIG-SPE-IT-API-2025-009
+Classification: Internal
+Effective Date: March 1, 2025
+Owner: Information Technology Division
+Approved By: T. Nguyen, Chief Information Officer
+
+------------------------------------------------------------------------
+
+1. PURPOSE
+
+This specification defines the standards for building, deploying,
+and maintaining API integrations between Meridian Industrial Group
+enterprise systems. All new integrations and modifications to
+existing integrations shall comply with these requirements.
+
+2. API DESIGN STANDARDS
+
+2.1 Protocol and Format
+All APIs shall use RESTful design principles over HTTPS. Request
+and response payloads shall use JSON format. API versioning shall
+be implemented through URL path prefixes (e.g., /api/v1/resource).
+
+2.2 Authentication and Authorization
+All API endpoints shall require authentication using OAuth 2.0
+with JWT bearer tokens. Service-to-service communication shall
+use client credentials grant flow. User-facing APIs shall use
+authorization code grant flow with PKCE.
+
+2.3 Rate Limiting
+All APIs shall implement rate limiting. Default limits are 1,000
+requests per minute for service accounts and 100 requests per
+minute for user accounts. Rate limit headers (X-RateLimit-Limit,
+X-RateLimit-Remaining, X-RateLimit-Reset) shall be included in
+all API responses.
+
+3. ERROR HANDLING
+
+API error responses shall use standard HTTP status codes with a
+consistent error response body containing: error code, human-
+readable message, request correlation ID, and timestamp. Error
+codes shall follow the Meridian error taxonomy documented in the
+API Developer Reference Guide.
+
+4. LOGGING AND MONITORING
+
+All API calls shall be logged with request method, endpoint,
+response status, latency, and correlation ID. Logs shall be
+forwarded to the centralized logging platform. API health checks
+shall be implemented at /health and monitored by the infrastructure
+monitoring system with 30-second polling intervals.
+
+5. DOCUMENTATION
+
+All APIs shall be documented using OpenAPI Specification version
+3.0 or later. Documentation shall include endpoint descriptions,
+request and response schemas, authentication requirements, error
+codes, and working examples. API documentation shall be published
+to the internal developer portal and updated with each release.
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-SPE-IT-API-2025-009

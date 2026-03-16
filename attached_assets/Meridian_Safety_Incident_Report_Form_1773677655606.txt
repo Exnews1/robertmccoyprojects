@@ -1,0 +1,99 @@
+MERIDIAN INDUSTRIAL GROUP
+Safety Incident / Near-Miss Report Form
+
+Document ID: MIG-FRM-SAF-Incident-2025-002
+Classification: Internal
+Version: 2.4
+Owner: Health and Safety Division
+Effective Date: January 1, 2025
+
+------------------------------------------------------------------------
+
+INSTRUCTIONS
+
+Complete this form immediately following any workplace incident,
+injury, illness, or near-miss event. Submit to the Health and
+Safety Division within 24 hours. For medical emergencies, call
+911 first, then complete this form.
+
+------------------------------------------------------------------------
+
+SECTION 1: INCIDENT INFORMATION
+
+Date of Incident: _______________________________________________
+Time of Incident: _______________________________________________
+Location: Building ___ Area/Room: _______________________________
+Incident Type:
+  [ ] Injury requiring first aid
+  [ ] Injury requiring medical treatment
+  [ ] Illness
+  [ ] Property damage
+  [ ] Near-miss (no injury or damage)
+  [ ] Environmental release
+
+------------------------------------------------------------------------
+
+SECTION 2: PERSONS INVOLVED
+
+Injured/Affected Person: ________________________________________
+Employee ID: ____________________________________________________
+Job Title: ______________________________________________________
+Department: _____________________________________________________
+Supervisor: _____________________________________________________
+Witnesses: ______________________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 3: INCIDENT DESCRIPTION
+
+Describe what happened, including events leading up to the incident:
+________________________________________________________________
+________________________________________________________________
+________________________________________________________________
+________________________________________________________________
+
+Describe the injury, illness, or damage (if applicable):
+________________________________________________________________
+________________________________________________________________
+
+Body part affected (if injury): _________________________________
+Was PPE being worn at the time?  [ ] Yes  [ ] No  [ ] N/A
+If yes, describe PPE: ___________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 4: IMMEDIATE ACTIONS TAKEN
+
+[ ] First aid administered
+[ ] Medical treatment sought (clinic/hospital)
+[ ] Area secured or barricaded
+[ ] Equipment locked out/tagged out
+[ ] Supervisor notified
+[ ] Photos taken of scene
+[ ] Other: ______________________________________________________
+
+Description of immediate corrective actions:
+________________________________________________________________
+________________________________________________________________
+
+------------------------------------------------------------------------
+
+SECTION 5: ROOT CAUSE (SAFETY DIVISION USE)
+
+Root Cause Category:
+[ ] Unsafe condition    [ ] Unsafe act
+[ ] Equipment failure   [ ] Process inadequacy
+[ ] Training deficiency [ ] Other: ________________
+
+Root Cause Description: _________________________________________
+________________________________________________________________
+
+Corrective Actions Assigned: ____________________________________
+________________________________________________________________
+Responsible Party: ______________________________________________
+Target Completion Date: _________________________________________
+
+Investigated By: _________________________ Date: ________________
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-FRM-SAF-Incident-2025-002

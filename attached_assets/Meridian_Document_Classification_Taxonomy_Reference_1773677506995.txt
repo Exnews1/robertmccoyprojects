@@ -1,0 +1,126 @@
+MERIDIAN INDUSTRIAL GROUP
+Reference Guide: Document Classification Taxonomy
+Version 2.0
+
+Document ID: MIG-REF-KM-Taxonomy-2025-001
+Classification: Internal
+Effective Date: March 1, 2025
+Owner: Knowledge Management Office
+Approved By: R. Chen, Director of Information Architecture
+
+------------------------------------------------------------------------
+
+PURPOSE
+
+This reference guide provides the complete document classification
+taxonomy used by the Meridian Knowledge Repository and Document
+Intelligence Engine. Use this guide when submitting, reviewing,
+or searching for documents in the repository.
+
+------------------------------------------------------------------------
+
+DOCUMENT TYPE CODES
+
+Code    Category                        Description
+----    --------                        -----------
+POL     Policy                          Governing directives, compliance
+                                        frameworks, organizational mandates.
+                                        Issued by VP level or above.
+
+SOP     Standard Operating Procedure    Step-by-step process instructions
+                                        for repeatable operations. Includes
+                                        numbered procedural steps.
+
+TRN     Training Material               Instructional content, onboarding
+                                        guides, certification curricula,
+                                        learning modules.
+
+RPT     Report                          Analysis output, audit findings,
+                                        performance summaries, assessment
+                                        results with data and conclusions.
+
+MEM     Memorandum                      Internal communications, directives,
+                                        leadership correspondence. Contains
+                                        TO/FROM/SUBJECT headers.
+
+SPE     Specification                   Technical requirements, engineering
+                                        standards, system configurations,
+                                        architecture documents.
+
+FRM     Form                            Fillable templates for data
+                                        collection, request processing,
+                                        and workflow initiation.
+
+REF     Reference                       Lookup tables, glossaries, code
+                                        listings, directory information,
+                                        taxonomy guides.
+
+------------------------------------------------------------------------
+
+SUBJECT AREA CODES
+
+Code    Subject Area
+----    ------------
+HR      Human Resources
+SAF     Safety and Health
+FIN     Finance and Accounting
+IT      Information Technology
+LEG     Legal and Compliance
+OPS     Operations
+QA      Quality Assurance
+PRO     Procurement and Supply Chain
+KM      Knowledge Management
+ENG     Engineering
+FAC     Facilities
+GEN     General / Cross-Functional
+
+------------------------------------------------------------------------
+
+STANDARD NAMING CONVENTION
+
+Pattern: [ORG]-[TYPE]-[SUBJECT]-[YYYY]-[SEQ]
+
+  ORG:     Organization code (MIG for Meridian Industrial Group)
+  TYPE:    Three-letter type code from the table above
+  SUBJECT: Concise descriptor using hyphens (no spaces)
+  YYYY:    Four-digit year of creation or last major revision
+  SEQ:     Three-digit sequential number assigned at ingestion
+
+Examples:
+  MIG-POL-DG-2025-041      Data Governance Policy
+  MIG-SOP-KT-2025-007      Knowledge Taxonomy SOP
+  MIG-TRN-CS-2025-004      Cybersecurity Awareness Training
+  MIG-RPT-SAF-Q4Audit-2024-047   Q4 Safety Audit Report
+  MIG-FRM-HR-NewHire-2025-001    New Hire Onboarding Form
+  MIG-REF-KM-Taxonomy-2025-001   This document
+
+------------------------------------------------------------------------
+
+CLASSIFICATION DECISION TREE
+
+1. Does the document establish rules that others must follow?
+   YES --> Policy (POL)
+
+2. Does the document provide step-by-step instructions?
+   YES --> Standard Operating Procedure (SOP)
+
+3. Is the document designed to teach or train?
+   YES --> Training Material (TRN)
+
+4. Does the document present findings, data, or analysis?
+   YES --> Report (RPT)
+
+5. Is the document a communication from leadership?
+   YES --> Memorandum (MEM)
+
+6. Does the document define technical requirements?
+   YES --> Specification (SPE)
+
+7. Does the document collect information via fillable fields?
+   YES --> Form (FRM)
+
+8. Is the document a lookup resource or directory?
+   YES --> Reference (REF)
+
+------------------------------------------------------------------------
+Meridian Industrial Group | Internal | MIG-REF-KM-Taxonomy-2025-001
