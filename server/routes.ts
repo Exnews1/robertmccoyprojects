@@ -104,6 +104,11 @@ class RateLimiter {
 const aiRateLimiter = new RateLimiter(10, 60_000, 15, 500);
 
 export async function registerRoutes(httpServer: Server, app: Express) {
+  // Health check – used by AWS ALB / ECS / Docker HEALTHCHECK
+  app.get("/api/health", (_req: any, res: any) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+
   // Zoho domain verification
   app.get("/zoho-domain-verification.html", (_req: any, res: any) => {
     res.type('text/html').send('90531183');
