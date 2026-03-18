@@ -428,7 +428,7 @@ export default function KnowledgeSystemsDemo() {
         <div className="w-[38%] border-r border-slate-700 flex flex-col bg-slate-900 overflow-hidden">
           {/* Library header */}
           <div className="px-4 pt-4 pb-3 border-b border-slate-700 shrink-0">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-amber-400" />
                 <span className="font-semibold text-sm text-slate-100">Document Library</span>
@@ -437,6 +437,9 @@ export default function KnowledgeSystemsDemo() {
                 </span>
               </div>
             </div>
+            <p className="text-xs text-slate-500 mb-3 leading-relaxed">
+              These {LIBRARY.length} documents represent the output of the scan-to-queue process — raw files received from the document scanner, waiting for AI classification and human review.
+            </p>
 
             {/* Category filter pills */}
             <div className="flex flex-wrap gap-1 mb-3">
