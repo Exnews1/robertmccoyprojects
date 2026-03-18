@@ -45,6 +45,19 @@ const SUBJECT_DEFS: SubjectDef[] = [
 
 function sub(code: string): SubjectDef { return SUBJECT_DEFS.find(s => s.code === code)!; }
 
+// ── Deterministic confidence jitter ───────────────────────────────────────────
+// DJB2 hash of the filename maps each doc to a unique but consistent ±4% offset.
+// Same filename always produces the same score — randomness comes from variety of docs.
+function jitter(base: number, filename: string): number {
+  let h = 5381;
+  for (let i = 0; i < filename.length; i++) {
+    h = ((h << 5) + h) ^ filename.charCodeAt(i);
+    h |= 0; // keep 32-bit
+  }
+  const offset = ((Math.abs(h) % 81) - 40) / 1000; // -0.040 to +0.040
+  return Math.min(0.98, Math.max(0.60, Math.round((base + offset) * 100) / 100));
+}
+
 // ── Helper: exact word-boundary-safe substring match ──────────────────────────
 // Avoids "it" matching inside "quality", "facility", "utilization", etc.
 function has(n: string, ...tokens: string[]): boolean {
@@ -246,7 +259,7 @@ export function classifyDocument(fileName: string, content?: string): Classifica
   const n = fileName.toLowerCase();
   const typeResult = detectType(n);
   const { subject, boost } = detectSubject(n);
-  const confidence = Math.min(typeResult.confidence + boost, 0.98);
+  const confidence = jitter(Math.min(typeResult.confidence + boost, 0.98), fileName);
 
   return {
     docType: typeResult.label,

@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import {
   ArrowLeft, RefreshCw, CheckCircle, XCircle, Edit3, Save,
   Loader2, FileText, Shield, Cpu, Database, ClipboardList,
-  ChevronRight, TriangleAlert, Info, Building2, Upload, X, ExternalLink, MonitorPlay,
+  ChevronRight, TriangleAlert, Info, Building2, Upload, X, ExternalLink, MonitorPlay, Eye,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -164,6 +164,156 @@ function ConfBar({ value }: { value: number }) {
   );
 }
 
+// ── Document preview content generator ────────────────────────────────────────
+function generatePreviewContent(doc: StagedDoc): { title: string; sections: { heading: string; body: string }[] } {
+  const rawName = doc.originalName
+    .replace(/\.(pdf|txt|docx?)$/i, "")
+    .replace(/^Meridian_/i, "")
+    .replace(/_?\d{13,}/, "")
+    .replace(/_/g, " ")
+    .trim();
+
+  const type = doc.docType || "Document";
+  const subject = doc.subject || "General";
+  const dept = doc.department || "Operations Division";
+  const party = doc.responsibleParty || "Division Director";
+  const year = new Date().getFullYear();
+  const sections: { heading: string; body: string }[] = [];
+
+  if (type === "Policy") {
+    sections.push(
+      { heading: "1. Purpose", body: `This policy establishes standards and guidelines for ${rawName.toLowerCase()} within the organization. It applies to all employees, contractors, and third-party vendors who interact with related processes or systems.` },
+      { heading: "2. Scope", body: `Applies to all ${dept} personnel and cross-functional stakeholders with responsibilities related to ${subject.toLowerCase()} activities. Exemptions must be submitted in writing to ${party}.` },
+      { heading: "3. Policy Statement", body: `The organization is committed to maintaining rigorous standards in ${subject.toLowerCase()}. All personnel must adhere to the requirements set forth in this document. Non-compliance may result in disciplinary action up to and including termination.` },
+      { heading: "4. Responsibilities", body: `The ${party} is responsible for enforcement, annual review, and exception management. Department managers ensure team compliance. Employees complete required training and report violations.` },
+      { heading: "5. Review Cycle", body: `Reviewed annually or upon significant regulatory change. Last reviewed: March ${year}. Next review: March ${year + 1}. Distribution: All staff via KMS portal.` }
+    );
+  } else if (type === "SOP") {
+    sections.push(
+      { heading: "1. Purpose", body: `This Standard Operating Procedure defines the step-by-step process for ${rawName.toLowerCase()} to ensure consistency, safety, and compliance across all operations.` },
+      { heading: "2. Scope & Applicability", body: `Applies to all personnel in the ${dept} who perform or oversee ${subject.toLowerCase()} functions. Must be reviewed and acknowledged annually.` },
+      { heading: "3. Required Resources", body: `Personnel: Qualified ${subject} technician or supervisor. Documentation: Applicable work orders, checklists, and sign-off sheets. Equipment: As specified in equipment registry.` },
+      { heading: "4. Procedure Steps", body: `Step 1 — Verify prerequisites and obtain required approvals.\nStep 2 — Document initial conditions and record baseline measurements.\nStep 3 — Execute procedure per established technical parameters.\nStep 4 — Conduct quality verification and record results.\nStep 5 — Complete sign-off documentation and submit to ${party}.` },
+      { heading: "5. Non-Conformance", body: `Any deviation must be documented on the NCR form and escalated to ${party} within 24 hours. Root cause analysis is required for all non-conformances.` }
+    );
+  } else if (type === "Memo") {
+    sections.push(
+      { heading: "INTERNAL MEMORANDUM", body: `TO: All ${dept} Personnel\nFROM: ${party}\nDATE: March 15, ${year}\nSUBJECT: ${rawName}\nCLASSIFICATION: Internal Use Only` },
+      { heading: "Background", body: `This memorandum provides updated direction regarding ${rawName.toLowerCase()}. Leadership has reviewed current operational data and identified the need for immediate action.` },
+      { heading: "Required Actions", body: `All department heads must review and acknowledge this memorandum within 5 business days. Action items must be assigned and tracked in the project management system. Completion status to be reported at the next monthly operations review.` },
+      { heading: "Questions", body: `Direct all questions to the ${dept} administrative office. A follow-up communication addressing feedback is scheduled for the next quarter.` }
+    );
+  } else if (type === "Form") {
+    sections.push(
+      { heading: "FORM HEADER", body: `Document: ${rawName}\nRevision: 2.${year % 10}\nSubmit to: ${party}\nRetention: 7 years per Records Retention Policy` },
+      { heading: "Section A — Requestor Information", body: `Employee Name: ________________________________\nEmployee ID: _______________  Department: _______________\nPosition Title: ___________________________________\nDate of Request: _____________  Priority: [ ] Routine  [ ] Urgent` },
+      { heading: "Section B — Request Details", body: `Description:\n________________________________________________________________\nJustification:\n________________________________________________________________\nBudget Reference (if applicable): ______________________\nEstimated Cost: $ _______________` },
+      { heading: "Section C — Approvals", body: `Manager Approval: ________________________  Date: ________\n${party}: ________________________  Date: ________\nDecision: [ ] Approved  [ ] Denied  [ ] Deferred\nComments: ______________________________________` }
+    );
+  } else if (type === "Report") {
+    sections.push(
+      { heading: "Executive Summary", body: `This report presents findings for ${rawName.toLowerCase()} covering the period Q4 ${year - 1}. Key performance indicators show ${subject.toLowerCase()} operations are within acceptable thresholds with three areas identified for improvement.` },
+      { heading: "Key Findings", body: `Finding 1 — Performance Metrics: Overall compliance rate 94.2%, up 2.1% from prior quarter.\nFinding 2 — Incidents: 3 minor incidents recorded, 0 major. Root causes addressed.\nFinding 3 — Resource Utilization: Operating at 87% capacity, within planned parameters.` },
+      { heading: "Metrics Summary", body: `Total Cases Reviewed: 127\nCompliant: 120 (94.5%)\nNon-Compliant: 7 (5.5%)\nAverage Processing Time: 2.4 days\nEscalations: 2` },
+      { heading: "Recommendations", body: `R1 — Implement automated monitoring for early detection of non-conformances.\nR2 — Increase quarterly training cadence for high-risk process areas.\nR3 — Review and update procedures flagged during audit cycle.` }
+    );
+  } else if (type === "Reference") {
+    sections.push(
+      { heading: "Overview", body: `This reference document provides a consolidated index of ${rawName.toLowerCase()} for use across the ${dept}. Maintained and updated quarterly by ${party}.` },
+      { heading: "Table of Contents", body: `Section 1 — Definitions & Terminology\nSection 2 — Classification Codes\nSection 3 — Contact Directory\nSection 4 — Process Reference Tables\nSection 5 — Regulatory Cross-Reference` },
+      { heading: "Key Definitions", body: `Term 1 — Standard industry definition applicable to ${subject} operations.\nTerm 2 — Classification descriptor per organizational taxonomy v2.0.\nTerm 3 — Regulatory reference per applicable compliance framework.\nFor complete definitions, contact ${dept}.` },
+      { heading: "Version History", body: `v1.0 — Initial release\nv1.5 — Updated terminology per Q2 review\nv2.0 — Restructured per new classification taxonomy\nCurrent: v2.1 — March ${year}` }
+    );
+  } else if (type === "Contract" || type === "Specification") {
+    sections.push(
+      { heading: "1. Document Scope", body: `This ${type.toLowerCase()} governs ${rawName.toLowerCase()}. All provisions are binding upon execution and supersede prior agreements on this subject.` },
+      { heading: "2. Terms & Conditions", body: `2.1 — Both parties agree to comply with all applicable federal, state, and local regulations.\n2.2 — Confidential information is subject to the Non-Disclosure Policy.\n2.3 — Amendments must be executed in writing and approved by ${party}.` },
+      { heading: "3. Performance Standards", body: `Deliverables shall meet all specifications outlined in the applicable exhibits. Quality standards apply. Performance reviews conducted quarterly. Non-conformances escalated to ${party} within 48 hours.` },
+      { heading: "4. Signatures", body: `Authorized Representative: ____________________\nTitle: ${party}  Date: _______________\n\nCounterparty Representative: ____________________\nTitle: _________________________  Date: _______________` }
+    );
+  } else if (type === "Training") {
+    sections.push(
+      { heading: "Learning Objectives", body: `Upon completion, participants will be able to:\n1. Identify and apply ${subject.toLowerCase()} standards per policy\n2. Demonstrate correct procedures for their role\n3. Recognize and report non-compliance situations\n4. Apply knowledge in practical workplace scenarios` },
+      { heading: "Module 1 — Foundations", body: `Core concepts in ${subject.toLowerCase()} as applied to ${dept} operations. Review of relevant policies, regulatory requirements, and standards framework. Duration: 45 minutes.` },
+      { heading: "Module 2 — Applied Practice", body: `Scenario-based learning covering common situations encountered in ${subject.toLowerCase()} work. Case studies from operational data (anonymized). Interactive exercises with feedback. Duration: 60 minutes.` },
+      { heading: "Module 3 — Assessment", body: `Written assessment: 25 questions, minimum passing score 80%.\nPractical demonstration (if applicable): Evaluated by ${party}.\nCertification valid for: 12 months. Renewal required by: March ${year + 1}.` }
+    );
+  } else {
+    sections.push(
+      { heading: "Document Information", body: `Title: ${rawName}\nClassification: ${type}\nSubject Area: ${subject}\nResponsible Party: ${party}\nDepartment: ${dept}` },
+      { heading: "Content", body: `This document contains information related to ${subject.toLowerCase()} operations. Review classification metadata above and consult the ${dept} for detailed content access.` }
+    );
+  }
+  return { title: rawName, sections };
+}
+
+// ── Staging doc preview modal ──────────────────────────────────────────────────
+function DocPreviewModal({ doc, onClose }: { doc: StagedDoc; onClose: () => void }) {
+  const { title, sections } = generatePreviewContent(doc);
+  const pct = doc.confidence != null ? Math.round(doc.confidence * 100) : null;
+  const barColor = pct != null ? (pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500") : "";
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={onClose}>
+      <div
+        className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Modal header */}
+        <div className="px-5 py-3 bg-slate-800 border-b border-slate-700 flex items-start justify-between gap-3 shrink-0 rounded-t-lg">
+          <div className="min-w-0">
+            <div className="text-xs text-slate-400 font-mono truncate">{doc.originalName}</div>
+            <div className="text-sm font-semibold text-slate-100 mt-0.5">{title}</div>
+            {doc.standardName && (
+              <div className="text-xs text-amber-300 font-mono mt-0.5">→ {doc.standardName}</div>
+            )}
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs bg-slate-700 text-slate-300 px-2 py-0.5 rounded border border-slate-600 font-mono">{doc.docType}</span>
+            <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors p-1">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Metadata strip */}
+        <div className="px-5 py-2 bg-slate-800/60 border-b border-slate-700 flex flex-wrap gap-4 text-xs shrink-0">
+          <div><span className="text-slate-500">Subject</span><span className="text-slate-200 ml-1.5 font-medium">{doc.subject}</span></div>
+          <div><span className="text-slate-500">Department</span><span className="text-slate-200 ml-1.5 font-medium">{doc.department}</span></div>
+          <div><span className="text-slate-500">Responsible</span><span className="text-slate-200 ml-1.5 font-medium">{doc.responsibleParty}</span></div>
+          {pct != null && (
+            <div className="flex items-center gap-1.5 ml-auto">
+              <span className="text-slate-500">AI Confidence</span>
+              <div className="w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                <div className={`h-full ${barColor} rounded-full`} style={{ width: `${pct}%` }} />
+              </div>
+              <span className="font-mono text-slate-300">{pct}%</span>
+            </div>
+          )}
+        </div>
+
+        {/* Document body */}
+        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+          <div className="text-center border-b border-slate-700 pb-4 mb-2">
+            <div className="text-xs text-slate-500 uppercase tracking-widest mb-1">Internal Document</div>
+            <div className="text-base font-bold text-slate-100 uppercase tracking-wide">{title}</div>
+            <div className="text-xs text-slate-400 mt-1 font-mono">{doc.standardName || doc.documentKey}</div>
+          </div>
+          {sections.map((s, i) => (
+            <div key={i}>
+              <div className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1.5">{s.heading}</div>
+              <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">{s.body}</p>
+            </div>
+          ))}
+          <div className="border-t border-slate-700 pt-4 text-xs text-slate-500 italic">
+            Classification: Internal Use Only — {doc.subject} / {doc.department}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function KnowledgeSystemsDemo() {
   const [sessionId, setSessionId] = useState<string>("");
@@ -181,6 +331,7 @@ export default function KnowledgeSystemsDemo() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editFields, setEditFields] = useState<Partial<StagedDoc>>({});
   const [flash, setFlash] = useState<string | null>(null);
+  const [previewDoc, setPreviewDoc] = useState<StagedDoc | null>(null);
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -373,6 +524,9 @@ export default function KnowledgeSystemsDemo() {
   // ── Render ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+
+      {/* ── Document preview modal ── */}
+      {previewDoc && <DocPreviewModal doc={previewDoc} onClose={() => setPreviewDoc(null)} />}
 
       {/* ── Header ── */}
       <header className="bg-slate-900 border-b border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-20 shrink-0">
@@ -762,6 +916,15 @@ export default function KnowledgeSystemsDemo() {
                     </>
                   ) : (
                     <>
+                      <button
+                        onClick={() => setPreviewDoc(doc)}
+                        className="flex items-center gap-1 text-xs text-sky-400 hover:text-sky-300 bg-sky-900/30 hover:bg-sky-900/50 border border-sky-800 px-2.5 py-1.5 rounded transition-colors"
+                        data-testid={`button-view-${doc.id}`}
+                        title="Preview document content"
+                      >
+                        <Eye className="h-3 w-3" />
+                        View
+                      </button>
                       <button
                         onClick={() => { setEditingId(doc.id); setEditFields({}); }}
                         className="flex items-center gap-1 text-xs text-amber-400 hover:text-amber-300 bg-amber-900/30 hover:bg-amber-900/50 border border-amber-800 px-2.5 py-1.5 rounded transition-colors"
