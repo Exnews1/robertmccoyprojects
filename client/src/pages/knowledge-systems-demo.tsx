@@ -187,13 +187,9 @@ export default function KnowledgeSystemsDemo() {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Init session
+  // Init session — fresh every page load so demo always starts clean
   useEffect(() => {
-    let sid = localStorage.getItem("meridian_session");
-    if (!sid) {
-      sid = genSessionId();
-      localStorage.setItem("meridian_session", sid);
-    }
+    const sid = genSessionId();
     setSessionId(sid);
   }, []);
 
@@ -325,9 +321,7 @@ export default function KnowledgeSystemsDemo() {
 
   const handleReset = async () => {
     await fetch("/api/meridian/reset", { method: "DELETE", headers: headers() });
-    const newSid = genSessionId();
-    localStorage.setItem("meridian_session", newSid);
-    setSessionId(newSid);
+    setSessionId(genSessionId());
     setSelectedKeys(new Set());
     setProcessedKeys(new Set());
     setStaging([]);
