@@ -359,10 +359,10 @@ export default function KnowledgeSystemsDemo() {
           </div>
           <div>
             <div className="font-bold text-sm tracking-widest uppercase text-slate-100 leading-none">
-              Meridian Industrial Group
+              OKS Bulk Document System
             </div>
             <div className="text-xs text-slate-400 tracking-wider uppercase mt-0.5">
-              Document Intelligence System — Demo
+              AI / Human-in-the-Loop Ingestion Pipeline
             </div>
           </div>
           <span className="ml-3 px-2 py-0.5 rounded text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-700">
