@@ -53,49 +53,84 @@ interface AuditEntry {
 // ── Static doc library ───────────────────────────────────────────────────────
 
 const LIBRARY: DocMeta[] = [
+  // ── Knowledge Management ──────────────────────────────────────────────────
   { key: "MIG-001", fileName: "Meridian_Document_Management_System_Specification_1773678052357.txt", category: "Knowledge Management" },
-  { key: "MIG-002", fileName: "Meridian_Acceptable_Use_Policy_1773678052358.pdf",                   category: "IT" },
-  { key: "MIG-003", fileName: "Meridian_Acronym_Glossary_Reference_1773678052358.txt",              category: "Knowledge Management" },
-  { key: "MIG-004", fileName: "Meridian_API_Integration_Specification_1773678052358.txt",           category: "IT" },
-  { key: "MIG-005", fileName: "Meridian_Approved_Vendor_List_1773678052358.txt",                    category: "Procurement" },
-  { key: "MIG-006", fileName: "Meridian_Budget_Exception_Request_Form_1773678052359.txt",           category: "Finance" },
-  { key: "MIG-007", fileName: "Meridian_Cybersecurity_Awareness_Training_1773678052359.pdf",        category: "IT" },
-  { key: "MIG-008", fileName: "Meridian_Data_Governance_Policy_v2.1_1773678303431.pdf",             category: "Knowledge Management" },
-  { key: "MIG-009", fileName: "Meridian_Department_Directory_1773678052359.txt",                    category: "HR" },
+  { key: "MIG-003", fileName: "Meridian_Acronym_Glossary_Reference_1773678052358.txt",               category: "Knowledge Management" },
+  { key: "MIG-008", fileName: "Meridian_Data_Governance_Policy_v2.1_1773678303431.pdf",              category: "Knowledge Management" },
   { key: "MIG-010", fileName: "Meridian_Document_Classification_Taxonomy_Reference_1773678052357.txt", category: "Knowledge Management" },
-  { key: "MIG-011", fileName: "Meridian_Memo_AI_Document_Intelligence_Pilot_1773678303431.txt",     category: "Knowledge Management" },
-  { key: "MIG-012", fileName: "Meridian_Memo_Annual_Training_Compliance_1773678092073.txt",         category: "HR" },
-  { key: "MIG-013", fileName: "Meridian_Document_Submission_Request_Form_1773678092073.txt",        category: "Knowledge Management" },
-  { key: "MIG-014", fileName: "Meridian_Equipment_Calibration_SOP_1773678092073.txt",               category: "Quality" },
-  { key: "MIG-015", fileName: "Meridian_Incident_Response_SOP_1773678092073.pdf",                   category: "IT" },
-  { key: "MIG-016", fileName: "Meridian_IT_Systems_Uptime_Report_Q4_1773678092074.txt",             category: "IT" },
-  { key: "MIG-017", fileName: "Meridian_Knowledge_Repository_Utilization_Report_1773678092074.txt", category: "Knowledge Management" },
-  { key: "MIG-018", fileName: "Meridian_Knowledge_Taxonomy_SOP_1773678303430.pdf",                  category: "Knowledge Management" },
-  { key: "MIG-019", fileName: "Meridian_Manager_Leadership_Development_1773678092072.pdf",          category: "HR" },
-  { key: "MIG-020", fileName: "Meridian_Manufacturing_Quality_Specification_1773678092073.txt",     category: "Quality" },
-  { key: "MIG-021", fileName: "Meridian_Network_Infrastructure_Specification_1773678256671.txt",    category: "IT" },
-  { key: "MIG-022", fileName: "Meridian_New_Employee_KMS_Training_Guide_1773678303431.txt",         category: "Knowledge Management" },
-  { key: "MIG-023", fileName: "Meridian_New_Hire_Onboarding_Form_1773678256669.txt",                category: "HR" },
-  { key: "MIG-024", fileName: "Meridian_Q4_Safety_Audit_Report_1773678256669.txt",                  category: "Safety" },
-  { key: "MIG-025", fileName: "Meridian_Records_Retention_Policy_1773678256670.txt",                category: "Legal" },
-  { key: "MIG-026", fileName: "Meridian_Safety_Incident_Report_Form_1773678256670.txt",             category: "Safety" },
-  { key: "MIG-027", fileName: "Meridian_Safety_Orientation_Training_1773678256670.txt",             category: "Safety" },
-  { key: "MIG-028", fileName: "Meridian_Memo_Facility_Relocation_1773678256670.txt",                category: "Operations" },
-  { key: "MIG-029", fileName: "Meridian_Memo_Q1_Budget_Realignment_1773678256670.txt",              category: "Finance" },
+  { key: "MIG-011", fileName: "Meridian_Memo_AI_Document_Intelligence_Pilot_1773678303431.txt",      category: "Knowledge Management" },
+  { key: "MIG-013", fileName: "Meridian_Document_Submission_Request_Form_1773678092073.txt",         category: "Knowledge Management" },
+  { key: "MIG-017", fileName: "Meridian_Knowledge_Repository_Utilization_Report_1773678092074.txt",  category: "Knowledge Management" },
+  { key: "MIG-018", fileName: "Meridian_Knowledge_Taxonomy_SOP_1773678303430.pdf",                   category: "Knowledge Management" },
+  { key: "MIG-022", fileName: "Meridian_New_Employee_KMS_Training_Guide_1773678303431.txt",          category: "Knowledge Management" },
+  // ── Information Technology ────────────────────────────────────────────────
+  { key: "MIG-002", fileName: "Meridian_Acceptable_Use_Policy_1773678052358.pdf",                    category: "IT" },
+  { key: "MIG-004", fileName: "Meridian_API_Integration_Specification_1773678052358.txt",            category: "IT" },
+  { key: "MIG-007", fileName: "Meridian_Cybersecurity_Awareness_Training_1773678052359.pdf",         category: "IT" },
+  { key: "MIG-015", fileName: "Meridian_Incident_Response_SOP_1773678092073.pdf",                    category: "IT" },
+  { key: "MIG-016", fileName: "Meridian_IT_Systems_Uptime_Report_Q4_1773678092074.txt",              category: "IT" },
+  { key: "MIG-021", fileName: "Meridian_Network_Infrastructure_Specification_1773678256671.txt",     category: "IT" },
+  // ── Human Resources ───────────────────────────────────────────────────────
+  { key: "MIG-009", fileName: "Meridian_Department_Directory_1773678052359.txt",                     category: "HR" },
+  { key: "MIG-012", fileName: "Meridian_Memo_Annual_Training_Compliance_1773678092073.txt",          category: "HR" },
+  { key: "MIG-019", fileName: "Meridian_Manager_Leadership_Development_1773678092072.pdf",           category: "HR" },
+  { key: "MIG-023", fileName: "Meridian_New_Hire_Onboarding_Form_1773678256669.txt",                 category: "HR" },
+  // ── Safety ────────────────────────────────────────────────────────────────
+  { key: "MIG-024", fileName: "Meridian_Q4_Safety_Audit_Report_1773678256669.txt",                   category: "Safety" },
+  { key: "MIG-026", fileName: "Meridian_Safety_Incident_Report_Form_1773678256670.txt",              category: "Safety" },
+  { key: "MIG-027", fileName: "Meridian_Safety_Orientation_Training_1773678256670.txt",              category: "Safety" },
+  // ── Quality ───────────────────────────────────────────────────────────────
+  { key: "MIG-014", fileName: "Meridian_Equipment_Calibration_SOP_1773678092073.txt",                category: "Quality" },
+  { key: "MIG-020", fileName: "Meridian_Manufacturing_Quality_Specification_1773678092073.txt",      category: "Quality" },
+  // ── Finance ───────────────────────────────────────────────────────────────
+  { key: "MIG-006", fileName: "Meridian_Budget_Exception_Request_Form_1773678052359.txt",            category: "Finance" },
+  { key: "MIG-029", fileName: "Meridian_Memo_Q1_Budget_Realignment_1773678256670.txt",               category: "Finance" },
+  // ── Legal ─────────────────────────────────────────────────────────────────
+  { key: "MIG-025", fileName: "Meridian_Records_Retention_Policy_1773678256670.txt",                 category: "Legal" },
+  { key: "MIG-030", fileName: "Meridian_NDA_Mutual_Confidentiality_Agreement_1773801000001.pdf",     category: "Legal" },
+  { key: "MIG-031", fileName: "Meridian_Contractor_Services_Agreement_Template_1773801000002.pdf",   category: "Legal" },
+  { key: "MIG-032", fileName: "Meridian_Intellectual_Property_Assignment_Policy_1773801000003.txt",  category: "Legal" },
+  { key: "MIG-033", fileName: "Meridian_Liability_Waiver_Form_1773801000004.txt",                    category: "Legal" },
+  // ── Operations ────────────────────────────────────────────────────────────
+  { key: "MIG-028", fileName: "Meridian_Memo_Facility_Relocation_1773678256670.txt",                 category: "Operations" },
+  { key: "MIG-034", fileName: "Meridian_Facility_Maintenance_Schedule_SOP_1773801000005.txt",        category: "Operations" },
+  { key: "MIG-035", fileName: "Meridian_Production_Floor_Startup_Procedure_1773801000006.txt",       category: "Operations" },
+  { key: "MIG-036", fileName: "Meridian_Shift_Handover_Procedure_SOP_1773801000007.txt",             category: "Operations" },
+  { key: "MIG-037", fileName: "Meridian_Inventory_Control_SOP_1773801000008.pdf",                    category: "Operations" },
+  // ── Procurement ───────────────────────────────────────────────────────────
+  { key: "MIG-005", fileName: "Meridian_Approved_Vendor_List_1773678052358.txt",                     category: "Procurement" },
+  { key: "MIG-038", fileName: "Meridian_Purchase_Order_Policy_1773801000009.txt",                    category: "Procurement" },
+  { key: "MIG-039", fileName: "Meridian_Vendor_Evaluation_Criteria_Form_1773801000010.txt",          category: "Procurement" },
+  { key: "MIG-040", fileName: "Meridian_RFQ_Standard_Template_Reference_1773801000011.pdf",          category: "Procurement" },
+  { key: "MIG-041", fileName: "Meridian_Sole_Source_Justification_Form_1773801000012.txt",           category: "Procurement" },
+  // ── Accounts Receivable ───────────────────────────────────────────────────
+  { key: "MIG-042", fileName: "Meridian_Invoice_Processing_Policy_1773801000013.txt",                category: "Accounts Receivable" },
+  { key: "MIG-043", fileName: "Meridian_Customer_Credit_Application_Form_1773801000014.pdf",         category: "Accounts Receivable" },
+  { key: "MIG-044", fileName: "Meridian_AR_Aging_Report_Q4_2025_1773801000015.txt",                  category: "Accounts Receivable" },
+  { key: "MIG-045", fileName: "Meridian_Collections_Procedure_SOP_1773801000016.txt",                category: "Accounts Receivable" },
+  { key: "MIG-046", fileName: "Meridian_Revenue_Recognition_Policy_1773801000017.txt",               category: "Accounts Receivable" },
+  // ── Accounts Payable ─────────────────────────────────────────────────────
+  { key: "MIG-047", fileName: "Meridian_Accounts_Payable_Processing_SOP_1773801000018.txt",          category: "Accounts Payable" },
+  { key: "MIG-048", fileName: "Meridian_Vendor_Payment_Terms_Policy_1773801000019.txt",              category: "Accounts Payable" },
+  { key: "MIG-049", fileName: "Meridian_Three_Way_Match_Procedure_1773801000020.txt",                category: "Accounts Payable" },
+  { key: "MIG-050", fileName: "Meridian_AP_Aging_Report_Q4_2025_1773801000021.txt",                  category: "Accounts Payable" },
+  { key: "MIG-051", fileName: "Meridian_Expense_Reimbursement_Policy_1773801000022.txt",             category: "Accounts Payable" },
 ];
 
-const CATEGORIES = ["All", "Knowledge Management", "IT", "HR", "Safety", "Finance", "Quality", "Legal", "Operations", "Procurement"];
+const CATEGORIES = ["All", "Knowledge Management", "IT", "HR", "Safety", "Finance", "Quality", "Legal", "Operations", "Procurement", "Accounts Receivable", "Accounts Payable"];
 
 const CAT_COLORS: Record<string, string> = {
-  "Knowledge Management": "bg-purple-900/60 text-purple-200 border-purple-800",
-  IT:         "bg-violet-900/60 text-violet-200 border-violet-800",
-  HR:         "bg-blue-900/60 text-blue-200 border-blue-800",
-  Safety:     "bg-red-900/60 text-red-200 border-red-800",
-  Finance:    "bg-emerald-900/60 text-emerald-200 border-emerald-800",
-  Quality:    "bg-cyan-900/60 text-cyan-200 border-cyan-800",
-  Legal:      "bg-amber-900/60 text-amber-200 border-amber-800",
-  Operations: "bg-slate-700 text-slate-200 border-slate-600",
-  Procurement:"bg-teal-900/60 text-teal-200 border-teal-800",
+  "Knowledge Management":  "bg-purple-900/60 text-purple-200 border-purple-800",
+  IT:                      "bg-violet-900/60 text-violet-200 border-violet-800",
+  HR:                      "bg-blue-900/60 text-blue-200 border-blue-800",
+  Safety:                  "bg-red-900/60 text-red-200 border-red-800",
+  Finance:                 "bg-emerald-900/60 text-emerald-200 border-emerald-800",
+  Quality:                 "bg-cyan-900/60 text-cyan-200 border-cyan-800",
+  Legal:                   "bg-amber-900/60 text-amber-200 border-amber-800",
+  Operations:              "bg-slate-700 text-slate-200 border-slate-600",
+  Procurement:             "bg-teal-900/60 text-teal-200 border-teal-800",
+  "Accounts Receivable":   "bg-green-900/60 text-green-200 border-green-800",
+  "Accounts Payable":      "bg-orange-900/60 text-orange-200 border-orange-800",
 };
 
 const ACTION_STYLES: Record<string, { bg: string; text: string; label: string }> = {

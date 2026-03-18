@@ -137,10 +137,13 @@ function detectSubject(n: string): { subject: SubjectDef; boost: number } {
           "manager_leadership", "leadership_development", "directory"))
     return { subject: sub("HR"), boost: 0.03 };
 
-  // FIN
+  // FIN — includes AR/AP sub-domains
   if (has(n, "finance", "budget", "expense", "capital_expend", "reimburs",
-          "accounting", "fiscal", "invoice", "payable", "fin-", "budget_realign",
-          "budget_except"))
+          "accounting", "fiscal", "invoice", "payable", "receivable", "fin-",
+          "budget_realign", "budget_except", "ar_aging", "ap_aging", "aging_report",
+          "collections", "revenue_recognition", "revenue", "credit_application",
+          "three_way_match", "payment_terms", "accounts_payable", "accounts_receivable",
+          "invoice_processing", "expense_reimb"))
     return { subject: sub("FIN"), boost: 0.03 };
 
   // IT — use specific IT keywords only; avoid bare "it"
@@ -163,7 +166,7 @@ function detectSubject(n: string): { subject: SubjectDef; boost: number } {
 
   // PRO
   if (has(n, "vendor", "supplier", "procurement", "purchase", "supply_chain", "pro-",
-          "approved_vendor"))
+          "approved_vendor", "rfq", "sole_source", "vendor_eval", "purchase_order"))
     return { subject: sub("PRO"), boost: 0.03 };
 
   // ENG
