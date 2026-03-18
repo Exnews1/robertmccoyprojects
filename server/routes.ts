@@ -1866,5 +1866,32 @@ export function getMeridianDocLibrary() {
     { key: "MIG-027", fileName: "Meridian_Safety_Orientation_Training_1773678256670.txt",              category: "Safety" },
     { key: "MIG-028", fileName: "Meridian_Memo_Facility_Relocation_1773678256670.txt",                 category: "Operations" },
     { key: "MIG-029", fileName: "Meridian_Memo_Q1_Budget_Realignment_1773678256670.txt",               category: "Finance" },
+    // ── Legal ─────────────────────────────────────────────────────────────────
+    { key: "MIG-030", fileName: "Meridian_NDA_Mutual_Confidentiality_Agreement_1773801000001.pdf",     category: "Legal" },
+    { key: "MIG-031", fileName: "Meridian_Contractor_Services_Agreement_Template_1773801000002.pdf",   category: "Legal" },
+    { key: "MIG-032", fileName: "Meridian_Intellectual_Property_Assignment_Policy_1773801000003.txt",  category: "Legal" },
+    { key: "MIG-033", fileName: "Meridian_Liability_Waiver_Form_1773801000004.txt",                    category: "Legal" },
+    // ── Operations ────────────────────────────────────────────────────────────
+    { key: "MIG-034", fileName: "Meridian_Facility_Maintenance_Schedule_SOP_1773801000005.txt",        category: "Operations" },
+    { key: "MIG-035", fileName: "Meridian_Production_Floor_Startup_Procedure_1773801000006.txt",       category: "Operations" },
+    { key: "MIG-036", fileName: "Meridian_Shift_Handover_Procedure_SOP_1773801000007.txt",             category: "Operations" },
+    { key: "MIG-037", fileName: "Meridian_Inventory_Control_SOP_1773801000008.pdf",                    category: "Operations" },
+    // ── Procurement ───────────────────────────────────────────────────────────
+    { key: "MIG-038", fileName: "Meridian_Purchase_Order_Policy_1773801000009.txt",                    category: "Procurement" },
+    { key: "MIG-039", fileName: "Meridian_Vendor_Evaluation_Criteria_Form_1773801000010.txt",          category: "Procurement" },
+    { key: "MIG-040", fileName: "Meridian_RFQ_Standard_Template_Reference_1773801000011.pdf",          category: "Procurement" },
+    { key: "MIG-041", fileName: "Meridian_Sole_Source_Justification_Form_1773801000012.txt",           category: "Procurement" },
+    // ── Accounts Receivable ───────────────────────────────────────────────────
+    { key: "MIG-042", fileName: "Meridian_Invoice_Processing_Policy_1773801000013.txt",                category: "Accounts Receivable" },
+    { key: "MIG-043", fileName: "Meridian_Customer_Credit_Application_Form_1773801000014.pdf",         category: "Accounts Receivable" },
+    { key: "MIG-044", fileName: "Meridian_AR_Aging_Report_Q4_2025_1773801000015.txt",                  category: "Accounts Receivable" },
+    { key: "MIG-045", fileName: "Meridian_Collections_Procedure_SOP_1773801000016.txt",                category: "Accounts Receivable" },
+    { key: "MIG-046", fileName: "Meridian_Revenue_Recognition_Policy_1773801000017.txt",               category: "Accounts Receivable" },
+    // ── Accounts Payable ─────────────────────────────────────────────────────
+    { key: "MIG-047", fileName: "Meridian_Accounts_Payable_Processing_SOP_1773801000018.txt",          category: "Accounts Payable" },
+    { key: "MIG-048", fileName: "Meridian_Vendor_Payment_Terms_Policy_1773801000019.txt",              category: "Accounts Payable" },
+    { key: "MIG-049", fileName: "Meridian_Three_Way_Match_Procedure_1773801000020.txt",                category: "Accounts Payable" },
+    { key: "MIG-050", fileName: "Meridian_AP_Aging_Report_Q4_2025_1773801000021.txt",                  category: "Accounts Payable" },
+    { key: "MIG-051", fileName: "Meridian_Expense_Reimbursement_Policy_1773801000022.txt",             category: "Accounts Payable" },
   ];
 }
