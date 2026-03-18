@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight, Database } from "lucide-react";
+import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight, Database, MonitorPlay } from "lucide-react";
 
 const systems = [
   {
@@ -85,6 +85,30 @@ export default function KnowledgeSystems() {
             <p className="text-sm text-muted-foreground mt-4">
               Live demonstration of governed document processing. Select from a library of 29 real Meridian documents or upload your own, run them through the AI classification engine, review proposals in the staging queue, and approve records into an organized, standardized knowledge repository — with a full immutable audit trail.
             </p>
+
+            {/* Two-browser viewing tip */}
+            <div className="mt-4 rounded-lg border border-amber-700/60 bg-amber-950/30 p-4" data-testid="tip-two-browser">
+              <div className="flex items-center gap-2 mb-3">
+                <MonitorPlay className="h-4 w-4 text-amber-400 shrink-0" />
+                <p className="text-xs font-bold text-amber-400 uppercase tracking-widest">For Best Results — Two Windows Side by Side</p>
+              </div>
+              <p className="text-xs text-slate-300 mb-3 leading-relaxed">
+                Open two browser windows side by side to observe the full AI/Human-in-the-Loop flow in real time — watch documents move from the ingestion pipeline directly into the live knowledge repository as you approve them.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded border border-slate-600 bg-slate-800/60 p-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Left Window — Pipeline</p>
+                  <p className="text-xs font-mono text-amber-300 break-all leading-relaxed">robertmccoyprojects.com/<wbr />research/knowledge-systems/<wbr />demo</p>
+                  <p className="text-[10px] text-slate-500 mt-1.5">Select docs → run AI → approve in staging queue</p>
+                </div>
+                <div className="rounded border border-slate-600 bg-slate-800/60 p-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Right Window — KMS Portal</p>
+                  <p className="text-xs font-mono text-amber-300 break-all leading-relaxed">robertmccoyprojects.com/<wbr />research/knowledge-systems/<wbr />meridian</p>
+                  <p className="text-[10px] text-slate-500 mt-1.5">Watch approved documents populate the live repository instantly</p>
+                </div>
+              </div>
+            </div>
+
             <div className="flex flex-wrap gap-2 mt-4">
               {["Bulk Document Ingestion", "AI Classification", "Human Review", "Audit Trail", "Reset & Replay"].map(tag => (
                 <span key={tag} className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 border border-slate-600">{tag}</span>

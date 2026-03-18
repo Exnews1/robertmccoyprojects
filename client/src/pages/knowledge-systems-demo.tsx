@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import {
   ArrowLeft, RefreshCw, CheckCircle, XCircle, Edit3, Save,
   Loader2, FileText, Shield, Cpu, Database, ClipboardList,
-  ChevronRight, TriangleAlert, Info, Building2, Upload, X, ExternalLink,
+  ChevronRight, TriangleAlert, Info, Building2, Upload, X, ExternalLink, MonitorPlay,
 } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -389,6 +389,28 @@ export default function KnowledgeSystemsDemo() {
           </button>
         </div>
       </header>
+
+      {/* ── Two-browser tip bar ── */}
+      <div className="bg-amber-950/40 border-b border-amber-800/50 px-5 py-2.5 flex items-start gap-2.5 shrink-0" data-testid="bar-two-browser-tip">
+        <MonitorPlay className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 min-w-0">
+          <span className="text-xs font-bold text-amber-400 whitespace-nowrap">Best viewed with two windows side by side:</span>
+          <span className="text-xs text-slate-300">
+            <span className="font-semibold text-amber-300/80">Left →</span> this pipeline &nbsp;|&nbsp;
+            <span className="font-semibold text-amber-300/80">Right →</span>{" "}
+            <a
+              href="https://robertmccoyprojects.com/research/knowledge-systems/meridian"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 text-amber-400 hover:text-amber-300 transition-colors"
+              data-testid="link-open-kms-portal"
+            >
+              robertmccoyprojects.com/research/knowledge-systems/meridian
+            </a>
+            <span className="text-slate-500 ml-1">— watch approved docs appear live</span>
+          </span>
+        </div>
+      </div>
 
       {/* ── Note bar ── */}
       <div className="bg-slate-800/60 border-b border-slate-700 px-5 py-2 flex items-center gap-2 shrink-0">
