@@ -131,7 +131,17 @@ type Facets = {
 };
 
 export default function InsuranceKMS() {
-  const sessionId = sessionStorage.getItem(SESSION_KEY) || "";
+  const [sessionId, setSessionId] = useState(() => localStorage.getItem(SESSION_KEY) || "");
+
+  // If another tab creates a session after this tab is already open, pick it up immediately
+  useEffect(() => {
+    const handler = (e: StorageEvent) => {
+      if (e.key === SESSION_KEY && e.newValue) setSessionId(e.newValue);
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
+  }, []);
+
   const [search, setSearch] = useState("");
   const [filterLine, setFilterLine] = useState("");
   const [filterPhase, setFilterPhase] = useState("");

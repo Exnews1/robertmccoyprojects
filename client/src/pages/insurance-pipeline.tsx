@@ -585,10 +585,10 @@ function StagingCard({ doc, sessionId, onApprove, onReject }: {
 
 export default function InsurancePipeline() {
   const [sessionId] = useState(() => {
-    const stored = sessionStorage.getItem(SESSION_KEY);
+    const stored = localStorage.getItem(SESSION_KEY);
     if (stored) return stored;
     const id = genSessionId();
-    sessionStorage.setItem(SESSION_KEY, id);
+    localStorage.setItem(SESSION_KEY, id);
     return id;
   });
 
@@ -703,7 +703,7 @@ export default function InsurancePipeline() {
 
   const handleReset = async () => {
     await fetch(`/api/insurance/reset?session_id=${sessionId}`, { method: "DELETE", headers });
-    sessionStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(SESSION_KEY);
     window.location.reload();
   };
 
