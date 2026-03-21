@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter } from "lucide-react";
@@ -146,18 +146,33 @@ export default function InsuranceKMS() {
     queryKey: ["/api/insurance/repository", sessionId],
     queryFn: () => fetch(`/api/insurance/repository?session_id=${sessionId}`).then(r => r.json()),
     enabled: !!sessionId,
-    refetchInterval: 10000,
+    refetchInterval: 3000,
   });
 
-  const { data: facetsData } = useQuery<Facets & { success: boolean }>({
+  const { data: facetsData, refetch: refetchFacets } = useQuery<Facets & { success: boolean }>({
     queryKey: ["/api/insurance/repository/facets", sessionId],
     queryFn: () =>
       fetch("/api/insurance/repository/facets", {
         headers: { "x-session-id": sessionId },
       }).then(r => r.json()),
     enabled: !!sessionId,
-    refetchInterval: 15000,
+    refetchInterval: 5000,
   });
+
+  // Listen for approvals broadcast from the pipeline tab — refetch immediately
+  const channelRef = useRef<BroadcastChannel | null>(null);
+  useEffect(() => {
+    if (!sessionId) return;
+    const ch = new BroadcastChannel("insurance-kms-updates");
+    channelRef.current = ch;
+    ch.onmessage = (e) => {
+      if (e.data?.sessionId === sessionId) {
+        refetch();
+        refetchFacets();
+      }
+    };
+    return () => ch.close();
+  }, [sessionId, refetch, refetchFacets]);
 
   const docs = data?.data || [];
 

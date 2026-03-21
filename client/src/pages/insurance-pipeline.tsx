@@ -681,16 +681,25 @@ export default function InsurancePipeline() {
     e.target.value = "";
   };
 
+  // Broadcast channel so the KMS portal tab picks up approvals instantly
+  const kmsChannel = useRef<BroadcastChannel | null>(null);
+  useEffect(() => {
+    kmsChannel.current = new BroadcastChannel("insurance-kms-updates");
+    return () => kmsChannel.current?.close();
+  }, []);
+
   const handleApprove = async (id: number) => {
     await apiRequest("POST", `/api/insurance/approve/${id}`, {}, headers);
     qc.invalidateQueries({ queryKey: ["/api/insurance/staging", sessionId] });
     qc.invalidateQueries({ queryKey: ["/api/insurance/repository", sessionId] });
     qc.invalidateQueries({ queryKey: ["/api/insurance/audit", sessionId] });
+    kmsChannel.current?.postMessage({ type: "approved", sessionId });
   };
   const handleReject = async (id: number) => {
     await apiRequest("POST", `/api/insurance/reject/${id}`, {}, headers);
     qc.invalidateQueries({ queryKey: ["/api/insurance/staging", sessionId] });
     qc.invalidateQueries({ queryKey: ["/api/insurance/audit", sessionId] });
+    kmsChannel.current?.postMessage({ type: "rejected", sessionId });
   };
 
   const handleReset = async () => {
