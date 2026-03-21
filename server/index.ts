@@ -69,6 +69,26 @@ app.use('/papers', express.static(path.resolve(process.cwd(), 'public/papers'), 
 
 // Serve demo HTML files
 app.use('/demos', express.static(path.resolve(process.cwd(), 'public/demos')));
+
+// Serve insurance session PDFs (uploaded via ZIP hopper)
+app.use('/insurance-sessions', express.static(path.resolve(process.cwd(), 'public/insurance-sessions'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.pdf')) {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline');
+    }
+  }
+}));
+
+// Serve pre-loaded insurance sample docs
+app.use('/insurance-docs', express.static(path.resolve(process.cwd(), 'public/insurance-docs'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.pdf')) {
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'inline');
+    }
+  }
+}));
 const httpServer = createServer(app);
 
 declare module "http" {

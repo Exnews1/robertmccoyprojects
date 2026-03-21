@@ -9,8 +9,9 @@ import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
-import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials } from "@shared/schema";
+import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials, insuranceStaging, insuranceRepository, insuranceAudit } from "@shared/schema";
 import { classifyDocument, generateStandardName } from "./meridianClassification";
+import { classifyInsuranceDocument, fallbackClassify, generateStandardInsuranceName, DOC_TYPES, POLICY_LINES } from "./insuranceClassification";
 import { eq, and, desc } from "drizzle-orm";
 
 function sanitizeInput(input: string): string {
@@ -1686,6 +1687,299 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
   }
   seedMeridianKMS().catch(console.error);
   seedMeridianFinancials().catch(console.error);
+
+  // ── Insurance Brokerage KMS Routes ─────────────────────────────────────────
+  const AdmZip = (await import("adm-zip")).default;
+  const zipUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
+
+  function getInsuranceSession(req: any): string | null {
+    return (req.headers["x-session-id"] as string) || (req.query.session_id as string) || null;
+  }
+
+  // POST /api/insurance/upload-zip – unpack ZIP, run AI classification, stage all docs
+  app.post("/api/insurance/upload-zip", zipUpload.single("file"), async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id header" });
+    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+    const fsp = await import("fs/promises");
+    const fsMod = await import("fs");
+    const pathMod = await import("path");
+
+    // Extract ZIP in memory
+    let zip: InstanceType<typeof AdmZip>;
+    try {
+      zip = new AdmZip(req.file.buffer);
+    } catch {
+      return res.status(400).json({ error: "Invalid ZIP file" });
+    }
+
+    const entries = zip.getEntries().filter(e =>
+      !e.isDirectory &&
+      e.entryName.toLowerCase().endsWith(".pdf") &&
+      !e.entryName.startsWith("__MACOSX")
+    );
+
+    if (entries.length === 0) {
+      return res.status(400).json({ error: "No PDF files found in ZIP" });
+    }
+
+    // Save PDFs to public directory so browser can view them
+    const sessionDir = pathMod.join(process.cwd(), "public", "insurance-sessions", sessionId);
+    await fsp.mkdir(sessionDir, { recursive: true });
+
+    // Clear previous staging for this session
+    await db.delete(insuranceStaging).where(eq(insuranceStaging.sessionId, sessionId));
+    await db.delete(insuranceAudit).where(eq(insuranceAudit.sessionId, sessionId));
+
+    // Insert all docs immediately with pending status (fast response)
+    const stagedIds: { id: number; filename: string; filePath: string }[] = [];
+    for (const entry of entries) {
+      const filename = pathMod.basename(entry.entryName);
+      const destPath = pathMod.join(sessionDir, filename);
+      zip.extractEntryTo(entry, sessionDir, false, true);
+
+      const fallback = fallbackClassify(filename);
+      const filePath = `/insurance-sessions/${sessionId}/${filename}`;
+
+      const [row] = await db.insert(insuranceStaging).values({
+        sessionId,
+        filename,
+        filePath,
+        docType: fallback.docType,
+        docTypeLabel: fallback.docTypeLabel,
+        lifecyclePhase: fallback.lifecyclePhase,
+        policyLine: fallback.policyLine,
+        policyPeriod: fallback.policyPeriod,
+        namedInsured: fallback.namedInsured,
+        policyNumber: fallback.policyNumber,
+        carrierName: fallback.carrierName,
+        premium: fallback.premium,
+        claimNumber: fallback.claimNumber,
+        effectiveDate: fallback.effectiveDate,
+        expirationDate: fallback.expirationDate,
+        confidence: fallback.confidence,
+        reasoning: fallback.reasoning,
+        aiStatus: "pending",
+      }).returning();
+
+      stagedIds.push({ id: row.id, filename, filePath: pathMod.join(sessionDir, filename) });
+    }
+
+    await db.insert(insuranceAudit).values({
+      sessionId,
+      actor: "System",
+      action: "INGEST",
+      details: `ZIP uploaded: ${entries.length} PDFs extracted and staged for AI classification.`,
+    });
+
+    // Respond immediately — AI classification runs in background
+    res.json({ success: true, count: stagedIds.length, sessionId });
+
+    // Background: classify each doc with real AI
+    (async () => {
+      let processed = 0;
+      for (const { id, filename, filePath } of stagedIds) {
+        try {
+          const result = await classifyInsuranceDocument(filePath, filename);
+          await db.update(insuranceStaging)
+            .set({
+              docType: result.docType,
+              docTypeLabel: result.docTypeLabel,
+              lifecyclePhase: result.lifecyclePhase,
+              policyLine: result.policyLine,
+              policyPeriod: result.policyPeriod,
+              namedInsured: result.namedInsured,
+              policyNumber: result.policyNumber,
+              carrierName: result.carrierName,
+              premium: result.premium,
+              claimNumber: result.claimNumber,
+              effectiveDate: result.effectiveDate,
+              expirationDate: result.expirationDate,
+              confidence: result.confidence,
+              reasoning: result.reasoning,
+              aiStatus: "classified",
+            })
+            .where(eq(insuranceStaging.id, id));
+          processed++;
+        } catch (err) {
+          console.error(`[insurance] Classification failed for ${filename}:`, err);
+          await db.update(insuranceStaging)
+            .set({ aiStatus: "failed" })
+            .where(eq(insuranceStaging.id, id));
+        }
+      }
+      console.log(`[insurance] AI classification complete: ${processed}/${stagedIds.length} docs classified.`);
+    })().catch(console.error);
+  });
+
+  // GET /api/insurance/staging
+  app.get("/api/insurance/staging", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(insuranceStaging)
+      .where(eq(insuranceStaging.sessionId, sessionId))
+      .orderBy(insuranceStaging.stagedAt);
+    res.json({ success: true, data: rows });
+  });
+
+  // GET /api/insurance/batch/status – progress of AI classification
+  app.get("/api/insurance/batch/status", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select({ aiStatus: insuranceStaging.aiStatus }).from(insuranceStaging)
+      .where(eq(insuranceStaging.sessionId, sessionId));
+    const total = rows.length;
+    const classified = rows.filter(r => r.aiStatus === "classified").length;
+    const failed = rows.filter(r => r.aiStatus === "failed").length;
+    const pending = rows.filter(r => r.aiStatus === "pending").length;
+    res.json({ success: true, total, classified, failed, pending, done: pending === 0 && total > 0 });
+  });
+
+  // PATCH /api/insurance/staging/:id – modify fields
+  app.patch("/api/insurance/staging/:id", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const allowed = ["docType", "docTypeLabel", "lifecyclePhase", "policyLine", "policyPeriod",
+      "namedInsured", "policyNumber", "carrierName", "premium", "claimNumber",
+      "effectiveDate", "expirationDate"];
+    const updates: Record<string, string> = {};
+    for (const key of allowed) {
+      if (req.body[key] !== undefined) updates[key] = sanitizeInput(String(req.body[key]));
+    }
+    if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No valid fields" });
+    await db.update(insuranceStaging).set(updates).where(eq(insuranceStaging.id, id));
+    await db.insert(insuranceAudit).values({
+      sessionId,
+      actor: "Sr. Account Manager",
+      action: "MODIFY",
+      details: `Modified staging record #${id}: ${Object.keys(updates).join(", ")} updated.`,
+    });
+    const [updated] = await db.select().from(insuranceStaging).where(eq(insuranceStaging.id, id));
+    res.json({ success: true, data: updated });
+  });
+
+  // POST /api/insurance/approve/:id
+  app.post("/api/insurance/approve/:id", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const [doc] = await db.select().from(insuranceStaging)
+      .where(and(eq(insuranceStaging.id, id), eq(insuranceStaging.sessionId, sessionId)));
+    if (!doc) return res.status(404).json({ error: "Not found" });
+
+    // Count existing for this session to generate seq
+    const existing = await db.select({ id: insuranceRepository.id }).from(insuranceRepository)
+      .where(eq(insuranceRepository.sessionId, sessionId));
+    const seq = existing.length + 1;
+    const standardName = generateStandardInsuranceName({
+      docType: doc.docType || "COR",
+      docTypeLabel: doc.docTypeLabel || "Correspondence",
+      lifecyclePhase: doc.lifecyclePhase || "",
+      policyLine: doc.policyLine || "",
+      policyPeriod: doc.policyPeriod || "2025-2026",
+      namedInsured: doc.namedInsured || "",
+      policyNumber: doc.policyNumber || "",
+      carrierName: doc.carrierName || "",
+      premium: doc.premium || "",
+      claimNumber: doc.claimNumber || "",
+      effectiveDate: doc.effectiveDate || "",
+      expirationDate: doc.expirationDate || "",
+      confidence: doc.confidence || 0.85,
+      reasoning: doc.reasoning || "",
+    }, seq);
+
+    const [repoDoc] = await db.insert(insuranceRepository).values({
+      sessionId,
+      filename: doc.filename,
+      filePath: doc.filePath,
+      standardName,
+      docType: doc.docType || "COR",
+      docTypeLabel: doc.docTypeLabel || "Correspondence",
+      lifecyclePhase: doc.lifecyclePhase,
+      policyLine: doc.policyLine,
+      policyPeriod: doc.policyPeriod,
+      namedInsured: doc.namedInsured,
+      policyNumber: doc.policyNumber,
+      carrierName: doc.carrierName,
+      premium: doc.premium,
+      claimNumber: doc.claimNumber,
+      effectiveDate: doc.effectiveDate,
+      expirationDate: doc.expirationDate,
+      confidence: doc.confidence,
+      approvedBy: "Sr. Account Manager",
+    }).returning();
+
+    await db.delete(insuranceStaging).where(eq(insuranceStaging.id, id));
+    await db.insert(insuranceAudit).values({
+      sessionId,
+      actor: "Sr. Account Manager",
+      action: "APPROVE",
+      details: `Approved "${doc.filename}" → filed as ${standardName} (${doc.docTypeLabel}, ${doc.policyLine || "N/A"}, ${doc.namedInsured || "Unknown"}).`,
+    });
+
+    res.json({ success: true, data: repoDoc });
+  });
+
+  // POST /api/insurance/reject/:id
+  app.post("/api/insurance/reject/:id", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const [doc] = await db.select({ filename: insuranceStaging.filename })
+      .from(insuranceStaging)
+      .where(and(eq(insuranceStaging.id, id), eq(insuranceStaging.sessionId, sessionId)));
+    if (!doc) return res.status(404).json({ error: "Not found" });
+    await db.delete(insuranceStaging).where(eq(insuranceStaging.id, id));
+    await db.insert(insuranceAudit).values({
+      sessionId,
+      actor: "Sr. Account Manager",
+      action: "REJECT",
+      details: `Rejected "${doc.filename}" — returned to sender / discarded.`,
+    });
+    res.json({ success: true });
+  });
+
+  // GET /api/insurance/repository
+  app.get("/api/insurance/repository", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(insuranceRepository)
+      .where(eq(insuranceRepository.sessionId, sessionId))
+      .orderBy(desc(insuranceRepository.approvedAt));
+    res.json({ success: true, data: rows });
+  });
+
+  // GET /api/insurance/audit
+  app.get("/api/insurance/audit", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db.select().from(insuranceAudit)
+      .where(eq(insuranceAudit.sessionId, sessionId))
+      .orderBy(desc(insuranceAudit.ts))
+      .limit(100);
+    res.json({ success: true, data: rows });
+  });
+
+  // DELETE /api/insurance/reset
+  app.delete("/api/insurance/reset", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    await db.delete(insuranceStaging).where(eq(insuranceStaging.sessionId, sessionId));
+    await db.delete(insuranceRepository).where(eq(insuranceRepository.sessionId, sessionId));
+    await db.delete(insuranceAudit).where(eq(insuranceAudit.sessionId, sessionId));
+
+    // Remove session PDF files
+    try {
+      const fsp = await import("fs/promises");
+      const pathMod = await import("path");
+      const sessionDir = pathMod.join(process.cwd(), "public", "insurance-sessions", sessionId);
+      await fsp.rm(sessionDir, { recursive: true, force: true });
+    } catch {}
+
+    res.json({ success: true, message: "Session reset. Ready for next demo." });
+  });
 
   return app;
 }

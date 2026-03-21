@@ -323,3 +323,63 @@ export type MeridianStaging = typeof meridianStaging.$inferSelect;
 export type MeridianRepository = typeof meridianRepository.$inferSelect;
 export type MeridianAudit = typeof meridianAudit.$inferSelect;
 export type MeridianFinancial = typeof meridianFinancials.$inferSelect;
+
+// ── Insurance Brokerage KMS ───────────────────────────────────────────────────
+export const insuranceStaging = pgTable("insurance_staging", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  filename: text("filename").notNull(),
+  filePath: text("file_path"),
+  docType: text("doc_type"),
+  docTypeLabel: text("doc_type_label"),
+  lifecyclePhase: text("lifecycle_phase"),
+  policyLine: text("policy_line"),
+  policyPeriod: text("policy_period"),
+  namedInsured: text("named_insured"),
+  policyNumber: text("policy_number"),
+  carrierName: text("carrier_name"),
+  premium: text("premium"),
+  claimNumber: text("claim_number"),
+  effectiveDate: text("effective_date"),
+  expirationDate: text("expiration_date"),
+  confidence: real("confidence"),
+  reasoning: text("reasoning"),
+  aiStatus: text("ai_status").default("pending"),
+  stagedAt: timestamp("staged_at").defaultNow(),
+});
+
+export const insuranceRepository = pgTable("insurance_repository", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  filename: text("filename").notNull(),
+  filePath: text("file_path"),
+  standardName: text("standard_name"),
+  docType: text("doc_type").notNull(),
+  docTypeLabel: text("doc_type_label").notNull(),
+  lifecyclePhase: text("lifecycle_phase"),
+  policyLine: text("policy_line"),
+  policyPeriod: text("policy_period"),
+  namedInsured: text("named_insured"),
+  policyNumber: text("policy_number"),
+  carrierName: text("carrier_name"),
+  premium: text("premium"),
+  claimNumber: text("claim_number"),
+  effectiveDate: text("effective_date"),
+  expirationDate: text("expiration_date"),
+  confidence: real("confidence"),
+  approvedAt: timestamp("approved_at").defaultNow(),
+  approvedBy: text("approved_by").default("Sr. Account Manager"),
+});
+
+export const insuranceAudit = pgTable("insurance_audit", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  ts: timestamp("ts").defaultNow(),
+  actor: text("actor").notNull(),
+  action: text("action").notNull(),
+  details: text("details").notNull(),
+});
+
+export type InsuranceStaging = typeof insuranceStaging.$inferSelect;
+export type InsuranceRepository = typeof insuranceRepository.$inferSelect;
+export type InsuranceAudit = typeof insuranceAudit.$inferSelect;

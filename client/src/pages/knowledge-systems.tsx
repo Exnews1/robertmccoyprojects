@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight, Database, MonitorPlay } from "lucide-react";
+import { ExternalLink, Building2, Plane, Wind, Users, Heart, MapPin, ArrowLeft, Factory, ChevronRight, Database, MonitorPlay, Shield } from "lucide-react";
 
 const systems = [
   {
@@ -122,6 +122,66 @@ export default function KnowledgeSystems() {
                 </Button>
               </Link>
               <Link href="/research/knowledge-systems/meridian" data-testid="button-open-kms">
+                <Button variant="outline" className="gap-1.5 border-slate-600 text-slate-300 hover:text-white hover:border-slate-400" size="sm">
+                  <Database className="h-3.5 w-3.5" />
+                  View KMS Portal
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Insurance Brokerage featured demo */}
+          <div className="border border-sky-700/50 rounded-lg bg-gradient-to-br from-slate-900 to-slate-800 p-6" data-testid="card-insurance-demo">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-sky-800 rounded flex items-center justify-center shrink-0">
+                  <Shield className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-bold text-foreground text-base">Pinnacle Insurance Group</h2>
+                    <span className="text-xs px-2 py-0.5 rounded bg-sky-900/60 text-sky-400 border border-sky-700 font-semibold">
+                      Interactive Demo · Real AI
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">P&C Insurance Brokerage KMS — AI/Human-in-the-Loop Ingestion Pipeline</p>
+                </div>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground mt-4">
+              A full insurance brokerage document management workflow. Drop a ZIP package of insurance documents into the hopper — the system extracts every PDF, runs it through a real GPT-4o classification engine trained on 24 insurance document types, and presents the full batch for human-in-the-loop review. Approve documents to file them in the KMS portal organized by the industry-standard four-level hierarchy: Client → Policy Line → Policy Period → Document Type.
+            </p>
+            <div className="mt-4 rounded-lg border border-sky-700/60 bg-sky-950/30 p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <MonitorPlay className="h-4 w-4 text-sky-400 shrink-0" />
+                <p className="text-xs font-bold text-sky-400 uppercase tracking-widest">Two-Window Demo Flow</p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded border border-slate-600 bg-slate-800/60 p-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Left — Ingestion Pipeline</p>
+                  <p className="text-xs font-mono text-sky-300 break-all leading-relaxed">…/knowledge-systems/<wbr />insurance/demo</p>
+                  <p className="text-[10px] text-slate-500 mt-1.5">Drop ZIP → AI classifies → approve each doc</p>
+                </div>
+                <div className="rounded border border-slate-600 bg-slate-800/60 p-3">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Right — KMS Portal</p>
+                  <p className="text-xs font-mono text-sky-300 break-all leading-relaxed">…/knowledge-systems/<wbr />insurance</p>
+                  <p className="text-[10px] text-slate-500 mt-1.5">Client hierarchy fills as docs are approved</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["ZIP Upload", "Real GPT-4o Classification", "24 Doc Types", "12 Policy Lines", "4-Level Filing Hierarchy", "Human-in-the-Loop"].map(tag => (
+                <span key={tag} className="text-xs px-2 py-0.5 rounded bg-slate-700 text-slate-300 border border-slate-600">{tag}</span>
+              ))}
+            </div>
+            <div className="flex items-center gap-3 mt-5">
+              <Link href="/research/knowledge-systems/insurance/demo" data-testid="button-launch-insurance">
+                <Button className="bg-sky-700 hover:bg-sky-600 text-white gap-1.5" size="sm">
+                  <ChevronRight className="h-3.5 w-3.5" />
+                  Launch Ingestion Pipeline
+                </Button>
+              </Link>
+              <Link href="/research/knowledge-systems/insurance" data-testid="button-open-insurance-kms">
                 <Button variant="outline" className="gap-1.5 border-slate-600 text-slate-300 hover:text-white hover:border-slate-400" size="sm">
                   <Database className="h-3.5 w-3.5" />
                   View KMS Portal
