@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter, Edit3, AlertTriangle } from "lucide-react";
 
 const SESSION_KEY = "insurance-pipeline-session";
 
@@ -20,6 +21,54 @@ const LINE_LABELS: Record<string, string> = {
   BOP: "Business Owners Policy", BOND: "Surety Bond", IM: "Inland Marine",
 };
 
+const DOC_TYPES: { code: string; label: string; phase: string }[] = [
+  { code: "APP", label: "Application",               phase: "Submission" },
+  { code: "LRN", label: "Loss Run",                  phase: "Submission" },
+  { code: "FIN", label: "Financial Statement",        phase: "Submission" },
+  { code: "SOV", label: "Statement of Values",        phase: "Submission" },
+  { code: "UWS", label: "Underwriting Submission",    phase: "Submission" },
+  { code: "BND", label: "Binder",                     phase: "Binding & Policy" },
+  { code: "DEC", label: "Declarations Page",          phase: "Binding & Policy" },
+  { code: "END", label: "Endorsement",                phase: "Binding & Policy" },
+  { code: "FRM", label: "Coverage Form",              phase: "Binding & Policy" },
+  { code: "QTE", label: "Quote/Proposal",             phase: "Binding & Policy" },
+  { code: "COI", label: "Certificate of Insurance",   phase: "Servicing" },
+  { code: "AUD", label: "Audit Worksheet",            phase: "Servicing" },
+  { code: "PFA", label: "Premium Finance Agreement",  phase: "Servicing" },
+  { code: "CAN", label: "Cancellation Notice",        phase: "Servicing" },
+  { code: "RNW", label: "Renewal Notice",             phase: "Servicing" },
+  { code: "INV", label: "Invoice/Statement",          phase: "Servicing" },
+  { code: "FNL", label: "First Notice of Loss",       phase: "Claims" },
+  { code: "ADJ", label: "Adjuster Report",            phase: "Claims" },
+  { code: "RSV", label: "Reserve Letter",             phase: "Claims" },
+  { code: "STL", label: "Settlement Agreement",       phase: "Claims" },
+  { code: "SUB", label: "Subrogation",                phase: "Claims" },
+  { code: "SLF", label: "Surplus Lines Filing",       phase: "Compliance & Admin" },
+  { code: "COM", label: "Commission Statement",       phase: "Compliance & Admin" },
+  { code: "AGR", label: "Agency Agreement",           phase: "Compliance & Admin" },
+  { code: "COR", label: "Correspondence",             phase: "Compliance & Admin" },
+  { code: "LIC", label: "License/Certification",      phase: "Compliance & Admin" },
+];
+
+const POLICY_LINES = [
+  { code: "GL",   label: "General Liability" },
+  { code: "PROP", label: "Commercial Property" },
+  { code: "AUTO", label: "Commercial Auto" },
+  { code: "WC",   label: "Workers Compensation" },
+  { code: "UMBR", label: "Umbrella/Excess" },
+  { code: "EPLI", label: "Employment Practices" },
+  { code: "DO",   label: "Directors & Officers" },
+  { code: "CYBER",label: "Cyber Liability" },
+  { code: "PL",   label: "Professional Liability" },
+  { code: "BOP",  label: "Business Owners Policy" },
+  { code: "BOND", label: "Surety Bond" },
+  { code: "IM",   label: "Inland Marine" },
+];
+
+const POLICY_PERIODS = [
+  "2020-2021","2021-2022","2022-2023","2023-2024","2024-2025","2025-2026","2026-2027",
+];
+
 type RepoDoc = {
   id: number; sessionId: string; filename: string; filePath: string | null;
   standardName: string | null; docType: string; docTypeLabel: string;
@@ -30,7 +79,7 @@ type RepoDoc = {
   approvedAt: string | null; approvedBy: string | null;
 };
 
-function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void }) {
+function DocDetailPanel({ doc, onClose, onModify }: { doc: RepoDoc; onClose: () => void; onModify: (doc: RepoDoc) => void }) {
   const phaseClass = PHASE_COLORS[doc.lifecyclePhase || ""] || "bg-slate-800 text-slate-400 border-slate-700";
   const pct = doc.confidence ? Math.round(doc.confidence * 100) : 0;
   const confColor = pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500";
@@ -102,9 +151,21 @@ function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void })
             </div>
           )}
 
+          {/* HiL Modify */}
+          <div className="pt-3">
+            <button
+              onClick={() => onModify(doc)}
+              className="flex items-center gap-2 text-xs text-violet-300 hover:text-violet-100 bg-violet-900/30 border border-violet-700 px-3 py-2 rounded w-full justify-center transition-colors"
+              data-testid="button-kms-modify"
+            >
+              <Edit3 className="h-3.5 w-3.5" />
+              Modify Record (HiL)
+            </button>
+          </div>
+
           {/* PDF viewer toggle */}
           {doc.filePath && (
-            <div className="pt-3">
+            <div className="pt-2">
               <a
                 href={doc.filePath}
                 target="_blank"
@@ -116,6 +177,195 @@ function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void })
               </a>
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
+  doc: RepoDoc; onClose: () => void; sessionId: string; onSaved: () => void;
+}) {
+  const qc = useQueryClient();
+  const [docTypeCode, setDocTypeCode] = useState(doc.docType || "");
+  const [policyLine, setPolicyLine] = useState(doc.policyLine || "");
+  const [policyPeriod, setPolicyPeriod] = useState(doc.policyPeriod || "");
+  const [namedInsured, setNamedInsured] = useState(doc.namedInsured || "");
+  const [policyNumber, setPolicyNumber] = useState(doc.policyNumber || "");
+  const [carrierName, setCarrierName] = useState(doc.carrierName || "");
+  const [premium, setPremium] = useState(doc.premium || "");
+  const [claimNumber, setClaimNumber] = useState(doc.claimNumber || "");
+  const [effectiveDate, setEffectiveDate] = useState(doc.effectiveDate || "");
+  const [expirationDate, setExpirationDate] = useState(doc.expirationDate || "");
+  const [saving, setSaving] = useState(false);
+
+  const selectedDocType = DOC_TYPES.find(d => d.code === docTypeCode);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      await apiRequest("PATCH", `/api/insurance/repository/${doc.id}`, {
+        docType: docTypeCode,
+        docTypeLabel: selectedDocType?.label || doc.docTypeLabel || "",
+        lifecyclePhase: selectedDocType?.phase || doc.lifecyclePhase || "",
+        policyLine,
+        policyPeriod,
+        namedInsured,
+        policyNumber,
+        carrierName,
+        premium,
+        claimNumber,
+        effectiveDate,
+        expirationDate,
+      }, { "x-session-id": sessionId });
+      qc.invalidateQueries({ queryKey: ["/api/insurance/repository", sessionId] });
+      qc.invalidateQueries({ queryKey: ["/api/insurance/repository/facets", sessionId] });
+      qc.invalidateQueries({ queryKey: ["/api/insurance/audit", sessionId] });
+      onSaved();
+      onClose();
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const selectCls = "w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-violet-500 appearance-none cursor-pointer";
+  const inputCls  = "w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-violet-500 placeholder-slate-600";
+  const labelCls  = "block text-xs font-semibold text-slate-400 mb-1.5";
+
+  return (
+    <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-3">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-xl shadow-2xl flex flex-col max-h-[90vh]">
+        {/* Header */}
+        <div className="px-5 py-4 border-b border-slate-700 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2">
+            <Edit3 className="h-4 w-4 text-violet-400" />
+            <span className="font-semibold text-slate-100 text-sm">Modify Filed Record</span>
+            <span className="text-xs text-slate-500 font-mono ml-1">HiL Operation</span>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-200"><X className="h-4 w-4" /></button>
+        </div>
+
+        {/* Filename strip */}
+        <div className="px-5 py-2 bg-slate-800/50 border-b border-slate-800 text-xs font-mono text-slate-400 truncate shrink-0">
+          {doc.standardName || doc.filename}
+        </div>
+
+        {/* Form */}
+        <div className="p-5 space-y-5 overflow-y-auto flex-1">
+          {/* Section 1 — Document Classification */}
+          <div>
+            <div className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-violet-900/60" />
+              Document Classification
+              <span className="flex-1 border-t border-violet-900/60" />
+            </div>
+            <div>
+              <label className={labelCls}>Document Type</label>
+              <select value={docTypeCode} onChange={e => setDocTypeCode(e.target.value)} className={selectCls} data-testid="select-kms-doc-type">
+                <option value="">— Select document type —</option>
+                {["Submission", "Binding & Policy", "Servicing", "Claims", "Compliance & Admin"].map(phase => (
+                  <optgroup key={phase} label={`── ${phase} ──`}>
+                    {DOC_TYPES.filter(d => d.phase === phase).map(d => (
+                      <option key={d.code} value={d.code}>{d.code} — {d.label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              {selectedDocType && (
+                <div className="mt-1.5 flex gap-2 text-xs">
+                  <span className="text-slate-500">Phase:</span>
+                  <span className="text-slate-300">{selectedDocType.phase}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Section 2 — Policy Details */}
+          <div>
+            <div className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-violet-900/60" />
+              Policy Details
+              <span className="flex-1 border-t border-violet-900/60" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={labelCls}>Policy Line</label>
+                <select value={policyLine} onChange={e => setPolicyLine(e.target.value)} className={selectCls} data-testid="select-kms-policy-line">
+                  <option value="">— Select policy line —</option>
+                  {POLICY_LINES.map(l => (
+                    <option key={l.code} value={l.code}>{l.code} — {l.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelCls}>Policy Period</label>
+                <select value={policyPeriod} onChange={e => setPolicyPeriod(e.target.value)} className={selectCls} data-testid="select-kms-policy-period">
+                  <option value="">— Select period —</option>
+                  {POLICY_PERIODS.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </div>
+              <div className="col-span-2">
+                <label className={labelCls}>Named Insured (Client)</label>
+                <input value={namedInsured} onChange={e => setNamedInsured(e.target.value)} placeholder="e.g. Acme Manufacturing Inc" className={inputCls} data-testid="input-kms-named-insured" />
+              </div>
+              <div>
+                <label className={labelCls}>Policy Number</label>
+                <input value={policyNumber} onChange={e => setPolicyNumber(e.target.value)} placeholder="e.g. POL-GL-2025-001" className={inputCls} data-testid="input-kms-policy-number" />
+              </div>
+              <div>
+                <label className={labelCls}>Carrier / Insurer</label>
+                <input value={carrierName} onChange={e => setCarrierName(e.target.value)} placeholder="e.g. Hartford, Travelers" className={inputCls} data-testid="input-kms-carrier" />
+              </div>
+              <div>
+                <label className={labelCls}>Effective Date</label>
+                <input type="date" value={effectiveDate} onChange={e => setEffectiveDate(e.target.value)} className={inputCls} data-testid="input-kms-effective-date" />
+              </div>
+              <div>
+                <label className={labelCls}>Expiration Date</label>
+                <input type="date" value={expirationDate} onChange={e => setExpirationDate(e.target.value)} className={inputCls} data-testid="input-kms-expiration-date" />
+              </div>
+            </div>
+          </div>
+
+          {/* Section 3 — Financial / Claims */}
+          <div>
+            <div className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-violet-900/60" />
+              Financial &amp; Claims (if applicable)
+              <span className="flex-1 border-t border-violet-900/60" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={labelCls}>Premium</label>
+                <input value={premium} onChange={e => setPremium(e.target.value)} placeholder="e.g. $12,500" className={inputCls} data-testid="input-kms-premium" />
+              </div>
+              <div>
+                <label className={labelCls}>Claim Number</label>
+                <input value={claimNumber} onChange={e => setClaimNumber(e.target.value)} placeholder="e.g. CLM-2025-0042" className={inputCls} data-testid="input-kms-claim-number" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="shrink-0 flex gap-2 justify-between items-center px-5 py-3.5 border-t border-slate-700 bg-slate-900/90">
+          <div className="flex items-center gap-1.5 text-xs text-slate-600">
+            <AlertTriangle className="h-3 w-3" />
+            This updates the filed record and creates an audit entry
+          </div>
+          <div className="flex gap-2">
+            <button onClick={onClose} className="px-3 py-1.5 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 rounded transition-colors">
+              Cancel
+            </button>
+            <button
+              onClick={save}
+              disabled={saving}
+              className="px-4 py-1.5 text-sm bg-violet-700 hover:bg-violet-600 text-white rounded transition-colors disabled:opacity-50 font-medium"
+              data-testid="button-kms-save-modify"
+            >
+              {saving ? "Saving…" : "Save Changes"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -147,6 +397,7 @@ export default function InsuranceKMS() {
   const [filterPhase, setFilterPhase] = useState("");
   const [filterClient, setFilterClient] = useState("");
   const [selected, setSelected] = useState<RepoDoc | null>(null);
+  const [modifyDoc, setModifyDoc] = useState<RepoDoc | null>(null);
 
   const { data, isLoading, refetch } = useQuery<{ data: RepoDoc[] }>({
     queryKey: ["/api/insurance/repository", sessionId],
@@ -214,7 +465,21 @@ export default function InsuranceKMS() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      {selected && <DocDetailPanel doc={selected} onClose={() => setSelected(null)} />}
+      {selected && (
+        <DocDetailPanel
+          doc={selected}
+          onClose={() => setSelected(null)}
+          onModify={(doc) => { setModifyDoc(doc); setSelected(null); }}
+        />
+      )}
+      {modifyDoc && (
+        <KmsModifyModal
+          doc={modifyDoc}
+          sessionId={sessionId}
+          onClose={() => setModifyDoc(null)}
+          onSaved={() => setModifyDoc(null)}
+        />
+      )}
 
       {/* Header */}
       <header className="bg-slate-900 border-b border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-30">

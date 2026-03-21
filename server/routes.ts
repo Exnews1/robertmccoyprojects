@@ -1860,6 +1860,33 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     res.json({ success: true, data: updated });
   });
 
+  // PATCH /api/insurance/repository/:id – HiL modify a filed document
+  app.patch("/api/insurance/repository/:id", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const allowed = ["docType", "docTypeLabel", "lifecyclePhase", "policyLine", "policyPeriod",
+      "namedInsured", "policyNumber", "carrierName", "premium", "claimNumber",
+      "effectiveDate", "expirationDate"];
+    const updates: Record<string, string> = {};
+    for (const key of allowed) {
+      if (req.body[key] !== undefined) updates[key] = sanitizeInput(String(req.body[key]));
+    }
+    if (Object.keys(updates).length === 0) return res.status(400).json({ error: "No valid fields" });
+    const [existing] = await db.select().from(insuranceRepository)
+      .where(and(eq(insuranceRepository.id, id), eq(insuranceRepository.sessionId, sessionId)));
+    if (!existing) return res.status(404).json({ error: "Not found" });
+    await db.update(insuranceRepository).set(updates).where(eq(insuranceRepository.id, id));
+    await db.insert(insuranceAudit).values({
+      sessionId,
+      actor: "Sr. Account Manager",
+      action: "KMS-MODIFY",
+      details: `HiL modification on repository record #${id}: ${Object.keys(updates).join(", ")} updated.`,
+    });
+    const [updated] = await db.select().from(insuranceRepository).where(eq(insuranceRepository.id, id));
+    res.json({ success: true, data: updated });
+  });
+
   // POST /api/insurance/approve/:id
   app.post("/api/insurance/approve/:id", async (req, res) => {
     const sessionId = getInsuranceSession(req);
