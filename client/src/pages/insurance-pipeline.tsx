@@ -1,8 +1,61 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "wouter";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity } from "lucide-react";
+import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity, AlertTriangle } from "lucide-react";
+
+// ── Insurance taxonomy constants (mirrors server/insuranceClassification.ts) ──
+const DOC_TYPES: { code: string; label: string; phase: string }[] = [
+  { code: "APP", label: "Application",               phase: "Submission" },
+  { code: "LRN", label: "Loss Run",                  phase: "Submission" },
+  { code: "FIN", label: "Financial Statement",        phase: "Submission" },
+  { code: "SOV", label: "Statement of Values",        phase: "Submission" },
+  { code: "UWS", label: "Underwriting Submission",    phase: "Submission" },
+  { code: "BND", label: "Binder",                     phase: "Binding & Policy" },
+  { code: "DEC", label: "Declarations Page",          phase: "Binding & Policy" },
+  { code: "END", label: "Endorsement",                phase: "Binding & Policy" },
+  { code: "FRM", label: "Coverage Form",              phase: "Binding & Policy" },
+  { code: "QTE", label: "Quote/Proposal",             phase: "Binding & Policy" },
+  { code: "COI", label: "Certificate of Insurance",   phase: "Servicing" },
+  { code: "AUD", label: "Audit Worksheet",            phase: "Servicing" },
+  { code: "PFA", label: "Premium Finance Agreement",  phase: "Servicing" },
+  { code: "CAN", label: "Cancellation Notice",        phase: "Servicing" },
+  { code: "RNW", label: "Renewal Notice",             phase: "Servicing" },
+  { code: "INV", label: "Invoice/Statement",          phase: "Servicing" },
+  { code: "FNL", label: "First Notice of Loss",       phase: "Claims" },
+  { code: "ADJ", label: "Adjuster Report",            phase: "Claims" },
+  { code: "RSV", label: "Reserve Letter",             phase: "Claims" },
+  { code: "STL", label: "Settlement Agreement",       phase: "Claims" },
+  { code: "SUB", label: "Subrogation",                phase: "Claims" },
+  { code: "SLF", label: "Surplus Lines Filing",       phase: "Compliance & Admin" },
+  { code: "COM", label: "Commission Statement",       phase: "Compliance & Admin" },
+  { code: "AGR", label: "Agency Agreement",           phase: "Compliance & Admin" },
+  { code: "COR", label: "Correspondence",             phase: "Compliance & Admin" },
+  { code: "LIC", label: "License/Certification",      phase: "Compliance & Admin" },
+];
+
+const POLICY_LINES = [
+  { code: "GL",   label: "General Liability" },
+  { code: "PROP", label: "Commercial Property" },
+  { code: "AUTO", label: "Commercial Auto" },
+  { code: "WC",   label: "Workers Compensation" },
+  { code: "UMBR", label: "Umbrella/Excess" },
+  { code: "EPLI", label: "Employment Practices" },
+  { code: "DO",   label: "Directors & Officers" },
+  { code: "CYBER",label: "Cyber Liability" },
+  { code: "PL",   label: "Professional Liability" },
+  { code: "BOP",  label: "Business Owners Policy" },
+  { code: "BOND", label: "Surety Bond" },
+  { code: "IM",   label: "Inland Marine" },
+];
+
+const LIFECYCLE_PHASES = [
+  "Submission", "Binding & Policy", "Servicing", "Claims", "Compliance & Admin",
+];
+
+const POLICY_PERIODS = [
+  "2020-2021","2021-2022","2022-2023","2023-2024","2024-2025","2025-2026","2026-2027",
+];
 
 const SESSION_KEY = "insurance-pipeline-session";
 
@@ -50,67 +103,295 @@ function ConfidenceBar({ value }: { value: number }) {
 
 function EditModal({ doc, onClose, sessionId }: { doc: StagedDoc; onClose: () => void; sessionId: string }) {
   const qc = useQueryClient();
-  const [fields, setFields] = useState({
-    docType: doc.docType || "", docTypeLabel: doc.docTypeLabel || "",
-    lifecyclePhase: doc.lifecyclePhase || "", policyLine: doc.policyLine || "",
-    policyPeriod: doc.policyPeriod || "", namedInsured: doc.namedInsured || "",
-    policyNumber: doc.policyNumber || "", carrierName: doc.carrierName || "",
-    premium: doc.premium || "", claimNumber: doc.claimNumber || "",
-    effectiveDate: doc.effectiveDate || "", expirationDate: doc.expirationDate || "",
-  });
+  const [docTypeCode, setDocTypeCode] = useState(doc.docType || "");
+  const [policyLine, setPolicyLine] = useState(doc.policyLine || "");
+  const [policyPeriod, setPolicyPeriod] = useState(doc.policyPeriod || "");
+  const [namedInsured, setNamedInsured] = useState(doc.namedInsured || "");
+  const [policyNumber, setPolicyNumber] = useState(doc.policyNumber || "");
+  const [carrierName, setCarrierName] = useState(doc.carrierName || "");
+  const [premium, setPremium] = useState(doc.premium || "");
+  const [claimNumber, setClaimNumber] = useState(doc.claimNumber || "");
+  const [effectiveDate, setEffectiveDate] = useState(doc.effectiveDate || "");
+  const [expirationDate, setExpirationDate] = useState(doc.expirationDate || "");
   const [saving, setSaving] = useState(false);
+
+  // When doc type changes, auto-fill label and phase
+  const selectedDocType = DOC_TYPES.find(d => d.code === docTypeCode);
+
+  const aiProposed = {
+    docType: doc.docType || "",
+    policyLine: doc.policyLine || "",
+    policyPeriod: doc.policyPeriod || "",
+  };
 
   const save = async () => {
     setSaving(true);
     try {
-      await apiRequest("PATCH", `/api/insurance/staging/${doc.id}`, fields, { "x-session-id": sessionId });
-      qc.invalidateQueries({ queryKey: ["/api/insurance/staging"] });
+      await apiRequest("PATCH", `/api/insurance/staging/${doc.id}`, {
+        docType: docTypeCode,
+        docTypeLabel: selectedDocType?.label || doc.docTypeLabel || "",
+        lifecyclePhase: selectedDocType?.phase || doc.lifecyclePhase || "",
+        policyLine,
+        policyPeriod,
+        namedInsured,
+        policyNumber,
+        carrierName,
+        premium,
+        claimNumber,
+        effectiveDate,
+        expirationDate,
+      }, { "x-session-id": sessionId });
+      qc.invalidateQueries({ queryKey: ["/api/insurance/staging", sessionId] });
       onClose();
     } finally {
       setSaving(false);
     }
   };
 
-  const f = (label: string, key: keyof typeof fields) => (
-    <div>
-      <label className="block text-xs text-slate-400 mb-1">{label}</label>
-      <input
-        value={fields[key]}
-        onChange={e => setFields(p => ({ ...p, [key]: e.target.value }))}
-        className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-amber-500"
-      />
-    </div>
-  );
+  const selectCls = "w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500 appearance-none cursor-pointer";
+  const inputCls  = "w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500 placeholder-slate-600";
+  const labelCls  = "block text-xs font-semibold text-slate-400 mb-1.5";
 
   return (
     <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+
+        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
-          <h3 className="font-semibold text-slate-100">Modify Classification</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-200">✕</button>
+          <div>
+            <h3 className="font-semibold text-slate-100">Human-in-the-Loop: Modify Classification</h3>
+            <p className="text-xs text-slate-500 mt-0.5">Review and correct the AI's proposed classification before filing</p>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-200 text-lg px-1">✕</button>
         </div>
-        <div className="p-5 text-xs text-slate-400 bg-slate-800/50 border-b border-slate-700">
-          <span className="font-mono">{doc.filename}</span>
+
+        {/* Filename + AI badge */}
+        <div className="px-5 py-3 bg-slate-800/60 border-b border-slate-700 flex items-center justify-between gap-3">
+          <span className="text-xs text-slate-400 font-mono truncate">{doc.filename}</span>
+          <span className="text-xs px-2 py-0.5 rounded border bg-sky-900/50 text-sky-400 border-sky-800 shrink-0">
+            AI Proposed · {doc.confidence ? Math.round(doc.confidence * 100) : "—"}% confidence
+          </span>
         </div>
-        <div className="p-5 grid grid-cols-2 gap-3">
-          {f("Document Type Code", "docType")}
-          {f("Document Type Label", "docTypeLabel")}
-          {f("Lifecycle Phase", "lifecyclePhase")}
-          {f("Policy Line", "policyLine")}
-          {f("Policy Period", "policyPeriod")}
-          {f("Named Insured", "namedInsured")}
-          {f("Policy Number", "policyNumber")}
-          {f("Carrier Name", "carrierName")}
-          {f("Premium", "premium")}
-          {f("Claim Number", "claimNumber")}
-          {f("Effective Date", "effectiveDate")}
-          {f("Expiration Date", "expirationDate")}
+
+        <div className="p-5 space-y-5">
+
+          {/* ── Section 1: Document Classification ── */}
+          <div>
+            <div className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-amber-900/60" />
+              Document Classification
+              <span className="flex-1 border-t border-amber-900/60" />
+            </div>
+
+            {/* Document Type — full-width dropdown grouped by phase */}
+            <div className="mb-3">
+              <label className={labelCls}>
+                Document Type
+                {aiProposed.docType && (
+                  <span className="ml-2 font-normal text-sky-500">AI: {aiProposed.docType} — {DOC_TYPES.find(d => d.code === aiProposed.docType)?.label}</span>
+                )}
+              </label>
+              <select
+                value={docTypeCode}
+                onChange={e => setDocTypeCode(e.target.value)}
+                className={selectCls}
+                data-testid="select-doc-type"
+              >
+                <option value="">— Select document type —</option>
+                {["Submission", "Binding & Policy", "Servicing", "Claims", "Compliance & Admin"].map(phase => (
+                  <optgroup key={phase} label={`── ${phase} ──`}>
+                    {DOC_TYPES.filter(d => d.phase === phase).map(d => (
+                      <option key={d.code} value={d.code}>{d.code} — {d.label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              {selectedDocType && (
+                <div className="mt-1.5 flex gap-2 text-xs">
+                  <span className="text-slate-500">Phase:</span>
+                  <span className="text-slate-300">{selectedDocType.phase}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Section 2: Policy Details ── */}
+          <div>
+            <div className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-amber-900/60" />
+              Policy Details
+              <span className="flex-1 border-t border-amber-900/60" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {/* Policy Line dropdown */}
+              <div>
+                <label className={labelCls}>
+                  Policy Line
+                  {aiProposed.policyLine && <span className="ml-2 font-normal text-sky-500">AI: {aiProposed.policyLine}</span>}
+                </label>
+                <select
+                  value={policyLine}
+                  onChange={e => setPolicyLine(e.target.value)}
+                  className={selectCls}
+                  data-testid="select-policy-line"
+                >
+                  <option value="">— Select policy line —</option>
+                  {POLICY_LINES.map(l => (
+                    <option key={l.code} value={l.code}>{l.code} — {l.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Policy Period dropdown */}
+              <div>
+                <label className={labelCls}>
+                  Policy Period
+                  {aiProposed.policyPeriod && <span className="ml-2 font-normal text-sky-500">AI: {aiProposed.policyPeriod}</span>}
+                </label>
+                <select
+                  value={policyPeriod}
+                  onChange={e => setPolicyPeriod(e.target.value)}
+                  className={selectCls}
+                  data-testid="select-policy-period"
+                >
+                  <option value="">— Select period —</option>
+                  {POLICY_PERIODS.map(p => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Named Insured — free text */}
+              <div className="col-span-2">
+                <label className={labelCls}>Named Insured (Client)</label>
+                <input
+                  value={namedInsured}
+                  onChange={e => setNamedInsured(e.target.value)}
+                  placeholder="e.g. Acme Manufacturing Inc"
+                  className={inputCls}
+                  data-testid="input-named-insured"
+                />
+              </div>
+
+              {/* Policy Number */}
+              <div>
+                <label className={labelCls}>Policy Number</label>
+                <input
+                  value={policyNumber}
+                  onChange={e => setPolicyNumber(e.target.value)}
+                  placeholder="e.g. POL-GL-2025-001"
+                  className={inputCls}
+                  data-testid="input-policy-number"
+                />
+              </div>
+
+              {/* Carrier */}
+              <div>
+                <label className={labelCls}>Carrier / Insurer</label>
+                <input
+                  value={carrierName}
+                  onChange={e => setCarrierName(e.target.value)}
+                  placeholder="e.g. Hartford, Travelers, Cincinnati"
+                  className={inputCls}
+                  data-testid="input-carrier"
+                />
+              </div>
+
+              {/* Effective Date */}
+              <div>
+                <label className={labelCls}>Effective Date</label>
+                <input
+                  type="date"
+                  value={effectiveDate}
+                  onChange={e => setEffectiveDate(e.target.value)}
+                  className={inputCls}
+                  data-testid="input-effective-date"
+                />
+              </div>
+
+              {/* Expiration Date */}
+              <div>
+                <label className={labelCls}>Expiration Date</label>
+                <input
+                  type="date"
+                  value={expirationDate}
+                  onChange={e => setExpirationDate(e.target.value)}
+                  className={inputCls}
+                  data-testid="input-expiration-date"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* ── Section 3: Financial / Claims (optional) ── */}
+          <div>
+            <div className="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <span className="flex-1 border-t border-amber-900/60" />
+              Financial & Claims (if applicable)
+              <span className="flex-1 border-t border-amber-900/60" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={labelCls}>Premium</label>
+                <input
+                  value={premium}
+                  onChange={e => setPremium(e.target.value)}
+                  placeholder="e.g. $12,500"
+                  className={inputCls}
+                  data-testid="input-premium"
+                />
+              </div>
+              <div>
+                <label className={labelCls}>Claim Number</label>
+                <input
+                  value={claimNumber}
+                  onChange={e => setClaimNumber(e.target.value)}
+                  placeholder="e.g. CLM-2025-0042"
+                  className={inputCls}
+                  data-testid="input-claim-number"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Filing path preview */}
+          {(namedInsured || policyLine || policyPeriod || docTypeCode) && (
+            <div className="rounded-lg bg-slate-800/60 border border-slate-700 px-4 py-3">
+              <div className="text-xs text-slate-500 mb-2 font-semibold">Filing Path Preview</div>
+              <div className="flex items-center gap-1.5 flex-wrap text-xs">
+                {[namedInsured || "Client", policyLine || "Line", policyPeriod || "Period", docTypeCode || "Type"].map((seg, i) => (
+                  <span key={i} className="flex items-center gap-1.5">
+                    {i > 0 && <span className="text-slate-600">›</span>}
+                    <span className={`px-2 py-0.5 rounded border ${seg === "Client" || seg === "Line" || seg === "Period" || seg === "Type" ? "border-slate-700 text-slate-600" : "bg-slate-700 border-slate-600 text-slate-200"}`}>
+                      {seg}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-        <div className="flex gap-2 justify-end px-5 py-4 border-t border-slate-700">
-          <button onClick={onClose} className="px-4 py-2 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 rounded">Cancel</button>
-          <button onClick={save} disabled={saving} className="px-4 py-2 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded disabled:opacity-50">
-            {saving ? "Saving..." : "Save Changes"}
-          </button>
+
+        {/* Footer */}
+        <div className="flex gap-2 justify-between items-center px-5 py-4 border-t border-slate-700 bg-slate-900/80">
+          <div className="flex items-center gap-1.5 text-xs text-slate-600">
+            <AlertTriangle className="h-3 w-3" />
+            Changes are saved to staging — document must still be Approved to file
+          </div>
+          <div className="flex gap-2">
+            <button onClick={onClose} className="px-4 py-2 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 rounded transition-colors">
+              Cancel
+            </button>
+            <button
+              onClick={save}
+              disabled={saving}
+              className="px-5 py-2 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors disabled:opacity-50 font-medium"
+              data-testid="button-save-classification"
+            >
+              {saving ? "Saving…" : "Save Classification"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
