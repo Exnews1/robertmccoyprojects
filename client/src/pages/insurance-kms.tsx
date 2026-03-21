@@ -115,7 +115,14 @@ function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void })
               </button>
               {showPdf && (
                 <div className="mt-3 border border-slate-700 rounded overflow-hidden" style={{ height: 480 }}>
-                  <iframe src={doc.filePath} className="w-full h-full border-0" title={doc.filename} />
+                  <object data={doc.filePath} type="application/pdf" className="w-full h-full border-0">
+                    <div className="flex flex-col items-center justify-center h-full gap-3 text-slate-400 text-sm">
+                      <span>PDF preview unavailable in this browser context.</span>
+                      <a href={doc.filePath} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300 underline">
+                        Open PDF in new tab ↗
+                      </a>
+                    </div>
+                  </object>
                 </div>
               )}
             </div>

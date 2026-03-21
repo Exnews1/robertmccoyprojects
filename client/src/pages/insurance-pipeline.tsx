@@ -419,11 +419,18 @@ function EditModal({ doc, onClose, sessionId }: { doc: StagedDoc; onClose: () =>
                     Open in tab ↗
                   </a>
                 </div>
-                <iframe
-                  src={pdfSrc}
+                <object
+                  data={pdfSrc}
+                  type="application/pdf"
                   className="flex-1 w-full border-0"
-                  title={doc.filename}
-                />
+                >
+                  <div className="flex flex-col items-center justify-center h-full gap-3 text-slate-400 text-sm">
+                    <span>PDF preview unavailable in this browser context.</span>
+                    <a href={pdfSrc} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300 underline">
+                      Open PDF in new tab ↗
+                    </a>
+                  </div>
+                </object>
               </>
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-slate-700 gap-3">
@@ -451,7 +458,14 @@ function PdfViewerModal({ doc, onClose }: { doc: StagedDoc; onClose: () => void 
       </div>
       <div className="flex-1">
         {doc.filePath ? (
-          <iframe src={doc.filePath} className="w-full h-full border-0" title={doc.filename} />
+          <object data={doc.filePath} type="application/pdf" className="w-full h-full border-0">
+            <div className="flex flex-col items-center justify-center h-full gap-3 text-slate-400 text-sm">
+              <span>PDF preview unavailable in this browser context.</span>
+              <a href={doc.filePath} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300 underline">
+                Open PDF in new tab ↗
+              </a>
+            </div>
+          </object>
         ) : (
           <div className="flex items-center justify-center h-full text-slate-500">PDF not available</div>
         )}
