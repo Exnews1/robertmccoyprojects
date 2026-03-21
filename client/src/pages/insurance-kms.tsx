@@ -694,28 +694,43 @@ export default function InsuranceKMS() {
                           const pct = doc.confidence ? Math.round(doc.confidence * 100) : 0;
                           const confColor = pct >= 90 ? "text-emerald-400" : pct >= 75 ? "text-amber-400" : "text-red-400";
                           return (
-                            <button
+                            <div
                               key={doc.id}
-                              onClick={() => setSelected(doc)}
-                              className="bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-600 rounded-lg p-3 text-left transition-all group"
+                              className="bg-slate-900 border border-slate-800 hover:border-slate-600 rounded-lg overflow-hidden transition-all group"
                               data-testid={`card-doc-${doc.id}`}
                             >
-                              <div className="flex items-start justify-between gap-2 mb-1.5">
-                                <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded border ${phaseClass}`}>
-                                  {doc.docType}
-                                </span>
-                                <span className={`text-xs font-mono ${confColor}`}>{pct}%</span>
-                              </div>
-                              <div className="text-xs font-medium text-slate-300 group-hover:text-slate-100 leading-tight">
-                                {doc.docTypeLabel}
-                              </div>
-                              <div className="text-xs text-slate-600 mt-1 truncate font-mono">
-                                {doc.standardName || doc.filename}
-                              </div>
-                              {doc.carrierName && (
-                                <div className="text-xs text-slate-600 mt-0.5 truncate">{doc.carrierName}</div>
-                              )}
-                            </button>
+                              {/* Clickable body — opens detail panel */}
+                              <button
+                                onClick={() => setSelected(doc)}
+                                className="w-full p-3 text-left hover:bg-slate-800 transition-colors"
+                                data-testid={`button-view-doc-${doc.id}`}
+                              >
+                                <div className="flex items-start justify-between gap-2 mb-1.5">
+                                  <span className={`text-xs font-mono font-bold px-1.5 py-0.5 rounded border ${phaseClass}`}>
+                                    {doc.docType}
+                                  </span>
+                                  <span className={`text-xs font-mono ${confColor}`}>{pct}%</span>
+                                </div>
+                                <div className="text-xs font-medium text-slate-300 group-hover:text-slate-100 leading-tight">
+                                  {doc.docTypeLabel}
+                                </div>
+                                <div className="text-xs text-slate-600 mt-1 truncate font-mono">
+                                  {doc.standardName || doc.filename}
+                                </div>
+                                {doc.carrierName && (
+                                  <div className="text-xs text-slate-600 mt-0.5 truncate">{doc.carrierName}</div>
+                                )}
+                              </button>
+                              {/* Modify button — always visible at the card bottom */}
+                              <button
+                                onClick={() => setModifyDoc(doc)}
+                                className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs text-violet-400 hover:text-violet-200 hover:bg-violet-900/30 border-t border-slate-800 transition-colors"
+                                data-testid={`button-modify-doc-${doc.id}`}
+                              >
+                                <Edit3 className="h-3 w-3" />
+                                Modify
+                              </button>
+                            </div>
                           );
                         })}
                       </div>
