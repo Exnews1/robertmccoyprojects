@@ -126,6 +126,14 @@ function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void })
   );
 }
 
+type Facets = {
+  clients: string[];
+  policyLines: string[];
+  lifecyclePhases: string[];
+  policyPeriods: string[];
+  docTypes: { code: string; label: string }[];
+};
+
 export default function InsuranceKMS() {
   const sessionId = sessionStorage.getItem(SESSION_KEY) || "";
   const [search, setSearch] = useState("");
@@ -141,12 +149,22 @@ export default function InsuranceKMS() {
     refetchInterval: 10000,
   });
 
+  const { data: facetsData } = useQuery<Facets & { success: boolean }>({
+    queryKey: ["/api/insurance/repository/facets", sessionId],
+    queryFn: () =>
+      fetch("/api/insurance/repository/facets", {
+        headers: { "x-session-id": sessionId },
+      }).then(r => r.json()),
+    enabled: !!sessionId,
+    refetchInterval: 15000,
+  });
+
   const docs = data?.data || [];
 
-  // Derived filter options
-  const clients = [...new Set(docs.map(d => d.namedInsured).filter(Boolean))].sort() as string[];
-  const lines = [...new Set(docs.map(d => d.policyLine).filter(Boolean))].sort() as string[];
-  const phases = [...new Set(docs.map(d => d.lifecyclePhase).filter(Boolean))].sort() as string[];
+  // Filter options come from the DB facets endpoint so they always reflect what's actually stored
+  const clients = facetsData?.clients ?? [...new Set(docs.map(d => d.namedInsured).filter(Boolean))].sort() as string[];
+  const lines   = facetsData?.policyLines ?? [...new Set(docs.map(d => d.policyLine).filter(Boolean))].sort() as string[];
+  const phases  = facetsData?.lifecyclePhases ?? [...new Set(docs.map(d => d.lifecyclePhase).filter(Boolean))].sort() as string[];
 
   const filtered = docs.filter(d => {
     const q = search.toLowerCase();
@@ -239,40 +257,73 @@ export default function InsuranceKMS() {
 
           {/* Client filter */}
           <div>
-            <div className="text-xs text-slate-500 font-semibold mb-1.5 flex items-center gap-1"><Filter className="h-3 w-3" /> Client</div>
+            <div className="text-xs text-slate-500 font-semibold mb-1.5 flex items-center gap-1">
+              <Filter className="h-3 w-3" /> Client
+              {clients.length > 0 && <span className="ml-auto text-slate-600 font-mono">{clients.length}</span>}
+            </div>
             <select
               value={filterClient}
               onChange={e => setFilterClient(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none"
+              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-amber-600"
+              data-testid="select-filter-client"
             >
               <option value="">All Clients</option>
-              {clients.map(c => <option key={c} value={c}>{c}</option>)}
+              {clients.map(c => {
+                const count = docs.filter(d => d.namedInsured === c).length;
+                return (
+                  <option key={c} value={c}>
+                    {c}{count > 0 ? ` (${count})` : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           {/* Policy line filter */}
           <div>
-            <div className="text-xs text-slate-500 font-semibold mb-1.5">Policy Line</div>
+            <div className="text-xs text-slate-500 font-semibold mb-1.5 flex items-center">
+              Policy Line
+              {lines.length > 0 && <span className="ml-auto text-slate-600 font-mono">{lines.length}</span>}
+            </div>
             <select
               value={filterLine}
               onChange={e => setFilterLine(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none"
+              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-amber-600"
+              data-testid="select-filter-line"
             >
               <option value="">All Lines</option>
-              {lines.map(l => <option key={l} value={l}>{l} — {LINE_LABELS[l] || l}</option>)}
+              {lines.map(l => {
+                const count = docs.filter(d => d.policyLine === l).length;
+                return (
+                  <option key={l} value={l}>
+                    {l} — {LINE_LABELS[l] || l}{count > 0 ? ` (${count})` : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           {/* Phase filter */}
           <div>
-            <div className="text-xs text-slate-500 font-semibold mb-1.5">Lifecycle Phase</div>
+            <div className="text-xs text-slate-500 font-semibold mb-1.5 flex items-center">
+              Lifecycle Phase
+              {phases.length > 0 && <span className="ml-auto text-slate-600 font-mono">{phases.length}</span>}
+            </div>
             <select
               value={filterPhase}
               onChange={e => setFilterPhase(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none"
+              className="w-full bg-slate-800 border border-slate-700 rounded px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-amber-600"
+              data-testid="select-filter-phase"
             >
               <option value="">All Phases</option>
-              {phases.map(p => <option key={p} value={p}>{p}</option>)}
+              {phases.map(p => {
+                const count = docs.filter(d => d.lifecyclePhase === p).length;
+                return (
+                  <option key={p} value={p}>
+                    {p}{count > 0 ? ` (${count})` : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
 

@@ -1951,6 +1951,38 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     res.json({ success: true, data: rows });
   });
 
+  // GET /api/insurance/repository/facets — distinct filter values across the whole repository
+  app.get("/api/insurance/repository/facets", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const rows = await db
+      .select({
+        namedInsured: insuranceRepository.namedInsured,
+        policyLine: insuranceRepository.policyLine,
+        lifecyclePhase: insuranceRepository.lifecyclePhase,
+        policyPeriod: insuranceRepository.policyPeriod,
+        docType: insuranceRepository.docType,
+        docTypeLabel: insuranceRepository.docTypeLabel,
+      })
+      .from(insuranceRepository)
+      .where(eq(insuranceRepository.sessionId, sessionId));
+
+    const unique = <T,>(arr: (T | null)[]): T[] =>
+      [...new Set(arr.filter((v): v is T => v != null))].sort() as T[];
+
+    res.json({
+      success: true,
+      clients: unique(rows.map(r => r.namedInsured)),
+      policyLines: unique(rows.map(r => r.policyLine)),
+      lifecyclePhases: unique(rows.map(r => r.lifecyclePhase)),
+      policyPeriods: unique(rows.map(r => r.policyPeriod)),
+      docTypes: unique(rows.map(r => r.docType)).map(code => ({
+        code,
+        label: rows.find(r => r.docType === code)?.docTypeLabel || code,
+      })),
+    });
+  });
+
   // GET /api/insurance/audit
   app.get("/api/insurance/audit", async (req, res) => {
     const sessionId = getInsuranceSession(req);
