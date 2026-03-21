@@ -152,28 +152,36 @@ function EditModal({ doc, onClose, sessionId }: { doc: StagedDoc; onClose: () =>
   const inputCls  = "w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-500 placeholder-slate-600";
   const labelCls  = "block text-xs font-semibold text-slate-400 mb-1.5";
 
+  const pdfSrc = doc.filePath || null;
+
   return (
-    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-3">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full shadow-2xl flex flex-col"
+           style={{ maxWidth: "min(1400px, 96vw)", height: "min(92vh, 900px)" }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-700 shrink-0">
           <div>
             <h3 className="font-semibold text-slate-100">Human-in-the-Loop: Modify Classification</h3>
-            <p className="text-xs text-slate-500 mt-0.5">Review and correct the AI's proposed classification before filing</p>
+            <p className="text-xs text-slate-500 mt-0.5">Review the source document and correct the AI's proposed classification before filing</p>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-200 text-lg px-1">✕</button>
         </div>
 
         {/* Filename + AI badge */}
-        <div className="px-5 py-3 bg-slate-800/60 border-b border-slate-700 flex items-center justify-between gap-3">
+        <div className="px-5 py-2.5 bg-slate-800/60 border-b border-slate-700 flex items-center justify-between gap-3 shrink-0">
           <span className="text-xs text-slate-400 font-mono truncate">{doc.filename}</span>
           <span className="text-xs px-2 py-0.5 rounded border bg-sky-900/50 text-sky-400 border-sky-800 shrink-0">
             AI Proposed · {doc.confidence ? Math.round(doc.confidence * 100) : "—"}% confidence
           </span>
         </div>
 
-        <div className="p-5 space-y-5">
+        {/* Body: two-panel split */}
+        <div className="flex flex-1 min-h-0">
+
+          {/* ── Left: form ── */}
+          <div className="w-96 shrink-0 flex flex-col border-r border-slate-700 overflow-y-auto">
+            <div className="p-5 space-y-5">
 
           {/* ── Section 1: Document Classification ── */}
           <div>
@@ -371,27 +379,60 @@ function EditModal({ doc, onClose, sessionId }: { doc: StagedDoc; onClose: () =>
               </div>
             </div>
           )}
-        </div>
+            </div>{/* /p-5 space-y-5 */}
 
-        {/* Footer */}
-        <div className="flex gap-2 justify-between items-center px-5 py-4 border-t border-slate-700 bg-slate-900/80">
-          <div className="flex items-center gap-1.5 text-xs text-slate-600">
-            <AlertTriangle className="h-3 w-3" />
-            Changes are saved to staging — document must still be Approved to file
+            {/* Footer — sticky inside left panel */}
+            <div className="mt-auto shrink-0 flex gap-2 justify-between items-center px-5 py-3.5 border-t border-slate-700 bg-slate-900/90">
+              <div className="flex items-center gap-1.5 text-xs text-slate-600">
+                <AlertTriangle className="h-3 w-3" />
+                Save to staging first, then Approve to file
+              </div>
+              <div className="flex gap-2">
+                <button onClick={onClose} className="px-3 py-1.5 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 rounded transition-colors">
+                  Cancel
+                </button>
+                <button
+                  onClick={save}
+                  disabled={saving}
+                  className="px-4 py-1.5 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors disabled:opacity-50 font-medium"
+                  data-testid="button-save-classification"
+                >
+                  {saving ? "Saving…" : "Save"}
+                </button>
+              </div>
+            </div>
+          </div>{/* /left panel */}
+
+          {/* ── Right: PDF viewer ── */}
+          <div className="flex-1 flex flex-col bg-slate-950 min-w-0">
+            {pdfSrc ? (
+              <>
+                <div className="px-4 py-2 border-b border-slate-800 flex items-center gap-2 shrink-0">
+                  <FileText className="h-3.5 w-3.5 text-amber-500" />
+                  <span className="text-xs text-slate-400 font-mono truncate">{doc.filename}</span>
+                  <a
+                    href={pdfSrc}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto text-xs text-sky-400 hover:text-sky-300 shrink-0"
+                  >
+                    Open in tab ↗
+                  </a>
+                </div>
+                <iframe
+                  src={pdfSrc}
+                  className="flex-1 w-full border-0"
+                  title={doc.filename}
+                />
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center text-slate-700 gap-3">
+                <FileText className="h-12 w-12" />
+                <div className="text-sm">No document available for preview</div>
+              </div>
+            )}
           </div>
-          <div className="flex gap-2">
-            <button onClick={onClose} className="px-4 py-2 text-sm text-slate-400 hover:text-slate-200 border border-slate-700 rounded transition-colors">
-              Cancel
-            </button>
-            <button
-              onClick={save}
-              disabled={saving}
-              className="px-5 py-2 text-sm bg-amber-700 hover:bg-amber-600 text-white rounded transition-colors disabled:opacity-50 font-medium"
-              data-testid="button-save-classification"
-            >
-              {saving ? "Saving…" : "Save Classification"}
-            </button>
-          </div>
+
         </div>
       </div>
     </div>
