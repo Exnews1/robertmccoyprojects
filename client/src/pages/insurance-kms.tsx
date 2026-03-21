@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter, Edit3, AlertTriangle, LogIn, History, Clock } from "lucide-react";
+import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter, Edit3, AlertTriangle, LogOut, History, Clock, Loader2 } from "lucide-react";
 
 const SESSION_KEY = "insurance-pipeline-session";
-const OPERATOR_KEY = "insurance-operator";
 
 type Operator = {
   operatorId: string; fullName: string; title: string; role: string;
@@ -18,44 +17,6 @@ const ROLE_COLORS: Record<string, string> = {
   OPERATOR: "bg-sky-900/50 text-sky-300 border-sky-700",
   VIEWER:   "bg-slate-800 text-slate-400 border-slate-600",
 };
-
-function OperatorSignInModal({ onSelect }: { onSelect: (op: Operator) => void }) {
-  const { data } = useQuery<{ data: Operator[] }>({
-    queryKey: ["/api/insurance/operators"],
-    queryFn: () => fetch("/api/insurance/operators").then(r => r.json()),
-  });
-  const operators = data?.data || [];
-  return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-lg p-6 shadow-2xl">
-        <div className="flex items-center gap-2 mb-5">
-          <LogIn className="h-5 w-5 text-amber-500" />
-          <div>
-            <div className="text-sm font-semibold text-slate-100">Pinnacle Insurance Group — KMS Portal</div>
-            <div className="text-xs text-slate-500">Select your operator identity to continue</div>
-          </div>
-        </div>
-        <div className="space-y-2">
-          {operators.map(op => (
-            <button key={op.operatorId} onClick={() => onSelect(op)}
-              className="w-full flex items-center gap-3 px-4 py-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-slate-600 rounded-lg transition-colors text-left"
-              data-testid={`op-select-${op.operatorId}`}
-            >
-              <div className="w-8 h-8 rounded-full bg-amber-900/60 border border-amber-700 flex items-center justify-center text-sm font-bold text-amber-300 shrink-0">
-                {op.avatarInitials}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-slate-100">{op.fullName}</div>
-                <div className="text-xs text-slate-500">{op.title}</div>
-              </div>
-              <span className={`text-xs px-2 py-0.5 rounded border font-mono shrink-0 ${ROLE_COLORS[op.role] || ROLE_COLORS.VIEWER}`}>{op.role}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const PHASE_COLORS: Record<string, string> = {
   "Submission":         "bg-sky-900/50 text-sky-300 border-sky-800",
@@ -141,14 +102,12 @@ function DocDetailPanel({ doc, sessionId, onClose, onModify }: {
   const phaseClass = PHASE_COLORS[doc.lifecyclePhase || ""] || "bg-slate-800 text-slate-400 border-slate-700";
   const pct = doc.confidence ? Math.round(doc.confidence * 100) : 0;
   const confColor = pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500";
-  const [showHistory, setShowHistory] = useState(false);
 
   const { data: versionsData } = useQuery<{ data: MetadataVersion[] }>({
     queryKey: ["/api/insurance/repository", doc.id, "versions"],
     queryFn: () => fetch(`/api/insurance/repository/${doc.id}/versions`, {
       headers: { "x-session-id": sessionId },
     }).then(r => r.json()),
-    enabled: showHistory,
   });
   const versions = versionsData?.data || [];
 
@@ -231,47 +190,45 @@ function DocDetailPanel({ doc, sessionId, onClose, onModify }: {
             </button>
           </div>
 
-          {/* Version history toggle */}
-          <div className="pt-2">
-            <button
-              onClick={() => setShowHistory(h => !h)}
-              className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-200 bg-slate-800/60 border border-slate-700 px-3 py-2 rounded w-full justify-center transition-colors"
-              data-testid="button-kms-history"
-            >
-              <History className="h-3.5 w-3.5" />
-              {showHistory ? "Hide" : "Show"} Metadata History ({versions.length})
-            </button>
-          </div>
-
-          {showHistory && (
-            <div className="pt-2 space-y-2">
-              {versions.length === 0 ? (
-                <div className="text-xs text-slate-600 text-center py-4">No metadata changes recorded yet.</div>
-              ) : (
-                versions.map(v => (
-                  <div key={v.id} className="bg-slate-800/50 border border-slate-700 rounded p-3 text-xs space-y-1.5">
+          {/* Metadata change history — always visible */}
+          <div className="pt-3">
+            <div className="flex items-center gap-2 mb-2">
+              <History className="h-3.5 w-3.5 text-slate-500" />
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wide">Change History</span>
+              {versions.length > 0 && (
+                <span className="text-xs font-mono bg-slate-800 border border-slate-700 px-1.5 py-0.5 rounded text-slate-400">{versions.length}</span>
+              )}
+            </div>
+            {versions.length === 0 ? (
+              <div className="text-xs text-slate-600 py-3 border border-slate-800 rounded bg-slate-900/50 text-center">
+                No metadata changes recorded
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {versions.map(v => (
+                  <div key={v.id} className="bg-slate-800/40 border border-slate-700 rounded p-3 text-xs space-y-1.5">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-mono font-bold text-violet-300 uppercase">{v.fieldName}</span>
+                      <span className="font-mono font-bold text-violet-300 uppercase tracking-wide">{v.fieldName}</span>
                       {v.changedByRole && (
-                        <span className={`px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[v.changedByRole] || ROLE_COLORS.VIEWER}`}>{v.changedByRole}</span>
+                        <span className={`px-1.5 py-0.5 rounded border font-mono text-xs ${ROLE_COLORS[v.changedByRole] || ROLE_COLORS.VIEWER}`}>{v.changedByRole}</span>
                       )}
                       {v.changedBy && <span className="text-slate-400">{v.changedBy}</span>}
                     </div>
-                    <div className="flex items-center gap-2 text-slate-500">
+                    <div className="flex items-center gap-2">
                       <span className="line-through text-red-400/70">{v.oldValue || "—"}</span>
-                      <span>→</span>
-                      <span className="text-emerald-400">{v.newValue || "—"}</span>
+                      <span className="text-slate-600">→</span>
+                      <span className="text-emerald-400 font-medium">{v.newValue || "—"}</span>
                     </div>
-                    {v.reason && <div className="text-slate-500 italic">"{v.reason}"</div>}
+                    {v.reason && <div className="text-slate-500 italic border-l-2 border-slate-700 pl-2">"{v.reason}"</div>}
                     <div className="flex items-center gap-1 text-slate-600">
                       <Clock className="h-3 w-3" />
                       {new Date(v.createdAt).toLocaleString()}
                     </div>
                   </div>
-                ))
-              )}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* PDF viewer toggle */}
           {doc.filePath && (
@@ -525,16 +482,30 @@ type Facets = {
 };
 
 export default function InsuranceKMS() {
+  const [, setLocation] = useLocation();
   const [sessionId, setSessionId] = useState(() => localStorage.getItem(SESSION_KEY) || "");
+  const [operator, setOperator] = useState<Operator | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  const [operator, setOperator] = useState<Operator | null>(() => {
-    const stored = localStorage.getItem(OPERATOR_KEY);
-    return stored ? JSON.parse(stored) : null;
-  });
+  useEffect(() => {
+    fetch("/api/insurance/auth/session")
+      .then(r => {
+        if (r.status === 401) {
+          setLocation("/research/knowledge-systems/insurance/login?redirect=/research/knowledge-systems/insurance");
+          return null;
+        }
+        return r.json();
+      })
+      .then(data => {
+        if (data?.operator) setOperator(data.operator);
+        setAuthLoading(false);
+      })
+      .catch(() => setLocation("/research/knowledge-systems/insurance/login"));
+  }, []);
 
-  const handleSelectOperator = (op: Operator) => {
-    localStorage.setItem(OPERATOR_KEY, JSON.stringify(op));
-    setOperator(op);
+  const handleLogout = async () => {
+    await fetch("/api/insurance/auth/logout", { method: "POST" });
+    setLocation("/research/knowledge-systems/insurance/login");
   };
 
   // If another tab creates a session after this tab is already open, pick it up immediately
@@ -617,10 +588,19 @@ export default function InsuranceKMS() {
 
   const activeFilters = [filterLine, filterPhase, filterClient].filter(Boolean).length;
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="flex items-center gap-3 text-slate-400">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span className="text-sm">Verifying session…</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-
-      {!operator && <OperatorSignInModal onSelect={handleSelectOperator} />}
 
       {selected && (
         <DocDetailPanel
@@ -663,8 +643,8 @@ export default function InsuranceKMS() {
               </div>
               <span className="text-xs text-slate-300 font-medium">{operator.fullName}</span>
               <span className={`text-xs px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[operator.role] || ROLE_COLORS.VIEWER}`}>{operator.role}</span>
-              <button onClick={() => { localStorage.removeItem(OPERATOR_KEY); setOperator(null); }} className="text-slate-600 hover:text-slate-400 ml-1">
-                <X className="h-3 w-3" />
+              <button onClick={handleLogout} className="text-slate-600 hover:text-slate-400 ml-1" title="Sign out">
+                <LogOut className="h-3 w-3" />
               </button>
             </div>
           )}

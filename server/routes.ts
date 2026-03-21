@@ -10,6 +10,7 @@ import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
 import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials, insuranceStaging, insuranceRepository, insuranceAudit, insuranceOperators, insuranceMetadataVersions } from "@shared/schema";
+import { seedDemoOperators, loginOperator, logoutOperator, touchSession, buildTOTP, DEMO_TOTP_SECRET } from "./insuranceAuth";
 import { classifyDocument, generateStandardName } from "./meridianClassification";
 import { classifyInsuranceDocument, fallbackClassify, generateStandardInsuranceName, DOC_TYPES, POLICY_LINES } from "./insuranceClassification";
 import { eq, and, desc } from "drizzle-orm";
@@ -1697,6 +1698,14 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
   }
 
   function getInsuranceOperator(req: any): { operatorId: string; operatorName: string; operatorRole: string } {
+    const sessionOp = req.session?.insuranceOperator;
+    if (sessionOp) {
+      return {
+        operatorId: sessionOp.operatorId,
+        operatorName: sessionOp.fullName,
+        operatorRole: sessionOp.role,
+      };
+    }
     return {
       operatorId: (req.headers["x-operator-id"] as string) || "SYSTEM",
       operatorName: (req.headers["x-operator-name"] as string) || "System",
@@ -1704,26 +1713,86 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     };
   }
 
-  // Seed demo operator roster (idempotent)
-  const DEMO_OPERATORS = [
-    { operatorId: "op-mccoy-001",    fullName: "Robert McCoy",    title: "System Administrator",     role: "ADMINISTRATOR", licenseNumber: "LIC-IN-00001", avatarInitials: "RM" },
-    { operatorId: "op-marsh-002",    fullName: "David Marsh",     title: "Senior Account Manager",   role: "APPROVER",      licenseNumber: "LIC-IN-78231", avatarInitials: "DM" },
-    { operatorId: "op-chen-003",     fullName: "Sarah Chen",      title: "Compliance Officer",       role: "APPROVER",      licenseNumber: "LIC-IN-84127", avatarInitials: "SC" },
-    { operatorId: "op-whitfield-004",fullName: "Karen Whitfield", title: "Account Manager",          role: "OPERATOR",      licenseNumber: "LIC-IN-91045", avatarInitials: "KW" },
-    { operatorId: "op-okafor-005",   fullName: "James Okafor",    title: "Account Associate",        role: "OPERATOR",      licenseNumber: "LIC-IN-65482", avatarInitials: "JO" },
-    { operatorId: "op-reyes-006",    fullName: "Linda Reyes",     title: "Office Manager",           role: "VIEWER",        licenseNumber: null,           avatarInitials: "LR" },
-  ];
+  // Seed demo operator accounts (idempotent — runs on every startup)
   (async () => {
-    const existing = await db.select().from(insuranceOperators).limit(1);
-    if (existing.length === 0) {
-      await db.insert(insuranceOperators).values(DEMO_OPERATORS);
-      console.log("Insurance governance: seeded 6 demo operators.");
+    try {
+      await seedDemoOperators();
+      console.log("Insurance auth: demo operators seeded.");
+    } catch (e) {
+      console.error("Insurance auth: seed failed", e);
     }
   })();
 
-  // GET /api/insurance/operators
+  // ── Insurance Auth Routes ──
+
+  // GET /api/insurance/auth/session — check active session
+  app.get("/api/insurance/auth/session", async (req, res) => {
+    const op = req.session.insuranceOperator;
+    const sid = req.session.insuranceSessionId;
+    if (!op || !sid) return res.status(401).json({ error: "Not authenticated" });
+
+    const active = await touchSession(sid);
+    if (!active) {
+      req.session.insuranceOperator = undefined;
+      req.session.insuranceSessionId = undefined;
+      return res.status(401).json({ error: "Session expired" });
+    }
+    return res.json({ success: true, operator: op });
+  });
+
+  // POST /api/insurance/auth/login — email + password + TOTP
+  app.post("/api/insurance/auth/login", async (req, res) => {
+    const { email, password, totpCode } = req.body;
+    if (!email || !password || !totpCode) {
+      return res.status(400).json({ error: "email, password, and totpCode are required" });
+    }
+
+    const sessionId = req.sessionID;
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    const result = await loginOperator(email, password, totpCode, sessionId, ip);
+
+    if (!result.success) {
+      return res.status(401).json({ error: result.error });
+    }
+
+    req.session.insuranceOperator = result.operator;
+    req.session.insuranceSessionId = sessionId;
+    req.session.save((err) => {
+      if (err) return res.status(500).json({ error: "Session save failed" });
+      return res.json({ success: true, operator: result.operator });
+    });
+  });
+
+  // POST /api/insurance/auth/logout
+  app.post("/api/insurance/auth/logout", async (req, res) => {
+    const sid = req.session.insuranceSessionId;
+    if (sid) await logoutOperator(sid);
+    req.session.insuranceOperator = undefined;
+    req.session.insuranceSessionId = undefined;
+    req.session.save(() => res.json({ success: true }));
+  });
+
+  // GET /api/insurance/auth/totp-demo — return current demo TOTP code for the login screen
+  app.get("/api/insurance/auth/totp-demo", (_req, res) => {
+    const totp = buildTOTP();
+    const code = totp.generate();
+    const remaining = 30 - (Math.floor(Date.now() / 1000) % 30);
+    res.json({ code, remaining });
+  });
+
+  // GET /api/insurance/operators — safe list (no secrets)
   app.get("/api/insurance/operators", async (_req, res) => {
-    const ops = await db.select().from(insuranceOperators).where(eq(insuranceOperators.isActive, true));
+    const ops = await db.select({
+      id: insuranceOperators.id,
+      operatorId: insuranceOperators.operatorId,
+      fullName: insuranceOperators.fullName,
+      title: insuranceOperators.title,
+      role: insuranceOperators.role,
+      licenseNumber: insuranceOperators.licenseNumber,
+      isActive: insuranceOperators.isActive,
+      avatarInitials: insuranceOperators.avatarInitials,
+      email: insuranceOperators.email,
+    }).from(insuranceOperators).where(eq(insuranceOperators.isActive, true));
     res.json({ success: true, data: ops });
   });
 

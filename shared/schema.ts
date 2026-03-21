@@ -394,6 +394,23 @@ export const insuranceOperators = pgTable("insurance_operators", {
   licenseNumber: text("license_number"),
   isActive: boolean("is_active").default(true),
   avatarInitials: text("avatar_initials"),
+  email: text("email").unique(),
+  passwordHash: text("password_hash"),
+  totpSecret: text("totp_secret"),
+  totpEnrolled: boolean("totp_enrolled").default(false),
+  deactivatedAt: timestamp("deactivated_at"),
+});
+
+// ── Governance: Operator auth sessions ──
+export const insuranceOperatorSessions = pgTable("insurance_operator_sessions", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull().unique(),
+  operatorId: text("operator_id").notNull(),
+  startedAt: timestamp("started_at").defaultNow(),
+  lastActivityAt: timestamp("last_activity_at").defaultNow(),
+  endedAt: timestamp("ended_at"),
+  endReason: text("end_reason"),
+  ipAddress: text("ip_address"),
 });
 
 // ── Governance: Metadata version history ──
@@ -417,4 +434,5 @@ export type InsuranceStaging = typeof insuranceStaging.$inferSelect;
 export type InsuranceRepository = typeof insuranceRepository.$inferSelect;
 export type InsuranceAudit = typeof insuranceAudit.$inferSelect;
 export type InsuranceOperator = typeof insuranceOperators.$inferSelect;
+export type InsuranceOperatorSession = typeof insuranceOperatorSessions.$inferSelect;
 export type InsuranceMetadataVersion = typeof insuranceMetadataVersions.$inferSelect;

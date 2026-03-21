@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity, AlertTriangle, UserCheck, X, LogIn } from "lucide-react";
+import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity, AlertTriangle, UserCheck, LogOut } from "lucide-react";
 
 // ── Insurance taxonomy constants (mirrors server/insuranceClassification.ts) ──
 const DOC_TYPES: { code: string; label: string; phase: string }[] = [
@@ -58,7 +58,6 @@ const POLICY_PERIODS = [
 ];
 
 const SESSION_KEY = "insurance-pipeline-session";
-const OPERATOR_KEY = "insurance-operator";
 
 function genSessionId() {
   return "ins-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36);
@@ -70,61 +69,11 @@ type Operator = {
 };
 
 const ROLE_COLORS: Record<string, string> = {
-  ADMINISTRATOR: "bg-red-900/50 text-red-300 border-red-800",
-  APPROVER:      "bg-violet-900/50 text-violet-300 border-violet-800",
-  OPERATOR:      "bg-sky-900/50 text-sky-300 border-sky-800",
-  VIEWER:        "bg-slate-800 text-slate-400 border-slate-700",
+  ADMIN:    "bg-red-900/50 text-red-300 border-red-800",
+  APPROVER: "bg-violet-900/50 text-violet-300 border-violet-800",
+  OPERATOR: "bg-sky-900/50 text-sky-300 border-sky-800",
+  VIEWER:   "bg-slate-800 text-slate-400 border-slate-700",
 };
-
-function OperatorSignInModal({ onSelect }: { onSelect: (op: Operator) => void }) {
-  const { data } = useQuery<{ data: Operator[] }>({
-    queryKey: ["/api/insurance/operators"],
-    queryFn: () => fetch("/api/insurance/operators").then(r => r.json()),
-  });
-  const operators = data?.data || [];
-
-  return (
-    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-amber-800 rounded-lg w-full max-w-md shadow-2xl">
-        <div className="px-6 py-4 border-b border-slate-700 flex items-center gap-3">
-          <LogIn className="h-5 w-5 text-amber-400" />
-          <div>
-            <div className="font-semibold text-slate-100">Operator Sign-In</div>
-            <div className="text-xs text-slate-500">OKS Insurance KMS · Governance v2.0</div>
-          </div>
-        </div>
-        <div className="p-5">
-          <p className="text-xs text-slate-400 mb-4">
-            Every action in this system is attributed to a named operator per NAIC accountability requirements.
-            Select your account to continue.
-          </p>
-          <div className="space-y-2">
-            {operators.map(op => (
-              <button
-                key={op.operatorId}
-                onClick={() => onSelect(op)}
-                className="w-full flex items-center gap-3 px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-slate-500 rounded-lg transition-colors text-left"
-                data-testid={`button-signin-${op.operatorId}`}
-              >
-                <div className="w-8 h-8 rounded-full bg-amber-900/50 border border-amber-700 flex items-center justify-center text-xs font-bold text-amber-300 shrink-0">
-                  {op.avatarInitials || op.fullName.slice(0, 2)}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-slate-100">{op.fullName}</div>
-                  <div className="text-xs text-slate-500">{op.title}</div>
-                </div>
-                <span className={`text-xs px-2 py-0.5 rounded border font-mono ${ROLE_COLORS[op.role] || ROLE_COLORS.VIEWER}`}>
-                  {op.role}
-                </span>
-              </button>
-            ))}
-          </div>
-          <p className="text-xs text-slate-600 mt-4 text-center">Pinnacle Insurance Group · Demo Environment</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const PHASE_COLORS: Record<string, string> = {
   "Submission":         "bg-sky-900/60 text-sky-300 border border-sky-800",
@@ -650,6 +599,7 @@ function StagingCard({ doc, sessionId, onApprove, onReject, operator }: {
 }
 
 export default function InsurancePipeline() {
+  const [, setLocation] = useLocation();
   const [sessionId] = useState(() => {
     const stored = localStorage.getItem(SESSION_KEY);
     if (stored) return stored;
@@ -658,14 +608,28 @@ export default function InsurancePipeline() {
     return id;
   });
 
-  const [operator, setOperator] = useState<Operator | null>(() => {
-    const stored = localStorage.getItem(OPERATOR_KEY);
-    return stored ? JSON.parse(stored) : null;
-  });
+  const [operator, setOperator] = useState<Operator | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
-  const handleSelectOperator = (op: Operator) => {
-    localStorage.setItem(OPERATOR_KEY, JSON.stringify(op));
-    setOperator(op);
+  useEffect(() => {
+    fetch("/api/insurance/auth/session")
+      .then(r => {
+        if (r.status === 401) {
+          setLocation("/research/knowledge-systems/insurance/login?redirect=/research/knowledge-systems/insurance/demo");
+          return null;
+        }
+        return r.json();
+      })
+      .then(data => {
+        if (data?.operator) setOperator(data.operator);
+        setAuthLoading(false);
+      })
+      .catch(() => setLocation("/research/knowledge-systems/insurance/login"));
+  }, []);
+
+  const handleLogout = async () => {
+    await fetch("/api/insurance/auth/logout", { method: "POST" });
+    setLocation("/research/knowledge-systems/insurance/login");
   };
 
   const qc = useQueryClient();
@@ -791,10 +755,19 @@ export default function InsurancePipeline() {
   const totalStaged = staged.length;
   const aiProgress = totalStaged > 0 ? Math.round(((totalStaged - pendingCount) / totalStaged) * 100) : 0;
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <div className="flex items-center gap-3 text-slate-400">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span className="text-sm">Verifying session…</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-
-      {!operator && <OperatorSignInModal onSelect={handleSelectOperator} />}
 
       {/* Header */}
       <header className="bg-slate-900 border-b border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-20">
@@ -819,8 +792,8 @@ export default function InsurancePipeline() {
               </div>
               <span className="text-xs text-slate-300 font-medium">{operator.fullName}</span>
               <span className={`text-xs px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[operator.role] || ROLE_COLORS.VIEWER}`}>{operator.role}</span>
-              <button onClick={() => { localStorage.removeItem(OPERATOR_KEY); setOperator(null); }} className="text-slate-600 hover:text-slate-400 ml-1">
-                <X className="h-3 w-3" />
+              <button onClick={handleLogout} className="text-slate-600 hover:text-slate-400 ml-1" title="Sign out">
+                <LogOut className="h-3 w-3" />
               </button>
             </div>
           )}

@@ -1,0 +1,168 @@
+OKS Insurance KMS — Session Authentication Implementation Prompt
+Context
+You are implementing session authentication for the OKS Insurance Knowledge Management System, a document classification and filing system for property & casualty insurance brokerages. Every action in this system must be attributed to an authenticated operator for regulatory compliance (NAIC examination standards, state producer record-keeping requirements, E&O audit defense).
+Requirement
+Implement a single strong authentication gate at session sign-in. One sign-in per session. No mid-session re-authentication. The session persists until the operator signs out or the session times out after 15 minutes of inactivity. While a session is active, all document intake, classification, approval, modification, and retrieval actions are attributed to the authenticated operator.
+Authentication Method
+Each operator authenticates with three factors at sign-in:
+
+Username (email address registered to their operator account)
+Password (minimum 12 characters, hashed with argon2id at rest)
+TOTP code (6-digit time-based one-time password from an authenticator app such as Google Authenticator, Microsoft Authenticator, or Authy)
+
+TOTP is mandatory for all operator accounts. There is no option to disable MFA at the agency or account level. This is a governance-by-design decision, not a configuration preference.
+Technical Implementation
+Stack
+
+Backend: Node.js / Express (existing BFMP codebase)
+Database: PostgreSQL (existing)
+Frontend: React + Vite (existing)
+Session management: express-session with connect-pg-simple (PostgreSQL session store)
+TOTP library: otpauth (RFC 6238 compliant)
+Password hashing: argon2 (argon2id variant)
+QR code generation: qrcode (for TOTP enrollment)
+
+Database Schema
+sql-- Operators table (add to existing schema)
+CREATE TABLE operators (
+    operator_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    full_name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    totp_secret TEXT NOT NULL,          -- Encrypted at rest (AES-256-GCM)
+    totp_enrolled BOOLEAN DEFAULT FALSE, -- Set TRUE after first successful TOTP verification
+    role TEXT NOT NULL CHECK (role IN ('VIEWER', 'OPERATOR', 'APPROVER', 'ADMINISTRATOR')),
+    license_number TEXT,                -- State insurance license (nullable for non-licensed staff)
+    is_active BOOLEAN DEFAULT TRUE,
+    deactivated_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_by UUID REFERENCES operators(operator_id)
+);
+
+-- Sessions table (supplements express-session store)
+CREATE TABLE operator_sessions (
+    session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    operator_id UUID NOT NULL REFERENCES operators(operator_id),
+    auth_method TEXT NOT NULL DEFAULT 'PASSWORD+TOTP',
+    started_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    last_activity_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    ended_at TIMESTAMP,
+    end_reason TEXT CHECK (end_reason IN ('LOGOUT', 'TIMEOUT', 'ADMIN_REVOKE')),
+    ip_address TEXT,
+    user_agent TEXT
+);
+
+-- Index for active session lookup
+CREATE INDEX idx_operator_sessions_active 
+    ON operator_sessions (operator_id, ended_at) 
+    WHERE ended_at IS NULL;
+
+-- Audit log entry for every authentication event
+-- (This table is append-only. No UPDATE or DELETE grants to the application role.)
+CREATE TABLE audit_log (
+    log_id BIGSERIAL PRIMARY KEY,
+    action TEXT NOT NULL,
+    document_id UUID,
+    operator_id UUID REFERENCES operators(operator_id),
+    session_id UUID REFERENCES operator_sessions(session_id),
+    details JSONB NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- Revoke destructive permissions on audit_log from the application role
+REVOKE UPDATE, DELETE ON audit_log FROM app_role;
+Backend Routes
+POST /api/auth/login
+  Body: { email, password, totp_code }
+  Response: { session_id, operator_id, full_name, role }
+  Logic:
+    1. Look up operator by email. Reject if not found or is_active = FALSE.
+    2. Verify password against password_hash using argon2.verify(). Reject if mismatch.
+    3. Verify TOTP code against totp_secret using otpauth. Reject if invalid or expired.
+    4. Create operator_sessions record with IP and user agent.
+    5. Create express-session tied to operator_sessions.session_id.
+    6. Insert audit_log entry: action='SESSION_START', details includes auth_method, IP, user agent.
+    7. Return session info.
+
+POST /api/auth/logout
+  Response: { success: true }
+  Logic:
+    1. Update operator_sessions: ended_at = NOW(), end_reason = 'LOGOUT'.
+    2. Destroy express-session.
+    3. Insert audit_log entry: action='SESSION_END', details includes end_reason='LOGOUT'.
+
+GET /api/auth/session
+  Response: { operator_id, full_name, role, session_id } or 401
+  Logic:
+    1. Check express-session validity.
+    2. Check operator_sessions.ended_at IS NULL.
+    3. Check last_activity_at is within 15 minutes. If expired:
+       a. Update operator_sessions: ended_at = NOW(), end_reason = 'TIMEOUT'.
+       b. Insert audit_log entry: action='SESSION_END', details includes end_reason='TIMEOUT'.
+       c. Return 401.
+    4. Update last_activity_at = NOW().
+    5. Return session info.
+
+POST /api/auth/enroll-totp  (Administrator creates account, operator enrolls TOTP)
+  Body: { operator_id }  (only during first-time setup)
+  Response: { qr_code_data_url, manual_entry_key }
+  Logic:
+    1. Generate TOTP secret using otpauth.
+    2. Encrypt secret with AES-256-GCM using server-side encryption key.
+    3. Store encrypted secret in operators.totp_secret.
+    4. Generate QR code containing otpauth:// URI.
+    5. Return QR code as data URL and manual entry key.
+    6. Operator scans QR code in their authenticator app.
+    7. On next login, first successful TOTP verification sets totp_enrolled = TRUE.
+Session Middleware
+Every protected route must use session middleware that:
+
+Validates the session exists and is active (not timed out, not ended).
+Extracts operator_id and session_id from the session.
+Attaches both to the request object (req.operator_id, req.session_id).
+Updates last_activity_at on the operator_sessions record.
+Returns 401 if any validation fails.
+
+Every downstream controller that creates, modifies, or reads a document record uses req.operator_id and req.session_id to populate the audit_log and document_versions tables.
+Frontend Components
+LoginPage
+  - Email input
+  - Password input
+  - TOTP code input (6-digit numeric field, auto-submit on 6th digit)
+  - "Sign In" button
+  - Error display for: invalid credentials, invalid TOTP, account deactivated
+  - No "remember me" option (sessions are per-visit by design)
+
+SessionBar (persistent header component)
+  - Displays: operator full_name, role, session duration
+  - "Sign Out" button
+  - Visual indicator when session has < 2 minutes before timeout
+  - Auto-redirect to LoginPage on 401 response from any API call
+
+TOTPEnrollment (shown once during first login)
+  - QR code display
+  - Manual entry key display
+  - "I've scanned the code" confirmation
+  - Test TOTP entry to verify enrollment before proceeding
+Hopper Integration
+The document intake hopper does NOT process documents unless an active operator session exists. When the hopper ingests and classifies a document:
+
+The AI classification is logged as action='AI_CLASSIFICATION' with operator_id=NULL and a system identifier in details (model name, version, API call ID).
+The session operator is logged as the supervising operator: action='INTAKE_SUPERVISED' with the active operator_id and session_id.
+Both records reference the same document_id.
+
+If the session times out while documents are queued in the hopper, processing pauses until a new session is established. Documents already classified but not yet approved remain in the review queue.
+Security Constraints
+
+TOTP secrets are encrypted at rest using AES-256-GCM with a server-side key stored in environment variables (never in the database or source code).
+Password hashing uses argon2id with minimum parameters: memory 65536 KB, iterations 3, parallelism 4.
+Session cookies are HttpOnly, Secure, SameSite=Strict.
+Failed login attempts are rate-limited: 5 attempts per email per 15-minute window, then 30-minute lockout.
+All authentication events (success and failure) are logged to the audit_log.
+Deactivated accounts cannot authenticate. Deactivation is immediate and revokes all active sessions.
+
+Test Accounts for Demo (Pinnacle Insurance Group)
+Create these accounts during database seeding for the demo environment:
+NameEmailRoleLicenseDavid Marshdavid.marsh@pinnacleins.demoADMINISTRATORIN-2847561Karen Whitfieldkaren.whitfield@pinnacleins.demoAPPROVERIN-3195842Tom Jenningstom.jennings@pinnacleins.demoOPERATORIN-4028736Demo Viewerviewer@pinnacleins.demoVIEWERNULL
+Demo password for all accounts: Pinnacle2026!
+Demo TOTP: Use a shared test secret that generates predictable codes in the demo environment only. In production, each operator enrolls their own TOTP secret.
