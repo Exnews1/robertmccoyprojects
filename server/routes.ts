@@ -9,7 +9,7 @@ import { generateEmbedding, cosineSimilarity, getRelevanceLabel } from "./openai
 import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
-import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials, insuranceStaging, insuranceRepository, insuranceAudit } from "@shared/schema";
+import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials, insuranceStaging, insuranceRepository, insuranceAudit, insuranceOperators, insuranceMetadataVersions } from "@shared/schema";
 import { classifyDocument, generateStandardName } from "./meridianClassification";
 import { classifyInsuranceDocument, fallbackClassify, generateStandardInsuranceName, DOC_TYPES, POLICY_LINES } from "./insuranceClassification";
 import { eq, and, desc } from "drizzle-orm";
@@ -1696,6 +1696,37 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     return (req.headers["x-session-id"] as string) || (req.query.session_id as string) || null;
   }
 
+  function getInsuranceOperator(req: any): { operatorId: string; operatorName: string; operatorRole: string } {
+    return {
+      operatorId: (req.headers["x-operator-id"] as string) || "SYSTEM",
+      operatorName: (req.headers["x-operator-name"] as string) || "System",
+      operatorRole: (req.headers["x-operator-role"] as string) || "SYSTEM",
+    };
+  }
+
+  // Seed demo operator roster (idempotent)
+  const DEMO_OPERATORS = [
+    { operatorId: "op-mccoy-001",    fullName: "Robert McCoy",    title: "System Administrator",     role: "ADMINISTRATOR", licenseNumber: "LIC-IN-00001", avatarInitials: "RM" },
+    { operatorId: "op-marsh-002",    fullName: "David Marsh",     title: "Senior Account Manager",   role: "APPROVER",      licenseNumber: "LIC-IN-78231", avatarInitials: "DM" },
+    { operatorId: "op-chen-003",     fullName: "Sarah Chen",      title: "Compliance Officer",       role: "APPROVER",      licenseNumber: "LIC-IN-84127", avatarInitials: "SC" },
+    { operatorId: "op-whitfield-004",fullName: "Karen Whitfield", title: "Account Manager",          role: "OPERATOR",      licenseNumber: "LIC-IN-91045", avatarInitials: "KW" },
+    { operatorId: "op-okafor-005",   fullName: "James Okafor",    title: "Account Associate",        role: "OPERATOR",      licenseNumber: "LIC-IN-65482", avatarInitials: "JO" },
+    { operatorId: "op-reyes-006",    fullName: "Linda Reyes",     title: "Office Manager",           role: "VIEWER",        licenseNumber: null,           avatarInitials: "LR" },
+  ];
+  (async () => {
+    const existing = await db.select().from(insuranceOperators).limit(1);
+    if (existing.length === 0) {
+      await db.insert(insuranceOperators).values(DEMO_OPERATORS);
+      console.log("Insurance governance: seeded 6 demo operators.");
+    }
+  })();
+
+  // GET /api/insurance/operators
+  app.get("/api/insurance/operators", async (_req, res) => {
+    const ops = await db.select().from(insuranceOperators).where(eq(insuranceOperators.isActive, true));
+    res.json({ success: true, data: ops });
+  });
+
   // POST /api/insurance/upload-zip – unpack ZIP, run AI classification, stage all docs
   app.post("/api/insurance/upload-zip", zipUpload.single("file"), async (req, res) => {
     const sessionId = getInsuranceSession(req);
@@ -1840,6 +1871,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
   app.patch("/api/insurance/staging/:id", async (req, res) => {
     const sessionId = getInsuranceSession(req);
     if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const { operatorId, operatorName, operatorRole } = getInsuranceOperator(req);
     const id = parseInt(req.params.id);
     const allowed = ["docType", "docTypeLabel", "lifecyclePhase", "policyLine", "policyPeriod",
       "namedInsured", "policyNumber", "carrierName", "premium", "claimNumber",
@@ -1852,8 +1884,11 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     await db.update(insuranceStaging).set(updates).where(eq(insuranceStaging.id, id));
     await db.insert(insuranceAudit).values({
       sessionId,
-      actor: "Sr. Account Manager",
+      actor: operatorName,
       action: "MODIFY",
+      actionCategory: "METADATA_EDIT",
+      operatorId,
+      operatorRole,
       details: `Modified staging record #${id}: ${Object.keys(updates).join(", ")} updated.`,
     });
     const [updated] = await db.select().from(insuranceStaging).where(eq(insuranceStaging.id, id));
@@ -1864,6 +1899,8 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
   app.patch("/api/insurance/repository/:id", async (req, res) => {
     const sessionId = getInsuranceSession(req);
     if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const { operatorId, operatorName, operatorRole } = getInsuranceOperator(req);
+    const reason = req.body.reason ? sanitizeInput(String(req.body.reason)) : null;
     const id = parseInt(req.params.id);
     const allowed = ["docType", "docTypeLabel", "lifecyclePhase", "policyLine", "policyPeriod",
       "namedInsured", "policyNumber", "carrierName", "premium", "claimNumber",
@@ -1876,21 +1913,64 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     const [existing] = await db.select().from(insuranceRepository)
       .where(and(eq(insuranceRepository.id, id), eq(insuranceRepository.sessionId, sessionId)));
     if (!existing) return res.status(404).json({ error: "Not found" });
+
+    // Determine next version number
+    const prevVersions = await db.select({ versionNumber: insuranceMetadataVersions.versionNumber })
+      .from(insuranceMetadataVersions)
+      .where(eq(insuranceMetadataVersions.repositoryId, id));
+    const nextVersion = (prevVersions.length === 0 ? 1 : Math.max(...prevVersions.map(v => v.versionNumber)) + 1);
+
+    // Write a version record for each changed field
+    const fieldMap: Record<string, string | null | undefined> = existing as any;
+    const isReclassification = updates.docType && updates.docType !== existing.docType;
+    for (const [field, newVal] of Object.entries(updates)) {
+      await db.insert(insuranceMetadataVersions).values({
+        sessionId,
+        repositoryId: id,
+        versionNumber: nextVersion,
+        changeType: field === "docType" && isReclassification ? "RECLASSIFICATION" : "METADATA",
+        fieldChanged: field,
+        oldValue: String(fieldMap[field] ?? ""),
+        newValue: newVal,
+        reason: reason || null,
+        operatorId,
+        operatorName,
+        operatorRole,
+      });
+    }
+
     await db.update(insuranceRepository).set(updates).where(eq(insuranceRepository.id, id));
     await db.insert(insuranceAudit).values({
       sessionId,
-      actor: "Sr. Account Manager",
-      action: "KMS-MODIFY",
-      details: `HiL modification on repository record #${id}: ${Object.keys(updates).join(", ")} updated.`,
+      actor: operatorName,
+      action: isReclassification ? "RECLASSIFY" : "KMS-MODIFY",
+      actionCategory: "METADATA_EDIT",
+      operatorId,
+      operatorRole,
+      reason: reason || undefined,
+      details: `HiL v${nextVersion} on record #${id}: ${Object.keys(updates).join(", ")} updated.${reason ? ` Reason: ${reason}` : ""}`,
     });
+
     const [updated] = await db.select().from(insuranceRepository).where(eq(insuranceRepository.id, id));
     res.json({ success: true, data: updated });
+  });
+
+  // GET /api/insurance/repository/:id/versions – metadata version history
+  app.get("/api/insurance/repository/:id/versions", async (req, res) => {
+    const sessionId = getInsuranceSession(req);
+    if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const id = parseInt(req.params.id);
+    const versions = await db.select().from(insuranceMetadataVersions)
+      .where(and(eq(insuranceMetadataVersions.repositoryId, id), eq(insuranceMetadataVersions.sessionId, sessionId)))
+      .orderBy(desc(insuranceMetadataVersions.createdAt));
+    res.json({ success: true, data: versions });
   });
 
   // POST /api/insurance/approve/:id
   app.post("/api/insurance/approve/:id", async (req, res) => {
     const sessionId = getInsuranceSession(req);
     if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const { operatorId, operatorName, operatorRole } = getInsuranceOperator(req);
     const id = parseInt(req.params.id);
     const [doc] = await db.select().from(insuranceStaging)
       .where(and(eq(insuranceStaging.id, id), eq(insuranceStaging.sessionId, sessionId)));
@@ -1935,14 +2015,17 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
       effectiveDate: doc.effectiveDate,
       expirationDate: doc.expirationDate,
       confidence: doc.confidence,
-      approvedBy: "Sr. Account Manager",
+      approvedBy: operatorName,
     }).returning();
 
     await db.delete(insuranceStaging).where(eq(insuranceStaging.id, id));
     await db.insert(insuranceAudit).values({
       sessionId,
-      actor: "Sr. Account Manager",
+      actor: operatorName,
       action: "APPROVE",
+      actionCategory: "HUMAN_REVIEW",
+      operatorId,
+      operatorRole,
       details: `Approved "${doc.filename}" → filed as ${standardName} (${doc.docTypeLabel}, ${doc.policyLine || "N/A"}, ${doc.namedInsured || "Unknown"}).`,
     });
 
@@ -1953,6 +2036,7 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
   app.post("/api/insurance/reject/:id", async (req, res) => {
     const sessionId = getInsuranceSession(req);
     if (!sessionId) return res.status(400).json({ error: "Missing x-session-id" });
+    const { operatorId, operatorName, operatorRole } = getInsuranceOperator(req);
     const id = parseInt(req.params.id);
     const [doc] = await db.select({ filename: insuranceStaging.filename })
       .from(insuranceStaging)
@@ -1961,8 +2045,11 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     await db.delete(insuranceStaging).where(eq(insuranceStaging.id, id));
     await db.insert(insuranceAudit).values({
       sessionId,
-      actor: "Sr. Account Manager",
+      actor: operatorName,
       action: "REJECT",
+      actionCategory: "HUMAN_REVIEW",
+      operatorId,
+      operatorRole,
       details: `Rejected "${doc.filename}" — returned to sender / discarded.`,
     });
     res.json({ success: true });

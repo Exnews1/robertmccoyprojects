@@ -378,8 +378,43 @@ export const insuranceAudit = pgTable("insurance_audit", {
   actor: text("actor").notNull(),
   action: text("action").notNull(),
   details: text("details").notNull(),
+  operatorId: text("operator_id"),
+  operatorRole: text("operator_role"),
+  actionCategory: text("action_category"),
+  reason: text("reason"),
+});
+
+// ── Governance: Named operators (pre-seeded demo roster) ──
+export const insuranceOperators = pgTable("insurance_operators", {
+  id: serial("id").primaryKey(),
+  operatorId: text("operator_id").notNull().unique(),
+  fullName: text("full_name").notNull(),
+  title: text("title").notNull(),
+  role: text("role").notNull(),
+  licenseNumber: text("license_number"),
+  isActive: boolean("is_active").default(true),
+  avatarInitials: text("avatar_initials"),
+});
+
+// ── Governance: Metadata version history ──
+export const insuranceMetadataVersions = pgTable("insurance_metadata_versions", {
+  id: serial("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  repositoryId: integer("repository_id").notNull(),
+  versionNumber: integer("version_number").notNull(),
+  changeType: text("change_type").notNull(),
+  fieldChanged: text("field_changed"),
+  oldValue: text("old_value"),
+  newValue: text("new_value"),
+  reason: text("reason"),
+  operatorId: text("operator_id").notNull(),
+  operatorName: text("operator_name").notNull(),
+  operatorRole: text("operator_role").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 export type InsuranceStaging = typeof insuranceStaging.$inferSelect;
 export type InsuranceRepository = typeof insuranceRepository.$inferSelect;
 export type InsuranceAudit = typeof insuranceAudit.$inferSelect;
+export type InsuranceOperator = typeof insuranceOperators.$inferSelect;
+export type InsuranceMetadataVersion = typeof insuranceMetadataVersions.$inferSelect;

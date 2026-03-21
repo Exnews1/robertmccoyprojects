@@ -2,9 +2,60 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter, Edit3, AlertTriangle } from "lucide-react";
+import { Shield, ArrowLeft, Search, ChevronRight, FileText, X, Building2, Calendar, Tag, Percent, Hash, Truck, DollarSign, AlertCircle, ExternalLink, RefreshCw, Filter, Edit3, AlertTriangle, LogIn, History, Clock } from "lucide-react";
 
 const SESSION_KEY = "insurance-pipeline-session";
+const OPERATOR_KEY = "insurance-operator";
+
+type Operator = {
+  operatorId: string; fullName: string; title: string; role: string;
+  licenseNumber: string | null; avatarInitials: string;
+};
+
+const ROLE_COLORS: Record<string, string> = {
+  ADMIN:    "bg-red-900/50 text-red-300 border-red-700",
+  APPROVER: "bg-amber-900/50 text-amber-300 border-amber-700",
+  OPERATOR: "bg-sky-900/50 text-sky-300 border-sky-700",
+  VIEWER:   "bg-slate-800 text-slate-400 border-slate-600",
+};
+
+function OperatorSignInModal({ onSelect }: { onSelect: (op: Operator) => void }) {
+  const { data } = useQuery<{ data: Operator[] }>({
+    queryKey: ["/api/insurance/operators"],
+    queryFn: () => fetch("/api/insurance/operators").then(r => r.json()),
+  });
+  const operators = data?.data || [];
+  return (
+    <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+      <div className="bg-slate-900 border border-slate-700 rounded-lg w-full max-w-lg p-6 shadow-2xl">
+        <div className="flex items-center gap-2 mb-5">
+          <LogIn className="h-5 w-5 text-amber-500" />
+          <div>
+            <div className="text-sm font-semibold text-slate-100">Pinnacle Insurance Group — KMS Portal</div>
+            <div className="text-xs text-slate-500">Select your operator identity to continue</div>
+          </div>
+        </div>
+        <div className="space-y-2">
+          {operators.map(op => (
+            <button key={op.operatorId} onClick={() => onSelect(op)}
+              className="w-full flex items-center gap-3 px-4 py-3 bg-slate-800 hover:bg-slate-750 border border-slate-700 hover:border-slate-600 rounded-lg transition-colors text-left"
+              data-testid={`op-select-${op.operatorId}`}
+            >
+              <div className="w-8 h-8 rounded-full bg-amber-900/60 border border-amber-700 flex items-center justify-center text-sm font-bold text-amber-300 shrink-0">
+                {op.avatarInitials}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium text-slate-100">{op.fullName}</div>
+                <div className="text-xs text-slate-500">{op.title}</div>
+              </div>
+              <span className={`text-xs px-2 py-0.5 rounded border font-mono shrink-0 ${ROLE_COLORS[op.role] || ROLE_COLORS.VIEWER}`}>{op.role}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const PHASE_COLORS: Record<string, string> = {
   "Submission":         "bg-sky-900/50 text-sky-300 border-sky-800",
@@ -79,10 +130,27 @@ type RepoDoc = {
   approvedAt: string | null; approvedBy: string | null;
 };
 
-function DocDetailPanel({ doc, onClose, onModify }: { doc: RepoDoc; onClose: () => void; onModify: (doc: RepoDoc) => void }) {
+type MetadataVersion = {
+  id: number; fieldName: string; oldValue: string | null; newValue: string | null;
+  changedBy: string | null; changedByRole: string | null; reason: string | null; createdAt: string;
+};
+
+function DocDetailPanel({ doc, sessionId, onClose, onModify }: {
+  doc: RepoDoc; sessionId: string; onClose: () => void; onModify: (doc: RepoDoc) => void;
+}) {
   const phaseClass = PHASE_COLORS[doc.lifecyclePhase || ""] || "bg-slate-800 text-slate-400 border-slate-700";
   const pct = doc.confidence ? Math.round(doc.confidence * 100) : 0;
   const confColor = pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500";
+  const [showHistory, setShowHistory] = useState(false);
+
+  const { data: versionsData } = useQuery<{ data: MetadataVersion[] }>({
+    queryKey: ["/api/insurance/repository", doc.id, "versions"],
+    queryFn: () => fetch(`/api/insurance/repository/${doc.id}/versions`, {
+      headers: { "x-session-id": sessionId },
+    }).then(r => r.json()),
+    enabled: showHistory,
+  });
+  const versions = versionsData?.data || [];
 
   const field = (label: string, value: string | null | undefined, icon?: any) => {
     if (!value) return null;
@@ -163,6 +231,48 @@ function DocDetailPanel({ doc, onClose, onModify }: { doc: RepoDoc; onClose: () 
             </button>
           </div>
 
+          {/* Version history toggle */}
+          <div className="pt-2">
+            <button
+              onClick={() => setShowHistory(h => !h)}
+              className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-200 bg-slate-800/60 border border-slate-700 px-3 py-2 rounded w-full justify-center transition-colors"
+              data-testid="button-kms-history"
+            >
+              <History className="h-3.5 w-3.5" />
+              {showHistory ? "Hide" : "Show"} Metadata History ({versions.length})
+            </button>
+          </div>
+
+          {showHistory && (
+            <div className="pt-2 space-y-2">
+              {versions.length === 0 ? (
+                <div className="text-xs text-slate-600 text-center py-4">No metadata changes recorded yet.</div>
+              ) : (
+                versions.map(v => (
+                  <div key={v.id} className="bg-slate-800/50 border border-slate-700 rounded p-3 text-xs space-y-1.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-mono font-bold text-violet-300 uppercase">{v.fieldName}</span>
+                      {v.changedByRole && (
+                        <span className={`px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[v.changedByRole] || ROLE_COLORS.VIEWER}`}>{v.changedByRole}</span>
+                      )}
+                      {v.changedBy && <span className="text-slate-400">{v.changedBy}</span>}
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-500">
+                      <span className="line-through text-red-400/70">{v.oldValue || "—"}</span>
+                      <span>→</span>
+                      <span className="text-emerald-400">{v.newValue || "—"}</span>
+                    </div>
+                    {v.reason && <div className="text-slate-500 italic">"{v.reason}"</div>}
+                    <div className="flex items-center gap-1 text-slate-600">
+                      <Clock className="h-3 w-3" />
+                      {new Date(v.createdAt).toLocaleString()}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+
           {/* PDF viewer toggle */}
           {doc.filePath && (
             <div className="pt-2">
@@ -183,8 +293,8 @@ function DocDetailPanel({ doc, onClose, onModify }: { doc: RepoDoc; onClose: () 
   );
 }
 
-function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
-  doc: RepoDoc; onClose: () => void; sessionId: string; onSaved: () => void;
+function KmsModifyModal({ doc, onClose, sessionId, onSaved, operator }: {
+  doc: RepoDoc; onClose: () => void; sessionId: string; onSaved: () => void; operator: Operator | null;
 }) {
   const qc = useQueryClient();
   const [docTypeCode, setDocTypeCode] = useState(doc.docType || "");
@@ -197,11 +307,14 @@ function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
   const [claimNumber, setClaimNumber] = useState(doc.claimNumber || "");
   const [effectiveDate, setEffectiveDate] = useState(doc.effectiveDate || "");
   const [expirationDate, setExpirationDate] = useState(doc.expirationDate || "");
+  const [reason, setReason] = useState("");
   const [saving, setSaving] = useState(false);
 
   const selectedDocType = DOC_TYPES.find(d => d.code === docTypeCode);
+  const docTypeChanged = docTypeCode !== doc.docType;
 
   const save = async () => {
+    if (docTypeChanged && !reason.trim()) return;
     setSaving(true);
     try {
       await apiRequest("PATCH", `/api/insurance/repository/${doc.id}`, {
@@ -217,7 +330,11 @@ function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
         claimNumber,
         effectiveDate,
         expirationDate,
-      }, { "x-session-id": sessionId });
+        reason: reason.trim() || undefined,
+      }, {
+        "x-session-id": sessionId,
+        ...(operator ? { "x-operator-id": operator.operatorId, "x-operator-name": operator.fullName, "x-operator-role": operator.role } : {}),
+      });
       qc.invalidateQueries({ queryKey: ["/api/insurance/repository", sessionId] });
       qc.invalidateQueries({ queryKey: ["/api/insurance/repository/facets", sessionId] });
       qc.invalidateQueries({ queryKey: ["/api/insurance/audit", sessionId] });
@@ -347,6 +464,33 @@ function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
           </div>
         </div>
 
+        {/* Reason + Operator */}
+        <div className="px-5 pb-4 space-y-3">
+          <div>
+            <label className="block text-xs text-slate-400 font-medium mb-1">
+              Reason for Modification {docTypeChanged && <span className="text-red-400">*</span>}
+            </label>
+            <textarea
+              value={reason}
+              onChange={e => setReason(e.target.value)}
+              placeholder={docTypeChanged ? "Required when reclassifying document type…" : "Optional justification for this change…"}
+              rows={2}
+              className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-2 text-sm text-slate-100 focus:outline-none focus:border-violet-500 placeholder-slate-600 resize-none"
+              data-testid="input-kms-reason"
+            />
+            {docTypeChanged && !reason.trim() && (
+              <div className="text-xs text-red-400 mt-1 flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Reason is required when changing the document type.</div>
+            )}
+          </div>
+          {operator && (
+            <div className="flex items-center gap-2 text-xs text-slate-500">
+              <span>Attributing to:</span>
+              <span className="text-slate-300 font-medium">{operator.fullName}</span>
+              <span className={`px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[operator.role] || ROLE_COLORS.VIEWER}`}>{operator.role}</span>
+            </div>
+          )}
+        </div>
+
         {/* Footer */}
         <div className="shrink-0 flex gap-2 justify-between items-center px-5 py-3.5 border-t border-slate-700 bg-slate-900/90">
           <div className="flex items-center gap-1.5 text-xs text-slate-600">
@@ -359,7 +503,7 @@ function KmsModifyModal({ doc, onClose, sessionId, onSaved }: {
             </button>
             <button
               onClick={save}
-              disabled={saving}
+              disabled={saving || (docTypeChanged && !reason.trim())}
               className="px-4 py-1.5 text-sm bg-violet-700 hover:bg-violet-600 text-white rounded transition-colors disabled:opacity-50 font-medium"
               data-testid="button-kms-save-modify"
             >
@@ -382,6 +526,16 @@ type Facets = {
 
 export default function InsuranceKMS() {
   const [sessionId, setSessionId] = useState(() => localStorage.getItem(SESSION_KEY) || "");
+
+  const [operator, setOperator] = useState<Operator | null>(() => {
+    const stored = localStorage.getItem(OPERATOR_KEY);
+    return stored ? JSON.parse(stored) : null;
+  });
+
+  const handleSelectOperator = (op: Operator) => {
+    localStorage.setItem(OPERATOR_KEY, JSON.stringify(op));
+    setOperator(op);
+  };
 
   // If another tab creates a session after this tab is already open, pick it up immediately
   useEffect(() => {
@@ -465,9 +619,13 @@ export default function InsuranceKMS() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+
+      {!operator && <OperatorSignInModal onSelect={handleSelectOperator} />}
+
       {selected && (
         <DocDetailPanel
           doc={selected}
+          sessionId={sessionId}
           onClose={() => setSelected(null)}
           onModify={(doc) => { setModifyDoc(doc); setSelected(null); }}
         />
@@ -476,6 +634,7 @@ export default function InsuranceKMS() {
         <KmsModifyModal
           doc={modifyDoc}
           sessionId={sessionId}
+          operator={operator}
           onClose={() => setModifyDoc(null)}
           onSaved={() => setModifyDoc(null)}
         />
@@ -497,6 +656,18 @@ export default function InsuranceKMS() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          {operator && (
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 border border-slate-700 rounded">
+              <div className="w-5 h-5 rounded-full bg-amber-900/60 border border-amber-700 flex items-center justify-center text-xs font-bold text-amber-300">
+                {operator.avatarInitials || operator.fullName.slice(0, 2)}
+              </div>
+              <span className="text-xs text-slate-300 font-medium">{operator.fullName}</span>
+              <span className={`text-xs px-1.5 py-0.5 rounded border font-mono ${ROLE_COLORS[operator.role] || ROLE_COLORS.VIEWER}`}>{operator.role}</span>
+              <button onClick={() => { localStorage.removeItem(OPERATOR_KEY); setOperator(null); }} className="text-slate-600 hover:text-slate-400 ml-1">
+                <X className="h-3 w-3" />
+              </button>
+            </div>
+          )}
           <Link href="/research/knowledge-systems/insurance/demo">
             <button className="text-xs px-3 py-1.5 bg-sky-900/40 hover:bg-sky-900/60 border border-sky-800 text-sky-300 rounded" data-testid="link-pipeline">
               ← Ingestion Pipeline
