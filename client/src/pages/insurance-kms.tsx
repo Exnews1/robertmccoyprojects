@@ -31,7 +31,6 @@ type RepoDoc = {
 };
 
 function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void }) {
-  const [showPdf, setShowPdf] = useState(false);
   const phaseClass = PHASE_COLORS[doc.lifecyclePhase || ""] || "bg-slate-800 text-slate-400 border-slate-700";
   const pct = doc.confidence ? Math.round(doc.confidence * 100) : 0;
   const confColor = pct >= 90 ? "bg-emerald-500" : pct >= 75 ? "bg-amber-500" : "bg-red-500";
@@ -106,25 +105,15 @@ function DocDetailPanel({ doc, onClose }: { doc: RepoDoc; onClose: () => void })
           {/* PDF viewer toggle */}
           {doc.filePath && (
             <div className="pt-3">
-              <button
-                onClick={() => setShowPdf(p => !p)}
-                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 bg-amber-900/30 border border-amber-800 px-3 py-2 rounded w-full justify-center"
+              <a
+                href={doc.filePath}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs text-amber-400 hover:text-amber-300 bg-amber-900/30 border border-amber-800 px-3 py-2 rounded w-full justify-center transition-colors"
               >
                 <FileText className="h-3.5 w-3.5" />
-                {showPdf ? "Hide Document" : "View Document"}
-              </button>
-              {showPdf && (
-                <div className="mt-3 border border-slate-700 rounded overflow-hidden" style={{ height: 480 }}>
-                  <object data={doc.filePath} type="application/pdf" className="w-full h-full border-0">
-                    <div className="flex flex-col items-center justify-center h-full gap-3 text-slate-400 text-sm">
-                      <span>PDF preview unavailable in this browser context.</span>
-                      <a href={doc.filePath} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300 underline">
-                        Open PDF in new tab ↗
-                      </a>
-                    </div>
-                  </object>
-                </div>
-              )}
+                Open Document ↗
+              </a>
             </div>
           )}
         </div>
