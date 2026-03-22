@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "wouter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity, AlertTriangle, UserCheck, LogOut } from "lucide-react";
+import { ArrowLeft, Upload, FileText, CheckCircle, XCircle, Edit3, Eye, Loader2, RotateCcw, ChevronDown, ChevronUp, Building2, Shield, Clock, Activity, AlertTriangle, UserCheck, LogOut, Mail } from "lucide-react";
 
 // ── Insurance taxonomy constants (mirrors server/insuranceClassification.ts) ──
 const DOC_TYPES: { code: string; label: string; phase: string }[] = [
@@ -809,6 +809,22 @@ export default function InsurancePipeline() {
       </header>
 
       <div className="flex-1 p-5 space-y-5 max-w-7xl mx-auto w-full">
+
+        {/* Demo arrangement notice */}
+        <div className="flex items-start gap-4 bg-slate-900/70 border border-amber-800/50 rounded-lg px-5 py-4">
+          <Mail className="h-5 w-5 text-amber-500 mt-0.5 shrink-0" />
+          <div className="flex-1 min-w-0">
+            <div className="text-sm font-semibold text-amber-300 mb-0.5">Guided Demo Available</div>
+            <div className="text-xs text-slate-400 leading-relaxed">
+              This pipeline demo requires a pre-formatted ZIP package of sample P&C insurance documents.
+              To run a live walkthrough with real document ingestion, contact{" "}
+              <a href="/contact" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">
+                Robert McCoy
+              </a>{" "}
+              to arrange a session — he will provide the sample document set and guide you through the full workflow.
+            </div>
+          </div>
+        </div>
 
         {/* ZIP Hopper */}
         <div
