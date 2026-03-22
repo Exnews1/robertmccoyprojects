@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "zhSVe02Qk66A03rWvNLV1"
+uri = "file://pinnacle-kms-demo-script.docx"
+type = "word_document"
+title = "Pinnacle Insurance Group KMS — Demo Narration Script"
