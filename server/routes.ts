@@ -10,7 +10,7 @@ import { sendInquiryNotification } from "./gmail";
 import OpenAI from "openai";
 import { db } from "./db";
 import { meridianStaging, meridianRepository, meridianAudit, meridianFinancials, insuranceStaging, insuranceRepository, insuranceAudit, insuranceOperators, insuranceMetadataVersions } from "@shared/schema";
-import { seedDemoOperators, loginOperator, logoutOperator, touchSession, buildTOTP, DEMO_TOTP_SECRET } from "./insuranceAuth";
+import { seedDemoOperators, loginOperator, logoutOperator, touchSession } from "./insuranceAuth";
 import { classifyDocument, generateStandardName } from "./meridianClassification";
 import { classifyInsuranceDocument, fallbackClassify, generateStandardInsuranceName, DOC_TYPES, POLICY_LINES } from "./insuranceClassification";
 import { eq, and, desc } from "drizzle-orm";
@@ -1740,16 +1740,16 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     return res.json({ success: true, operator: op });
   });
 
-  // POST /api/insurance/auth/login — email + password + TOTP
+  // POST /api/insurance/auth/login — email + password
   app.post("/api/insurance/auth/login", async (req, res) => {
-    const { email, password, totpCode } = req.body;
-    if (!email || !password || !totpCode) {
-      return res.status(400).json({ error: "email, password, and totpCode are required" });
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: "email and password are required" });
     }
 
     const sessionId = req.sessionID;
     const ip = req.ip || req.socket.remoteAddress || "unknown";
-    const result = await loginOperator(email, password, totpCode, sessionId, ip);
+    const result = await loginOperator(email, password, sessionId, ip);
 
     if (!result.success) {
       return res.status(401).json({ error: result.error });
@@ -1770,14 +1770,6 @@ ${engineOutput.activeConstraints ? `\nActive Constraint Alerts:\n${engineOutput.
     req.session.insuranceOperator = undefined;
     req.session.insuranceSessionId = undefined;
     req.session.save(() => res.json({ success: true }));
-  });
-
-  // GET /api/insurance/auth/totp-demo — return current demo TOTP code for the login screen
-  app.get("/api/insurance/auth/totp-demo", (_req, res) => {
-    const totp = buildTOTP();
-    const code = totp.generate();
-    const remaining = 30 - (Math.floor(Date.now() / 1000) % 30);
-    res.json({ code, remaining });
   });
 
   // GET /api/insurance/operators — safe list (no secrets)

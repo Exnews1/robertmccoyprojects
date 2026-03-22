@@ -1,24 +1,10 @@
 import * as argon2 from "argon2";
-import * as OTPAuth from "otpauth";
 import { db } from "./db";
 import { insuranceOperators, insuranceOperatorSessions } from "@shared/schema";
-import { eq, isNull } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import type { Request, Response, NextFunction } from "express";
 
 const INACTIVITY_MS = 15 * 60 * 1000;
-
-export const DEMO_TOTP_SECRET = "PINNACLE2026DEMOINSURANCEKEY0000";
-
-export function buildTOTP() {
-  return new OTPAuth.TOTP({
-    issuer: "Pinnacle Insurance Group",
-    label: "OKS-KMS-DEMO",
-    algorithm: "SHA1",
-    digits: 6,
-    period: 30,
-    secret: OTPAuth.Secret.fromBase32(DEMO_TOTP_SECRET),
-  });
-}
 
 export async function hashPassword(password: string): Promise<string> {
   return argon2.hash(password, {
@@ -37,40 +23,38 @@ export async function verifyPassword(hash: string, password: string): Promise<bo
   }
 }
 
-export function verifyTOTP(code: string): boolean {
-  const totp = buildTOTP();
-  const delta = totp.validate({ token: code, window: 1 });
-  return delta !== null;
-}
-
 export async function seedDemoOperators() {
   const demoPassword = "Pinnacle2026!";
-  const hash = await hashPassword(demoPassword);
+  const guestPassword = "ViewDemo26";
+  const demoHash = await hashPassword(demoPassword);
+  const guestHash = await hashPassword(guestPassword);
 
   const demos = [
-    { operatorId: "op-mccoy-000", fullName: "Robert McCoy", title: "Managing Director / System Owner", role: "ADMIN", email: "robert.mccoy@pinnacleins.demo", licenseNumber: "IN-1000001", avatarInitials: "RM" },
-    { operatorId: "op-marsh-001", fullName: "David Marsh", title: "Agency Principal / Administrator", role: "ADMIN", email: "david.marsh@pinnacleins.demo", licenseNumber: "IN-2847561", avatarInitials: "DM" },
-    { operatorId: "op-whitfield-002", fullName: "Karen Whitfield", title: "Senior Account Manager", role: "APPROVER", email: "karen.whitfield@pinnacleins.demo", licenseNumber: "IN-3195842", avatarInitials: "KW" },
-    { operatorId: "op-jennings-003", fullName: "Tom Jennings", title: "Document Specialist", role: "OPERATOR", email: "tom.jennings@pinnacleins.demo", licenseNumber: "IN-4028736", avatarInitials: "TJ" },
-    { operatorId: "op-viewer-004", fullName: "Demo Viewer", title: "Read-Only Observer", role: "VIEWER", email: "viewer@pinnacleins.demo", licenseNumber: null, avatarInitials: "DV" },
+    { operatorId: "op-mccoy-000",   fullName: "Robert McCoy",   title: "Managing Director / System Owner", role: "ADMIN",    email: "robert.mccoy@pinnacleins.demo",   licenseNumber: "IN-1000001", avatarInitials: "RM", hash: demoHash },
+    { operatorId: "op-marsh-001",   fullName: "David Marsh",    title: "Agency Principal / Administrator", role: "ADMIN",    email: "david.marsh@pinnacleins.demo",    licenseNumber: "IN-2847561", avatarInitials: "DM", hash: demoHash },
+    { operatorId: "op-whitfield-002", fullName: "Karen Whitfield", title: "Senior Account Manager",        role: "APPROVER", email: "karen.whitfield@pinnacleins.demo", licenseNumber: "IN-3195842", avatarInitials: "KW", hash: demoHash },
+    { operatorId: "op-jennings-003", fullName: "Tom Jennings",  title: "Document Specialist",             role: "OPERATOR", email: "tom.jennings@pinnacleins.demo",   licenseNumber: "IN-4028736", avatarInitials: "TJ", hash: demoHash },
+    { operatorId: "op-viewer-004",  fullName: "Demo Viewer",    title: "Read-Only Observer",              role: "VIEWER",   email: "viewer@pinnacleins.demo",          licenseNumber: null,          avatarInitials: "DV", hash: demoHash },
+    { operatorId: "op-guest-005",   fullName: "Guest",          title: "Demo Guest",                      role: "VIEWER",   email: "guest@pinnacleins.demo",           licenseNumber: null,          avatarInitials: "GU", hash: guestHash },
   ];
 
   for (const demo of demos) {
+    const { hash, ...fields } = demo;
     const existing = await db.select().from(insuranceOperators)
-      .where(eq(insuranceOperators.operatorId, demo.operatorId));
+      .where(eq(insuranceOperators.operatorId, fields.operatorId));
 
     if (existing.length === 0) {
       await db.insert(insuranceOperators).values({
-        ...demo,
+        ...fields,
         passwordHash: hash,
-        totpSecret: DEMO_TOTP_SECRET,
-        totpEnrolled: true,
+        totpSecret: null,
+        totpEnrolled: false,
         isActive: true,
       });
     } else {
       await db.update(insuranceOperators)
-        .set({ passwordHash: hash, totpSecret: DEMO_TOTP_SECRET, totpEnrolled: true, email: demo.email })
-        .where(eq(insuranceOperators.operatorId, demo.operatorId));
+        .set({ passwordHash: hash, email: fields.email, fullName: fields.fullName, title: fields.title })
+        .where(eq(insuranceOperators.operatorId, fields.operatorId));
     }
   }
 }
@@ -78,7 +62,6 @@ export async function seedDemoOperators() {
 export async function loginOperator(
   email: string,
   password: string,
-  totpCode: string,
   sessionId: string,
   ipAddress: string
 ): Promise<{ success: true; operator: { operatorId: string; fullName: string; role: string; title: string; licenseNumber: string | null; avatarInitials: string } } | { success: false; error: string }> {
@@ -93,8 +76,6 @@ export async function loginOperator(
 
   const passwordOk = await verifyPassword(op.passwordHash, password);
   if (!passwordOk) return { success: false, error: "Invalid credentials" };
-
-  if (!verifyTOTP(totpCode)) return { success: false, error: "Invalid or expired TOTP code" };
 
   await db.insert(insuranceOperatorSessions).values({
     sessionId,
