@@ -25,7 +25,7 @@ export async function verifyPassword(hash: string, password: string): Promise<bo
 
 export async function seedDemoOperators() {
   const demoPassword = "Pinnacle2026!";
-  const guestPassword = "ViewDemo26";
+  const guestPassword = "ViewOnly";
   const demoHash = await hashPassword(demoPassword);
   const guestHash = await hashPassword(guestPassword);
 

@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 import { Shield, Eye, EyeOff, Lock, Mail, ChevronRight, Users } from "lucide-react";
 
 const GUEST_EMAIL = "guest@pinnacleins.demo";
-const GUEST_PASSWORD = "ViewDemo26";
+const GUEST_PASSWORD = "ViewOnly";
 
 const STAFF_ACCOUNTS = [
   { name: "Robert McCoy",   email: "robert.mccoy@pinnacleins.demo",   role: "ADMIN",    title: "Managing Director",      initials: "RM" },
