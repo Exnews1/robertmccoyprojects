@@ -818,8 +818,8 @@ export default function InsurancePipeline() {
             <div className="text-xs text-slate-400 leading-relaxed">
               This pipeline demo requires a pre-formatted ZIP package of sample P&C insurance documents.
               To run a live walkthrough with real document ingestion, contact{" "}
-              <a href="/contact" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">
-                Robert McCoy
+              <a href="mailto:robert@theaigovernanceguy.com" className="text-amber-400 hover:text-amber-300 underline underline-offset-2">
+                robert@theaigovernanceguy.com
               </a>{" "}
               to arrange a session — he will provide the sample document set and guide you through the full workflow.
             </div>
