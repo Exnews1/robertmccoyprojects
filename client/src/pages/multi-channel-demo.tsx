@@ -274,6 +274,7 @@ export default function MultiChannelDemo() {
                         { n:"01", title:"Commander Approval Required", sub:"All FTA & CA requests" },
                         { n:"02", title:"Two-Recoupment Suspension",  sub:"12-month TA/CA suspension" },
                         { n:"03", title:"Officers Removed from CA",   sub:"O1–O10 no longer eligible" },
+                        { n:"04", title:"Two recoupments in same fiscal year", sub:"TA/CA suspended for 12 months" },
                       ].map(item => (
                         <div key={item.n} style={{ display:"flex", gap:7, alignItems:"flex-start" }}>
                           <span style={{ fontSize:10, fontWeight:900, color:"var(--amber)", fontFamily:MONO, flexShrink:0, marginTop:1 }}>{item.n}</span>
