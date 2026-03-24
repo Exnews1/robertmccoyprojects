@@ -305,6 +305,31 @@ export default function MultiChannelDemo() {
 
           {/* ── LEFT — channels + prohibitions ── */}
           <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+
+            {/* Command Approval AR 621-5 block */}
+            <a href="/ar-621-5.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none" }} data-testid="link-cmd-approval">
+              <div style={{
+                padding:"12px 14px", borderRadius:9,
+                border:"2px solid var(--amber)", background:"rgba(255,176,32,0.07)",
+                position:"relative", overflow:"hidden", cursor:"pointer", transition:"background 0.2s",
+              }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,176,32,0.14)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,176,32,0.07)"; }}
+              >
+                <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"var(--amber)" }} />
+                <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:5 }}>
+                  <span style={{ fontSize:8, fontFamily:MONO, fontWeight:900, padding:"2px 6px", borderRadius:3, background:"var(--amber)", color:"#000", letterSpacing:"0.08em" }}>WAVE 2</span>
+                  <span style={{ fontSize:8, fontFamily:MONO, fontWeight:700, color:"var(--amber)", letterSpacing:"0.06em" }}>AR 621-5</span>
+                </div>
+                <div style={{ fontSize:12, fontWeight:800, color:"var(--amber)", lineHeight:1.2, marginBottom:4 }}>Command Approval Required</div>
+                <div style={{ fontSize:10, color:"var(--mid)", lineHeight:1.45 }}>Commander approval now required for all FTA &amp; CA requests. Soldiers may designate an alternate POC (1SG, Platoon Sergeant, Unit Readiness NCO).</div>
+                <div style={{ marginTop:8, display:"inline-flex", alignItems:"center", gap:4, padding:"4px 8px", borderRadius:5, background:"var(--amber)", color:"#000" }}>
+                  <span style={{ fontSize:10, fontWeight:900, fontFamily:MONO, letterSpacing:"0.05em" }}>SEE ATTACHED</span>
+                  <span style={{ fontSize:11, fontWeight:900 }}>↗</span>
+                </div>
+              </div>
+            </a>
+
             <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.1em", color:"var(--dim)", fontFamily:MONO, marginBottom:2 }}>CHANNELS</div>
             {CH_LIST.map(chId => {
               const ch = CH[chId];
