@@ -306,6 +306,8 @@ export default function MultiChannelDemo() {
           {/* ── LEFT — channels + prohibitions ── */}
           <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
 
+            <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.1em", color:"var(--dim)", fontFamily:MONO, marginBottom:2 }}>CHANNELS</div>
+
             {/* Command Approval AR 621-5 block */}
             <a href="/ar-621-5.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration:"none" }} data-testid="link-cmd-approval">
               <div style={{
@@ -329,8 +331,6 @@ export default function MultiChannelDemo() {
                 </div>
               </div>
             </a>
-
-            <div style={{ fontSize:9, fontWeight:700, letterSpacing:"0.1em", color:"var(--dim)", fontFamily:MONO, marginBottom:2 }}>CHANNELS</div>
             {CH_LIST.map(chId => {
               const ch = CH[chId];
               const m = METRICS[chId];
