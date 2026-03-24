@@ -224,10 +224,10 @@ export default function MultiChannelDemo() {
       {/* ── PART A / B / C SELECTOR ── */}
       <div style={{ padding:"24px 24px 0", background:"var(--bg)" }}>
         <div style={{ fontSize:10, fontWeight:700, letterSpacing:"0.12em", color:"var(--dim)", fontFamily:MONO, marginBottom:12 }}>THREE-PART ARCHITECTURE</div>
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:12, marginBottom:24 }}>
-          {PARTS.map(p => {
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr auto 1fr", gap:12, alignItems:"stretch", marginBottom:24 }}>
+          {PARTS.flatMap((p, idx) => {
             const active = part === p.id;
-            return (
+            const partBtn = (
               <button key={p.id} onClick={() => setPart(p.id as PartId)} style={{
                 padding:"16px 18px", borderRadius:10, cursor:"pointer", textAlign:"left", transition:"all 0.2s",
                 border: active ? "2px solid "+p.color : "1px solid var(--border)",
@@ -243,6 +243,57 @@ export default function MultiChannelDemo() {
                 <div style={{ fontSize:10, color:"var(--dim)", fontFamily:MONO }}>{p.role}</div>
               </button>
             );
+
+            if (idx !== 1) return [partBtn];
+
+            const wave2 = (
+              <a key="wave2" href="/ar-621-5.pdf" target="_blank" rel="noopener noreferrer"
+                style={{ textDecoration:"none", display:"flex" }}
+                data-testid="link-wave2-ar621"
+              >
+                <div style={{
+                  padding:"14px 16px", borderRadius:10, width:"100%", boxSizing:"border-box",
+                  border:"2px solid var(--amber)", background:"var(--amber)10",
+                  position:"relative", overflow:"hidden", cursor:"pointer",
+                  display:"flex", flexDirection:"column", justifyContent:"space-between",
+                  transition:"background 0.2s",
+                }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,176,32,0.14)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,176,32,0.06)"; }}
+                >
+                  <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"var(--amber)" }} />
+                  <div>
+                    <div style={{ display:"flex", alignItems:"center", gap:7, marginBottom:5 }}>
+                      <span style={{ fontSize:9, fontFamily:MONO, fontWeight:900, padding:"2px 7px", borderRadius:3, background:"var(--amber)", color:"#000", letterSpacing:"0.08em" }}>WAVE 2</span>
+                      <span style={{ fontSize:9, fontFamily:MONO, fontWeight:700, color:"var(--amber)", letterSpacing:"0.06em" }}>CHANGE</span>
+                    </div>
+                    <div style={{ fontSize:13, fontWeight:800, color:"var(--amber)", marginBottom:2, lineHeight:1.2 }}>AR 621-5</div>
+                    <div style={{ fontSize:9, color:"var(--mid)", fontFamily:MONO, marginBottom:9 }}>Army Continuing Education System · 19 Mar 2026</div>
+                    <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                      {[
+                        { n:"01", title:"Commander Approval Required", sub:"All FTA & CA requests" },
+                        { n:"02", title:"Two-Recoupment Suspension",  sub:"12-month TA/CA suspension" },
+                        { n:"03", title:"Officers Removed from CA",   sub:"O1–O10 no longer eligible" },
+                      ].map(item => (
+                        <div key={item.n} style={{ display:"flex", gap:7, alignItems:"flex-start" }}>
+                          <span style={{ fontSize:10, fontWeight:900, color:"var(--amber)", fontFamily:MONO, flexShrink:0, marginTop:1 }}>{item.n}</span>
+                          <div>
+                            <div style={{ fontSize:10, fontWeight:700, color:"var(--text)", lineHeight:1.2 }}>{item.title}</div>
+                            <div style={{ fontSize:9, color:"var(--dim)", fontFamily:MONO }}>{item.sub}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ marginTop:12, display:"flex", alignItems:"center", justifyContent:"center", gap:5, padding:"7px 10px", borderRadius:6, background:"var(--amber)", color:"#000" }}>
+                    <span style={{ fontSize:11, fontWeight:900, fontFamily:MONO, letterSpacing:"0.06em" }}>SEE ATTACHED</span>
+                    <span style={{ fontSize:14, fontWeight:900, lineHeight:1 }}>↗</span>
+                  </div>
+                </div>
+              </a>
+            );
+
+            return [partBtn, wave2];
           })}
         </div>
       </div>
