@@ -324,7 +324,7 @@ export default function MultiChannelDemo() {
                   <span style={{ fontSize:8, fontFamily:MONO, fontWeight:700, color:"var(--amber)", letterSpacing:"0.06em" }}>AR 621-5</span>
                 </div>
                 <div style={{ fontSize:12, fontWeight:800, color:"var(--amber)", lineHeight:1.2, marginBottom:4 }}>Command Approval Required</div>
-                <div style={{ fontSize:10, color:"var(--mid)", lineHeight:1.45 }}>Commander approval now required for all FTA &amp; CA requests. Soldiers may designate an alternate POC (1SG, Platoon Sergeant, Unit Readiness NCO).</div>
+                <div style={{ fontSize:10, color:"var(--mid)", lineHeight:1.45 }}>Commander approval now required for all TA &amp; CA requests. Commander-assigned alternative serves as designatee.</div>
                 <div style={{ marginTop:8, display:"inline-flex", alignItems:"center", gap:4, padding:"4px 8px", borderRadius:5, background:"var(--amber)", color:"#000" }}>
                   <span style={{ fontSize:10, fontWeight:900, fontFamily:MONO, letterSpacing:"0.05em" }}>SEE ATTACHED</span>
                   <span style={{ fontSize:11, fontWeight:900 }}>↗</span>
