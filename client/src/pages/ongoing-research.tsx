@@ -8,7 +8,7 @@ const researchProjects = [
     id: "education-ai",
     title: "AI Education Futures Hub",
     description: "Evidence-based guidance for implementing AI across K-12, Higher Ed, Vocational, and Corporate learning. Analysis of 557 peer-reviewed papers with 8 implementation pathways and sector-specific guides.",
-    route: "/education-ai",
+    route: "/research/education-ai",
     status: "Research Library",
     external: false,
     papers: 557
@@ -17,7 +17,7 @@ const researchProjects = [
     id: "workforce-ai",
     title: "AI Workforce Readiness",
     description: "Doctoral-level analysis of AI in the workplace, US workforce readiness, and AI literacy frameworks. Comprehensive research on workforce transformation and skills development.",
-    route: "/workforce-ai",
+    route: "/research/workforce-ai",
     status: "Research",
     external: false,
     papers: 423
@@ -26,7 +26,7 @@ const researchProjects = [
     id: "universities-ai",
     title: "AI Use Cases in U.S. Universities",
     description: "Data-driven exploration of AI applications, policies, and governance frameworks across American higher education institutions.",
-    route: "/universities-ai",
+    route: "/research/universities-ai",
     status: "Analysis",
     external: false
   },
@@ -34,7 +34,7 @@ const researchProjects = [
     id: "ai-types",
     title: "AI Types & Classifications",
     description: "Comprehensive educational resource covering AI types by capability, functionality, and learning approach. Includes 20+ AI model explanations and selection guides.",
-    route: "/ai-types",
+    route: "/research/ai-types",
     status: "Educational",
     external: false
   },
@@ -42,7 +42,7 @@ const researchProjects = [
     id: "incarceration-research",
     title: "U.S. Incarceration Research Hub",
     description: "Comprehensive data and analysis on the American criminal justice system. State-by-state comparisons, demographics, policy analysis, and 36 research datasets.",
-    route: "/incarceration-research",
+    route: "/research/incarceration-research",
     status: "Research Hub",
     external: false,
     papers: 728
@@ -51,7 +51,7 @@ const researchProjects = [
     id: "human-capital",
     title: "Human Capital Institutional Throughput",
     description: "Comparative analysis of military and correctional education systems. Evidence-based framework modeling human capital change as function of investment and friction.",
-    route: "/human-capital",
+    route: "/research/human-capital",
     status: "Research Framework",
     external: false,
     papers: 453
