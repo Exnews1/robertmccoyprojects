@@ -13,7 +13,6 @@ import {
   Library,
   Search,
   Layers,
-  BarChart3,
   UserCircle,
   ClipboardList,
   Shield,
@@ -29,7 +28,6 @@ import {
 const frameworkItems = [
   { href: "/research/cmgf", label: "CMGF Home", icon: Home },
   { href: "/research/ai", label: "AI Architecture", icon: Cpu },
-  { href: "/research/cmgf/dashboard", label: "Executive Dashboard", icon: BarChart3 },
   { href: "/research/cmgf/five-pillars", label: "Five Pillars", icon: Layers },
   { href: "/research/explorer", label: "Reference Explorer", icon: Search },
   { href: "/research/cmgf/series", label: "Series 2026", icon: Layers },
