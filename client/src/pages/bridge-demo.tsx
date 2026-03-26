@@ -915,84 +915,133 @@ export default function BridgeDemo() {
         <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
           <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.12em", fontWeight: 700 }}>INSTITUTIONAL SIGNAL</div>
 
-          {/* ISR overview */}
+          {/* ISR — Policy Intelligence */}
           <div style={{ background: "var(--card)", border: "1px solid var(--purpleb)", borderRadius: 12, padding: 14, position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--purple)", borderRadius: "12px 12px 0 0" }} />
-            <div style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: "var(--purple)", marginBottom: 8 }}>DATA THAT FLOWS UP</div>
-            <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.6, marginBottom: 10 }}>
-              Every request — approved, held, or dropped — generates institutional data. Today, most of this is lost. CMGF captures it as aggregated, de-identified intelligence.
+            <div style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: "var(--purple)", marginBottom: 6 }}>POLICY INTELLIGENCE</div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 10 }}>
+              Every request — approved, held, or dropped — generates de-identified signal. This data informs policy, resource allocation, and congressional reporting.
             </div>
-            <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "8px 10px" }}>
-              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 6 }}>AGGREGATE PIPELINE METRICS</div>
+
+            <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "8px 10px", marginBottom: 10 }}>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 6 }}>DEMAND SIGNAL (AGGREGATE)</div>
               {[
-                ["Total requests (period)", "18"],
-                ["CMD certified", "15"],
-                ["CMD held", "3"],
-                ["ESO approved", "12"],
-                ["Top career field", "Healthcare"],
+                ["Total TA requests (Q2 FY26)", "247"],
+                ["CMD certified", "209 (84.6%)"],
+                ["CMD held (avail.)", "38 (15.4%)"],
+                ["ESO approved", "194"],
+                ["Bottleneck", "CMD cert. queue (avg 3.2 days)"],
+                ["Top career field", "Healthcare (31%)"],
+                ["Rising demand", "Cybersecurity (+42% QoQ)"],
                 ["Top MOU institution", "Troy University"],
               ].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)" }}>
-                  <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text)" }}>{v}</span>
+                  <span style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text)" }}>{v}</span>
                 </div>
               ))}
             </div>
+
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>SUBSCRIBERS</div>
+            {["Installation education command", "Army Human Resources Command", "DoD Voluntary Education (DANTES)", "Congressional reporting (NDAA §553)", "Pentagon workforce planning"].map(item => (
+              <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
+            ))}
           </div>
 
-          {/* What flows up — command chain visibility */}
+          {/* Transition analytics */}
           <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
-            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>COMMAND CHAIN RECEIVES</div>
-            {["Demand volume by career field", "MOU institution utilization rates", "TA/CA spending vs allocation", "CMD hold rates (no names)", "Pipeline throughput metrics"].map(item => (
-              <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.6 }}>· {item}</div>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>TRANSITION ANALYTICS</div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
+              ISR captures transition-intent signal from sandbox activity. SMs exploring career paths generate demand data — even before official requests.
+            </div>
+            <div style={{ background: "var(--bg2)", borderRadius: 7, padding: "7px 9px", marginBottom: 8 }}>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>SANDBOX → TRANSITION SIGNAL</div>
+              {[
+                ["Career paths explored", "1,842"],
+                ["Transition-intent detected", "614 (33%)"],
+                ["Avg. salary range searched", "$48K–$72K"],
+                ["Top pain point", "Credential transfer"],
+                ["TAP funding alignment", "67% gap identified"],
+              ].map(([k, v]) => (
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", borderBottom: "1px solid var(--border)" }}>
+                  <span style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
+                  <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text)" }}>{v}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>TRANSITION SANDBOX COULD PROVIDE</div>
+            {["Civilian salary ranges by career field", "Credential gap analysis (MOS → civilian)", "Transitioned veteran outcomes (BLS data)", "Pain points from prior cohorts", "Regional employer demand signals", "TAP resource alignment scoring"].map(item => (
+              <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
             ))}
-            <div style={{ marginTop: 8, fontSize: 9, color: "var(--dim)", fontStyle: "italic", lineHeight: 1.5 }}>
-              No individual SM data. Aggregate only. Policy and resource decisions informed by actual demand.
+          </div>
+
+          {/* Voice of the Veteran */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>VOICE OF THE VETERAN</div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
+              Aggregated feedback from transitioned veterans feeds back into the system — what worked, what didn't, what the next generation needs to know.
+            </div>
+            {[
+              { q: "Biggest barrier to civilian employment?", a: "Credential translation — military experience not recognized", pct: "47%" },
+              { q: "Was TA/CA education useful for transition?", a: "Yes, directly applicable", pct: "62%" },
+              { q: "Would a transition sandbox have helped?", a: "Strongly agree", pct: "78%" },
+            ].map(item => (
+              <div key={item.q} style={{ background: "var(--bg2)", borderRadius: 6, padding: "6px 8px", marginBottom: 6 }}>
+                <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", marginBottom: 2 }}>{item.q}</div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 9, color: "var(--mid)", fontWeight: 600 }}>{item.a}</span>
+                  <span style={{ fontSize: 10, fontFamily: MONO, fontWeight: 800, color: "var(--purple)" }}>{item.pct}</span>
+                </div>
+              </div>
+            ))}
+            <div style={{ fontSize: 9, color: "var(--dim)", fontStyle: "italic", marginTop: 4, lineHeight: 1.4 }}>
+              Wisdom from those who transitioned informs policy for those who will.
             </div>
           </div>
 
-          {/* Live signal — what this demo just generated */}
+          {/* Live signal — what this request generated */}
           {stage >= 3 && (
             <div className="bd-in-up" style={{ background: "var(--card)", border: `1px solid ${cmdDecision === "disapproved" ? "var(--redb)" : "var(--purpleb)"}`, borderRadius: 10, padding: "10px 12px" }}>
-              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>THIS REQUEST GENERATED</div>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>THIS REQUEST → ISR</div>
               {cmdDecision === "approved" ? (
                 <>
                   {[
                     ["Signal type", "TA request — approved flow"],
                     ["Career field", selectedCareer.label],
                     ["MOU institution", selectedCareer.course.school],
-                    ["Pipeline stage", stage >= 5 ? "Complete — ESO decided" : stage >= 4 ? "ESO queue" : "AI classification"],
+                    ["Pipeline stage", stage >= 5 ? "Complete" : stage >= 4 ? "ESO queue" : "AI classifying"],
                     ["ISR record", stage >= 5 ? "Created" : "Pending"],
+                    ["Transition signal", "Education-track (active)"],
                   ].map(([k, v]) => (
-                    <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)" }}>
-                      <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
+                    <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", borderBottom: "1px solid var(--border)" }}>
+                      <span style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
                       <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text)" }}>{v}</span>
                     </div>
                   ))}
                 </>
               ) : (
                 <>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "var(--redg)", borderRadius: 6, border: "1px solid var(--redb)", marginBottom: 8 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "var(--redg)", borderRadius: 6, border: "1px solid var(--redb)", marginBottom: 6 }}>
                     <EyeOff size={11} color="var(--red)" />
                     <span style={{ fontSize: 9, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>SUPPRESSED DEMAND</span>
                   </div>
-                  <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
-                    Without CMGF: this signal is lost entirely. The institution never knows demand existed.
+                  <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.4, marginBottom: 6 }}>
+                    Without CMGF: lost. No institutional record. Congress never sees the demand. TAP funding remains misaligned.
                   </div>
-                  <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ width: "100%", padding: "7px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 9, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
+                  <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ width: "100%", padding: "6px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 9, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
                     {shadowVisible ? "HIDE SHADOW SIGNAL" : "SHOW SHADOW SIGNAL →"}
                   </button>
                   {shadowVisible && (
-                    <div className="bd-in-up" style={{ marginTop: 8, background: "var(--bg2)", borderRadius: 7, padding: "8px 10px", border: "1px dashed var(--purpleb)" }}>
+                    <div className="bd-in-up" style={{ marginTop: 6, background: "var(--bg2)", borderRadius: 7, padding: "7px 9px", border: "1px dashed var(--purpleb)" }}>
                       <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>SHADOW SIGNAL (COUNT ONLY)</div>
-                      {[["Requests entering pipeline", "1"], ["Held at command", "1"], ["Forwarded to ESO", "0"]].map(([k, v]) => (
+                      {[["Requests entering pipeline", "1"], ["Held at command", "1"], ["Forwarded to ESO", "0"], ["Demand captured", "Yes (CMGF)"]].map(([k, v]) => (
                         <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", fontSize: 9 }}>
                           <span style={{ color: "var(--dim)", fontFamily: MONO }}>{k}</span>
                           <span style={{ fontWeight: 700, color: "var(--text)" }}>{v}</span>
                         </div>
                       ))}
-                      <div style={{ fontSize: 9, color: "var(--dim)", fontStyle: "italic", marginTop: 6, lineHeight: 1.4 }}>
-                        No names. No details. Count only. A governance design choice.
+                      <div style={{ fontSize: 8, color: "var(--dim)", fontStyle: "italic", marginTop: 4, lineHeight: 1.4 }}>
+                        No names. Count only. But Congress and the Pentagon now know this demand exists.
                       </div>
                     </div>
                   )}
@@ -1003,9 +1052,9 @@ export default function BridgeDemo() {
 
           {/* ISR not yet triggered */}
           {stage < 3 && (
-            <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "12px", textAlign: "center" }}>
-              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", lineHeight: 1.6 }}>
-                ISR signal will be generated once the pipeline processes this request — regardless of outcome.
+            <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
+              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", lineHeight: 1.5 }}>
+                ISR signal will be generated once the pipeline processes this request — regardless of outcome. Sandbox exploration is already generating transition-intent signal.
               </div>
             </div>
           )}
