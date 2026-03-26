@@ -52,6 +52,7 @@ import InsurancePipeline from "@/pages/insurance-pipeline";
 import InsuranceKMS from "@/pages/insurance-kms";
 import InsuranceLogin from "@/pages/insurance-login";
 import MultiChannelDemo from "@/pages/multi-channel-demo";
+import BridgeDemo from "@/pages/bridge-demo";
 import { PersonaProvider } from "@/components/persona-context";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AccessibilityControls } from "@/components/accessibility-controls";
@@ -215,6 +216,7 @@ function Router() {
       <Route path="/research/knowledge-systems/insurance/demo" component={InsurancePipeline} />
       <Route path="/research/knowledge-systems/insurance" component={InsuranceKMS} />
       <Route path="/research/multi-channel-demo" component={MultiChannelDemo} />
+      <Route path="/research/bridge-demo" component={BridgeDemo} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />
       <Route path="/research/contact" component={Contact} />

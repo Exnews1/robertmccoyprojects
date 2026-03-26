@@ -10,6 +10,7 @@ import {
   Lock,
   Scale,
   Eye,
+  Users,
 } from "lucide-react";
 
 const tools = [
@@ -36,6 +37,14 @@ const tools = [
       "One-click scenario generation applying CMGF governance rules to synthetic military learner profiles. Produces deterministic analysis with asynchronous HTML report generation.",
     icon: Rocket,
     tag: "Simulation",
+  },
+  {
+    href: "/research/bridge-demo",
+    title: "SM · ESO Bridge Demo",
+    description:
+      "The same TA request seen through two lenses simultaneously — Service Member and Education Services Officer. A step-by-step walkthrough of how AI mediates between the individual and the institution without replacing human judgment.",
+    icon: Users,
+    tag: "Dual-Lens Demo",
   },
 ];
 
