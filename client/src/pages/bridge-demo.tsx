@@ -170,12 +170,12 @@ function buildAiSteps(career: typeof CAREERS[number]) {
 }
 
 const STEPS = [
-  { label: "Sandbox Exploration",    cue: "SGT Chen is exploring privately — no institutional record, no commitment." },
-  { label: "Official Request",       cue: "SGT Chen elects to cross from sandbox to official request. The signal enters the system." },
-  { label: "AI Classification",      cue: "The CMGF engine runs seven checks — eligibility, compliance, risk, routing." },
-  { label: "Commander Review",       cue: "AR 621-5 WAVE 2: the Commander approves or disapproves before the ESO sees anything." },
-  { label: "ESO / Not Forwarded",    cue: "Approved: ESO receives the pre-analyzed request. Disapproved: request is dropped." },
-  { label: "Decision & Notify",      cue: "ESO reviews and decides. SGT Chen is notified. Audit record created." },
+  { label: "Sandbox Exploration",       cue: "SGT Chen explores privately. AI has facts. Commander has zero visibility. No institutional footprint." },
+  { label: "Official Request → Command", cue: "SGT Chen submits officially. Per AR 621-5 § 3-4, the request routes to the Commander first — not the ESO. The sandbox session is not disclosed." },
+  { label: "Commander Certification",   cue: "CPT Flores certifies availability and good standing only. Scope is limited — the Commander cannot reject based on course content or career choice." },
+  { label: "AI Classification",         cue: "Commander certified. Signal officially enters the CMGF pipeline. Seven checks now run on the institutional record." },
+  { label: "ESO Queue",                 cue: "Verified dossier delivered to James Okafor. The educational decision belongs to the ESO." },
+  { label: "Decision & Notify",         cue: "ESO adjudicates. SGT Chen is notified. Audit record created. ISR updated." },
 ];
 
 export default function BridgeDemo() {
@@ -190,21 +190,21 @@ export default function BridgeDemo() {
   const aiSteps = buildAiSteps(selectedCareer);
 
   useEffect(() => {
-    if (stage !== 2) return;
+    if (stage !== 3 || cmdDecision !== "approved") return;
     setAiIdx(-1); setAiDone(false);
     let i = 0;
     const tick = () => { setAiIdx(i); i++; if (i < aiSteps.length) setTimeout(tick, 420); else setTimeout(() => setAiDone(true), 600); };
     setTimeout(tick, 300);
-  }, [stage]);
+  }, [stage, cmdDecision]);
 
   const advance = () => {
-    if (stage === 2 && !aiDone) return;
-    if (stage === 3) return;
+    if (stage === 2) return;
+    if (stage === 3 && (!aiDone || cmdDecision === "disapproved")) return;
     setStage(s => Math.min(s + 1, 5));
   };
 
-  const handleCmdApprove = () => { setCmdDecision("approved"); setStage(4); };
-  const handleCmdDisapprove = () => { setCmdDecision("disapproved"); setStage(4); };
+  const handleCmdApprove = () => { setCmdDecision("approved"); setStage(3); };
+  const handleCmdDisapprove = () => { setCmdDecision("disapproved"); setStage(3); };
 
   const reset = () => {
     setStage(0); setAiIdx(-1); setAiDone(false);
@@ -213,13 +213,13 @@ export default function BridgeDemo() {
   };
 
   const stepIdx = Math.min(stage, STEPS.length - 1);
-  const advanceable = stage < 5 && stage !== 3 && !(stage === 2 && !aiDone) && !(stage === 4 && cmdDecision === "disapproved");
+  const advanceable = stage < 5 && stage !== 2 && !(stage === 3 && (!aiDone || cmdDecision === "disapproved"));
 
   const btnLabel = () => {
     if (stage === 0) return "START DEMO →";
-    if (stage === 2 && !aiDone) return "AI PROCESSING…";
-    if (stage === 3) return "USE COMMANDER GATE ↓";
-    if (stage === 4 && cmdDecision === "disapproved") return "REQUEST DROPPED";
+    if (stage === 2) return "AWAITING COMMANDER…";
+    if (stage === 3 && cmdDecision === "disapproved") return "REQUEST HELD";
+    if (stage === 3 && !aiDone) return "AI CLASSIFYING…";
     if (stage === 5) return "COMPLETE ✓";
     return "NEXT STEP →";
   };
@@ -432,8 +432,8 @@ export default function BridgeDemo() {
 
           {/* Official request card — stage 1+ */}
           {stage >= 1 && (
-            <div className="bd-in-sm" style={{ background: "var(--card)", border: `1px solid ${stage >= 4 && cmdDecision === "approved" ? "var(--greenb)" : stage >= 4 && cmdDecision === "disapproved" ? "var(--redb)" : "var(--blueb)"}`, borderRadius: 12, padding: 18, position: "relative", overflow: "hidden", transition: "border-color 0.4s" }}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 4 && cmdDecision === "approved" ? "var(--green)" : stage >= 4 && cmdDecision === "disapproved" ? "var(--red)" : "var(--blue)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
+            <div className="bd-in-sm" style={{ background: "var(--card)", border: `1px solid ${stage >= 4 && cmdDecision === "approved" ? "var(--greenb)" : stage >= 3 && cmdDecision === "disapproved" ? "var(--redb)" : "var(--blueb)"}`, borderRadius: 12, padding: 18, position: "relative", overflow: "hidden", transition: "border-color 0.4s" }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 4 && cmdDecision === "approved" ? "var(--green)" : stage >= 3 && cmdDecision === "disapproved" ? "var(--red)" : "var(--blue)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
               <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 12 }}>OFFICIAL TA REQUEST — SUBMITTED</div>
               {[["Course", `${selectedCareer.course.code} — ${selectedCareer.course.title}`], ["Institution", selectedCareer.course.school], ["Credit Hours", selectedCareer.course.credits + " hrs"], ["Cost", "$" + selectedCareer.course.cost], ["Start Date", selectedCareer.course.start]].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
@@ -444,17 +444,15 @@ export default function BridgeDemo() {
 
               <div style={{ marginTop: 14 }}>
                 {(stage === 1 || stage === 2) && (
-                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "var(--blueg)", borderRadius: 8, border: "1px solid var(--blueb)" }}>
-                    <Clock size={14} color="var(--blue)" style={{ animation: "bd-pulse 1.4s infinite" }} />
-                    <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--blue)", fontWeight: 600 }}>
-                      {stage === 1 ? "Submitted — AI classification starting…" : "CMGF engine processing…"}
-                    </span>
+                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "var(--amberg)", borderRadius: 8, border: "1px solid var(--amberb)" }}>
+                    <Clock size={14} color="var(--amber)" style={{ animation: "bd-pulse 1.4s infinite" }} />
+                    <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--amber)", fontWeight: 600 }}>Pending commander availability certification…</span>
                   </div>
                 )}
-                {stage === 3 && (
-                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "var(--amberg)", borderRadius: 8, border: "1px solid var(--amberb)" }}>
-                    <Clock size={14} color="var(--amber)" />
-                    <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--amber)", fontWeight: 600 }}>Pending commander review…</span>
+                {stage === 3 && cmdDecision === "approved" && !aiDone && (
+                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "var(--blueg)", borderRadius: 8, border: "1px solid var(--blueb)" }}>
+                    <Clock size={14} color="var(--blue)" style={{ animation: "bd-pulse 1.4s infinite" }} />
+                    <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--blue)", fontWeight: 600 }}>Commander certified — AI classification starting…</span>
                   </div>
                 )}
                 {stage >= 4 && cmdDecision === "approved" && stage < 5 && (
@@ -463,14 +461,14 @@ export default function BridgeDemo() {
                     <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--gold)", fontWeight: 600 }}>In ESO review queue…</span>
                   </div>
                 )}
-                {stage >= 4 && cmdDecision === "disapproved" && (
+                {stage >= 3 && cmdDecision === "disapproved" && (
                   <div className="bd-in-up" style={{ display: "flex", flexDirection: "column", gap: 6, padding: "12px 14px", background: "var(--redg)", borderRadius: 8, border: "1px solid var(--redb)" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <AlertTriangle size={15} color="var(--red)" />
-                      <span style={{ fontSize: 12, fontFamily: MONO, fontWeight: 800, color: "var(--red)" }}>REQUEST NOT FORWARDED</span>
+                      <span style={{ fontSize: 12, fontFamily: MONO, fontWeight: 800, color: "var(--red)" }}>NOT CERTIFIED — REQUEST HELD</span>
                     </div>
                     <div style={{ fontSize: 11, color: "var(--mid)", lineHeight: 1.5 }}>
-                      Your commander did not approve this request. It has not been submitted to the ESO. Contact your chain of command for guidance.
+                      Commander determined soldier not currently available per operational requirements. This is not a content decision. Request has not reached the ESO.
                     </div>
                   </div>
                 )}
@@ -493,12 +491,12 @@ export default function BridgeDemo() {
             <div className="bd-in-sm" style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 16 }}>
               <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 12 }}>REQUEST TRACKER</div>
               {[
-                { label: "Sandbox exploration",       done: true },
-                { label: "Official request submitted", done: stage >= 1 },
-                { label: "AI classification",          done: stage >= 3 },
-                { label: "Commander review",           done: stage >= 4, warn: cmdDecision === "disapproved" },
-                { label: "ESO review",                 done: stage >= 5, skip: cmdDecision === "disapproved" },
-                { label: "Decision & notification",    done: stage >= 5, skip: cmdDecision === "disapproved" },
+                { label: "Sandbox exploration",           done: true },
+                { label: "Official request → Command",    done: stage >= 1 },
+                { label: "Commander availability cert.",  done: stage >= 3, warn: cmdDecision === "disapproved" },
+                { label: "AI classification",             done: aiDone,     skip: cmdDecision === "disapproved" },
+                { label: "ESO review",                    done: stage >= 5, skip: cmdDecision === "disapproved" },
+                { label: "Decision & notification",       done: stage >= 5, skip: cmdDecision === "disapproved" },
               ].map((t, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "6px 0", borderBottom: i < 5 ? "1px solid var(--border)" : "none" }}>
                   <div style={{ width: 16, height: 16, borderRadius: "50%", background: t.skip ? "var(--border)" : t.warn ? "var(--red)" : t.done ? "var(--green)" : "var(--border)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background 0.4s" }}>
@@ -511,22 +509,136 @@ export default function BridgeDemo() {
           )}
         </div>
 
-        {/* ══ CENTER: AI BRIDGE + COMMANDER GATE ══ */}
+        {/* ══ CENTER: REGULATORY PIPELINE ══ */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
-          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.12em", fontWeight: 700, textAlign: "center" }}>MEDIATION LAYER</div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.12em", fontWeight: 700, textAlign: "center" }}>REGULATORY PIPELINE</div>
 
-          {/* CMGF Engine card */}
-          <div style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 12, padding: 14, textAlign: "center", position: "relative", overflow: "hidden" }}>
+          {/* Horizontal pipeline bar */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "8px 10px" }}>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 6, textAlign: "center" }}>AR 621-5 SEQUENCE</div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
+              {[
+                { label: "SM", active: stage >= 0, color: "var(--blue)" },
+                { label: "CMD", active: stage >= 1, color: "var(--amber)" },
+                { label: "AI", active: stage >= 3 && cmdDecision === "approved", color: "var(--gold)" },
+                { label: "ESO", active: stage >= 4 && cmdDecision === "approved", color: "var(--green)" },
+              ].map((node, i) => (
+                <div key={node.label} style={{ display: "flex", alignItems: "center", gap: 2, flex: i < 3 ? "1 1 0" : "0 0 auto" }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: node.active ? node.color : "var(--bg2)", border: `2px solid ${node.active ? node.color : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.4s", flexShrink: 0 }}>
+                      <span style={{ fontSize: 8, fontFamily: MONO, fontWeight: 800, color: node.active ? "#000" : "var(--dim)" }}>{node.label}</span>
+                    </div>
+                  </div>
+                  {i < 3 && <div style={{ flex: 1, height: 2, background: node.active ? node.color : "var(--border)", transition: "background 0.4s", marginBottom: 0 }} />}
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", textAlign: "center", marginTop: 5 }}>
+              Command certifies first — course content decisions belong to ESO
+            </div>
+          </div>
+
+          {/* Flow arrow: SM → CMD */}
+          <FlowArrow active={stage >= 1} color="var(--amber)" label="SM REQUEST → CMD" />
+
+          {/* Commander Certification gate — FIRST in pipeline */}
+          <div style={{ background: "var(--card)", border: `2px solid ${stage >= 3 && cmdDecision === "disapproved" ? "var(--red)" : stage >= 2 ? "var(--amber)" : "var(--border)"}`, borderRadius: 12, padding: 14, position: "relative", overflow: "hidden", transition: "border-color 0.4s", animation: stage === 2 && cmdDecision === "none" ? "bd-glow 2s infinite" : "none" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 2 ? (cmdDecision === "disapproved" ? "var(--red)" : stage >= 3 ? "var(--green)" : "var(--amber)") : "var(--border)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: stage >= 2 ? "var(--amberg)" : "var(--bg2)", border: `1px solid ${stage >= 2 ? "var(--amberb)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.3s" }}>
+                <Star size={15} color={stage >= 2 ? "var(--amber)" : "var(--dim)"} />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: stage >= 2 ? "var(--amber)" : "var(--dim)", letterSpacing: "0.06em" }}>AVAILABILITY CERTIFICATION</div>
+                <div style={{ fontSize: 9, color: "var(--dim)" }}>AR 621-5 § 3-4 · Commander certifies readiness only</div>
+              </div>
+            </div>
+
+            {stage >= 2 && (
+              <div className="bd-in-up">
+                <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text)", marginBottom: 1 }}>{CMD.name}</div>
+                <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--amber)", marginBottom: 1 }}>{CMD.title}</div>
+                <div style={{ fontSize: 10, color: "var(--dim)", marginBottom: 10 }}>{CMD.unit}</div>
+
+                {cmdDecision === "none" && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div style={{ background: "var(--bg2)", borderRadius: 7, padding: "7px 10px", marginBottom: 4 }}>
+                      <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>CERTIFICATION SCOPE (AR 621-5 § 3-4)</div>
+                      {["Soldier not flagged or under adverse action", "Duties permit attendance during course period", "No prior TA recoupment violations", "Not course content · Not career choice"].map(item => (
+                        <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
+                      ))}
+                    </div>
+                    <button onClick={handleCmdApprove} data-testid="button-cmd-approve" style={{ padding: "9px", background: "var(--green)", color: "#000", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
+                      ✓ CERTIFY AVAILABLE — RELEASE TO PIPELINE
+                    </button>
+                    <button onClick={handleCmdDisapprove} data-testid="button-cmd-disapprove" style={{ padding: "9px", background: "var(--red)", color: "#fff", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
+                      ✗ NOT AVAILABLE — HOLD REQUEST
+                    </button>
+                  </div>
+                )}
+
+                {cmdDecision === "approved" && (
+                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
+                    <CheckCircle size={13} color="var(--green)" />
+                    <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--green)" }}>CERTIFIED — RELEASED TO PIPELINE</span>
+                  </div>
+                )}
+
+                {cmdDecision === "disapproved" && (
+                  <div className="bd-in-up" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--redg)", borderRadius: 7, border: "1px solid var(--redb)" }}>
+                      <AlertTriangle size={13} color="var(--red)" />
+                      <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>NOT AVAILABLE — REQUEST HELD</span>
+                    </div>
+                    <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, fontStyle: "italic" }}>
+                      Operational availability only. Not a rejection of course or career choice.
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {stage < 2 && (
+              <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5 }}>
+                Under AR 621-5 § 3-4, the Commander certifies availability and good standing before the request enters the education pipeline. Course content is outside command scope.
+              </div>
+            )}
+          </div>
+
+          {/* Flow arrow: CMD → AI (only if certified) */}
+          <FlowArrow
+            active={stage >= 3 && cmdDecision === "approved"}
+            blocked={stage >= 3 && cmdDecision === "disapproved"}
+            color={cmdDecision === "disapproved" ? "var(--red)" : "var(--gold)"}
+            label={cmdDecision === "disapproved" ? "HELD — NOT FORWARDED" : "CERTIFIED → AI ENGINE"}
+          />
+
+          {/* Shadow signal note (disapproved path) */}
+          {stage >= 3 && cmdDecision === "disapproved" && (
+            <div className="bd-in-up" style={{ background: "var(--bg2)", border: "1px dashed var(--border)", borderRadius: 10, padding: 12 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 7 }}>
+                {shadowVisible ? <Eye size={12} color="var(--purple)" /> : <EyeOff size={12} color="var(--dim)" />}
+                <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.1em", fontWeight: 700 }}>CMGF SHADOW SIGNAL</span>
+              </div>
+              <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5, marginBottom: 8 }}>
+                ESO sees nothing. Demand is invisible. CMGF could log a count-only signal — no names, no details — preserving institutional awareness without exposing the SM.
+              </div>
+              <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ padding: "6px 12px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 10, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
+                {shadowVisible ? "HIDE SIGNAL" : "SHOW SHADOW SIGNAL →"}
+              </button>
+            </div>
+          )}
+
+          {/* CMGF Engine card — appears after certification */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 12, padding: 14, textAlign: "center", position: "relative", overflow: "hidden", opacity: stage >= 3 && cmdDecision === "approved" ? 1 : 0.3, transition: "opacity 0.4s" }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--gold)", borderRadius: "12px 12px 0 0" }} />
-            <div style={{ width: 38, height: 38, borderRadius: "50%", background: "var(--goldg)", border: "1px solid var(--goldb)", display: "flex", alignItems: "center", justifyContent: "center", margin: "6px auto 8px", animation: stage === 2 ? "bd-glow 1.2s infinite" : "none" }}>
+            <div style={{ width: 38, height: 38, borderRadius: "50%", background: "var(--goldg)", border: "1px solid var(--goldb)", display: "flex", alignItems: "center", justifyContent: "center", margin: "6px auto 8px", animation: stage === 3 && cmdDecision === "approved" ? "bd-glow 1.2s infinite" : "none" }}>
               <Brain size={18} color="var(--gold)" />
             </div>
             <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--gold)", letterSpacing: "0.06em" }}>CMGF ENGINE</div>
-            <div style={{ fontSize: 10, color: "var(--dim)", marginTop: 3 }}>Non-authoritative AI</div>
+            <div style={{ fontSize: 10, color: "var(--dim)", marginTop: 3 }}>Classification on official record</div>
           </div>
-
-          {/* Flow arrow: SM → AI */}
-          <FlowArrow active={stage >= 1} color="var(--blue)" label="SM REQUEST" />
 
           {/* AI classification steps */}
           <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 12 }}>
@@ -534,7 +646,7 @@ export default function BridgeDemo() {
             {aiSteps.map((s, i) => {
               const done = aiIdx >= i; const active = aiIdx === i && !aiDone;
               return (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, opacity: stage < 2 ? 0.25 : 1, transition: "opacity 0.3s", marginBottom: 6 }}>
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, opacity: stage < 3 || cmdDecision !== "approved" ? 0.2 : 1, transition: "opacity 0.3s", marginBottom: 6 }}>
                   <div style={{ width: 13, height: 13, borderRadius: "50%", background: done ? "var(--green)" : active ? "var(--gold)" : "var(--border)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2, transition: "background 0.3s", animation: active ? "bd-pulse 0.8s infinite" : "none" }}>
                     {done && !active && <CheckCircle size={9} color="#000" />}
                   </div>
@@ -547,7 +659,7 @@ export default function BridgeDemo() {
             })}
           </div>
 
-          {/* AI policy verification output — facts only, no recommendation */}
+          {/* AI policy verification output — facts only */}
           {aiDone && (
             <div className="bd-in-up" style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 10, padding: "11px 14px" }}>
               <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 8, fontWeight: 700 }}>POLICY VERIFICATION COMPLETE</div>
@@ -555,7 +667,7 @@ export default function BridgeDemo() {
                 ["Policy flags", selectedCareer.id === "cyber" ? "Prerequisite gap (no violation)" : "None identified"],
                 ["AR 621-5 status", "Compliant"],
                 ["Risk index", selectedCareer.facts.find(f => f[0] === "Policy risk index")?.[1] ?? "—"],
-                ["Routing", "→ Commander gate (WAVE 2)"],
+                ["Routing", "→ ESO queue"],
               ].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "4px 0", borderBottom: "1px solid var(--border)", gap: 8 }}>
                   <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
@@ -563,96 +675,17 @@ export default function BridgeDemo() {
                 </div>
               ))}
               <div style={{ marginTop: 8, fontSize: 9, fontFamily: MONO, color: "var(--dim)", fontStyle: "italic" }}>
-                Facts verified · No decision authority · Human adjudication required
+                Facts verified · No decision authority · ESO adjudication required
               </div>
             </div>
           )}
 
-          {/* Flow arrow: AI → CMD */}
-          <FlowArrow active={stage >= 3} color="var(--amber)" label="→ CMD REVIEW" />
-
-          {/* Commander gate */}
-          <div style={{ background: "var(--card)", border: `2px solid ${stage >= 4 && cmdDecision === "disapproved" ? "var(--red)" : stage >= 3 ? "var(--amber)" : "var(--border)"}`, borderRadius: 12, padding: 14, position: "relative", overflow: "hidden", transition: "border-color 0.4s", animation: stage === 3 && cmdDecision === "none" ? "bd-glow 2s infinite" : "none" }}>
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 3 ? (cmdDecision === "disapproved" ? "var(--red)" : "var(--amber)") : "var(--border)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
-
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: stage >= 3 ? "var(--amberg)" : "var(--bg2)", border: `1px solid ${stage >= 3 ? "var(--amberb)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.3s" }}>
-                <Star size={15} color={stage >= 3 ? "var(--amber)" : "var(--dim)"} />
-              </div>
-              <div>
-                <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: stage >= 3 ? "var(--amber)" : "var(--dim)", letterSpacing: "0.06em" }}>COMMANDER GATE</div>
-                <div style={{ fontSize: 10, color: "var(--dim)" }}>AR 621-5 WAVE 2</div>
-              </div>
-            </div>
-
-            {stage >= 3 && (
-              <div className="bd-in-up">
-                <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text)", marginBottom: 2 }}>{CMD.name}</div>
-                <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--amber)", marginBottom: 2 }}>{CMD.title}</div>
-                <div style={{ fontSize: 10, color: "var(--dim)", marginBottom: 12 }}>{CMD.unit}</div>
-
-                {cmdDecision === "none" && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    <button onClick={handleCmdApprove} data-testid="button-cmd-approve" style={{ padding: "9px", background: "var(--green)", color: "#000", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
-                      ✓ APPROVE — FORWARD TO ESO
-                    </button>
-                    <button onClick={handleCmdDisapprove} data-testid="button-cmd-disapprove" style={{ padding: "9px", background: "var(--red)", color: "#fff", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
-                      ✗ DISAPPROVE — DROP REQUEST
-                    </button>
-                  </div>
-                )}
-
-                {cmdDecision === "approved" && (
-                  <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
-                    <CheckCircle size={13} color="var(--green)" />
-                    <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--green)" }}>APPROVED — FORWARDED</span>
-                  </div>
-                )}
-
-                {cmdDecision === "disapproved" && (
-                  <div className="bd-in-up" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--redg)", borderRadius: 7, border: "1px solid var(--redb)" }}>
-                      <AlertTriangle size={13} color="var(--red)" />
-                      <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>DISAPPROVED — DROPPED</span>
-                    </div>
-                    <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.5 }}>
-                      Request will not reach the ESO queue. Without CMGF, this creates zero institutional visibility.
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {stage < 3 && (
-              <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5 }}>
-                Commander must approve before the ESO can see this request. This gate is new under AR 621-5 WAVE 2.
-              </div>
-            )}
-          </div>
-
-          {/* Flow arrow: CMD → ESO (conditional) */}
+          {/* Flow arrow: AI → ESO */}
           <FlowArrow
             active={stage >= 4 && cmdDecision === "approved"}
-            blocked={stage >= 4 && cmdDecision === "disapproved"}
-            color={cmdDecision === "disapproved" ? "var(--red)" : "var(--green)"}
-            label={cmdDecision === "disapproved" ? "BLOCKED" : "→ ESO QUEUE"}
+            color="var(--green)"
+            label="→ ESO QUEUE"
           />
-
-          {/* Shadow signal note */}
-          {stage >= 4 && cmdDecision === "disapproved" && (
-            <div className="bd-in-up" style={{ background: "var(--bg2)", border: "1px dashed var(--border)", borderRadius: 10, padding: 12 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 7 }}>
-                {shadowVisible ? <Eye size={12} color="var(--purple)" /> : <EyeOff size={12} color="var(--dim)" />}
-                <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.1em", fontWeight: 700 }}>CMGF SHADOW SIGNAL</span>
-              </div>
-              <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5, marginBottom: 8 }}>
-                Without this tool: ESO sees nothing. Demand is invisible. A CMGF-informed system could log a count-only signal — no names, no details — so the institution knows demand existed.
-              </div>
-              <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ padding: "6px 12px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 10, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
-                {shadowVisible ? "HIDE SIGNAL" : "SHOW SHADOW SIGNAL →"}
-              </button>
-            </div>
-          )}
         </div>
 
         {/* ══ RIGHT: ESO ══ */}
@@ -687,20 +720,22 @@ export default function BridgeDemo() {
           </div>
 
           {/* ESO awaiting state */}
-          {stage < 4 && (
+          {stage < 4 && cmdDecision !== "disapproved" && (
             <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 28, textAlign: "center" }}>
               <Clock size={28} color="var(--dim)" style={{ marginBottom: 10 }} />
               <div style={{ fontSize: 13, fontFamily: MONO, color: "var(--dim)", marginBottom: 6 }}>
-                {stage < 3 ? "Awaiting classification & commander review…" : "Pending commander decision…"}
+                {stage < 2 ? "Awaiting commander availability certification…"
+                  : stage === 2 ? "Commander reviewing — not yet forwarded…"
+                  : "Commander certified — AI classifying on record…"}
               </div>
               <div style={{ fontSize: 11, color: "var(--dim)", lineHeight: 1.5 }}>
-                The ESO cannot see this request until the commander approves and forwards it. This is the WAVE 2 gate.
+                The ESO cannot see this request until the commander certifies availability and the pipeline completes. AR 621-5 § 3-4.
               </div>
             </div>
           )}
 
           {/* Disapproved — shadow signal panel */}
-          {stage >= 4 && cmdDecision === "disapproved" && (
+          {stage >= 3 && cmdDecision === "disapproved" && (
             <div className="bd-in-eso">
               <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 20, textAlign: "center", marginBottom: 14 }}>
                 <EyeOff size={28} color="var(--dim)" style={{ marginBottom: 10 }} />
