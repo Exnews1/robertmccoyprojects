@@ -47,7 +47,7 @@ const THEME = `
 const SM = {
   name: "SGT Maria T. Chen",
   rank: "E-5", mos: "68W — Health Care Specialist",
-  station: "Fort Campbell, KY",
+  station: "Ft. Somewhere, USA",
   credits: 54, taBalance: 3250,
 };
 
@@ -158,14 +158,14 @@ const ESO = {
   name: "James R. Okafor",
   title: "Education Services Officer",
   grade: "GS-11, Civilian",
-  station: "Fort Campbell Education Center",
+  station: "Ft. Somewhere Education Center",
   queueCount: 17,
 };
 
 const CMD = {
   name: "CPT Denise M. Flores",
   title: "Company Commander",
-  unit: "HHC, 2-101 AVN, 101st ABN DIV",
+  unit: "HHC, 2-XX AVN, XXTH DIV",
 };
 
 function buildAiSteps(career: typeof CAREERS[number]) {
