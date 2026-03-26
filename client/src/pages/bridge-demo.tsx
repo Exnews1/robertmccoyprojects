@@ -51,18 +51,27 @@ const SM = {
   credits: 54, taBalance: 3250,
 };
 
+type Readiness = "green" | "yellow" | "red";
+
+const READINESS_CONFIG: Record<Readiness, { label: string; note: string; color: string; bg: string; border: string }> = {
+  green:  { label: "HIGH PROXIMITY",    note: "Entry pathway available now — direct application or supported program eliminates major barriers.", color: "var(--green)",  bg: "var(--greeng)",  border: "var(--greenb)"  },
+  yellow: { label: "MODERATE PROXIMITY", note: "Education and/or licensure required before entry. TA pathway directly applicable.", color: "var(--amber)",  bg: "var(--amberg)",  border: "var(--amberb)"  },
+  red:    { label: "DISTANT PROXIMITY",  note: "Education, certification, AND real-world experience all required. Long runway.", color: "var(--red)",    bg: "var(--redg)",    border: "var(--redb)"    },
+};
+
 const CAREERS = [
   {
     id: "healthcare-admin",
     label: "Healthcare Administrator",
     icon: "🏥",
+    readiness: "yellow" as Readiness,
     degree: "B.S. Healthcare Administration",
     course: { code: "HLTH 301", title: "Health Policy & Law", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
       ["Degree alignment",   "HLTH 301 maps directly to declared degree plan"],
       ["MOS credit value",   "68W translates 12–18 credits toward healthcare programs"],
-      ["Credential gap",     "None at course level — degree required for management roles"],
+      ["Credential gap",     "Degree required — no separate licensure at admin level"],
       ["AR 621-5 flags",     "None identified"],
       ["Policy risk index",  "0.12 (no thresholds breached)"],
     ],
@@ -71,13 +80,14 @@ const CAREERS = [
     id: "nurse",
     label: "Registered Nurse",
     icon: "⚕",
+    readiness: "yellow" as Readiness,
     degree: "B.S. Nursing (BSN)",
     course: { code: "BIOL 220", title: "Anatomy & Physiology II", school: "American Military University", credits: 4, cost: 900, start: "April 14, 2026" },
     facts: [
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
       ["Degree alignment",   "BIOL 220 fulfills BSN science prerequisite requirement"],
       ["MOS credit value",   "68W field experience maps to clinical hour portfolio"],
-      ["Credential gap",     "NCLEX-RN license required post-graduation (not TA-funded)"],
+      ["Credential gap",     "BSN required + NCLEX-RN licensure before practice"],
       ["AR 621-5 flags",     "None identified"],
       ["Policy risk index",  "0.14 (no thresholds breached)"],
     ],
@@ -86,13 +96,14 @@ const CAREERS = [
     id: "police",
     label: "Police / Law Enforcement",
     icon: "🚔",
-    degree: "B.S. Criminal Justice",
+    readiness: "green" as Readiness,
+    degree: "B.S. Criminal Justice (optional)",
     course: { code: "CJUS 210", title: "Criminology & Social Justice", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "CJUS 210 maps to B.S. Criminal Justice core requirements"],
-      ["MOS credit value",   "Military police/leadership experience transferable"],
-      ["Credential gap",     "State POST certification required after degree (not TA-funded)"],
+      ["Degree alignment",   "CJUS 210 strengthens application — not required for entry"],
+      ["Entry requirement",  "Most departments: HS diploma + background check. Degree not required."],
+      ["Veteran preference", "Federal and most state agencies grant veterans' preference points"],
       ["AR 621-5 flags",     "None identified"],
       ["Policy risk index",  "0.11 (no thresholds breached)"],
     ],
@@ -101,28 +112,31 @@ const CAREERS = [
     id: "teacher",
     label: "K-12 Teacher",
     icon: "📚",
-    degree: "B.S. Education",
+    readiness: "green" as Readiness,
+    degree: "B.S. Education (or Alt. Cert. via S2T)",
     course: { code: "EDUC 301", title: "Curriculum Design & Assessment", school: "Columbia Southern University", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
-      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "EDUC 301 maps to B.S. Education pedagogy track"],
-      ["MOS credit value",   "Army instructor/trainer roles may qualify for field experience credit"],
-      ["Credential gap",     "State teaching license required after degree (state-specific)"],
-      ["AR 621-5 flags",     "None identified"],
-      ["Policy risk index",  "0.10 (no thresholds breached)"],
+      ["TA eligibility",       "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Soldiers to Teachers", "Federal S2T program — stipends, alt. certification, state placement support"],
+      ["Alt. cert. pathway",   "Most states allow military veterans to teach under emergency/alt. licensure"],
+      ["MOS credit value",     "Army instructor/trainer background directly applicable to classroom"],
+      ["Credential gap",       "State license required — waived or fast-tracked in many S2T partner states"],
+      ["AR 621-5 flags",       "None identified"],
+      ["Policy risk index",    "0.10 (no thresholds breached)"],
     ],
   },
   {
     id: "cyber",
     label: "Cybersecurity Analyst",
     icon: "🔐",
+    readiness: "red" as Readiness,
     degree: "B.S. Cybersecurity",
     course: { code: "CSCI 250", title: "Network Security Fundamentals", school: "American Military University", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
       ["Degree alignment",   "CSCI 250 maps to B.S. Cybersecurity core — partial alignment only"],
-      ["MOS credit value",   "68W STEM credits limited; additional prerequisites likely required"],
-      ["Credential gap",     "CompTIA Security+ recommended parallel to degree (CA-fundable)"],
+      ["MOS credit value",   "68W STEM credits limited; prerequisite coursework likely required"],
+      ["Credential gap",     "Degree + CompTIA Security+/CISSP + demonstrated experience all required"],
       ["AR 621-5 flags",     "None identified — prerequisite gap noted for ESO awareness"],
       ["Policy risk index",  "0.31 (elevated — prerequisite gap; no policy violation)"],
     ],
@@ -346,44 +360,66 @@ export default function BridgeDemo() {
               {/* Career selector */}
               <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8 }}>SELECT CIVILIAN END-STATE</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 14 }}>
-                {CAREERS.map(c => (
-                  <button
-                    key={c.id}
-                    onClick={() => setSelectedCareer(c)}
-                    data-testid={`button-career-${c.id}`}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                      background: selectedCareer.id === c.id ? "var(--purpleg)" : "var(--bg2)",
-                      border: `1px solid ${selectedCareer.id === c.id ? "var(--purpleb)" : "var(--border)"}`,
-                      borderRadius: 8, cursor: "pointer", textAlign: "left", transition: "all 0.2s",
-                    }}
-                  >
-                    <span style={{ fontSize: 18, flexShrink: 0 }}>{c.icon}</span>
-                    <div>
-                      <div style={{ fontSize: 12, fontWeight: 700, color: selectedCareer.id === c.id ? "var(--purple)" : "var(--text)" }}>{c.label}</div>
-                      <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)" }}>{c.degree}</div>
-                    </div>
-                    {selectedCareer.id === c.id && <CheckCircle size={14} color="var(--purple)" style={{ marginLeft: "auto", flexShrink: 0 }} />}
-                  </button>
-                ))}
+                {CAREERS.map(c => {
+                  const rc = READINESS_CONFIG[c.readiness];
+                  const isSelected = selectedCareer.id === c.id;
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => setSelectedCareer(c)}
+                      data-testid={`button-career-${c.id}`}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                        background: isSelected ? rc.bg : "var(--bg2)",
+                        border: `1px solid ${isSelected ? rc.border : "var(--border)"}`,
+                        borderRadius: 8, cursor: "pointer", textAlign: "left", transition: "all 0.2s",
+                      }}
+                    >
+                      <span style={{ fontSize: 18, flexShrink: 0 }}>{c.icon}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: isSelected ? rc.color : "var(--text)" }}>{c.label}</div>
+                        <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", marginTop: 1 }}>{c.degree}</div>
+                      </div>
+                      <div style={{
+                        flexShrink: 0, padding: "2px 8px", borderRadius: 10,
+                        background: rc.bg, border: `1px solid ${rc.border}`,
+                        fontSize: 8, fontFamily: MONO, fontWeight: 800, color: rc.color, letterSpacing: "0.08em",
+                      }}>
+                        {c.readiness === "green" ? "●" : c.readiness === "yellow" ? "●" : "●"}
+                        {" "}{c.readiness.toUpperCase()}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Dynamic feasibility facts */}
-              <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "10px 14px", marginBottom: 14 }} className="bd-in-up" key={selectedCareer.id}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                  <span style={{ fontSize: 16 }}>{selectedCareer.icon}</span>
-                  <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", fontWeight: 700 }}>SANDBOX FACTS — {selectedCareer.label.toUpperCase()}</div>
-                </div>
-                {selectedCareer.facts.map(([k, v]) => (
-                  <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "6px 0", borderBottom: "1px solid var(--border)", gap: 12 }}>
-                    <span style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
-                    <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text)", textAlign: "right", lineHeight: 1.3 }}>{v}</span>
+              {(() => {
+                const rc = READINESS_CONFIG[selectedCareer.readiness];
+                return (
+                  <div style={{ borderRadius: 8, border: `1px solid ${rc.border}`, overflow: "hidden", marginBottom: 14 }} className="bd-in-up" key={selectedCareer.id}>
+                    <div style={{ background: rc.bg, padding: "8px 14px", display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 18 }}>{selectedCareer.icon}</span>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 9, fontFamily: MONO, fontWeight: 800, color: rc.color, letterSpacing: "0.1em" }}>{rc.label}</div>
+                        <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.4, marginTop: 2 }}>{rc.note}</div>
+                      </div>
+                    </div>
+                    <div style={{ background: "var(--bg2)", padding: "10px 14px" }}>
+                      <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 6 }}>SANDBOX FACTS — {selectedCareer.label.toUpperCase()}</div>
+                      {selectedCareer.facts.map(([k, v]) => (
+                        <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "6px 0", borderBottom: "1px solid var(--border)", gap: 12 }}>
+                          <span style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
+                          <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text)", textAlign: "right", lineHeight: 1.3 }}>{v}</span>
+                        </div>
+                      ))}
+                      <div style={{ marginTop: 10, padding: "6px 10px", background: rc.bg, borderRadius: 6, border: `1px solid ${rc.border}` }}>
+                        <span style={{ fontSize: 10, color: rc.color, fontFamily: MONO }}>Course: {selectedCareer.course.code} — {selectedCareer.course.title} · ${selectedCareer.course.cost}</span>
+                      </div>
+                    </div>
                   </div>
-                ))}
-                <div style={{ marginTop: 10, padding: "6px 10px", background: "var(--purpleg)", borderRadius: 6, border: "1px solid var(--purpleb)" }}>
-                  <span style={{ fontSize: 10, color: "var(--purple)", fontFamily: MONO }}>Course to request: {selectedCareer.course.code} — {selectedCareer.course.title} · ${selectedCareer.course.cost}</span>
-                </div>
-              </div>
+                );
+              })()}
 
               <div style={{ fontSize: 11, color: "var(--dim)", fontStyle: "italic", marginBottom: 14 }}>
                 No institutional record has been created. SGT Chen may exit without any consequence.
