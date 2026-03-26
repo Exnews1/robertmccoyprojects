@@ -11,10 +11,10 @@ const PROOF_POINTS = [
 ];
 
 const REGULATORY_DRIVERS = [
-  { label: "DOL TEN 07-25", desc: "AI Literacy Framework — mandatory for all ETA grantees", date: "Feb 2025", urgency: "Active Now" },
-  { label: "NIST AI RMF 1.0", desc: "Risk management framework for trustworthy AI systems", date: "Jan 2023", urgency: "Adopted" },
-  { label: "EO 14179", desc: "Federal policy on removing barriers to AI innovation with safeguards", date: "Jan 2025", urgency: "Active" },
-  { label: "EU AI Act", desc: "Risk-based classification with compliance deadlines approaching", date: "Aug 2024", urgency: "Phasing In" },
+  { label: "DOL TEN 07-25", desc: "AI Literacy Framework — mandatory for all ETA grantees", date: "Feb 2025", urgency: "Active Now", href: "https://www.dol.gov/agencies/eta/advisories/ten-07-25" },
+  { label: "NIST AI RMF 1.0", desc: "Risk management framework for trustworthy AI systems", date: "Jan 2023", urgency: "Adopted", href: "https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence" },
+  { label: "EO 14179", desc: "Federal policy on removing barriers to AI innovation with safeguards", date: "Jan 2025", urgency: "Active", href: "https://www.whitehouse.gov/presidential-actions/removing-barriers-to-american-leadership-in-artificial-intelligence/" },
+  { label: "EU AI Act", desc: "Risk-based classification with compliance deadlines approaching", date: "Aug 2024", urgency: "Phasing In", href: "https://artificialintelligenceact.eu/" },
 ];
 
 const PERSPECTIVES = [
@@ -80,16 +80,21 @@ export default function ConsultingHome() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {REGULATORY_DRIVERS.map(r => (
-              <Card key={r.label} className="border-border bg-card" data-testid={`card-regulation-${r.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                <CardContent className="pt-6 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-foreground">{r.label}</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-sm" style={{ background: 'rgba(180,83,9,0.15)', color: '#B45309' }}>{r.urgency}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
-                  <p className="text-[10px] font-mono text-muted-foreground/60">{r.date}</p>
-                </CardContent>
-              </Card>
+              <a key={r.label} href={r.href} target="_blank" rel="noopener noreferrer" className="block group">
+                <Card className="border-border bg-card group-hover:border-primary/40 group-hover:shadow-md transition-all cursor-pointer h-full" data-testid={`card-regulation-${r.label.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <CardContent className="pt-6 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">{r.label}</span>
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-sm" style={{ background: 'rgba(180,83,9,0.15)', color: '#B45309' }}>{r.urgency}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-[10px] font-mono text-muted-foreground/60">{r.date}</p>
+                      <ExternalLink className="w-3 h-3 text-muted-foreground/40 group-hover:text-primary/60 transition-colors" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
             ))}
           </div>
         </div>
@@ -108,17 +113,20 @@ export default function ConsultingHome() {
               { icon: GraduationCap, title: "AI Literacy Training", desc: "DOL TEN 07-25 aligned workshops for workforce and leadership." },
               { icon: ShieldCheck, title: "Third-Party AI Governance Audit", desc: "Assess inherited AI risks from vendor tools and platforms." },
             ].map(s => (
-              <Card key={s.title} className="border-border bg-card hover:border-primary/30 transition-colors" data-testid={`card-preview-${s.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                <CardContent className="pt-6 flex items-start gap-4">
-                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <s.icon className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground text-sm">{s.title}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{s.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link key={s.title} href="/services">
+                <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid={`card-preview-${s.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <CardContent className="pt-6 flex items-start gap-4">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <s.icon className="w-4 h-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground text-sm">{s.title}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{s.desc}</p>
+                      <span className="text-[10px] font-mono text-primary flex items-center gap-1 mt-2">Learn More <ArrowRight className="w-3 h-3" /></span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
           <div className="text-center mt-6">
@@ -142,7 +150,7 @@ export default function ConsultingHome() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {PROOF_POINTS.map(p => (
-              <div key={p.label} className="text-center p-4 rounded border border-border bg-card" data-testid={`proof-${p.label.toLowerCase().replace(/\s+/g, '-')}`}>
+              <div key={p.label} className="text-center p-4 rounded border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all" data-testid={`proof-${p.label.toLowerCase().replace(/\s+/g, '-')}`}>
                 <p className="text-3xl font-bold text-foreground">{p.value}</p>
                 <p className="text-xs font-medium text-foreground/80 mt-1">{p.label}</p>
                 <p className="text-[10px] text-muted-foreground mt-0.5">{p.detail}</p>
@@ -151,7 +159,7 @@ export default function ConsultingHome() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link href="/research/cmgf">
-              <Card className="border-border bg-card hover:border-primary/30 transition-colors cursor-pointer h-full" data-testid="card-evidence-cmgf">
+              <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid="card-evidence-cmgf">
                 <CardContent className="pt-6 space-y-2">
                   <div className="flex items-center gap-2">
                     <Scale className="w-4 h-4 text-primary" />
@@ -163,7 +171,7 @@ export default function ConsultingHome() {
               </Card>
             </Link>
             <Link href="/research/knowledge-systems">
-              <Card className="border-border bg-card hover:border-primary/30 transition-colors cursor-pointer h-full" data-testid="card-evidence-kms">
+              <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid="card-evidence-kms">
                 <CardContent className="pt-6 space-y-2">
                   <div className="flex items-center gap-2">
                     <Database className="w-4 h-4 text-primary" />
@@ -175,7 +183,7 @@ export default function ConsultingHome() {
               </Card>
             </Link>
             <Link href="/research/research-portfolio">
-              <Card className="border-border bg-card hover:border-primary/30 transition-colors cursor-pointer h-full" data-testid="card-evidence-research">
+              <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid="card-evidence-research">
                 <CardContent className="pt-6 space-y-2">
                   <div className="flex items-center gap-2">
                     <Cpu className="w-4 h-4 text-primary" />
@@ -198,7 +206,7 @@ export default function ConsultingHome() {
           </div>
           <div className="space-y-4">
             {PERSPECTIVES.map(p => (
-              <div key={p.title} className="p-5 rounded border border-border bg-card" data-testid={`perspective-${p.tag.toLowerCase().replace(/\s+/g, '-')}`}>
+              <div key={p.title} className="p-5 rounded border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all" data-testid={`perspective-${p.tag.toLowerCase().replace(/\s+/g, '-')}`}>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-sm" style={{ background: 'rgba(180,83,9,0.1)', color: '#B45309' }}>{p.tag}</span>
                 </div>
