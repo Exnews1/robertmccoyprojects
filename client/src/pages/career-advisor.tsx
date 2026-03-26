@@ -21,6 +21,8 @@ import {
   BarChart3,
   Clock,
   FileText,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 const MIL_OPTIONS = [
@@ -460,6 +462,7 @@ export default function CareerAdvisor() {
   const [recentField, setRecentField] = useState<string | null>(null);
   const recentTimeout = useRef<ReturnType<typeof setTimeout>>();
   const [tapExpandedField, setTapExpandedField] = useState<string | null>(null);
+  const [lightMode, setLightMode] = useState(false);
 
   const flashField = useCallback((field: string) => {
     setRecentField(field);
@@ -529,14 +532,24 @@ export default function CareerAdvisor() {
   };
 
 
-  const gold = "#c9a84c";
-  const goldLight = "#e8c97a";
-  const navy = "#0a1628";
-  const navyMid = "#112240";
-  const textColor = "#d4dbe8";
-  const textDim = "#7a8fa8";
-  const borderColor = "rgba(201,168,76,0.2)";
-  const cardBg = "rgba(17,34,64,0.8)";
+  const gold = lightMode ? "#8b6914" : "#c9a84c";
+  const goldLight = lightMode ? "#b8892a" : "#e8c97a";
+  const navy = lightMode ? "#f5f3ef" : "#0a1628";
+  const navyMid = lightMode ? "#eae6df" : "#112240";
+  const textColor = lightMode ? "#1a1a1a" : "#d4dbe8";
+  const textDim = lightMode ? "#5a6572" : "#7a8fa8";
+  const borderColor = lightMode ? "rgba(139,105,20,0.2)" : "rgba(201,168,76,0.2)";
+  const cardBg = lightMode ? "rgba(255,255,255,0.85)" : "rgba(17,34,64,0.8)";
+  const inputBg = lightMode ? "rgba(245,243,239,0.9)" : "rgba(10,22,40,0.8)";
+  const inputBorder = lightMode ? "rgba(139,105,20,0.3)" : "rgba(201,168,76,0.3)";
+  const subtleBg = lightMode ? "rgba(245,243,239,0.6)" : "rgba(10,22,40,0.5)";
+  const greenCol = lightMode ? "#2d8a2d" : "#5cb85c";
+  const tealCol = lightMode ? "#2a9d8f" : "#4ecdc4";
+  const purpleCol = lightMode ? "#7c3aed" : "#8b5cf6";
+  const purpleBg = lightMode ? "rgba(124,58,237,0.08)" : "rgba(139,92,246,0.08)";
+  const purpleBorder = lightMode ? "rgba(124,58,237,0.25)" : "rgba(139,92,246,0.25)";
+  const goldBg = lightMode ? "rgba(139,105,20,0.07)" : "rgba(201,168,76,0.07)";
+  const goldBorder = lightMode ? "rgba(139,105,20,0.25)" : "rgba(201,168,76,0.25)";
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: navy, color: textColor }}>
@@ -552,6 +565,15 @@ export default function CareerAdvisor() {
           </Link>
           <ChevronRight className="h-4 w-4" style={{ color: textDim }} />
           <span style={{ color: textColor }}>Career Path Advisor</span>
+          <button
+            onClick={() => setLightMode(v => !v)}
+            className="ml-auto flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-mono tracking-wider uppercase cursor-pointer transition-all"
+            style={{ background: lightMode ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)", border: `1px solid ${borderColor}`, borderRadius: 3, color: textDim }}
+            data-testid="button-light-toggle"
+          >
+            {lightMode ? <Moon className="h-3 w-3" /> : <Sun className="h-3 w-3" />}
+            {lightMode ? "Dark" : "Light"}
+          </button>
         </nav>
 
         <header className="text-center mb-10">
@@ -586,8 +608,8 @@ export default function CareerAdvisor() {
                 onClick={() => setMode("tap")}
                 className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-mono tracking-[1.5px] uppercase transition-all cursor-pointer border-none"
                 style={{
-                  background: mode === "tap" ? "rgba(139,92,246,0.2)" : "transparent",
-                  color: mode === "tap" ? "#8b5cf6" : textDim,
+                  background: mode === "tap" ? `${purpleCol}33` : "transparent",
+                  color: mode === "tap" ? purpleCol : textDim,
                 }}
                 data-testid="button-mode-tap"
               >
@@ -606,9 +628,9 @@ export default function CareerAdvisor() {
                 Input Panel · Service Member Profile
               </div>
 
-              <div className="mb-5 p-3.5" style={{ background: 'rgba(201,168,76,0.07)', border: '1px solid rgba(201,168,76,0.25)', borderRadius: 3 }}>
+              <div className="mb-5 p-3.5" style={{ background: goldBg, border: `1px solid ${goldBorder}`, borderRadius: 3 }}>
                 <div className="text-[9px] font-mono tracking-[2px] uppercase mb-2" style={{ color: gold }}>CMGF Advisory Notice</div>
-                <div className="text-xs leading-relaxed" style={{ color: '#a0b0c8' }}>
+                <div className="text-xs leading-relaxed" style={{ color: textDim }}>
                   Results are <strong style={{ color: textColor }}>informational planning signals</strong>, not recommendations, predictions, or decisions. This system compares your declared goals with publicly available policy rules and credential requirements.
                   <br /><br />
                   <strong style={{ color: textColor }}>Final decisions remain entirely with you and your human advisors.</strong>
@@ -619,10 +641,10 @@ export default function CareerAdvisor() {
                 <div className="space-y-2" data-testid="field-mil-occ">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Military Occupation</label>
                   <Select value={milOcc} onValueChange={(v) => { setMilOcc(v); clearError("milOcc"); flashField("milOcc"); }}>
-                    <SelectTrigger className={errors.milOcc ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.milOcc ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-mil-occ">
+                    <SelectTrigger className={errors.milOcc ? "border-red-500" : ""} style={{ background: inputBg, borderColor: errors.milOcc ? undefined : inputBorder, color: textColor }} data-testid="select-mil-occ">
                       <SelectValue placeholder="— Select MOS/Rate —" />
                     </SelectTrigger>
-                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
+                    <SelectContent style={{ background: navyMid, borderColor: inputBorder }}>
                       {MIL_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -632,10 +654,10 @@ export default function CareerAdvisor() {
                 <div className="space-y-2" data-testid="field-civ-career">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Desired Civilian Career</label>
                   <Select value={civCareer} onValueChange={(v) => { setCivCareer(v); clearError("civCareer"); flashField("civCareer"); }}>
-                    <SelectTrigger className={errors.civCareer ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.civCareer ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-civ-career">
+                    <SelectTrigger className={errors.civCareer ? "border-red-500" : ""} style={{ background: inputBg, borderColor: errors.civCareer ? undefined : inputBorder, color: textColor }} data-testid="select-civ-career">
                       <SelectValue placeholder="— Select Target Career —" />
                     </SelectTrigger>
-                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
+                    <SelectContent style={{ background: navyMid, borderColor: inputBorder }}>
                       {CIV_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -645,10 +667,10 @@ export default function CareerAdvisor() {
                 <div className="space-y-2" data-testid="field-education">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Current Education Level</label>
                   <Select value={education} onValueChange={(v) => { setEducation(v); clearError("education"); flashField("education"); }}>
-                    <SelectTrigger className={errors.education ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.education ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-education">
+                    <SelectTrigger className={errors.education ? "border-red-500" : ""} style={{ background: inputBg, borderColor: errors.education ? undefined : inputBorder, color: textColor }} data-testid="select-education">
                       <SelectValue placeholder="— Select Level —" />
                     </SelectTrigger>
-                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
+                    <SelectContent style={{ background: navyMid, borderColor: inputBorder }}>
                       {EDU_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -658,10 +680,10 @@ export default function CareerAdvisor() {
                 <div className="space-y-2" data-testid="field-time-left">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Time Remaining in Service</label>
                   <Select value={timeLeft} onValueChange={(v) => { setTimeLeft(v); clearError("timeLeft"); flashField("timeLeft"); }}>
-                    <SelectTrigger className={errors.timeLeft ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.timeLeft ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-time-left">
+                    <SelectTrigger className={errors.timeLeft ? "border-red-500" : ""} style={{ background: inputBg, borderColor: errors.timeLeft ? undefined : inputBorder, color: textColor }} data-testid="select-time-left">
                       <SelectValue placeholder="— Select Timeframe —" />
                     </SelectTrigger>
-                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
+                    <SelectContent style={{ background: navyMid, borderColor: inputBorder }}>
                       {TIME_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -671,10 +693,10 @@ export default function CareerAdvisor() {
                 <div className="space-y-2" data-testid="field-funding">
                   <label className="block text-[11px] font-medium tracking-wider uppercase" style={{ color: textDim }}>Education Funding Availability</label>
                   <Select value={funding} onValueChange={(v) => { setFunding(v); clearError("funding"); flashField("funding"); }}>
-                    <SelectTrigger className={errors.funding ? "border-red-500" : ""} style={{ background: 'rgba(10,22,40,0.8)', borderColor: errors.funding ? undefined : 'rgba(201,168,76,0.3)', color: textColor }} data-testid="select-funding">
+                    <SelectTrigger className={errors.funding ? "border-red-500" : ""} style={{ background: inputBg, borderColor: errors.funding ? undefined : inputBorder, color: textColor }} data-testid="select-funding">
                       <SelectValue placeholder="— Select Funding —" />
                     </SelectTrigger>
-                    <SelectContent style={{ background: navyMid, borderColor: 'rgba(201,168,76,0.3)' }}>
+                    <SelectContent style={{ background: navyMid, borderColor: inputBorder }}>
                       {FUNDING_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
                     </SelectContent>
                   </Select>
@@ -760,7 +782,7 @@ export default function CareerAdvisor() {
                   </p>
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {result.tiers.map((t, i) => (
-                      <span key={i} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: gold, borderRadius: 2 }} data-testid={`tier-badge-${i}`}>
+                      <span key={i} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: goldBg, border: `1px solid ${goldBorder}`, color: gold, borderRadius: 2 }} data-testid={`tier-badge-${i}`}>
                         {t}
                       </span>
                     ))}
@@ -781,7 +803,7 @@ export default function CareerAdvisor() {
                       const statusIcons: Record<string, typeof CheckCircle2> = { met: CheckCircle2, unmet: XCircle, partial: AlertTriangle };
                       const Icon = statusIcons[c.status];
                       return (
-                        <div key={i} className="flex items-start gap-2.5 text-xs leading-relaxed p-2.5" style={{ background: 'rgba(10,22,40,0.5)', borderLeft: `2px solid ${statusColors[c.status]}`, borderRadius: '0 2px 2px 0' }} data-testid={`constraint-${c.status}`}>
+                        <div key={i} className="flex items-start gap-2.5 text-xs leading-relaxed p-2.5" style={{ background: subtleBg, borderLeft: `2px solid ${statusColors[c.status]}`, borderRadius: '0 2px 2px 0' }} data-testid={`constraint-${c.status}`}>
                           <Icon className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" style={{ color: statusColors[c.status] }} />
                           <span style={{ color: textColor }}>{c.text}</span>
                         </div>
@@ -819,8 +841,8 @@ export default function CareerAdvisor() {
 
                 <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }} data-testid="card-transparency">
                   <div className="flex items-center gap-2 pb-3 mb-5" style={{ borderBottom: `1px solid ${borderColor}` }}>
-                    <Shield className="h-4 w-4" style={{ color: '#4ecdc4' }} />
-                    <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: '#4ecdc4' }}>
+                    <Shield className="h-4 w-4" style={{ color: tealCol }} />
+                    <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: tealCol }}>
                       Governance Transparency
                     </span>
                   </div>
@@ -828,11 +850,11 @@ export default function CareerAdvisor() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-5">
                     <div>
                       <div className="text-[10px] font-mono tracking-wider uppercase mb-1" style={{ color: textDim }}>Engine Version</div>
-                      <div className="text-sm font-mono" style={{ color: '#4ecdc4' }} data-testid="text-engine-version">CMGF v2.10</div>
+                      <div className="text-sm font-mono" style={{ color: tealCol }} data-testid="text-engine-version">CMGF v2.10</div>
                     </div>
                     <div>
                       <div className="text-[10px] font-mono tracking-wider uppercase mb-1" style={{ color: textDim }}>Execution Type</div>
-                      <div className="text-sm font-mono" style={{ color: '#4ecdc4' }} data-testid="text-execution-type">Deterministic Rules Engine</div>
+                      <div className="text-sm font-mono" style={{ color: tealCol }} data-testid="text-execution-type">Deterministic Rules Engine</div>
                     </div>
                   </div>
 
@@ -840,7 +862,7 @@ export default function CareerAdvisor() {
                     <div className="text-[10px] font-mono tracking-wider uppercase mb-2" style={{ color: textDim }}>Data Sources Consulted</div>
                     <div className="flex flex-wrap gap-1.5" data-testid="data-sources">
                       {result.dataSources.map(src => (
-                        <span key={src} className="inline-block font-mono text-[10px] tracking-wide px-2 py-1" style={{ background: 'rgba(212,219,232,0.08)', border: '1px solid rgba(212,219,232,0.2)', color: textColor, borderRadius: 2 }}>
+                        <span key={src} className="inline-block font-mono text-[10px] tracking-wide px-2 py-1" style={{ background: subtleBg, border: `1px solid ${borderColor}`, color: textColor, borderRadius: 2 }}>
                           {src}
                         </span>
                       ))}
@@ -854,7 +876,7 @@ export default function CareerAdvisor() {
                     </div>
                   </div>
 
-                  <div className="py-2.5 px-4 text-center" style={{ background: 'rgba(201,168,76,0.15)', borderRadius: 3 }} data-testid="text-human-review">
+                  <div className="py-2.5 px-4 text-center" style={{ background: goldBg, borderRadius: 3 }} data-testid="text-human-review">
                     <span className="text-xs font-mono tracking-wide" style={{ color: gold }}>
                       Human advisor review required before action
                     </span>
@@ -867,7 +889,7 @@ export default function CareerAdvisor() {
               </>
             )}
 
-            <div className="flex items-start gap-3.5 p-4" style={{ background: 'rgba(17,34,64,0.9)', border: '1px solid rgba(201,168,76,0.15)', borderRadius: 4 }} data-testid="governance-notice">
+            <div className="flex items-start gap-3.5 p-4" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }} data-testid="governance-notice">
               <Shield className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: gold }} />
               <div className="text-xs leading-relaxed italic" style={{ color: textDim }}>
                 <strong className="not-italic" style={{ color: gold }}>CMGF Advisory Notice</strong>
@@ -882,7 +904,7 @@ export default function CareerAdvisor() {
                 <br /><br />
                 <div className="flex flex-wrap gap-1.5 not-italic">
                   {["NIST AI RMF", "EO 14179", "NON-PREDICTIVE", "INFORMATIONAL ONLY"].map(tag => (
-                    <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)', color: gold, borderRadius: 2 }}>
+                    <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: goldBg, border: `1px solid ${goldBorder}`, color: gold, borderRadius: 2 }}>
                       {tag}
                     </span>
                   ))}
@@ -893,10 +915,10 @@ export default function CareerAdvisor() {
         </div>
         ) : (
           <div className="space-y-6" data-testid="tap-sandbox">
-          <div className="p-5" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.25)", borderRadius: 4 }}>
+          <div className="p-5" style={{ background: purpleBg, border: `1px solid ${purpleBorder}`, borderRadius: 4 }}>
             <div className="flex items-center gap-2 mb-2">
-              <AlertCircle className="h-4 w-4" style={{ color: "#8b5cf6" }} />
-              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: "#8b5cf6" }}>TAP Sandbox — Prototype Concept</span>
+              <AlertCircle className="h-4 w-4" style={{ color: purpleCol }} />
+              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: purpleCol }}>TAP Sandbox — Prototype Concept</span>
             </div>
             <div className="text-xs leading-relaxed" style={{ color: textDim }}>
               This sandbox demonstrates what a <strong style={{ color: textColor }}>Transition Assistance Program (TAP)</strong> advisory tool could look like within the CMGF framework. Service members approaching transition could explore career fields, salary ranges, credential requirements, and outcomes from prior cohorts — all before making official requests. <strong style={{ color: textColor }}>No data here enters the pipeline. No commander sees this. This is private exploration.</strong>
@@ -921,13 +943,13 @@ export default function CareerAdvisor() {
             </div>
           </div>
 
-          <div className="text-[9px] font-mono tracking-[2.5px] uppercase pt-2" style={{ color: "#8b5cf6" }}>Career Field Intelligence — Click to Expand</div>
+          <div className="text-[9px] font-mono tracking-[2.5px] uppercase pt-2" style={{ color: purpleCol }}>Career Field Intelligence — Click to Expand</div>
 
           <div className="grid grid-cols-1 gap-3">
             {TAP_CAREER_FIELDS.map((career) => {
               const expanded = tapExpandedField === career.field;
               return (
-                <div key={career.field} style={{ background: cardBg, border: `1px solid ${expanded ? "rgba(139,92,246,0.4)" : borderColor}`, borderRadius: 4, overflow: "hidden" }}>
+                <div key={career.field} style={{ background: cardBg, border: `1px solid ${expanded ? purpleBorder : borderColor}`, borderRadius: 4, overflow: "hidden" }}>
                   <button
                     onClick={() => setTapExpandedField(expanded ? null : career.field)}
                     className="w-full flex items-center justify-between p-4 cursor-pointer border-none text-left"
@@ -935,7 +957,7 @@ export default function CareerAdvisor() {
                     data-testid={`tap-field-${career.field.toLowerCase().replace(/\s/g, "-")}`}
                   >
                     <div className="flex items-center gap-3">
-                      <Briefcase className="h-4 w-4 flex-shrink-0" style={{ color: "#8b5cf6" }} />
+                      <Briefcase className="h-4 w-4 flex-shrink-0" style={{ color: purpleCol }} />
                       <div>
                         <div className="text-sm font-medium" style={{ color: textColor }}>{career.field}</div>
                         <div className="text-[10px] font-mono" style={{ color: textDim }}>{career.roles.join(" · ")}</div>
@@ -978,7 +1000,7 @@ export default function CareerAdvisor() {
                         </div>
                         <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
                           <div className="flex items-center gap-1.5 mb-1">
-                            <BarChart3 className="h-3 w-3" style={{ color: "#8b5cf6" }} />
+                            <BarChart3 className="h-3 w-3" style={{ color: purpleCol }} />
                             <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>TAP Align</span>
                           </div>
                           <div className="text-sm font-mono font-bold" style={{ color: career.tapAlignment === "HIGH" ? "#5cb85c" : "#f0a500" }}>{career.tapAlignment}</div>
@@ -1007,8 +1029,8 @@ export default function CareerAdvisor() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 p-2.5" style={{ background: "rgba(139,92,246,0.08)", borderRadius: 3, border: "1px solid rgba(139,92,246,0.2)" }}>
-                        <MapPin className="h-3 w-3 flex-shrink-0" style={{ color: "#8b5cf6" }} />
+                      <div className="flex items-center gap-2 p-2.5" style={{ background: purpleBg, borderRadius: 3, border: `1px solid ${purpleBorder}` }}>
+                        <MapPin className="h-3 w-3 flex-shrink-0" style={{ color: purpleCol }} />
                         <span className="text-[10px] font-mono" style={{ color: textDim }}>
                           BLS Occupational Code: <strong style={{ color: textColor }}>{career.blsCode}</strong> — Regional salary data available via BLS.gov
                         </span>
@@ -1022,29 +1044,29 @@ export default function CareerAdvisor() {
 
           <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
             <div className="flex items-center gap-2 pb-3 mb-4" style={{ borderBottom: `1px solid ${borderColor}` }}>
-              <Users className="h-4 w-4" style={{ color: "#8b5cf6" }} />
-              <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: "#8b5cf6" }}>Voice of the Veteran — Transition Feedback</span>
+              <Users className="h-4 w-4" style={{ color: purpleCol }} />
+              <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: purpleCol }}>Voice of the Veteran — Transition Feedback</span>
             </div>
             <div className="text-xs leading-relaxed mb-4" style={{ color: textDim }}>
               Aggregated insights from veterans who completed their transition. This data feeds back into the system to inform the next generation.
             </div>
             <div className="flex flex-col gap-2">
               {TAP_VETERAN_INSIGHTS.map(item => (
-                <div key={item.question} className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3, borderLeft: "2px solid rgba(139,92,246,0.4)" }}>
+                <div key={item.question} className="p-3" style={{ background: subtleBg, borderRadius: 3, borderLeft: `2px solid ${purpleBorder}` }}>
                   <div className="text-[10px] font-mono mb-1.5" style={{ color: textDim }}>{item.question}</div>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium" style={{ color: textColor }}>{item.topAnswer}</span>
-                    <span className="text-sm font-mono font-bold" style={{ color: "#8b5cf6" }}>{item.pct}</span>
+                    <span className="text-sm font-mono font-bold" style={{ color: purpleCol }}>{item.pct}</span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="p-5" style={{ background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.2)", borderRadius: 4 }}>
+          <div className="p-5" style={{ background: purpleBg, border: `1px solid ${purpleBorder}`, borderRadius: 4 }}>
             <div className="flex items-center gap-2 mb-3">
-              <Shield className="h-4 w-4" style={{ color: "#8b5cf6" }} />
-              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: "#8b5cf6" }}>ISR Signal from TAP Sandbox</span>
+              <Shield className="h-4 w-4" style={{ color: purpleCol }} />
+              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: purpleCol }}>ISR Signal from TAP Sandbox</span>
             </div>
             <div className="text-xs leading-relaxed mb-3" style={{ color: textDim }}>
               While no individual data leaves the sandbox, <strong style={{ color: textColor }}>aggregate exploration patterns generate institutional signal</strong>:
@@ -1059,7 +1081,7 @@ export default function CareerAdvisor() {
                 "Pain point frequency (policy friction indicators)",
               ].map(item => (
                 <div key={item} className="flex items-start gap-2 text-xs" style={{ color: textColor }}>
-                  <TrendingUp className="h-3 w-3 flex-shrink-0 mt-0.5" style={{ color: "#8b5cf6" }} />
+                  <TrendingUp className="h-3 w-3 flex-shrink-0 mt-0.5" style={{ color: purpleCol }} />
                   {item}
                 </div>
               ))}
@@ -1069,10 +1091,10 @@ export default function CareerAdvisor() {
             </div>
           </div>
 
-          <div className="flex items-start gap-3.5 p-4" style={{ background: "rgba(17,34,64,0.9)", border: "1px solid rgba(139,92,246,0.15)", borderRadius: 4 }} data-testid="tap-governance-notice">
-            <Shield className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "#8b5cf6" }} />
+          <div className="flex items-start gap-3.5 p-4" style={{ background: cardBg, border: `1px solid ${purpleBorder}`, borderRadius: 4 }} data-testid="tap-governance-notice">
+            <Shield className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: purpleCol }} />
             <div className="text-xs leading-relaxed italic" style={{ color: textDim }}>
-              <strong className="not-italic" style={{ color: "#8b5cf6" }}>TAP Sandbox Notice</strong>
+              <strong className="not-italic" style={{ color: purpleCol }}>TAP Sandbox Notice</strong>
               <br /><br />
               This sandbox is <strong style={{ color: textColor }}>entirely private</strong>. No data from exploration enters the official pipeline. No commander, ESO, or institutional system sees what is explored here.
               <br /><br />
@@ -1082,7 +1104,7 @@ export default function CareerAdvisor() {
               <br /><br />
               <div className="flex flex-wrap gap-1.5 not-italic">
                 {["PRIVATE SANDBOX", "NO PIPELINE ENTRY", "BLS DATA", "INFORMATIONAL ONLY"].map(tag => (
-                  <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.3)", color: "#8b5cf6", borderRadius: 2 }}>
+                  <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: purpleBg, border: `1px solid ${purpleBorder}`, color: purpleCol, borderRadius: 2 }}>
                     {tag}
                   </span>
                 ))}
