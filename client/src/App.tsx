@@ -21,6 +21,7 @@ import Library from "@/pages/cmgf/library";
 import Engagement from "@/pages/cmgf/engagement";
 import FivePillars from "@/pages/cmgf/five-pillars";
 import PresidentialReport from "@/pages/cmgf/presidential-report";
+import CMGFPresentation from "@/pages/cmgf/presentation";
 import Explorer from "@/pages/explorer";
 import Contact from "@/pages/contact";
 import EducationAI from "@/pages/education-ai/index";
@@ -159,6 +160,7 @@ function Router() {
       <Route path="/research/cmgf/dashboard" component={Dashboard} />
       <Route path="/research/cmgf/analytics" component={ConferenceAnalytics} />
       <Route path="/research/cmgf/presidential-report" component={PresidentialReport} />
+      <Route path="/research/cmgf/presentation" component={CMGFPresentation} />
       <Route path="/research/cmgf/explorer" component={Explorer} />
       <Route path="/research/explorer" component={Explorer} />
       <Route path="/research/education-ai" component={EducationAI} />

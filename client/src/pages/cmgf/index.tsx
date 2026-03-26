@@ -92,6 +92,14 @@ const seriesPapers = [
 
 const sections = [
   {
+    id: "presentation",
+    title: "Tools Presentation",
+    description: "Slide deck overview of every CMGF tool — constraints, design principles, and live demo links.",
+    icon: Presentation,
+    route: "/research/cmgf/presentation",
+    featured: true
+  },
+  {
     id: "explorer",
     title: "Reference Explorer",
     description: "Semantic search over curated military career mobility research. Document-grounded discovery with no generative interpretation.",
@@ -411,7 +419,7 @@ export default function CMGFRoot() {
 
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
-          <div className="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {sections.map((section) => {
               const isExternal = (section as any).external;
               const cardContent = (
