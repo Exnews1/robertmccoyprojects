@@ -13,7 +13,7 @@ const PROOF_POINTS = [
 const REGULATORY_DRIVERS = [
   { label: "DOL TEN 07-25", desc: "AI Literacy Framework — mandatory for all ETA grantees", date: "Feb 2025", urgency: "Active Now", href: "https://www.dol.gov/agencies/eta/advisories/ten-07-25" },
   { label: "NIST AI RMF 1.0", desc: "Risk management framework for trustworthy AI systems", date: "Jan 2023", urgency: "Adopted", href: "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10" },
-  { label: "EO 14179", desc: "Federal policy on removing barriers to AI innovation with safeguards", date: "Jan 2025", urgency: "Active", href: "https://www.whitehouse.gov/presidential-actions/removing-barriers-to-american-leadership-in-artificial-intelligence/" },
+  { label: "EO 14179", desc: "Federal policy on removing barriers to AI innovation with safeguards", date: "Jan 2025", urgency: "Active", href: "https://www.whitehouse.gov/presidential-actions/2025/12/eliminating-state-law-obstruction-of-national-artificial-intelligence-policy/" },
   { label: "EU AI Act", desc: "Risk-based classification with compliance deadlines approaching", date: "Aug 2024", urgency: "Phasing In", href: "https://artificialintelligenceact.eu/" },
 ];
 
