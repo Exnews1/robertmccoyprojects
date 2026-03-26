@@ -107,13 +107,6 @@ const sections = [
     route: "/research/cmgf/engagement"
   },
   {
-    id: "downloads",
-    title: "Canonical Downloads",
-    description: "Research paper, conference presentation, and supplemental framework documentation.",
-    icon: Download,
-    route: "/research/cmgf/downloads"
-  },
-  {
     id: "cse",
     title: "Credential Sequencing Engine",
     description: "Binding layer demonstration: transparent, rule-based credential sequencing with data provenance and audit logging.",
