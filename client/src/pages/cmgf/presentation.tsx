@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,8 +26,10 @@ function SlideWrapper({ children }: { children: React.ReactNode }) {
 
 function ConstraintCard({ icon: Icon, label, color }: { icon: any; label: string; color: string }) {
   return (
-    <div className={`flex items-center gap-3 p-4 rounded border ${color}`}>
-      <Icon className="h-5 w-5 flex-shrink-0" />
+    <div className={`flex items-center gap-3 p-4 rounded border bg-gradient-to-br transition-all duration-200 hover:shadow-sm ${color}`}>
+      <div className="w-9 h-9 rounded-lg bg-destructive/10 flex items-center justify-center flex-shrink-0">
+        <Icon className="h-4 w-4 text-destructive" />
+      </div>
       <span className="text-sm font-medium text-foreground">{label}</span>
     </div>
   );
@@ -35,7 +37,7 @@ function ConstraintCard({ icon: Icon, label, color }: { icon: any; label: string
 
 function PrincipleCard({ title, desc }: { title: string; desc: string }) {
   return (
-    <div className="p-4 rounded border border-border bg-card">
+    <div className="p-4 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
       <h4 className="text-sm font-bold text-foreground mb-1">{title}</h4>
       <p className="text-xs text-muted-foreground">{desc}</p>
     </div>
@@ -48,22 +50,22 @@ function ToolSlide({ icon: Icon, title, badges, points, link, linkLabel, externa
 }) {
   return (
     <SlideWrapper>
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-          <Icon className="h-6 w-6 text-primary" />
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+          <Icon className="h-7 w-7 text-primary" />
         </div>
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif">{title}</h2>
           {badges && (
-            <div className="flex flex-wrap gap-2 mt-1">
-              {badges.map(b => <Badge key={b} variant="outline" className="text-xs">{b}</Badge>)}
+            <div className="flex flex-wrap gap-2 mt-1.5">
+              {badges.map(b => <Badge key={b} variant="outline" className="text-xs font-mono">{b}</Badge>)}
             </div>
           )}
         </div>
       </div>
       <div className="space-y-3 mb-6">
         {points.map((p, i) => (
-          <div key={i} className="flex items-start gap-3">
+          <div key={i} className="flex items-start gap-3 p-3 rounded border border-transparent hover:border-border hover:bg-card/50 transition-all duration-200">
             <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
             <p className="text-muted-foreground">{p}</p>
           </div>
@@ -71,13 +73,13 @@ function ToolSlide({ icon: Icon, title, badges, points, link, linkLabel, externa
       </div>
       {link && (
         external ? (
-          <Button variant="outline" size="sm" asChild data-testid={`button-slide-link-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+          <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all" asChild data-testid={`button-slide-link-${title.toLowerCase().replace(/\s+/g, '-')}`}>
             <a href={link} target="_blank" rel="noopener noreferrer">
               {linkLabel || "Launch Demo"} <ExternalLink className="h-3 w-3 ml-2" />
             </a>
           </Button>
         ) : (
-          <Button variant="outline" size="sm" asChild data-testid={`button-slide-link-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+          <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all" asChild data-testid={`button-slide-link-${title.toLowerCase().replace(/\s+/g, '-')}`}>
             <Link href={link}>
               {linkLabel || "View Demo"} <ArrowRight className="h-3 w-3 ml-2" />
             </Link>
@@ -92,44 +94,55 @@ const slides: Slide[] = [
   {
     title: "CMGF Tools Overview",
     content: (
-      <SlideWrapper>
-        <div className="text-center">
-          <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <Presentation className="h-8 w-8 text-primary" />
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.06] via-transparent to-accent/[0.04] pointer-events-none" />
+        <SlideWrapper>
+          <div className="text-center relative">
+            <div className="w-20 h-20 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-8 ring-1 ring-primary/20">
+              <Presentation className="h-10 w-10 text-primary" />
+            </div>
+            <span className="text-xs font-mono uppercase tracking-[3px] text-muted-foreground mb-4 block">AI Governance Research</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground font-serif mb-4 leading-tight">
+              Career Mobility Governance Framework
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-2 font-serif">Tools Overview</p>
+            <div className="w-24 h-1 bg-primary mx-auto my-8 rounded-full" />
+            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-base md:text-lg">
+              A governance-first AI architecture for military-to-civilian career transitions.
+              Each tool enforces bounded constraints — AI passes verified facts only, never recommendations.
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-10">
+              <Badge variant="outline" className="font-mono text-xs px-3 py-1">NIST AI RMF 1.0</Badge>
+              <Badge variant="outline" className="font-mono text-xs px-3 py-1">EO 14179</Badge>
+              <Badge variant="outline" className="font-mono text-xs px-3 py-1">DOL TEN 07-25</Badge>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground font-serif mb-4">
-            Career Mobility Governance Framework
-          </h1>
-          <p className="text-xl text-muted-foreground mb-2">Tools Overview</p>
-          <div className="w-16 h-0.5 bg-primary mx-auto my-6" />
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A governance-first AI architecture for military-to-civilian career transitions.
-            Each tool enforces bounded constraints — AI passes verified facts only, never recommendations.
-          </p>
-          <div className="flex items-center justify-center gap-4 mt-8">
-            <Badge variant="outline">NIST AI RMF 1.0</Badge>
-            <Badge variant="outline">EO 14179</Badge>
-            <Badge variant="outline">DOL TEN 07-25</Badge>
-          </div>
-        </div>
-      </SlideWrapper>
+        </SlideWrapper>
+      </>
     )
   },
   {
     title: "Framework Overview",
     content: (
       <SlideWrapper>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif mb-6">Framework Constraints & Principles</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif mb-2">Framework Constraints & Principles</h2>
+        <div className="w-16 h-1 bg-primary rounded-full mb-8" />
         <div className="mb-8">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">Three Non-Negotiable Constraints</h3>
+          <h3 className="text-xs font-mono uppercase tracking-[2px] text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-destructive" />
+            Three Non-Negotiable Constraints
+          </h3>
           <div className="grid gap-3 md:grid-cols-3">
-            <ConstraintCard icon={Shield} label="No predictive outcome modeling" color="border-red-500/30 bg-red-500/5" />
-            <ConstraintCard icon={Lock} label="No individual risk scoring" color="border-red-500/30 bg-red-500/5" />
-            <ConstraintCard icon={Users} label="No automated approvals" color="border-red-500/30 bg-red-500/5" />
+            <ConstraintCard icon={Shield} label="No predictive outcome modeling" color="border-destructive/30 from-destructive/5 to-transparent hover:border-destructive/50" />
+            <ConstraintCard icon={Lock} label="No individual risk scoring" color="border-destructive/30 from-destructive/5 to-transparent hover:border-destructive/50" />
+            <ConstraintCard icon={Users} label="No automated approvals" color="border-destructive/30 from-destructive/5 to-transparent hover:border-destructive/50" />
           </div>
         </div>
         <div>
-          <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">Four Design Principles</h3>
+          <h3 className="text-xs font-mono uppercase tracking-[2px] text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            Four Design Principles
+          </h3>
           <div className="grid gap-3 md:grid-cols-2">
             <PrincipleCard title="Governance is Architecture" desc="System design enforces ethical constraints" />
             <PrincipleCard title="AI as Infrastructure" desc="Never authority, always accountable" />
@@ -241,10 +254,14 @@ const slides: Slide[] = [
     title: "Supporting Architecture",
     content: (
       <SlideWrapper>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif mb-6">Supporting Architecture</h2>
-        <div className="mb-6">
-          <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">CMGF Series 2026 — Six-Brief Framework</h3>
-          <div className="grid gap-2 md:grid-cols-2">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif mb-2">Supporting Architecture</h2>
+        <div className="w-16 h-1 bg-primary rounded-full mb-8" />
+        <div className="mb-8">
+          <h3 className="text-xs font-mono uppercase tracking-[2px] text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            CMGF Series 2026 — Six-Brief Framework
+          </h3>
+          <div className="grid gap-3 md:grid-cols-2">
             {[
               { num: "CMGF-01", title: "Governance Architecture" },
               { num: "CMGF-02", title: "Policy Alignment" },
@@ -253,27 +270,39 @@ const slides: Slide[] = [
               { num: "CMGF-05", title: "Credential Infrastructure" },
               { num: "CMGF-06", title: "Authority Landscape" },
             ].map(b => (
-              <div key={b.num} className="flex items-center gap-3 p-3 rounded border border-border bg-card">
-                <Badge variant="outline" className="text-xs font-mono">{b.num}</Badge>
-                <span className="text-sm text-foreground">{b.title}</span>
+              <div key={b.num} className="flex items-center gap-3 p-4 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+                <Badge variant="outline" className="text-xs font-mono px-2.5 py-0.5">{b.num}</Badge>
+                <span className="text-sm font-medium text-foreground">{b.title}</span>
               </div>
             ))}
           </div>
         </div>
         <div>
-          <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">Compliance Alignment</h3>
+          <h3 className="text-xs font-mono uppercase tracking-[2px] text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            Compliance Alignment
+          </h3>
           <div className="grid gap-3 md:grid-cols-3">
-            <div className="p-3 rounded border border-border bg-card text-center">
+            <div className="p-4 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 text-center hover:shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <Shield className="h-5 w-5 text-primary" />
+              </div>
               <p className="text-sm font-medium text-foreground">NIST AI RMF 1.0</p>
-              <p className="text-xs text-muted-foreground">Risk management baseline</p>
+              <p className="text-xs text-muted-foreground mt-1">Risk management baseline</p>
             </div>
-            <div className="p-3 rounded border border-border bg-card text-center">
+            <div className="p-4 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 text-center hover:shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <FileCheck className="h-5 w-5 text-primary" />
+              </div>
               <p className="text-sm font-medium text-foreground">EO 14179</p>
-              <p className="text-xs text-muted-foreground">Federal AI policy</p>
+              <p className="text-xs text-muted-foreground mt-1">Federal AI policy</p>
             </div>
-            <div className="p-3 rounded border border-border bg-card text-center">
+            <div className="p-4 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 text-center hover:shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                <BookOpen className="h-5 w-5 text-primary" />
+              </div>
               <p className="text-sm font-medium text-foreground">DOL TEN 07-25</p>
-              <p className="text-xs text-muted-foreground">AI literacy mandate</p>
+              <p className="text-xs text-muted-foreground mt-1">AI literacy mandate</p>
             </div>
           </div>
         </div>
@@ -284,16 +313,22 @@ const slides: Slide[] = [
     title: "Enterprise KMS Case Studies",
     content: (
       <SlideWrapper>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Database className="h-6 w-6 text-primary" />
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Database className="h-7 w-7 text-primary" />
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif">Enterprise KMS Case Studies</h2>
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif">Enterprise KMS Case Studies</h2>
+            <p className="text-xs font-mono uppercase tracking-[2px] text-muted-foreground mt-1">Production AI Pipelines</p>
+          </div>
         </div>
+        <div className="w-16 h-1 bg-primary rounded-full mb-6" />
         <div className="grid gap-4 md:grid-cols-2 mb-6">
-          <div className="p-5 rounded border border-border bg-card">
-            <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-5 w-5 text-primary" />
+          <div className="p-5 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Building2 className="h-5 w-5 text-primary" />
+              </div>
               <h3 className="font-bold text-foreground">Meridian Industrial Group</h3>
             </div>
             <div className="space-y-2">
@@ -311,9 +346,11 @@ const slides: Slide[] = [
               </div>
             </div>
           </div>
-          <div className="p-5 rounded border border-border bg-card">
-            <div className="flex items-center gap-2 mb-3">
-              <Scale className="h-5 w-5 text-primary" />
+          <div className="p-5 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Scale className="h-5 w-5 text-primary" />
+              </div>
               <h3 className="font-bold text-foreground">Insurance Brokerage</h3>
             </div>
             <div className="space-y-2">
@@ -332,7 +369,7 @@ const slides: Slide[] = [
             </div>
           </div>
         </div>
-        <Button variant="outline" size="sm" asChild data-testid="button-slide-link-kms">
+        <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all" asChild data-testid="button-slide-link-kms">
           <Link href="/research/knowledge-systems">
             View Case Studies <ArrowRight className="h-3 w-3 ml-2" />
           </Link>
@@ -345,33 +382,41 @@ const slides: Slide[] = [
     content: (
       <SlideWrapper>
         <div className="text-center mb-8">
+          <span className="text-xs font-mono uppercase tracking-[3px] text-muted-foreground mb-3 block">Key Insights</span>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground font-serif mb-4">Key Takeaways</h2>
-          <div className="w-16 h-0.5 bg-primary mx-auto" />
+          <div className="w-24 h-1 bg-primary mx-auto rounded-full" />
         </div>
         <div className="grid gap-4 md:grid-cols-3 mb-8">
-          <div className="text-center p-5 rounded border border-border bg-card">
-            <Cpu className="h-8 w-8 text-primary mx-auto mb-3" />
-            <h3 className="font-bold text-foreground mb-1">AI as Infrastructure</h3>
+          <div className="text-center p-6 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Cpu className="h-7 w-7 text-primary" />
+            </div>
+            <h3 className="font-bold text-foreground mb-2">AI as Infrastructure</h3>
             <p className="text-sm text-muted-foreground">Never authority. AI surfaces verified facts — humans make decisions.</p>
           </div>
-          <div className="text-center p-5 rounded border border-border bg-card">
-            <Users className="h-8 w-8 text-primary mx-auto mb-3" />
-            <h3 className="font-bold text-foreground mb-1">Human Decision Authority</h3>
+          <div className="text-center p-6 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Users className="h-7 w-7 text-primary" />
+            </div>
+            <h3 className="font-bold text-foreground mb-2">Human Decision Authority</h3>
             <p className="text-sm text-muted-foreground">Full human judgment preserved at every decision point in the pipeline.</p>
           </div>
-          <div className="text-center p-5 rounded border border-border bg-card">
-            <Eye className="h-8 w-8 text-primary mx-auto mb-3" />
-            <h3 className="font-bold text-foreground mb-1">Institutional Learning</h3>
+          <div className="text-center p-6 rounded border border-border bg-gradient-to-br from-primary/5 to-transparent hover:border-primary/40 transition-all duration-200 hover:shadow-sm">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+              <Eye className="h-7 w-7 text-primary" />
+            </div>
+            <h3 className="font-bold text-foreground mb-2">Institutional Learning</h3>
             <p className="text-sm text-muted-foreground">De-identified aggregate intelligence without surveillance or PII exposure.</p>
           </div>
         </div>
         <div className="text-center">
+          <div className="w-12 h-0.5 bg-border mx-auto mb-4" />
           <p className="text-muted-foreground mb-4">Robert McCoy — AI Governance Consulting</p>
           <div className="flex items-center justify-center gap-3">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all" asChild>
               <Link href="/contact">Contact <ArrowRight className="h-3 w-3 ml-2" /></Link>
             </Button>
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:border-primary/60 hover:bg-primary/5 transition-all" asChild>
               <a href="https://theaigovernanceguy.com" target="_blank" rel="noopener noreferrer">
                 theaigovernanceguy.com <ExternalLink className="h-3 w-3 ml-2" />
               </a>
@@ -385,10 +430,34 @@ const slides: Slide[] = [
 
 export default function CMGFPresentation() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const total = slides.length;
 
-  const next = useCallback(() => setCurrent(c => Math.min(c + 1, total - 1)), [total]);
-  const prev = useCallback(() => setCurrent(c => Math.max(c - 1, 0)), []);
+  const transitionRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const goTo = useCallback((index: number) => {
+    if (index === current || isTransitioning) return;
+    if (transitionRef.current) clearTimeout(transitionRef.current);
+    setDirection(index > current ? 'next' : 'prev');
+    setIsTransitioning(true);
+    transitionRef.current = setTimeout(() => {
+      setCurrent(index);
+      transitionRef.current = setTimeout(() => setIsTransitioning(false), 50);
+    }, 150);
+  }, [current, isTransitioning]);
+
+  useEffect(() => {
+    return () => { if (transitionRef.current) clearTimeout(transitionRef.current); };
+  }, []);
+
+  const next = useCallback(() => {
+    if (current < total - 1) goTo(current + 1);
+  }, [current, total, goTo]);
+
+  const prev = useCallback(() => {
+    if (current > 0) goTo(current - 1);
+  }, [current, goTo]);
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
@@ -411,34 +480,50 @@ export default function CMGFPresentation() {
           <span className="text-foreground">Presentation</span>
         </nav>
 
-        <div className="border border-border rounded-lg bg-card overflow-hidden" data-testid="presentation-container">
-          <div className="border-b border-border px-4 py-2 flex items-center justify-between bg-muted/30">
-            <span className="text-xs font-mono text-muted-foreground">{slides[current].title}</span>
-            <span className="text-xs font-mono text-muted-foreground">{current + 1} / {total}</span>
+        <div className="border border-border rounded-lg overflow-hidden shadow-lg border-t-4 border-t-accent" data-testid="presentation-container">
+          <div className="border-b border-border px-5 py-3 flex items-center justify-between bg-card">
+            <div className="flex items-center gap-2">
+              <Presentation className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">{slides[current].title}</span>
+            </div>
+            <Badge variant="outline" className="text-[10px] font-mono px-2 py-0.5">{current + 1} / {total}</Badge>
           </div>
 
-          <div className="relative">
-            {slides[current].content}
+          <div className="relative bg-gradient-to-br from-background via-background to-primary/[0.02] overflow-hidden">
+            <div
+              className="transition-all duration-300 ease-in-out"
+              style={{
+                opacity: isTransitioning ? 0 : 1,
+                transform: isTransitioning
+                  ? `translateX(${direction === 'next' ? '20px' : '-20px'})`
+                  : 'translateX(0)',
+              }}
+            >
+              {slides[current].content}
+            </div>
           </div>
 
-          <div className="border-t border-border px-4 py-3 flex items-center justify-between bg-muted/30">
+          <div className="border-t border-border px-5 py-3 flex items-center justify-between bg-card">
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={prev}
               disabled={current === 0}
+              className="border-primary/20 hover:border-primary/50 hover:bg-primary/5 disabled:opacity-40 transition-all"
               data-testid="button-prev-slide"
             >
               <ChevronLeft className="h-4 w-4 mr-1" /> Previous
             </Button>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               {slides.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === current ? "bg-primary" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  onClick={() => goTo(i)}
+                  className={`rounded-full transition-all duration-300 ${
+                    i === current
+                      ? "w-6 h-2.5 bg-primary"
+                      : "w-2.5 h-2.5 bg-muted-foreground/20 hover:bg-primary/40"
                   }`}
                   data-testid={`slide-dot-${i}`}
                   aria-label={`Go to slide ${i + 1}`}
@@ -447,10 +532,11 @@ export default function CMGFPresentation() {
             </div>
 
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={next}
               disabled={current === total - 1}
+              className="border-primary/20 hover:border-primary/50 hover:bg-primary/5 disabled:opacity-40 transition-all"
               data-testid="button-next-slide"
             >
               Next <ChevronRight className="h-4 w-4 ml-1" />
