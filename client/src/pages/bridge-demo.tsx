@@ -913,7 +913,7 @@ export default function BridgeDemo() {
 
         {/* ══ COLUMN 5: ISR — INSTITUTIONAL SIGNAL ══ */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
-          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.12em", fontWeight: 700 }}>INSTITUTIONAL SIGNAL</div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.12em", fontWeight: 700 }}>ISR</div>
 
           {/* ISR — Policy Intelligence */}
           <div style={{ background: "var(--card)", border: "1px solid var(--purpleb)", borderRadius: 12, padding: 14, position: "relative", overflow: "hidden" }}>
@@ -944,33 +944,6 @@ export default function BridgeDemo() {
 
             <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>SUBSCRIBERS</div>
             {["Installation education command", "Army Human Resources Command", "DoD Voluntary Education (DANTES)", "Congressional reporting (NDAA §553)", "Pentagon workforce planning"].map(item => (
-              <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
-            ))}
-          </div>
-
-          {/* Transition analytics */}
-          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
-            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>TRANSITION ANALYTICS</div>
-            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
-              ISR captures transition-intent signal from sandbox activity. SMs exploring career paths generate demand data — even before official requests.
-            </div>
-            <div style={{ background: "var(--bg2)", borderRadius: 7, padding: "7px 9px", marginBottom: 8 }}>
-              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>SANDBOX → TRANSITION SIGNAL</div>
-              {[
-                ["Career paths explored", "1,842"],
-                ["Transition-intent detected", "614 (33%)"],
-                ["Avg. salary range searched", "$48K–$72K"],
-                ["Top pain point", "Credential transfer"],
-                ["TAP funding alignment", "67% gap identified"],
-              ].map(([k, v]) => (
-                <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", borderBottom: "1px solid var(--border)" }}>
-                  <span style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
-                  <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text)" }}>{v}</span>
-                </div>
-              ))}
-            </div>
-            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>TRANSITION SANDBOX COULD PROVIDE</div>
-            {["Civilian salary ranges by career field", "Credential gap analysis (MOS → civilian)", "Transitioned veteran outcomes (BLS data)", "Pain points from prior cohorts", "Regional employer demand signals", "TAP resource alignment scoring"].map(item => (
               <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
             ))}
           </div>
