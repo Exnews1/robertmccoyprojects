@@ -329,7 +329,7 @@ export default function Dashboard() {
                 { label: "Research Sources", value: totalLibrary, icon: Database, color: "text-blue-500", bg: "bg-blue-500/10" },
                 { label: "Compliance Items", value: totalCompliance, icon: Shield, color: "text-green-500", bg: "bg-green-500/10" },
                 { label: "Frameworks", value: frameworks?.length ?? 0, icon: BookOpen, color: "text-purple-500", bg: "bg-purple-500/10" },
-                { label: "Site Visits", value: stats?.root_visits ?? 0, icon: Eye, color: "text-orange-500", bg: "bg-orange-500/10" },
+                { label: "Publications", value: 164, icon: Eye, color: "text-orange-500", bg: "bg-orange-500/10" },
               ].map(m => (
                 <Card key={m.label} className="hover-elevate cursor-pointer" onClick={() => {
                   if (m.label === "Research Sources") setActiveTab("research");
@@ -412,10 +412,10 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                      { label: "Site Visits", value: stats?.root_visits ?? 0, icon: Eye },
-                      { label: "Demo Launches", value: stats?.demo_launches ?? 0, icon: Activity },
-                      { label: "Paper Downloads", value: stats?.paper_downloads ?? 0, icon: Download },
-                      { label: "CMGF Visits", value: stats?.cmgf_visits ?? 0, icon: Search },
+                      { label: "Research Sources", value: totalLibrary, icon: Database },
+                      { label: "Compliance Items", value: totalCompliance, icon: Shield },
+                      { label: "Frameworks", value: frameworks?.length ?? 0, icon: BookOpen },
+                      { label: "Publications", value: 164, icon: FileText },
                     ].map(m => (
                       <div key={m.label} className="text-center p-3">
                         <m.icon className="w-5 h-5 text-muted-foreground mx-auto mb-2" />
