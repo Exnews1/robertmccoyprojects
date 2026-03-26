@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, CheckCircle, ChevronRight, Shield, GraduationCap, Brain, Clock, AlertTriangle, FileText } from "lucide-react";
+import { ArrowLeft, CheckCircle, ChevronRight, Shield, GraduationCap, Brain, Clock, Sun, Moon } from "lucide-react";
 
 const MONO = "'JetBrains Mono', monospace";
 const SERIF = "Merriweather, Georgia, serif";
 
 const THEME = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Merriweather:wght@400;700&display=swap');
-  [data-bd] { font-family: 'Inter', -apple-system, sans-serif; }
-  [data-bd] {
+  [data-bd] { font-family: 'Inter', -apple-system, sans-serif; transition: background 0.3s, color 0.3s; }
+  [data-bd="dark"] {
     --bg:#060a12; --bg2:#0c1220; --card:#111827; --text:#eaf0f8;
     --mid:#8b9bb5; --dim:#4a5a72; --border:#1c2740; --blit:#2a3f6e;
     --gold:#c9a84c; --goldg:rgba(201,168,76,0.12); --goldb:rgba(201,168,76,0.25);
@@ -17,9 +17,17 @@ const THEME = `
     --amber:#ffb020; --red:#ff4d6a;
     background:#060a12; color:#eaf0f8;
   }
+  [data-bd="light"] {
+    --bg:#f1f5f9; --bg2:#e8edf4; --card:#ffffff; --text:#0f172a;
+    --mid:#475569; --dim:#94a3b8; --border:#cbd5e1; --blit:#93c5fd;
+    --gold:#92681e; --goldg:rgba(146,104,30,0.08); --goldb:rgba(146,104,30,0.22);
+    --blue:#1d4ed8; --blueg:rgba(29,78,216,0.07); --blueb:rgba(29,78,216,0.22);
+    --green:#15803d; --greeng:rgba(21,128,61,0.07); --greenb:rgba(21,128,61,0.22);
+    --amber:#b45309; --red:#dc2626;
+    background:#f1f5f9; color:#0f172a;
+  }
   @keyframes bd-in  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
   @keyframes bd-pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
-  @keyframes bd-flow { 0%{transform:translateY(0)} 100%{transform:translateY(-60px)} }
   @keyframes bd-glow { 0%,100%{box-shadow:0 0 0px rgba(201,168,76,0)} 50%{box-shadow:0 0 18px rgba(201,168,76,0.4)} }
   @keyframes bd-slide-r { from{opacity:0;transform:translateX(-10px)} to{opacity:1;transform:translateX(0)} }
   @keyframes bd-slide-l { from{opacity:0;transform:translateX(10px)} to{opacity:1;transform:translateX(0)} }
@@ -67,6 +75,7 @@ const STEPS = [
 ];
 
 export default function BridgeDemo() {
+  const [theme, setTheme] = useState<"dark"|"light">("dark");
   const [stage, setStage] = useState(0);
   const [aiIdx, setAiIdx] = useState(-1);
   const [aiDone, setAiDone] = useState(false);
@@ -104,7 +113,7 @@ export default function BridgeDemo() {
   const eso = ESO_PROFILE;
 
   return (
-    <div data-bd style={{ minHeight: "100vh" }}>
+    <div data-bd={theme} style={{ minHeight: "100vh" }}>
       <style>{THEME}</style>
 
       {/* ── TOP NAV ── */}
@@ -116,7 +125,22 @@ export default function BridgeDemo() {
         </Link>
         <span style={{ color: "var(--dim)" }}>›</span>
         <span style={{ fontSize: 12, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.08em" }}>SM · ESO BRIDGE DEMO</span>
-        <div style={{ marginLeft: "auto", fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em" }}>CMGF ARCHITECTURE SERIES · 2026</div>
+        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 16 }}>
+          <span style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em" }}>CMGF ARCHITECTURE SERIES · 2026</span>
+          <button
+            onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}
+            data-testid="button-theme-toggle"
+            style={{
+              display: "flex", alignItems: "center", gap: 6, padding: "5px 12px",
+              background: "var(--bg)", border: "1px solid var(--border)", borderRadius: 20,
+              cursor: "pointer", fontFamily: MONO, fontSize: 11, color: "var(--mid)",
+              letterSpacing: "0.06em", transition: "all 0.2s",
+            }}
+          >
+            {theme === "dark" ? <Sun size={12} /> : <Moon size={12} />}
+            {theme === "dark" ? "LIGHT" : "DARK"}
+          </button>
+        </div>
       </div>
 
       {/* ── HEADER ── */}
