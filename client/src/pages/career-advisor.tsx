@@ -376,16 +376,25 @@ const FIELD_LABELS: Record<string, string> = {
 
 type AdvisorMode = "education" | "tap";
 
+type TapReadiness = "green" | "yellow" | "red";
+
+const TAP_READINESS: Record<TapReadiness, { label: string; note: string; color: string; bg: string; border: string }> = {
+  green:  { label: "HIGH PROXIMITY",    note: "Direct MOS overlap or supported pathway — entry barriers are low.", color: "#2d8a2d", bg: "rgba(45,138,45,0.1)",  border: "rgba(45,138,45,0.3)"  },
+  yellow: { label: "MODERATE PROXIMITY", note: "Education or licensure bridge required. TA pathway applicable but timeline extends.", color: "#f0a500", bg: "rgba(240,165,0,0.1)",  border: "rgba(240,165,0,0.3)"  },
+  red:    { label: "DISTANT PROXIMITY",  note: "Significant education, certification, AND experience gap. Achievable — but the hill is steep.", color: "#e05c5c", bg: "rgba(224,92,92,0.1)",  border: "rgba(224,92,92,0.3)"  },
+};
+
 const TAP_CAREER_FIELDS = [
   {
     field: "Healthcare",
     roles: ["Registered Nurse", "Health Administrator", "EMT / Paramedic"],
     medianSalary: "$58K–$82K",
     demandTrend: "+18% (2024–2030)",
-    credentialGap: "Licensure (NCLEX, state cert)",
+    credentialGap: "Licensure (NCLEX, state cert) — clinical hours mandatory",
     veteranSuccess: "74%",
     painPoints: ["Credential transfer delays", "Clinical hour requirements", "State licensure variation"],
-    tapAlignment: "HIGH",
+    readiness: "yellow" as TapReadiness,
+    readinessNote: "68W medics have clinical relevance but still need full nursing degree + NCLEX. Non-medical MOS: RED.",
     blsCode: "29-1141",
   },
   {
@@ -393,10 +402,11 @@ const TAP_CAREER_FIELDS = [
     roles: ["Police Officer", "Federal Agent", "Corrections Officer"],
     medianSalary: "$52K–$78K",
     demandTrend: "+7% (2024–2030)",
-    credentialGap: "POST Academy (often waived for vets)",
+    credentialGap: "POST Academy (often waived or accelerated for veterans)",
     veteranSuccess: "86%",
     painPoints: ["Agency-specific requirements", "Mental health screening", "Geographic preferences"],
-    tapAlignment: "HIGH",
+    readiness: "green" as TapReadiness,
+    readinessNote: "Most MOS backgrounds qualify. Veterans preference (5 USC 2108) applies broadly. 31B/31E: direct overlap.",
     blsCode: "33-3051",
   },
   {
@@ -404,10 +414,11 @@ const TAP_CAREER_FIELDS = [
     roles: ["SOC Analyst", "Penetration Tester", "Cloud Security Engineer"],
     medianSalary: "$75K–$115K",
     demandTrend: "+33% (2024–2030)",
-    credentialGap: "CompTIA Security+ / CISSP / DoD 8570",
+    credentialGap: "CompTIA Security+ / CISSP / DoD 8570 — plus degree for mid-level roles",
     veteranSuccess: "61%",
-    painPoints: ["Certification cost", "Clearance transfer timing", "Civilian experience gap"],
-    tapAlignment: "MODERATE",
+    painPoints: ["Certification cost", "Clearance transfer timing", "No civilian experience credit for military IT", "Non-IT MOS has zero domain overlap"],
+    readiness: "red" as TapReadiness,
+    readinessNote: "25B/17C: GREEN (direct overlap). Most other MOS: RED — no domain foundation. The hill is steep but the demand is real.",
     blsCode: "15-1212",
   },
   {
@@ -415,10 +426,11 @@ const TAP_CAREER_FIELDS = [
     roles: ["Project Manager (PMP)", "Operations Manager", "Program Analyst"],
     medianSalary: "$68K–$105K",
     demandTrend: "+6% (2024–2030)",
-    credentialGap: "PMP Certification (PMI)",
+    credentialGap: "PMP Certification (PMI) — requires documented project hours",
     veteranSuccess: "72%",
-    painPoints: ["PMP exam cost", "Civilian project terminology", "Industry-specific knowledge"],
-    tapAlignment: "MODERATE",
+    painPoints: ["PMP exam cost ($555)", "Civilian project terminology differs from military", "Documented hours requirement"],
+    readiness: "yellow" as TapReadiness,
+    readinessNote: "NCOs with leadership/planning experience have transferable skills, but PMP certification + civilian terminology bridge required.",
     blsCode: "11-9199",
   },
   {
@@ -426,10 +438,11 @@ const TAP_CAREER_FIELDS = [
     roles: ["HVAC Technician", "Electrician", "CDL Driver", "Supply Chain"],
     medianSalary: "$45K–$72K",
     demandTrend: "+12% (2024–2030)",
-    credentialGap: "Apprenticeship / trade license",
+    credentialGap: "Apprenticeship / trade license — some military training accepted",
     veteranSuccess: "82%",
     painPoints: ["Union entry requirements", "Apprenticeship duration", "Regional wage variance"],
-    tapAlignment: "HIGH",
+    readiness: "green" as TapReadiness,
+    readinessNote: "88M/91-series/12-series: direct MOS overlap. Other MOS: YELLOW — trade apprenticeship required but shorter than degree paths.",
     blsCode: "49-9021",
   },
 ];
@@ -932,7 +945,7 @@ export default function CareerAdvisor() {
             </div>
             <div className="flex flex-col gap-2">
               {TAP_TIMELINE.map((step, i) => (
-                <div key={i} className="flex items-start gap-3 p-3" style={{ background: "rgba(10,22,40,0.5)", borderLeft: `3px solid ${step.color}`, borderRadius: "0 3px 3px 0" }}>
+                <div key={i} className="flex items-start gap-3 p-3" style={{ background: subtleBg, borderLeft: `3px solid ${step.color}`, borderRadius: "0 3px 3px 0" }}>
                   <div className="flex-shrink-0 text-center" style={{ minWidth: 80 }}>
                     <div className="text-[10px] font-mono font-bold" style={{ color: step.color }}>{step.phase}</div>
                     <div className="text-[9px] font-mono tracking-wide uppercase mt-0.5" style={{ color: textDim }}>{step.label}</div>
@@ -948,8 +961,9 @@ export default function CareerAdvisor() {
           <div className="grid grid-cols-1 gap-3">
             {TAP_CAREER_FIELDS.map((career) => {
               const expanded = tapExpandedField === career.field;
+              const rd = TAP_READINESS[career.readiness];
               return (
-                <div key={career.field} style={{ background: cardBg, border: `1px solid ${expanded ? purpleBorder : borderColor}`, borderRadius: 4, overflow: "hidden" }}>
+                <div key={career.field} style={{ background: cardBg, border: `1px solid ${expanded ? rd.border : borderColor}`, borderRadius: 4, overflow: "hidden" }}>
                   <button
                     onClick={() => setTapExpandedField(expanded ? null : career.field)}
                     className="w-full flex items-center justify-between p-4 cursor-pointer border-none text-left"
@@ -957,16 +971,19 @@ export default function CareerAdvisor() {
                     data-testid={`tap-field-${career.field.toLowerCase().replace(/\s/g, "-")}`}
                   >
                     <div className="flex items-center gap-3">
-                      <Briefcase className="h-4 w-4 flex-shrink-0" style={{ color: purpleCol }} />
+                      <div className="flex-shrink-0 w-2.5 h-2.5 rounded-full" style={{ background: rd.color }} />
                       <div>
                         <div className="text-sm font-medium" style={{ color: textColor }}>{career.field}</div>
                         <div className="text-[10px] font-mono" style={{ color: textDim }}>{career.roles.join(" · ")}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-4 flex-shrink-0">
+                      <span className="text-[8px] font-mono font-bold tracking-wider px-2 py-0.5 rounded-sm" style={{ color: rd.color, background: rd.bg, border: `1px solid ${rd.border}` }}>
+                        {rd.label}
+                      </span>
                       <div className="text-right">
                         <div className="text-xs font-mono font-bold" style={{ color: gold }}>{career.medianSalary}</div>
-                        <div className="text-[9px] font-mono" style={{ color: career.demandTrend.includes("+3") ? "#4ecdc4" : career.demandTrend.includes("+1") ? "#c9a84c" : textDim }}>
+                        <div className="text-[9px] font-mono" style={{ color: career.demandTrend.includes("+3") ? tealCol : career.demandTrend.includes("+1") ? gold : textDim }}>
                           {career.demandTrend}
                         </div>
                       </div>
@@ -976,38 +993,40 @@ export default function CareerAdvisor() {
 
                   {expanded && (
                     <div className="px-4 pb-4 space-y-3" style={{ borderTop: `1px solid ${borderColor}` }}>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3">
-                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                      <div className="p-3 flex items-start gap-2.5" style={{ background: rd.bg, border: `1px solid ${rd.border}`, borderRadius: 3, marginTop: 12 }}>
+                        <div className="flex-shrink-0 w-3 h-3 rounded-full mt-0.5" style={{ background: rd.color }} />
+                        <div>
+                          <div className="text-[9px] font-mono font-bold tracking-wider uppercase mb-1" style={{ color: rd.color }}>{rd.label}</div>
+                          <div className="text-xs" style={{ color: textColor }}>{rd.note}</div>
+                          <div className="text-[10px] font-mono mt-1.5 italic" style={{ color: textDim }}>{career.readinessNote}</div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <div className="p-2.5" style={{ background: subtleBg, borderRadius: 3 }}>
                           <div className="flex items-center gap-1.5 mb-1">
                             <DollarSign className="h-3 w-3" style={{ color: gold }} />
                             <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Salary Range</span>
                           </div>
                           <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.medianSalary}</div>
                         </div>
-                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                        <div className="p-2.5" style={{ background: subtleBg, borderRadius: 3 }}>
                           <div className="flex items-center gap-1.5 mb-1">
-                            <TrendingUp className="h-3 w-3" style={{ color: "#4ecdc4" }} />
+                            <TrendingUp className="h-3 w-3" style={{ color: tealCol }} />
                             <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Demand</span>
                           </div>
                           <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.demandTrend}</div>
                         </div>
-                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                        <div className="p-2.5" style={{ background: subtleBg, borderRadius: 3 }}>
                           <div className="flex items-center gap-1.5 mb-1">
-                            <Users className="h-3 w-3" style={{ color: "#5cb85c" }} />
+                            <Users className="h-3 w-3" style={{ color: greenCol }} />
                             <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Vet Success</span>
                           </div>
                           <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.veteranSuccess}</div>
                         </div>
-                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
-                          <div className="flex items-center gap-1.5 mb-1">
-                            <BarChart3 className="h-3 w-3" style={{ color: purpleCol }} />
-                            <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>TAP Align</span>
-                          </div>
-                          <div className="text-sm font-mono font-bold" style={{ color: career.tapAlignment === "HIGH" ? "#5cb85c" : "#f0a500" }}>{career.tapAlignment}</div>
-                        </div>
                       </div>
 
-                      <div className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                      <div className="p-3" style={{ background: subtleBg, borderRadius: 3 }}>
                         <div className="flex items-center gap-1.5 mb-2">
                           <FileText className="h-3 w-3" style={{ color: gold }} />
                           <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Credential Gap</span>
@@ -1015,7 +1034,7 @@ export default function CareerAdvisor() {
                         <div className="text-xs" style={{ color: textColor }}>{career.credentialGap}</div>
                       </div>
 
-                      <div className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                      <div className="p-3" style={{ background: subtleBg, borderRadius: 3 }}>
                         <div className="flex items-center gap-1.5 mb-2">
                           <AlertTriangle className="h-3 w-3" style={{ color: "#f0a500" }} />
                           <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Known Pain Points (from veteran cohorts)</span>
