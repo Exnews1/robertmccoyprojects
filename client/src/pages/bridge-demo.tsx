@@ -473,8 +473,8 @@ export default function BridgeDemo() {
                 </div>
               </div>
 
-              <button onClick={advance} style={{ width: "100%", padding: "11px", background: "var(--purple)", color: "#fff", border: "none", borderRadius: 8, fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", cursor: "pointer" }} data-testid="button-sm-proceed">
-                PROCEED TO OFFICIAL TA REQUEST →
+              <button onClick={() => setStage(2)} style={{ width: "100%", padding: "11px", background: "var(--purple)", color: "#fff", border: "none", borderRadius: 8, fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", cursor: "pointer" }} data-testid="button-sm-proceed">
+                SUBMIT OFFICIAL TA REQUEST →
               </button>
             </div>
           )}
