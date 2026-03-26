@@ -187,7 +187,7 @@ function Router() {
       <Route path="/research/knowledge-systems/insurance/login" component={InsuranceLogin} />
       <Route path="/research/knowledge-systems/insurance/demo" component={InsurancePipeline} />
       <Route path="/research/knowledge-systems/insurance" component={InsuranceKMS} />
-      <Route path="/research/multi-channel-demo" component={MultiChannelDemo} />
+      <Route path="/research/multi-channel-demo">{() => { window.location.replace("/research/bridge-demo"); return null; }}</Route>
       <Route path="/research/bridge-demo" component={BridgeDemo} />
       <Route path="/research/isr" component={IsrQueue} />
       <Route path="/research/audit" component={AuditTrail} />
