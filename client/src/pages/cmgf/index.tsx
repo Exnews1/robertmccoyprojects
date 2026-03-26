@@ -283,7 +283,7 @@ export default function CMGFRoot() {
             <CardContent className="pt-0">
               <div className="grid gap-3 md:grid-cols-3">
                 {[
-                  { href: "/research/multi-channel-demo", title: "Multi-Channel System Demo", desc: "Sandbox boundary, channel integration, and ISR signal aggregation", icon: Cpu, tag: "System" },
+                  { href: "/research/bridge-demo", title: "SM·ESO Bridge Demo", desc: "Career sandbox, Commander gate, and governed AI mediation — live audience walkthrough", icon: Cpu, tag: "Live Demo" },
                   { href: "/research/career-advisor", title: "Career Advisor", desc: "Constraint-binding pathway feasibility engine", icon: Compass, tag: "Interactive" },
                   { href: "/research/signal-flow", title: "Signal Flow", desc: "90-second cinematic signal architecture animation with fireworks finale", icon: PlayCircle, tag: "Presentation" },
                 ].map((tool) => (

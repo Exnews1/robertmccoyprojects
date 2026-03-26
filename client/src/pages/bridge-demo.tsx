@@ -834,7 +834,7 @@ export default function BridgeDemo() {
             <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>AI: Non-authoritative · Human-in-the-loop required</span>
           </div>
           <div style={{ display: "flex", gap: 16 }}>
-            <Link href="/research/multi-channel-demo"><span style={{ fontSize: 11, fontFamily: MONO, color: "var(--blue)", cursor: "pointer" }}>Multi-Channel Demo →</span></Link>
+            <Link href="/research/cmgf"><span style={{ fontSize: 11, fontFamily: MONO, color: "var(--blue)", cursor: "pointer" }}>CMGF Hub →</span></Link>
             <Link href="/research/career-advisor"><span style={{ fontSize: 11, fontFamily: MONO, color: "var(--blue)", cursor: "pointer" }}>Career Advisor →</span></Link>
           </div>
         </div>
