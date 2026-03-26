@@ -1,8 +1,8 @@
-# CMGF Compliance Framework
+# Robert McCoy — AI Governance Consulting Portfolio
 
 ## Overview
 
-This project is a full-stack compliance framework analysis application designed to track regulatory compliance, manage publications, and visualize metrics. It provides a comprehensive dashboard for military education, criminal justice reform, and human capital development. Key features include a reference database with semantic search (RAG), a scenario orchestration engine for simulations, and an end-to-end pipeline for service member requests. The project supports research hubs for AI in Education, U.S. Incarceration, and Human Capital Institutional Throughput, leveraging peer-reviewed data to inform policy and strategy.
+This project is Robert McCoy's professional portfolio site (robertmccoyprojects.com), positioned as an AI Governance Consulting practice backed by a structured research portfolio. The site is divided into a consulting front (Home, Services, About, Contact) and a deep research section (CMGF framework, interactive demos, research hubs, enterprise KMS case studies). Key features include a reference database with semantic search (RAG), a scenario orchestration engine for simulations, an end-to-end SM→ESO→ISR pipeline, and enterprise Knowledge Management System demos. The research section serves as evidence backing the consulting practice — not the primary destination. Cross-links to theaigovernanceguy.com for DOL TEN 07-25 specific consulting.
 
 ## User Preferences
 
@@ -20,8 +20,10 @@ Preferred communication style: Simple, everyday language.
 - **Design System**: Formal/statutory aesthetic with sharp corners, flat cards, dark navy headers/footers, and antique gold accents.
 - **Charts**: Recharts
 - **Forms**: React Hook Form with Zod validation
-- **Site Structure**: Divided into "Consulting" (landing, about, services, contact) and "Research" (CMGF framework, demos, ISR pipeline, hubs).
-- **Navigation**: TopNav (site-wide), CMGFNav (research sub-navigation), DemoNav (unified sub-navigation for demo/tool pages).
+- **Site Structure**: Consulting front (Home, Services, About, Contact) leads with governance consulting value proposition; Research section (CMGF framework, demos, ISR pipeline, hubs, KMS case studies) provides evidence.
+- **Navigation**: TopNav (Home, Services, About, Research, Contact), CMGFNav (research sub-navigation), DemoNav (unified sub-navigation for demo/tool pages).
+- **Homepage Sections**: Hero (consultant positioning), Why Now (regulatory drivers), What I Do (service previews), Built on Evidence (proof points + research/KMS/portfolio cards), Perspectives (thought leadership), DOL TEN 07-25 cross-link, CTA.
+- **Site stats**: Tracking APIs still active (/api/stats, /api/visitors) but counters removed from public footer and dashboard. Stats are private/internal only.
 
 ### Backend
 - **Framework**: Express.js with TypeScript

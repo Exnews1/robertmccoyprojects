@@ -5,7 +5,6 @@ export function TopNav() {
   const [location] = useLocation();
 
   const isResearch = location.startsWith("/research");
-  const isConsulting = !isResearch;
 
   return (
     <div style={{ backgroundColor: '#0F172A', borderBottom: '1px solid #334155' }} data-testid="top-nav">
@@ -14,7 +13,7 @@ export function TopNav() {
           <Link href="/">
             <button
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
-                isConsulting && location === "/"
+                !isResearch && location === "/"
                   ? "text-amber-400"
                   : "text-slate-400 hover:text-white"
               }`}
@@ -22,6 +21,19 @@ export function TopNav() {
             >
               <Building2 className="w-3.5 h-3.5" />
               Home
+            </button>
+          </Link>
+          <Link href="/services">
+            <button
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors ${
+                location === "/services"
+                  ? "text-amber-400"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              data-testid="topnav-services"
+            >
+              <Briefcase className="w-3.5 h-3.5" />
+              Services
             </button>
           </Link>
           <Link href="/about">

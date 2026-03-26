@@ -59,8 +59,6 @@ export default function Dashboard() {
   const { data: frameworks, isLoading: fwLoading } = useQuery<Framework[]>({ queryKey: ["/api/frameworks"] });
   const { data: complianceItems, isLoading: ciLoading } = useQuery<ComplianceItem[]>({ queryKey: ["/api/compliance-items"] });
   const { data: librarySummary, isLoading: summaryLoading } = useQuery<LibrarySummary>({ queryKey: ["/api/library/summary"] });
-  const { data: stats } = useQuery<Record<string, number>>({ queryKey: ["/api/stats"] });
-
   const [activeTab, setActiveTab] = useState("overview");
 
   const needsFullLibrary = activeTab === "research";

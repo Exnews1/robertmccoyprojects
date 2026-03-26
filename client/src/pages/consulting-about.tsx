@@ -113,9 +113,9 @@ export default function ConsultingAbout() {
           <div className="flex justify-center">
             <Shield className="w-8 h-8 text-primary/70" />
           </div>
-          <h2 className="text-xl font-bold text-foreground font-serif">The CMGF: Systems Thinking Applied to AI Governance</h2>
+          <h2 className="text-xl font-bold text-foreground font-serif">Case Study: The CMGF</h2>
           <p className="text-muted-foreground leading-relaxed">
-            The Credentialed Military-Civilian Governance Framework (CMGF) is the product of decades of operational experience distilled into a structured, repeatable methodology for responsible AI governance. It is backed by 797 peer-reviewed sources and has been presented at national conferences.
+            The Credentialed Military-Civilian Governance Framework (CMGF) demonstrates my approach applied to a specific domain: military career mobility. It's a bounded AI architecture with sandbox-first design, human-in-the-loop enforcement, and institutional audit trails — backed by 797 peer-reviewed sources. The same governance principles apply to any organization deploying AI in high-stakes environments.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link href="/research/cmgf">
