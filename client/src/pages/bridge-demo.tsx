@@ -66,10 +66,12 @@ const CAREERS = [
     icon: "🏥",
     readiness: "yellow" as Readiness,
     degree: "B.S. Healthcare Administration",
-    course: { code: "HLTH 301", title: "Health Policy & Law", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
+    course: { code: "HLTH 301", title: "Health Policy & Law", school: "Troy University", mouStatus: "Active DoD MOU — TA eligible", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
+      ["Funding mechanism",  "Tuition Assistance (TA) — AR 621-5 pipeline applies"],
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "HLTH 301 maps directly to declared degree plan"],
+      ["DoD MOU status",     "Troy University — Active DoD MOU · TA-authorized institution"],
+      ["Degree alignment",   "HLTH 301 (Troy Univ.) maps to declared B.S. Healthcare Admin degree plan"],
       ["MOS credit value",   "68W translates 12–18 credits toward healthcare programs"],
       ["Credential gap",     "Degree required — no separate licensure at admin level"],
       ["AR 621-5 flags",     "None identified"],
@@ -82,10 +84,12 @@ const CAREERS = [
     icon: "⚕",
     readiness: "yellow" as Readiness,
     degree: "B.S. Nursing (BSN)",
-    course: { code: "BIOL 220", title: "Anatomy & Physiology II", school: "American Military University", credits: 4, cost: 900, start: "April 14, 2026" },
+    course: { code: "BIOL 220", title: "Anatomy & Physiology II", school: "American Military University", mouStatus: "Active DoD MOU — TA eligible", credits: 4, cost: 900, start: "April 14, 2026" },
     facts: [
+      ["Funding mechanism",  "Tuition Assistance (TA) — AR 621-5 pipeline applies"],
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "BIOL 220 fulfills BSN science prerequisite requirement"],
+      ["DoD MOU status",     "American Military University — Active DoD MOU · TA-authorized"],
+      ["Degree alignment",   "BIOL 220 (AMU) fulfills BSN science prerequisite requirement"],
       ["MOS credit value",   "68W field experience maps to clinical hour portfolio"],
       ["Credential gap",     "BSN required + NCLEX-RN licensure before practice"],
       ["AR 621-5 flags",     "None identified"],
@@ -98,10 +102,12 @@ const CAREERS = [
     icon: "🚔",
     readiness: "green" as Readiness,
     degree: "B.S. Criminal Justice (optional)",
-    course: { code: "CJUS 210", title: "Criminology & Social Justice", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
+    course: { code: "CJUS 210", title: "Criminology & Social Justice", school: "Troy University", mouStatus: "Active DoD MOU — TA eligible", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
+      ["Funding mechanism",  "Tuition Assistance (TA) — AR 621-5 pipeline applies"],
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "CJUS 210 strengthens application — not required for entry"],
+      ["DoD MOU status",     "Troy University — Active DoD MOU · TA-authorized institution"],
+      ["Degree alignment",   "CJUS 210 (Troy Univ.) strengthens application — degree not required for entry"],
       ["Entry requirement",  "Most departments: HS diploma + background check. Degree not required."],
       ["Veteran preference", "Federal and most state agencies grant veterans' preference points"],
       ["AR 621-5 flags",     "None identified"],
@@ -114,9 +120,12 @@ const CAREERS = [
     icon: "📚",
     readiness: "green" as Readiness,
     degree: "B.S. Education (or Alt. Cert. via S2T)",
-    course: { code: "EDUC 301", title: "Curriculum Design & Assessment", school: "Columbia Southern University", credits: 3, cost: 750, start: "April 14, 2026" },
+    course: { code: "EDUC 301", title: "Curriculum Design & Assessment", school: "Columbia Southern University", mouStatus: "Active DoD MOU — TA eligible", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
+      ["Funding mechanism",    "Tuition Assistance (TA) — AR 621-5 pipeline applies"],
       ["TA eligibility",       "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["DoD MOU status",       "Columbia Southern University — Active DoD MOU · TA-authorized"],
+      ["Degree alignment",     "EDUC 301 (CSU) aligns to B.S. Education degree plan"],
       ["Soldiers to Teachers", "Federal S2T program — stipends, alt. certification, state placement support"],
       ["Alt. cert. pathway",   "Most states allow military veterans to teach under emergency/alt. licensure"],
       ["MOS credit value",     "Army instructor/trainer background directly applicable to classroom"],
@@ -131,10 +140,12 @@ const CAREERS = [
     icon: "🔐",
     readiness: "red" as Readiness,
     degree: "B.S. Cybersecurity",
-    course: { code: "CSCI 250", title: "Network Security Fundamentals", school: "American Military University", credits: 3, cost: 750, start: "April 14, 2026" },
+    course: { code: "CSCI 250", title: "Network Security Fundamentals", school: "American Military University", mouStatus: "Active DoD MOU — TA eligible", credits: 3, cost: 750, start: "April 14, 2026" },
     facts: [
+      ["Funding mechanism",  "Tuition Assistance (TA) — AR 621-5 pipeline applies"],
       ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
-      ["Degree alignment",   "CSCI 250 maps to B.S. Cybersecurity core — partial alignment only"],
+      ["DoD MOU status",     "American Military University — Active DoD MOU · TA-authorized"],
+      ["Degree alignment",   "CSCI 250 (AMU) maps to B.S. Cybersecurity core — partial alignment only"],
       ["MOS credit value",   "68W STEM credits limited; prerequisite coursework likely required"],
       ["Credential gap",     "Degree + CompTIA Security+/CISSP + demonstrated experience all required"],
       ["AR 621-5 flags",     "None identified — prerequisite gap noted for ESO awareness"],
@@ -163,7 +174,7 @@ function buildAiSteps(career: typeof CAREERS[number]) {
     { label: "TA eligibility",          detail: `$${SM.taBalance.toLocaleString()} of $4,000 remaining (FY2026) — above course cost` },
     { label: "Degree-plan alignment",   detail: `${career.course.code} maps to ${career.degree}` },
     { label: "AR 621-5 compliance",     detail: "No prior recoupment events · No suspension flags" },
-    { label: "Institutional check",     detail: `${career.course.school} · TA-eligible · Regionally accredited` },
+    { label: "DoD MOU verification",    detail: `${career.course.school} · Active DoD MOU confirmed · TA disbursement authorized` },
     { label: "Channel routing",         detail: "Standard Review — commander approval required per AR 621-5 WAVE 2" },
     { label: "Policy flags",            detail: career.id === "cyber" ? "Prerequisite gap noted — no policy violation" : "None identified" },
   ];
@@ -421,11 +432,23 @@ export default function BridgeDemo() {
                 );
               })()}
 
-              <div style={{ fontSize: 11, color: "var(--dim)", fontStyle: "italic", marginBottom: 14 }}>
+              <div style={{ fontSize: 11, color: "var(--dim)", fontStyle: "italic", marginBottom: 12 }}>
                 No institutional record has been created. SGT Chen may exit without any consequence.
               </div>
+
+              {/* Pipeline scope note */}
+              <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "9px 12px", marginBottom: 14, border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", fontWeight: 700, letterSpacing: "0.08em", marginBottom: 5 }}>WHEN THIS PIPELINE APPLIES</div>
+                <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.6 }}>
+                  <span style={{ color: "var(--green)", fontWeight: 700 }}>✓ Tuition Assistance (TA)</span> — school must hold active DoD MOU · Commander and ESO are in the chain<br />
+                  <span style={{ color: "var(--green)", fontWeight: 700 }}>✓ Career Advancement (CA)</span> — same chain of authority applies<br />
+                  <span style={{ color: "var(--dim)" }}>✗ VA education benefits</span> — VA-funded enrollment is outside this process · Commander and ESO have no institutional role<br />
+                  <span style={{ color: "var(--dim)" }}>✗ Self-financed enrollment</span> — SM's own funds · pipeline is null · no AR 621-5 authority
+                </div>
+              </div>
+
               <button onClick={advance} style={{ width: "100%", padding: "11px", background: "var(--purple)", color: "#fff", border: "none", borderRadius: 8, fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.06em", cursor: "pointer" }} data-testid="button-sm-proceed">
-                PROCEED TO OFFICIAL REQUEST →
+                PROCEED TO OFFICIAL TA REQUEST →
               </button>
             </div>
           )}
@@ -434,8 +457,22 @@ export default function BridgeDemo() {
           {stage >= 1 && (
             <div className="bd-in-sm" style={{ background: "var(--card)", border: `1px solid ${stage >= 4 && cmdDecision === "approved" ? "var(--greenb)" : stage >= 3 && cmdDecision === "disapproved" ? "var(--redb)" : "var(--blueb)"}`, borderRadius: 12, padding: 18, position: "relative", overflow: "hidden", transition: "border-color 0.4s" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 4 && cmdDecision === "approved" ? "var(--green)" : stage >= 3 && cmdDecision === "disapproved" ? "var(--red)" : "var(--blue)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
-              <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 12 }}>OFFICIAL TA REQUEST — SUBMITTED</div>
-              {[["Course", `${selectedCareer.course.code} — ${selectedCareer.course.title}`], ["Institution", selectedCareer.course.school], ["Credit Hours", selectedCareer.course.credits + " hrs"], ["Cost", "$" + selectedCareer.course.cost], ["Start Date", selectedCareer.course.start]].map(([k, v]) => (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em" }}>OFFICIAL TA REQUEST — SUBMITTED</div>
+                <div style={{ padding: "2px 8px", borderRadius: 4, background: "var(--blueg)", border: "1px solid var(--blueb)", fontSize: 9, fontFamily: MONO, fontWeight: 700, color: "var(--blue)", letterSpacing: "0.08em" }}>TUITION ASSISTANCE</div>
+              </div>
+
+              {/* MOU status — hard gate */}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 10px", marginBottom: 10, background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
+                <CheckCircle size={13} color="var(--green)" style={{ flexShrink: 0 }} />
+                <div>
+                  <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em" }}>DoD MOU STATUS</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "var(--green)" }}>{selectedCareer.course.mouStatus}</div>
+                  <div style={{ fontSize: 9, color: "var(--dim)", marginTop: 1 }}>{selectedCareer.course.school}</div>
+                </div>
+              </div>
+
+              {[["Course", `${selectedCareer.course.code} — ${selectedCareer.course.title}`], ["Credit Hours", `${selectedCareer.course.credits} hrs`], ["TA Cost", `$${selectedCareer.course.cost}`], ["Start Date", selectedCareer.course.start]].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
                   <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
                   <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>{v}</span>
