@@ -100,13 +100,6 @@ const sections = [
     featured: true
   },
   {
-    id: "engagement",
-    title: "Interactive Engagement",
-    description: "Explore the CMGF research paper through document-grounded inquiry and submit considered expert commentary.",
-    icon: MessageSquare,
-    route: "/research/cmgf/engagement"
-  },
-  {
     id: "cse",
     title: "Credential Sequencing Engine",
     description: "Binding layer demonstration: transparent, rule-based credential sequencing with data provenance and audit logging.",
