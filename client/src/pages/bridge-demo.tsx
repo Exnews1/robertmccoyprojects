@@ -48,10 +48,86 @@ const SM = {
   name: "SGT Maria T. Chen",
   rank: "E-5", mos: "68W — Health Care Specialist",
   station: "Fort Campbell, KY",
-  credits: 54, goal: "B.S. Healthcare Administration",
-  taBalance: 3250,
-  course: { code: "HLTH 301", title: "Health Policy & Law", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
+  credits: 54, taBalance: 3250,
 };
+
+const CAREERS = [
+  {
+    id: "healthcare-admin",
+    label: "Healthcare Administrator",
+    icon: "🏥",
+    degree: "B.S. Healthcare Administration",
+    course: { code: "HLTH 301", title: "Health Policy & Law", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
+    facts: [
+      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Degree alignment",   "HLTH 301 maps directly to declared degree plan"],
+      ["MOS credit value",   "68W translates 12–18 credits toward healthcare programs"],
+      ["Credential gap",     "None at course level — degree required for management roles"],
+      ["AR 621-5 flags",     "None identified"],
+      ["Policy risk index",  "0.12 (no thresholds breached)"],
+    ],
+  },
+  {
+    id: "nurse",
+    label: "Registered Nurse",
+    icon: "⚕",
+    degree: "B.S. Nursing (BSN)",
+    course: { code: "BIOL 220", title: "Anatomy & Physiology II", school: "American Military University", credits: 4, cost: 900, start: "April 14, 2026" },
+    facts: [
+      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Degree alignment",   "BIOL 220 fulfills BSN science prerequisite requirement"],
+      ["MOS credit value",   "68W field experience maps to clinical hour portfolio"],
+      ["Credential gap",     "NCLEX-RN license required post-graduation (not TA-funded)"],
+      ["AR 621-5 flags",     "None identified"],
+      ["Policy risk index",  "0.14 (no thresholds breached)"],
+    ],
+  },
+  {
+    id: "police",
+    label: "Police / Law Enforcement",
+    icon: "🚔",
+    degree: "B.S. Criminal Justice",
+    course: { code: "CJUS 210", title: "Criminology & Social Justice", school: "Troy University", credits: 3, cost: 750, start: "April 14, 2026" },
+    facts: [
+      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Degree alignment",   "CJUS 210 maps to B.S. Criminal Justice core requirements"],
+      ["MOS credit value",   "Military police/leadership experience transferable"],
+      ["Credential gap",     "State POST certification required after degree (not TA-funded)"],
+      ["AR 621-5 flags",     "None identified"],
+      ["Policy risk index",  "0.11 (no thresholds breached)"],
+    ],
+  },
+  {
+    id: "teacher",
+    label: "K-12 Teacher",
+    icon: "📚",
+    degree: "B.S. Education",
+    course: { code: "EDUC 301", title: "Curriculum Design & Assessment", school: "Columbia Southern University", credits: 3, cost: 750, start: "April 14, 2026" },
+    facts: [
+      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Degree alignment",   "EDUC 301 maps to B.S. Education pedagogy track"],
+      ["MOS credit value",   "Army instructor/trainer roles may qualify for field experience credit"],
+      ["Credential gap",     "State teaching license required after degree (state-specific)"],
+      ["AR 621-5 flags",     "None identified"],
+      ["Policy risk index",  "0.10 (no thresholds breached)"],
+    ],
+  },
+  {
+    id: "cyber",
+    label: "Cybersecurity Analyst",
+    icon: "🔐",
+    degree: "B.S. Cybersecurity",
+    course: { code: "CSCI 250", title: "Network Security Fundamentals", school: "American Military University", credits: 3, cost: 750, start: "April 14, 2026" },
+    facts: [
+      ["TA eligibility",     "Confirmed — $3,250 of $4,000 remaining (FY2026)"],
+      ["Degree alignment",   "CSCI 250 maps to B.S. Cybersecurity core — partial alignment only"],
+      ["MOS credit value",   "68W STEM credits limited; additional prerequisites likely required"],
+      ["Credential gap",     "CompTIA Security+ recommended parallel to degree (CA-fundable)"],
+      ["AR 621-5 flags",     "None identified — prerequisite gap noted for ESO awareness"],
+      ["Policy risk index",  "0.31 (elevated — prerequisite gap; no policy violation)"],
+    ],
+  },
+] as const;
 
 const ESO = {
   name: "James R. Okafor",
@@ -67,15 +143,17 @@ const CMD = {
   unit: "HHC, 2-101 AVN, 101st ABN DIV",
 };
 
-const AI_STEPS = [
-  { label: "Identity verification",      detail: "E-5 rank confirmed · DOD ID matched" },
-  { label: "TA eligibility check",        detail: "$3,250 of $4,000 remaining (FY2026)" },
-  { label: "Degree-plan alignment",       detail: "HLTH 301 maps to B.S. Healthcare Admin — confirmed" },
-  { label: "AR 621-5 compliance",         detail: "No prior recoupment · No suspension flags" },
-  { label: "Institutional validation",    detail: "Troy University · TA-eligible · SACSCOC accredited" },
-  { label: "Channel routing",             detail: "Standard Review — commander approval required (WAVE 2)" },
-  { label: "Risk scoring",               detail: "Risk index: 0.12 (LOW) · Recommendation: APPROVE" },
-];
+function buildAiSteps(career: typeof CAREERS[number]) {
+  return [
+    { label: "Identity verification",   detail: "E-5 rank confirmed · DOD ID matched" },
+    { label: "TA eligibility",          detail: `$${SM.taBalance.toLocaleString()} of $4,000 remaining (FY2026) — above course cost` },
+    { label: "Degree-plan alignment",   detail: `${career.course.code} maps to ${career.degree}` },
+    { label: "AR 621-5 compliance",     detail: "No prior recoupment events · No suspension flags" },
+    { label: "Institutional check",     detail: `${career.course.school} · TA-eligible · Regionally accredited` },
+    { label: "Channel routing",         detail: "Standard Review — commander approval required per AR 621-5 WAVE 2" },
+    { label: "Policy flags",            detail: career.id === "cyber" ? "Prerequisite gap noted — no policy violation" : "None identified" },
+  ];
+}
 
 const STEPS = [
   { label: "Sandbox Exploration",    cue: "SGT Chen is exploring privately — no institutional record, no commitment." },
@@ -93,12 +171,15 @@ export default function BridgeDemo() {
   const [aiDone, setAiDone]         = useState(false);
   const [cmdDecision, setCmdDecision] = useState<"none"|"approved"|"disapproved">("none");
   const [shadowVisible, setShadowVisible] = useState(false);
+  const [selectedCareer, setSelectedCareer] = useState<typeof CAREERS[number]>(CAREERS[0]);
+
+  const aiSteps = buildAiSteps(selectedCareer);
 
   useEffect(() => {
     if (stage !== 2) return;
     setAiIdx(-1); setAiDone(false);
     let i = 0;
-    const tick = () => { setAiIdx(i); i++; if (i < AI_STEPS.length) setTimeout(tick, 420); else setTimeout(() => setAiDone(true), 600); };
+    const tick = () => { setAiIdx(i); i++; if (i < aiSteps.length) setTimeout(tick, 420); else setTimeout(() => setAiDone(true), 600); };
     setTimeout(tick, 300);
   }, [stage]);
 
@@ -114,6 +195,7 @@ export default function BridgeDemo() {
   const reset = () => {
     setStage(0); setAiIdx(-1); setAiDone(false);
     setCmdDecision("none"); setShadowVisible(false);
+    setSelectedCareer(CAREERS[0]);
   };
 
   const stepIdx = Math.min(stage, STEPS.length - 1);
@@ -239,7 +321,7 @@ export default function BridgeDemo() {
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              {[["Credits Earned", SM.credits + " hrs"], ["Degree Goal", SM.goal], ["TA Balance (FY26)", "$" + SM.taBalance.toLocaleString()], ["Status", "Active Duty"]].map(([k, v]) => (
+              {[["Credits Earned", SM.credits + " hrs"], ["Civilian Goal", selectedCareer.degree], ["TA Balance (FY26)", "$" + SM.taBalance.toLocaleString()], ["Status", "Active Duty"]].map(([k, v]) => (
                 <div key={k} style={{ background: "var(--bg2)", borderRadius: 7, padding: "8px 10px" }}>
                   <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 3 }}>{k}</div>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text)" }}>{v}</div>
@@ -252,22 +334,57 @@ export default function BridgeDemo() {
           {stage === 0 && (
             <div style={{ background: "var(--card)", border: "1px solid var(--purpleb)", borderRadius: 12, padding: 18, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--purple)", borderRadius: "12px 12px 0 0" }} />
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
                 <div style={{ padding: "3px 9px", borderRadius: 20, background: "var(--purpleg)", border: "1px solid var(--purpleb)", fontSize: 9, fontFamily: MONO, fontWeight: 700, color: "var(--purple)", letterSpacing: "0.1em" }}>SANDBOX MODE</div>
-                <span style={{ fontSize: 11, color: "var(--dim)" }}>Exploring — no record created</span>
+                <span style={{ fontSize: 11, color: "var(--dim)" }}>Exploring — no institutional record created</span>
               </div>
-              <div style={{ fontSize: 12, color: "var(--mid)", lineHeight: 1.6, marginBottom: 14 }}>
-                SGT Chen is privately exploring a possible TA request for HLTH 301. The CMGF sandbox evaluates feasibility without creating any institutional footprint. The ESO does not know this session exists.
+
+              <div style={{ fontSize: 11, color: "var(--mid)", lineHeight: 1.5, marginBottom: 14 }}>
+                SGT Chen selects a civilian end-state. The CMGF sandbox returns verified facts for that pathway — no commitment, no footprint.
               </div>
-              <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "10px 14px", marginBottom: 14 }}>
-                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>SANDBOX FEASIBILITY RESULT</div>
-                {[["Estimated eligibility", "✓ Likely eligible"], ["TA cap headroom", "✓ $3,250 available"], ["Degree alignment", "✓ Course maps to declared plan"], ["Risk indicator", "LOW — proceed advised"]].map(([k, v]) => (
-                  <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid var(--border)", fontSize: 11 }}>
-                    <span style={{ color: "var(--dim)", fontFamily: MONO }}>{k}</span>
-                    <span style={{ fontWeight: 600, color: "var(--text)" }}>{v}</span>
-                  </div>
+
+              {/* Career selector */}
+              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8 }}>SELECT CIVILIAN END-STATE</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 14 }}>
+                {CAREERS.map(c => (
+                  <button
+                    key={c.id}
+                    onClick={() => setSelectedCareer(c)}
+                    data-testid={`button-career-${c.id}`}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                      background: selectedCareer.id === c.id ? "var(--purpleg)" : "var(--bg2)",
+                      border: `1px solid ${selectedCareer.id === c.id ? "var(--purpleb)" : "var(--border)"}`,
+                      borderRadius: 8, cursor: "pointer", textAlign: "left", transition: "all 0.2s",
+                    }}
+                  >
+                    <span style={{ fontSize: 18, flexShrink: 0 }}>{c.icon}</span>
+                    <div>
+                      <div style={{ fontSize: 12, fontWeight: 700, color: selectedCareer.id === c.id ? "var(--purple)" : "var(--text)" }}>{c.label}</div>
+                      <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)" }}>{c.degree}</div>
+                    </div>
+                    {selectedCareer.id === c.id && <CheckCircle size={14} color="var(--purple)" style={{ marginLeft: "auto", flexShrink: 0 }} />}
+                  </button>
                 ))}
               </div>
+
+              {/* Dynamic feasibility facts */}
+              <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "10px 14px", marginBottom: 14 }} className="bd-in-up" key={selectedCareer.id}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 16 }}>{selectedCareer.icon}</span>
+                  <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", fontWeight: 700 }}>SANDBOX FACTS — {selectedCareer.label.toUpperCase()}</div>
+                </div>
+                {selectedCareer.facts.map(([k, v]) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "6px 0", borderBottom: "1px solid var(--border)", gap: 12 }}>
+                    <span style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
+                    <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text)", textAlign: "right", lineHeight: 1.3 }}>{v}</span>
+                  </div>
+                ))}
+                <div style={{ marginTop: 10, padding: "6px 10px", background: "var(--purpleg)", borderRadius: 6, border: "1px solid var(--purpleb)" }}>
+                  <span style={{ fontSize: 10, color: "var(--purple)", fontFamily: MONO }}>Course to request: {selectedCareer.course.code} — {selectedCareer.course.title} · ${selectedCareer.course.cost}</span>
+                </div>
+              </div>
+
               <div style={{ fontSize: 11, color: "var(--dim)", fontStyle: "italic", marginBottom: 14 }}>
                 No institutional record has been created. SGT Chen may exit without any consequence.
               </div>
@@ -282,7 +399,7 @@ export default function BridgeDemo() {
             <div className="bd-in-sm" style={{ background: "var(--card)", border: `1px solid ${stage >= 4 && cmdDecision === "approved" ? "var(--greenb)" : stage >= 4 && cmdDecision === "disapproved" ? "var(--redb)" : "var(--blueb)"}`, borderRadius: 12, padding: 18, position: "relative", overflow: "hidden", transition: "border-color 0.4s" }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 4 && cmdDecision === "approved" ? "var(--green)" : stage >= 4 && cmdDecision === "disapproved" ? "var(--red)" : "var(--blue)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
               <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 12 }}>OFFICIAL TA REQUEST — SUBMITTED</div>
-              {[["Course", `${SM.course.code} — ${SM.course.title}`], ["Institution", SM.course.school], ["Credit Hours", SM.course.credits + " hrs"], ["Cost", "$" + SM.course.cost], ["Start Date", SM.course.start]].map(([k, v]) => (
+              {[["Course", `${selectedCareer.course.code} — ${selectedCareer.course.title}`], ["Institution", selectedCareer.course.school], ["Credit Hours", selectedCareer.course.credits + " hrs"], ["Cost", "$" + selectedCareer.course.cost], ["Start Date", selectedCareer.course.start]].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
                   <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
                   <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)" }}>{v}</span>
@@ -327,7 +444,7 @@ export default function BridgeDemo() {
                       <CheckCircle size={16} color="var(--green)" />
                       <span style={{ fontSize: 13, fontFamily: MONO, fontWeight: 800, color: "var(--green)" }}>REQUEST APPROVED</span>
                     </div>
-                    <div style={{ fontSize: 11, color: "var(--mid)", lineHeight: 1.5 }}>HLTH 301 approved. $750 TA funded. Enrollment confirmation sent to Troy University.</div>
+                    <div style={{ fontSize: 11, color: "var(--mid)", lineHeight: 1.5 }}>{selectedCareer.course.code} approved. ${selectedCareer.course.cost} TA funded. Enrollment confirmation sent to {selectedCareer.course.school}.</div>
                     <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--dim)" }}>ISR logged · Audit record created · {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</div>
                   </div>
                 )}
@@ -378,7 +495,7 @@ export default function BridgeDemo() {
           {/* AI classification steps */}
           <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 12 }}>
             <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8 }}>CLASSIFICATION PIPELINE</div>
-            {AI_STEPS.map((s, i) => {
+            {aiSteps.map((s, i) => {
               const done = aiIdx >= i; const active = aiIdx === i && !aiDone;
               return (
                 <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, opacity: stage < 2 ? 0.25 : 1, transition: "opacity 0.3s", marginBottom: 6 }}>
@@ -394,12 +511,24 @@ export default function BridgeDemo() {
             })}
           </div>
 
-          {/* AI recommendation */}
+          {/* AI policy verification output — facts only, no recommendation */}
           {aiDone && (
-            <div className="bd-in-up" style={{ background: "var(--greeng)", border: "1px solid var(--greenb)", borderRadius: 10, padding: "10px 14px", textAlign: "center" }}>
-              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 5 }}>AI RECOMMENDATION</div>
-              <div style={{ fontSize: 17, fontFamily: MONO, fontWeight: 900, color: "var(--green)" }}>APPROVE</div>
-              <div style={{ fontSize: 10, color: "var(--mid)", marginTop: 3 }}>Risk 0.12 · LOW</div>
+            <div className="bd-in-up" style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 10, padding: "11px 14px" }}>
+              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 8, fontWeight: 700 }}>POLICY VERIFICATION COMPLETE</div>
+              {[
+                ["Policy flags", selectedCareer.id === "cyber" ? "Prerequisite gap (no violation)" : "None identified"],
+                ["AR 621-5 status", "Compliant"],
+                ["Risk index", selectedCareer.facts.find(f => f[0] === "Policy risk index")?.[1] ?? "—"],
+                ["Routing", "→ Commander gate (WAVE 2)"],
+              ].map(([k, v]) => (
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "4px 0", borderBottom: "1px solid var(--border)", gap: 8 }}>
+                  <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text)", textAlign: "right" }}>{v}</span>
+                </div>
+              ))}
+              <div style={{ marginTop: 8, fontSize: 9, fontFamily: MONO, color: "var(--dim)", fontStyle: "italic" }}>
+                Facts verified · No decision authority · Human adjudication required
+              </div>
             </div>
           )}
 
@@ -585,7 +714,7 @@ export default function BridgeDemo() {
               <div style={{ fontWeight: 700, fontSize: 14, color: "var(--text)", marginBottom: 2 }}>{SM.name}</div>
               <div style={{ fontSize: 11, fontFamily: MONO, color: "var(--mid)", marginBottom: 12 }}>{SM.rank} · {SM.mos}</div>
 
-              {[["Requested", `${SM.course.code} — ${SM.course.title}`], ["Institution", SM.course.school], ["Cost", "$" + SM.course.cost]].map(([k, v]) => (
+              {[["Requested", `${selectedCareer.course.code} — ${selectedCareer.course.title}`], ["Institution", selectedCareer.course.school], ["Cost", "$" + selectedCareer.course.cost]].map(([k, v]) => (
                 <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid var(--border)" }}>
                   <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
                   <span style={{ fontSize: 11, fontWeight: 600, color: "var(--text)" }}>{v}</span>
@@ -593,22 +722,30 @@ export default function BridgeDemo() {
               ))}
 
               <div style={{ background: "var(--bg2)", borderRadius: 9, padding: 12, margin: "14px 0" }}>
-                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 8 }}>AI PRE-ANALYSIS — CMGF ENGINE</div>
+                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 8 }}>VERIFIED FACTS — CMGF ENGINE</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7, marginBottom: 10 }}>
-                  {[["Eligibility", "CONFIRMED"], ["Risk Score", "0.12 · LOW"], ["AR 621-5", "Compliant"], ["Recommendation", "APPROVE"]].map(([k, v]) => (
+                  {[
+                    ["Eligibility", "Confirmed"],
+                    ["AR 621-5 status", "Compliant"],
+                    ["Risk index", selectedCareer.facts.find(f => f[0] === "Policy risk index")?.[1]?.split(" ")[0] ?? "—"],
+                    ["Policy flags", selectedCareer.id === "cyber" ? "Prereq gap" : "None"],
+                  ].map(([k, v]) => (
                     <div key={k} style={{ background: "var(--card)", borderRadius: 7, padding: "7px 9px" }}>
                       <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", marginBottom: 2 }}>{k}</div>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: "var(--green)", fontFamily: MONO }}>{v}</div>
+                      <div style={{ fontSize: 11, fontWeight: 800, color: selectedCareer.id === "cyber" && k === "Policy flags" ? "var(--amber)" : "var(--text)", fontFamily: MONO }}>{v}</div>
                     </div>
                   ))}
                 </div>
-                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 5 }}>SUPPORTING FINDINGS</div>
-                {AI_STEPS.slice(0, 5).map((s, i) => (
+                <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 5 }}>VERIFICATION FINDINGS</div>
+                {aiSteps.slice(0, 5).map((s, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, marginBottom: 4 }}>
                     <CheckCircle size={10} color="var(--green)" style={{ marginTop: 2, flexShrink: 0 }} />
                     <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.4 }}>{s.detail}</div>
                   </div>
                 ))}
+                <div style={{ marginTop: 8, paddingTop: 8, borderTop: "1px solid var(--border)", fontSize: 9, fontFamily: MONO, color: "var(--dim)", fontStyle: "italic" }}>
+                  Verified facts only · No recommendation authority · ESO decision required
+                </div>
               </div>
 
               {stage === 4 && (
