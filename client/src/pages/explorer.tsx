@@ -38,7 +38,7 @@ const exampleQueries = [
   "What is a stacked credential?",
   "How does CMGF ensure human oversight?",
   "What are the NIST AI RMF core functions?",
-  "What is the education-transition paradox?"
+  "What does DOL TEN 07-25 require for AI literacy?"
 ];
 
 export default function Explorer() {
@@ -97,7 +97,7 @@ export default function Explorer() {
       <div className="max-w-4xl mx-auto px-4 md:px-6 py-6 md:py-8">
         <nav className="mb-8 text-sm">
           <Link href="/research" className="text-muted-foreground hover:text-primary transition-colors">
-            Portfolio
+            Research
           </Link>
           <ChevronRight className="inline h-4 w-4 mx-2 text-muted-foreground" />
           <Link href="/research/cmgf" className="text-muted-foreground hover:text-primary transition-colors">
@@ -110,7 +110,7 @@ export default function Explorer() {
         <CMGFAdvisoryNotice />
 
         <header className="mb-10 mt-6 text-center">
-          <div className="text-xs text-muted-foreground mb-3">Last updated: January 2026</div>
+          <div className="text-xs text-muted-foreground mb-3">Last updated: March 2026</div>
           <div className="flex items-center justify-center gap-3 mb-4">
             <BookOpen className="h-10 w-10 text-primary" />
           </div>
