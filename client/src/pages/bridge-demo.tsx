@@ -263,7 +263,7 @@ export default function BridgeDemo() {
 
       {/* ── HEADER ── */}
       <div style={{ padding: "28px 32px 20px", borderBottom: "1px solid var(--border)", background: "linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%)" }}>
-        <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1720, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap", marginBottom: 20 }}>
             <div>
               <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.14em", marginBottom: 7 }}>CMGF · DUAL-LENS DEMONSTRATION</div>
@@ -306,7 +306,7 @@ export default function BridgeDemo() {
 
       {/* ── PRESENTER CUE BAR ── */}
       <div style={{ background: "rgba(201,168,76,0.05)", borderBottom: "1px solid var(--goldb)", padding: "11px 32px" }}>
-        <div style={{ maxWidth: 1300, margin: "0 auto", display: "flex", alignItems: "center", gap: 20 }}>
+        <div style={{ maxWidth: 1720, margin: "0 auto", display: "flex", alignItems: "center", gap: 20 }}>
           <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", flexShrink: 0 }}>PRESENTER CUE</div>
           <div style={{ fontSize: 13, color: "var(--mid)", flex: 1 }} className="bd-in-up" key={stage}>{STEPS[stepIdx].cue}</div>
           <button
@@ -325,8 +325,34 @@ export default function BridgeDemo() {
         </div>
       </div>
 
-      {/* ── 3-COLUMN LAYOUT ── */}
-      <div style={{ maxWidth: 1300, margin: "0 auto", padding: "24px 24px 48px", display: "grid", gridTemplateColumns: "1fr 220px 1fr", gap: 20, alignItems: "start" }}>
+      {/* ── 5-COLUMN LAYOUT ── */}
+      <div style={{ maxWidth: 1720, margin: "0 auto", padding: "24px 20px 48px", display: "grid", gridTemplateColumns: "1.1fr 0.72fr 0.82fr 1fr 0.65fr", gap: 14, alignItems: "start" }}>
+
+        {/* ── PIPELINE BAR — spans all columns ── */}
+        <div style={{ gridColumn: "1 / -1", background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 16px" }}>
+          <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8, textAlign: "center" }}>AR 621-5 REGULATORY SEQUENCE</div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 0, maxWidth: 700, margin: "0 auto" }}>
+            {[
+              { label: "SM", active: stage >= 0, color: "var(--blue)" },
+              { label: "CMD", active: stage >= 1, color: "var(--amber)" },
+              { label: "AI", active: stage >= 3 && cmdDecision === "approved", color: "var(--gold)" },
+              { label: "ESO", active: stage >= 4 && cmdDecision === "approved", color: "var(--green)" },
+              { label: "ISR", active: stage >= 5 && cmdDecision === "approved", color: "var(--purple)" },
+            ].map((node, i) => (
+              <div key={node.label} style={{ display: "flex", alignItems: "center", flex: i < 4 ? "1 1 0" : "0 0 auto" }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                  <div style={{ width: 30, height: 30, borderRadius: "50%", background: node.active ? node.color : "var(--bg2)", border: `2px solid ${node.active ? node.color : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.4s", flexShrink: 0 }}>
+                    <span style={{ fontSize: 8, fontFamily: MONO, fontWeight: 800, color: node.active ? "#000" : "var(--dim)" }}>{node.label}</span>
+                  </div>
+                </div>
+                {i < 4 && <div style={{ flex: 1, height: 2, background: node.active ? node.color : "var(--border)", transition: "background 0.4s" }} />}
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", textAlign: "center", marginTop: 6 }}>
+            Command certifies availability · AI verifies facts · ESO adjudicates · ISR captures signal
+          </div>
+        </div>
 
         {/* ══ LEFT: SERVICE MEMBER ══ */}
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -546,49 +572,20 @@ export default function BridgeDemo() {
           )}
         </div>
 
-        {/* ══ CENTER: REGULATORY PIPELINE ══ */}
+        {/* ══ COLUMN 2: AR 621-5 — COMMANDER CERTIFICATION ══ */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
-          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.12em", fontWeight: 700, textAlign: "center" }}>REGULATORY PIPELINE</div>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--amber)", letterSpacing: "0.12em", fontWeight: 700 }}>AR 621-5 § 3-4</div>
 
-          {/* Horizontal pipeline bar */}
-          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "8px 10px" }}>
-            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 6, textAlign: "center" }}>AR 621-5 SEQUENCE</div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 2 }}>
-              {[
-                { label: "SM", active: stage >= 0, color: "var(--blue)" },
-                { label: "CMD", active: stage >= 1, color: "var(--amber)" },
-                { label: "AI", active: stage >= 3 && cmdDecision === "approved", color: "var(--gold)" },
-                { label: "ESO", active: stage >= 4 && cmdDecision === "approved", color: "var(--green)" },
-              ].map((node, i) => (
-                <div key={node.label} style={{ display: "flex", alignItems: "center", gap: 2, flex: i < 3 ? "1 1 0" : "0 0 auto" }}>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: node.active ? node.color : "var(--bg2)", border: `2px solid ${node.active ? node.color : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.4s", flexShrink: 0 }}>
-                      <span style={{ fontSize: 8, fontFamily: MONO, fontWeight: 800, color: node.active ? "#000" : "var(--dim)" }}>{node.label}</span>
-                    </div>
-                  </div>
-                  {i < 3 && <div style={{ flex: 1, height: 2, background: node.active ? node.color : "var(--border)", transition: "background 0.4s", marginBottom: 0 }} />}
-                </div>
-              ))}
-            </div>
-            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", textAlign: "center", marginTop: 5 }}>
-              Command certifies first — course content decisions belong to ESO
-            </div>
-          </div>
-
-          {/* Flow arrow: SM → CMD */}
-          <FlowArrow active={stage >= 1} color="var(--amber)" label="SM REQUEST → CMD" />
-
-          {/* Commander Certification gate — FIRST in pipeline */}
           <div style={{ background: "var(--card)", border: `2px solid ${stage >= 3 && cmdDecision === "disapproved" ? "var(--red)" : stage >= 2 ? "var(--amber)" : "var(--border)"}`, borderRadius: 12, padding: 14, position: "relative", overflow: "hidden", transition: "border-color 0.4s", animation: stage === 2 && cmdDecision === "none" ? "bd-glow 2s infinite" : "none" }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: stage >= 2 ? (cmdDecision === "disapproved" ? "var(--red)" : stage >= 3 ? "var(--green)" : "var(--amber)") : "var(--border)", borderRadius: "12px 12px 0 0", transition: "background 0.4s" }} />
 
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: stage >= 2 ? "var(--amberg)" : "var(--bg2)", border: `1px solid ${stage >= 2 ? "var(--amberb)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.3s" }}>
-                <Star size={15} color={stage >= 2 ? "var(--amber)" : "var(--dim)"} />
+              <div style={{ width: 30, height: 30, borderRadius: 8, background: stage >= 2 ? "var(--amberg)" : "var(--bg2)", border: `1px solid ${stage >= 2 ? "var(--amberb)" : "var(--border)"}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.3s" }}>
+                <Star size={14} color={stage >= 2 ? "var(--amber)" : "var(--dim)"} />
               </div>
               <div>
-                <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: stage >= 2 ? "var(--amber)" : "var(--dim)", letterSpacing: "0.06em" }}>AVAILABILITY CERTIFICATION</div>
-                <div style={{ fontSize: 9, color: "var(--dim)" }}>AR 621-5 § 3-4 · Commander certifies readiness only</div>
+                <div style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: stage >= 2 ? "var(--amber)" : "var(--dim)", letterSpacing: "0.06em" }}>AVAILABILITY CERTIFICATION</div>
+                <div style={{ fontSize: 9, color: "var(--dim)" }}>Commander certifies readiness only</div>
               </div>
             </div>
 
@@ -601,16 +598,16 @@ export default function BridgeDemo() {
                 {cmdDecision === "none" && (
                   <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     <div style={{ background: "var(--bg2)", borderRadius: 7, padding: "7px 10px", marginBottom: 4 }}>
-                      <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>CERTIFICATION SCOPE (AR 621-5 § 3-4)</div>
-                      {["Soldier not flagged or under adverse action", "Duties permit attendance during course period", "No prior TA recoupment violations", "Not course content · Not career choice"].map(item => (
+                      <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>CERTIFICATION SCOPE</div>
+                      {["Not flagged / adverse action", "Duties permit attendance", "No TA recoupment violations", "NOT course content", "NOT career choice"].map(item => (
                         <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
                       ))}
                     </div>
-                    <button onClick={handleCmdApprove} data-testid="button-cmd-approve" style={{ padding: "9px", background: "var(--green)", color: "#000", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
-                      ✓ CERTIFY AVAILABLE — RELEASE TO PIPELINE
+                    <button onClick={handleCmdApprove} data-testid="button-cmd-approve" style={{ padding: "8px", background: "var(--green)", color: "#000", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 10, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
+                      ✓ CERTIFY AVAILABLE
                     </button>
-                    <button onClick={handleCmdDisapprove} data-testid="button-cmd-disapprove" style={{ padding: "9px", background: "var(--red)", color: "#fff", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 11, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
-                      ✗ NOT AVAILABLE — HOLD REQUEST
+                    <button onClick={handleCmdDisapprove} data-testid="button-cmd-disapprove" style={{ padding: "8px", background: "var(--red)", color: "#fff", border: "none", borderRadius: 7, fontFamily: MONO, fontSize: 10, fontWeight: 800, cursor: "pointer", letterSpacing: "0.06em" }}>
+                      ✗ NOT AVAILABLE — HOLD
                     </button>
                   </div>
                 )}
@@ -618,7 +615,7 @@ export default function BridgeDemo() {
                 {cmdDecision === "approved" && (
                   <div className="bd-in-up" style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
                     <CheckCircle size={13} color="var(--green)" />
-                    <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--green)" }}>CERTIFIED — RELEASED TO PIPELINE</span>
+                    <span style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: "var(--green)" }}>CERTIFIED — RELEASED</span>
                   </div>
                 )}
 
@@ -626,10 +623,10 @@ export default function BridgeDemo() {
                   <div className="bd-in-up" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "var(--redg)", borderRadius: 7, border: "1px solid var(--redb)" }}>
                       <AlertTriangle size={13} color="var(--red)" />
-                      <span style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>NOT AVAILABLE — REQUEST HELD</span>
+                      <span style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>NOT AVAILABLE — HELD</span>
                     </div>
                     <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, fontStyle: "italic" }}>
-                      Operational availability only. Not a rejection of course or career choice.
+                      Operational readiness only. Not a content decision.
                     </div>
                   </div>
                 )}
@@ -638,46 +635,70 @@ export default function BridgeDemo() {
 
             {stage < 2 && (
               <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5 }}>
-                Under AR 621-5 § 3-4, the Commander certifies availability and good standing before the request enters the education pipeline. Course content is outside command scope.
+                Commander certifies availability and good standing before the request enters the education pipeline. Course content is outside command scope.
               </div>
             )}
           </div>
 
-          {/* Flow arrow: CMD → AI (only if certified) */}
-          <FlowArrow
-            active={stage >= 3 && cmdDecision === "approved"}
-            blocked={stage >= 3 && cmdDecision === "disapproved"}
-            color={cmdDecision === "disapproved" ? "var(--red)" : "var(--gold)"}
-            label={cmdDecision === "disapproved" ? "HELD — NOT FORWARDED" : "CERTIFIED → AI ENGINE"}
-          />
-
-          {/* Shadow signal note (disapproved path) */}
-          {stage >= 3 && cmdDecision === "disapproved" && (
-            <div className="bd-in-up" style={{ background: "var(--bg2)", border: "1px dashed var(--border)", borderRadius: 10, padding: 12 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 7 }}>
-                {shadowVisible ? <Eye size={12} color="var(--purple)" /> : <EyeOff size={12} color="var(--dim)" />}
-                <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.1em", fontWeight: 700 }}>CMGF SHADOW SIGNAL</span>
-              </div>
-              <div style={{ fontSize: 10, color: "var(--dim)", lineHeight: 1.5, marginBottom: 8 }}>
-                ESO sees nothing. Demand is invisible. CMGF could log a count-only signal — no names, no details — preserving institutional awareness without exposing the SM.
-              </div>
-              <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ padding: "6px 12px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 10, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
-                {shadowVisible ? "HIDE SIGNAL" : "SHOW SHADOW SIGNAL →"}
-              </button>
-            </div>
-          )}
-
-          {/* CMGF Engine card — appears after certification */}
-          <div style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 12, padding: 14, textAlign: "center", position: "relative", overflow: "hidden", opacity: stage >= 3 && cmdDecision === "approved" ? 1 : 0.3, transition: "opacity 0.4s" }}>
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--gold)", borderRadius: "12px 12px 0 0" }} />
-            <div style={{ width: 38, height: 38, borderRadius: "50%", background: "var(--goldg)", border: "1px solid var(--goldb)", display: "flex", alignItems: "center", justifyContent: "center", margin: "6px auto 8px", animation: stage === 3 && cmdDecision === "approved" ? "bd-glow 1.2s infinite" : "none" }}>
-              <Brain size={18} color="var(--gold)" />
-            </div>
-            <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--gold)", letterSpacing: "0.06em" }}>CMGF ENGINE</div>
-            <div style={{ fontSize: 10, color: "var(--dim)", marginTop: 3 }}>Classification on official record</div>
+          {/* What commander does NOT see */}
+          <div style={{ background: "var(--bg2)", borderRadius: 10, padding: "10px 12px", border: "1px solid var(--border)" }}>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 6 }}>COMMANDER DOES NOT SEE</div>
+            {["Sandbox exploration history", "Career pathway analysis", "AI classification details", "Readiness proximity score"].map(item => (
+              <div key={item} style={{ fontSize: 9, color: "var(--dim)", lineHeight: 1.6 }}>✗ {item}</div>
+            ))}
           </div>
 
-          {/* AI classification steps */}
+          {/* Flow status */}
+          <div style={{ textAlign: "center", padding: "6px 0" }}>
+            <div style={{ fontSize: 9, fontFamily: MONO, color: cmdDecision === "disapproved" ? "var(--red)" : cmdDecision === "approved" ? "var(--green)" : "var(--dim)", fontWeight: 700, letterSpacing: "0.08em" }}>
+              {cmdDecision === "disapproved" ? "→ PIPELINE BLOCKED" : cmdDecision === "approved" ? "→ RELEASED TO AI" : stage >= 2 ? "AWAITING DECISION" : "AWAITING REQUEST"}
+            </div>
+          </div>
+        </div>
+
+        {/* ══ COLUMN 3: CMGF AI ENGINE ══ */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.12em", fontWeight: 700 }}>CMGF AI ENGINE</div>
+
+          {/* AI Identity Card */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 12, padding: 14, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--gold)", borderRadius: "12px 12px 0 0" }} />
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+              <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--goldg)", border: "1px solid var(--goldb)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, animation: (stage === 0 || (stage === 3 && cmdDecision === "approved")) ? "bd-glow 1.2s infinite" : "none" }}>
+                <Brain size={17} color="var(--gold)" />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, fontFamily: MONO, fontWeight: 700, color: "var(--gold)", letterSpacing: "0.06em" }}>NON-AUTHORITATIVE AI</div>
+                <div style={{ fontSize: 9, color: "var(--dim)" }}>Facts only · No decision power</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
+              {stage === 0 ? "Active in sandbox — advising SM with verified facts from DoD MOU registry, degree catalogs, and TA policy data."
+                : stage < 3 ? "Awaiting commander certification before official classification can begin."
+                : cmdDecision === "disapproved" ? "Pipeline blocked at command level. No official classification performed."
+                : aiDone ? "Official classification complete. Verified facts forwarded to ESO."
+                : "Running classification pipeline on official record…"}
+            </div>
+            <div style={{ background: "var(--bg2)", borderRadius: 7, padding: "6px 8px" }}>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 4 }}>DATA SOURCES</div>
+              {["DoD MOU institution registry", "Army Ignite course catalogs", "AR 621-5 policy constraints", "TA/CA balance & cap data"].map(item => (
+                <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>· {item}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dual-role note */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.08em", marginBottom: 6 }}>AI SERVES TWO ROLES</div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 4 }}>
+              <span style={{ fontWeight: 700, color: "var(--purple)" }}>1. Sandbox advisor</span> — talks directly to SM · no record created · no pipeline triggered
+            </div>
+            <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5 }}>
+              <span style={{ fontWeight: 700, color: "var(--gold)" }}>2. Official classifier</span> — runs only after CMD certifies · passes verified facts to ESO · constrained until gate clears
+            </div>
+          </div>
+
+          {/* Classification pipeline steps */}
           <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 12 }}>
             <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8 }}>CLASSIFICATION PIPELINE</div>
             {aiSteps.map((s, i) => {
@@ -696,17 +717,17 @@ export default function BridgeDemo() {
             })}
           </div>
 
-          {/* AI policy verification output — facts only */}
+          {/* Policy verification output */}
           {aiDone && (
-            <div className="bd-in-up" style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 10, padding: "11px 14px" }}>
+            <div className="bd-in-up" style={{ background: "var(--card)", border: "1px solid var(--goldb)", borderRadius: 10, padding: "10px 12px" }}>
               <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 8, fontWeight: 700 }}>POLICY VERIFICATION COMPLETE</div>
               {[
-                ["Policy flags", selectedCareer.id === "cyber" ? "Prerequisite gap (no violation)" : "None identified"],
-                ["AR 621-5 status", "Compliant"],
+                ["Policy flags", selectedCareer.id === "cyber" ? "Prereq gap (no violation)" : "None identified"],
+                ["AR 621-5", "Compliant"],
                 ["Risk index", selectedCareer.facts.find(f => f[0] === "Policy risk index")?.[1] ?? "—"],
                 ["Routing", "→ ESO queue"],
               ].map(([k, v]) => (
-                <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "4px 0", borderBottom: "1px solid var(--border)", gap: 8 }}>
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "3px 0", borderBottom: "1px solid var(--border)", gap: 6 }}>
                   <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", flexShrink: 0 }}>{k}</span>
                   <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text)", textAlign: "right" }}>{v}</span>
                 </div>
@@ -716,13 +737,6 @@ export default function BridgeDemo() {
               </div>
             </div>
           )}
-
-          {/* Flow arrow: AI → ESO */}
-          <FlowArrow
-            active={stage >= 4 && cmdDecision === "approved"}
-            color="var(--green)"
-            label="→ ESO QUEUE"
-          />
         </div>
 
         {/* ══ RIGHT: ESO ══ */}
@@ -882,16 +896,116 @@ export default function BridgeDemo() {
 
           {/* What the ESO doesn't have to do */}
           {stage >= 4 && cmdDecision === "approved" && (
-            <div className="bd-in-eso" style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 16 }}>
-              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 10 }}>AI COMPLETED BEFORE ESO OPENED THIS</div>
-              {["Pulled SM's TA balance from system", "Verified Troy University accreditation", "Cross-checked degree plan alignment", "Ran AR 621-5 compliance check", "Scored risk and generated recommendation"].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, marginBottom: 7 }}>
-                  <CheckCircle size={11} color="var(--green)" style={{ marginTop: 2, flexShrink: 0 }} />
-                  <span style={{ fontSize: 11, color: "var(--mid)", lineHeight: 1.4 }}>{item}</span>
+            <div className="bd-in-eso" style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, padding: 14 }}>
+              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.1em", marginBottom: 8 }}>AI COMPLETED BEFORE ESO OPENED THIS</div>
+              {[`Pulled SM's TA balance`, `Verified ${selectedCareer.course.school} DoD MOU`, "Cross-checked degree plan alignment", "Ran AR 621-5 compliance check", "Scored risk index (no recommendation)"].map((item, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6, marginBottom: 5 }}>
+                  <CheckCircle size={10} color="var(--green)" style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.4 }}>{item}</span>
                 </div>
               ))}
-              <div style={{ marginTop: 10, padding: "8px 12px", background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
-                <span style={{ fontSize: 11, color: "var(--green)", fontWeight: 600 }}>{ESO.name}'s job: judgment — not research.</span>
+              <div style={{ marginTop: 8, padding: "7px 10px", background: "var(--greeng)", borderRadius: 7, border: "1px solid var(--greenb)" }}>
+                <span style={{ fontSize: 10, color: "var(--green)", fontWeight: 600 }}>{ESO.name}'s job: judgment — not research.</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ══ COLUMN 5: ISR — INSTITUTIONAL SIGNAL ══ */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "sticky", top: 20 }}>
+          <div style={{ fontSize: 10, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.12em", fontWeight: 700 }}>INSTITUTIONAL SIGNAL</div>
+
+          {/* ISR overview */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--purpleb)", borderRadius: 12, padding: 14, position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "var(--purple)", borderRadius: "12px 12px 0 0" }} />
+            <div style={{ fontSize: 10, fontFamily: MONO, fontWeight: 700, color: "var(--purple)", marginBottom: 8 }}>DATA THAT FLOWS UP</div>
+            <div style={{ fontSize: 10, color: "var(--mid)", lineHeight: 1.6, marginBottom: 10 }}>
+              Every request — approved, held, or dropped — generates institutional data. Today, most of this is lost. CMGF captures it as aggregated, de-identified intelligence.
+            </div>
+            <div style={{ background: "var(--bg2)", borderRadius: 8, padding: "8px 10px" }}>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--dim)", letterSpacing: "0.08em", marginBottom: 6 }}>AGGREGATE PIPELINE METRICS</div>
+              {[
+                ["Total requests (period)", "18"],
+                ["CMD certified", "15"],
+                ["CMD held", "3"],
+                ["ESO approved", "12"],
+                ["Top career field", "Healthcare"],
+                ["Top MOU institution", "Troy University"],
+              ].map(([k, v]) => (
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)" }}>
+                  <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text)" }}>{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* What flows up — command chain visibility */}
+          <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "10px 12px" }}>
+            <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>COMMAND CHAIN RECEIVES</div>
+            {["Demand volume by career field", "MOU institution utilization rates", "TA/CA spending vs allocation", "CMD hold rates (no names)", "Pipeline throughput metrics"].map(item => (
+              <div key={item} style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.6 }}>· {item}</div>
+            ))}
+            <div style={{ marginTop: 8, fontSize: 9, color: "var(--dim)", fontStyle: "italic", lineHeight: 1.5 }}>
+              No individual SM data. Aggregate only. Policy and resource decisions informed by actual demand.
+            </div>
+          </div>
+
+          {/* Live signal — what this demo just generated */}
+          {stage >= 3 && (
+            <div className="bd-in-up" style={{ background: "var(--card)", border: `1px solid ${cmdDecision === "disapproved" ? "var(--redb)" : "var(--purpleb)"}`, borderRadius: 10, padding: "10px 12px" }}>
+              <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 6 }}>THIS REQUEST GENERATED</div>
+              {cmdDecision === "approved" ? (
+                <>
+                  {[
+                    ["Signal type", "TA request — approved flow"],
+                    ["Career field", selectedCareer.label],
+                    ["MOU institution", selectedCareer.course.school],
+                    ["Pipeline stage", stage >= 5 ? "Complete — ESO decided" : stage >= 4 ? "ESO queue" : "AI classification"],
+                    ["ISR record", stage >= 5 ? "Created" : "Pending"],
+                  ].map(([k, v]) => (
+                    <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "3px 0", borderBottom: "1px solid var(--border)" }}>
+                      <span style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)" }}>{k}</span>
+                      <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text)" }}>{v}</span>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "var(--redg)", borderRadius: 6, border: "1px solid var(--redb)", marginBottom: 8 }}>
+                    <EyeOff size={11} color="var(--red)" />
+                    <span style={{ fontSize: 9, fontFamily: MONO, fontWeight: 700, color: "var(--red)" }}>SUPPRESSED DEMAND</span>
+                  </div>
+                  <div style={{ fontSize: 9, color: "var(--mid)", lineHeight: 1.5, marginBottom: 8 }}>
+                    Without CMGF: this signal is lost entirely. The institution never knows demand existed.
+                  </div>
+                  <button onClick={() => setShadowVisible(v => !v)} data-testid="button-shadow-toggle" style={{ width: "100%", padding: "7px", background: "none", border: "1px solid var(--purpleb)", borderRadius: 6, fontFamily: MONO, fontSize: 9, color: "var(--purple)", cursor: "pointer", letterSpacing: "0.06em" }}>
+                    {shadowVisible ? "HIDE SHADOW SIGNAL" : "SHOW SHADOW SIGNAL →"}
+                  </button>
+                  {shadowVisible && (
+                    <div className="bd-in-up" style={{ marginTop: 8, background: "var(--bg2)", borderRadius: 7, padding: "8px 10px", border: "1px dashed var(--purpleb)" }}>
+                      <div style={{ fontSize: 8, fontFamily: MONO, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 4 }}>SHADOW SIGNAL (COUNT ONLY)</div>
+                      {[["Requests entering pipeline", "1"], ["Held at command", "1"], ["Forwarded to ESO", "0"]].map(([k, v]) => (
+                        <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "2px 0", fontSize: 9 }}>
+                          <span style={{ color: "var(--dim)", fontFamily: MONO }}>{k}</span>
+                          <span style={{ fontWeight: 700, color: "var(--text)" }}>{v}</span>
+                        </div>
+                      ))}
+                      <div style={{ fontSize: 9, color: "var(--dim)", fontStyle: "italic", marginTop: 6, lineHeight: 1.4 }}>
+                        No names. No details. Count only. A governance design choice.
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ISR not yet triggered */}
+          {stage < 3 && (
+            <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, padding: "12px", textAlign: "center" }}>
+              <div style={{ fontSize: 9, fontFamily: MONO, color: "var(--dim)", lineHeight: 1.6 }}>
+                ISR signal will be generated once the pipeline processes this request — regardless of outcome.
               </div>
             </div>
           )}
@@ -900,7 +1014,7 @@ export default function BridgeDemo() {
 
       {/* ── FOOTER ── */}
       <div style={{ borderTop: "1px solid var(--border)", background: "var(--bg2)", padding: "14px 32px" }}>
-        <div style={{ maxWidth: 1300, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+        <div style={{ maxWidth: 1720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
             <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>Profiles: Synthetic · No real SM data represented</span>
             <span style={{ fontSize: 11, fontFamily: MONO, color: "var(--dim)" }}>AI: Non-authoritative · Human-in-the-loop required</span>
