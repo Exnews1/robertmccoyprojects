@@ -411,7 +411,7 @@ export default function CMGFRoot() {
 
         <section className="mb-12">
           <h2 className="text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">Sections</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">
             {sections.map((section) => {
               const isExternal = (section as any).external;
               const cardContent = (
