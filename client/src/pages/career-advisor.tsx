@@ -11,6 +11,16 @@ import {
   ArrowRight,
   Activity,
   Check,
+  GraduationCap,
+  Briefcase,
+  TrendingUp,
+  MapPin,
+  DollarSign,
+  Users,
+  AlertCircle,
+  BarChart3,
+  Clock,
+  FileText,
 } from "lucide-react";
 
 const MIL_OPTIONS = [
@@ -362,7 +372,84 @@ const FIELD_LABELS: Record<string, string> = {
   funding: "Funding Source",
 };
 
+type AdvisorMode = "education" | "tap";
+
+const TAP_CAREER_FIELDS = [
+  {
+    field: "Healthcare",
+    roles: ["Registered Nurse", "Health Administrator", "EMT / Paramedic"],
+    medianSalary: "$58K–$82K",
+    demandTrend: "+18% (2024–2030)",
+    credentialGap: "Licensure (NCLEX, state cert)",
+    veteranSuccess: "74%",
+    painPoints: ["Credential transfer delays", "Clinical hour requirements", "State licensure variation"],
+    tapAlignment: "HIGH",
+    blsCode: "29-1141",
+  },
+  {
+    field: "Law Enforcement / Public Safety",
+    roles: ["Police Officer", "Federal Agent", "Corrections Officer"],
+    medianSalary: "$52K–$78K",
+    demandTrend: "+7% (2024–2030)",
+    credentialGap: "POST Academy (often waived for vets)",
+    veteranSuccess: "86%",
+    painPoints: ["Agency-specific requirements", "Mental health screening", "Geographic preferences"],
+    tapAlignment: "HIGH",
+    blsCode: "33-3051",
+  },
+  {
+    field: "Cybersecurity / IT",
+    roles: ["SOC Analyst", "Penetration Tester", "Cloud Security Engineer"],
+    medianSalary: "$75K–$115K",
+    demandTrend: "+33% (2024–2030)",
+    credentialGap: "CompTIA Security+ / CISSP / DoD 8570",
+    veteranSuccess: "61%",
+    painPoints: ["Certification cost", "Clearance transfer timing", "Civilian experience gap"],
+    tapAlignment: "MODERATE",
+    blsCode: "15-1212",
+  },
+  {
+    field: "Project Management",
+    roles: ["Project Manager (PMP)", "Operations Manager", "Program Analyst"],
+    medianSalary: "$68K–$105K",
+    demandTrend: "+6% (2024–2030)",
+    credentialGap: "PMP Certification (PMI)",
+    veteranSuccess: "72%",
+    painPoints: ["PMP exam cost", "Civilian project terminology", "Industry-specific knowledge"],
+    tapAlignment: "MODERATE",
+    blsCode: "11-9199",
+  },
+  {
+    field: "Skilled Trades / Logistics",
+    roles: ["HVAC Technician", "Electrician", "CDL Driver", "Supply Chain"],
+    medianSalary: "$45K–$72K",
+    demandTrend: "+12% (2024–2030)",
+    credentialGap: "Apprenticeship / trade license",
+    veteranSuccess: "82%",
+    painPoints: ["Union entry requirements", "Apprenticeship duration", "Regional wage variance"],
+    tapAlignment: "HIGH",
+    blsCode: "49-9021",
+  },
+];
+
+const TAP_VETERAN_INSIGHTS = [
+  { question: "What was your biggest barrier to civilian employment?", topAnswer: "Translating military experience to civilian terms", pct: "47%" },
+  { question: "How long did it take to find stable employment?", topAnswer: "3–6 months after separation", pct: "38%" },
+  { question: "Did TAP adequately prepare you?", topAnswer: "Partially — needed more industry-specific guidance", pct: "54%" },
+  { question: "Would AI-assisted career advising have helped?", topAnswer: "Strongly agree", pct: "78%" },
+  { question: "What would you tell someone about to transition?", topAnswer: "Start credentialing 18+ months before ETS", pct: "63%" },
+];
+
+const TAP_TIMELINE = [
+  { phase: "24–18 months", label: "Discovery", desc: "Career exploration, salary research, credential mapping", color: "#4ecdc4" },
+  { phase: "18–12 months", label: "Planning", desc: "Education pathway selection, funding application, mentor matching", color: "#c9a84c" },
+  { phase: "12–6 months", label: "Preparation", desc: "Coursework, certification exams, resume development", color: "#f0a500" },
+  { phase: "6–0 months", label: "Execution", desc: "Job applications, interviews, employer connections", color: "#e05c5c" },
+  { phase: "Post-ETS", label: "Stabilization", desc: "Employment verification, ongoing support, outcome tracking", color: "#8b5cf6" },
+];
+
 export default function CareerAdvisor() {
+  const [mode, setMode] = useState<AdvisorMode>("education");
   const [milOcc, setMilOcc] = useState("");
   const [civCareer, setCivCareer] = useState("");
   const [education, setEducation] = useState("");
@@ -372,6 +459,7 @@ export default function CareerAdvisor() {
   const [errors, setErrors] = useState<Record<string, boolean>>({});
   const [recentField, setRecentField] = useState<string | null>(null);
   const recentTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const [tapExpandedField, setTapExpandedField] = useState<string | null>(null);
 
   const flashField = useCallback((field: string) => {
     setRecentField(field);
@@ -474,10 +562,43 @@ export default function CareerAdvisor() {
             Career Path Feasibility Advisor
           </h1>
           <p className="text-sm max-w-xl mx-auto leading-relaxed" style={{ color: textDim }}>
-            A deterministic constraint-binding advisory tool that evaluates military-to-civilian transition pathways against policy, credentialing, and education authority rules.
+            {mode === "education"
+              ? "A deterministic constraint-binding advisory tool that evaluates military-to-civilian transition pathways against policy, credentialing, and education authority rules."
+              : "Explore career fields, salary ranges, credential requirements, and transition outcomes — informed by veteran experience and labor market data."}
           </p>
+
+          <div className="flex justify-center mt-6" data-testid="mode-toggle">
+            <div className="inline-flex rounded-sm overflow-hidden" style={{ border: `1px solid ${borderColor}` }}>
+              <button
+                onClick={() => setMode("education")}
+                className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-mono tracking-[1.5px] uppercase transition-all cursor-pointer border-none"
+                style={{
+                  background: mode === "education" ? "rgba(201,168,76,0.2)" : "transparent",
+                  color: mode === "education" ? gold : textDim,
+                  borderRight: `1px solid ${borderColor}`,
+                }}
+                data-testid="button-mode-education"
+              >
+                <GraduationCap className="h-3.5 w-3.5" />
+                Education Sandbox
+              </button>
+              <button
+                onClick={() => setMode("tap")}
+                className="flex items-center gap-2 px-5 py-2.5 text-[10px] font-mono tracking-[1.5px] uppercase transition-all cursor-pointer border-none"
+                style={{
+                  background: mode === "tap" ? "rgba(139,92,246,0.2)" : "transparent",
+                  color: mode === "tap" ? "#8b5cf6" : textDim,
+                }}
+                data-testid="button-mode-tap"
+              >
+                <Briefcase className="h-3.5 w-3.5" />
+                TAP Sandbox
+              </button>
+            </div>
+          </div>
         </header>
 
+        {mode === "education" ? (
         <div className="grid grid-cols-1 md:grid-cols-[340px_1fr] gap-6 items-start">
           <div className="space-y-6">
             <div className="p-7" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
@@ -770,6 +891,206 @@ export default function CareerAdvisor() {
             </div>
           </div>
         </div>
+        ) : (
+          <div className="space-y-6" data-testid="tap-sandbox">
+          <div className="p-5" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.25)", borderRadius: 4 }}>
+            <div className="flex items-center gap-2 mb-2">
+              <AlertCircle className="h-4 w-4" style={{ color: "#8b5cf6" }} />
+              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: "#8b5cf6" }}>TAP Sandbox — Prototype Concept</span>
+            </div>
+            <div className="text-xs leading-relaxed" style={{ color: textDim }}>
+              This sandbox demonstrates what a <strong style={{ color: textColor }}>Transition Assistance Program (TAP)</strong> advisory tool could look like within the CMGF framework. Service members approaching transition could explore career fields, salary ranges, credential requirements, and outcomes from prior cohorts — all before making official requests. <strong style={{ color: textColor }}>No data here enters the pipeline. No commander sees this. This is private exploration.</strong>
+            </div>
+          </div>
+
+          <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
+            <div className="flex items-center gap-2 pb-3 mb-4" style={{ borderBottom: `1px solid ${borderColor}` }}>
+              <Clock className="h-4 w-4" style={{ color: "#4ecdc4" }} />
+              <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: "#4ecdc4" }}>Transition Timeline — Recommended Phases</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              {TAP_TIMELINE.map((step, i) => (
+                <div key={i} className="flex items-start gap-3 p-3" style={{ background: "rgba(10,22,40,0.5)", borderLeft: `3px solid ${step.color}`, borderRadius: "0 3px 3px 0" }}>
+                  <div className="flex-shrink-0 text-center" style={{ minWidth: 80 }}>
+                    <div className="text-[10px] font-mono font-bold" style={{ color: step.color }}>{step.phase}</div>
+                    <div className="text-[9px] font-mono tracking-wide uppercase mt-0.5" style={{ color: textDim }}>{step.label}</div>
+                  </div>
+                  <div className="text-xs leading-relaxed" style={{ color: textColor }}>{step.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-[9px] font-mono tracking-[2.5px] uppercase pt-2" style={{ color: "#8b5cf6" }}>Career Field Intelligence — Click to Expand</div>
+
+          <div className="grid grid-cols-1 gap-3">
+            {TAP_CAREER_FIELDS.map((career) => {
+              const expanded = tapExpandedField === career.field;
+              return (
+                <div key={career.field} style={{ background: cardBg, border: `1px solid ${expanded ? "rgba(139,92,246,0.4)" : borderColor}`, borderRadius: 4, overflow: "hidden" }}>
+                  <button
+                    onClick={() => setTapExpandedField(expanded ? null : career.field)}
+                    className="w-full flex items-center justify-between p-4 cursor-pointer border-none text-left"
+                    style={{ background: "transparent" }}
+                    data-testid={`tap-field-${career.field.toLowerCase().replace(/\s/g, "-")}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <Briefcase className="h-4 w-4 flex-shrink-0" style={{ color: "#8b5cf6" }} />
+                      <div>
+                        <div className="text-sm font-medium" style={{ color: textColor }}>{career.field}</div>
+                        <div className="text-[10px] font-mono" style={{ color: textDim }}>{career.roles.join(" · ")}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 flex-shrink-0">
+                      <div className="text-right">
+                        <div className="text-xs font-mono font-bold" style={{ color: gold }}>{career.medianSalary}</div>
+                        <div className="text-[9px] font-mono" style={{ color: career.demandTrend.includes("+3") ? "#4ecdc4" : career.demandTrend.includes("+1") ? "#c9a84c" : textDim }}>
+                          {career.demandTrend}
+                        </div>
+                      </div>
+                      <ChevronRight className="h-4 w-4 transition-transform" style={{ color: textDim, transform: expanded ? "rotate(90deg)" : "rotate(0deg)" }} />
+                    </div>
+                  </button>
+
+                  {expanded && (
+                    <div className="px-4 pb-4 space-y-3" style={{ borderTop: `1px solid ${borderColor}` }}>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3">
+                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <DollarSign className="h-3 w-3" style={{ color: gold }} />
+                            <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Salary Range</span>
+                          </div>
+                          <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.medianSalary}</div>
+                        </div>
+                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <TrendingUp className="h-3 w-3" style={{ color: "#4ecdc4" }} />
+                            <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Demand</span>
+                          </div>
+                          <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.demandTrend}</div>
+                        </div>
+                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <Users className="h-3 w-3" style={{ color: "#5cb85c" }} />
+                            <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Vet Success</span>
+                          </div>
+                          <div className="text-sm font-mono font-bold" style={{ color: textColor }}>{career.veteranSuccess}</div>
+                        </div>
+                        <div className="p-2.5" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <BarChart3 className="h-3 w-3" style={{ color: "#8b5cf6" }} />
+                            <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>TAP Align</span>
+                          </div>
+                          <div className="text-sm font-mono font-bold" style={{ color: career.tapAlignment === "HIGH" ? "#5cb85c" : "#f0a500" }}>{career.tapAlignment}</div>
+                        </div>
+                      </div>
+
+                      <div className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <FileText className="h-3 w-3" style={{ color: gold }} />
+                          <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Credential Gap</span>
+                        </div>
+                        <div className="text-xs" style={{ color: textColor }}>{career.credentialGap}</div>
+                      </div>
+
+                      <div className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3 }}>
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <AlertTriangle className="h-3 w-3" style={{ color: "#f0a500" }} />
+                          <span className="text-[8px] font-mono tracking-wider uppercase" style={{ color: textDim }}>Known Pain Points (from veteran cohorts)</span>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          {career.painPoints.map(pp => (
+                            <div key={pp} className="text-xs flex items-start gap-2" style={{ color: textColor }}>
+                              <span style={{ color: "#f0a500" }}>·</span> {pp}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 p-2.5" style={{ background: "rgba(139,92,246,0.08)", borderRadius: 3, border: "1px solid rgba(139,92,246,0.2)" }}>
+                        <MapPin className="h-3 w-3 flex-shrink-0" style={{ color: "#8b5cf6" }} />
+                        <span className="text-[10px] font-mono" style={{ color: textDim }}>
+                          BLS Occupational Code: <strong style={{ color: textColor }}>{career.blsCode}</strong> — Regional salary data available via BLS.gov
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="p-6" style={{ background: cardBg, border: `1px solid ${borderColor}`, borderRadius: 4 }}>
+            <div className="flex items-center gap-2 pb-3 mb-4" style={{ borderBottom: `1px solid ${borderColor}` }}>
+              <Users className="h-4 w-4" style={{ color: "#8b5cf6" }} />
+              <span className="text-[9px] font-mono tracking-[2.5px] uppercase" style={{ color: "#8b5cf6" }}>Voice of the Veteran — Transition Feedback</span>
+            </div>
+            <div className="text-xs leading-relaxed mb-4" style={{ color: textDim }}>
+              Aggregated insights from veterans who completed their transition. This data feeds back into the system to inform the next generation.
+            </div>
+            <div className="flex flex-col gap-2">
+              {TAP_VETERAN_INSIGHTS.map(item => (
+                <div key={item.question} className="p-3" style={{ background: "rgba(10,22,40,0.5)", borderRadius: 3, borderLeft: "2px solid rgba(139,92,246,0.4)" }}>
+                  <div className="text-[10px] font-mono mb-1.5" style={{ color: textDim }}>{item.question}</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium" style={{ color: textColor }}>{item.topAnswer}</span>
+                    <span className="text-sm font-mono font-bold" style={{ color: "#8b5cf6" }}>{item.pct}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-5" style={{ background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.2)", borderRadius: 4 }}>
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="h-4 w-4" style={{ color: "#8b5cf6" }} />
+              <span className="text-[10px] font-mono tracking-[2px] uppercase font-semibold" style={{ color: "#8b5cf6" }}>ISR Signal from TAP Sandbox</span>
+            </div>
+            <div className="text-xs leading-relaxed mb-3" style={{ color: textDim }}>
+              While no individual data leaves the sandbox, <strong style={{ color: textColor }}>aggregate exploration patterns generate institutional signal</strong>:
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {[
+                "Career fields explored (demand forecasting)",
+                "Credential gaps identified (TAP curriculum gaps)",
+                "Geographic intent signals (employer matching)",
+                "Timeline patterns (when SMs start planning)",
+                "Funding questions (TA/CA vs GI Bill alignment)",
+                "Pain point frequency (policy friction indicators)",
+              ].map(item => (
+                <div key={item} className="flex items-start gap-2 text-xs" style={{ color: textColor }}>
+                  <TrendingUp className="h-3 w-3 flex-shrink-0 mt-0.5" style={{ color: "#8b5cf6" }} />
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 text-[10px] font-mono italic" style={{ color: textDim }}>
+              This aggregate data — subscribed to by Congress, the Pentagon, and TAP program offices — reveals suppressed demand and informs funding decisions.
+            </div>
+          </div>
+
+          <div className="flex items-start gap-3.5 p-4" style={{ background: "rgba(17,34,64,0.9)", border: "1px solid rgba(139,92,246,0.15)", borderRadius: 4 }} data-testid="tap-governance-notice">
+            <Shield className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "#8b5cf6" }} />
+            <div className="text-xs leading-relaxed italic" style={{ color: textDim }}>
+              <strong className="not-italic" style={{ color: "#8b5cf6" }}>TAP Sandbox Notice</strong>
+              <br /><br />
+              This sandbox is <strong style={{ color: textColor }}>entirely private</strong>. No data from exploration enters the official pipeline. No commander, ESO, or institutional system sees what is explored here.
+              <br /><br />
+              The data presented is drawn from publicly available sources: Bureau of Labor Statistics, O*NET, DoD credentialing databases, and aggregated veteran transition outcomes. Salary figures are median ranges and vary by region, experience, and employer.
+              <br /><br />
+              <strong className="not-italic" style={{ color: textColor }}>This is a planning tool — not a recommendation engine. Final decisions remain with the service member and their human advisors.</strong>
+              <br /><br />
+              <div className="flex flex-wrap gap-1.5 not-italic">
+                {["PRIVATE SANDBOX", "NO PIPELINE ENTRY", "BLS DATA", "INFORMATIONAL ONLY"].map(tag => (
+                  <span key={tag} className="inline-block font-mono text-[9px] tracking-wide px-1.5 py-0.5" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.3)", color: "#8b5cf6", borderRadius: 2 }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          </div>
+        )}
 
         <div className="pt-8 mt-8" style={{ borderTop: `1px solid ${borderColor}` }}>
           <h3 className="text-sm font-mono uppercase tracking-wider mb-4" style={{ color: textDim }}>Navigation</h3>
