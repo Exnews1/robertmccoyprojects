@@ -157,7 +157,19 @@ export default function ConsultingHome() {
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="https://theaigovernanceguy.com" target="_blank" rel="noopener noreferrer" className="block">
+              <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid="card-evidence-ten">
+                <CardContent className="pt-6 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <GraduationCap className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-bold text-foreground">DOL TEN 07-25</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">AI literacy compliance platform for ETA grantees — policy guidance, readiness assessments, and implementation roadmaps aligned to federal mandates.</p>
+                  <span className="text-[10px] font-mono text-primary flex items-center gap-1 pt-1">theaigovernanceguy.com <ExternalLink className="w-3 h-3" /></span>
+                </CardContent>
+              </Card>
+            </a>
             <Link href="/research/cmgf">
               <Card className="border-border bg-card hover:border-primary/40 hover:shadow-md transition-all cursor-pointer h-full" data-testid="card-evidence-cmgf">
                 <CardContent className="pt-6 space-y-2">
