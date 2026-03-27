@@ -115,7 +115,7 @@ export default function ConsultingAbout() {
             <div className="space-y-2">
               <h3 className="text-sm font-bold text-foreground">Beyond the Practice</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                When I'm not building governance frameworks, I write fiction. I've built an original universe — a body of interconnected stories that explores the same themes I work with professionally: systems under pressure, the weight of decisions, and what happens when human judgment meets forces larger than itself.
+                In addition to formal governance frameworks, I develop experimental environments that make complex AI systems understandable to human users. One example is the Zeke Destin Universe, a narrative interface that translates constraint-based AI logic into interactive scenarios. These environments are not separate from the work — they are extensions of it, designed to test how humans engage with governed systems in practice.
               </p>
               <a href="https://universe.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors pt-1" data-testid="link-universe">
                 universe.robertmccoyprojects.com
