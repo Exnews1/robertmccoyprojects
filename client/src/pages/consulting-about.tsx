@@ -117,10 +117,16 @@ export default function ConsultingAbout() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 In addition to formal governance frameworks, I develop experimental environments that make complex AI systems understandable to human users. One example is the Zeke Destin Universe, a narrative interface that translates constraint-based AI logic into interactive scenarios. These environments are not separate from the work — they are extensions of it, designed to test how humans engage with governed systems in practice.
               </p>
-              <a href="https://universe.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors pt-1" data-testid="link-universe">
-                universe.robertmccoyprojects.com
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <div className="flex flex-col gap-1.5 pt-1">
+                <a href="https://universe.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors" data-testid="link-universe">
+                  universe.robertmccoyprojects.com
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <a href="https://theaigovernanceguy.com/guidebook" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors" data-testid="link-guidebook">
+                  theaigovernanceguy.com/guidebook
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
