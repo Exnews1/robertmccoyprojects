@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Medal, GraduationCap, Briefcase, BookOpen, Shield, Rocket, Settings, Users } from "lucide-react";
+import { ArrowRight, Medal, GraduationCap, Briefcase, BookOpen, Shield, Rocket, Settings, Users, PenLine, ExternalLink } from "lucide-react";
 
 export default function ConsultingAbout() {
   return (
@@ -108,6 +108,24 @@ export default function ConsultingAbout() {
         </div>
       </section>
 
+      <section className="py-12 px-6" data-testid="section-beyond">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-start gap-4 p-6 rounded border border-border/40 bg-card/30">
+            <PenLine className="w-5 h-5 text-primary/60 mt-0.5 flex-shrink-0" />
+            <div className="space-y-2">
+              <h3 className="text-sm font-bold text-foreground">Beyond the Practice</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                When I'm not building governance frameworks, I write fiction. I've built an original universe — a body of interconnected stories that explores the same themes I work with professionally: systems under pressure, the weight of decisions, and what happens when human judgment meets forces larger than itself.
+              </p>
+              <a href="https://universe.robertmccoyprojects.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors pt-1" data-testid="link-universe">
+                universe.robertmccoyprojects.com
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 px-6" data-testid="section-framework">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <div className="flex justify-center">
@@ -130,6 +148,15 @@ export default function ConsultingAbout() {
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
+          </div>
+          <div className="pt-4 border-t border-border/30 mt-6">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              For dedicated consulting on DOL TEN 07-25 compliance and WIOA grant alignment, visit the focused practice site.
+            </p>
+            <a href="https://theaigovernanceguy.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-mono text-primary hover:text-primary/80 transition-colors mt-2" data-testid="link-tagg-about">
+              theaigovernanceguy.com
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </section>
