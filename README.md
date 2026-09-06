@@ -1,6 +1,6 @@
 # Editorial Workflow Studio transfer
 
-This branch carries a complete Git bundle exported from the education Replit workspace. The bundle includes every tracked file and the complete local commit history through commit 2bc0e9a.
+This branch carries a complete Git bundle exported from the education Replit workspace. The bundle includes every tracked file and the complete local commit history through commit cfaad7d.
 
 ## Restore in the other Replit account
 
